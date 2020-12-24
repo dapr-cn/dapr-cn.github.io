@@ -1,4 +1,4 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – Supported external bindings</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/</link><description>Recent content in Supported external bindings on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: Apple Push Notification Service binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/apns/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/apns/</guid><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – Supported external bindings</title><link>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/</link><description>Recent content in Supported external bindings on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: Apple Push Notification Service binding spec</title><link>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/apns/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/apns/</guid><description>
 &lt;h2 id="configuration">Configuration&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
@@ -52,9 +52,9 @@
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="output-binding-supported-operations">Output Binding Supported Operations&lt;/h2>
 &lt;ul>
 &lt;li>&lt;code>create&lt;/code>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: AWS DynamoDB binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/dynamodb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/dynamodb/</guid><description>
+&lt;/ul></description></item><item><title>Operations: AWS DynamoDB binding spec</title><link>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/dynamodb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/dynamodb/</guid><description>
 &lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
-&lt;p>See &lt;a href="https://dapr-cn.github.io/docs/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a> for information about authentication-related attributes&lt;/p>
+&lt;p>See &lt;a href="https://dapr-cn.github.io/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a> for information about authentication-related attributes&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -79,7 +79,7 @@
 &lt;/ul>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="output-binding-supported-operations">Output Binding Supported Operations&lt;/h2>
 &lt;ul>
@@ -87,15 +87,15 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/ul>
 &lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: AWS Kinesis binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/kinesis/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/kinesis/</guid><description>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: AWS Kinesis binding spec</title><link>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/kinesis/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/kinesis/</guid><description>
 &lt;p>See &lt;a href="https://aws.amazon.com/kinesis/data-streams/getting-started/">this&lt;/a> for instructions on how to set up an AWS Kinesis data streams&lt;/p>
 &lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
-&lt;p>See &lt;a href="https://dapr-cn.github.io/docs/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a> for information about authentication-related attributes&lt;/p>
+&lt;p>See &lt;a href="https://dapr-cn.github.io/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a> for information about authentication-related attributes&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -126,7 +126,7 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/ul>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="output-binding-supported-operations">Output Binding Supported Operations&lt;/h2>
 &lt;ul>
@@ -134,14 +134,14 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/ul>
 &lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: AWS S3 binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/s3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/s3/</guid><description>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: AWS S3 binding spec</title><link>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/s3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/s3/</guid><description>
 &lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
-&lt;p>See &lt;a href="https://dapr-cn.github.io/docs/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a> for information about authentication-related attributes&lt;/p>
+&lt;p>See &lt;a href="https://dapr-cn.github.io/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a> for information about authentication-related attributes&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -166,7 +166,7 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/ul>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="output-binding-supported-operations">Output Binding Supported Operations&lt;/h2>
 &lt;ul>
@@ -174,14 +174,14 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/ul>
 &lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: AWS SNS binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/sns/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/sns/</guid><description>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: AWS SNS binding spec</title><link>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/sns/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/sns/</guid><description>
 &lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
-&lt;p>See &lt;a href="https://dapr-cn.github.io/docs/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a> for information about authentication-related attributes&lt;/p>
+&lt;p>See &lt;a href="https://dapr-cn.github.io/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a> for information about authentication-related attributes&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -206,7 +206,7 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/ul>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="output-binding-supported-operations">Output Binding Supported Operations&lt;/h2>
 &lt;ul>
@@ -214,14 +214,14 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/ul>
 &lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: AWS SQS binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/sqs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/sqs/</guid><description>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: AWS SQS binding spec</title><link>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/sqs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/sqs/</guid><description>
 &lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
-&lt;p>See &lt;a href="https://dapr-cn.github.io/docs/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a> for information about authentication-related attributes&lt;/p>
+&lt;p>See &lt;a href="https://dapr-cn.github.io/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a> for information about authentication-related attributes&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -246,7 +246,7 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/ul>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="output-binding-supported-operations">Output Binding Supported Operations&lt;/h2>
 &lt;ul>
@@ -254,12 +254,12 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/ul>
 &lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Azure Blob Storage binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/blobstorage/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/blobstorage/</guid><description>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Azure Blob Storage binding spec</title><link>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/blobstorage/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/blobstorage/</guid><description>
 &lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
@@ -284,7 +284,7 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/ul>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="output-binding-supported-operations">Output Binding Supported Operations&lt;/h2>
 &lt;h3 id="create-blob">Create Blob&lt;/h3>
@@ -336,11 +336,11 @@ curl -d &lt;span style="color:#e6db74">&amp;#39;{ &amp;#34;operation&amp;#34;: &
 }
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Azure CosmosDB binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/cosmosdb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/cosmosdb/</guid><description>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Azure CosmosDB binding spec</title><link>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/cosmosdb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/cosmosdb/</guid><description>
 &lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
@@ -370,7 +370,7 @@ curl -d &lt;span style="color:#e6db74">&amp;#39;{ &amp;#34;operation&amp;#34;: &
 &lt;/ul>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="output-binding-supported-operations">Output Binding Supported Operations&lt;/h2>
 &lt;ul>
@@ -378,11 +378,11 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/ul>
 &lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Azure Event Grid binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/eventgrid/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/eventgrid/</guid><description>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Azure Event Grid binding spec</title><link>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/eventgrid/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/eventgrid/</guid><description>
 &lt;p>See &lt;a href="https://docs.microsoft.com/en-us/azure/event-grid/">this&lt;/a> for Azure Event Grid documentation.&lt;/p>
 &lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yml" data-lang="yml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
@@ -419,7 +419,7 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="input-binding-metadata">Input Binding Metadata&lt;/h2>
 &lt;ul>
@@ -579,11 +579,11 @@ $ kubectl delete pod nginx-nginx-ingress-controller-649df94867-fp6mg
 &lt;span style="color:#75715e"># ..&amp;#34;OPTIONS /api/events HTTP/1.1&amp;#34; 200.. &lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Azure Event Hubs binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/eventhubs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/eventhubs/</guid><description>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Azure Event Hubs binding spec</title><link>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/eventhubs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/eventhubs/</guid><description>
 &lt;p>See &lt;a href="https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-dotnet-framework-getstarted-send">this&lt;/a> for instructions on how to set up an Event Hub.&lt;/p>
 &lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
@@ -617,7 +617,7 @@ $ kubectl delete pod nginx-nginx-ingress-controller-649df94867-fp6mg
 &lt;/ul>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="output-binding-supported-operations">Output Binding Supported Operations&lt;/h2>
 &lt;ul>
@@ -625,11 +625,11 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/ul>
 &lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Azure Service Bus Queues binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/servicebusqueues/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/servicebusqueues/</guid><description>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Azure Service Bus Queues binding spec</title><link>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/servicebusqueues/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/servicebusqueues/</guid><description>
 &lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
@@ -653,7 +653,7 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/ul>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="specifying-a-time-to-live-on-message-level">Specifying a time to live on message level&lt;/h2>
 &lt;p>Time to live can be defined on queue level (as illustrated above) or at the message level. The value defined at message level overwrites any value set at queue level.&lt;/p>
@@ -677,11 +677,11 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/ul>
 &lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Azure SignalR binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/signalr/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/signalr/</guid><description>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Azure SignalR binding spec</title><link>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/signalr/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/signalr/</guid><description>
 &lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
@@ -702,7 +702,7 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/ul>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="additional-information">Additional information&lt;/h2>
 &lt;p>By default the Azure SignalR output binding will broadcast messages to all connected users. To narrow the audience there are two options, both configurable in the Metadata property of the message:&lt;/p>
@@ -733,11 +733,11 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/ul>
 &lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Azure Storage Queues binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/storagequeues/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/storagequeues/</guid><description>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Azure Storage Queues binding spec</title><link>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/storagequeues/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/storagequeues/</guid><description>
 &lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
@@ -764,7 +764,7 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/ul>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="specifying-a-time-to-live-on-message-level">Specifying a time to live on message level&lt;/h2>
 &lt;p>Time to live can be defined on queue level (as illustrated above) or at the message level. The value defined at message level overwrites any value set at queue level.&lt;/p>
@@ -788,11 +788,11 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/ul>
 &lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Cron binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/cron/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/cron/</guid><description>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Cron binding spec</title><link>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/cron/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/cron/</guid><description>
 &lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
@@ -865,11 +865,11 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/ul>
 &lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: GCP Pub/Sub binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/gcppubsub/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/gcppubsub/</guid><description>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: GCP Pub/Sub binding spec</title><link>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/gcppubsub/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/gcppubsub/</guid><description>
 &lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
@@ -920,7 +920,7 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/ul>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="output-binding-supported-operations">Output Binding Supported Operations&lt;/h2>
 &lt;ul>
@@ -928,11 +928,11 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/ul>
 &lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: GCP Storage Bucket binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/gcpbucket/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/gcpbucket/</guid><description>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: GCP Storage Bucket binding spec</title><link>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/gcpbucket/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/gcpbucket/</guid><description>
 &lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
@@ -980,7 +980,7 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/ul>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="output-binding-supported-operations">Output Binding Supported Operations&lt;/h2>
 &lt;ul>
@@ -988,11 +988,11 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/ul>
 &lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: HTTP binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/http/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/http/</guid><description>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: HTTP binding spec</title><link>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/http/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/http/</guid><description>
 &lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
@@ -1017,11 +1017,11 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/ul>
 &lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: InfluxDB binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/influxdb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/influxdb/</guid><description>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: InfluxDB binding spec</title><link>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/influxdb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/influxdb/</guid><description>
 &lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
@@ -1048,7 +1048,7 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/ul>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="output-binding-supported-operations">Output Binding Supported Operations&lt;/h2>
 &lt;ul>
@@ -1056,11 +1056,11 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/ul>
 &lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Kafka binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/kafka/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/kafka/</guid><description>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Kafka binding spec</title><link>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/kafka/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/kafka/</guid><description>
 &lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
@@ -1096,7 +1096,7 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/ul>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="specifying-a-partition-key">Specifying a partition key&lt;/h2>
 &lt;p>When invoking the Kafka binding, its possible to provide an optional partition key by using the &lt;code>metadata&lt;/code> section in the request body.&lt;/p>
@@ -1119,11 +1119,11 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/ul>
 &lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Kubernetes Events binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/kubernetes-binding/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/kubernetes-binding/</guid><description>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Kubernetes Events binding spec</title><link>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/kubernetes-binding/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/kubernetes-binding/</guid><description>
 &lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
@@ -1206,11 +1206,11 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;span style="color:#f92672">apiGroup&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: MQTT binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/mqtt/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/mqtt/</guid><description>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: MQTT binding spec</title><link>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/mqtt/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/mqtt/</guid><description>
 &lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
@@ -1231,7 +1231,7 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/ul>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="output-binding-supported-operations">Output Binding Supported Operations&lt;/h2>
 &lt;ul>
@@ -1239,11 +1239,11 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/ul>
 &lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: PostgrSQL binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/postgres/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/postgres/</guid><description>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: PostgrSQL binding spec</title><link>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/postgres/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/postgres/</guid><description>
 &lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
@@ -1259,7 +1259,7 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;p>The PostgrSQL binding uses &lt;a href="https://github.com/jackc/pgx">pgx connection pool&lt;/a> internally so the &lt;code>url&lt;/code> parameter can be any valid connection string, either in a &lt;code>DSN&lt;/code> or &lt;code>URL&lt;/code> format:&lt;/p>
 &lt;p>&lt;strong>Example DSN&lt;/strong>&lt;/p>
@@ -1335,11 +1335,11 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/blockquote>
 &lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Postmark binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/postmark/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/postmark/</guid><description>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Postmark binding spec</title><link>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/postmark/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/postmark/</guid><description>
 &lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
@@ -1382,7 +1382,7 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="output-binding-supported-operations">Output Binding Supported Operations&lt;/h2>
 &lt;ul>
@@ -1390,11 +1390,11 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/ul>
 &lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: RabbitMQ binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/rabbitmq/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/rabbitmq/</guid><description>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: RabbitMQ binding spec</title><link>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/rabbitmq/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/rabbitmq/</guid><description>
 &lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
@@ -1427,7 +1427,7 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/ul>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="specifying-a-time-to-live-on-message-level">Specifying a time to live on message level&lt;/h2>
 &lt;p>Time to live can be defined on queue level (as illustrated above) or at the message level. The value defined at message level overwrites any value set at queue level.&lt;/p>
@@ -1451,11 +1451,11 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/ul>
 &lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Redis binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/redis/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/redis/</guid><description>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Redis binding spec</title><link>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/redis/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/redis/</guid><description>
 &lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
@@ -1479,7 +1479,7 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/ul>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="output-binding-supported-operations">Output Binding Supported Operations&lt;/h2>
 &lt;ul>
@@ -1487,11 +1487,11 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/ul>
 &lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: RethinkDB binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/rethinkdb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/rethinkdb/</guid><description>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: RethinkDB binding spec</title><link>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/rethinkdb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/rethinkdb/</guid><description>
 &lt;h2 id="introduction">Introduction&lt;/h2>
 &lt;p>The RethinkDB state store supports transactions which means it can be used to support Dapr actors. Dapr persists only the actor&amp;rsquo;s current state which doesn&amp;rsquo;t allow the users to track how actor&amp;rsquo;s state may have changed over time.&lt;/p>
 &lt;p>To enable users to track change of the state of actors, this binding leverages RethinkDB&amp;rsquo;s built-in capability to monitor RethinkDB table and event on change with both the &lt;code>old&lt;/code> and &lt;code>new&lt;/code> state. This binding creates a subscription on the Dapr state table and streams these changes using the Dapr input binding interface.&lt;/p>
@@ -1512,11 +1512,11 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>For example on how to combine this binding with Dapr Pub/Sub to stream state changes to a topic see &lt;a href="https://github.com/mchmarny/dapr-state-store-change-handler">here&lt;/a>.&lt;/p>
 &lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Twilio SendGrid binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/sendgrid/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/sendgrid/</guid><description>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Twilio SendGrid binding spec</title><link>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/sendgrid/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/sendgrid/</guid><description>
 &lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
@@ -1555,7 +1555,7 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/code>&lt;/pre>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="output-binding-supported-operations">Output Binding Supported Operations&lt;/h2>
 &lt;ul>
@@ -1563,11 +1563,11 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/ul>
 &lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Twilio SMS binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/twilio/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/twilio/</guid><description>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Twilio SMS binding spec</title><link>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/twilio/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/twilio/</guid><description>
 &lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
@@ -1594,7 +1594,7 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/ul>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="output-binding-supported-operations">Output Binding Supported Operations&lt;/h2>
 &lt;ul>
@@ -1602,11 +1602,11 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/ul>
 &lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Twitter binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/twitter/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/twitter/</guid><description>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Twitter binding spec</title><link>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/twitter/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/twitter/</guid><description>
 &lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
 &lt;p>The Twitter binding supports both &lt;code>input&lt;/code> and &lt;code>output&lt;/code> binding configuration. First the common part:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
@@ -1629,7 +1629,7 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="input-bindings">Input bindings&lt;/h2>
 &lt;p>For input bindings, where the query matching Tweets are streamed to the user service, the above component has to also include a query:&lt;/p>
@@ -1663,8 +1663,8 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;p>You can see the example of the JSON data that Twitter binding returns &lt;a href="https://developer.twitter.com/en/docs/tweets/search/api-reference/get-search-tweets">here&lt;/a>&lt;/p>
 &lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
 &lt;/ul></description></item></channel></rss>

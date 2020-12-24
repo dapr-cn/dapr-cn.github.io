@@ -1,4 +1,4 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – Service invocation</title><link>https://dapr-cn.github.io/docs/developing-applications/building-blocks/service-invocation/</link><description>Recent content in Service invocation on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/service-invocation/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Service invocation overview</title><link>https://dapr-cn.github.io/docs/developing-applications/building-blocks/service-invocation/service-invocation-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/developing-applications/building-blocks/service-invocation/service-invocation-overview/</guid><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – Service invocation</title><link>https://dapr-cn.github.io/developing-applications/building-blocks/service-invocation/</link><description>Recent content in Service invocation on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="https://dapr-cn.github.io/developing-applications/building-blocks/service-invocation/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Service invocation overview</title><link>https://dapr-cn.github.io/developing-applications/building-blocks/service-invocation/service-invocation-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/building-blocks/service-invocation/service-invocation-overview/</guid><description>
 &lt;h2 id="introduction">Introduction&lt;/h2>
 &lt;p>Using service invocation, your application can discover and reliably and securely communicate with other applications using the standard protocols of &lt;a href="https://grpc.io">gRPC&lt;/a> or &lt;a href="https://www.w3.org/Protocols/">HTTP&lt;/a>.&lt;/p>
 &lt;p>In many environments with multiple services that need to communicate with each other, developers often ask themselves the following questions:&lt;/p>
@@ -12,13 +12,13 @@
 &lt;p>Dapr uses a sidecar, decentralized architecture. To invoke an application using Dapr, you use the &lt;code>invoke&lt;/code> API on any Dapr instance. The sidecar programming model encourages each applications to talk to its own instance of Dapr. The Dapr instances discover and communicate with one another.&lt;/p>
 &lt;h3 id="invoke-logic">Invoke logic&lt;/h3>
 &lt;p>The diagram below is an overview of how Dapr&amp;rsquo;s service invocation works.&lt;/p>
-&lt;img src="https://dapr-cn.github.io/docs/images/service-invocation-overview.png" width=800 alt="Diagram showing the steps of service invocation">
+&lt;img src="https://dapr-cn.github.io/images/service-invocation-overview.png" width=800 alt="Diagram showing the steps of service invocation">
 &lt;ol>
 &lt;li>
 &lt;p>Service A makes an http/gRPC call targeting Service B. The call goes to the local Dapr sidecar.&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>Dapr discovers Service B&amp;rsquo;s location using the &lt;a href="https://github.com/dapr/components-contrib/tree/master/nameresolution">name resolution component&lt;/a> which is running on the given &lt;a href="https://dapr-cn.github.io/docs/operations/hosting/">hosting platform&lt;/a>.&lt;/p>
+&lt;p>Dapr discovers Service B&amp;rsquo;s location using the &lt;a href="https://github.com/dapr/components-contrib/tree/master/nameresolution">name resolution component&lt;/a> which is running on the given &lt;a href="https://dapr-cn.github.io/operations/hosting/">hosting platform&lt;/a>.&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>Dapr forwards the message to Service B&amp;rsquo;s Dapr sidecar&lt;/p>
@@ -40,7 +40,7 @@
 &lt;h2 id="features">Features&lt;/h2>
 &lt;p>Service invocation provides several features to make it easy for you to call methods on remote applications.&lt;/p>
 &lt;h3 id="service-invocation-api">Service invocation API&lt;/h3>
-&lt;p>The API for Pservice invocation can be found in the &lt;a href="https://dapr-cn.github.io/docs/reference/api/service_invocation_api/">spec repo&lt;/a>.&lt;/p>
+&lt;p>The API for Pservice invocation can be found in the &lt;a href="https://dapr-cn.github.io/reference/api/service_invocation_api/">spec repo&lt;/a>.&lt;/p>
 &lt;h3 id="namespaces-scoping">Namespaces scoping&lt;/h3>
 &lt;p>Service invocation supports calls across namespaces. On all supported hosting platforms, Dapr app IDs conform to a valid FQDN format that includes the target namespace.&lt;/p>
 &lt;p>For example, the following string contains the app ID &lt;code>nodeapp&lt;/code> in addition to the namespace the app runs in &lt;code>production&lt;/code>.&lt;/p>
@@ -56,20 +56,20 @@
 &lt;p>Per call retries are performed with a backoff interval of 1 second up to a threshold of 3 times. Connection establishment via gRPC to the target sidecar has a timeout of 5 seconds.&lt;/p>
 &lt;h3 id="service-to-service-security">Service-to-service security&lt;/h3>
 &lt;p>All calls between Dapr applications can be made secure with mutual (mTLS) authentication on hosted platforms, including automatic certificate rollover, via the Dapr Sentry service. The diagram below shows this for self hosted applications.&lt;/p>
-&lt;p>For more information read the &lt;a href="https://dapr-cn.github.io/docs/concepts/security-concept/#sidecar-to-sidecar-communication">service-to-service security&lt;/a> article.&lt;/p>
-&lt;img src="https://dapr-cn.github.io/docs/images/security-mTLS-sentry-selfhosted.png" width=800>
+&lt;p>For more information read the &lt;a href="https://dapr-cn.github.io/concepts/security-concept/#sidecar-to-sidecar-communication">service-to-service security&lt;/a> article.&lt;/p>
+&lt;img src="https://dapr-cn.github.io/images/security-mTLS-sentry-selfhosted.png" width=800>
 &lt;h3 id="service-access-security">Service access security&lt;/h3>
 &lt;p>Applications can control which other applications are allowed to call them and what they are authorized to do via access policies. This enables you to restrict sensitive applications, that say have personnel information, from being accessed by unauthorized applications, and combined with service-to-service secure communication, provides for soft multi-tenancy deployments.&lt;/p>
-&lt;p>For more information read the &lt;a href="https://dapr-cn.github.io/docs/operations/configuration/invoke-allowlist/">access control allow lists for service invocation&lt;/a> article.&lt;/p>
+&lt;p>For more information read the &lt;a href="https://dapr-cn.github.io/operations/configuration/invoke-allowlist/">access control allow lists for service invocation&lt;/a> article.&lt;/p>
 &lt;h3 id="observability">Observability&lt;/h3>
 &lt;p>By default, all calls between applications are traced and metrics are gathered to provide insights and diagnostics for applications, which is especially important in production scenarios.&lt;/p>
-&lt;p>For more information read the &lt;a href="https://dapr-cn.github.io/docs/concepts/observability-concept/">observability&lt;/a> article.&lt;/p>
+&lt;p>For more information read the &lt;a href="https://dapr-cn.github.io/concepts/observability-concept/">observability&lt;/a> article.&lt;/p>
 &lt;h3 id="pluggable-service-discovery">Pluggable service discovery&lt;/h3>
-&lt;p>Dapr can run on any &lt;a href="https://dapr-cn.github.io/docs/operations/hosting/">hosting platform&lt;/a>. For the supported hosting platforms this means they have a &lt;a href="https://github.com/dapr/components-contrib/tree/master/nameresolution">name resolution component&lt;/a> developed for them that enables service discovery. For example, the Kubernetes name resolution component uses the Kubernetes DNS service to resolve the location of other applications running in the cluster.&lt;/p>
+&lt;p>Dapr can run on any &lt;a href="https://dapr-cn.github.io/operations/hosting/">hosting platform&lt;/a>. For the supported hosting platforms this means they have a &lt;a href="https://github.com/dapr/components-contrib/tree/master/nameresolution">name resolution component&lt;/a> developed for them that enables service discovery. For example, the Kubernetes name resolution component uses the Kubernetes DNS service to resolve the location of other applications running in the cluster.&lt;/p>
 &lt;h2 id="example">Example&lt;/h2>
 &lt;p>Following the above call sequence, suppose you have the applications as described in the &lt;a href="https://github.com/dapr/quickstarts/blob/master/hello-world/README.md">hello world quickstart&lt;/a>, where a python app invokes a node.js app. In such a scenario, the python app would be &amp;ldquo;Service A&amp;rdquo; , and a Node.js app would be &amp;ldquo;Service B&amp;rdquo;.&lt;/p>
 &lt;p>The diagram below shows sequence 1-7 again on a local machine showing the API call:&lt;/p>
-&lt;img src="https://dapr-cn.github.io/docs/images/service-invocation-overview-example.png" width=800>
+&lt;img src="https://dapr-cn.github.io/images/service-invocation-overview-example.png" width=800>
 &lt;ol>
 &lt;li>The Node.js app has a Dapr app ID of &lt;code>nodeapp&lt;/code>. The python app invokes the Node.js app&amp;rsquo;s &lt;code>neworder&lt;/code> method by POSTing &lt;code>http://localhost:3500/v1.0/invoke/nodeapp/method/neworder&lt;/code>, which first goes to the python app&amp;rsquo;s local Dapr sidecar.&lt;/li>
 &lt;li>Dapr discovers the Node.js app&amp;rsquo;s location using name resolution component (in this case mDNS while self-hosted) which runs on your local machine.&lt;/li>
@@ -83,14 +83,14 @@
 &lt;ul>
 &lt;li>Follow these guide on:
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/service-invocation/howto-invoke-discover-services/">How-to: Get started with HTTP service invocation&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/operations/configuration/grpc/">How-to: Get started with Dapr and gRPC&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/service-invocation/howto-invoke-discover-services/">How-to: Get started with HTTP service invocation&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/operations/configuration/grpc/">How-to: Get started with Dapr and gRPC&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;/li>
-&lt;li>Try out the &lt;a href="https://github.com/dapr/quickstarts/blob/master/hello-world/README.md">hello world quickstart&lt;/a> which shows how to use HTTP service invocation or visit the samples in each of the &lt;a href="https://dapr-cn.github.io/docs/developing-applications/sdks/">Dapr SDKs&lt;/a>&lt;/li>
-&lt;li>Read the &lt;a href="https://dapr-cn.github.io/docs/reference/api/service_invocation_api/">service invocation API specification&lt;/a>&lt;/li>
-&lt;li>See the &lt;a href="https://dapr-cn.github.io/docs/operations/performance-and-scalability/perf-service-invocation/">service invocation performance&lt;/a> numbers&lt;/li>
-&lt;/ul></description></item><item><title>Developing-Applications: How-To: Invoke and discover services</title><link>https://dapr-cn.github.io/docs/developing-applications/building-blocks/service-invocation/howto-invoke-discover-services/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/developing-applications/building-blocks/service-invocation/howto-invoke-discover-services/</guid><description>
+&lt;li>Try out the &lt;a href="https://github.com/dapr/quickstarts/blob/master/hello-world/README.md">hello world quickstart&lt;/a> which shows how to use HTTP service invocation or visit the samples in each of the &lt;a href="https://dapr-cn.github.io/developing-applications/sdks/">Dapr SDKs&lt;/a>&lt;/li>
+&lt;li>Read the &lt;a href="https://dapr-cn.github.io/reference/api/service_invocation_api/">service invocation API specification&lt;/a>&lt;/li>
+&lt;li>See the &lt;a href="https://dapr-cn.github.io/operations/performance-and-scalability/perf-service-invocation/">service invocation performance&lt;/a> numbers&lt;/li>
+&lt;/ul></description></item><item><title>Developing-Applications: How-To: Invoke and discover services</title><link>https://dapr-cn.github.io/developing-applications/building-blocks/service-invocation/howto-invoke-discover-services/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/building-blocks/service-invocation/howto-invoke-discover-services/</guid><description>
 &lt;p>This article describe how to deploy services each with an unique application ID, so that other services can discover and call endpoints on them using service invocation API.&lt;/p>
 &lt;h2 id="step-1-choose-an-id-for-your-service">Step 1: Choose an ID for your service&lt;/h2>
 &lt;p>Dapr allows you to assign a global, unique ID for your app. This ID encapsulates the state for your application, regardless of the number of instances it may have.&lt;/p>
@@ -136,7 +136,7 @@ Kubernetes
 &lt;span style="color:#f92672">dapr.io/app-id&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;cart&amp;#34;&lt;/span>
 &lt;span style="color:#f92672">dapr.io/app-port&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;5000&amp;#34;&lt;/span>
 ...
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;em>If your app uses an SSL connection, you can tell Dapr to invoke your app over an insecure SSL connection with the &lt;code>app-ssl: &amp;quot;true&amp;quot;&lt;/code> annotation (full list &lt;a href="https://dapr-cn.github.io/docs/operations/hosting/kubernetes/kubernetes-annotations/">here&lt;/a>)&lt;/em>&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;em>If your app uses an SSL connection, you can tell Dapr to invoke your app over an insecure SSL connection with the &lt;code>app-ssl: &amp;quot;true&amp;quot;&lt;/code> annotation (full list &lt;a href="https://dapr-cn.github.io/operations/hosting/kubernetes/kubernetes-annotations/">here&lt;/a>)&lt;/em>&lt;/p>
 &lt;/div>
 &lt;/div>
 &lt;h2 id="step-2-setup-a-service">Step 2: Setup a service&lt;/h2>
@@ -179,15 +179,15 @@ CLI
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
 &lt;/div>
 &lt;h3 id="namespaces">Namespaces&lt;/h3>
-&lt;p>When running on &lt;a href="https://dapr-cn.github.io/docs/reference/api/service_invocation_api/#namespace-supported-platforms">namespace supported platforms&lt;/a>, you include the namespace of the target app in the app ID: &lt;code>myApp.production&lt;/code>&lt;/p>
+&lt;p>When running on &lt;a href="https://dapr-cn.github.io/reference/api/service_invocation_api/#namespace-supported-platforms">namespace supported platforms&lt;/a>, you include the namespace of the target app in the app ID: &lt;code>myApp.production&lt;/code>&lt;/p>
 &lt;p>For example, invoking the example python service with a namespace would be:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl http://localhost:3500/v1.0/invoke/cart.production/method/add -X POST
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>See the &lt;a href="https://dapr-cn.github.io/docs/reference/api/service_invocation_api/#cross-namespace-invocation">Cross namespace API spec&lt;/a> for more information on namespaces.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>See the &lt;a href="https://dapr-cn.github.io/reference/api/service_invocation_api/#cross-namespace-invocation">Cross namespace API spec&lt;/a> for more information on namespaces.&lt;/p>
 &lt;h2 id="step-4-view-traces-and-logs">Step 4: View traces and logs&lt;/h2>
 &lt;p>The example above showed you how to directly invoke a different service running locally or in Kubernetes. Dapr outputs metrics, tracing and logging information allowing you to visualize a call graph between services, log errors and optionally log the payload body.&lt;/p>
-&lt;p>For more information on tracing and logs see the &lt;a href="https://dapr-cn.github.io/docs/concepts/observability-concept/">observability&lt;/a> article.&lt;/p>
+&lt;p>For more information on tracing and logs see the &lt;a href="https://dapr-cn.github.io/concepts/observability-concept/">observability&lt;/a> article.&lt;/p>
 &lt;h2 id="related-links">Related Links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/service-invocation/service-invocation-overview/">Service invocation overview&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/service_invocation_api/">Service invocation API specification&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/service-invocation/service-invocation-overview/">Service invocation overview&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/api/service_invocation_api/">Service invocation API specification&lt;/a>&lt;/li>
 &lt;/ul></description></item></channel></rss>

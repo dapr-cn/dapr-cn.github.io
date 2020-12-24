@@ -1,4 +1,4 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – Bindings</title><link>https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/</link><description>Recent content in Bindings on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Bindings overview</title><link>https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/bindings-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/bindings-overview/</guid><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – Bindings</title><link>https://dapr-cn.github.io/developing-applications/building-blocks/bindings/</link><description>Recent content in Bindings on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Bindings overview</title><link>https://dapr-cn.github.io/developing-applications/building-blocks/bindings/bindings-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/building-blocks/bindings/bindings-overview/</guid><description>
 &lt;h2 id="introduction">Introduction&lt;/h2>
 &lt;p>Using bindings, you can trigger your app with events coming in from external systems, or interface with external systems. This building block provides several benefits for you and your code:&lt;/p>
 &lt;ul>
@@ -21,7 +21,7 @@
 &lt;blockquote>
 &lt;p>On startup Dapr sends a &lt;code>OPTIONS&lt;/code> request for all defined input bindings to the application and expects a status code other than &lt;code>NOT FOUND (404)&lt;/code> if this application wants to subscribe to the binding.&lt;/p>
 &lt;/blockquote>
-&lt;p>Read the &lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">Create an event-driven app using input bindings&lt;/a> page to get started with input bindings.&lt;/p>
+&lt;p>Read the &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/">Create an event-driven app using input bindings&lt;/a> page to get started with input bindings.&lt;/p>
 &lt;h2 id="output-bindings">Output bindings&lt;/h2>
 &lt;p>Output bindings allow users to invoke external resources. An optional payload and metadata can be sent with the invocation request.&lt;/p>
 &lt;p>In order to invoke an output binding:&lt;/p>
@@ -29,12 +29,12 @@
 &lt;li>Define the component YAML that describes the type of binding and its metadata (connection info, etc.)&lt;/li>
 &lt;li>Use the HTTP endpoint or gRPC method to invoke the binding with an optional payload&lt;/li>
 &lt;/ol>
-&lt;p>Read the &lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">Send events to external systems using output bindings&lt;/a> page to get started with output bindings.&lt;/p>
+&lt;p>Read the &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/">Send events to external systems using output bindings&lt;/a> page to get started with output bindings.&lt;/p>
 &lt;h2 id="related-topics">Related Topics&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">Trigger a service from different resources with input bindings&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">Invoke different resources using output bindings&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Developing-Applications: How-To: Trigger your application with input bindings</title><link>https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/</guid><description>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/">Trigger a service from different resources with input bindings&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/">Invoke different resources using output bindings&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Developing-Applications: How-To: Trigger your application with input bindings</title><link>https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/</guid><description>
 &lt;p>Using bindings, your code can be triggered with incoming events from different resources which can be anything: a queue, messaging pipeline, cloud-service, filesystem etc.&lt;/p>
 &lt;p>This is ideal for event-driven processing, data pipelines or just generally reacting to events and doing further processing.&lt;/p>
 &lt;p>Dapr bindings allow you to:&lt;/p>
@@ -47,7 +47,7 @@
 &lt;p>For a quickstart sample showing bindings, visit this &lt;a href="https://github.com/dapr/quickstarts/tree/master/bindings">link&lt;/a>.&lt;/p>
 &lt;h2 id="1-create-a-binding">1. Create a binding&lt;/h2>
 &lt;p>An input binding represents an event resource that Dapr uses to read events from and push to your application.&lt;/p>
-&lt;p>For the purpose of this HowTo, we&amp;rsquo;ll use a Kafka binding. You can find a list of the different binding specs &lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/">here&lt;/a>.&lt;/p>
+&lt;p>For the purpose of this HowTo, we&amp;rsquo;ll use a Kafka binding. You can find a list of the different binding specs &lt;a href="https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/">here&lt;/a>.&lt;/p>
 &lt;p>Create the following YAML file, named binding.yaml, and save this to a &lt;code>components&lt;/code> sub-folder in your application directory. (Use the &lt;code>--components-path&lt;/code> flag with &lt;code>dapr run&lt;/code> to point to your custom components dir)&lt;/p>
 &lt;p>&lt;em>Note: When running in Kubernetes, apply this file to your cluster using &lt;code>kubectl apply -f binding.yaml&lt;/code>&lt;/em>&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
@@ -90,16 +90,16 @@
 &lt;p>Event delivery guarantees are controlled by the binding implementation. Depending on the binding implementation, the event delivery can be exactly once or at least once.&lt;/p>
 &lt;h2 id="references">References&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/concepts/components-concept/">Components concept&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/">Supported bindings&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Developing-Applications: How-To: Use bindings to interface with external resources</title><link>https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/</guid><description>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/api/bindings_api/">Bindings API&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/concepts/components-concept/">Components concept&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/">Supported bindings&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Developing-Applications: How-To: Use bindings to interface with external resources</title><link>https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/</guid><description>
 &lt;p>Using bindings, it is possible to invoke external resources without tying in to special SDK or libraries. For a complete sample showing output bindings, visit this &lt;a href="https://github.com/dapr/quickstarts/tree/master/bindings">link&lt;/a>.&lt;/p>
 &lt;p>Watch this &lt;a href="https://www.youtube.com/watch?v=ysklxm81MTs&amp;amp;feature=youtu.be&amp;amp;t=1960">video&lt;/a> on how to use bi-directional output bindings.&lt;/p>
 &lt;h2 id="1-create-a-binding">1. Create a binding&lt;/h2>
 &lt;p>An output binding represents a resource that Dapr will use invoke and send messages to.&lt;/p>
-&lt;p>For the purpose of this guide, you&amp;rsquo;ll use a Kafka binding. You can find a list of the different binding specs &lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">here&lt;/a>.&lt;/p>
+&lt;p>For the purpose of this guide, you&amp;rsquo;ll use a Kafka binding. You can find a list of the different binding specs &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/">here&lt;/a>.&lt;/p>
 &lt;p>Create the following YAML file, named binding.yaml, and save this to a &lt;code>components&lt;/code> sub-folder in your application directory. (Use the &lt;code>--components-path&lt;/code> flag with &lt;code>dapr run&lt;/code> to point to your custom components dir)&lt;/p>
 &lt;p>&lt;em>Note: When running in Kubernetes, apply this file to your cluster using &lt;code>kubectl apply -f binding.yaml&lt;/code>&lt;/em>&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
@@ -122,10 +122,10 @@
 &lt;p>You can do so using HTTP:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl -X POST -H http://localhost:3500/v1.0/bindings/myevent -d &lt;span style="color:#e6db74">&amp;#39;{ &amp;#34;data&amp;#34;: { &amp;#34;message&amp;#34;: &amp;#34;Hi!&amp;#34; }, &amp;#34;operation&amp;#34;: &amp;#34;create&amp;#34; }&amp;#39;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>As seen above, you invoked the &lt;code>/binding&lt;/code> endpoint with the name of the binding to invoke, in our case its &lt;code>myevent&lt;/code>. The payload goes inside the mandatory &lt;code>data&lt;/code> field, and can be any JSON serializable value.&lt;/p>
-&lt;p>You&amp;rsquo;ll also notice that there&amp;rsquo;s an &lt;code>operation&lt;/code> field that tells the binding what you need it to do. You can check &lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">here&lt;/a> which operations are supported for every output binding.&lt;/p>
+&lt;p>You&amp;rsquo;ll also notice that there&amp;rsquo;s an &lt;code>operation&lt;/code> field that tells the binding what you need it to do. You can check &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/">here&lt;/a> which operations are supported for every output binding.&lt;/p>
 &lt;h2 id="references">References&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Binding API&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Binding components&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/">Binding detailed specifications&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/api/bindings_api/">Binding API&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/">Binding components&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/">Binding detailed specifications&lt;/a>&lt;/li>
 &lt;/ul></description></item></channel></rss>

@@ -1,4 +1,4 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – Monitor your application with Dapr</title><link>https://dapr-cn.github.io/docs/operations/monitoring/</link><description>Recent content in Monitor your application with Dapr on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="https://dapr-cn.github.io/docs/operations/monitoring/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: How-To: Set up Fluentd, Elastic search and Kibana in Kubernetes</title><link>https://dapr-cn.github.io/docs/operations/monitoring/fluentd/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/monitoring/fluentd/</guid><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – Monitor your application with Dapr</title><link>https://dapr-cn.github.io/operations/monitoring/</link><description>Recent content in Monitor your application with Dapr on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="https://dapr-cn.github.io/operations/monitoring/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: How-To: Set up Fluentd, Elastic search and Kibana in Kubernetes</title><link>https://dapr-cn.github.io/operations/monitoring/fluentd/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/monitoring/fluentd/</guid><description>
 &lt;h2 id="prerequisites">Prerequisites&lt;/h2>
 &lt;ul>
 &lt;li>Kubernetes (&amp;gt; 1.14)&lt;/li>
@@ -46,8 +46,8 @@ kibana-kibana-95bc54b89-zqdrk 1/1 Running &lt;span style="color:#ae81ff">0&lt;/s
 &lt;/ol>
 &lt;p>Download these config files:&lt;/p>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/docs/fluentd-config-map.yaml">fluentd-config-map.yaml&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/docs/fluentd-dapr-with-rbac.yaml">fluentd-dapr-with-rbac.yaml&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/fluentd-config-map.yaml">fluentd-config-map.yaml&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/fluentd-dapr-with-rbac.yaml">fluentd-dapr-with-rbac.yaml&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;blockquote>
 &lt;p>Note: If you already have Fluentd running in your cluster, please enable the nested json parser to parse JSON formatted log from Dapr.&lt;/p>
@@ -119,44 +119,44 @@ Handling connection for 5601
 &lt;p>Click Management -&amp;gt; Index Management&lt;/p>
 &lt;/li>
 &lt;/ol>
-&lt;p>&lt;img src="https://dapr-cn.github.io/docs/images/kibana-1.png" alt="kibana management">&lt;/p>
+&lt;p>&lt;img src="https://dapr-cn.github.io/images/kibana-1.png" alt="kibana management">&lt;/p>
 &lt;ol start="4">
 &lt;li>Wait until dapr-* is indexed.&lt;/li>
 &lt;/ol>
-&lt;p>&lt;img src="https://dapr-cn.github.io/docs/images/kibana-2.png" alt="index log">&lt;/p>
+&lt;p>&lt;img src="https://dapr-cn.github.io/images/kibana-2.png" alt="index log">&lt;/p>
 &lt;ol start="5">
 &lt;li>Once dapr-* indexed, click Kibana-&amp;gt;Index Patterns and Create Index Pattern&lt;/li>
 &lt;/ol>
-&lt;p>&lt;img src="https://dapr-cn.github.io/docs/images/kibana-3.png" alt="create index pattern">&lt;/p>
+&lt;p>&lt;img src="https://dapr-cn.github.io/images/kibana-3.png" alt="create index pattern">&lt;/p>
 &lt;ol start="6">
 &lt;li>Define index pattern - type &lt;code>dapr*&lt;/code> in index pattern&lt;/li>
 &lt;/ol>
-&lt;p>&lt;img src="https://dapr-cn.github.io/docs/images/kibana-4.png" alt="define index pattern">&lt;/p>
+&lt;p>&lt;img src="https://dapr-cn.github.io/images/kibana-4.png" alt="define index pattern">&lt;/p>
 &lt;ol start="7">
 &lt;li>Select time stamp filed: &lt;code>@timestamp&lt;/code>&lt;/li>
 &lt;/ol>
-&lt;p>&lt;img src="https://dapr-cn.github.io/docs/images/kibana-5.png" alt="timestamp">&lt;/p>
+&lt;p>&lt;img src="https://dapr-cn.github.io/images/kibana-5.png" alt="timestamp">&lt;/p>
 &lt;ol start="8">
 &lt;li>Confirm that &lt;code>scope&lt;/code>, &lt;code>type&lt;/code>, &lt;code>app_id&lt;/code>, &lt;code>level&lt;/code>, etc are being indexed.&lt;/li>
 &lt;/ol>
 &lt;blockquote>
 &lt;p>Note: if you cannot find the indexed field, please wait. it depends on the volume of data and resource size where elastic search is running.&lt;/p>
 &lt;/blockquote>
-&lt;p>&lt;img src="https://dapr-cn.github.io/docs/images/kibana-6.png" alt="indexing">&lt;/p>
+&lt;p>&lt;img src="https://dapr-cn.github.io/images/kibana-6.png" alt="indexing">&lt;/p>
 &lt;ol start="9">
 &lt;li>Click &lt;code>discover&lt;/code> icon and search &lt;code>scope:*&lt;/code>&lt;/li>
 &lt;/ol>
 &lt;blockquote>
 &lt;p>Note: it would take some time to make log searchable based on the data volume and resource.&lt;/p>
 &lt;/blockquote>
-&lt;p>&lt;img src="https://dapr-cn.github.io/docs/images/kibana-7.png" alt="discover">&lt;/p>
+&lt;p>&lt;img src="https://dapr-cn.github.io/images/kibana-7.png" alt="discover">&lt;/p>
 &lt;h2 id="references">References&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.fluentd.org/v/0.12/articles/kubernetes-fluentd">Fluentd for Kubernetes&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://github.com/elastic/helm-charts/tree/master/elasticsearch">Elastic search helm chart&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://github.com/elastic/helm-charts/tree/master/kibana">Kibana helm chart&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://www.elastic.co/guide/en/kibana/current/kuery-query.html">Kibana Query Language&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Using OpenTelemetry Collector to collect traces</title><link>https://dapr-cn.github.io/docs/operations/monitoring/open-telemetry-collector/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/monitoring/open-telemetry-collector/</guid><description>
+&lt;/ul></description></item><item><title>Operations: Using OpenTelemetry Collector to collect traces</title><link>https://dapr-cn.github.io/operations/monitoring/open-telemetry-collector/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/monitoring/open-telemetry-collector/</guid><description>
 &lt;p>Dapr can integrate with &lt;a href="https://github.com/open-telemetry/opentelemetry-collector">OpenTelemetry Collector&lt;/a> using the Zipkin API. This guide walks through an example to use Dapr to push trace events to Azure Application Insights, through the OpenTelemetry Collector.&lt;/p>
 &lt;h2 id="requirements">Requirements&lt;/h2>
 &lt;p>A installation of Dapr on Kubernetes.&lt;/p>
@@ -173,7 +173,7 @@ Handling connection for 5601
 &lt;/code>&lt;/pre>&lt;p>Next, install the OpenTelemetry Collector to your Kubernetes cluster to push events to your Application Insights instance&lt;/p>
 &lt;ol>
 &lt;li>
-&lt;p>Check out the file &lt;a href="https://dapr-cn.github.io/docs/docs/open-telemetry-collector/open-telemetry-collector.yaml">open-telemetry-collector.yaml&lt;/a> and replace the &lt;code>&amp;lt;INSTRUMENTATION-KEY&amp;gt;&lt;/code> placeholder with your &lt;code>APP_INSIGHTS_KEY&lt;/code>.&lt;/p>
+&lt;p>Check out the file &lt;a href="https://dapr-cn.github.io/docs/open-telemetry-collector/open-telemetry-collector.yaml">open-telemetry-collector.yaml&lt;/a> and replace the &lt;code>&amp;lt;INSTRUMENTATION-KEY&amp;gt;&lt;/code> placeholder with your &lt;code>APP_INSIGHTS_KEY&lt;/code>.&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>Apply the configuration with &lt;code>kubectl apply -f open-telemetry-collector.yaml&lt;/code>.&lt;/p>
@@ -182,7 +182,7 @@ Handling connection for 5601
 &lt;p>Next, set up both a Dapr configuration file to turn on tracing and deploy a tracing exporter component that uses the OpenTelemetry Collector.&lt;/p>
 &lt;ol>
 &lt;li>
-&lt;p>Create a collector-config.yaml file with this &lt;a href="https://dapr-cn.github.io/docs/docs/open-telemetry-collector/collector-config.yaml">content&lt;/a>&lt;/p>
+&lt;p>Create a collector-config.yaml file with this &lt;a href="https://dapr-cn.github.io/docs/open-telemetry-collector/collector-config.yaml">content&lt;/a>&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>Apply the configuration with &lt;code>kubectl apply -f collector-config.yaml&lt;/code>.&lt;/p>
@@ -210,7 +210,7 @@ Handling connection for 5601
 &lt;p>&lt;strong>NOTE&lt;/strong>: You can register multiple tracing exporters at the same time, and the tracing logs are forwarded to all registered exporters.&lt;/p>
 &lt;/blockquote>
 &lt;p>Deploy and run some applications. After a few minutes, you should see tracing logs appearing in your Application Insights resource. You can also use &lt;strong>Application Map&lt;/strong> to examine the topology of your services, as shown below:&lt;/p>
-&lt;p>&lt;img src="https://dapr-cn.github.io/docs/images/open-telemetry-app-insights.png" alt="Application map">&lt;/p>
+&lt;p>&lt;img src="https://dapr-cn.github.io/images/open-telemetry-app-insights.png" alt="Application map">&lt;/p>
 &lt;blockquote>
 &lt;p>&lt;strong>NOTE&lt;/strong>: Only operations going through Dapr API exposed by Dapr sidecar (e.g. service invocation or event publishing) are displayed in Application Map topology.&lt;/p>
 &lt;/blockquote>
@@ -235,7 +235,7 @@ Handling connection for 5601
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;p>&lt;code>samplingRate&lt;/code> is used to enable or disable the tracing. To disable the sampling rate , set &lt;code>samplingRate : &amp;quot;0&amp;quot;&lt;/code> in the configuration. The valid range of samplingRate is between 0 and 1 inclusive. The sampling rate determines whether a trace span should be sampled or not based on value. &lt;code>samplingRate : &amp;quot;1&amp;quot;&lt;/code> will always sample the traces. By default, the sampling rate is 1 in 10,000&lt;/p></description></item><item><title>Operations: How-To: Set up Azure Monitor to search logs and collect metrics</title><link>https://dapr-cn.github.io/docs/operations/monitoring/azure-monitor/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/monitoring/azure-monitor/</guid><description>
+&lt;p>&lt;code>samplingRate&lt;/code> is used to enable or disable the tracing. To disable the sampling rate , set &lt;code>samplingRate : &amp;quot;0&amp;quot;&lt;/code> in the configuration. The valid range of samplingRate is between 0 and 1 inclusive. The sampling rate determines whether a trace span should be sampled or not based on value. &lt;code>samplingRate : &amp;quot;1&amp;quot;&lt;/code> will always sample the traces. By default, the sampling rate is 1 in 10,000&lt;/p></description></item><item><title>Operations: How-To: Set up Azure Monitor to search logs and collect metrics</title><link>https://dapr-cn.github.io/operations/monitoring/azure-monitor/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/monitoring/azure-monitor/</guid><description>
 &lt;h2 id="prerequisites">Prerequisites&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.microsoft.com/en-us/azure/aks/">Azure Kubernetes Service&lt;/a>&lt;/li>
@@ -258,7 +258,7 @@ omsagent-smtk7 1/1 Running &lt;span style="color:#ae81ff">1&lt;/span> 44h
 &lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
 &lt;li>Apply config map to enable Prometheus metrics endpoint scrape.&lt;/li>
 &lt;/ol>
-&lt;p>You can use &lt;a href="https://dapr-cn.github.io/docs/docs/azm-config-map.yaml">azm-config-map.yaml&lt;/a> to enable prometheus metrics endpoint scrape.&lt;/p>
+&lt;p>You can use &lt;a href="https://dapr-cn.github.io/docs/azm-config-map.yaml">azm-config-map.yaml&lt;/a> to enable prometheus metrics endpoint scrape.&lt;/p>
 &lt;p>If you installed Dapr to the different namespace, you need to change the &lt;code>monitor_kubernetes_pod_namespaces&lt;/code> array values. For example:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">...
 &lt;span style="color:#f92672">prometheus-data-collection-settings&lt;/span>: |-&lt;span style="color:#e6db74">
@@ -339,7 +339,7 @@ omsagent-smtk7 1/1 Running &lt;span style="color:#ae81ff">1&lt;/span> 44h
 &lt;li>&lt;a href="https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-prometheus-integration">Configure scraping of Prometheus metrics with Azure Monitor for containers&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-agent-config">Configure agent data collection for Azure Monitor for containers&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.microsoft.com/en-us/azure/azure-monitor/log-query/query-language">Azure Monitor Query&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: How-To: Set-up New Relic for Dapr observability</title><link>https://dapr-cn.github.io/docs/operations/monitoring/newrelic/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/monitoring/newrelic/</guid><description>
+&lt;/ul></description></item><item><title>Operations: How-To: Set-up New Relic for Dapr observability</title><link>https://dapr-cn.github.io/operations/monitoring/newrelic/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/monitoring/newrelic/</guid><description>
 &lt;h2 id="prerequisites">Prerequisites&lt;/h2>
 &lt;ul>
 &lt;li>Perpetually &lt;a href="https://newrelic.com/signup">free New Relic account&lt;/a>, 100 GB/month of free data ingest, 1 free full access user, unlimited free basic users&lt;/li>
@@ -358,8 +358,8 @@ omsagent-smtk7 1/1 Running &lt;span style="color:#ae81ff">1&lt;/span> 44h
 &lt;span style="color:#f92672">zipkin&lt;/span>:
 &lt;span style="color:#f92672">endpointAddress&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;https://trace-api.newrelic.com/trace/v1?Api-Key=&amp;lt;NR-INSIGHTS-INSERT-API-KEY&amp;gt;&amp;amp;Data-Format=zipkin&amp;amp;Data-Format-Version=2&amp;#34;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="viewing-traces">Viewing Traces&lt;/h3>
-&lt;p>New Relic Distributed Tracing overview &lt;img src="https://dapr-cn.github.io/docs/images/nr-distributed-tracing-overview.png" alt="New Relic Kubernetes Cluster Explorer App">&lt;/p>
-&lt;p>New Relic Distributed Tracing details &lt;img src="https://dapr-cn.github.io/docs/images/nr-distributed-tracing-detail.png" alt="New Relic Kubernetes Cluster Explorer App">&lt;/p>
+&lt;p>New Relic Distributed Tracing overview &lt;img src="https://dapr-cn.github.io/images/nr-distributed-tracing-overview.png" alt="New Relic Kubernetes Cluster Explorer App">&lt;/p>
+&lt;p>New Relic Distributed Tracing details &lt;img src="https://dapr-cn.github.io/images/nr-distributed-tracing-detail.png" alt="New Relic Kubernetes Cluster Explorer App">&lt;/p>
 &lt;h2 id="optional-new-relic-instrumentation">(optional) New Relic Instrumentation&lt;/h2>
 &lt;p>In order for the integrations to send data to New Relic Telemetry Data Platform, you either need a &lt;a href="https://docs.newrelic.com/docs/accounts/accounts-billing/account-setup/new-relic-license-key">New Relic license key&lt;/a> or &lt;a href="https://docs.newrelic.com/docs/apis/get-started/intro-apis/types-new-relic-api-keys#insights-insert-key">New Relic Insights Insert API key&lt;/a>.&lt;/p>
 &lt;h3 id="opentelemetry-instrumentation">OpenTelemetry instrumentation&lt;/h3>
@@ -372,25 +372,25 @@ omsagent-smtk7 1/1 Running &lt;span style="color:#ae81ff">1&lt;/span> 44h
 &lt;h3 id="new-relic-kubernetes-cluster-explorer">New Relic Kubernetes Cluster Explorer&lt;/h3>
 &lt;p>The &lt;a href="https://docs.newrelic.com/docs/integrations/kubernetes-integration/understand-use-data/kubernetes-cluster-explorer">New Relic Kubernetes Cluster Explorer&lt;/a> provides a unique visualization of the entire data and deployments of the data collected by the Kubernetes integration.&lt;/p>
 &lt;p>It is a good starting point to observe all your data and dig deeper into any performance issues or incidents happening inside of the application or microservices.&lt;/p>
-&lt;p>&lt;img src="https://dapr-cn.github.io/docs/images/nr-k8s-cluster-explorer-app.png" alt="New Relic Kubernetes Cluster Explorer App">&lt;/p>
+&lt;p>&lt;img src="https://dapr-cn.github.io/images/nr-k8s-cluster-explorer-app.png" alt="New Relic Kubernetes Cluster Explorer App">&lt;/p>
 &lt;p>Automated correlation is part of the visualization capabilities of New Relic.&lt;/p>
 &lt;h3 id="pod-level-details">Pod-level details&lt;/h3>
-&lt;p>&lt;img src="https://dapr-cn.github.io/docs/images/nr-k8s-pod-level-details.png" alt="New Relic K8s Pod Level Details">&lt;/p>
+&lt;p>&lt;img src="https://dapr-cn.github.io/images/nr-k8s-pod-level-details.png" alt="New Relic K8s Pod Level Details">&lt;/p>
 &lt;h3 id="logs-in-context">Logs in Context&lt;/h3>
-&lt;p>&lt;img src="https://dapr-cn.github.io/docs/images/nr-k8s-logs-in-context.png" alt="New Relic K8s Logs In Context">&lt;/p>
+&lt;p>&lt;img src="https://dapr-cn.github.io/images/nr-k8s-logs-in-context.png" alt="New Relic K8s Logs In Context">&lt;/p>
 &lt;h2 id="new-relic-dashboards">New Relic Dashboards&lt;/h2>
 &lt;h3 id="kubernetes-overview">Kubernetes Overview&lt;/h3>
-&lt;p>&lt;img src="https://dapr-cn.github.io/docs/images/nr-dashboard-k8s-overview.png" alt="New Relic Dashboard Kubernetes Overview">&lt;/p>
+&lt;p>&lt;img src="https://dapr-cn.github.io/images/nr-dashboard-k8s-overview.png" alt="New Relic Dashboard Kubernetes Overview">&lt;/p>
 &lt;h3 id="dapr-system-services">Dapr System Services&lt;/h3>
-&lt;p>&lt;img src="https://dapr-cn.github.io/docs/images/nr-dashboard-dapr-system-services.png" alt="New Relic Dashboard Dapr System Services">&lt;/p>
+&lt;p>&lt;img src="https://dapr-cn.github.io/images/nr-dashboard-dapr-system-services.png" alt="New Relic Dashboard Dapr System Services">&lt;/p>
 &lt;h3 id="dapr-metrics">Dapr Metrics&lt;/h3>
-&lt;p>&lt;img src="https://dapr-cn.github.io/docs/images/nr-dashboard-dapr-metrics-1.png" alt="New Relic Dashboard Dapr Metrics 1">&lt;/p>
+&lt;p>&lt;img src="https://dapr-cn.github.io/images/nr-dashboard-dapr-metrics-1.png" alt="New Relic Dashboard Dapr Metrics 1">&lt;/p>
 &lt;h2 id="new-relic-grafana-integration">New Relic Grafana integration&lt;/h2>
 &lt;p>New Relic teamed up with &lt;a href="https://grafana.com/">Grafana Labs&lt;/a> so you can use the &lt;a href="https://newrelic.com/platform/telemetry-data-platform">Telemetry Data Platform&lt;/a> as a data source for Prometheus metrics and see them in your existing dashboards, seamlessly tapping into the reliability, scale, and security provided by New Relic.&lt;/p>
 &lt;p>&lt;a href="https://github.com/dapr/dapr/blob/227028e7b76b7256618cd3236d70c1d4a4392c9a/grafana/README.md">Grafana dashboard templates&lt;/a> to monitor Dapr system services and sidecars can easily be used without any changes. New Relic provides a &lt;a href="https://docs.newrelic.com/docs/integrations/grafana-integrations/set-configure/configure-new-relic-prometheus-data-source-grafana">native endpoint for Prometheus metrics&lt;/a> into Grafana. A datasource can easily be set-up:&lt;/p>
-&lt;p>&lt;img src="https://dapr-cn.github.io/docs/images/nr-grafana-datasource.png" alt="New Relic Grafana Data Source">&lt;/p>
+&lt;p>&lt;img src="https://dapr-cn.github.io/images/nr-grafana-datasource.png" alt="New Relic Grafana Data Source">&lt;/p>
 &lt;p>And the exact same dashboard templates from Dapr can be imported to visualize Dapr system services and sidecars.&lt;/p>
-&lt;p>&lt;img src="https://dapr-cn.github.io/docs/images/nr-grafana-dashboard.png" alt="New Relic Grafana Dashboard">&lt;/p>
+&lt;p>&lt;img src="https://dapr-cn.github.io/images/nr-grafana-dashboard.png" alt="New Relic Grafana Dashboard">&lt;/p>
 &lt;h2 id="new-relic-alerts">New Relic Alerts&lt;/h2>
 &lt;p>All the data that is collected from Dapr, Kubernetes or any services that run on top of can be used to set-up alerts and notifications into the preferred channel of your choice. See &lt;a href="https://docs.newrelic.com/docs/alerts-applied-intelligence">Alerts and Applied Intelligence&lt;/a>.&lt;/p>
 &lt;h2 id="related-linksreferences">Related Links/References&lt;/h2>
@@ -403,7 +403,7 @@ omsagent-smtk7 1/1 Running &lt;span style="color:#ae81ff">1&lt;/span> 44h
 &lt;li>&lt;a href="https://docs.newrelic.com/docs/apis/get-started/intro-apis/types-new-relic-api-keys">Types of New Relic API keys&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://blog.newrelic.com/product-news/opentelemetry-user-experience/">New Relic OpenTelemetry User Experience&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.newrelic.com/docs/alerts-applied-intelligence">Alerts and Applied Intelligence&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: How-To: Set up Jaeger for distributed tracing</title><link>https://dapr-cn.github.io/docs/operations/monitoring/jaeger/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/monitoring/jaeger/</guid><description>
+&lt;/ul></description></item><item><title>Operations: How-To: Set up Jaeger for distributed tracing</title><link>https://dapr-cn.github.io/operations/monitoring/jaeger/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/monitoring/jaeger/</guid><description>
 &lt;p>Dapr currently supports two kind of tracing protocol: OpenCensus and Zipkin. Since Jaeger is compatible with Zipkin, the Zipkin protocol can be used to talk to Jaeger.&lt;/p>
 &lt;h2 id="configure-self-hosted-mode">Configure self hosted mode&lt;/h2>
 &lt;h3 id="setup">Setup&lt;/h3>
@@ -482,12 +482,12 @@ kubectl wait deploy --selector app.kubernetes.io/name&lt;span style="color:#f926
 &lt;p>To view traces, connect to the Jaeger Service and open the UI:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl port-forward svc/jaeger-query &lt;span style="color:#ae81ff">16686&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>In your browser, go to &lt;code>http://localhost:16686&lt;/code> and you will see the Jaeger UI.&lt;/p>
-&lt;p>&lt;img src="https://dapr-cn.github.io/docs/images/jaeger_ui.png" alt="jaeger">&lt;/p>
+&lt;p>&lt;img src="https://dapr-cn.github.io/images/jaeger_ui.png" alt="jaeger">&lt;/p>
 &lt;h2 id="references">References&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://www.jaegertracing.io/docs/1.21/getting-started/#all-in-one">Jaeger Getting Started&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/observability/w3c-tracing/">W3C distributed tracing&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: How-To: Set up Zipkin for distributed tracing</title><link>https://dapr-cn.github.io/docs/operations/monitoring/zipkin/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/monitoring/zipkin/</guid><description>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/observability/w3c-tracing/">W3C distributed tracing&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: How-To: Set up Zipkin for distributed tracing</title><link>https://dapr-cn.github.io/operations/monitoring/zipkin/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/monitoring/zipkin/</guid><description>
 &lt;h2 id="configure-self-hosted-mode">Configure self hosted mode&lt;/h2>
 &lt;p>For self hosted mode, on running &lt;code>dapr init&lt;/code>:&lt;/p>
 &lt;ol>
@@ -548,11 +548,11 @@ kubectl wait deploy --selector app.kubernetes.io/name&lt;span style="color:#f926
 &lt;p>To view traces, connect to the Zipkin Service and open the UI:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl port-forward svc/zipkin 9411:9411
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>In your browser, go to &lt;code>http://localhost:9411&lt;/code> and you will see the Zipkin UI.&lt;/p>
-&lt;p>&lt;img src="https://dapr-cn.github.io/docs/images/zipkin_ui.png" alt="zipkin">&lt;/p>
+&lt;p>&lt;img src="https://dapr-cn.github.io/images/zipkin_ui.png" alt="zipkin">&lt;/p>
 &lt;h2 id="references">References&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/observability/w3c-tracing/">W3C distributed tracing&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: How-To: Observe metrics with Prometheus</title><link>https://dapr-cn.github.io/docs/operations/monitoring/prometheus/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/monitoring/prometheus/</guid><description>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/observability/w3c-tracing/">W3C distributed tracing&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: How-To: Observe metrics with Prometheus</title><link>https://dapr-cn.github.io/operations/monitoring/prometheus/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/monitoring/prometheus/</guid><description>
 &lt;h2 id="setup-prometheus-locally">Setup Prometheus Locally&lt;/h2>
 &lt;p>To run Prometheus on your local machine, you can either &lt;a href="#install">install and run it as a process&lt;/a> or run it as a &lt;a href="#Run-as-Container">Docker container&lt;/a>.&lt;/p>
 &lt;h3 id="install">Install&lt;/h3>
@@ -630,7 +630,7 @@ dapr-prom-prometheus-server-694fd8d7c-q5d59 2/2 Running &lt;span style="color:#a
 &lt;ul>
 &lt;li>&lt;a href="https://github.com/prometheus-community/helm-charts">Prometheus Installation&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://prometheus.io/docs/prometheus/latest/querying/basics/">Prometheus Query Language&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: How-To: Observe metrics with Grafana</title><link>https://dapr-cn.github.io/docs/operations/monitoring/grafana/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/monitoring/grafana/</guid><description>
+&lt;/ul></description></item><item><title>Operations: How-To: Observe metrics with Grafana</title><link>https://dapr-cn.github.io/operations/monitoring/grafana/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/monitoring/grafana/</guid><description>
 &lt;h2 id="available-dashboards">Available dashboards&lt;/h2>
 &lt;ul class="nav nav-tabs" id="tabs-0" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
 id="tabs-0-system-service-tab" data-toggle="tab" href="#tabs-0-system-service" role="tab"
@@ -651,15 +651,15 @@ Actors
 &lt;div class="tab-content" id="tabs-0-content">
 &lt;div class="tab-pane fade show active" id="tabs-0-system-service" role="tabpanel" aria-labelled-by="tabs-0-system-service-tab">
 &lt;br />&lt;p>The &lt;code>grafana-system-services-dashboard.json&lt;/code> template shows Dapr system component status, dapr-operator, dapr-sidecar-injector, dapr-sentry, and dapr-placement:&lt;/p>
-&lt;img src="https://dapr-cn.github.io/docs/images/grafana-system-service-dashboard.png" alt="Screenshot of the system service dashboard" width=1200>
+&lt;img src="https://dapr-cn.github.io/images/grafana-system-service-dashboard.png" alt="Screenshot of the system service dashboard" width=1200>
 &lt;/div>
 &lt;div class="tab-pane fade" id="tabs-0-sidecars" role="tabpanel" aria-labelled-by="tabs-0-sidecars-tab">
 &lt;br />&lt;p>The &lt;code>grafana-sidecar-dashboard.json&lt;/code> template shows Dapr sidecar status, including sidecar health/resources, throughput/latency of HTTP and gRPC, Actor, mTLS, etc.:&lt;/p>
-&lt;img src="https://dapr-cn.github.io/docs/images/grafana-sidecar-dashboard.png" alt="Screenshot of the sidecar dashboard" width=1200>
+&lt;img src="https://dapr-cn.github.io/images/grafana-sidecar-dashboard.png" alt="Screenshot of the sidecar dashboard" width=1200>
 &lt;/div>
 &lt;div class="tab-pane fade" id="tabs-0-actors" role="tabpanel" aria-labelled-by="tabs-0-actors-tab">
 &lt;br />&lt;p>The &lt;code>grafana-actor-dashboard.json&lt;/code> template shows Dapr Sidecar status, actor invocation throughput/latency, timer/reminder triggers, and turn-based concurrnecy:&lt;/p>
-&lt;img src="https://dapr-cn.github.io/docs/images/grafana-actor-dashboard.png" alt="Screenshot of the actor dashboard" width=1200>
+&lt;img src="https://dapr-cn.github.io/images/grafana-actor-dashboard.png" alt="Screenshot of the actor dashboard" width=1200>
 &lt;/div>
 &lt;/div>
 &lt;h2 id="pre-requisites">Pre-requisites&lt;/h2>
@@ -726,7 +726,7 @@ Handling connection &lt;span style="color:#66d9ef">for&lt;/span> &lt;span style=
 &lt;/li>
 &lt;li>
 &lt;p>Select &lt;code>Configuration&lt;/code> and &lt;code>Data Sources&lt;/code>&lt;/p>
-&lt;img src="https://dapr-cn.github.io/docs/images/grafana-datasources.png" alt="Screenshot of the Grafana add Data Source menu" width=200>
+&lt;img src="https://dapr-cn.github.io/images/grafana-datasources.png" alt="Screenshot of the Grafana add Data Source menu" width=200>
 &lt;/li>
 &lt;li>
 &lt;p>Add Prometheus as a data source.&lt;/p>
@@ -757,7 +757,7 @@ kibana-kibana ClusterIP 10.0.188.224 &amp;lt;none&amp;gt; 5601/TCP 7d10h
 &lt;li>HTTP URL: &lt;code>http://dapr-prom-prometheus-server.dapr-monitoring&lt;/code>&lt;/li>
 &lt;li>Default: On&lt;/li>
 &lt;/ul>
-&lt;img src="https://dapr-cn.github.io/docs/images/grafana-prometheus-dapr-server-url.png" alt="Screenshot of the Prometheus Data Source configuration" width=600>
+&lt;img src="https://dapr-cn.github.io/images/grafana-prometheus-dapr-server-url.png" alt="Screenshot of the Prometheus Data Source configuration" width=600>
 &lt;/li>
 &lt;li>
 &lt;p>Click &lt;code>Save &amp;amp; Test&lt;/code> button to verify that the connection succeeded.&lt;/p>
@@ -768,15 +768,15 @@ kibana-kibana ClusterIP 10.0.188.224 &amp;lt;none&amp;gt; 5601/TCP 7d10h
 &lt;li>
 &lt;p>In the upper left corner of the Grafana home screen, click the &amp;ldquo;+&amp;rdquo; option, then &amp;ldquo;Import&amp;rdquo;.&lt;/p>
 &lt;p>You can now import &lt;a href="https://github.com/dapr/dapr/tree/master/grafana">Grafana dashboard templates&lt;/a> from &lt;a href="https://github.com/dapr/dapr/releases">release assets&lt;/a> for your Dapr version:&lt;/p>
-&lt;img src="https://dapr-cn.github.io/docs/images/grafana-uploadjson.png" alt="Screenshot of the Grafana dashboard upload option" width=700>
+&lt;img src="https://dapr-cn.github.io/images/grafana-uploadjson.png" alt="Screenshot of the Grafana dashboard upload option" width=700>
 &lt;/li>
 &lt;li>
 &lt;p>Find the dashboard that you imported and enjoy&lt;/p>
-&lt;img src="https://dapr-cn.github.io/docs/images/system-service-dashboard.png" alt="Screenshot of Dapr service dashbaord" width=900>
+&lt;img src="https://dapr-cn.github.io/images/system-service-dashboard.png" alt="Screenshot of Dapr service dashbaord" width=900>
 &lt;div class="alert alert-primary" role="alert">
 &lt;h4 class="alert-heading">Tip&lt;/h4>
 Hover your mouse over the &lt;code>i&lt;/code> in the corner to the description of each chart:&lt;/p>
-&lt;img src="https://dapr-cn.github.io/docs/images/grafana-tooltip.png" alt="Screenshot of the tooltip for graphs" width=700>
+&lt;img src="https://dapr-cn.github.io/images/grafana-tooltip.png" alt="Screenshot of the tooltip for graphs" width=700>
 &lt;/div>
 &lt;/li>
 &lt;/ol>

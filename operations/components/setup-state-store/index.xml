@@ -1,4 +1,4 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – State stores components</title><link>https://dapr-cn.github.io/docs/operations/components/setup-state-store/</link><description>Recent content in State stores components on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="https://dapr-cn.github.io/docs/operations/components/setup-state-store/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: Overview</title><link>https://dapr-cn.github.io/docs/operations/components/setup-state-store/setup-state-store-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-state-store/setup-state-store-overview/</guid><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – State stores components</title><link>https://dapr-cn.github.io/operations/components/setup-state-store/</link><description>Recent content in State stores components on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="https://dapr-cn.github.io/operations/components/setup-state-store/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: Overview</title><link>https://dapr-cn.github.io/operations/components/setup-state-store/setup-state-store-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-state-store/setup-state-store-overview/</guid><description>
 &lt;p>Dapr integrates with existing databases to provide apps with state management capabilities for CRUD operations, transactions and more. It also supports the configuration of multiple, named, state store components &lt;em>per application&lt;/em>.&lt;/p>
 &lt;p>State stores are extensible and can be found in the &lt;a href="https://github.com/dapr/components-contrib">components-contrib repo&lt;/a>.&lt;/p>
 &lt;p>A state store in Dapr is described using a &lt;code>Component&lt;/code> file:&lt;/p>
@@ -16,14 +16,14 @@
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;KEY&amp;gt;&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;VALUE&amp;gt;&lt;/span>
 ...
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>The type of database is determined by the &lt;code>type&lt;/code> field, and things like connection strings and other metadata are put in the &lt;code>.metadata&lt;/code> section. Even though you can put plain text secrets in there, it is recommended you use a &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">secret store&lt;/a>.&lt;/p>
-&lt;p>Visit &lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to configure a state store component.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The type of database is determined by the &lt;code>type&lt;/code> field, and things like connection strings and other metadata are put in the &lt;code>.metadata&lt;/code> section. Even though you can put plain text secrets in there, it is recommended you use a &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/">secret store&lt;/a>.&lt;/p>
+&lt;p>Visit &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to configure a state store component.&lt;/p>
 &lt;h2 id="related-topics">Related topics&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/concepts/components-concept/">Component concept&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/state-management/">State management overview&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/state_api/">State management API specification&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Supported stores</title><link>https://dapr-cn.github.io/docs/operations/components/setup-state-store/supported-state-stores/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-state-store/supported-state-stores/</guid><description>
+&lt;li>&lt;a href="https://dapr-cn.github.io/concepts/components-concept/">Component concept&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/">State management overview&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/api/state_api/">State management API specification&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Supported stores</title><link>https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/</guid><description>
 &lt;p>The following stores are supported, at various levels, by the Dapr state management building block:&lt;/p>
 &lt;table>
 &lt;thead>
@@ -35,87 +35,87 @@
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
-&lt;td>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-state-store/supported-state-stores/setup-aerospike/">Aerospike&lt;/a>&lt;/td>
+&lt;td>&lt;a href="https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-aerospike/">Aerospike&lt;/a>&lt;/td>
 &lt;td>✅&lt;/td>
 &lt;td>❌&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-state-store/supported-state-stores/setup-cassandra/">Cassandra&lt;/a>&lt;/td>
+&lt;td>&lt;a href="https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-cassandra/">Cassandra&lt;/a>&lt;/td>
 &lt;td>✅&lt;/td>
 &lt;td>❌&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-state-store/supported-state-stores/setup-cloudstate/">Cloudstate&lt;/a>&lt;/td>
+&lt;td>&lt;a href="https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-cloudstate/">Cloudstate&lt;/a>&lt;/td>
 &lt;td>✅&lt;/td>
 &lt;td>❌&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-state-store/supported-state-stores/setup-couchbase/">Couchbase&lt;/a>&lt;/td>
+&lt;td>&lt;a href="https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-couchbase/">Couchbase&lt;/a>&lt;/td>
 &lt;td>✅&lt;/td>
 &lt;td>❌&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-state-store/supported-state-stores/setup-etcd/">etcd&lt;/a>&lt;/td>
+&lt;td>&lt;a href="https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-etcd/">etcd&lt;/a>&lt;/td>
 &lt;td>✅&lt;/td>
 &lt;td>❌&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-state-store/supported-state-stores/setup-consul/">Hashicorp Consul&lt;/a>&lt;/td>
+&lt;td>&lt;a href="https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-consul/">Hashicorp Consul&lt;/a>&lt;/td>
 &lt;td>✅&lt;/td>
 &lt;td>❌&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-state-store/supported-state-stores/setup-hazelcast/">Hazelcast&lt;/a>&lt;/td>
+&lt;td>&lt;a href="https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-hazelcast/">Hazelcast&lt;/a>&lt;/td>
 &lt;td>✅&lt;/td>
 &lt;td>❌&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-state-store/supported-state-stores/setup-memcached/">Memcached&lt;/a>&lt;/td>
+&lt;td>&lt;a href="https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-memcached/">Memcached&lt;/a>&lt;/td>
 &lt;td>✅&lt;/td>
 &lt;td>❌&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-state-store/supported-state-stores/setup-mongodb/">MongoDB&lt;/a>&lt;/td>
+&lt;td>&lt;a href="https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-mongodb/">MongoDB&lt;/a>&lt;/td>
 &lt;td>✅&lt;/td>
 &lt;td>✅&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-state-store/supported-state-stores/setup-postgresql/">PostgreSQL&lt;/a>&lt;/td>
+&lt;td>&lt;a href="https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-postgresql/">PostgreSQL&lt;/a>&lt;/td>
 &lt;td>✅&lt;/td>
 &lt;td>✅&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-state-store/supported-state-stores/setup-redis/">Redis&lt;/a>&lt;/td>
+&lt;td>&lt;a href="https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-redis/">Redis&lt;/a>&lt;/td>
 &lt;td>✅&lt;/td>
 &lt;td>✅&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-state-store/supported-state-stores/setup-zookeeper/">Zookeeper&lt;/a>&lt;/td>
+&lt;td>&lt;a href="https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-zookeeper/">Zookeeper&lt;/a>&lt;/td>
 &lt;td>✅&lt;/td>
 &lt;td>❌&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-state-store/supported-state-stores/setup-azure-cosmosdb/">Azure CosmosDB&lt;/a>&lt;/td>
+&lt;td>&lt;a href="https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-azure-cosmosdb/">Azure CosmosDB&lt;/a>&lt;/td>
 &lt;td>✅&lt;/td>
 &lt;td>✅&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-state-store/supported-state-stores/setup-sqlserver/">Azure SQL Server&lt;/a>&lt;/td>
+&lt;td>&lt;a href="https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-sqlserver/">Azure SQL Server&lt;/a>&lt;/td>
 &lt;td>✅&lt;/td>
 &lt;td>✅&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-state-store/supported-state-stores/setup-azure-tablestorage/">Azure Table Storage&lt;/a>&lt;/td>
+&lt;td>&lt;a href="https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-azure-tablestorage/">Azure Table Storage&lt;/a>&lt;/td>
 &lt;td>✅&lt;/td>
 &lt;td>❌&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-state-store/supported-state-stores/setup-azure-blobstorage/">Azure Blob Storage&lt;/a>&lt;/td>
+&lt;td>&lt;a href="https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-azure-blobstorage/">Azure Blob Storage&lt;/a>&lt;/td>
 &lt;td>✅&lt;/td>
 &lt;td>❌&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-state-store/supported-state-stores/setup-firestore/">Google Cloud Firestore&lt;/a>&lt;/td>
+&lt;td>&lt;a href="https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-firestore/">Google Cloud Firestore&lt;/a>&lt;/td>
 &lt;td>✅&lt;/td>
 &lt;td>❌&lt;/td>
 &lt;/tr>

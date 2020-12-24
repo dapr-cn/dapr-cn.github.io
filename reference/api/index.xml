@@ -1,4 +1,4 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – Dapr API reference</title><link>https://dapr-cn.github.io/docs/reference/api/</link><description>Recent content in Dapr API reference on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="https://dapr-cn.github.io/docs/reference/api/index.xml" rel="self" type="application/rss+xml"/><item><title>Reference: Service invocation API reference</title><link>https://dapr-cn.github.io/docs/reference/api/service_invocation_api/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/reference/api/service_invocation_api/</guid><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – Dapr API reference</title><link>https://dapr-cn.github.io/reference/api/</link><description>Recent content in Dapr API reference on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="https://dapr-cn.github.io/reference/api/index.xml" rel="self" type="application/rss+xml"/><item><title>Reference: Service invocation API reference</title><link>https://dapr-cn.github.io/reference/api/service_invocation_api/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/reference/api/service_invocation_api/</guid><description>
 &lt;p>Dapr provides users with the ability to call other applications that have unique ids. This functionality allows apps to interact with one another via named identifiers and puts the burden of service discovery on the Dapr runtime.&lt;/p>
 &lt;h2 id="invoke-a-method-on-a-remote-dapr-app">Invoke a method on a remote dapr app&lt;/h2>
 &lt;p>This endpoint lets you invoke a method in another Dapr enabled app.&lt;/p>
@@ -92,8 +92,8 @@
 &lt;p>In this URL, &lt;code>testing&lt;/code> is the namespace that &lt;code>mathService&lt;/code> is running in.&lt;/p>
 &lt;h2 id="next-steps">Next Steps&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/service-invocation/howto-invoke-discover-services/">How-To: Invoke and discover services&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Reference: State management API reference</title><link>https://dapr-cn.github.io/docs/reference/api/state_api/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/reference/api/state_api/</guid><description>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/service-invocation/howto-invoke-discover-services/">How-To: Invoke and discover services&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Reference: State management API reference</title><link>https://dapr-cn.github.io/reference/api/state_api/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/reference/api/state_api/</guid><description>
 &lt;h2 id="component-file">Component file&lt;/h2>
 &lt;p>A Dapr State Store component yaml file has the following structure:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
@@ -666,9 +666,9 @@
 &lt;/span>&lt;span style="color:#e6db74"> ]&amp;#39;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="next-steps">Next Steps&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/state-management/state-management-overview/">State management overview&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/state-management/howto-get-save-state/">How-To: Save &amp;amp; get state&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Reference: Pub/sub API reference</title><link>https://dapr-cn.github.io/docs/reference/api/pubsub_api/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/reference/api/pubsub_api/</guid><description>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/state-management-overview/">State management overview&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/howto-get-save-state/">How-To: Save &amp;amp; get state&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Reference: Pub/sub API reference</title><link>https://dapr-cn.github.io/reference/api/pubsub_api/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/reference/api/pubsub_api/</guid><description>
 &lt;h2 id="publish-a-message-to-a-given-topic">Publish a message to a given topic&lt;/h2>
 &lt;p>This endpoint lets you publish data to multiple consumers who are listening on a &lt;code>topic&lt;/code>. Dapr guarantees at least once semantics for this endpoint.&lt;/p>
 &lt;h3 id="http-request">HTTP Request&lt;/h3>
@@ -838,9 +838,9 @@
 &lt;p>Dapr Pub/Sub adheres to version 1.0 of Cloud Events.&lt;/p>
 &lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/howto-publish-subscribe/">How to publish to and consume topics&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/">How to publish to and consume topics&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://github.com/dapr/quickstarts/tree/master/pub-sub">Sample for pub/sub&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Reference: Bindings API reference</title><link>https://dapr-cn.github.io/docs/reference/api/bindings_api/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/reference/api/bindings_api/</guid><description>
+&lt;/ul></description></item><item><title>Reference: Bindings API reference</title><link>https://dapr-cn.github.io/reference/api/bindings_api/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/reference/api/bindings_api/</guid><description>
 &lt;p>Dapr provides bi-directional binding capabilities for applications and a consistent approach to interacting with different cloud/on-premise services or systems. Developers can invoke output bindings using the Dapr API, and have the Dapr runtime trigger an application with input bindings.&lt;/p>
 &lt;p>Examples for bindings include &lt;code>Kafka&lt;/code>, &lt;code>Rabbit MQ&lt;/code>, &lt;code>Azure Event Hubs&lt;/code>, &lt;code>AWS SQS&lt;/code>, &lt;code>GCP Storage&lt;/code> to name a few.&lt;/p>
 &lt;h2 id="bindings-structure">Bindings Structure&lt;/h2>
@@ -859,7 +859,7 @@
 &lt;p>If running self hosted locally, place this file in your &lt;code>components&lt;/code> folder next to your state store and message queue yml configurations.&lt;/p>
 &lt;p>If running on kubernetes apply the component to your cluster.&lt;/p>
 &lt;blockquote>
-&lt;p>&lt;strong>Note:&lt;/strong> In production never place passwords or secrets within Dapr component files. For information on securely storing and retrieving secrets using secret stores refer to &lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-secret-store/">Setup Secret Store&lt;/a>&lt;/p>
+&lt;p>&lt;strong>Note:&lt;/strong> In production never place passwords or secrets within Dapr component files. For information on securely storing and retrieving secrets using secret stores refer to &lt;a href="https://dapr-cn.github.io/operations/components/setup-secret-store/">Setup Secret Store&lt;/a>&lt;/p>
 &lt;/blockquote>
 &lt;h2 id="invoking-service-code-through-input-bindings">Invoking Service Code Through Input Bindings&lt;/h2>
 &lt;p>A developer who wants to trigger their app using an input binding can listen on a &lt;code>POST&lt;/code> http endpoint with the route name being the same as &lt;code>metadata.name&lt;/code>.&lt;/p>
@@ -989,7 +989,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 }
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="invoking-output-bindings">Invoking Output Bindings&lt;/h2>
 &lt;p>This endpoint lets you invoke a Dapr output binding. Dapr bindings support various operations, such as &lt;code>create&lt;/code>.&lt;/p>
-&lt;p>See the &lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/">different specs&lt;/a> on each binding to see the list of supported operations.&lt;/p>
+&lt;p>See the &lt;a href="https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/">different specs&lt;/a> on each binding to see the list of supported operations.&lt;/p>
 &lt;h3 id="http-request-2">HTTP Request&lt;/h3>
 &lt;pre>&lt;code>POST/PUT http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/bindings/&amp;lt;name&amp;gt;
 &lt;/code>&lt;/pre>&lt;h3 id="http-response-codes-2">HTTP Response codes&lt;/h3>
@@ -1077,7 +1077,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;td>RabbitMQ, Azure Service Bus, Azure Storage Queue&lt;/td>
 &lt;/tr>
 &lt;/tbody>
-&lt;/table></description></item><item><title>Reference: Actors API reference</title><link>https://dapr-cn.github.io/docs/reference/api/actors_api/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/reference/api/actors_api/</guid><description>
+&lt;/table></description></item><item><title>Reference: Actors API reference</title><link>https://dapr-cn.github.io/reference/api/actors_api/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/reference/api/actors_api/</guid><description>
 &lt;p>Dapr provides native, cross-platform and cross-language virtual actor capabilities. Besides the language specific Dapr SDKs, a developer can invoke an actor using the API endpoints below.&lt;/p>
 &lt;h2 id="user-service-code-calling-dapr">User service code calling dapr&lt;/h2>
 &lt;h3 id="invoke-actor-method">Invoke actor method&lt;/h3>
@@ -2006,7 +2006,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;li>Key - A key for the specific state value. An actor ID can hold multiple state keys.&lt;/li>
 &lt;/ul>
 &lt;p>The following example shows how to construct a key for the state of an actor instance under the &lt;code>myapp&lt;/code> App ID namespace: &lt;code>myapp-cat-hobbit-food&lt;/code>&lt;/p>
-&lt;p>In the example above, we are getting the value for the state key &lt;code>food&lt;/code>, for the actor ID &lt;code>hobbit&lt;/code> with an actor type of &lt;code>cat&lt;/code>, under the App ID namespace of &lt;code>myapp&lt;/code>.&lt;/p></description></item><item><title>Reference: Secrets API reference</title><link>https://dapr-cn.github.io/docs/reference/api/secrets_api/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/reference/api/secrets_api/</guid><description>
+&lt;p>In the example above, we are getting the value for the state key &lt;code>food&lt;/code>, for the actor ID &lt;code>hobbit&lt;/code> with an actor type of &lt;code>cat&lt;/code>, under the App ID namespace of &lt;code>myapp&lt;/code>.&lt;/p></description></item><item><title>Reference: Secrets API reference</title><link>https://dapr-cn.github.io/reference/api/secrets_api/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/reference/api/secrets_api/</guid><description>
 &lt;h2 id="get-secret">Get Secret&lt;/h2>
 &lt;p>This endpoint lets you get the value of a secret for a given secret store.&lt;/p>
 &lt;h3 id="http-request">HTTP Request&lt;/h3>
@@ -2125,7 +2125,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;p>Note, in case of deploying into namespace other than default&lt;code>, the above query will also have to include the namespace metadata (e.g.&lt;/code>production` below)&lt;/p>
 &lt;/blockquote>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl http://localhost:3500/v1.0/secrets/vault/db-secret?metadata.version_id&lt;span style="color:#f92672">=&lt;/span>15&amp;amp;?metadata.namespace&lt;span style="color:#f92672">=&lt;/span>production
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: Health API reference</title><link>https://dapr-cn.github.io/docs/reference/api/health_api/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/reference/api/health_api/</guid><description>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: Health API reference</title><link>https://dapr-cn.github.io/reference/api/health_api/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/reference/api/health_api/</guid><description>
 &lt;p>Dapr provides health checking probes that can be used as readiness or liveness of Dapr.&lt;/p>
 &lt;h2 id="get-dapr-health-state">Get Dapr health state&lt;/h2>
 &lt;p>Gets the health state for Dapr.&lt;/p>
@@ -2167,7 +2167,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;/table>
 &lt;h3 id="examples">Examples&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl http://localhost:3500/v1.0/healthz
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: Error codes returned by APIs</title><link>https://dapr-cn.github.io/docs/reference/api/error_codes/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/reference/api/error_codes/</guid><description>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: Error codes returned by APIs</title><link>https://dapr-cn.github.io/reference/api/error_codes/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/reference/api/error_codes/</guid><description>
 &lt;p>For http calls made to Dapr runtime, when an error is encountered, an error json is returned in http response body. The json contains an error code and an descriptive error message, e.g.&lt;/p>
 &lt;pre>&lt;code>{
 &amp;quot;errorCode&amp;quot;: &amp;quot;ERR_STATE_GET&amp;quot;,

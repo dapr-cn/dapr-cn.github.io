@@ -1,4 +1,4 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – Dapr CLI reference</title><link>https://dapr-cn.github.io/docs/reference/cli/</link><description>Recent content in Dapr CLI reference on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="https://dapr-cn.github.io/docs/reference/cli/index.xml" rel="self" type="application/rss+xml"/><item><title>Reference: Dapr command line interface (CLI) reference</title><link>https://dapr-cn.github.io/docs/reference/cli/cli-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/reference/cli/cli-overview/</guid><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – Dapr CLI reference</title><link>https://dapr-cn.github.io/reference/cli/</link><description>Recent content in Dapr CLI reference on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="https://dapr-cn.github.io/reference/cli/index.xml" rel="self" type="application/rss+xml"/><item><title>Reference: Dapr command line interface (CLI) reference</title><link>https://dapr-cn.github.io/reference/cli/cli-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/reference/cli/cli-overview/</guid><description>
 &lt;p>The Dapr CLI allows you to setup Dapr on your local dev machine or on a Kubernetes cluster, provides debugging support, and launches and manages Dapr instances.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">
 ____/ /___ _____ _____
@@ -33,24 +33,24 @@ Use &lt;span style="color:#e6db74">&amp;#34;dapr [command] --help&amp;#34;&lt;/s
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="command-reference">Command Reference&lt;/h2>
 &lt;p>You can learn more about each Dapr command from the links below.&lt;/p>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/cli/dapr-completion/">&lt;code>dapr completion&lt;/code>&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/cli/dapr-components/">&lt;code>dapr components&lt;/code>&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/cli/dapr-configurations/">&lt;code>dapr configurations&lt;/code>&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/cli/dapr-dashboard/">&lt;code>dapr dashboard&lt;/code>&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/cli/dapr-help/">&lt;code>dapr help&lt;/code>&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/cli/dapr-init/">&lt;code>dapr init&lt;/code>&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/cli/dapr-invoke/">&lt;code>dapr invoke&lt;/code>&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/cli/dapr-list/">&lt;code>dapr list&lt;/code>&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/cli/dapr-logs/">&lt;code>dapr logs&lt;/code>&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/cli/dapr-mtls/">&lt;code>dapr mtls&lt;/code>&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/cli/dapr-publish/">&lt;code>dapr publish&lt;/code>&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/cli/dapr-run/">&lt;code>dapr run&lt;/code>&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/cli/dapr-status/">&lt;code>dapr status&lt;/code>&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/cli/dapr-stop/">&lt;code>dapr stop&lt;/code>&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/cli/dapr-uninstall/">&lt;code>dapr uninstall&lt;/code>&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/cli/dapr-completion/">&lt;code>dapr completion&lt;/code>&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/cli/dapr-components/">&lt;code>dapr components&lt;/code>&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/cli/dapr-configurations/">&lt;code>dapr configurations&lt;/code>&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/cli/dapr-dashboard/">&lt;code>dapr dashboard&lt;/code>&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/cli/dapr-help/">&lt;code>dapr help&lt;/code>&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/cli/dapr-init/">&lt;code>dapr init&lt;/code>&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/cli/dapr-invoke/">&lt;code>dapr invoke&lt;/code>&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/cli/dapr-list/">&lt;code>dapr list&lt;/code>&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/cli/dapr-logs/">&lt;code>dapr logs&lt;/code>&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/cli/dapr-mtls/">&lt;code>dapr mtls&lt;/code>&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/cli/dapr-publish/">&lt;code>dapr publish&lt;/code>&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/cli/dapr-run/">&lt;code>dapr run&lt;/code>&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/cli/dapr-status/">&lt;code>dapr status&lt;/code>&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/cli/dapr-stop/">&lt;code>dapr stop&lt;/code>&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/cli/dapr-uninstall/">&lt;code>dapr uninstall&lt;/code>&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h2 id="environment-variables">Environment Variables&lt;/h2>
-&lt;p>Some Dapr flags can be set via environment variables (e.g. &lt;code>DAPR_NETWORK&lt;/code> for the &lt;code>--network&lt;/code> flag of the &lt;code>dapr init&lt;/code> command). Note that specifying the flag on the command line overrides any set environment variable.&lt;/p></description></item><item><title>Reference: completion CLI command reference</title><link>https://dapr-cn.github.io/docs/reference/cli/dapr-completion/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/reference/cli/dapr-completion/</guid><description>
+&lt;p>Some Dapr flags can be set via environment variables (e.g. &lt;code>DAPR_NETWORK&lt;/code> for the &lt;code>--network&lt;/code> flag of the &lt;code>dapr init&lt;/code> command). Note that specifying the flag on the command line overrides any set environment variable.&lt;/p></description></item><item><title>Reference: completion CLI command reference</title><link>https://dapr-cn.github.io/reference/cli/dapr-completion/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/reference/cli/dapr-completion/</guid><description>
 &lt;h2 id="description">Description&lt;/h2>
 &lt;p>Generates shell completion scripts&lt;/p>
 &lt;h2 id="usage">Usage&lt;/h2>
@@ -113,12 +113,12 @@ source ~/.zshrc
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-txt" data-lang="txt">bash Generates bash completion scripts
 powershell Generates powershell completion scripts
 zsh Generates zsh completion scripts
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: components CLI command reference</title><link>https://dapr-cn.github.io/docs/reference/cli/dapr-components/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/reference/cli/dapr-components/</guid><description>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: components CLI command reference</title><link>https://dapr-cn.github.io/reference/cli/dapr-components/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/reference/cli/dapr-components/</guid><description>
 &lt;h2 id="description">Description&lt;/h2>
 &lt;p>List all Dapr components.&lt;/p>
 &lt;h2 id="supported-platforms">Supported platforms&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/operations/hosting/kubernetes/">Kubernetes&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/operations/hosting/kubernetes/">Kubernetes&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h2 id="usage">Usage&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr components &lt;span style="color:#f92672">[&lt;/span>flags&lt;span style="color:#f92672">]&lt;/span>
@@ -150,12 +150,12 @@ zsh Generates zsh completion scripts
 &lt;h2 id="examples">Examples&lt;/h2>
 &lt;h3 id="list-kubernetes-components">List Kubernetes components&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr components -k
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: configurations CLI command reference</title><link>https://dapr-cn.github.io/docs/reference/cli/dapr-configurations/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/reference/cli/dapr-configurations/</guid><description>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: configurations CLI command reference</title><link>https://dapr-cn.github.io/reference/cli/dapr-configurations/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/reference/cli/dapr-configurations/</guid><description>
 &lt;h2 id="description">Description&lt;/h2>
 &lt;p>List all Dapr configurations.&lt;/p>
 &lt;h2 id="supported-platforms">Supported platforms&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/operations/hosting/kubernetes/">Kubernetes&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/operations/hosting/kubernetes/">Kubernetes&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h2 id="usage">Usage&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr configurations &lt;span style="color:#f92672">[&lt;/span>flags&lt;span style="color:#f92672">]&lt;/span>
@@ -199,13 +199,13 @@ zsh Generates zsh completion scripts
 &lt;h2 id="examples">Examples&lt;/h2>
 &lt;h3 id="list-kubernetes-dapr-configurations">List Kubernetes Dapr configurations&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr configurations -k
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: dashboard CLI command reference</title><link>https://dapr-cn.github.io/docs/reference/cli/dapr-dashboard/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/reference/cli/dapr-dashboard/</guid><description>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: dashboard CLI command reference</title><link>https://dapr-cn.github.io/reference/cli/dapr-dashboard/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/reference/cli/dapr-dashboard/</guid><description>
 &lt;h2 id="description">Description&lt;/h2>
 &lt;p>Start &lt;a href="https://github.com/dapr/dashboard">Dapr dashboard&lt;/a>.&lt;/p>
 &lt;h2 id="supported-platforms">Supported platforms&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/operations/hosting/self-hosted/">Self-Hosted&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/operations/hosting/kubernetes/">Kubernetes&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/operations/hosting/self-hosted/">Self-Hosted&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/operations/hosting/kubernetes/">Kubernetes&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h2 id="usage">Usage&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr dashboard &lt;span style="color:#f92672">[&lt;/span>flags&lt;span style="color:#f92672">]&lt;/span>
@@ -261,7 +261,7 @@ zsh Generates zsh completion scripts
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr dashboard -k
 &lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="port-forward-to-dashboard-service-running-in-kubernetes-on-a-specified-port">Port forward to dashboard service running in Kubernetes on a specified port&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr dashboard -k -p &lt;span style="color:#ae81ff">9999&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: help CLI command reference</title><link>https://dapr-cn.github.io/docs/reference/cli/dapr-help/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/reference/cli/dapr-help/</guid><description>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: help CLI command reference</title><link>https://dapr-cn.github.io/reference/cli/dapr-help/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/reference/cli/dapr-help/</guid><description>
 &lt;h2 id="description">Description&lt;/h2>
 &lt;p>Help provides help for any command in the application.&lt;/p>
 &lt;h2 id="usage">Usage&lt;/h2>
@@ -284,13 +284,13 @@ zsh Generates zsh completion scripts
 &lt;td>Prints this help message&lt;/td>
 &lt;/tr>
 &lt;/tbody>
-&lt;/table></description></item><item><title>Reference: init CLI command reference</title><link>https://dapr-cn.github.io/docs/reference/cli/dapr-init/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/reference/cli/dapr-init/</guid><description>
+&lt;/table></description></item><item><title>Reference: init CLI command reference</title><link>https://dapr-cn.github.io/reference/cli/dapr-init/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/reference/cli/dapr-init/</guid><description>
 &lt;h2 id="description">Description&lt;/h2>
 &lt;p>Install Dapr on supported hosting platforms.&lt;/p>
 &lt;h2 id="supported-platforms">Supported platforms&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/operations/hosting/self-hosted/">Self-Hosted&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/operations/hosting/kubernetes/">Kubernetes&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/operations/hosting/self-hosted/">Self-Hosted&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/operations/hosting/kubernetes/">Kubernetes&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h2 id="usage">Usage&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr init &lt;span style="color:#f92672">[&lt;/span>flags&lt;span style="color:#f92672">]&lt;/span>
@@ -364,14 +364,14 @@ zsh Generates zsh completion scripts
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr init --runtime-version 0.10.0
 &lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="initialize-specified-version-of-dapr-runtime-in-kubernetes">Initialize specified version of Dapr runtime in Kubernetes&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr init -k --runtime-version 0.10.0
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="initialize-dapr-in-slim-self-hosted-modehahahugoshortcode-s2-hbhb">Initialize Dapr in &lt;a href="https://dapr-cn.github.io/docs/operations/hosting/self-hosted/self-hosted-no-docker/">slim self-hosted mode&lt;/a>&lt;/h3>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="initialize-dapr-in-slim-self-hosted-modehahahugoshortcode-s2-hbhb">Initialize Dapr in &lt;a href="https://dapr-cn.github.io/operations/hosting/self-hosted/self-hosted-no-docker/">slim self-hosted mode&lt;/a>&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr init -s
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: invoke CLI command reference</title><link>https://dapr-cn.github.io/docs/reference/cli/dapr-invoke/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/reference/cli/dapr-invoke/</guid><description>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: invoke CLI command reference</title><link>https://dapr-cn.github.io/reference/cli/dapr-invoke/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/reference/cli/dapr-invoke/</guid><description>
 &lt;h2 id="description">Description&lt;/h2>
 &lt;p>Invoke a method on a given Dapr application.&lt;/p>
 &lt;h2 id="supported-platforms">Supported platforms&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/operations/hosting/self-hosted/">Self-Hosted&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/operations/hosting/self-hosted/">Self-Hosted&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h2 id="usage">Usage&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr invoke &lt;span style="color:#f92672">[&lt;/span>flags&lt;span style="color:#f92672">]&lt;/span>
@@ -423,13 +423,13 @@ zsh Generates zsh completion scripts
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr invoke --app-id target --method sample --data &lt;span style="color:#e6db74">&amp;#39;{&amp;#34;key&amp;#34;:&amp;#34;value&amp;#34;}&amp;#39;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="invoke-a-sample-method-on-target-app-with-get-verb">Invoke a sample method on target app with GET Verb&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr invoke --app-id target --method sample --verb GET
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: list CLI command reference</title><link>https://dapr-cn.github.io/docs/reference/cli/dapr-list/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/reference/cli/dapr-list/</guid><description>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: list CLI command reference</title><link>https://dapr-cn.github.io/reference/cli/dapr-list/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/reference/cli/dapr-list/</guid><description>
 &lt;h2 id="description">Description&lt;/h2>
 &lt;p>List all Dapr instances.&lt;/p>
 &lt;h2 id="supported-platforms">Supported platforms&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/operations/hosting/self-hosted/">Self-Hosted&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/operations/hosting/kubernetes/">Kubernetes&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/operations/hosting/self-hosted/">Self-Hosted&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/operations/hosting/kubernetes/">Kubernetes&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h2 id="usage">Usage&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr list &lt;span style="color:#f92672">[&lt;/span>flags&lt;span style="color:#f92672">]&lt;/span>
@@ -463,12 +463,12 @@ zsh Generates zsh completion scripts
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr list
 &lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="list-dapr-instances-in-kubernetes-mode">List Dapr instances in Kubernetes mode&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr list -k
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: logs CLI command reference</title><link>https://dapr-cn.github.io/docs/reference/cli/dapr-logs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/reference/cli/dapr-logs/</guid><description>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: logs CLI command reference</title><link>https://dapr-cn.github.io/reference/cli/dapr-logs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/reference/cli/dapr-logs/</guid><description>
 &lt;h2 id="description">Description&lt;/h2>
 &lt;p>Get Dapr sidecar logs for an application.&lt;/p>
 &lt;h2 id="supported-platforms">Supported platforms&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/operations/hosting/kubernetes/">Kubernetes&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/operations/hosting/kubernetes/">Kubernetes&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h2 id="usage">Usage&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr logs &lt;span style="color:#f92672">[&lt;/span>flags&lt;span style="color:#f92672">]&lt;/span>
@@ -518,12 +518,12 @@ zsh Generates zsh completion scripts
 &lt;h2 id="examples">Examples&lt;/h2>
 &lt;h3 id="get-logs-of-sample-app-from-target-pod-in-custom-namespace">Get logs of sample app from target pod in custom namespace&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr logs -k --app-id sample --pod-name target --namespace custom
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: mtls CLI command reference</title><link>https://dapr-cn.github.io/docs/reference/cli/dapr-mtls/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/reference/cli/dapr-mtls/</guid><description>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: mtls CLI command reference</title><link>https://dapr-cn.github.io/reference/cli/dapr-mtls/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/reference/cli/dapr-mtls/</guid><description>
 &lt;h2 id="description">Description&lt;/h2>
 &lt;p>Check if mTLS is enabled.&lt;/p>
 &lt;h2 id="supported-platforms">Supported platforms&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/operations/hosting/kubernetes/">Kubernetes&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/operations/hosting/kubernetes/">Kubernetes&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h2 id="usage">Usage&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr mtls &lt;span style="color:#f92672">[&lt;/span>flags&lt;span style="color:#f92672">]&lt;/span>
@@ -559,18 +559,18 @@ export Export the root CA, issuer cert and key from Kubernetes to local files
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="command-reference">Command Reference&lt;/h2>
 &lt;p>You can learn more about each sub command from the links below.&lt;/p>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/cli/dapr-mtls/dapr-mtls-expiry/">&lt;code>dapr mtls expiry&lt;/code>&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/cli/dapr-mtls/dapr-mtls-export/">&lt;code>dapr mtls export&lt;/code>&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/cli/dapr-mtls/dapr-mtls-expiry/">&lt;code>dapr mtls expiry&lt;/code>&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/cli/dapr-mtls/dapr-mtls-export/">&lt;code>dapr mtls export&lt;/code>&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h2 id="examples">Examples&lt;/h2>
 &lt;h3 id="check-if-mtls-is-enabled">Check if mTLS is enabled&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr mtls -k
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: publish CLI command reference</title><link>https://dapr-cn.github.io/docs/reference/cli/dapr-publish/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/reference/cli/dapr-publish/</guid><description>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: publish CLI command reference</title><link>https://dapr-cn.github.io/reference/cli/dapr-publish/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/reference/cli/dapr-publish/</guid><description>
 &lt;h2 id="description">Description&lt;/h2>
 &lt;p>Publish a pub-sub event.&lt;/p>
 &lt;h2 id="supported-platforms">Supported platforms&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/operations/hosting/self-hosted/">Self-Hosted&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/operations/hosting/self-hosted/">Self-Hosted&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h2 id="usage">Usage&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr publish &lt;span style="color:#f92672">[&lt;/span>flags&lt;span style="color:#f92672">]&lt;/span>
@@ -620,12 +620,12 @@ export Export the root CA, issuer cert and key from Kubernetes to local files
 &lt;h2 id="examples">Examples&lt;/h2>
 &lt;h3 id="publish-to-sample-topic-in-target-pubsub">Publish to sample topic in target pubsub&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr publish --publish-app-id appId --topic sample --pubsub target --data &lt;span style="color:#e6db74">&amp;#39;{&amp;#34;key&amp;#34;:&amp;#34;value&amp;#34;}&amp;#39;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: run CLI command reference</title><link>https://dapr-cn.github.io/docs/reference/cli/dapr-run/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/reference/cli/dapr-run/</guid><description>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: run CLI command reference</title><link>https://dapr-cn.github.io/reference/cli/dapr-run/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/reference/cli/dapr-run/</guid><description>
 &lt;h2 id="description">Description&lt;/h2>
 &lt;p>Run Dapr and (optionally) your application side by side.&lt;/p>
 &lt;h2 id="supported-platforms">Supported platforms&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/operations/hosting/self-hosted/">Self-Hosted&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/operations/hosting/self-hosted/">Self-Hosted&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h2 id="usage">Usage&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr run &lt;span style="color:#f92672">[&lt;/span>flags&lt;span style="color:#f92672">]&lt;/span> &lt;span style="color:#f92672">[&lt;/span>command&lt;span style="color:#f92672">]&lt;/span>
@@ -743,12 +743,12 @@ export Export the root CA, issuer cert and key from Kubernetes to local files
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr run --app-id myapp -- python myapp.py
 &lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="run-sidecar-only">Run sidecar only&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr run --app-id myapp
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: status CLI command reference</title><link>https://dapr-cn.github.io/docs/reference/cli/dapr-status/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/reference/cli/dapr-status/</guid><description>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: status CLI command reference</title><link>https://dapr-cn.github.io/reference/cli/dapr-status/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/reference/cli/dapr-status/</guid><description>
 &lt;h2 id="description">Description&lt;/h2>
 &lt;p>Show the health status of Dapr services.&lt;/p>
 &lt;h2 id="supported-platforms">Supported platforms&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/operations/hosting/kubernetes/">Kubernetes&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/operations/hosting/kubernetes/">Kubernetes&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h2 id="usage">Usage&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr status -k
@@ -780,12 +780,12 @@ export Export the root CA, issuer cert and key from Kubernetes to local files
 &lt;h2 id="examples">Examples&lt;/h2>
 &lt;h3 id="get-status-of-dapr-services-from-kubernetes">Get status of Dapr services from Kubernetes&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr status -k
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: stop CLI command reference</title><link>https://dapr-cn.github.io/docs/reference/cli/dapr-stop/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/reference/cli/dapr-stop/</guid><description>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: stop CLI command reference</title><link>https://dapr-cn.github.io/reference/cli/dapr-stop/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/reference/cli/dapr-stop/</guid><description>
 &lt;h2 id="description">Description&lt;/h2>
 &lt;p>Stop Dapr instances and their associated apps.&lt;/p>
 &lt;h2 id="supported-platforms">Supported platforms&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/operations/hosting/self-hosted/">Self-Hosted&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/operations/hosting/self-hosted/">Self-Hosted&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h2 id="usage">Usage&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr stop &lt;span style="color:#f92672">[&lt;/span>flags&lt;span style="color:#f92672">]&lt;/span>
@@ -817,13 +817,13 @@ export Export the root CA, issuer cert and key from Kubernetes to local files
 &lt;h2 id="examples">Examples&lt;/h2>
 &lt;h3 id="stop-dapr-application">Stop Dapr application&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr stop --app-id &amp;lt;ID&amp;gt;
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: uninstall CLI command reference</title><link>https://dapr-cn.github.io/docs/reference/cli/dapr-uninstall/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/reference/cli/dapr-uninstall/</guid><description>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: uninstall CLI command reference</title><link>https://dapr-cn.github.io/reference/cli/dapr-uninstall/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/reference/cli/dapr-uninstall/</guid><description>
 &lt;h2 id="description">Description&lt;/h2>
 &lt;p>Uninstall Dapr runtime.&lt;/p>
 &lt;h2 id="supported-platforms">Supported platforms&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/operations/hosting/self-hosted/">Self-Hosted&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/operations/hosting/kubernetes/">Kubernetes&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/operations/hosting/self-hosted/">Self-Hosted&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/operations/hosting/kubernetes/">Kubernetes&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h2 id="usage">Usage&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr uninstall &lt;span style="color:#f92672">[&lt;/span>flags&lt;span style="color:#f92672">]&lt;/span>

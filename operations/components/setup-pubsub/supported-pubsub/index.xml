@@ -1,4 +1,4 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – Supported pub/sub components</title><link>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/</link><description>Recent content in Supported pub/sub components on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: Redis Streams</title><link>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/setup-redis-pubsub/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/setup-redis-pubsub/</guid><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – Supported pub/sub components</title><link>https://dapr-cn.github.io/operations/components/setup-pubsub/supported-pubsub/</link><description>Recent content in Supported pub/sub components on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="https://dapr-cn.github.io/operations/components/setup-pubsub/supported-pubsub/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: Redis Streams</title><link>https://dapr-cn.github.io/operations/components/setup-pubsub/supported-pubsub/setup-redis-pubsub/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-pubsub/supported-pubsub/setup-redis-pubsub/</guid><description>
 &lt;h2 id="setup-a-redis-instance">Setup a Redis instance&lt;/h2>
 &lt;p>Dapr can use any Redis instance - containerized, running on your local dev machine, or a managed cloud service, provided the version of Redis is 5.0.0 or later. If you already have a Redis instance &amp;gt; 5.0.0 installed, move on to the &lt;a href="#configuration">Configuration&lt;/a> section.&lt;/p>
 &lt;ul class="nav nav-tabs" id="tabs-0" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
@@ -96,18 +96,18 @@ helm install redis bitnami/redis
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="apply-the-configuration">Apply the configuration&lt;/h2>
 &lt;div class="alert alert-primary" role="alert">
 &lt;h4 class="alert-heading">Note&lt;/h4>
 The Dapr CLI automatically deploys a redis instance and creates Dapr components as part of the &lt;code>dapr init&lt;/code> command.
 &lt;/div>
-&lt;p>Visit &lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components.&lt;/p>
+&lt;p>Visit &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components.&lt;/p>
 &lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Apache Kafka</title><link>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/setup-apache-kafka/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/setup-apache-kafka/</guid><description>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Apache Kafka</title><link>https://dapr-cn.github.io/operations/components/setup-pubsub/supported-pubsub/setup-apache-kafka/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-pubsub/supported-pubsub/setup-apache-kafka/</guid><description>
 &lt;h2 id="setup-kafka">Setup Kafka&lt;/h2>
 &lt;ul class="nav nav-tabs" id="tabs-0" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
 id="tabs-0-self-hosted-tab" data-toggle="tab" href="#tabs-0-self-hosted" role="tab"
@@ -156,14 +156,14 @@ Kubernetes
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="apply-the-configuration">Apply the configuration&lt;/h2>
-&lt;p>Visit &lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components.&lt;/p>
+&lt;p>Visit &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components.&lt;/p>
 &lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: AWS SNS/SQS</title><link>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/setup-aws-snssqs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/setup-aws-snssqs/</guid><description>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: AWS SNS/SQS</title><link>https://dapr-cn.github.io/operations/components/setup-pubsub/supported-pubsub/setup-aws-snssqs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-pubsub/supported-pubsub/setup-aws-snssqs/</guid><description>
 &lt;p>This article describes configuring Dapr to use AWS SNS/SQS for pub/sub on local and Kubernetes environments.&lt;/p>
 &lt;h2 id="setup-snssqs">Setup SNS/SQS&lt;/h2>
 &lt;ul class="nav nav-tabs" id="tabs-0" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
@@ -186,7 +186,7 @@ AWS
 &lt;div class="tab-pane fade show active" id="tabs-0-self-hosted" role="tabpanel" aria-labelled-by="tabs-0-self-hosted-tab">
 &lt;br />&lt;p>For local development the &lt;a href="https://github.com/localstack/localstack">localstack project&lt;/a> is used to integrate AWS SNS/SQS. Follow the instructions &lt;a href="https://github.com/localstack/localstack#installing">here&lt;/a> to install the localstack CLI.&lt;/p>
 &lt;p>In order to use localstack with your pubsub binding, you need to provide the &lt;code>endpoint&lt;/code> configuration in the component metadata. The &lt;code>endpoint&lt;/code> is unncessary when running against production AWS.&lt;/p>
-&lt;p>See &lt;a href="https://dapr-cn.github.io/docs/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a> for information about authentication-related attributes&lt;/p>
+&lt;p>See &lt;a href="https://dapr-cn.github.io/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a> for information about authentication-related attributes&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -271,18 +271,18 @@ AWS
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="apply-the-configuration">Apply the configuration&lt;/h2>
-&lt;p>Visit &lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components.&lt;/p>
+&lt;p>Visit &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components.&lt;/p>
 &lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.aws.amazon.com/sns/latest/dg/sns-sqs-as-subscriber.html">AWS SQS as subscriber to SNS&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.aws.amazon.com/sns/latest/api/Welcome.html">AWS SNS API refernce&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/Welcome.html">AWS SQS API refernce&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Azure Events Hub</title><link>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/setup-azure-eventhubs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/setup-azure-eventhubs/</guid><description>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Azure Events Hub</title><link>https://dapr-cn.github.io/operations/components/setup-pubsub/supported-pubsub/setup-azure-eventhubs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-pubsub/supported-pubsub/setup-azure-eventhubs/</guid><description>
 &lt;h2 id="setup-azure-event-hubs">Setup Azure Event Hubs&lt;/h2>
 &lt;p>Follow the instructions &lt;a href="https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-create">here&lt;/a> on setting up Azure Event Hubs. Since this implementation uses the Event Processor Host, you will also need an &lt;a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-account-create?tabs=azure-portal">Azure Storage Account&lt;/a>.&lt;/p>
 &lt;h2 id="create-a-dapr-component">Create a Dapr component&lt;/h2>
@@ -308,16 +308,16 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>See &lt;a href="https://docs.microsoft.com/en-us/azure/event-hubs/authorize-access-shared-access-signature">here&lt;/a> on how to get the Event Hubs connection string. Note this is not the Event Hubs namespace.&lt;/p>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="create-consumer-groups-for-each-subscriber">Create consumer groups for each subscriber&lt;/h2>
 &lt;p>For every Dapr app that wants to subscribe to events, create an Event Hubs consumer group with the name of the &lt;code>dapr id&lt;/code>. For example, a Dapr app running on Kubernetes with &lt;code>dapr.io/app-id: &amp;quot;myapp&amp;quot;&lt;/code> will need an Event Hubs consumer group named &lt;code>myapp&lt;/code>.&lt;/p>
 &lt;h2 id="apply-the-configuration">Apply the configuration&lt;/h2>
-&lt;p>Visit &lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components.&lt;/p>
+&lt;p>Visit &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components.&lt;/p>
 &lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Azure Service Bus</title><link>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/setup-azure-servicebus/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/setup-azure-servicebus/</guid><description>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Azure Service Bus</title><link>https://dapr-cn.github.io/operations/components/setup-pubsub/supported-pubsub/setup-azure-servicebus/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-pubsub/supported-pubsub/setup-azure-servicebus/</guid><description>
 &lt;h2 id="setup-azure-service-bus">Setup Azure Service Bus&lt;/h2>
 &lt;p>Follow the instructions &lt;a href="https://docs.microsoft.com/en-us/azure/service-bus-messaging/service-bus-quickstart-topics-subscriptions-portal">here&lt;/a> on setting up Azure Service Bus Topics.&lt;/p>
 &lt;h2 id="create-a-dapr-component">Create a Dapr component&lt;/h2>
@@ -363,14 +363,14 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/blockquote>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="apply-the-configuration">Apply the configuration&lt;/h2>
-&lt;p>Visit &lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components.&lt;/p>
+&lt;p>Visit &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components.&lt;/p>
 &lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: GCP Pub/Sub</title><link>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/setup-gcp/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/setup-gcp/</guid><description>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: GCP Pub/Sub</title><link>https://dapr-cn.github.io/operations/components/setup-pubsub/supported-pubsub/setup-gcp/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-pubsub/supported-pubsub/setup-gcp/</guid><description>
 &lt;h2 id="setup-gcp-pubsub">Setup GCP Pub/Sub&lt;/h2>
 &lt;p>Follow the instructions &lt;a href="https://cloud.google.com/pubsub/docs/quickstart-console">here&lt;/a> on setting up Google Cloud Pub/Sub system.&lt;/p>
 &lt;h2 id="create-a-dapr-component">Create a Dapr component&lt;/h2>
@@ -425,14 +425,14 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/ul>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="apply-the-configuration">Apply the configuration&lt;/h2>
-&lt;p>Visit &lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components.&lt;/p>
+&lt;p>Visit &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components.&lt;/p>
 &lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Hazelcast</title><link>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/setup-hazelcast/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/setup-hazelcast/</guid><description>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Hazelcast</title><link>https://dapr-cn.github.io/operations/components/setup-pubsub/supported-pubsub/setup-hazelcast/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-pubsub/supported-pubsub/setup-hazelcast/</guid><description>
 &lt;h2 id="setup-hazelcast">Setup Hazelcast&lt;/h2>
 &lt;ul class="nav nav-tabs" id="tabs-0" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
 id="tabs-0-self-hosted-tab" data-toggle="tab" href="#tabs-0-self-hosted" role="tab"
@@ -472,14 +472,14 @@ Kubernetes
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="apply-the-configuration">Apply the configuration&lt;/h2>
-&lt;p>Visit &lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components.&lt;/p>
+&lt;p>Visit &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components.&lt;/p>
 &lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: MQTT</title><link>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/setup-mqtt/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/setup-mqtt/</guid><description>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: MQTT</title><link>https://dapr-cn.github.io/operations/components/setup-pubsub/supported-pubsub/setup-mqtt/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-pubsub/supported-pubsub/setup-mqtt/</guid><description>
 &lt;h2 id="setup-mqtt">Setup MQTT&lt;/h2>
 &lt;ul class="nav nav-tabs" id="tabs-0" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
 id="tabs-0-self-hosted-tab" data-toggle="tab" href="#tabs-0-self-hosted" role="tab"
@@ -605,14 +605,14 @@ Kubernetes
 &lt;/ul>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="apply-the-configuration">Apply the configuration&lt;/h2>
-&lt;p>Visit &lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components.&lt;/p>
+&lt;p>Visit &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components.&lt;/p>
 &lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: NATS streaming</title><link>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/setup-nats-streaming/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/setup-nats-streaming/</guid><description>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: NATS streaming</title><link>https://dapr-cn.github.io/operations/components/setup-pubsub/supported-pubsub/setup-nats-streaming/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-pubsub/supported-pubsub/setup-nats-streaming/</guid><description>
 &lt;h2 id="setup-nats">Setup NATS&lt;/h2>
 &lt;ul class="nav nav-tabs" id="tabs-0" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
 id="tabs-0-self-hosted-tab" data-toggle="tab" href="#tabs-0-self-hosted" role="tab"
@@ -684,14 +684,14 @@ kubectl apply -f https://raw.githubusercontent.com/nats-io/k8s/master/nats-strea
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="apply-the-configuration">Apply the configuration&lt;/h2>
-&lt;p>Visit &lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components.&lt;/p>
+&lt;p>Visit &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components.&lt;/p>
 &lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Pulsar</title><link>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/setup-pulsar/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/setup-pulsar/</guid><description>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Pulsar</title><link>https://dapr-cn.github.io/operations/components/setup-pubsub/supported-pubsub/setup-pulsar/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-pubsub/supported-pubsub/setup-pulsar/</guid><description>
 &lt;h2 id="setup-pulsar">Setup Pulsar&lt;/h2>
 &lt;ul class="nav nav-tabs" id="tabs-0" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
 id="tabs-0-self-hosted-tab" data-toggle="tab" href="#tabs-0-self-hosted" role="tab"
@@ -735,11 +735,11 @@ bin/pulsar standalone
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">enableTLS&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;TRUE/FALSE&amp;gt;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="apply-the-configuration">Apply the configuration&lt;/h2>
-&lt;p>Visit &lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components.&lt;/p>
+&lt;p>Visit &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components.&lt;/p>
 &lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: RabbitMQ</title><link>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/setup-rabbitmq/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/setup-rabbitmq/</guid><description>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: RabbitMQ</title><link>https://dapr-cn.github.io/operations/components/setup-pubsub/supported-pubsub/setup-rabbitmq/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-pubsub/supported-pubsub/setup-rabbitmq/</guid><description>
 &lt;h2 id="setup-rabbitmq">Setup RabbitMQ&lt;/h2>
 &lt;ul class="nav nav-tabs" id="tabs-0" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
 id="tabs-0-self-hosted-tab" data-toggle="tab" href="#tabs-0-self-hosted" role="tab"
@@ -794,11 +794,11 @@ Kubernetes
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="apply-the-configuration">Apply the configuration&lt;/h2>
-&lt;p>Visit &lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components.&lt;/p>
+&lt;p>Visit &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components.&lt;/p>
 &lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
 &lt;/ul></description></item></channel></rss>
