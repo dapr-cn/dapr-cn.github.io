@@ -1,0 +1,124 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – Pub/Sub brokers</title><link>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/</link><description>Recent content in Pub/Sub brokers on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="https://dapr-cn.github.io/docs/operations/components/setup-pubsub/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: Overview</title><link>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/setup-pubsub-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/setup-pubsub-overview/</guid><description>
+&lt;p>Dapr integrates with pub/sub message buses to provide apps with the ability to create event-driven, loosely coupled architectures where producers send events to consumers via topics. It supports the configuration of multiple, named, pub/sub components &lt;em>per application&lt;/em>. Each pub/sub component has a name and this name is used when publishing a message topic&lt;/p>
+&lt;p>Pub/Sub message buses are extensible and can be found in the &lt;a href="https://github.com/dapr/components-contrib">components-contrib repo&lt;/a>.&lt;/p>
+&lt;p>A pub/sub in Dapr is described using a &lt;code>Component&lt;/code> file:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">pubsub&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">pubsub.&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;KEY&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;VALUE&amp;gt;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;KEY&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;VALUE&amp;gt;&lt;/span>
+...
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The type of pub/sub is determined by the &lt;code>type&lt;/code> field, and things like connection strings and other metadata are put in the &lt;code>.metadata&lt;/code> section. Even though you can put plain text secrets in there, it is recommended you use a &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">secret store&lt;/a> using a &lt;code>secretKeyRef&lt;/code>&lt;/p>
+&lt;p>Visit &lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components.&lt;/p>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/">Supported pub/sub components&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Pub/Sub and namespaces</title><link>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/pubsub-namespaces/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/pubsub-namespaces/</guid><description>
+&lt;p>In some scenarios, applications can be spread across namespaces and share a queue or topic via PubSub. In this case, the PubSub component must be provisioned on each namespace.&lt;/p>
+&lt;p>In this example, we will use the &lt;a href="https://github.com/dapr/quickstarts/tree/master/pub-sub">PubSub sample&lt;/a>. Redis installation and the subscribers will be in &lt;code>namespace-a&lt;/code> while the publisher UI will be on &lt;code>namespace-b&lt;/code>. This solution should also work if Redis was installed on another namespace or if we used a managed cloud service like Azure ServiceBus.&lt;/p>
+&lt;p>The table below shows which resources are deployed to which namespaces:&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Resource&lt;/th>
+&lt;th>namespace-a&lt;/th>
+&lt;th>namespace-b&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>Redis master&lt;/td>
+&lt;td>X&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Redis slave&lt;/td>
+&lt;td>X&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Dapr&amp;rsquo;s PubSub component&lt;/td>
+&lt;td>X&lt;/td>
+&lt;td>X&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Node subscriber&lt;/td>
+&lt;td>X&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Python subscriber&lt;/td>
+&lt;td>X&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>React UI publisher&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>X&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="pre-requisites">Pre-requisites&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/dapr/docs/blob/master/getting-started/environment-setup.md">Dapr installed&lt;/a> on any namespace since Dapr works at the cluster level.&lt;/li>
+&lt;li>Checkout and cd into directory for &lt;a href="https://github.com/dapr/quickstarts/tree/master/pub-sub">PubSub sample&lt;/a>.&lt;/li>
+&lt;/ul>
+&lt;h2 id="setup-namespace-a">Setup &lt;code>namespace-a&lt;/code>&lt;/h2>
+&lt;p>Create namespace and switch kubectl to use it.&lt;/p>
+&lt;pre>&lt;code>kubectl create namespace namespace-a
+kubectl config set-context --current --namespace=namespace-a
+&lt;/code>&lt;/pre>&lt;p>Install Redis (master and slave) on &lt;code>namespace-a&lt;/code>, following &lt;a href="https://github.com/dapr/docs/blob/master/howto/setup-pub-sub-message-broker/setup-redis.md">these instructions&lt;/a>.&lt;/p>
+&lt;p>Now, configure &lt;code>deploy/redis.yaml&lt;/code>, paying attention to the hostname containing &lt;code>namespace-a&lt;/code>.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">pubsub&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">pubsub.redis&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;redisHost&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;redis-master.namespace-a.svc:6379&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;redisPassword&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;YOUR_PASSWORD&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Deploy resources to &lt;code>namespace-a&lt;/code>:&lt;/p>
+&lt;pre>&lt;code>kubectl apply -f deploy/redis.yaml
+kubectl apply -f deploy/node-subscriber.yaml
+kubectl apply -f deploy/python-subscriber.yaml
+&lt;/code>&lt;/pre>&lt;h2 id="setup-namespace-b">Setup &lt;code>namespace-b&lt;/code>&lt;/h2>
+&lt;p>Create namespace and switch kubectl to use it.&lt;/p>
+&lt;pre>&lt;code>kubectl create namespace namespace-b
+kubectl config set-context --current --namespace=namespace-b
+&lt;/code>&lt;/pre>&lt;p>Deploy resources to &lt;code>namespace-b&lt;/code>, including the Redis component:&lt;/p>
+&lt;pre>&lt;code>kubectl apply -f deploy/redis.yaml
+kubectl apply -f deploy/react-form.yaml
+&lt;/code>&lt;/pre>&lt;p>Now, find the IP address for react-form, open it on your browser and publish messages to each topic (A, B and C).&lt;/p>
+&lt;pre>&lt;code>kubectl get service -A
+&lt;/code>&lt;/pre>&lt;h2 id="confirm-subscribers-received-the-messages">Confirm subscribers received the messages.&lt;/h2>
+&lt;p>Switch back to &lt;code>namespace-a&lt;/code>:&lt;/p>
+&lt;pre>&lt;code>kubectl config set-context --current --namespace=namespace-a
+&lt;/code>&lt;/pre>&lt;p>Find the POD names:&lt;/p>
+&lt;pre>&lt;code>kubectl get pod # Copy POD names and use in the next commands.
+&lt;/code>&lt;/pre>&lt;p>Display logs:&lt;/p>
+&lt;pre>&lt;code>kubectl logs node-subscriber-XYZ node-subscriber
+kubectl logs python-subscriber-XYZ python-subscriber
+&lt;/code>&lt;/pre>&lt;p>The messages published on the browser should show in the corresponding subscriber&amp;rsquo;s logs. The Node.js subscriber receives messages of type &amp;ldquo;A&amp;rdquo; and &amp;ldquo;B&amp;rdquo;, while the Python subscriber receives messages of type &amp;ldquo;A&amp;rdquo; and &amp;ldquo;C&amp;rdquo;.&lt;/p>
+&lt;h2 id="clean-up">Clean up&lt;/h2>
+&lt;pre>&lt;code>kubectl delete -f deploy/redis.yaml --namespace namespace-a
+kubectl delete -f deploy/node-subscriber.yaml --namespace namespace-a
+kubectl delete -f deploy/python-subscriber.yaml --namespace namespace-a
+kubectl delete -f deploy/react-form.yaml --namespace namespace-b
+kubectl delete -f deploy/redis.yaml --namespace namespace-b
+kubectl config set-context --current --namespace=default
+kubectl delete namespace namespace-a
+kubectl delete namespace namespace-b
+&lt;/code>&lt;/pre></description></item><item><title>Operations: Supported pub/sub components</title><link>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/</guid><description/></item></channel></rss>

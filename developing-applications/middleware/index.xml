@@ -1,0 +1,132 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – Middleware</title><link>https://dapr-cn.github.io/docs/developing-applications/middleware/</link><description>Recent content in Middleware on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="https://dapr-cn.github.io/docs/developing-applications/middleware/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: How-To: Apply OPA policies</title><link>https://dapr-cn.github.io/docs/developing-applications/middleware/middleware-opa-policies/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/developing-applications/middleware/middleware-opa-policies/</guid><description>
+&lt;p>The Dapr Open Policy Agent (OPA) &lt;a href="https://github.com/dapr/docs/blob/master/concepts/middleware/README.md">HTTP middleware&lt;/a> allows applying &lt;a href="https://www.openpolicyagent.org/">OPA Policies&lt;/a> to incoming Dapr HTTP requests. This can be used to apply reusable authorization policies to app endpoints.&lt;/p>
+&lt;h2 id="middleware-component-definition">Middleware Component Definition&lt;/h2>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">my-policy&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">middleware.http.opa&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#75715e"># `includedHeaders` is a comma-seperated set of case-insensitive headers to include in the request input.&lt;/span>
+&lt;span style="color:#75715e"># Request headers are not passed to the policy by default. Include to recieve incoming request headers in&lt;/span>
+&lt;span style="color:#75715e"># the input&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">includedHeaders&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;x-my-custom-header, x-jwt-header&amp;#34;&lt;/span>
+&lt;span style="color:#75715e"># `defaultStatus` is the status code to return for denied responses&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">defaultStatus&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">403&lt;/span>
+&lt;span style="color:#75715e"># `rego` is the open policy agent policy to evaluate. required&lt;/span>
+&lt;span style="color:#75715e"># The policy package must be http and the policy must set data.http.allow&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">rego&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: |&lt;span style="color:#e6db74">
+&lt;/span>&lt;span style="color:#e6db74"> package http
+&lt;/span>&lt;span style="color:#e6db74">
+&lt;/span>&lt;span style="color:#e6db74"> default allow = true
+&lt;/span>&lt;span style="color:#e6db74">
+&lt;/span>&lt;span style="color:#e6db74"> # Allow may also be an object and include other properties
+&lt;/span>&lt;span style="color:#e6db74">
+&lt;/span>&lt;span style="color:#e6db74"> # For example, if you wanted to redirect on a policy failure, you could set the status code to 301 and set the location header on the response:
+&lt;/span>&lt;span style="color:#e6db74"> allow = {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;status_code&amp;#34;: 301,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;additional_headers&amp;#34;: {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;location&amp;#34;: &amp;#34;https://my.site/authorize&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74"> } {
+&lt;/span>&lt;span style="color:#e6db74"> not jwt.payload[&amp;#34;my-claim&amp;#34;]
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74">
+&lt;/span>&lt;span style="color:#e6db74"> # You can also allow the request and add additional headers to it:
+&lt;/span>&lt;span style="color:#e6db74"> allow = {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;allow&amp;#34;: true,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;additional_headers&amp;#34;: {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;x-my-claim&amp;#34;: my_claim
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74"> } {
+&lt;/span>&lt;span style="color:#e6db74"> my_claim := jwt.payload[&amp;#34;my-claim&amp;#34;]
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74">
+&lt;/span>&lt;span style="color:#e6db74"> jwt = { &amp;#34;payload&amp;#34;: payload } {
+&lt;/span>&lt;span style="color:#e6db74"> auth_header := input.request.headers[&amp;#34;authorization&amp;#34;]
+&lt;/span>&lt;span style="color:#e6db74"> [_, jwt] := split(auth_header, &amp;#34; &amp;#34;)
+&lt;/span>&lt;span style="color:#e6db74"> [_, payload, _] := io.jwt.decode(jwt)
+&lt;/span>&lt;span style="color:#e6db74"> }&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>You can prototype and experiment with policies using the &lt;a href="https://play.openpolicyagent.org">official opa playground&lt;/a>. For example, &lt;a href="https://play.openpolicyagent.org/p/oRIDSo6OwE">you can find the example policy above here&lt;/a>.&lt;/p>
+&lt;h2 id="input">Input&lt;/h2>
+&lt;p>This middleware supplies a &lt;a href="#httprequest">&lt;code>HTTPRequest&lt;/code>&lt;/a> as input.&lt;/p>
+&lt;h3 id="httprequest">HTTPRequest&lt;/h3>
+&lt;p>The &lt;code>HTTPRequest&lt;/code> input contains all the revelant information about an incoming HTTP Request except it&amp;rsquo;s body.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#66d9ef">type&lt;/span> &lt;span style="color:#a6e22e">Input&lt;/span> &lt;span style="color:#66d9ef">struct&lt;/span> {
+&lt;span style="color:#a6e22e">request&lt;/span> &lt;span style="color:#a6e22e">HTTPRequest&lt;/span>
+}
+&lt;span style="color:#66d9ef">type&lt;/span> &lt;span style="color:#a6e22e">HTTPRequest&lt;/span> &lt;span style="color:#66d9ef">struct&lt;/span> {
+&lt;span style="color:#75715e">// The request method (e.g. GET,POST,etc...)
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">method&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span>
+&lt;span style="color:#75715e">// The raw request path (e.g. &amp;#34;/v2/my-path/&amp;#34;)
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">path&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span>
+&lt;span style="color:#75715e">// The path broken down into parts for easy consumption (e.g. [&amp;#34;v2&amp;#34;, &amp;#34;my-path&amp;#34;])
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">path_parts&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span>[]
+&lt;span style="color:#75715e">// The raw query string (e.g. &amp;#34;?a=1&amp;amp;b=2&amp;#34;)
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">raw_query&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span>
+&lt;span style="color:#75715e">// The query broken down into keys and their values
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">query&lt;/span> &lt;span style="color:#66d9ef">map&lt;/span>[&lt;span style="color:#66d9ef">string&lt;/span>][]&lt;span style="color:#66d9ef">string&lt;/span>
+&lt;span style="color:#75715e">// The request headers
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">// NOTE: By default, no headers are included. You must specify what headers
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">// you want to recieve via `spec.metadata.includedHeaders` (see above)
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">headers&lt;/span> &lt;span style="color:#66d9ef">map&lt;/span>[&lt;span style="color:#66d9ef">string&lt;/span>]&lt;span style="color:#66d9ef">string&lt;/span>
+&lt;span style="color:#75715e">// The request scheme (e.g. http, https)
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">scheme&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="result">Result&lt;/h2>
+&lt;p>The policy must set &lt;code>data.http.allow&lt;/code> with either a &lt;code>boolean&lt;/code> value, or an &lt;code>object&lt;/code> value with an &lt;code>allow&lt;/code> boolean property. A &lt;code>true&lt;/code> &lt;code>allow&lt;/code> will allow the request, while a &lt;code>false&lt;/code> value will reject the request with the status specified by &lt;code>defaultStatus&lt;/code>. The following policy, with defaults, demonstrates a &lt;code>403 - Forbidden&lt;/code> for all requests:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#f92672">package&lt;/span> &lt;span style="color:#a6e22e">http&lt;/span>
+&lt;span style="color:#66d9ef">default&lt;/span> &lt;span style="color:#a6e22e">allow&lt;/span> = &lt;span style="color:#66d9ef">false&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>which is the same as:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#f92672">package&lt;/span> &lt;span style="color:#a6e22e">http&lt;/span>
+&lt;span style="color:#66d9ef">default&lt;/span> &lt;span style="color:#a6e22e">allow&lt;/span> = {
+&lt;span style="color:#e6db74">&amp;#34;allow&amp;#34;&lt;/span>: &lt;span style="color:#66d9ef">false&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="changing-the-rejected-response-status-code">Changing the Rejected Response Status Code&lt;/h3>
+&lt;p>When rejecting a request, you can override the status code the that gets returned. For example, if you wanted to return a &lt;code>401&lt;/code> instead of a &lt;code>403&lt;/code>, you could do the following:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#f92672">package&lt;/span> &lt;span style="color:#a6e22e">http&lt;/span>
+&lt;span style="color:#66d9ef">default&lt;/span> &lt;span style="color:#a6e22e">allow&lt;/span> = {
+&lt;span style="color:#e6db74">&amp;#34;allow&amp;#34;&lt;/span>: &lt;span style="color:#66d9ef">false&lt;/span>,
+&lt;span style="color:#e6db74">&amp;#34;status_code&amp;#34;&lt;/span>: &lt;span style="color:#ae81ff">401&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="adding-response-headers">Adding Response Headers&lt;/h3>
+&lt;p>To redirect, add headers and set the &lt;code>status_code&lt;/code> to the returned result:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#f92672">package&lt;/span> &lt;span style="color:#a6e22e">http&lt;/span>
+&lt;span style="color:#66d9ef">default&lt;/span> &lt;span style="color:#a6e22e">allow&lt;/span> = {
+&lt;span style="color:#e6db74">&amp;#34;allow&amp;#34;&lt;/span>: &lt;span style="color:#66d9ef">false&lt;/span>,
+&lt;span style="color:#e6db74">&amp;#34;status_code&amp;#34;&lt;/span>: &lt;span style="color:#ae81ff">301&lt;/span>,
+&lt;span style="color:#e6db74">&amp;#34;additional_headers&amp;#34;&lt;/span>: {
+&lt;span style="color:#e6db74">&amp;#34;Location&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;https://my.redirect.site&amp;#34;&lt;/span>
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="adding-request-headers">Adding Request Headers&lt;/h3>
+&lt;p>You can also set additional headers on the allowed request:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#f92672">package&lt;/span> &lt;span style="color:#a6e22e">http&lt;/span>
+&lt;span style="color:#66d9ef">default&lt;/span> &lt;span style="color:#a6e22e">allow&lt;/span> = &lt;span style="color:#66d9ef">false&lt;/span>
+&lt;span style="color:#a6e22e">allow&lt;/span> = { &lt;span style="color:#e6db74">&amp;#34;allow&amp;#34;&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;additional_headers&amp;#34;&lt;/span>: { &lt;span style="color:#e6db74">&amp;#34;X-JWT-Payload&amp;#34;&lt;/span>: &lt;span style="color:#a6e22e">payload&lt;/span> } } {
+&lt;span style="color:#a6e22e">not&lt;/span> &lt;span style="color:#a6e22e">input&lt;/span>.&lt;span style="color:#a6e22e">path&lt;/span>[&lt;span style="color:#ae81ff">0&lt;/span>] &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#e6db74">&amp;#34;forbidden&amp;#34;&lt;/span>
+&lt;span style="color:#960050;background-color:#1e0010">#&lt;/span> &lt;span style="color:#a6e22e">Where&lt;/span> &lt;span style="color:#e6db74">`jwt`&lt;/span> &lt;span style="color:#a6e22e">is&lt;/span> &lt;span style="color:#a6e22e">the&lt;/span> &lt;span style="color:#a6e22e">result&lt;/span> &lt;span style="color:#a6e22e">of&lt;/span> &lt;span style="color:#a6e22e">another&lt;/span> &lt;span style="color:#a6e22e">rule&lt;/span>
+&lt;span style="color:#a6e22e">payload&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">base64&lt;/span>.&lt;span style="color:#a6e22e">encode&lt;/span>(&lt;span style="color:#a6e22e">json&lt;/span>.&lt;span style="color:#a6e22e">marshal&lt;/span>(&lt;span style="color:#a6e22e">jwt&lt;/span>.&lt;span style="color:#a6e22e">payload&lt;/span>))
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="result-structure">Result Structure&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#66d9ef">type&lt;/span> &lt;span style="color:#a6e22e">Result&lt;/span> &lt;span style="color:#66d9ef">bool&lt;/span>
+&lt;span style="color:#75715e">// or
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">type&lt;/span> &lt;span style="color:#a6e22e">Result&lt;/span> &lt;span style="color:#66d9ef">struct&lt;/span> {
+&lt;span style="color:#75715e">// Whether to allow or deny the incoming request
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">allow&lt;/span> &lt;span style="color:#66d9ef">bool&lt;/span>
+&lt;span style="color:#75715e">// Overrides denied response status code; Optional
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">status_code&lt;/span> &lt;span style="color:#66d9ef">int&lt;/span>
+&lt;span style="color:#75715e">// Sets headers on allowed request or denied response; Optional
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">additional_headers&lt;/span> &lt;span style="color:#66d9ef">map&lt;/span>[&lt;span style="color:#66d9ef">string&lt;/span>]&lt;span style="color:#66d9ef">string&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>Open Policy Agent: &lt;a href="https://www.openpolicyagent.org">https://www.openpolicyagent.org&lt;/a>&lt;/li>
+&lt;li>HTTP API Example: &lt;a href="https://www.openpolicyagent.org/docs/latest/http-api-authorization/">https://www.openpolicyagent.org/docs/latest/http-api-authorization/&lt;/a>&lt;/li>
+&lt;/ul></description></item></channel></rss>

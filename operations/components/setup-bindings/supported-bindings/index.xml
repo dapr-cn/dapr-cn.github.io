@@ -1,0 +1,1670 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – Supported external bindings</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/</link><description>Recent content in Supported external bindings on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: Apple Push Notification Service binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/apns/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/apns/</guid><description>
+&lt;h2 id="configuration">Configuration&lt;/h2>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">bindings.apns&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">development&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;true | false&amp;gt;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">key-id&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;APPLE_KEY_ID&amp;gt;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">team-id&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;APPLE_TEAM_ID&amp;gt;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">private-key&lt;/span>
+&lt;span style="color:#f92672">secretKeyRef&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;SECRET&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">key&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;SECRET-KEY-NAME&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>&lt;code>database&lt;/code> tells the binding which APNs service to use. Set to &lt;code>true&lt;/code> to use the development service or &lt;code>false&lt;/code> to use the production service. If not specified, the binding will default to production.&lt;/li>
+&lt;li>&lt;code>key-id&lt;/code> is the identifier for the private key from the Apple Developer Portal.&lt;/li>
+&lt;li>&lt;code>team-id&lt;/code> is the identifier for the organization or author from the Apple Developer Portal.&lt;/li>
+&lt;li>&lt;code>private-key&lt;/code> is a PKCS #8-formatted private key. It is intended that the private key is stored in the secret store and not exposed directly in the configuration.&lt;/li>
+&lt;/ul>
+&lt;h2 id="request-format">Request Format&lt;/h2>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;data&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;aps&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;alert&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;title&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;New Updates!&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;body&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;There are new updates for your review&amp;#34;&lt;/span>
+}
+}
+},
+&lt;span style="color:#f92672">&amp;#34;metadata&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;device-token&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;PUT-DEVICE-TOKEN-HERE&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;apns-push-type&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;alert&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;apns-priority&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;10&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;apns-topic&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;com.example.helloworld&amp;#34;&lt;/span>
+},
+&lt;span style="color:#f92672">&amp;#34;operation&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;create&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The &lt;code>data&lt;/code> object contains a complete push notification specification as described in the &lt;a href="https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/generating_a_remote_notification">Apple documentation&lt;/a>. The &lt;code>data&lt;/code> object will be sent directly to the APNs service.&lt;/p>
+&lt;p>Besides the &lt;code>device-token&lt;/code> value, the HTTP headers specified in the &lt;a href="https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/sending_notification_requests_to_apns">Apple documentation&lt;/a> can be sent as metadata fields and will be included in the HTTP request to the APNs service.&lt;/p>
+&lt;h2 id="response-format">Response Format&lt;/h2>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;messageID&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;UNIQUE-ID-FOR-NOTIFICATION&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="output-binding-supported-operations">Output Binding Supported Operations&lt;/h2>
+&lt;ul>
+&lt;li>&lt;code>create&lt;/code>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: AWS DynamoDB binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/dynamodb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/dynamodb/</guid><description>
+&lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
+&lt;p>See &lt;a href="https://dapr-cn.github.io/docs/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a> for information about authentication-related attributes&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">bindings.aws.dynamodb&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">table&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">items&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">region&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">us-west-2&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">accessKey&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#75715e">*****************&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">secretKey&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#75715e">*****************&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">sessionToken&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#75715e">*****************&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>&lt;code>table&lt;/code> is the DynamoDB table name.&lt;/li>
+&lt;/ul>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="output-binding-supported-operations">Output Binding Supported Operations&lt;/h2>
+&lt;ul>
+&lt;li>create&lt;/li>
+&lt;/ul>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: AWS Kinesis binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/kinesis/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/kinesis/</guid><description>
+&lt;p>See &lt;a href="https://aws.amazon.com/kinesis/data-streams/getting-started/">this&lt;/a> for instructions on how to set up an AWS Kinesis data streams&lt;/p>
+&lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
+&lt;p>See &lt;a href="https://dapr-cn.github.io/docs/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a> for information about authentication-related attributes&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">bindings.aws.kinesis&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">streamName&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">KINESIS_STREAM_NAME&lt;/span> &lt;span style="color:#75715e"># Kinesis stream name&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">consumerName &lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">KINESIS_CONSUMER_NAME&lt;/span> &lt;span style="color:#75715e"># Kinesis consumer name &lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">mode&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">shared&lt;/span> &lt;span style="color:#75715e"># shared - Shared throughput or extended - Extended/Enhanced fanout&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">region&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">AWS_REGION&lt;/span> &lt;span style="color:#75715e">#replace&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">accessKey&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">AWS_ACCESS_KEY&lt;/span> &lt;span style="color:#75715e"># replace&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">secretKey&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">AWS_SECRET_KEY&lt;/span> &lt;span style="color:#75715e">#replace&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">sessionToken&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#75715e">*****************&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>&lt;code>mode&lt;/code> Accepted values: shared, extended. shared - Shared throughput, extended - Extended/Enhanced fanout methods. More details are &lt;a href="https://docs.aws.amazon.com/streams/latest/dev/building-consumers.html">here&lt;/a>&lt;/li>
+&lt;li>&lt;code>streamName&lt;/code> is the AWS Kinesis Stream Name.&lt;/li>
+&lt;li>&lt;code>consumerName&lt;/code> is the AWS Kinesis Consumer Name.&lt;/li>
+&lt;/ul>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="output-binding-supported-operations">Output Binding Supported Operations&lt;/h2>
+&lt;ul>
+&lt;li>create&lt;/li>
+&lt;/ul>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: AWS S3 binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/s3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/s3/</guid><description>
+&lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
+&lt;p>See &lt;a href="https://dapr-cn.github.io/docs/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a> for information about authentication-related attributes&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">bindings.aws.s3&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">bucket&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">mybucket&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">region&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">us-west-2&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">accessKey&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#75715e">*****************&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">secretKey&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#75715e">*****************&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">bucket&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">mybucket&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>&lt;code>bucket&lt;/code> is the name of the S3 bucket to write to.&lt;/li>
+&lt;/ul>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="output-binding-supported-operations">Output Binding Supported Operations&lt;/h2>
+&lt;ul>
+&lt;li>create&lt;/li>
+&lt;/ul>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: AWS SNS binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/sns/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/sns/</guid><description>
+&lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
+&lt;p>See &lt;a href="https://dapr-cn.github.io/docs/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a> for information about authentication-related attributes&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">bindings.aws.sns&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">topicArn&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">mytopic&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">region&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">us-west-2&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">accessKey&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#75715e">*****************&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">secretKey&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#75715e">*****************&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">sessionToken&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#75715e">*****************&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>&lt;code>topicArn&lt;/code> is the SNS topic name.&lt;/li>
+&lt;/ul>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="output-binding-supported-operations">Output Binding Supported Operations&lt;/h2>
+&lt;ul>
+&lt;li>create&lt;/li>
+&lt;/ul>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: AWS SQS binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/sqs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/sqs/</guid><description>
+&lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
+&lt;p>See &lt;a href="https://dapr-cn.github.io/docs/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a> for information about authentication-related attributes&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">bindings.aws.sqs&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">queueName&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">items&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">region&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">us-west-2&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">accessKey&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#75715e">*****************&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">secretKey&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#75715e">*****************&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">sessionToken&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#75715e">*****************&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>&lt;code>queueName&lt;/code> is the SQS queue name.&lt;/li>
+&lt;/ul>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="output-binding-supported-operations">Output Binding Supported Operations&lt;/h2>
+&lt;ul>
+&lt;li>create&lt;/li>
+&lt;/ul>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Azure Blob Storage binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/blobstorage/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/blobstorage/</guid><description>
+&lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">bindings.azure.blobstorage&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">storageAccount&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">myStorageAccountName&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">storageAccessKey&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#75715e">***********&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">container&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">container1&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>&lt;code>storageAccount&lt;/code> is the Blob Storage account name.&lt;/li>
+&lt;li>&lt;code>storageAccessKey&lt;/code> is the Blob Storage access key.&lt;/li>
+&lt;li>&lt;code>container&lt;/code> is the name of the Blob Storage container to write to.&lt;/li>
+&lt;li>&lt;code>decodeBase64&lt;/code> optional configuration to decode base64 file content before saving to Blob Storage. (In case of saving a file with binary content). &amp;ldquo;true&amp;rdquo; is the only allowed positive value. Other positive variations like &amp;ldquo;True&amp;rdquo; are not acceptable.&lt;/li>
+&lt;/ul>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="output-binding-supported-operations">Output Binding Supported Operations&lt;/h2>
+&lt;h3 id="create-blob">Create Blob&lt;/h3>
+&lt;p>To perform a create blob operation, invoke the Azure Blob Storage binding with a &lt;code>POST&lt;/code> method and the following JSON body:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;operation&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;create&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;data&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;field1&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;value1&amp;#34;&lt;/span>
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="example">Example:&lt;/h4>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">
+curl -d &lt;span style="color:#e6db74">&amp;#39;{ &amp;#34;operation&amp;#34;: &amp;#34;create&amp;#34;, &amp;#34;data&amp;#34;: { &amp;#34;field1&amp;#34;: &amp;#34;value1&amp;#34; }}&amp;#39;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> http://localhost:&amp;lt;dapr-port&amp;gt;/v1.0/bindings/&amp;lt;binding-name&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="response">Response&lt;/h4>
+&lt;p>The response body will contain the following JSON:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;blobURL&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;https://&amp;lt;your account name&amp;gt;. blob.core.windows.net/&amp;lt;your container name&amp;gt;/&amp;lt;filename&amp;gt;&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="get-blob">Get Blob&lt;/h3>
+&lt;p>To perform a get blob operation, invoke the Azure Blob Storage binding with a &lt;code>POST&lt;/code> method and the following JSON body:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;operation&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;get&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;metadata&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;blobName&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;myblob&amp;#34;&lt;/span>
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="example-1">Example:&lt;/h4>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl -d &lt;span style="color:#e6db74">&amp;#39;{ &amp;#34;operation&amp;#34;: &amp;#34;get&amp;#34;, &amp;#34;metadata&amp;#34;: { &amp;#34;blobName&amp;#34;: &amp;#34;myblob&amp;#34; }}&amp;#39;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> http://localhost:&amp;lt;dapr-port&amp;gt;/v1.0/bindings/&amp;lt;binding-name&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="response-1">Response&lt;/h4>
+&lt;p>The response body will contain the value stored in the blob object.&lt;/p>
+&lt;h2 id="metadata-information">Metadata information&lt;/h2>
+&lt;p>By default the Azure Blob Storage output binding will auto generate a UUID as blob filename and not assign any system or custom metadata to it. It is configurable in the Metadata property of the message (all optional).&lt;/p>
+&lt;p>Applications publishing to an Azure Blob Storage output binding should send a message with the following contract:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;data&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;file content&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;metadata&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;blobName&amp;#34;&lt;/span> : &lt;span style="color:#e6db74">&amp;#34;filename.txt&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;ContentType&amp;#34;&lt;/span> : &lt;span style="color:#e6db74">&amp;#34;text/plain&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;ContentMD5&amp;#34;&lt;/span> : &lt;span style="color:#e6db74">&amp;#34;vZGKbMRDAnMs4BIwlXaRvQ==&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;ContentEncoding&amp;#34;&lt;/span> : &lt;span style="color:#e6db74">&amp;#34;UTF-8&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;ContentLanguage&amp;#34;&lt;/span> : &lt;span style="color:#e6db74">&amp;#34;en-us&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;ContentDisposition&amp;#34;&lt;/span> : &lt;span style="color:#e6db74">&amp;#34;attachment&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;CacheControl&amp;#34;&lt;/span> : &lt;span style="color:#e6db74">&amp;#34;no-cache&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;Custom&amp;#34;&lt;/span> : &lt;span style="color:#e6db74">&amp;#34;hello-world&amp;#34;&lt;/span>,
+},
+&lt;span style="color:#f92672">&amp;#34;operation&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;create&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Azure CosmosDB binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/cosmosdb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/cosmosdb/</guid><description>
+&lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">bindings.azure.cosmosdb&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">url&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">https://******.documents.azure.com:443/&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">masterKey&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#75715e">*****&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">database&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">db&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">collection&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">collection&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">partitionKey&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">message&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>&lt;code>url&lt;/code> is the CosmosDB url.&lt;/li>
+&lt;li>&lt;code>masterKey&lt;/code> is the CosmosDB account master key.&lt;/li>
+&lt;li>&lt;code>database&lt;/code> is the name of the CosmosDB database.&lt;/li>
+&lt;li>&lt;code>collection&lt;/code> is name of the collection inside the database.&lt;/li>
+&lt;li>&lt;code>partitionKey&lt;/code> is the name of the partitionKey to extract from the payload.&lt;/li>
+&lt;/ul>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="output-binding-supported-operations">Output Binding Supported Operations&lt;/h2>
+&lt;ul>
+&lt;li>create&lt;/li>
+&lt;/ul>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Azure Event Grid binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/eventgrid/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/eventgrid/</guid><description>
+&lt;p>See &lt;a href="https://docs.microsoft.com/en-us/azure/event-grid/">this&lt;/a> for Azure Event Grid documentation.&lt;/p>
+&lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yml" data-lang="yml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;name&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">bindings.azure.eventgrid&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#75715e"># Required Input Binding Metadata&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">tenantId&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[AzureTenantId]&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">subscriptionId&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[AzureSubscriptionId]&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">clientId&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[ClientId]&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">clientSecret&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[ClientSecret]&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">subscriberEndpoint&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[SubscriberEndpoint]&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">handshakePort&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: [&lt;span style="color:#ae81ff">HandshakePort]&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">scope&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[Scope]&amp;#34;&lt;/span>
+&lt;span style="color:#75715e"># Optional Input Binding Metadata&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">eventSubscriptionName&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[EventSubscriptionName]&amp;#34;&lt;/span>
+&lt;span style="color:#75715e"># Required Output Binding Metadata&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">accessKey&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[AccessKey]&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">topicEndpoint&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;#34;[TopicEndpoint]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="input-binding-metadata">Input Binding Metadata&lt;/h2>
+&lt;ul>
+&lt;li>&lt;code>tenantId&lt;/code> is the Azure tenant id in which this Event Grid Event Subscription should be created&lt;/li>
+&lt;li>&lt;code>subscriptionId&lt;/code> is the Azure subscription id in which this Event Grid Event Subscription should be created&lt;/li>
+&lt;li>&lt;code>clientId&lt;/code> is the client id that should be used by the binding to create or update the Event Grid Event Subscription&lt;/li>
+&lt;li>&lt;code>clientSecret&lt;/code> is the client secret that should be used by the binding to create or update the Event Grid Event Subscription&lt;/li>
+&lt;li>&lt;code>subscriberEndpoint&lt;/code> is the https (required) endpoint in which Event Grid will handshake and send Cloud Events. If you aren&amp;rsquo;t re-writing URLs on ingress, it should be in the form of: &lt;code>https://[YOUR HOSTNAME]/api/events&lt;/code> If testing on your local machine, you can use something like &lt;a href="https://ngrok.com">ngrok&lt;/a> to create a public endpoint.&lt;/li>
+&lt;li>&lt;code>handshakePort&lt;/code> is the container port that the input binding will listen on for handshakes and events&lt;/li>
+&lt;li>&lt;code>scope&lt;/code> is the identifier of the resource to which the event subscription needs to be created or updated. The scope can be a subscription, or a resource group, or a top level resource belonging to a resource provider namespace, or an Event Grid topic. For example:
+&lt;ul>
+&lt;li>&amp;lsquo;/subscriptions/{subscriptionId}/&amp;rsquo; for a subscription&lt;/li>
+&lt;li>&amp;lsquo;/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}&amp;rsquo; for a resource group&lt;/li>
+&lt;li>&amp;lsquo;/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}&amp;rsquo; for a resource&lt;/li>
+&lt;li>&amp;lsquo;/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/topics/{topicName}&amp;rsquo; for an Event Grid topic &amp;gt; Values in braces {} should be replaced with actual values.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;code>eventSubscriptionName&lt;/code> (Optional) is the name of the event subscription. Event subscription names must be between 3 and 64 characters in length and should use alphanumeric letters only.&lt;/li>
+&lt;/ul>
+&lt;h2 id="output-binding-metadata">Output Binding Metadata&lt;/h2>
+&lt;ul>
+&lt;li>&lt;code>accessKey&lt;/code> is the Access Key to be used for publishing an Event Grid Event to a custom topic&lt;/li>
+&lt;li>&lt;code>topicEndpoint&lt;/code> is the topic endpoint in which this output binding should publish events&lt;/li>
+&lt;/ul>
+&lt;h2 id="output-binding-supported-operations">Output Binding Supported Operations&lt;/h2>
+&lt;ul>
+&lt;li>create&lt;/li>
+&lt;/ul>
+&lt;h2 id="additional-information">Additional information&lt;/h2>
+&lt;p>Event Grid Binding creates an &lt;a href="https://docs.microsoft.com/en-us/azure/event-grid/concepts#event-subscriptions">event subscription&lt;/a> when Dapr initializes. Your Service Principal needs to have the RBAC permissions to enable this.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#75715e"># First ensure that Azure Resource Manager provider is registered for Event Grid&lt;/span>
+az provider register --namespace Microsoft.EventGrid
+az provider show --namespace Microsoft.EventGrid --query &lt;span style="color:#e6db74">&amp;#34;registrationState&amp;#34;&lt;/span>
+&lt;span style="color:#75715e"># Give the SP needed permissions so that it can create event subscriptions to Event Grid&lt;/span>
+az role assignment create --assignee &amp;lt;clientId&amp;gt; --role &lt;span style="color:#e6db74">&amp;#34;EventGrid EventSubscription Contributor&amp;#34;&lt;/span> --scopes &amp;lt;scope&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;em>Make sure to also to add quotes around the &lt;code>[HandshakePort]&lt;/code> in your Event Grid binding component because Kubernetes expects string values from the config.&lt;/em>&lt;/p>
+&lt;h3 id="testing-locally">Testing locally&lt;/h3>
+&lt;ul>
+&lt;li>Install &lt;a href="https://ngrok.com/download">ngrok&lt;/a>&lt;/li>
+&lt;li>Run locally using custom port &lt;code>9000&lt;/code> for handshakes&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#75715e"># Using random port 9000 as an example&lt;/span>
+ngrok http -host-header&lt;span style="color:#f92672">=&lt;/span>localhost &lt;span style="color:#ae81ff">9000&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>Configure the ngrok&amp;rsquo;s HTTPS endpoint and custom port to input binding metadata&lt;/li>
+&lt;li>Run Dapr&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#75715e"># Using default ports for .NET core web api and Dapr as an example&lt;/span>
+dapr run --app-id dotnetwebapi --app-port &lt;span style="color:#ae81ff">5000&lt;/span> --dapr-http-port &lt;span style="color:#ae81ff">3500&lt;/span> dotnet run
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="testing-om-kubernetes">Testing om Kubernetes&lt;/h3>
+&lt;p>Azure Event Grid requires a valid HTTPS endpoint for custom webhooks. Self signed certificates won&amp;rsquo;t do. In order to enable traffic from public internet to your app&amp;rsquo;s Dapr sidecar you need an ingress controller enabled with Dapr. There&amp;rsquo;s a good article on this topic: &lt;a href="https://carlos.mendible.com/2020/04/05/kubernetes-nginx-ingress-controller-with-dapr/">Kubernetes NGINX ingress controller with Dapr&lt;/a>.&lt;/p>
+&lt;p>To get started, first create &lt;code>dapr-annotations.yaml&lt;/code> for Dapr annotations&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">controller&lt;/span>:
+&lt;span style="color:#f92672">podAnnotations&lt;/span>:
+&lt;span style="color:#f92672">dapr.io/enabled&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">dapr.io/app-id&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;nginx-ingress&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">dapr.io/app-port&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;80&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Then install NGINX ingress controller to your Kubernetes cluster with Helm 3 using the annotations&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+helm install nginx stable/nginx-ingress -f ./dapr-annotations.yaml -n default
+&lt;span style="color:#75715e"># Get the public IP for the ingress controller&lt;/span>
+kubectl get svc -l component&lt;span style="color:#f92672">=&lt;/span>controller -o jsonpath&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;Public IP is: {.items[0].status.loadBalancer.ingress[0].ip}{&amp;#34;\n&amp;#34;}&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>If deploying to Azure Kubernetes Service, you can follow &lt;a href="https://docs.microsoft.com/en-us/azure/aks/ingress-tls">the official MS documentation for rest of the steps&lt;/a>&lt;/p>
+&lt;ul>
+&lt;li>Add an A record to your DNS zone&lt;/li>
+&lt;li>Install cert-manager&lt;/li>
+&lt;li>Create a CA cluster issuer&lt;/li>
+&lt;/ul>
+&lt;p>Final step for enabling communication between Event Grid and Dapr is to define &lt;code>http&lt;/code> and custom port to your app&amp;rsquo;s service and an &lt;code>ingress&lt;/code> in Kubernetes. This example uses .NET Core web api and Dapr default ports and custom port 9000 for handshakes.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#75715e"># dotnetwebapi.yaml&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Service&lt;/span>
+&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">dotnetwebapi&lt;/span>
+&lt;span style="color:#f92672">labels&lt;/span>:
+&lt;span style="color:#f92672">app&lt;/span>: &lt;span style="color:#ae81ff">dotnetwebapi&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">selector&lt;/span>:
+&lt;span style="color:#f92672">app&lt;/span>: &lt;span style="color:#ae81ff">dotnetwebapi&lt;/span>
+&lt;span style="color:#f92672">ports&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">webapi&lt;/span>
+&lt;span style="color:#f92672">protocol&lt;/span>: &lt;span style="color:#ae81ff">TCP&lt;/span>
+&lt;span style="color:#f92672">port&lt;/span>: &lt;span style="color:#ae81ff">80&lt;/span>
+&lt;span style="color:#f92672">targetPort&lt;/span>: &lt;span style="color:#ae81ff">80&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">dapr-eventgrid&lt;/span>
+&lt;span style="color:#f92672">protocol&lt;/span>: &lt;span style="color:#ae81ff">TCP&lt;/span>
+&lt;span style="color:#f92672">port&lt;/span>: &lt;span style="color:#ae81ff">9000&lt;/span>
+&lt;span style="color:#f92672">targetPort&lt;/span>: &lt;span style="color:#ae81ff">9000&lt;/span>
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">ClusterIP&lt;/span>
+---
+&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">extensions/v1beta1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Ingress&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">eventgrid-input-rule&lt;/span>
+&lt;span style="color:#f92672">annotations&lt;/span>:
+&lt;span style="color:#f92672">kubernetes.io/ingress.class&lt;/span>: &lt;span style="color:#ae81ff">nginx&lt;/span>
+&lt;span style="color:#f92672">cert-manager.io/cluster-issuer&lt;/span>: &lt;span style="color:#ae81ff">letsencrypt&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">tls&lt;/span>:
+- &lt;span style="color:#f92672">hosts&lt;/span>:
+- &lt;span style="color:#ae81ff">dapr.&amp;lt;your custom domain&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">secretName&lt;/span>: &lt;span style="color:#ae81ff">dapr-tls&lt;/span>
+&lt;span style="color:#f92672">rules&lt;/span>:
+- &lt;span style="color:#f92672">host&lt;/span>: &lt;span style="color:#ae81ff">dapr.&amp;lt;your custom domain&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">http&lt;/span>:
+&lt;span style="color:#f92672">paths&lt;/span>:
+- &lt;span style="color:#f92672">path&lt;/span>: &lt;span style="color:#ae81ff">/api/events&lt;/span>
+&lt;span style="color:#f92672">backend&lt;/span>:
+&lt;span style="color:#f92672">serviceName&lt;/span>: &lt;span style="color:#ae81ff">dotnetwebapi&lt;/span>
+&lt;span style="color:#f92672">servicePort&lt;/span>: &lt;span style="color:#ae81ff">9000&lt;/span>
+---
+&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">apps/v1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Deployment&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">dotnetwebapi&lt;/span>
+&lt;span style="color:#f92672">labels&lt;/span>:
+&lt;span style="color:#f92672">app&lt;/span>: &lt;span style="color:#ae81ff">dotnetwebapi&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">replicas&lt;/span>: &lt;span style="color:#ae81ff">1&lt;/span>
+&lt;span style="color:#f92672">selector&lt;/span>:
+&lt;span style="color:#f92672">matchLabels&lt;/span>:
+&lt;span style="color:#f92672">app&lt;/span>: &lt;span style="color:#ae81ff">dotnetwebapi&lt;/span>
+&lt;span style="color:#f92672">template&lt;/span>:
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">labels&lt;/span>:
+&lt;span style="color:#f92672">app&lt;/span>: &lt;span style="color:#ae81ff">dotnetwebapi&lt;/span>
+&lt;span style="color:#f92672">annotations&lt;/span>:
+&lt;span style="color:#f92672">dapr.io/enabled&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">dapr.io/app-id&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;dotnetwebapi&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">dapr.io/app-port&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;5000&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">containers&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">webapi&lt;/span>
+&lt;span style="color:#f92672">image&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;your container image&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">ports&lt;/span>:
+- &lt;span style="color:#f92672">containerPort&lt;/span>: &lt;span style="color:#ae81ff">5000&lt;/span>
+&lt;span style="color:#f92672">imagePullPolicy&lt;/span>: &lt;span style="color:#ae81ff">Always&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Deploy binding and app (including ingress) to Kubernetes&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#75715e"># Deploy Dapr components&lt;/span>
+kubectl apply -f eventgrid.yaml
+&lt;span style="color:#75715e"># Deploy your app and Nginx ingress&lt;/span>
+kubectl apply -f dotnetwebapi.yaml
+&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>&lt;strong>Note:&lt;/strong> This manifest deploys everything to Kubernetes default namespace.&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="troubleshooting-possible-issues-with-nginx-controller">Troubleshooting possible issues with Nginx controller&lt;/h4>
+&lt;p>After initial deployment the &amp;ldquo;Daprized&amp;rdquo; Nginx controller can malfunction. To check logs and fix issue (if it exists) follow these steps.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">$ kubectl get pods -l app&lt;span style="color:#f92672">=&lt;/span>nginx-ingress
+NAME READY STATUS RESTARTS AGE
+nginx-nginx-ingress-controller-649df94867-fp6mg 2/2 Running &lt;span style="color:#ae81ff">0&lt;/span> 51m
+nginx-nginx-ingress-default-backend-6d96c457f6-4nbj5 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 55m
+$ kubectl logs nginx-nginx-ingress-controller-649df94867-fp6mg nginx-ingress-controller
+&lt;span style="color:#75715e"># If you see 503s logged from calls to webhook endpoint &amp;#39;/api/events&amp;#39; restart the pod&lt;/span>
+&lt;span style="color:#75715e"># ..&amp;#34;OPTIONS /api/events HTTP/1.1&amp;#34; 503..&lt;/span>
+$ kubectl delete pod nginx-nginx-ingress-controller-649df94867-fp6mg
+&lt;span style="color:#75715e"># Check the logs again - it should start returning 200&lt;/span>
+&lt;span style="color:#75715e"># ..&amp;#34;OPTIONS /api/events HTTP/1.1&amp;#34; 200.. &lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Azure Event Hubs binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/eventhubs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/eventhubs/</guid><description>
+&lt;p>See &lt;a href="https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-dotnet-framework-getstarted-send">this&lt;/a> for instructions on how to set up an Event Hub.&lt;/p>
+&lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">bindings.azure.eventhubs&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">connectionString &lt;/span> &lt;span style="color:#75715e"># Azure EventHubs connection string&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;Endpoint=sb://****&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">consumerGroup &lt;/span> &lt;span style="color:#75715e"># EventHubs consumer group&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;group1&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">storageAccountName &lt;/span> &lt;span style="color:#75715e"># Azure Storage Account Name&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;accountName&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">storageAccountKey &lt;/span> &lt;span style="color:#75715e"># Azure Storage Account Key&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;accountKey&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">storageContainerName &lt;/span> &lt;span style="color:#75715e"># Azure Storage Container Name&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;containerName&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">partitionID &lt;/span> &lt;span style="color:#75715e"># (Optional) PartitionID to send and receive events&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">0&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>&lt;code>connectionString&lt;/code> is the &lt;a href="https://docs.microsoft.com/en-us/azure/event-hubs/authorize-access-shared-access-signature">EventHubs connection string&lt;/a>. Note that this is the EventHub itself and not the EventHubs namespace. Make sure to use the child EventHub shared access policy connection string.&lt;/li>
+&lt;li>&lt;code>consumerGroup&lt;/code> is the name of an &lt;a href="https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-features#consumer-groups">EventHubs Consumer Group&lt;/a> to listen on.&lt;/li>
+&lt;li>&lt;code>storageAccountName&lt;/code> Is the name of the account of the Azure Storage account to persist checkpoints data on.&lt;/li>
+&lt;li>&lt;code>storageAccountKey&lt;/code> Is the account key for the Azure Storage account to persist checkpoints data on.&lt;/li>
+&lt;li>&lt;code>storageContainerName&lt;/code> Is the name of the container in the Azure Storage account to persist checkpoints data on.&lt;/li>
+&lt;li>&lt;code>partitionID&lt;/code> (Optional) ID of the partition to send and receive events.&lt;/li>
+&lt;/ul>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="output-binding-supported-operations">Output Binding Supported Operations&lt;/h2>
+&lt;ul>
+&lt;li>create&lt;/li>
+&lt;/ul>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Azure Service Bus Queues binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/servicebusqueues/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/servicebusqueues/</guid><description>
+&lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">bindings.azure.servicebusqueues&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">connectionString&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;sb://************&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">queueName&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">queue1&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">ttlInSeconds&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">60&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>&lt;code>connectionString&lt;/code> is the Service Bus connection string.&lt;/li>
+&lt;li>&lt;code>queueName&lt;/code> is the Service Bus queue name.&lt;/li>
+&lt;li>&lt;code>ttlInSeconds&lt;/code> is an optional parameter to set the default message &lt;a href="https://docs.microsoft.com/azure/service-bus-messaging/message-expiration">time to live&lt;/a>. If this parameter is omitted, messages will expire after 14 days.&lt;/li>
+&lt;/ul>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="specifying-a-time-to-live-on-message-level">Specifying a time to live on message level&lt;/h2>
+&lt;p>Time to live can be defined on queue level (as illustrated above) or at the message level. The value defined at message level overwrites any value set at queue level.&lt;/p>
+&lt;p>To set time to live at message level use the &lt;code>metadata&lt;/code> section in the request body during the binding invocation.&lt;/p>
+&lt;p>The field name is &lt;code>ttlInSeconds&lt;/code>.&lt;/p>
+&lt;p>Example:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X POST http://localhost:3500/v1.0/bindings/myServiceBusQueue &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -d &lt;span style="color:#e6db74">&amp;#39;{
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;data&amp;#34;: {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;message&amp;#34;: &amp;#34;Hi&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> },
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;metadata&amp;#34;: {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;ttlInSeconds&amp;#34;: &amp;#34;60&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> },
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;operation&amp;#34;: &amp;#34;create&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="output-binding-supported-operations">Output Binding Supported Operations&lt;/h2>
+&lt;ul>
+&lt;li>create&lt;/li>
+&lt;/ul>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Azure SignalR binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/signalr/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/signalr/</guid><description>
+&lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">bindings.azure.signalr&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">connectionString&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">Endpoint=https://&amp;lt;your-azure-signalr&amp;gt;.service.signalr.net;AccessKey=&amp;lt;your-access-key&amp;gt;;Version=1.0;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">hub &lt;/span> &lt;span style="color:#75715e"># Optional&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;hub name&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>The metadata &lt;code>connectionString&lt;/code> contains the Azure SignalR connection string.&lt;/li>
+&lt;li>The optional &lt;code>hub&lt;/code> metadata value defines the hub in which the message will be send. The hub can be dynamically defined as a metadata value when publishing to an output binding (key is &amp;ldquo;hub&amp;rdquo;).&lt;/li>
+&lt;/ul>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="additional-information">Additional information&lt;/h2>
+&lt;p>By default the Azure SignalR output binding will broadcast messages to all connected users. To narrow the audience there are two options, both configurable in the Metadata property of the message:&lt;/p>
+&lt;ul>
+&lt;li>group: will send the message to a specific Azure SignalR group&lt;/li>
+&lt;li>user: will send the message to a specific Azure SignalR user&lt;/li>
+&lt;/ul>
+&lt;p>Applications publishing to an Azure SignalR output binding should send a message with the following contract:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;data&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;Target&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;lt;enter message name&amp;gt;&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;Arguments&amp;#34;&lt;/span>: [
+{
+&lt;span style="color:#f92672">&amp;#34;sender&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;dapr&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;text&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;Message from dapr output binding&amp;#34;&lt;/span>
+}
+]
+},
+&lt;span style="color:#f92672">&amp;#34;metadata&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;group&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;chat123&amp;#34;&lt;/span>
+},
+&lt;span style="color:#f92672">&amp;#34;operation&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;create&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>For more information on integration Azure SignalR into a solution check the &lt;a href="https://docs.microsoft.com/en-us/azure/azure-signalr/">documentation&lt;/a>&lt;/p>
+&lt;h2 id="output-binding-supported-operations">Output Binding Supported Operations&lt;/h2>
+&lt;ul>
+&lt;li>create&lt;/li>
+&lt;/ul>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Azure Storage Queues binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/storagequeues/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/storagequeues/</guid><description>
+&lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">bindings.azure.storagequeues&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">storageAccount&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;account1&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">storageAccessKey&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;***********&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">queue&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;myqueue&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">ttlInSeconds&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;60&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>&lt;code>storageAccount&lt;/code> is the Azure Storage account name.&lt;/li>
+&lt;li>&lt;code>storageAccessKey&lt;/code> is the Azure Storage access key.&lt;/li>
+&lt;li>&lt;code>queue&lt;/code> is the name of the Azure Storage queue.&lt;/li>
+&lt;li>&lt;code>ttlInSeconds&lt;/code> is an optional parameter to set the default message time to live. If this parameter is omitted, messages will expire after 10 minutes.&lt;/li>
+&lt;/ul>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="specifying-a-time-to-live-on-message-level">Specifying a time to live on message level&lt;/h2>
+&lt;p>Time to live can be defined on queue level (as illustrated above) or at the message level. The value defined at message level overwrites any value set at queue level.&lt;/p>
+&lt;p>To set time to live at message level use the &lt;code>metadata&lt;/code> section in the request body during the binding invocation.&lt;/p>
+&lt;p>The field name is &lt;code>ttlInSeconds&lt;/code>.&lt;/p>
+&lt;p>Example:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X POST http://localhost:3500/v1.0/bindings/myStorageQueue &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -d &lt;span style="color:#e6db74">&amp;#39;{
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;data&amp;#34;: {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;message&amp;#34;: &amp;#34;Hi&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> },
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;metadata&amp;#34;: {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;ttlInSeconds&amp;#34;: &amp;#34;60&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> },
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;operation&amp;#34;: &amp;#34;create&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="output-binding-supported-operations">Output Binding Supported Operations&lt;/h2>
+&lt;ul>
+&lt;li>create&lt;/li>
+&lt;/ul>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Cron binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/cron/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/cron/</guid><description>
+&lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">bindings.cron&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">schedule&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;@every 15m&amp;#34;&lt;/span> &lt;span style="color:#75715e"># valid cron schedule &lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="schedule-format">Schedule Format&lt;/h2>
+&lt;p>The Dapr cron binding supports following formats:&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">Character&lt;/th>
+&lt;th>Descriptor&lt;/th>
+&lt;th>Acceptable values&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">1&lt;/td>
+&lt;td>Second&lt;/td>
+&lt;td>0 to 59, or *&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">2&lt;/td>
+&lt;td>Minute&lt;/td>
+&lt;td>0 to 59, or *&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">3&lt;/td>
+&lt;td>Hour&lt;/td>
+&lt;td>0 to 23, or * (UTC)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">4&lt;/td>
+&lt;td>Day of the month&lt;/td>
+&lt;td>1 to 31, or *&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">5&lt;/td>
+&lt;td>Month&lt;/td>
+&lt;td>1 to 12, or *&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">6&lt;/td>
+&lt;td>Day of the week&lt;/td>
+&lt;td>0 to 7 (where 0 and 7 represent Sunday), or *&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>For example:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>30 * * * * *&lt;/code> - every 30 seconds&lt;/li>
+&lt;li>&lt;code>0 15 * * * *&lt;/code> - every 15 minutes&lt;/li>
+&lt;li>&lt;code>0 30 3-6,20-23 * * *&lt;/code> - every hour on the half hour in the range 3-6am, 8-11pm&lt;/li>
+&lt;li>&lt;code>CRON_TZ=America/New_York 0 0 30 04 * * *&lt;/code> - every day at 4:30am New York time&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>You can learn more about cron and the supported formats &lt;a href="https://en.wikipedia.org/wiki/Cron">here&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;p>For ease of use, the Dapr cron binding also supports few shortcuts:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>@every 15s&lt;/code> where &lt;code>s&lt;/code> is seconds, &lt;code>m&lt;/code> minutes, and &lt;code>h&lt;/code> hours&lt;/li>
+&lt;li>&lt;code>@daily&lt;/code> or &lt;code>@hourly&lt;/code> which runs at that period from the time the binding is initialized&lt;/li>
+&lt;/ul>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: GCP Pub/Sub binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/gcppubsub/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/gcppubsub/</guid><description>
+&lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">bindings.gcp.pubsub&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">topic&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">topic1&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">subscription&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">subscription1&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">type&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">service_account&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">project_id&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">project_111&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">private_key_id&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#75715e">*************&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">client_email&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">name@domain.com&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">client_id&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#39;1111111111111111&amp;#39;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">auth_uri&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">https://accounts.google.com/o/oauth2/auth&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">token_uri&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">https://oauth2.googleapis.com/token&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">auth_provider_x509_cert_url&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">https://www.googleapis.com/oauth2/v1/certs&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">client_x509_cert_url&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">https://www.googleapis.com/robot/v1/metadata/x509/&amp;lt;project-name&amp;gt;.iam.gserviceaccount.com&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">private_key&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">PRIVATE KEY&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>&lt;code>topic&lt;/code> is the Pub/Sub topic name.&lt;/li>
+&lt;li>&lt;code>subscription&lt;/code> is the Pub/Sub subscription name.&lt;/li>
+&lt;li>&lt;code>type&lt;/code> is the GCP credentials type.&lt;/li>
+&lt;li>&lt;code>project_id&lt;/code> is the GCP project id.&lt;/li>
+&lt;li>&lt;code>private_key_id&lt;/code> is the GCP private key id.&lt;/li>
+&lt;li>&lt;code>client_email&lt;/code> is the GCP client email.&lt;/li>
+&lt;li>&lt;code>client_id&lt;/code> is the GCP client id.&lt;/li>
+&lt;li>&lt;code>auth_uri&lt;/code> is Google account OAuth endpoint.&lt;/li>
+&lt;li>&lt;code>token_uri&lt;/code> is Google account token uri.&lt;/li>
+&lt;li>&lt;code>auth_provider_x509_cert_url&lt;/code> is the GCP credentials cert url.&lt;/li>
+&lt;li>&lt;code>client_x509_cert_url&lt;/code> is the GCP credentials project x509 cert url.&lt;/li>
+&lt;li>&lt;code>private_key&lt;/code> is the GCP credentials private key.&lt;/li>
+&lt;/ul>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="output-binding-supported-operations">Output Binding Supported Operations&lt;/h2>
+&lt;ul>
+&lt;li>create&lt;/li>
+&lt;/ul>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: GCP Storage Bucket binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/gcpbucket/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/gcpbucket/</guid><description>
+&lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">bindings.gcp.bucket&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">bucket&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">mybucket&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">type&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">service_account&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">project_id&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">project_111&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">private_key_id&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#75715e">*************&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">client_email&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">name@domain.com&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">client_id&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#39;1111111111111111&amp;#39;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">auth_uri&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">https://accounts.google.com/o/oauth2/auth&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">token_uri&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">https://oauth2.googleapis.com/token&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">auth_provider_x509_cert_url&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">https://www.googleapis.com/oauth2/v1/certs&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">client_x509_cert_url&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">https://www.googleapis.com/robot/v1/metadata/x509/&amp;lt;project-name&amp;gt;.iam.gserviceaccount.com&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">private_key&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">PRIVATE KEY&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>&lt;code>bucket&lt;/code> is the bucket name.&lt;/li>
+&lt;li>&lt;code>type&lt;/code> is the GCP credentials type.&lt;/li>
+&lt;li>&lt;code>project_id&lt;/code> is the GCP project id.&lt;/li>
+&lt;li>&lt;code>private_key_id&lt;/code> is the GCP private key id.&lt;/li>
+&lt;li>&lt;code>client_email&lt;/code> is the GCP client email.&lt;/li>
+&lt;li>&lt;code>client_id&lt;/code> is the GCP client id.&lt;/li>
+&lt;li>&lt;code>auth_uri&lt;/code> is Google account oauth endpoint.&lt;/li>
+&lt;li>&lt;code>token_uri&lt;/code> is Google account token uri.&lt;/li>
+&lt;li>&lt;code>auth_provider_x509_cert_url&lt;/code> is the GCP credentials cert url.&lt;/li>
+&lt;li>&lt;code>client_x509_cert_url&lt;/code> is the GCP credentials project x509 cert url.&lt;/li>
+&lt;li>&lt;code>private_key&lt;/code> is the GCP credentials private key.&lt;/li>
+&lt;/ul>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="output-binding-supported-operations">Output Binding Supported Operations&lt;/h2>
+&lt;ul>
+&lt;li>create&lt;/li>
+&lt;/ul>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: HTTP binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/http/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/http/</guid><description>
+&lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">bindings.http&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">url&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">http://something.com&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">method&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">GET&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>&lt;code>url&lt;/code> is the HTTP url to invoke.&lt;/li>
+&lt;li>&lt;code>method&lt;/code> is the HTTP verb to use for the request.&lt;/li>
+&lt;/ul>
+&lt;h2 id="output-binding-supported-operations">Output Binding Supported Operations&lt;/h2>
+&lt;ul>
+&lt;li>create&lt;/li>
+&lt;/ul>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: InfluxDB binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/influxdb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/influxdb/</guid><description>
+&lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">bindings.influx&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">url&lt;/span> &lt;span style="color:#75715e"># Required&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;INFLUX-DB-URL&amp;gt;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">token&lt;/span> &lt;span style="color:#75715e"># Required&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;TOKEN&amp;gt;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">org&lt;/span> &lt;span style="color:#75715e"># Required&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;ORG&amp;gt;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">bucket&lt;/span> &lt;span style="color:#75715e"># Required&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;BUCKET&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>&lt;code>url&lt;/code> is the URL for the InfluxDB instance. eg. http://localhost:8086&lt;/li>
+&lt;li>&lt;code>token&lt;/code> is the authorization token for InfluxDB.&lt;/li>
+&lt;li>&lt;code>org&lt;/code> is the InfluxDB organization.&lt;/li>
+&lt;li>&lt;code>bucket&lt;/code> bucket name to write to.&lt;/li>
+&lt;/ul>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="output-binding-supported-operations">Output Binding Supported Operations&lt;/h2>
+&lt;ul>
+&lt;li>create&lt;/li>
+&lt;/ul>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Kafka binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/kafka/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/kafka/</guid><description>
+&lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">bindings.kafka&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">topics&lt;/span> &lt;span style="color:#75715e"># Optional. in use for input bindings&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">topic1,topic2&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">brokers&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">localhost:9092,localhost:9093&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">consumerGroup&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">group1&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">publishTopic&lt;/span> &lt;span style="color:#75715e"># Optional. in use for output bindings&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">topic3&lt;/span>
+- &lt;span style="color:#f92672">name: authRequired # Required. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;false&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">saslUsername&lt;/span> &lt;span style="color:#75715e"># Optional.&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;user&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">saslPassword&lt;/span> &lt;span style="color:#75715e"># Optional.&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;password&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>&lt;code>topics&lt;/code> is a comma separated string of topics for an input binding.&lt;/li>
+&lt;li>&lt;code>brokers&lt;/code> is a comma separated string of kafka brokers.&lt;/li>
+&lt;li>&lt;code>consumerGroup&lt;/code> is a kafka consumer group to listen on.&lt;/li>
+&lt;li>&lt;code>publishTopic&lt;/code> is the topic to publish for an output binding.&lt;/li>
+&lt;li>&lt;code>authRequired&lt;/code> determines whether to use SASL authentication or not.&lt;/li>
+&lt;li>&lt;code>saslUsername&lt;/code> is the SASL username for authentication. Only used if &lt;code>authRequired&lt;/code> is set to - &lt;code>&amp;quot;true&amp;quot;&lt;/code>.&lt;/li>
+&lt;li>&lt;code>saslPassword&lt;/code> is the SASL password for authentication. Only used if &lt;code>authRequired&lt;/code> is set to - &lt;code>&amp;quot;true&amp;quot;&lt;/code>.&lt;/li>
+&lt;/ul>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="specifying-a-partition-key">Specifying a partition key&lt;/h2>
+&lt;p>When invoking the Kafka binding, its possible to provide an optional partition key by using the &lt;code>metadata&lt;/code> section in the request body.&lt;/p>
+&lt;p>The field name is &lt;code>partitionKey&lt;/code>.&lt;/p>
+&lt;p>Example:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X POST http://localhost:3500/v1.0/bindings/myKafka &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -d &lt;span style="color:#e6db74">&amp;#39;{
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;data&amp;#34;: {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;message&amp;#34;: &amp;#34;Hi&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> },
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;metadata&amp;#34;: {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;partitionKey&amp;#34;: &amp;#34;key1&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> },
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;operation&amp;#34;: &amp;#34;create&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="output-binding-supported-operations">Output Binding Supported Operations&lt;/h2>
+&lt;ul>
+&lt;li>create&lt;/li>
+&lt;/ul>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Kubernetes Events binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/kubernetes-binding/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/kubernetes-binding/</guid><description>
+&lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">bindings.kubernetes&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">namespace&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">resyncPeriodInSec&lt;/span>
+&lt;span style="color:#f92672">vale&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;lt;seconds&amp;gt;&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>&lt;code>namespace&lt;/code> (required) is the Kubernetes namespace to read events from.&lt;/li>
+&lt;li>&lt;code>resyncPeriodInSec&lt;/code> (optional, default &lt;code>10&lt;/code>) the period of time to refresh event list from Kubernetes API server.&lt;/li>
+&lt;/ul>
+&lt;p>Output received from the binding is of format &lt;code>bindings.ReadResponse&lt;/code> with the &lt;code>Data&lt;/code> field populated with the following structure:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json"> {
+&lt;span style="color:#f92672">&amp;#34;event&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;oldVal&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;metadata&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;name&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;hello-node.162c2661c524d095&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;namespace&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;kube-events&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;selfLink&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;/api/v1/namespaces/kube-events/events/hello-node.162c2661c524d095&amp;#34;&lt;/span>,
+&lt;span style="color:#960050;background-color:#1e0010">...&lt;/span>
+},
+&lt;span style="color:#f92672">&amp;#34;involvedObject&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;kind&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;Deployment&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;namespace&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;kube-events&amp;#34;&lt;/span>,
+&lt;span style="color:#960050;background-color:#1e0010">...&lt;/span>
+},
+&lt;span style="color:#f92672">&amp;#34;reason&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;ScalingReplicaSet&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;message&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;Scaled up replica set hello-node-7bf657c596 to 1&amp;#34;&lt;/span>,
+&lt;span style="color:#960050;background-color:#1e0010">...&lt;/span>
+},
+&lt;span style="color:#f92672">&amp;#34;newVal&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;metadata&amp;#34;&lt;/span>: { &lt;span style="color:#f92672">&amp;#34;creationTimestamp&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;null&amp;#34;&lt;/span> },
+&lt;span style="color:#f92672">&amp;#34;involvedObject&amp;#34;&lt;/span>: {},
+&lt;span style="color:#f92672">&amp;#34;source&amp;#34;&lt;/span>: {},
+&lt;span style="color:#f92672">&amp;#34;firstTimestamp&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;null&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;lastTimestamp&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;null&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;eventTime&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;null&amp;#34;&lt;/span>,
+&lt;span style="color:#960050;background-color:#1e0010">...&lt;/span>
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Three different event types are available:&lt;/p>
+&lt;ul>
+&lt;li>Add : Only the &lt;code>newVal&lt;/code> field is populated, &lt;code>oldVal&lt;/code> field is an empty &lt;code>v1.Event&lt;/code>, &lt;code>event&lt;/code> is &lt;code>add&lt;/code>&lt;/li>
+&lt;li>Delete : Only the &lt;code>oldVal&lt;/code> field is populated, &lt;code>newVal&lt;/code> field is an empty &lt;code>v1.Event&lt;/code>, &lt;code>event&lt;/code> is &lt;code>delete&lt;/code>&lt;/li>
+&lt;li>Update : Both the &lt;code>oldVal&lt;/code> and &lt;code>newVal&lt;/code> fields are populated, &lt;code>event&lt;/code> is &lt;code>update&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h2 id="required-permisiions">Required permisiions&lt;/h2>
+&lt;p>For consuming &lt;code>events&lt;/code> from Kubernetes, permissions need to be assigned to a User/Group/ServiceAccount using [RBAC Auth] mechanism of Kubernetes.&lt;/p>
+&lt;h3 id="role">Role&lt;/h3>
+&lt;p>One of the rules need to be of the form as below to give permissions to &lt;code>get, watch&lt;/code> and &lt;code>list&lt;/code> &lt;code>events&lt;/code>. API Groups can be as restrictive as needed.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">rbac.authorization.k8s.io/v1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Role&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;ROLENAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">rules&lt;/span>:
+- &lt;span style="color:#f92672">apiGroups&lt;/span>: [&lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>]
+&lt;span style="color:#f92672">resources&lt;/span>: [&lt;span style="color:#e6db74">&amp;#34;events&amp;#34;&lt;/span>]
+&lt;span style="color:#f92672">verbs&lt;/span>: [&lt;span style="color:#e6db74">&amp;#34;get&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;watch&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;list&amp;#34;&lt;/span>]
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="rolebinding">RoleBinding&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">rbac.authorization.k8s.io/v1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">RoleBinding&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span> &lt;span style="color:#75715e"># same as above&lt;/span>
+&lt;span style="color:#f92672">subjects&lt;/span>:
+- &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">ServiceAccount&lt;/span>
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span> &lt;span style="color:#75715e"># or as need be, can be changed&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span> &lt;span style="color:#75715e"># same as above&lt;/span>
+&lt;span style="color:#f92672">roleRef&lt;/span>:
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Role&lt;/span>
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;ROLENAME&amp;gt;&lt;/span> &lt;span style="color:#75715e"># same as the one above&lt;/span>
+&lt;span style="color:#f92672">apiGroup&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: MQTT binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/mqtt/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/mqtt/</guid><description>
+&lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">bindings.mqtt&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">url&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">mqtt[s]://[username][:password]@host.domain[:port]&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">topic&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">topic1&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>&lt;code>url&lt;/code> is the MQTT broker url.&lt;/li>
+&lt;li>&lt;code>topic&lt;/code> is the topic to listen on or send events to.&lt;/li>
+&lt;/ul>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="output-binding-supported-operations">Output Binding Supported Operations&lt;/h2>
+&lt;ul>
+&lt;li>create&lt;/li>
+&lt;/ul>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: PostgrSQL binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/postgres/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/postgres/</guid><description>
+&lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">bindings.postgres&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">url&lt;/span> &lt;span style="color:#75715e"># Required&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;CONNECTION_STRING&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;p>The PostgrSQL binding uses &lt;a href="https://github.com/jackc/pgx">pgx connection pool&lt;/a> internally so the &lt;code>url&lt;/code> parameter can be any valid connection string, either in a &lt;code>DSN&lt;/code> or &lt;code>URL&lt;/code> format:&lt;/p>
+&lt;p>&lt;strong>Example DSN&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">user&lt;span style="color:#f92672">=&lt;/span>dapr password&lt;span style="color:#f92672">=&lt;/span>secret host&lt;span style="color:#f92672">=&lt;/span>dapr.example.com port&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">5432&lt;/span> dbname&lt;span style="color:#f92672">=&lt;/span>dapr sslmode&lt;span style="color:#f92672">=&lt;/span>verify-ca
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Example URL&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">postgres://dapr:secret@dapr.example.com:5432/dapr?sslmode&lt;span style="color:#f92672">=&lt;/span>verify-ca
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Both methods also support connection pool configuration variables:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>pool_min_conns&lt;/code>: integer 0 or greater&lt;/li>
+&lt;li>&lt;code>pool_max_conns&lt;/code>: integer greater than 0&lt;/li>
+&lt;li>&lt;code>pool_max_conn_lifetime&lt;/code>: duration string&lt;/li>
+&lt;li>&lt;code>pool_max_conn_idle_time&lt;/code>: duration string&lt;/li>
+&lt;li>&lt;code>pool_health_check_period&lt;/code>: duration string&lt;/li>
+&lt;/ul>
+&lt;h2 id="output-binding-supported-operations">Output Binding Supported Operations&lt;/h2>
+&lt;ul>
+&lt;li>&lt;code>exec&lt;/code>&lt;/li>
+&lt;li>&lt;code>query&lt;/code>&lt;/li>
+&lt;li>&lt;code>close&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h3 id="exec">exec&lt;/h3>
+&lt;p>The &lt;code>exec&lt;/code> operation can be used for DDL operations (like table creation), as well as &lt;code>INSERT&lt;/code>, &lt;code>UPDATE&lt;/code>, &lt;code>DELETE&lt;/code> operations which return only metadata (e.g. number of affected rows).&lt;/p>
+&lt;p>&lt;strong>Request&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;operation&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;exec&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;metadata&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;sql&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;INSERT INTO foo (id, c1, ts) VALUES (1, &amp;#39;demo&amp;#39;, &amp;#39;2020-09-24T11:45:05Z07:00&amp;#39;)&amp;#34;&lt;/span>
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Response&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;metadata&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;operation&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;exec&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;duration&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;294µs&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;start-time&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;2020-09-24T11:13:46.405097Z&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;end-time&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;2020-09-24T11:13:46.414519Z&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;rows-affected&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;sql&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;INSERT INTO foo (id, c1, ts) VALUES (1, &amp;#39;demo&amp;#39;, &amp;#39;2020-09-24T11:45:05Z07:00&amp;#39;)&amp;#34;&lt;/span>
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="query">query&lt;/h3>
+&lt;p>The &lt;code>query&lt;/code> operation is used for &lt;code>SELECT&lt;/code> statements, which returns the metadata along with data in a form of an array of row values.&lt;/p>
+&lt;p>&lt;strong>Request&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;operation&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;query&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;metadata&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;sql&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;SELECT * FROM foo WHERE id &amp;lt; 3&amp;#34;&lt;/span>
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Response&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;metadata&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;operation&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;query&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;duration&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;432µs&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;start-time&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;2020-09-24T11:13:46.405097Z&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;end-time&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;2020-09-24T11:13:46.420566Z&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;sql&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;SELECT * FROM foo WHERE id &amp;lt; 3&amp;#34;&lt;/span>
+},
+&lt;span style="color:#f92672">&amp;#34;data&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[
+&lt;/span>&lt;span style="color:#e6db74"> [0,\&amp;#34;test-0\&amp;#34;,\&amp;#34;2020-09-24T04:13:46Z\&amp;#34;],
+&lt;/span>&lt;span style="color:#e6db74"> [1,\&amp;#34;test-1\&amp;#34;,\&amp;#34;2020-09-24T04:13:46Z\&amp;#34;],
+&lt;/span>&lt;span style="color:#e6db74"> [2,\&amp;#34;test-2\&amp;#34;,\&amp;#34;2020-09-24T04:13:46Z\&amp;#34;]
+&lt;/span>&lt;span style="color:#e6db74"> ]&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="close">close&lt;/h3>
+&lt;p>Finally, the &lt;code>close&lt;/code> operation can be used to explicitly close the DB connection and return it to the pool. This operation doesn&amp;rsquo;t have any response.&lt;/p>
+&lt;p>&lt;strong>Request&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;operation&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;close&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>Note, the PostgreSql binding itself doesn&amp;rsquo;t prevent SQL injection, like with any database application, validate the input before executing query.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Postmark binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/postmark/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/postmark/</guid><description>
+&lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">postmark&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">bindings.postmark&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">accountToken&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;YOUR_ACCOUNT_TOKEN&amp;#34;&lt;/span> &lt;span style="color:#75715e"># required, this is your Postmark account token&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">serverToken&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;YOUR_SERVER_TOKEN&amp;#34;&lt;/span> &lt;span style="color:#75715e"># required, this is your Postmark server token&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">emailFrom&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;testapp@dapr.io&amp;#34;&lt;/span> &lt;span style="color:#75715e"># optional&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">emailTo&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;dave@dapr.io&amp;#34;&lt;/span> &lt;span style="color:#75715e"># optional&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">subject&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;Hello!&amp;#34;&lt;/span> &lt;span style="color:#75715e"># optional&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>&lt;code>accountToken&lt;/code> is your Postmark account token, this should be considered a secret value. Required.&lt;/li>
+&lt;li>&lt;code>serverToken&lt;/code> is your Postmark server token, this should be considered a secret value. Required.&lt;/li>
+&lt;li>&lt;code>emailFrom&lt;/code> If set this specifies the &amp;lsquo;from&amp;rsquo; email address of the email message. Optional field, see below.&lt;/li>
+&lt;li>&lt;code>emailTo&lt;/code> If set this specifies the &amp;lsquo;to&amp;rsquo; email address of the email message. Optional field, see below.&lt;/li>
+&lt;li>&lt;code>emailCc&lt;/code> If set this specifies the &amp;lsquo;cc&amp;rsquo; email address of the email message. Optional field, see below.&lt;/li>
+&lt;li>&lt;code>emailBcc&lt;/code> If set this specifies the &amp;lsquo;bcc&amp;rsquo; email address of the email message. Optional field, see below.&lt;/li>
+&lt;li>&lt;code>subject&lt;/code> If set this specifies the subject of the email message. Optional field, see below.&lt;/li>
+&lt;/ul>
+&lt;p>You can specify any of the optional metadata properties on the output binding request too (e.g. &lt;code>emailFrom&lt;/code>, &lt;code>emailTo&lt;/code>, &lt;code>subject&lt;/code>, etc.)&lt;/p>
+&lt;p>Combined, the optional metadata properties in the component configuration and the request payload should at least contain the &lt;code>emailFrom&lt;/code>, &lt;code>emailTo&lt;/code> and &lt;code>subject&lt;/code> fields, as these are required to send an email with success.&lt;/p>
+&lt;p>Example request payload&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;operation&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;create&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;metadata&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;emailTo&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;changeme@example.net&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;subject&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;An email from Dapr Postmark binding&amp;#34;&lt;/span>
+},
+&lt;span style="color:#f92672">&amp;#34;data&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;lt;h1&amp;gt;Testing Dapr Bindings&amp;lt;/h1&amp;gt;This is a test.&amp;lt;br&amp;gt;Bye!&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="output-binding-supported-operations">Output Binding Supported Operations&lt;/h2>
+&lt;ul>
+&lt;li>&lt;code>create&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: RabbitMQ binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/rabbitmq/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/rabbitmq/</guid><description>
+&lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">bindings.rabbitmq&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">queueName&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">queue1&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">host&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">amqp://[username][:password]@host.domain[:port]&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">durable&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">deleteWhenUnused&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#66d9ef">false&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">ttlInSeconds&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">60&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">prefetchCount&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">0&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>&lt;code>queueName&lt;/code> is the RabbitMQ queue name.&lt;/li>
+&lt;li>&lt;code>host&lt;/code> is the RabbitMQ host address.&lt;/li>
+&lt;li>&lt;code>durable&lt;/code> tells RabbitMQ to persist message in storage.&lt;/li>
+&lt;li>&lt;code>deleteWhenUnused&lt;/code> enables or disables auto-delete.&lt;/li>
+&lt;li>&lt;code>ttlInSeconds&lt;/code> is an optional parameter to set the &lt;a href="https://www.rabbitmq.com/ttl.html">default message time to live at RabbitMQ queue level&lt;/a>. If this parameter is omitted, messages won&amp;rsquo;t expire, continuing to exist on the queue until processed.&lt;/li>
+&lt;li>&lt;code>prefetchCount&lt;/code> is an optional parameter to set the &lt;a href="https://www.rabbitmq.com/confirms.html#channel-qos-prefetch">Channel Prefetch Setting (QoS)&lt;/a>. If this parameter is omiited, QoS would set value to 0 as no limit.&lt;/li>
+&lt;/ul>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="specifying-a-time-to-live-on-message-level">Specifying a time to live on message level&lt;/h2>
+&lt;p>Time to live can be defined on queue level (as illustrated above) or at the message level. The value defined at message level overwrites any value set at queue level.&lt;/p>
+&lt;p>To set time to live at message level use the &lt;code>metadata&lt;/code> section in the request body during the binding invocation.&lt;/p>
+&lt;p>The field name is &lt;code>ttlInSeconds&lt;/code>.&lt;/p>
+&lt;p>Example:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X POST http://localhost:3500/v1.0/bindings/myRabbitMQ &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -d &lt;span style="color:#e6db74">&amp;#39;{
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;data&amp;#34;: {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;message&amp;#34;: &amp;#34;Hi&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> },
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;metadata&amp;#34;: {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;ttlInSeconds&amp;#34;: &amp;#34;60&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> },
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;operation&amp;#34;: &amp;#34;create&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="output-binding-supported-operations">Output Binding Supported Operations&lt;/h2>
+&lt;ul>
+&lt;li>create&lt;/li>
+&lt;/ul>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Redis binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/redis/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/redis/</guid><description>
+&lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">bindings.redis&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">redisHost&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;address&amp;gt;:6379&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">redisPassword&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#75715e">**************&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">enableTLS&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;bool&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>&lt;code>redisHost&lt;/code> is the Redis host address.&lt;/li>
+&lt;li>&lt;code>redisPassword&lt;/code> is the Redis password.&lt;/li>
+&lt;li>&lt;code>enableTLS&lt;/code> - If the Redis instance supports TLS with public certificates it can be configured to enable or disable TLS.&lt;/li>
+&lt;/ul>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="output-binding-supported-operations">Output Binding Supported Operations&lt;/h2>
+&lt;ul>
+&lt;li>create&lt;/li>
+&lt;/ul>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: RethinkDB binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/rethinkdb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/rethinkdb/</guid><description>
+&lt;h2 id="introduction">Introduction&lt;/h2>
+&lt;p>The RethinkDB state store supports transactions which means it can be used to support Dapr actors. Dapr persists only the actor&amp;rsquo;s current state which doesn&amp;rsquo;t allow the users to track how actor&amp;rsquo;s state may have changed over time.&lt;/p>
+&lt;p>To enable users to track change of the state of actors, this binding leverages RethinkDB&amp;rsquo;s built-in capability to monitor RethinkDB table and event on change with both the &lt;code>old&lt;/code> and &lt;code>new&lt;/code> state. This binding creates a subscription on the Dapr state table and streams these changes using the Dapr input binding interface.&lt;/p>
+&lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
+&lt;p>Create the following YAML file and save this to the &lt;code>components&lt;/code> directory in your application directory. (Use the &lt;code>--components-path&lt;/code> flag with &lt;code>dapr run&lt;/code> to point to your custom components dir)&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">changes&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">bindings.rethinkdb.statechange&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">address&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-RETHINKDB-ADDRESS&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Required, e.g. 127.0.0.1:28015 or rethinkdb.default.svc.cluster.local:28015).&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">database&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-RETHINKDB-DB-NAME&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Required, e.g. dapr (alpha-numerics only)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>For example on how to combine this binding with Dapr Pub/Sub to stream state changes to a topic see &lt;a href="https://github.com/mchmarny/dapr-state-store-change-handler">here&lt;/a>.&lt;/p>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Twilio SendGrid binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/sendgrid/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/sendgrid/</guid><description>
+&lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">sendgrid&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">bindings.twilio.sendgrid&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">emailFrom&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;testapp@dapr.io&amp;#34;&lt;/span> &lt;span style="color:#75715e"># optional &lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">emailTo&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;dave@dapr.io&amp;#34;&lt;/span> &lt;span style="color:#75715e"># optional &lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">subject&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;Hello!&amp;#34;&lt;/span> &lt;span style="color:#75715e"># optional &lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">apiKey&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;YOUR_API_KEY&amp;#34;&lt;/span> &lt;span style="color:#75715e"># required, this is your SendGrid key&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>&lt;code>emailFrom&lt;/code> If set this specifies the &amp;lsquo;from&amp;rsquo; email address of the email message. Optional field, see below.&lt;/li>
+&lt;li>&lt;code>emailTo&lt;/code> If set this specifies the &amp;lsquo;to&amp;rsquo; email address of the email message. Optional field, see below.&lt;/li>
+&lt;li>&lt;code>emailCc&lt;/code> If set this specifies the &amp;lsquo;cc&amp;rsquo; email address of the email message. Optional field, see below.&lt;/li>
+&lt;li>&lt;code>emailBcc&lt;/code> If set this specifies the &amp;lsquo;bcc&amp;rsquo; email address of the email message. Optional field, see below.&lt;/li>
+&lt;li>&lt;code>subject&lt;/code> If set this specifies the subject of the email message. Optional field, see below.&lt;/li>
+&lt;li>&lt;code>apiKey&lt;/code> is your SendGrid API key, this should be considered a secret value. Required.&lt;/li>
+&lt;/ul>
+&lt;p>You can specify any of the optional metadata properties on the output binding request too (e.g. &lt;code>emailFrom&lt;/code>, &lt;code>emailTo&lt;/code>, &lt;code>subject&lt;/code>, etc.)&lt;/p>
+&lt;p>Example request payload&lt;/p>
+&lt;pre>&lt;code>{
+&amp;quot;metadata&amp;quot;: {
+&amp;quot;emailTo&amp;quot;: &amp;quot;changeme@example.net&amp;quot;,
+&amp;quot;subject&amp;quot;: &amp;quot;An email from Dapr SendGrid binding&amp;quot;
+},
+&amp;quot;data&amp;quot;: &amp;quot;&amp;lt;h1&amp;gt;Testing Dapr Bindings&amp;lt;/h1&amp;gt;This is a test.&amp;lt;br&amp;gt;Bye!&amp;quot;
+}
+&lt;/code>&lt;/pre>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="output-binding-supported-operations">Output Binding Supported Operations&lt;/h2>
+&lt;ul>
+&lt;li>create&lt;/li>
+&lt;/ul>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Twilio SMS binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/twilio/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/twilio/</guid><description>
+&lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">bindings.twilio.sms&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">toNumber&lt;/span> &lt;span style="color:#75715e"># required.&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">111-111-1111&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">fromNumber&lt;/span> &lt;span style="color:#75715e"># required.&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">222-222-2222&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">accountSid&lt;/span> &lt;span style="color:#75715e"># required.&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#75715e">*****************&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">authToken&lt;/span> &lt;span style="color:#75715e"># required.&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#75715e">*****************&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>&lt;code>toNumber&lt;/code> is the target number to send the sms to.&lt;/li>
+&lt;li>&lt;code>fromNumber&lt;/code> is the sender phone number.&lt;/li>
+&lt;li>&lt;code>accountSid&lt;/code> is the Twilio account SID.&lt;/li>
+&lt;li>&lt;code>authToken&lt;/code> is the Twilio auth token.&lt;/li>
+&lt;/ul>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="output-binding-supported-operations">Output Binding Supported Operations&lt;/h2>
+&lt;ul>
+&lt;li>create&lt;/li>
+&lt;/ul>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Twitter binding spec</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/twitter/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/twitter/</guid><description>
+&lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
+&lt;p>The Twitter binding supports both &lt;code>input&lt;/code> and &lt;code>output&lt;/code> binding configuration. First the common part:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">bindings.twitter&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">consumerKey&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;****&amp;#34;&lt;/span> &lt;span style="color:#75715e"># twitter api consumer key, required&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">consumerSecret&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;****&amp;#34;&lt;/span> &lt;span style="color:#75715e"># twitter api consumer secret, required&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">accessToken&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;****&amp;#34;&lt;/span> &lt;span style="color:#75715e"># twitter api access token, required&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">accessSecret&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;****&amp;#34;&lt;/span> &lt;span style="color:#75715e"># twitter api access secret, required&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="input-bindings">Input bindings&lt;/h2>
+&lt;p>For input bindings, where the query matching Tweets are streamed to the user service, the above component has to also include a query:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml"> - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">query&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;dapr&amp;#34;&lt;/span> &lt;span style="color:#75715e"># your search query, required &lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="output-bindings">Output bindings&lt;/h2>
+&lt;p>For output binding invocation the user code has to invoke the binding:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">POST http://localhost:3500/v1.0/bindings/twitter
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Where the payload is:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;data&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;metadata&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;query&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;twitter-query&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;lang&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;optional-language-code&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;result&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;valid-result-type&amp;#34;&lt;/span>
+},
+&lt;span style="color:#f92672">&amp;#34;operation&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;get&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The metadata parameters are:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>query&lt;/code> - any valid Twitter query (e.g. &lt;code>dapr&lt;/code> or &lt;code>dapr AND serverless&lt;/code>). See &lt;a href="https://developer.twitter.com/en/docs/tweets/rules-and-filtering/overview/standard-operators">Twitter docs&lt;/a> for more details on advanced query formats&lt;/li>
+&lt;li>&lt;code>lang&lt;/code> - (optional, default: &lt;code>en&lt;/code>) restricts result tweets to the given language using &lt;a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">ISO 639-1 language code&lt;/a>&lt;/li>
+&lt;li>&lt;code>result&lt;/code> - (optional, default: &lt;code>recent&lt;/code>) specifies tweet query result type. Valid values include:
+&lt;ul>
+&lt;li>&lt;code>mixed&lt;/code> - both popular and real time results&lt;/li>
+&lt;li>&lt;code>recent&lt;/code> - most recent results&lt;/li>
+&lt;li>&lt;code>popular&lt;/code> - most popular results&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>You can see the example of the JSON data that Twitter binding returns &lt;a href="https://developer.twitter.com/en/docs/tweets/search/api-reference/get-search-tweets">here&lt;/a>&lt;/p>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item></channel></rss>

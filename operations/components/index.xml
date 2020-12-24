@@ -1,0 +1,149 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – Managing components in Dapr</title><link>https://dapr-cn.github.io/docs/operations/components/</link><description>Recent content in Managing components in Dapr on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="https://dapr-cn.github.io/docs/operations/components/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: How-To: Scope components to one or more applications</title><link>https://dapr-cn.github.io/docs/operations/components/component-scopes/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/component-scopes/</guid><description>
+&lt;p>Dapr components are namespaced (separate from the Kubernetes namespace concept), meaning a Dapr runtime instance can only access components that have been deployed to the same namespace.&lt;/p>
+&lt;h2 id="namespaces">Namespaces&lt;/h2>
+&lt;p>Namespaces can be used to limit component access to particular Dapr instances.&lt;/p>
+&lt;h3 id="example-of-component-namespacing-in-kubernetes">Example of component namespacing in Kubernetes&lt;/h3>
+&lt;p>Let&amp;rsquo;s consider the following component in Kubernetes:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">statestore&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">production&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">state.redis&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">redisHost&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">redis-master:6379&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>In this example, the Redis component is only accessible to Dapr instances running inside the &lt;code>production&lt;/code> namespace.&lt;/p>
+&lt;h3 id="example-of-component-namespacing-in-self-hosted-mode">Example of component namespacing in self-hosted mode&lt;/h3>
+&lt;p>In self hosted mode, a developer can specify the namespace to a Dapr instance by setting the &lt;code>NAMESPACE&lt;/code> environment variable. If the &lt;code>NAMESPACE&lt;/code> environment variable is set, Dapr will not load any component that does not specify the same namespace in its metadata.&lt;/p>
+&lt;p>Considering the example above, to tell Dapr which namespace it is deployed to, set the environment variable:&lt;/p>
+&lt;p>MacOS/Linux:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">export NAMESPACE&lt;span style="color:#f92672">=&lt;/span>production
+&lt;span style="color:#75715e"># run Dapr as usual&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Windows:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-powershell" data-lang="powershell">setx NAMESPACE &lt;span style="color:#e6db74">&amp;#34;production&amp;#34;&lt;/span>
+&lt;span style="color:#75715e"># run Dapr as usual&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>When Dapr runs, it matches it&amp;rsquo;s own configured namespace with the namespace of the components that it loads and initializes only the the one matching its namespaces. All other components in a different namespace are not loaded.&lt;/p>
+&lt;h2 id="application-access-to-components-with-scopes">Application access to components with scopes&lt;/h2>
+&lt;p>Developers and operators might want to limit access for one database to a certain application, or a specific set of applications. To achieve this, Dapr allows you to specify &lt;code>scopes&lt;/code> on the component YAML. Application scopes added to a component limit only the applications with specific IDs to be able to use the component.&lt;/p>
+&lt;p>The following example shows how to give access to two Dapr enabled apps, with the app IDs of &lt;code>app1&lt;/code> and &lt;code>app2&lt;/code> to the Redis component named &lt;code>statestore&lt;/code> which itself is in the &lt;code>production&lt;/code> namespace&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">statestore&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">production&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">state.redis&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">redisHost&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">redis-master:6379&lt;/span>
+&lt;span style="color:#f92672">scopes&lt;/span>:
+- &lt;span style="color:#ae81ff">app1&lt;/span>
+- &lt;span style="color:#ae81ff">app2&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="example-iframe-width560-height315-srchttpswwwyoutubecomembed8w-ibdnvcumstart1763-frameborder0-allowaccelerometer-autoplay-clipboard-write-encrypted-media-gyroscope-picture-in-picture-allowfullscreen-markcrwd-markiframe">Example &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/8W-iBDNvCUM?start=1763" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark">&lt;/iframe>&lt;/h2></description></item><item><title>Operations: How-To: Reference secrets in components</title><link>https://dapr-cn.github.io/docs/operations/components/component-secrets/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/component-secrets/</guid><description>
+&lt;h2 id="overview">Overview&lt;/h2>
+&lt;p>Components can reference secrets for the &lt;code>spec.metadata&lt;/code> section within the components definition.&lt;/p>
+&lt;p>In order to reference a secret, you need to set the &lt;code>auth.secretStore&lt;/code> field to specify the name of the secret store that holds the secrets.&lt;/p>
+&lt;p>When running in Kubernetes, if the &lt;code>auth.secretStore&lt;/code> is empty, the Kubernetes secret store is assumed.&lt;/p>
+&lt;h3 id="supported-secret-stores">Supported secret stores&lt;/h3>
+&lt;p>Go to &lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/secrets/howto-secrets/">this&lt;/a> link to see all the secret stores supported by Dapr, along with information on how to configure and use them.&lt;/p>
+&lt;h2 id="referencing-secrets">Referencing secrets&lt;/h2>
+&lt;p>While you have the option to use plain text secrets, this is not recommended for production:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yml" data-lang="yml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">statestore&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">state.redis&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">redisHost&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">localhost:6379&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">redisPassword&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">MyPassword&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Instead create the secret in your secret store and reference it in the component definition:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yml" data-lang="yml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">statestore&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">state.redis&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">redisHost&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">localhost:6379&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">redisPassword&lt;/span>
+&lt;span style="color:#f92672">secretKeyRef&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">redis-secret&lt;/span>
+&lt;span style="color:#f92672">key&lt;/span>: &lt;span style="color:#ae81ff">redis-password&lt;/span>
+&lt;span style="color:#f92672">auth&lt;/span>:
+&lt;span style="color:#f92672">secretStore&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;SECRET_STORE_NAME&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>SECRET_STORE_NAME&lt;/code> is the name of the configured &lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-secret-store/supported-secret-stores/">secret store component&lt;/a>. When running in Kubernetes and using a Kubernetes secret store, the field &lt;code>auth.SecretStore&lt;/code> defaults to &lt;code>kubernetes&lt;/code> and can be left empty.&lt;/p>
+&lt;p>The above component definition tells Dapr to extract a secret named &lt;code>redis-secret&lt;/code> from the defined secret store and assign the value of the &lt;code>redis-password&lt;/code> key in the secret to the &lt;code>redisPassword&lt;/code> field in the Component.&lt;/p>
+&lt;h2 id="example">Example&lt;/h2>
+&lt;h3 id="referencing-a-kubernetes-secret">Referencing a Kubernetes secret&lt;/h3>
+&lt;p>The following example shows you how to create a Kubernetes secret to hold the connection string for an Event Hubs binding.&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>First, create the Kubernetes secret:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash"> kubectl create secret generic eventhubs-secret --from-literal&lt;span style="color:#f92672">=&lt;/span>connectionString&lt;span style="color:#f92672">=&lt;/span>*********
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Next, reference the secret in your binding:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">eventhubs&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">bindings.azure.eventhubs&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">connectionString&lt;/span>
+&lt;span style="color:#f92672">secretKeyRef&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">eventhubs-secret&lt;/span>
+&lt;span style="color:#f92672">key&lt;/span>: &lt;span style="color:#ae81ff">connectionString&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Finally, apply the component to the Kubernetes cluster:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl apply -f ./eventhubs.yaml
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;/ol>
+&lt;h2 id="kubernetes-permissions">Kubernetes permissions&lt;/h2>
+&lt;h3 id="default-namespace">Default namespace&lt;/h3>
+&lt;p>When running in Kubernetes, Dapr, during installtion, defines default Role and RoleBinding for secrets access from Kubernetes secret store in the &lt;code>default&lt;/code> namespace. For Dapr enabled apps that fetch secrets from &lt;code>default&lt;/code> namespace, a secret can be defined and referenced in components as shown in the example above.&lt;/p>
+&lt;h3 id="non-default-namespaces">Non-default namespaces&lt;/h3>
+&lt;p>If your Dapr enabled apps are using components that fetch secrets from non-default namespaces, apply the following resources to that namespace:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">---
+&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">rbac.authorization.k8s.io/v1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Role&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">secret-reader&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">rules&lt;/span>:
+- &lt;span style="color:#f92672">apiGroups&lt;/span>: [&lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>]
+&lt;span style="color:#f92672">resources&lt;/span>: [&lt;span style="color:#e6db74">&amp;#34;secrets&amp;#34;&lt;/span>]
+&lt;span style="color:#f92672">verbs&lt;/span>: [&lt;span style="color:#e6db74">&amp;#34;get&amp;#34;&lt;/span>]
+---
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">RoleBinding&lt;/span>
+&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">rbac.authorization.k8s.io/v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">dapr-secret-reader&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">subjects&lt;/span>:
+- &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">ServiceAccount&lt;/span>
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">roleRef&lt;/span>:
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Role&lt;/span>
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">secret-reader&lt;/span>
+&lt;span style="color:#f92672">apiGroup&lt;/span>: &lt;span style="color:#ae81ff">rbac.authorization.k8s.io&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>These resources grant Dapr permissions to get secrets from the Kubernetes secret store for the namespace defined in the Role and RoleBinding.&lt;/p>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Note&lt;/h4>
+In production scenario to limit Dapr&amp;rsquo;s access to certain secret resources alone, you can use the &lt;code>resourceNames&lt;/code> field. See this &lt;a href="https://kubernetes.io/docs/reference/access-authn-authz/rbac/#referring-to-resources">link&lt;/a> for further explanation.
+&lt;/div></description></item><item><title>Operations: State stores components</title><link>https://dapr-cn.github.io/docs/operations/components/setup-state-store/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-state-store/</guid><description/></item><item><title>Operations: Pub/Sub brokers</title><link>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/</guid><description/></item><item><title>Operations: Secret store components</title><link>https://dapr-cn.github.io/docs/operations/components/setup-secret-store/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-secret-store/</guid><description/></item><item><title>Operations: Bindings components</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/</guid><description/></item></channel></rss>

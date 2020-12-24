@@ -1,0 +1,571 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – Deploy and run Dapr in Kubernetes mode</title><link>https://dapr-cn.github.io/docs/operations/hosting/kubernetes/</link><description>Recent content in Deploy and run Dapr in Kubernetes mode on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="https://dapr-cn.github.io/docs/operations/hosting/kubernetes/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: Overview of Dapr on Kubernetes</title><link>https://dapr-cn.github.io/docs/operations/hosting/kubernetes/kubernetes-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/hosting/kubernetes/kubernetes-overview/</guid><description>
+&lt;p>Dapr can be configured to run on any &lt;a href="https://github.com/dapr/quickstarts/tree/master/hello-kubernetes">Kubernetes cluster&lt;/a>. In Kubernetes the &lt;code>dapr-sidecar-injector&lt;/code> and &lt;code>dapr-operator&lt;/code> services provide first class integration to launch Dapr as a sidecar container in the same pod as the service container and provide notifications of Dapr component updates provisioned into the cluster. Additionally, the &lt;code>dapr-sidecar-injector&lt;/code> also injects the environment variables &lt;code>DAPR_HTTP_PORT&lt;/code> and &lt;code>DAPR_GRPC_PORT&lt;/code> into &lt;strong>all&lt;/strong> the containers in the pod to enable user defined applications to easily communicate with Dapr without hardcoding Dapr port values.&lt;/p>
+&lt;p>The &lt;code>dapr-sentry&lt;/code> service is a certificate authority that enables mutual TLS between Dapr sidecar instances for secure data encryption. For more information on the &lt;code>Sentry&lt;/code> service read the &lt;a href="https://dapr-cn.github.io/docs/concepts/security-concept/">security overview&lt;/a>&lt;/p>
+&lt;img src="https://dapr-cn.github.io/docs/images/overview_kubernetes.png" width=800>
+&lt;p>Deploying and running a Dapr enabled application into your Kubernetes cluster is a simple as adding a few annotations to the deployment schemes. To give your service an &lt;code>id&lt;/code> and &lt;code>port&lt;/code> known to Dapr, turn on tracing through configuration and launch the Dapr sidecar container, you annotate your Kubernetes deployment like this.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yml" data-lang="yml"> &lt;span style="color:#f92672">annotations&lt;/span>:
+&lt;span style="color:#f92672">dapr.io/enabled&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">dapr.io/app-id&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;nodeapp&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">dapr.io/app-port&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;3000&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">dapr.io/config&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;tracing&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>You can see some examples &lt;a href="https://github.com/dapr/quickstarts/tree/master/hello-kubernetes/deploy">here&lt;/a> in the Kubernetes getting started sample.&lt;/p>
+&lt;p>Read &lt;a href="https://github.com/dapr/docs/tree/master/howto#kubernetes-configuration">Kubernetes how to topics&lt;/a> for more information about setting up Kubernetes and Dapr.&lt;/p></description></item><item><title>Operations: Guidelines for production ready deployments on Kubernetes</title><link>https://dapr-cn.github.io/docs/operations/hosting/kubernetes/kubernetes-production/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/hosting/kubernetes/kubernetes-production/</guid><description>
+&lt;h2 id="cluster-capacity-requirements">Cluster capacity requirements&lt;/h2>
+&lt;p>For a production ready Kubernetes cluster deployment, it is recommended you run a cluster of 3 worker nodes to support a highly-available setup of the control plane. The Dapr control plane pods are designed to be lightweight and require the following resources in a production-ready setup:&lt;/p>
+&lt;p>&lt;em>Note: For more info on CPU and Memory resource units and their meaning, see &lt;a href="https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-units-in-kubernetes">this&lt;/a> link&lt;/em>&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Deployment&lt;/th>
+&lt;th>CPU&lt;/th>
+&lt;th>Memory&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>Operator&lt;/td>
+&lt;td>Limit: 1, Request: 100m&lt;/td>
+&lt;td>Limit: 200Mi, Request: 20Mi&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Sidecar Injector&lt;/td>
+&lt;td>Limit: 1, Request: 100m&lt;/td>
+&lt;td>Limit: 200Mi, Request: 20Mi&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Sentry&lt;/td>
+&lt;td>Limit: 1, Request: 100m&lt;/td>
+&lt;td>Limit: 200Mi, Request: 20Mi&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Placement&lt;/td>
+&lt;td>Limit: 1, Request: 250m&lt;/td>
+&lt;td>Limit: 500Mi, Request: 100Mi&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Dashboard&lt;/td>
+&lt;td>Limit: 200m, Request: 50m&lt;/td>
+&lt;td>Limit: 200Mi, Request: 20Mi&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>To change the resource assignments for the Dapr sidecar, see the annotations &lt;a href="https://dapr-cn.github.io/docs/operations/hosting/kubernetes/kubernetes-annotations/">here&lt;/a>. The specific annotations related to resource constraints are:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>dapr.io/sidecar-cpu-limit&lt;/code>&lt;/li>
+&lt;li>&lt;code>dapr.io/sidecar-memory-limit&lt;/code>&lt;/li>
+&lt;li>&lt;code>dapr.io/sidecar-cpu-request&lt;/code>&lt;/li>
+&lt;li>&lt;code>dapr.io/sidecar-memory-request&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>For more details on configuring resource in Kubernetes see &lt;a href="https://kubernetes.io/docs/tasks/configure-pod-container/assign-memory-resource/">Assign Memory Resources to Containers and Pods&lt;/a> and &lt;a href="https://kubernetes.io/docs/tasks/configure-pod-container/assign-cpu-resource/">Assign CPU Resources to Containers and Pods&lt;/a>&lt;/p>
+&lt;h3 id="optional-components">Optional components&lt;/h3>
+&lt;p>The following Dapr control plane deployments are optional:&lt;/p>
+&lt;ul>
+&lt;li>Placement - Needed for Dapr Actors&lt;/li>
+&lt;li>Sentry - Needed for mTLS for service to service invocation&lt;/li>
+&lt;li>Dashboard - Needed for operational view of the cluster&lt;/li>
+&lt;/ul>
+&lt;h2 id="sidecar-resource-requirements">Sidecar resource requirements&lt;/h2>
+&lt;p>The Dapr sidecar requires the following resources in a production-ready setup:&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>CPU&lt;/th>
+&lt;th>Memory&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>Limit: 4, Request: 100m&lt;/td>
+&lt;td>Limit: 4000Mi, Request: 250Mi&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>&lt;em>Note: Since Dapr is intended to do much of the I/O heavy lifting for your app, it&amp;rsquo;s expected that the resources given to Dapr enable you to drastically reduce the resource allocations for the application&lt;/em>&lt;/p>
+&lt;p>The CPU and memory limits above account for the fact that Dapr is intended to do a lot of high performant I/O bound operations. Based on your app needs, you can increase or decrease those limits accordingly.&lt;/p>
+&lt;h2 id="deploying-dapr-with-helm">Deploying Dapr with Helm&lt;/h2>
+&lt;p>When deploying to a production cluster, it&amp;rsquo;s recommended to use Helm. The Dapr CLI installation into a Kubernetes cluster is for a development and test only setup. You can find information &lt;a href="https://dapr-cn.github.io/docs/getting-started/install-dapr-selfhost/#using-helm-advanced">here&lt;/a> on how to deploy Dapr using Helm.&lt;/p>
+&lt;p>When deploying Dapr in a production-ready configuration, it&amp;rsquo;s recommended to deploy with a highly available configuration of the control plane:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm install dapr dapr/dapr --version&lt;span style="color:#f92672">=&lt;/span>&amp;lt;Dapr chart version&amp;gt; --namespace dapr-system --set global.ha.enabled&lt;span style="color:#f92672">=&lt;/span>true
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>This command will run 3 replicas of each control plane pod in the dapr-system namespace.&lt;/p>
+&lt;p>&lt;em>Note: The Dapr Helm chart automatically deploys with affinity for nodes with the label &lt;code>kubernetes.io/os=linux&lt;/code>. You can deploy the Dapr control plane to Windows nodes, but most users should not need to. For more information see &lt;a href="https://dapr-cn.github.io/docs/operations/hosting/kubernetes/kubernetes-hybrid-clusters/">Deploying to a Hybrid Linux/Windows K8s Cluster&lt;/a>&lt;/em>&lt;/p>
+&lt;h2 id="upgrading-dapr-with-helm">Upgrading Dapr with Helm&lt;/h2>
+&lt;p>Dapr supports zero downtime upgrades. The upgrade path includes the following steps:&lt;/p>
+&lt;ol>
+&lt;li>Upgrading a CLI version (optional but recommended)&lt;/li>
+&lt;li>Updating the Dapr control plane&lt;/li>
+&lt;li>Updating the data plane (Dapr sidecars)&lt;/li>
+&lt;/ol>
+&lt;h3 id="upgrading-the-cli">Upgrading the CLI&lt;/h3>
+&lt;p>To upgrade the Dapr CLI, &lt;a href="https://github.com/dapr/cli/releases">download the latest version&lt;/a> of the CLI. After you downloaded the binary, it&amp;rsquo;s recommended you put the CLI binary in your path.&lt;/p>
+&lt;h3 id="updating-the-control-plane">Updating the control plane&lt;/h3>
+&lt;h4 id="saving-the-current-certificates">Saving the current certificates&lt;/h4>
+&lt;p>When upgrading to a new version of Dapr, it is recommended you carry over the root and issuer certificates instead of re-generating them, which might cause a downtime for applications that make use of service invocation or actors.&lt;/p>
+&lt;h4 id="exporting-certs-with-the-dapr-cli">Exporting certs with the Dapr CLI&lt;/h4>
+&lt;p>To get your current certs with the Dapr CLI, run the following command:&lt;/p>
+&lt;pre>&lt;code>dapr mtls export -o ./certs
+&lt;/code>&lt;/pre>&lt;p>This will save any existing root cert, issuer cert and issuer key in the output dir of your choice.&lt;/p>
+&lt;h3 id="exporting-certs-manually">Exporting certs manually&lt;/h3>
+&lt;p>To get the current root and issuer certificates, run the following command:&lt;/p>
+&lt;pre>&lt;code>kubectl get secret dapr-trust-bundle -o yaml -n dapr-system
+apiVersion: v1
+data:
+ca.crt: &amp;lt;ROOT-CERTIFICATE-VALUE&amp;gt;
+issuer.crt: &amp;lt;ISSUER-CERTIFICATE-VALUE&amp;gt;
+issuer.key: &amp;lt;ISSUER-KEY-VALUE&amp;gt;
+kind: Secret
+&lt;/code>&lt;/pre>&lt;p>Copy the contents of &lt;code>ca.crt&lt;/code>, &lt;code>issuer.crt&lt;/code> and &lt;code>issuer.key&lt;/code> and base64 decode them. Save these certificates as files.&lt;/p>
+&lt;p>You should have the following files containing the base64 decoded text from the secret saved on your disk:&lt;/p>
+&lt;ol>
+&lt;li>ca.crt&lt;/li>
+&lt;li>issuer.crt&lt;/li>
+&lt;li>issuer.key&lt;/li>
+&lt;/ol>
+&lt;h4 id="updating-the-control-plane-pods">Updating the control plane pods&lt;/h4>
+&lt;blockquote>
+&lt;p>Note: To upgrade Dapr from 0.11.x to 1.0.0 version, please refer to &lt;a href="#upgrade-from-dapr-011x-to-100">this section&lt;/a>.&lt;/p>
+&lt;/blockquote>
+&lt;p>Next, you need to find a Helm chart version that installs the new desired version of Dapr and perform a &lt;code>helm upgrade&lt;/code> operation.&lt;/p>
+&lt;p>First, update the Helm Chart repos:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm repo update
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>List all charts in the Dapr repo:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm search repo dapr --devel
+NAME CHART VERSION APP VERSION DESCRIPTION
+dapr/dapr 1.0.0-rc.1 1.0.0-rc.1 A Helm chart &lt;span style="color:#66d9ef">for&lt;/span> Dapr on Kubernetes
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The APP VERSION column tells us which Dapr runtime version is installed by the chart. Now, use the following command to upgrade Dapr to your desired runtime version providing a path to the certificate files you saved before:&lt;/p>
+&lt;blockquote>
+&lt;p>Remove &lt;code>--set global.ha.enabled=true&lt;/code> if current Dapr installation has not been deployed in HA mode.&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm upgrade dapr dapr/dapr &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> --version &amp;lt;Dapr chart version&amp;gt; &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> --namespace dapr-system &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> --reset-values &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> --set-file dapr_sentry.tls.root.certPEM&lt;span style="color:#f92672">=&lt;/span>certs/ca.crt &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> --set-file dapr_sentry.tls.issuer.certPEM&lt;span style="color:#f92672">=&lt;/span>certs/issuer.crt &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> --set-file dapr_sentry.tls.issuer.keyPEM&lt;span style="color:#f92672">=&lt;/span>certs/issuer.key &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> --set global.ha.enabled&lt;span style="color:#f92672">=&lt;/span>true
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Kubernetes now performs a rolling update. Wait until all the new pods appear as running:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl get po -n dapr-system -w
+NAME READY STATUS RESTARTS AGE
+dapr-dashboard-86b94bb768-w4wmj 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 39s
+dapr-operator-67d7d7bb6c-qqkk7 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 39s
+dapr-placement-server-0 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 39s
+dapr-sentry-647759cd46-nwzkw 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 39s
+dapr-sidecar-injector-74648c9dcb-px2m5 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 39s
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>You can verify the health and version of the control plane using the Dapr CLI:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr status -k
+NAME NAMESPACE HEALTHY STATUS REPLICAS VERSION AGE CREATED
+dapr-sidecar-injector dapr-system True Running &lt;span style="color:#ae81ff">1&lt;/span> 1.0.0-rc.1 1m 2020-11-16 14:42.19
+dapr-sentry dapr-system True Running &lt;span style="color:#ae81ff">1&lt;/span> 1.0.0-rc.1 1m 2020-11-16 14:42.19
+dapr-dashboard dapr-system True Running &lt;span style="color:#ae81ff">1&lt;/span> 0.3.0 1m 2020-11-16 14:42.19
+dapr-operator dapr-system True Running &lt;span style="color:#ae81ff">1&lt;/span> 1.0.0-rc.1 1m 2020-11-16 14:42.19
+dapr-placement-server dapr-system True Running &lt;span style="color:#ae81ff">1&lt;/span> 1.0.0-rc.1 1m 2020-11-16 14:42.19
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;em>Note: If new fields have been added to the target Helm Chart being upgraded to, the &lt;code>helm upgrade&lt;/code> command will fail. If that happens, you need to find which new fields have been added in the new chart and add them as parameters to the upgrade command, for example: &lt;code>--set &amp;lt;field-name&amp;gt;=&amp;lt;value&amp;gt;&lt;/code>.&lt;/em>&lt;/p>
+&lt;h4 id="updating-the-data-plane-sidecars">Updating the data plane (sidecars)&lt;/h4>
+&lt;p>The last step is to update pods that are running Dapr to pick up the new version of the Dapr runtime. To do that, simply issue a rollout restart command for any deployment that has the &lt;code>dapr.io/enabled&lt;/code> annotation:&lt;/p>
+&lt;pre>&lt;code>kubectl rollout restart deploy/&amp;lt;Application deployment name&amp;gt;
+&lt;/code>&lt;/pre>&lt;p>To see a list of all your Dapr enabled deployments, you can either use the &lt;a href="https://github.com/dapr/dashboard">Dapr Dashboard&lt;/a> or run the following command using the Dapr CLI:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr list -k
+APP ID APP PORT AGE CREATED
+nodeapp &lt;span style="color:#ae81ff">3000&lt;/span> 16h 2020-07-29 17:16.22
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="upgrade-from-dapr-011x-to-100">Upgrade from Dapr 0.11.x to 1.0.0&lt;/h4>
+&lt;p>Run the below commands first to migrate from 0.11.x placement service safely:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-sh" data-lang="sh">kubectl annotate deployment dapr-placement &lt;span style="color:#e6db74">&amp;#34;helm.sh/resource-policy&amp;#34;&lt;/span>&lt;span style="color:#f92672">=&lt;/span>keep -n dapr-system
+kubectl annotate svc dapr-placement &lt;span style="color:#e6db74">&amp;#34;helm.sh/resource-policy&amp;#34;&lt;/span>&lt;span style="color:#f92672">=&lt;/span>keep -n dapr-system
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Then &lt;a href="#exporting-certs-manually">export certs manually&lt;/a>.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-sh" data-lang="sh">dapr mtls export -o ./certs
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Upgrade Dapr using the below commands; this example upgrades Dapr from 0.11.x to 1.0.0-rc.1 with HA mode.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-sh" data-lang="sh">helm repo update
+helm upgrade dapr dapr/dapr --version 1.0.0-rc.1 --namespace dapr-system --reset-values --set-file dapr_sentry.tls.root.certPEM&lt;span style="color:#f92672">=&lt;/span>./certs/ca.crt --set-file dapr_sentry.tls.issuer.certPEM&lt;span style="color:#f92672">=&lt;/span>./certs/issuer.crt --set-file dapr_sentry.tls.issuer.keyPEM&lt;span style="color:#f92672">=&lt;/span>./certs/issuer.key --set global.ha.enabled&lt;span style="color:#f92672">=&lt;/span>true --wait
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Once Dapr is installed completely, ensure that 0.11.x dapr-placement is still running and &lt;strong>wait until all pods are running&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-sh" data-lang="sh">kubectl get pods -n dapr-system -w
+NAME READY STATUS RESTARTS AGE
+dapr-dashboard-69f5c5c867-mqhg4 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 42s
+dapr-operator-5cdd6b7f9c-9sl7g 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 41s
+dapr-operator-5cdd6b7f9c-jkzjs 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 29s
+dapr-operator-5cdd6b7f9c-qzp8n 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 34s
+dapr-placement-5dcb574777-nlq4t 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 76s ---- 0.11.x placement
+dapr-placement-server-0 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 41s
+dapr-placement-server-1 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 41s
+dapr-placement-server-2 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 41s
+dapr-sentry-84565c747b-7bh8h 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 35s
+dapr-sentry-84565c747b-fdlls 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 41s
+dapr-sentry-84565c747b-ldnsf 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 29s
+dapr-sidecar-injector-68f868668f-6xnbt 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 41s
+dapr-sidecar-injector-68f868668f-j7jcq 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 29s
+dapr-sidecar-injector-68f868668f-ltxq4 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 36s
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Update pods that are running Dapr to pick up the new version of the Dapr runtime.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-sh" data-lang="sh">kubectl rollout restart deploy/&amp;lt;Application deployment name&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Once the deployment is completed, delete 0.11.x dapr-placement service by following commands:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-sh" data-lang="sh">kubectl delete deployment dapr-placement -n dapr-system
+kubectl delete svc dapr-placement -n dapr-system
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="recommended-security-configuration">Recommended security configuration&lt;/h2>
+&lt;p>Properly configured, Dapr not only be secured with regards to it&amp;rsquo;s control plane and sidecars communication, but can also make your application more secure with a number of built-in features.&lt;/p>
+&lt;p>It is recommended that a production-ready deployment includes the following settings:&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Mutual Authentication (mTLS) should be enabled. Note that Dapr has mTLS on by default. For details on how to bring your own certificates, see &lt;a href="https://dapr-cn.github.io/docs/operations/security/mtls/#bringing-your-own-certificates">here&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Dapr API authentication is enabled (this is the between your application and the Dapr sidecar). To secure the Dapr API from unauthorized access, it is recommended to enable Dapr&amp;rsquo;s token based auth. See &lt;a href="https://dapr-cn.github.io/docs/operations/security/api-token/">here&lt;/a> for details&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>All component YAMLs should have secret data configured in a secret store and not hard-coded in the YAML file. See &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a> on how to use secrets with Dapr components&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>The Dapr control plane is installed on a separate namespace such as &lt;code>dapr-system&lt;/code>, and never into the &lt;code>default&lt;/code> namespace&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>Dapr also supports scoping components for certain applications. This is not a required practice, and can be enabled according to your Sec-Ops needs. See &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-scopes/">here&lt;/a> for more info.&lt;/p>
+&lt;h2 id="tracing-and-metrics-configuration">Tracing and metrics configuration&lt;/h2>
+&lt;p>Dapr has tracing and metrics enabled by default. To configure a tracing backend for Dapr visit &lt;a href="https://dapr-cn.github.io/docs/operations/troubleshooting/setup-tracing/">this&lt;/a> link.&lt;/p>
+&lt;p>For metrics, Dapr exposes a Prometheus endpoint listening on port 9090 which can be scraped by Prometheus.&lt;/p>
+&lt;p>It is &lt;em>recommended&lt;/em> that you set up distributed tracing and metrics for your applications and the Dapr control plane in production. If you already have your own observability set-up, you can disable tracing and metrics for Dapr.&lt;/p>
+&lt;p>To setup Prometheus, Grafana and other monitoring tools with Dapr, visit &lt;a href="https://dapr-cn.github.io/docs/operations/monitoring/">this&lt;/a> link.&lt;/p></description></item><item><title>Operations: How-To: Deploy to hybrid Linux/Windows Kubernetes clusters</title><link>https://dapr-cn.github.io/docs/operations/hosting/kubernetes/kubernetes-hybrid-clusters/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/hosting/kubernetes/kubernetes-hybrid-clusters/</guid><description>
+&lt;p>Dapr supports running on kubernetes clusters with windows nodes. You can run your Dapr microservices exclusively on Windows, exclusively on Linux, or a combination of both. This is helpful to users who may be doing a piecemeal migration of a legacy application into a Dapr Kubernetes cluster.&lt;/p>
+&lt;p>Kubernetes uses a concept called node affinity so that you can denote whether you want your application to be launched on a Linux node or a Windows node. When deploying to a cluster which has both Windows and Linux nodes, you must provide affinity rules for your applications, otherwise the Kubernetes scheduler might launch your application on the wrong type of node.&lt;/p>
+&lt;h2 id="pre-requisites">Pre-requisites&lt;/h2>
+&lt;p>You will need a Kubernetes cluster with Windows nodes. Many Kubernetes providers support the automatic provisioning of Windows enabled Kubernetes clusters.&lt;/p>
+&lt;ol>
+&lt;li>Follow your preferred provider&amp;rsquo;s instructions for setting up a cluster with Windows enabled&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.microsoft.com/en-us/azure/aks/windows-container-cli">Setting up Windows on Azure AKS&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.aws.amazon.com/eks/latest/userguide/windows-support.html">Setting up Windows on AWS EKS&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://cloud.google.com/kubernetes-engine/docs/how-to/creating-a-cluster-windows">Setting up Windows on Google Cloud GKE&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;ol start="2">
+&lt;li>Once you have set up the cluster, you should see that it has both Windows and Linux nodes available&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl get nodes -o wide
+NAME STATUS ROLES AGE VERSION INTERNAL-IP EXTERNAL-IP OS-IMAGE KERNEL-VERSION CONTAINER-RUNTIME
+aks-nodepool1-11819434-vmss000000 Ready agent 6d v1.17.9 10.240.0.4 &amp;lt;none&amp;gt; Ubuntu 16.04.6 LTS 4.15.0-1092-azure docker://3.0.10+azure
+aks-nodepool1-11819434-vmss000001 Ready agent 6d v1.17.9 10.240.0.35 &amp;lt;none&amp;gt; Ubuntu 16.04.6 LTS 4.15.0-1092-azure docker://3.0.10+azure
+aks-nodepool1-11819434-vmss000002 Ready agent 5d10h v1.17.9 10.240.0.129 &amp;lt;none&amp;gt; Ubuntu 16.04.6 LTS 4.15.0-1092-azure docker://3.0.10+azure
+akswin000000 Ready agent 6d v1.17.9 10.240.0.66 &amp;lt;none&amp;gt; Windows Server &lt;span style="color:#ae81ff">2019&lt;/span> Datacenter 10.0.17763.1339 docker://19.3.5
+akswin000001 Ready agent 6d v1.17.9 10.240.0.97 &amp;lt;none&amp;gt; Windows Server &lt;span style="color:#ae81ff">2019&lt;/span> Datacenter 10.0.17763.1339 docker://19.3.5
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="installing-the-dapr-control-plane">Installing the Dapr Control Plane&lt;/h2>
+&lt;p>If you are installing using the Dapr CLI or via a helm chart, simply follow the normal deployment procedures: &lt;a href="https://dapr-cn.github.io/docs/getting-started/install-dapr-selfhost/#installing-Dapr-on-a-kubernetes-cluster">Installing Dapr on a Kubernetes cluster&lt;/a>&lt;/p>
+&lt;p>Affinity will be automatically set for kubernetes.io/os=linux. This will be sufficient for most users, as Kubernetes requires at least one Linux node pool.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Note:&lt;/strong> Dapr control plane containers are built and tested for both windows and linux, however, we generally recommend using the linux control plane containers. They tend to be smaller and have a much larger user base.&lt;/p>
+&lt;/blockquote>
+&lt;p>If you understand the above, but want to deploy the Dapr control plane to Windows, you can do so by setting:&lt;/p>
+&lt;pre>&lt;code>helm install dapr dapr/dapr --set global.daprControlPlaneOs=windows
+&lt;/code>&lt;/pre>&lt;h2 id="installing-dapr-applications">Installing Dapr applications&lt;/h2>
+&lt;h3 id="windows-applications">Windows applications&lt;/h3>
+&lt;p>In order to launch a Dapr application on Windows, you&amp;rsquo;ll first need to create a Docker container with your application installed. For a step by step guide see &lt;a href="https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/set-up-environment">Get started: Prep Windows for containers&lt;/a>. Once you have a docker container with your application, create a deployment YAML file with node affinity set to kubernetes.io/os: windows.&lt;/p>
+&lt;ol>
+&lt;li>Create a deployment YAML&lt;/li>
+&lt;/ol>
+&lt;p>Here is a sample deployment with nodeAffinity set to &amp;ldquo;windows&amp;rdquo;. Modify as needed for your application.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">apps/v1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Deployment&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">yourwinapp&lt;/span>
+&lt;span style="color:#f92672">labels&lt;/span>:
+&lt;span style="color:#f92672">app&lt;/span>: &lt;span style="color:#ae81ff">applabel&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">replicas&lt;/span>: &lt;span style="color:#ae81ff">1&lt;/span>
+&lt;span style="color:#f92672">selector&lt;/span>:
+&lt;span style="color:#f92672">matchLabels&lt;/span>:
+&lt;span style="color:#f92672">app&lt;/span>: &lt;span style="color:#ae81ff">applablel&lt;/span>
+&lt;span style="color:#f92672">template&lt;/span>:
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">labels&lt;/span>:
+&lt;span style="color:#f92672">app&lt;/span>: &lt;span style="color:#ae81ff">applabel&lt;/span>
+&lt;span style="color:#f92672">annotations&lt;/span>:
+&lt;span style="color:#f92672">dapr.io/enabled&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">dapr.io/id&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;addapp&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">dapr.io/port&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;6000&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">dapr.io/config&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;appconfig&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">containers&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">add&lt;/span>
+&lt;span style="color:#f92672">image&lt;/span>: &lt;span style="color:#ae81ff">yourreponsitory/your-windows-dapr-container:your-tag&lt;/span>
+&lt;span style="color:#f92672">ports&lt;/span>:
+- &lt;span style="color:#f92672">containerPort&lt;/span>: &lt;span style="color:#ae81ff">6000&lt;/span>
+&lt;span style="color:#f92672">imagePullPolicy&lt;/span>: &lt;span style="color:#ae81ff">Always&lt;/span>
+&lt;span style="color:#f92672">affinity&lt;/span>:
+&lt;span style="color:#f92672">nodeAffinity&lt;/span>:
+&lt;span style="color:#f92672">requiredDuringSchedulingIgnoredDuringExecution&lt;/span>:
+&lt;span style="color:#f92672">nodeSelectorTerms&lt;/span>:
+- &lt;span style="color:#f92672">matchExpressions&lt;/span>:
+- &lt;span style="color:#f92672">key&lt;/span>: &lt;span style="color:#ae81ff">kubernetes.io/os&lt;/span>
+&lt;span style="color:#f92672">operator&lt;/span>: &lt;span style="color:#ae81ff">In&lt;/span>
+&lt;span style="color:#f92672">values&lt;/span>:
+- &lt;span style="color:#ae81ff">windows&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>This deployment yaml will be the same as any other dapr application, with an additional spec.template.spec.affinity section as shown above.&lt;/p>
+&lt;ol start="2">
+&lt;li>Deploy to your Kubernetes cluster&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl apply -f deploy_windows.yaml
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="linux-applications">Linux applications&lt;/h3>
+&lt;p>If you have already got a dapr application with runs on Linux, you&amp;rsquo;ll still need to add affinity rules as above, but choose linux affinity instead.&lt;/p>
+&lt;ol>
+&lt;li>Create a deployment YAML&lt;/li>
+&lt;/ol>
+&lt;p>Here is a sample deployment with nodeAffinity set to &amp;ldquo;linux&amp;rdquo;. Modify as needed for your application.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">apps/v1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Deployment&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">yourlinuxapp&lt;/span>
+&lt;span style="color:#f92672">labels&lt;/span>:
+&lt;span style="color:#f92672">app&lt;/span>: &lt;span style="color:#ae81ff">yourlabel&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">replicas&lt;/span>: &lt;span style="color:#ae81ff">1&lt;/span>
+&lt;span style="color:#f92672">selector&lt;/span>:
+&lt;span style="color:#f92672">matchLabels&lt;/span>:
+&lt;span style="color:#f92672">app&lt;/span>: &lt;span style="color:#ae81ff">yourlabel&lt;/span>
+&lt;span style="color:#f92672">template&lt;/span>:
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">labels&lt;/span>:
+&lt;span style="color:#f92672">app&lt;/span>: &lt;span style="color:#ae81ff">yourlabel&lt;/span>
+&lt;span style="color:#f92672">annotations&lt;/span>:
+&lt;span style="color:#f92672">dapr.io/enabled&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">dapr.io/id&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;addapp&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">dapr.io/port&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;6000&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">dapr.io/config&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;appconfig&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">containers&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">add&lt;/span>
+&lt;span style="color:#f92672">image&lt;/span>: &lt;span style="color:#ae81ff">yourreponsitory/your-application:your-tag&lt;/span>
+&lt;span style="color:#f92672">ports&lt;/span>:
+- &lt;span style="color:#f92672">containerPort&lt;/span>: &lt;span style="color:#ae81ff">6000&lt;/span>
+&lt;span style="color:#f92672">imagePullPolicy&lt;/span>: &lt;span style="color:#ae81ff">Always&lt;/span>
+&lt;span style="color:#f92672">affinity&lt;/span>:
+&lt;span style="color:#f92672">nodeAffinity&lt;/span>:
+&lt;span style="color:#f92672">requiredDuringSchedulingIgnoredDuringExecution&lt;/span>:
+&lt;span style="color:#f92672">nodeSelectorTerms&lt;/span>:
+- &lt;span style="color:#f92672">matchExpressions&lt;/span>:
+- &lt;span style="color:#f92672">key&lt;/span>: &lt;span style="color:#ae81ff">kubernetes.io/os&lt;/span>
+&lt;span style="color:#f92672">operator&lt;/span>: &lt;span style="color:#ae81ff">In&lt;/span>
+&lt;span style="color:#f92672">values&lt;/span>:
+- &lt;span style="color:#ae81ff">linux&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
+&lt;li>Deploy to your Kubernetes cluster&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl apply -f deploy_linux.yaml
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="cleanup">Cleanup&lt;/h2>
+&lt;pre>&lt;code>kubectl delete -f deploy_linux.yaml
+kubectl delete -f deploy_windows.yaml
+helm uninstall dapr
+&lt;/code>&lt;/pre>&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>See the &lt;a href="https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/">official Kubernetes documentation&lt;/a> for examples of more advanced configuration via node affinity&lt;/li>
+&lt;li>&lt;a href="https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/set-up-environment">Get started: Prep Windows for containers&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.microsoft.com/en-us/azure/aks/windows-container-cli">Setting up a Windows enabled Kubernetes cluster on Azure AKS&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.aws.amazon.com/eks/latest/userguide/windows-support.html">Setting up a Windows enabled Kubernetes cluster on AWS EKS&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://cloud.google.com/kubernetes-engine/docs/how-to/creating-a-cluster-windows">Setting up Windows on Google Cloud GKE&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Dapr Kubernetes pod annotations spec</title><link>https://dapr-cn.github.io/docs/operations/hosting/kubernetes/kubernetes-annotations/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/hosting/kubernetes/kubernetes-annotations/</guid><description>
+&lt;p>The following table shows all the supported pod Spec annotations supported by Dapr.&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Annotation&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;code>dapr.io/enabled&lt;/code>&lt;/td>
+&lt;td>Setting this paramater to &lt;code>true&lt;/code> injects the Dapr sidecar into the pod&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>dapr.io/app-port&lt;/code>&lt;/td>
+&lt;td>This parameter tells Dapr which port your application is listening on&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>dapr.io/app-id&lt;/code>&lt;/td>
+&lt;td>The unique ID of the application. Used for service discovery, state encapsulation and the pub/sub consumer ID&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>dapr.io/log-level&lt;/code>&lt;/td>
+&lt;td>Sets the log level for the Dapr sidecar. Allowed values are &lt;code>debug&lt;/code>, &lt;code>info&lt;/code>, &lt;code>warn&lt;/code>, &lt;code>error&lt;/code>. Default is &lt;code>info&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>dapr.io/config&lt;/code>&lt;/td>
+&lt;td>Tells Dapr which Configuration CRD to use&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>dapr.io/log-as-json&lt;/code>&lt;/td>
+&lt;td>Setting this parameter to &lt;code>true&lt;/code> outputs logs in JSON format. Default is &lt;code>false&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>dapr.io/enable-profiling&lt;/code>&lt;/td>
+&lt;td>Setting this paramater to &lt;code>true&lt;/code> starts the Dapr profiling server on port &lt;code>7777&lt;/code>. Default is &lt;code>false&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>dapr.io/api-token-secret&lt;/code>&lt;/td>
+&lt;td>Tells Dapr which Kubernetes secret to use for token based API authentication. By default this is not set.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>dapr.io/app-protocol&lt;/code>&lt;/td>
+&lt;td>Tells Dapr which protocol your application is using. Valid options are &lt;code>http&lt;/code> and &lt;code>grpc&lt;/code>. Default is &lt;code>http&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>dapr.io/app-max-concurrency&lt;/code>&lt;/td>
+&lt;td>Limit the concurrency of your application. A valid value is any number larger than &lt;code>0&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>dapr.io/app-ssl&lt;/code>&lt;/td>
+&lt;td>Tells Dapr to invoke the app over an insecure SSL connection. Applies to both HTTP and gRPC. Default is &lt;code>false&lt;/code>.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>dapr.io/metrics-port&lt;/code>&lt;/td>
+&lt;td>Sets the port for the sidecar metrics server. Default is &lt;code>9090&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>dapr.io/sidecar-cpu-limit&lt;/code>&lt;/td>
+&lt;td>Maximum amount of CPU that the Dapr sidecar can use. See valid values &lt;a href="https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/">here&lt;/a>. By default this is not set&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>dapr.io/sidecar-memory-limit&lt;/code>&lt;/td>
+&lt;td>Maximum amount of Memory that the Dapr sidecar can use. See valid values &lt;a href="https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/">here&lt;/a>. By default this is not set&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>dapr.io/sidecar-cpu-request&lt;/code>&lt;/td>
+&lt;td>Amount of CPU that the Dapr sidecar requests. See valid values &lt;a href="https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/">here&lt;/a>. By default this is not set&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>dapr.io/sidecar-memory-request&lt;/code>&lt;/td>
+&lt;td>Amount of Memory that the Dapr sidecar requests .See valid values &lt;a href="https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/">here&lt;/a>. By default this is not set&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>dapr.io/sidecar-liveness-probe-delay-seconds&lt;/code>&lt;/td>
+&lt;td>Number of seconds after the sidecar container has started before liveness probe is initiated. Read more &lt;a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes">here&lt;/a>. Default is &lt;code>3&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>dapr.io/sidecar-liveness-probe-timeout-seconds&lt;/code>&lt;/td>
+&lt;td>Number of seconds after which the sidecar liveness probe times out. Read more &lt;a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes">here&lt;/a>. Default is &lt;code>3&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>dapr.io/sidecar-liveness-probe-period-seconds&lt;/code>&lt;/td>
+&lt;td>How often (in seconds) to perform the sidecar liveness probe. Read more &lt;a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes">here&lt;/a>. Default is &lt;code>6&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>dapr.io/sidecar-liveness-probe-threshold&lt;/code>&lt;/td>
+&lt;td>When the sidecar liveness probe fails, Kubernetes will try N times before giving up. In this case, the Pod will be marked Unhealthy. Read more about &lt;code>failureThreshold&lt;/code> &lt;a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes">here&lt;/a>. Default is &lt;code>3&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>dapr.io/sidecar-readiness-probe-delay-seconds&lt;/code>&lt;/td>
+&lt;td>Number of seconds after the sidecar container has started before readiness probe is initiated. Read more &lt;a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes">here&lt;/a>. Default is &lt;code>3&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>dapr.io/sidecar-readiness-probe-timeout-seconds&lt;/code>&lt;/td>
+&lt;td>Number of seconds after which the sidecar readiness probe times out. Read more &lt;a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes">here&lt;/a>. Default is &lt;code>3&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>dapr.io/sidecar-readiness-probe-period-seconds&lt;/code>&lt;/td>
+&lt;td>How often (in seconds) to perform the sidecar readiness probe. Read more &lt;a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes">here&lt;/a>. Default is &lt;code>6&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>dapr.io/sidecar-readiness-probe-threshold&lt;/code>&lt;/td>
+&lt;td>When the sidecar readiness probe fails, Kubernetes will try N times before giving up. In this case, the Pod will be marked Unready. Read more about &lt;code>failureThreshold&lt;/code> &lt;a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes">here&lt;/a>. Default is &lt;code>3&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table></description></item><item><title>Operations: Steps to upgrade Dapr on a Kubernetes cluster</title><link>https://dapr-cn.github.io/docs/operations/hosting/kubernetes/kubernetes-upgrade/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/hosting/kubernetes/kubernetes-upgrade/</guid><description>
+&lt;h2 id="prerequisites">Prerequisites&lt;/h2>
+&lt;ul>
+&lt;li>Latest &lt;a href="https://dapr-cn.github.io/docs/getting-started/install-dapr-cli/">Dapr CLI&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/helm/helm/releases">Helm 3&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="upgrade-existing-cluster-running-011x">Upgrade existing cluster running 0.11.x&lt;/h2>
+&lt;ol>
+&lt;li>
+&lt;p>Run these two commands to prevent &lt;code>helm upgrade&lt;/code> from uninstalling &lt;code>0.11.x&lt;/code> placement service:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl annotate deployment dapr-placement helm.sh/resource-policy&lt;span style="color:#f92672">=&lt;/span>keep -n dapr-system
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl annotate svc dapr-placement helm.sh/resource-policy&lt;span style="color:#f92672">=&lt;/span>keep -n dapr-system
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Export certificates:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr mtls export -o ./certs
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Upgrade Dapr to 1.0.0-rc.2:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm repo update
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm upgrade dapr dapr/dapr --version 1.0.0-rc.2 --namespace dapr-system --reset-values --set-file dapr_sentry.tls.root.certPEM&lt;span style="color:#f92672">=&lt;/span>./certs/ca.crt --set-file dapr_sentry.tls.issuer.certPEM&lt;span style="color:#f92672">=&lt;/span>./certs/issuer.crt --set-file dapr_sentry.tls.issuer.keyPEM&lt;span style="color:#f92672">=&lt;/span>./certs/issuer.key --set global.ha.enabled&lt;span style="color:#f92672">=&lt;/span>true --wait
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Upgrade CRDs:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl replace -f https://raw.githubusercontent.com/dapr/dapr/21636a9237f2dcecd9c80f329e99b512e8377739/charts/dapr/crds/configuration.yaml
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl replace -f https://raw.githubusercontent.com/dapr/dapr/21636a9237f2dcecd9c80f329e99b512e8377739/charts/dapr/crds/components.yaml
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Ensure 0.11.x dapr-placement service is still running and wait until all pods are running:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl get pods -n dapr-system -w
+NAME READY STATUS RESTARTS AGE
+dapr-dashboard-69f5c5c867-mqhg4 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 42s
+dapr-operator-5cdd6b7f9c-9sl7g 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 41s
+dapr-operator-5cdd6b7f9c-jkzjs 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 29s
+dapr-operator-5cdd6b7f9c-qzp8n 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 34s
+dapr-placement-5dcb574777-nlq4t 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 76s &amp;lt;---- 0.11.x placement
+dapr-placement-server-0 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 41s
+dapr-placement-server-1 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 41s
+dapr-placement-server-2 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 41s
+dapr-sentry-84565c747b-7bh8h 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 35s
+dapr-sentry-84565c747b-fdlls 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 41s
+dapr-sentry-84565c747b-ldnsf 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 29s
+dapr-sidecar-injector-68f868668f-6xnbt 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 41s
+dapr-sidecar-injector-68f868668f-j7jcq 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 29s
+dapr-sidecar-injector-68f868668f-ltxq4 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 36s
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Restart your application deployments to update the Dapr runtime.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl rollout restart deploy/&amp;lt;DEPLOYMENT-NAME&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Once the deployment is completed, delete the 0.11.x dapr-placement service:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl delete deployment dapr-placement -n dapr-system
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl delete svc dapr-placement -n dapr-system
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>All done!&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="upgrade-existing-cluster-running-100-rc1">Upgrade existing cluster running 1.0.0-rc.1&lt;/h2>
+&lt;ol>
+&lt;li>
+&lt;p>Export certs:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr mtls export -o ./certs
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Upgrade Dapr to 1.0.0-rc.2:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm repo update
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm upgrade dapr dapr/dapr --version 1.0.0-rc.2 --namespace dapr-system --reset-values --set-file dapr_sentry.tls.root.certPEM&lt;span style="color:#f92672">=&lt;/span>./certs/ca.crt --set-file dapr_sentry.tls.issuer.certPEM&lt;span style="color:#f92672">=&lt;/span>./certs/issuer.crt --set-file dapr_sentry.tls.issuer.keyPEM&lt;span style="color:#f92672">=&lt;/span>./certs/issuer.key --set global.ha.enabled&lt;span style="color:#f92672">=&lt;/span>true --wait
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Upgrade CRDs:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl replace -f https://raw.githubusercontent.com/dapr/dapr/21636a9237f2dcecd9c80f329e99b512e8377739/charts/dapr/crds/configuration.yaml
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl replace -f https://raw.githubusercontent.com/dapr/dapr/21636a9237f2dcecd9c80f329e99b512e8377739/charts/dapr/crds/components.yaml
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Ensure all pods are running:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl get pods -n dapr-system -w
+NAME READY STATUS RESTARTS AGE
+dapr-dashboard-69f5c5c867-mqhg4 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 42s
+dapr-operator-5cdd6b7f9c-9sl7g 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 41s
+dapr-operator-5cdd6b7f9c-jkzjs 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 29s
+dapr-operator-5cdd6b7f9c-qzp8n 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 34s
+dapr-placement-server-0 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 41s
+dapr-placement-server-1 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 41s
+dapr-placement-server-2 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 41s
+dapr-sentry-84565c747b-7bh8h 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 35s
+dapr-sentry-84565c747b-fdlls 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 41s
+dapr-sentry-84565c747b-ldnsf 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 29s
+dapr-sidecar-injector-68f868668f-6xnbt 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 41s
+dapr-sidecar-injector-68f868668f-j7jcq 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 29s
+dapr-sidecar-injector-68f868668f-ltxq4 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 36s
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Restart your application deployments to update the Dapr runtime:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl rollout restart deploy/&amp;lt;DEPLOYMENT-NAME&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>All done!&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="next-steps">Next steps&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/operations/hosting/kubernetes/kubernetes-overview/">Dapr on Kubernetes&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/operations/hosting/kubernetes/kubernetes-production/">Dapr production guidelines&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Kubernetes cluster setup</title><link>https://dapr-cn.github.io/docs/operations/hosting/kubernetes/cluster/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/hosting/kubernetes/cluster/</guid><description/></item></channel></rss>

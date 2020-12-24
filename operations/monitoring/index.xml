@@ -1,0 +1,791 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – Monitor your application with Dapr</title><link>https://dapr-cn.github.io/docs/operations/monitoring/</link><description>Recent content in Monitor your application with Dapr on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="https://dapr-cn.github.io/docs/operations/monitoring/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: How-To: Set up Fluentd, Elastic search and Kibana in Kubernetes</title><link>https://dapr-cn.github.io/docs/operations/monitoring/fluentd/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/monitoring/fluentd/</guid><description>
+&lt;h2 id="prerequisites">Prerequisites&lt;/h2>
+&lt;ul>
+&lt;li>Kubernetes (&amp;gt; 1.14)&lt;/li>
+&lt;li>&lt;a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/">kubectl&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://helm.sh/">Helm 3&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="install-elastic-search-and-kibana">Install Elastic search and Kibana&lt;/h2>
+&lt;ol>
+&lt;li>
+&lt;p>Create namespace for monitoring tool and add Helm repo for Elastic Search&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl create namespace dapr-monitoring
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Add Elastic helm repo&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm repo add elastic https://helm.elastic.co
+helm repo update
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Install Elastic Search using Helm&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>By default the chart creates 3 replicas which must be on different nodes. If your cluster has less than 3 nodes, specify a lower number of replicas. For example, this sets it to 1:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm install elasticsearch elastic/elasticsearch -n dapr-monitoring --set replicas&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Otherwise:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm install elasticsearch elastic/elasticsearch -n dapr-monitoring
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>If you are using minikube or want to disable persistent volumes for development purposes, you can disable it by using the following command:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm install elasticsearch elastic/elasticsearch -n dapr-monitoring --set persistence.enabled&lt;span style="color:#f92672">=&lt;/span>false --replicas&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="4">
+&lt;li>
+&lt;p>Install Kibana&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm install kibana elastic/kibana -n dapr-monitoring
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Validation&lt;/p>
+&lt;p>Ensure Elastic Search and Kibana are running in your Kubernetes cluster.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl get pods -n dapr-monitoring
+NAME READY STATUS RESTARTS AGE
+elasticsearch-master-0 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 6m58s
+kibana-kibana-95bc54b89-zqdrk 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 4m21s
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;/ol>
+&lt;h2 id="install-fluentd">Install Fluentd&lt;/h2>
+&lt;ol>
+&lt;li>Install config map and Fluentd as a daemonset&lt;/li>
+&lt;/ol>
+&lt;p>Download these config files:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/docs/fluentd-config-map.yaml">fluentd-config-map.yaml&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/docs/fluentd-dapr-with-rbac.yaml">fluentd-dapr-with-rbac.yaml&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>Note: If you already have Fluentd running in your cluster, please enable the nested json parser to parse JSON formatted log from Dapr.&lt;/p>
+&lt;/blockquote>
+&lt;p>Apply the configurations to your cluster:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl apply -f ./fluentd-config-map.yaml
+kubectl apply -f ./fluentd-dapr-with-rbac.yaml
+&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
+&lt;li>Ensure that Fluentd is running as a daemonset; the number of instances should be the same as the number of cluster nodes. In the example below we only have 1 node.&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl get pods -n kube-system -w
+NAME READY STATUS RESTARTS AGE
+coredns-6955765f44-cxjxk 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 4m41s
+coredns-6955765f44-jlskv 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 4m41s
+etcd-m01 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 4m48s
+fluentd-sdrld 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 14s
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="install-dapr-with-json-formatted-logs">Install Dapr with JSON formatted logs&lt;/h2>
+&lt;ol>
+&lt;li>
+&lt;p>Install Dapr with enabling JSON-formatted logs&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm repo add dapr https://dapr.github.io/helm-charts/
+helm repo update
+helm install dapr dapr/dapr --namespace dapr-system --set global.logAsJson&lt;span style="color:#f92672">=&lt;/span>true
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Enable JSON formatted log in Dapr sidecar&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>Add &lt;code>dapr.io/log-as-json: &amp;quot;true&amp;quot;&lt;/code> annotation to your deployment yaml.&lt;/p>
+&lt;p>Example:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">apps/v1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Deployment&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">pythonapp&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">labels&lt;/span>:
+&lt;span style="color:#f92672">app&lt;/span>: &lt;span style="color:#ae81ff">python&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">replicas&lt;/span>: &lt;span style="color:#ae81ff">1&lt;/span>
+&lt;span style="color:#f92672">selector&lt;/span>:
+&lt;span style="color:#f92672">matchLabels&lt;/span>:
+&lt;span style="color:#f92672">app&lt;/span>: &lt;span style="color:#ae81ff">python&lt;/span>
+&lt;span style="color:#f92672">template&lt;/span>:
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">labels&lt;/span>:
+&lt;span style="color:#f92672">app&lt;/span>: &lt;span style="color:#ae81ff">python&lt;/span>
+&lt;span style="color:#f92672">annotations&lt;/span>:
+&lt;span style="color:#f92672">dapr.io/enabled&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">dapr.io/app-id&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;pythonapp&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">dapr.io/log-as-json&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
+...
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="search-logs">Search logs&lt;/h2>
+&lt;blockquote>
+&lt;p>Note: Elastic Search takes a time to index the logs that Fluentd sends.&lt;/p>
+&lt;/blockquote>
+&lt;ol>
+&lt;li>Port-forward to svc/kibana-kibana&lt;/li>
+&lt;/ol>
+&lt;pre>&lt;code>$ kubectl port-forward svc/kibana-kibana 5601 -n dapr-monitoring
+Forwarding from 127.0.0.1:5601 -&amp;gt; 5601
+Forwarding from [::1]:5601 -&amp;gt; 5601
+Handling connection for 5601
+Handling connection for 5601
+&lt;/code>&lt;/pre>&lt;ol start="2">
+&lt;li>
+&lt;p>Browse &lt;code>http://localhost:5601&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Click Management -&amp;gt; Index Management&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://dapr-cn.github.io/docs/images/kibana-1.png" alt="kibana management">&lt;/p>
+&lt;ol start="4">
+&lt;li>Wait until dapr-* is indexed.&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://dapr-cn.github.io/docs/images/kibana-2.png" alt="index log">&lt;/p>
+&lt;ol start="5">
+&lt;li>Once dapr-* indexed, click Kibana-&amp;gt;Index Patterns and Create Index Pattern&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://dapr-cn.github.io/docs/images/kibana-3.png" alt="create index pattern">&lt;/p>
+&lt;ol start="6">
+&lt;li>Define index pattern - type &lt;code>dapr*&lt;/code> in index pattern&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://dapr-cn.github.io/docs/images/kibana-4.png" alt="define index pattern">&lt;/p>
+&lt;ol start="7">
+&lt;li>Select time stamp filed: &lt;code>@timestamp&lt;/code>&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://dapr-cn.github.io/docs/images/kibana-5.png" alt="timestamp">&lt;/p>
+&lt;ol start="8">
+&lt;li>Confirm that &lt;code>scope&lt;/code>, &lt;code>type&lt;/code>, &lt;code>app_id&lt;/code>, &lt;code>level&lt;/code>, etc are being indexed.&lt;/li>
+&lt;/ol>
+&lt;blockquote>
+&lt;p>Note: if you cannot find the indexed field, please wait. it depends on the volume of data and resource size where elastic search is running.&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="https://dapr-cn.github.io/docs/images/kibana-6.png" alt="indexing">&lt;/p>
+&lt;ol start="9">
+&lt;li>Click &lt;code>discover&lt;/code> icon and search &lt;code>scope:*&lt;/code>&lt;/li>
+&lt;/ol>
+&lt;blockquote>
+&lt;p>Note: it would take some time to make log searchable based on the data volume and resource.&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="https://dapr-cn.github.io/docs/images/kibana-7.png" alt="discover">&lt;/p>
+&lt;h2 id="references">References&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.fluentd.org/v/0.12/articles/kubernetes-fluentd">Fluentd for Kubernetes&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/elastic/helm-charts/tree/master/elasticsearch">Elastic search helm chart&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/elastic/helm-charts/tree/master/kibana">Kibana helm chart&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.elastic.co/guide/en/kibana/current/kuery-query.html">Kibana Query Language&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Using OpenTelemetry Collector to collect traces</title><link>https://dapr-cn.github.io/docs/operations/monitoring/open-telemetry-collector/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/monitoring/open-telemetry-collector/</guid><description>
+&lt;p>Dapr can integrate with &lt;a href="https://github.com/open-telemetry/opentelemetry-collector">OpenTelemetry Collector&lt;/a> using the Zipkin API. This guide walks through an example to use Dapr to push trace events to Azure Application Insights, through the OpenTelemetry Collector.&lt;/p>
+&lt;h2 id="requirements">Requirements&lt;/h2>
+&lt;p>A installation of Dapr on Kubernetes.&lt;/p>
+&lt;h2 id="how-to-configure-distributed-tracing-with-application-insights">How to configure distributed tracing with Application Insights&lt;/h2>
+&lt;h3 id="setup-application-insights">Setup Application Insights&lt;/h3>
+&lt;ol>
+&lt;li>First, you&amp;rsquo;ll need an Azure account. See instructions &lt;a href="https://azure.microsoft.com/free/">here&lt;/a> to apply for a &lt;strong>free&lt;/strong> Azure account.&lt;/li>
+&lt;li>Follow instructions &lt;a href="https://docs.microsoft.com/en-us/azure/azure-monitor/app/create-new-resource">here&lt;/a> to create a new Application Insights resource.&lt;/li>
+&lt;li>Get the Application Insights Intrumentation key from your Application Insights page.&lt;/li>
+&lt;/ol>
+&lt;h3 id="run-opentelemetry-collector-to-push-to-your-application-insights-instance">Run OpenTelemetry Collector to push to your Application Insights instance&lt;/h3>
+&lt;p>First, save your Application Insights Instrumentation Key in an environment variable&lt;/p>
+&lt;pre>&lt;code>export APP_INSIGHTS_KEY=&amp;lt;your-app-insight-key&amp;gt;
+&lt;/code>&lt;/pre>&lt;p>Next, install the OpenTelemetry Collector to your Kubernetes cluster to push events to your Application Insights instance&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Check out the file &lt;a href="https://dapr-cn.github.io/docs/docs/open-telemetry-collector/open-telemetry-collector.yaml">open-telemetry-collector.yaml&lt;/a> and replace the &lt;code>&amp;lt;INSTRUMENTATION-KEY&amp;gt;&lt;/code> placeholder with your &lt;code>APP_INSIGHTS_KEY&lt;/code>.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Apply the configuration with &lt;code>kubectl apply -f open-telemetry-collector.yaml&lt;/code>.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>Next, set up both a Dapr configuration file to turn on tracing and deploy a tracing exporter component that uses the OpenTelemetry Collector.&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Create a collector-config.yaml file with this &lt;a href="https://dapr-cn.github.io/docs/docs/open-telemetry-collector/collector-config.yaml">content&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Apply the configuration with &lt;code>kubectl apply -f collector-config.yaml&lt;/code>.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h3 id="deploy-your-app-with-tracing">Deploy your app with tracing&lt;/h3>
+&lt;p>When running in Kubernetes mode, apply the &lt;code>appconfig&lt;/code> configuration by adding a &lt;code>dapr.io/config&lt;/code> annotation to the container that you want to participate in the distributed tracing, as shown in the following example:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">apps/v1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Deployment&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#ae81ff">...&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#ae81ff">...&lt;/span>
+&lt;span style="color:#f92672">template&lt;/span>:
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#ae81ff">...&lt;/span>
+&lt;span style="color:#f92672">annotations&lt;/span>:
+&lt;span style="color:#f92672">dapr.io/enabled&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">dapr.io/app-id&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;MyApp&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">dapr.io/app-port&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;8080&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">dapr.io/config&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;appconfig&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Some of the quickstarts such as &lt;a href="https://github.com/dapr/quickstarts/tree/master/distributed-calculator">distributed calculator&lt;/a> already configure these settings, so if you are using those no additional settings are needed.&lt;/p>
+&lt;p>That&amp;rsquo;s it! There&amp;rsquo;s no need include any SDKs or instrument your application code. Dapr automatically handles the distributed tracing for you.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>NOTE&lt;/strong>: You can register multiple tracing exporters at the same time, and the tracing logs are forwarded to all registered exporters.&lt;/p>
+&lt;/blockquote>
+&lt;p>Deploy and run some applications. After a few minutes, you should see tracing logs appearing in your Application Insights resource. You can also use &lt;strong>Application Map&lt;/strong> to examine the topology of your services, as shown below:&lt;/p>
+&lt;p>&lt;img src="https://dapr-cn.github.io/docs/images/open-telemetry-app-insights.png" alt="Application map">&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>NOTE&lt;/strong>: Only operations going through Dapr API exposed by Dapr sidecar (e.g. service invocation or event publishing) are displayed in Application Map topology.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="tracing-configuration">Tracing configuration&lt;/h2>
+&lt;p>The &lt;code>tracing&lt;/code> section under the &lt;code>Configuration&lt;/code> spec contains the following properties:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yml" data-lang="yml">&lt;span style="color:#f92672">tracing&lt;/span>:
+&lt;span style="color:#f92672">samplingRate&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The following table lists the different properties.&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Property&lt;/th>
+&lt;th>Type&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>samplingRate&lt;/td>
+&lt;td>string&lt;/td>
+&lt;td>Set sampling rate for tracing to be enabled or disabled.&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>&lt;code>samplingRate&lt;/code> is used to enable or disable the tracing. To disable the sampling rate , set &lt;code>samplingRate : &amp;quot;0&amp;quot;&lt;/code> in the configuration. The valid range of samplingRate is between 0 and 1 inclusive. The sampling rate determines whether a trace span should be sampled or not based on value. &lt;code>samplingRate : &amp;quot;1&amp;quot;&lt;/code> will always sample the traces. By default, the sampling rate is 1 in 10,000&lt;/p></description></item><item><title>Operations: How-To: Set up Azure Monitor to search logs and collect metrics</title><link>https://dapr-cn.github.io/docs/operations/monitoring/azure-monitor/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/monitoring/azure-monitor/</guid><description>
+&lt;h2 id="prerequisites">Prerequisites&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.microsoft.com/en-us/azure/aks/">Azure Kubernetes Service&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-overview">Enable Azure Monitor For containers in AKS&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/">kubectl&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://helm.sh/">Helm 3&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="enable-prometheus-metric-scrape-using-config-map">Enable Prometheus metric scrape using config map&lt;/h2>
+&lt;ol>
+&lt;li>Make sure that omsagents are running&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">$ kubectl get pods -n kube-system
+NAME READY STATUS RESTARTS AGE
+...
+omsagent-75qjs 1/1 Running &lt;span style="color:#ae81ff">1&lt;/span> 44h
+omsagent-c7c4t 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 44h
+omsagent-rs-74f488997c-dshpx 1/1 Running &lt;span style="color:#ae81ff">1&lt;/span> 44h
+omsagent-smtk7 1/1 Running &lt;span style="color:#ae81ff">1&lt;/span> 44h
+...
+&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
+&lt;li>Apply config map to enable Prometheus metrics endpoint scrape.&lt;/li>
+&lt;/ol>
+&lt;p>You can use &lt;a href="https://dapr-cn.github.io/docs/docs/azm-config-map.yaml">azm-config-map.yaml&lt;/a> to enable prometheus metrics endpoint scrape.&lt;/p>
+&lt;p>If you installed Dapr to the different namespace, you need to change the &lt;code>monitor_kubernetes_pod_namespaces&lt;/code> array values. For example:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">...
+&lt;span style="color:#f92672">prometheus-data-collection-settings&lt;/span>: |-&lt;span style="color:#e6db74">
+&lt;/span>&lt;span style="color:#e6db74"> [prometheus_data_collection_settings.cluster]
+&lt;/span>&lt;span style="color:#e6db74"> interval = &amp;#34;1m&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> monitor_kubernetes_pods = true
+&lt;/span>&lt;span style="color:#e6db74"> monitor_kubernetes_pods_namespaces = [&amp;#34;dapr-system&amp;#34;, &amp;#34;default&amp;#34;]
+&lt;/span>&lt;span style="color:#e6db74"> [prometheus_data_collection_settings.node]
+&lt;/span>&lt;span style="color:#e6db74"> interval = &amp;#34;1m&amp;#34;&lt;/span>
+...
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Apply config map:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl apply -f ./azm-config.map.yaml
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="install-dapr-with-json-formatted-logs">Install Dapr with JSON formatted logs&lt;/h2>
+&lt;ol>
+&lt;li>Install Dapr with enabling JSON-formatted logs&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm install dapr dapr/dapr --namespace dapr-system --set global.logAsJson&lt;span style="color:#f92672">=&lt;/span>true
+&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
+&lt;li>Enable JSON formatted log in Dapr sidecar and add Prometheus annotations.&lt;/li>
+&lt;/ol>
+&lt;blockquote>
+&lt;p>Note: OMS Agent scrapes the metrics only if replicaset has Prometheus annotations.&lt;/p>
+&lt;/blockquote>
+&lt;p>Add &lt;code>dapr.io/log-as-json: &amp;quot;true&amp;quot;&lt;/code> annotation to your deployment yaml.&lt;/p>
+&lt;p>Example:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">apps/v1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Deployment&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">pythonapp&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">labels&lt;/span>:
+&lt;span style="color:#f92672">app&lt;/span>: &lt;span style="color:#ae81ff">python&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">replicas&lt;/span>: &lt;span style="color:#ae81ff">1&lt;/span>
+&lt;span style="color:#f92672">selector&lt;/span>:
+&lt;span style="color:#f92672">matchLabels&lt;/span>:
+&lt;span style="color:#f92672">app&lt;/span>: &lt;span style="color:#ae81ff">python&lt;/span>
+&lt;span style="color:#f92672">template&lt;/span>:
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">labels&lt;/span>:
+&lt;span style="color:#f92672">app&lt;/span>: &lt;span style="color:#ae81ff">python&lt;/span>
+&lt;span style="color:#f92672">annotations&lt;/span>:
+&lt;span style="color:#f92672">dapr.io/enabled&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">dapr.io/app-id&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;pythonapp&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">dapr.io/log-as-json&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">prometheus.io/scrape&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">prometheus.io/port&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;9090&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">prometheus.io/path&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;/&amp;#34;&lt;/span>
+...
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="search-metrics-and-logs-with-azure-monitor">Search metrics and logs with Azure Monitor&lt;/h2>
+&lt;ol>
+&lt;li>
+&lt;p>Go to Azure Monitor&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Search Dapr logs&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>Here is an example query, to parse JSON formatted logs and query logs from dapr system processes.&lt;/p>
+&lt;pre>&lt;code>ContainerLog
+| extend parsed=parse_json(LogEntry)
+| project Time=todatetime(parsed['time']), app_id=parsed['app_id'], scope=parsed['scope'],level=parsed['level'], msg=parsed['msg'], type=parsed['type'], ver=parsed['ver'], instance=parsed['instance']
+| where level != &amp;quot;&amp;quot;
+| sort by Time
+&lt;/code>&lt;/pre>&lt;ol start="3">
+&lt;li>Search metrics&lt;/li>
+&lt;/ol>
+&lt;p>This query, queries process_resident_memory_bytes Prometheus metrics for Dapr system processes and renders timecharts&lt;/p>
+&lt;pre>&lt;code>InsightsMetrics
+| where Namespace == &amp;quot;prometheus&amp;quot; and Name == &amp;quot;process_resident_memory_bytes&amp;quot;
+| extend tags=parse_json(Tags)
+| project TimeGenerated, Name, Val, app=tostring(tags['app'])
+| summarize memInBytes=percentile(Val, 99) by bin(TimeGenerated, 1m), app
+| where app startswith &amp;quot;dapr-&amp;quot;
+| render timechart
+&lt;/code>&lt;/pre>&lt;h1 id="references">References&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-prometheus-integration">Configure scraping of Prometheus metrics with Azure Monitor for containers&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-agent-config">Configure agent data collection for Azure Monitor for containers&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.microsoft.com/en-us/azure/azure-monitor/log-query/query-language">Azure Monitor Query&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: How-To: Set-up New Relic for Dapr observability</title><link>https://dapr-cn.github.io/docs/operations/monitoring/newrelic/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/monitoring/newrelic/</guid><description>
+&lt;h2 id="prerequisites">Prerequisites&lt;/h2>
+&lt;ul>
+&lt;li>Perpetually &lt;a href="https://newrelic.com/signup">free New Relic account&lt;/a>, 100 GB/month of free data ingest, 1 free full access user, unlimited free basic users&lt;/li>
+&lt;/ul>
+&lt;h2 id="configure-dapr-tracing">Configure Dapr tracing&lt;/h2>
+&lt;p>Dapr natively captures metrics and traces that can be send directly to New Relic. The easiest way to export these is by configuring Dapr to send the traces to &lt;a href="https://docs.newrelic.com/docs/understand-dependencies/distributed-tracing/trace-api/report-zipkin-format-traces-trace-api#existing-zipkin">New Relic&amp;rsquo;s Trace API&lt;/a> using the Zipkin trace format.&lt;/p>
+&lt;p>In order for the integration to send data to New Relic &lt;a href="https://newrelic.com/platform/telemetry-data-platform">Telemetry Data Platform&lt;/a>, you need a &lt;a href="https://docs.newrelic.com/docs/apis/get-started/intro-apis/types-new-relic-api-keys#insights-insert-key">New Relic Insights Insert API key&lt;/a>.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">appconfig&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">tracing&lt;/span>:
+&lt;span style="color:#f92672">samplingRate&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">zipkin&lt;/span>:
+&lt;span style="color:#f92672">endpointAddress&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;https://trace-api.newrelic.com/trace/v1?Api-Key=&amp;lt;NR-INSIGHTS-INSERT-API-KEY&amp;gt;&amp;amp;Data-Format=zipkin&amp;amp;Data-Format-Version=2&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="viewing-traces">Viewing Traces&lt;/h3>
+&lt;p>New Relic Distributed Tracing overview &lt;img src="https://dapr-cn.github.io/docs/images/nr-distributed-tracing-overview.png" alt="New Relic Kubernetes Cluster Explorer App">&lt;/p>
+&lt;p>New Relic Distributed Tracing details &lt;img src="https://dapr-cn.github.io/docs/images/nr-distributed-tracing-detail.png" alt="New Relic Kubernetes Cluster Explorer App">&lt;/p>
+&lt;h2 id="optional-new-relic-instrumentation">(optional) New Relic Instrumentation&lt;/h2>
+&lt;p>In order for the integrations to send data to New Relic Telemetry Data Platform, you either need a &lt;a href="https://docs.newrelic.com/docs/accounts/accounts-billing/account-setup/new-relic-license-key">New Relic license key&lt;/a> or &lt;a href="https://docs.newrelic.com/docs/apis/get-started/intro-apis/types-new-relic-api-keys#insights-insert-key">New Relic Insights Insert API key&lt;/a>.&lt;/p>
+&lt;h3 id="opentelemetry-instrumentation">OpenTelemetry instrumentation&lt;/h3>
+&lt;p>Leverage the different language specific OpenTelemetry implementations, for example &lt;a href="https://github.com/newrelic/newrelic-telemetry-sdk-dotnet">New Relic Telemetry SDK and OpenTelemetry support for .NET&lt;/a>. In this case, use the &lt;a href="https://github.com/newrelic/newrelic-telemetry-sdk-dotnet/tree/main/src/NewRelic.OpenTelemetry">OpenTelemetry Trace Exporter&lt;/a>. See example &lt;a href="https://github.com/harrykimpel/quickstarts/blob/master/distributed-calculator/csharp-otel/Startup.cs">here&lt;/a>.&lt;/p>
+&lt;h3 id="new-relic-language-agent">New Relic Language agent&lt;/h3>
+&lt;p>Similarly to the OpenTelemetry instrumentation, you can also leverage a New Relic language agent. As an example, the &lt;a href="https://docs.newrelic.com/docs/agents/net-agent/installation/install-docker-container">New Relic agent instrumentation for .NET Core&lt;/a> is part of the Dockerfile. See example &lt;a href="https://github.com/harrykimpel/quickstarts/blob/master/distributed-calculator/csharp/Dockerfile">here&lt;/a>.&lt;/p>
+&lt;h2 id="optional-enable-new-relic-kubernetes-integration">(optional) Enable New Relic Kubernetes integration&lt;/h2>
+&lt;p>In case Dapr and your applications run in the context of a Kubernetes environment, you can enable additional metrics and logs.&lt;/p>
+&lt;p>The easiest way to install the New Relic Kubernetes integration is to use the &lt;a href="https://one.newrelic.com/launcher/nr1-core.settings?pane=eyJuZXJkbGV0SWQiOiJrOHMtY2x1c3Rlci1leHBsb3Jlci1uZXJkbGV0Lms4cy1zZXR1cCJ9">automated installer&lt;/a> to generate a manifest. It bundles not just the integration DaemonSets, but also other New Relic Kubernetes configurations, like &lt;a href="https://docs.newrelic.com/docs/integrations/kubernetes-integration/kubernetes-events/install-kubernetes-events-integration">Kubernetes events&lt;/a>, &lt;a href="https://docs.newrelic.com/docs/integrations/prometheus-integrations/get-started/new-relic-prometheus-openmetrics-integration-kubernetes">Prometheus OpenMetrics&lt;/a>, and &lt;a href="https://docs.newrelic.com/docs/logs">New Relic log monitoring&lt;/a>.&lt;/p>
+&lt;h3 id="new-relic-kubernetes-cluster-explorer">New Relic Kubernetes Cluster Explorer&lt;/h3>
+&lt;p>The &lt;a href="https://docs.newrelic.com/docs/integrations/kubernetes-integration/understand-use-data/kubernetes-cluster-explorer">New Relic Kubernetes Cluster Explorer&lt;/a> provides a unique visualization of the entire data and deployments of the data collected by the Kubernetes integration.&lt;/p>
+&lt;p>It is a good starting point to observe all your data and dig deeper into any performance issues or incidents happening inside of the application or microservices.&lt;/p>
+&lt;p>&lt;img src="https://dapr-cn.github.io/docs/images/nr-k8s-cluster-explorer-app.png" alt="New Relic Kubernetes Cluster Explorer App">&lt;/p>
+&lt;p>Automated correlation is part of the visualization capabilities of New Relic.&lt;/p>
+&lt;h3 id="pod-level-details">Pod-level details&lt;/h3>
+&lt;p>&lt;img src="https://dapr-cn.github.io/docs/images/nr-k8s-pod-level-details.png" alt="New Relic K8s Pod Level Details">&lt;/p>
+&lt;h3 id="logs-in-context">Logs in Context&lt;/h3>
+&lt;p>&lt;img src="https://dapr-cn.github.io/docs/images/nr-k8s-logs-in-context.png" alt="New Relic K8s Logs In Context">&lt;/p>
+&lt;h2 id="new-relic-dashboards">New Relic Dashboards&lt;/h2>
+&lt;h3 id="kubernetes-overview">Kubernetes Overview&lt;/h3>
+&lt;p>&lt;img src="https://dapr-cn.github.io/docs/images/nr-dashboard-k8s-overview.png" alt="New Relic Dashboard Kubernetes Overview">&lt;/p>
+&lt;h3 id="dapr-system-services">Dapr System Services&lt;/h3>
+&lt;p>&lt;img src="https://dapr-cn.github.io/docs/images/nr-dashboard-dapr-system-services.png" alt="New Relic Dashboard Dapr System Services">&lt;/p>
+&lt;h3 id="dapr-metrics">Dapr Metrics&lt;/h3>
+&lt;p>&lt;img src="https://dapr-cn.github.io/docs/images/nr-dashboard-dapr-metrics-1.png" alt="New Relic Dashboard Dapr Metrics 1">&lt;/p>
+&lt;h2 id="new-relic-grafana-integration">New Relic Grafana integration&lt;/h2>
+&lt;p>New Relic teamed up with &lt;a href="https://grafana.com/">Grafana Labs&lt;/a> so you can use the &lt;a href="https://newrelic.com/platform/telemetry-data-platform">Telemetry Data Platform&lt;/a> as a data source for Prometheus metrics and see them in your existing dashboards, seamlessly tapping into the reliability, scale, and security provided by New Relic.&lt;/p>
+&lt;p>&lt;a href="https://github.com/dapr/dapr/blob/227028e7b76b7256618cd3236d70c1d4a4392c9a/grafana/README.md">Grafana dashboard templates&lt;/a> to monitor Dapr system services and sidecars can easily be used without any changes. New Relic provides a &lt;a href="https://docs.newrelic.com/docs/integrations/grafana-integrations/set-configure/configure-new-relic-prometheus-data-source-grafana">native endpoint for Prometheus metrics&lt;/a> into Grafana. A datasource can easily be set-up:&lt;/p>
+&lt;p>&lt;img src="https://dapr-cn.github.io/docs/images/nr-grafana-datasource.png" alt="New Relic Grafana Data Source">&lt;/p>
+&lt;p>And the exact same dashboard templates from Dapr can be imported to visualize Dapr system services and sidecars.&lt;/p>
+&lt;p>&lt;img src="https://dapr-cn.github.io/docs/images/nr-grafana-dashboard.png" alt="New Relic Grafana Dashboard">&lt;/p>
+&lt;h2 id="new-relic-alerts">New Relic Alerts&lt;/h2>
+&lt;p>All the data that is collected from Dapr, Kubernetes or any services that run on top of can be used to set-up alerts and notifications into the preferred channel of your choice. See &lt;a href="https://docs.newrelic.com/docs/alerts-applied-intelligence">Alerts and Applied Intelligence&lt;/a>.&lt;/p>
+&lt;h2 id="related-linksreferences">Related Links/References&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://newrelic.com/signup">New Relic Account Signup&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://newrelic.com/platform/telemetry-data-platform">Telemetry Data Platform&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.newrelic.com/docs/understand-dependencies/distributed-tracing/get-started/introduction-distributed-tracing">Distributed Tracing&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.newrelic.com/docs/understand-dependencies/distributed-tracing/trace-api">New Relic Trace API&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.newrelic.com/docs/telemetry-data-platform/get-data/apis/introduction-metric-api">New Relic Metric API&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.newrelic.com/docs/apis/get-started/intro-apis/types-new-relic-api-keys">Types of New Relic API keys&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://blog.newrelic.com/product-news/opentelemetry-user-experience/">New Relic OpenTelemetry User Experience&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.newrelic.com/docs/alerts-applied-intelligence">Alerts and Applied Intelligence&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: How-To: Set up Jaeger for distributed tracing</title><link>https://dapr-cn.github.io/docs/operations/monitoring/jaeger/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/monitoring/jaeger/</guid><description>
+&lt;p>Dapr currently supports two kind of tracing protocol: OpenCensus and Zipkin. Since Jaeger is compatible with Zipkin, the Zipkin protocol can be used to talk to Jaeger.&lt;/p>
+&lt;h2 id="configure-self-hosted-mode">Configure self hosted mode&lt;/h2>
+&lt;h3 id="setup">Setup&lt;/h3>
+&lt;p>The simplest way to start Jaeger is to use the pre-built all-in-one Jaeger image published to DockerHub:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">docker run -d --name jaeger &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -e COLLECTOR_ZIPKIN_HTTP_PORT&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">9412&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -p 16686:16686 &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -p 9412:9412 &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> jaegertracing/all-in-one:1.21
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Next, create the following YAML files locally:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>config.yaml&lt;/strong>: Note that because we are using the Zipkin protocol to talk to Jaeger, we specify the &lt;code>zipkin&lt;/code> section of tracing configuration set the &lt;code>endpointAddress&lt;/code> to address of the Jaeger instance.&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">tracing&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">tracing&lt;/span>:
+&lt;span style="color:#f92672">samplingRate&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">zipkin&lt;/span>:
+&lt;span style="color:#f92672">endpointAddress&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;http://localhost:9412/api/v2/spans&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>To launch the application referring to the new YAML file, you can use &lt;code>--config&lt;/code> option:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr run --app-id mynode --app-port &lt;span style="color:#ae81ff">3000&lt;/span> node app.js --config config.yaml
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="viewing-traces">Viewing Traces&lt;/h3>
+&lt;p>To view traces, in your browser go to http://localhost:16686 and you will see the Zipkin UI.&lt;/p>
+&lt;h2 id="configure-kubernetes">Configure Kubernetes&lt;/h2>
+&lt;p>The following steps shows you how to configure Dapr to send distributed tracing data to Jaeger running as a container in your Kubernetes cluster, how to view them.&lt;/p>
+&lt;h3 id="setup-1">Setup&lt;/h3>
+&lt;p>First create the following YAML file to install Jaeger&lt;/p>
+&lt;ul>
+&lt;li>jaeger-operator.yaml&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">jaegertracing.io/v1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;Jaeger&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;jaeger&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">strategy&lt;/span>: &lt;span style="color:#ae81ff">allInOne&lt;/span>
+&lt;span style="color:#f92672">ingress&lt;/span>:
+&lt;span style="color:#f92672">enabled&lt;/span>: &lt;span style="color:#66d9ef">false&lt;/span>
+&lt;span style="color:#f92672">allInOne&lt;/span>:
+&lt;span style="color:#f92672">image&lt;/span>: &lt;span style="color:#ae81ff">jaegertracing/all-in-one:1.13&lt;/span>
+&lt;span style="color:#f92672">options&lt;/span>:
+&lt;span style="color:#f92672">query&lt;/span>:
+&lt;span style="color:#f92672">base-path&lt;/span>: &lt;span style="color:#ae81ff">/jaeger&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Now, use the above YAML file to install Jaeger&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#75715e"># Install Jaeger&lt;/span>
+helm repo add jaegertracing https://jaegertracing.github.io/helm-charts
+helm install jaeger-operator jaegertracing/jaeger-operator
+kubectl apply -f jaeger-operator.yaml
+&lt;span style="color:#75715e"># Wait for Jaeger to be up and running&lt;/span>
+kubectl wait deploy --selector app.kubernetes.io/name&lt;span style="color:#f92672">=&lt;/span>jaeger --for&lt;span style="color:#f92672">=&lt;/span>condition&lt;span style="color:#f92672">=&lt;/span>available
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Next, create the following YAML file locally:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>tracing.yaml&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">tracing&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">tracing&lt;/span>:
+&lt;span style="color:#f92672">samplingRate&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">zipkin&lt;/span>:
+&lt;span style="color:#f92672">endpointAddress&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;http://jaeger-collector.default.svc.cluster.local:9411/api/v2/spans&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Finally, deploy the the Dapr component and configuration files:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl apply -f tracing.yaml
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>In order to enable this configuration for your Dapr sidecar, add the following annotation to your pod spec template:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yml" data-lang="yml">&lt;span style="color:#f92672">annotations&lt;/span>:
+&lt;span style="color:#f92672">dapr.io/config&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;tracing&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>That&amp;rsquo;s it! your sidecar is now configured for use with Jaeger.&lt;/p>
+&lt;h3 id="viewing-tracing-data">Viewing Tracing Data&lt;/h3>
+&lt;p>To view traces, connect to the Jaeger Service and open the UI:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl port-forward svc/jaeger-query &lt;span style="color:#ae81ff">16686&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>In your browser, go to &lt;code>http://localhost:16686&lt;/code> and you will see the Jaeger UI.&lt;/p>
+&lt;p>&lt;img src="https://dapr-cn.github.io/docs/images/jaeger_ui.png" alt="jaeger">&lt;/p>
+&lt;h2 id="references">References&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://www.jaegertracing.io/docs/1.21/getting-started/#all-in-one">Jaeger Getting Started&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/observability/w3c-tracing/">W3C distributed tracing&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: How-To: Set up Zipkin for distributed tracing</title><link>https://dapr-cn.github.io/docs/operations/monitoring/zipkin/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/monitoring/zipkin/</guid><description>
+&lt;h2 id="configure-self-hosted-mode">Configure self hosted mode&lt;/h2>
+&lt;p>For self hosted mode, on running &lt;code>dapr init&lt;/code>:&lt;/p>
+&lt;ol>
+&lt;li>The following YAML file is created by default in &lt;code>$HOME/.dapr/config.yaml&lt;/code> (on Linux/Mac) or &lt;code>%USERPROFILE%\.dapr\config.yaml&lt;/code> (on Windows) and it is referenced by default on &lt;code>dapr run&lt;/code> calls unless otherwise overridden `:&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>config.yaml&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">daprConfig&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">tracing&lt;/span>:
+&lt;span style="color:#f92672">samplingRate&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">zipkin&lt;/span>:
+&lt;span style="color:#f92672">endpointAddress&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;http://localhost:9411/api/v2/spans&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
+&lt;li>The &lt;a href="https://hub.docker.com/r/openzipkin/zipkin/">openzipkin/zipkin&lt;/a> docker container is launched on running &lt;code>dapr init&lt;/code> or it can be launched with the following code.&lt;/li>
+&lt;/ol>
+&lt;p>Launch Zipkin using Docker:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">docker run -d -p 9411:9411 openzipkin/zipkin
+&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="3">
+&lt;li>The applications launched with &lt;code>dapr run&lt;/code> will by default reference the config file in &lt;code>$HOME/.dapr/config.yaml&lt;/code> or &lt;code>%USERPROFILE%\.dapr\config.yaml&lt;/code> and can be overridden with the Dapr CLI using the &lt;code>--config&lt;/code> param:&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr run --app-id mynode --app-port &lt;span style="color:#ae81ff">3000&lt;/span> node app.js
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="viewing-traces">Viewing Traces&lt;/h3>
+&lt;p>To view traces, in your browser go to http://localhost:9411 and you will see the Zipkin UI.&lt;/p>
+&lt;h2 id="configure-kubernetes">Configure Kubernetes&lt;/h2>
+&lt;p>The following steps shows you how to configure Dapr to send distributed tracing data to Zipkin running as a container in your Kubernetes cluster, how to view them.&lt;/p>
+&lt;h3 id="setup">Setup&lt;/h3>
+&lt;p>First, deploy Zipkin:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl create deployment zipkin --image openzipkin/zipkin
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Create a Kubernetes service for the Zipkin pod:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl expose deployment zipkin --type ClusterIP --port &lt;span style="color:#ae81ff">9411&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Next, create the following YAML file locally:&lt;/p>
+&lt;ul>
+&lt;li>tracing.yaml configuration&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">tracing&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">tracing&lt;/span>:
+&lt;span style="color:#f92672">samplingRate&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">zipkin&lt;/span>:
+&lt;span style="color:#f92672">endpointAddress&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;http://zipkin.default.svc.cluster.local:9411/api/v2/spans&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Now, deploy the the Dapr configuration file:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl apply -f tracing.yaml
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>In order to enable this configuration for your Dapr sidecar, add the following annotation to your pod spec template:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yml" data-lang="yml">&lt;span style="color:#f92672">annotations&lt;/span>:
+&lt;span style="color:#f92672">dapr.io/config&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;tracing&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>That&amp;rsquo;s it! your sidecar is now configured for use with Open Census and Zipkin.&lt;/p>
+&lt;h3 id="viewing-tracing-data">Viewing Tracing Data&lt;/h3>
+&lt;p>To view traces, connect to the Zipkin Service and open the UI:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl port-forward svc/zipkin 9411:9411
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>In your browser, go to &lt;code>http://localhost:9411&lt;/code> and you will see the Zipkin UI.&lt;/p>
+&lt;p>&lt;img src="https://dapr-cn.github.io/docs/images/zipkin_ui.png" alt="zipkin">&lt;/p>
+&lt;h2 id="references">References&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/observability/w3c-tracing/">W3C distributed tracing&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: How-To: Observe metrics with Prometheus</title><link>https://dapr-cn.github.io/docs/operations/monitoring/prometheus/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/monitoring/prometheus/</guid><description>
+&lt;h2 id="setup-prometheus-locally">Setup Prometheus Locally&lt;/h2>
+&lt;p>To run Prometheus on your local machine, you can either &lt;a href="#install">install and run it as a process&lt;/a> or run it as a &lt;a href="#Run-as-Container">Docker container&lt;/a>.&lt;/p>
+&lt;h3 id="install">Install&lt;/h3>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Note&lt;/h4>
+You don&amp;rsquo;t need to install Prometheus if you plan to run it as a Docker container. Please refer to the &lt;a href="#run-as-container">Container&lt;/a> instructions.
+&lt;/div>
+&lt;p>To install Prometheus, follow the steps outlined &lt;a href="https://prometheus.io/docs/prometheus/latest/getting_started/">here&lt;/a> for your OS.&lt;/p>
+&lt;h3 id="configure">Configure&lt;/h3>
+&lt;p>Now you&amp;rsquo;ve installed Prometheus, you need to create a configuration.&lt;/p>
+&lt;p>Below is an example Prometheus configuration, save this to a file i.e. &lt;code>/tmp/prometheus.yml&lt;/code> or &lt;code>C:\Temp\prometheus.yml&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">global&lt;/span>:
+&lt;span style="color:#f92672">scrape_interval&lt;/span>: &lt;span style="color:#ae81ff">15s&lt;/span> &lt;span style="color:#75715e"># By default, scrape targets every 15 seconds.&lt;/span>
+&lt;span style="color:#75715e"># A scrape configuration containing exactly one endpoint to scrape:&lt;/span>
+&lt;span style="color:#75715e"># Here it&amp;#39;s Prometheus itself.&lt;/span>
+&lt;span style="color:#f92672">scrape_configs&lt;/span>:
+- &lt;span style="color:#f92672">job_name&lt;/span>: &lt;span style="color:#e6db74">&amp;#39;dapr&amp;#39;&lt;/span>
+&lt;span style="color:#75715e"># Override the global default and scrape targets from this job every 5 seconds.&lt;/span>
+&lt;span style="color:#f92672">scrape_interval&lt;/span>: &lt;span style="color:#ae81ff">5s&lt;/span>
+&lt;span style="color:#f92672">static_configs&lt;/span>:
+- &lt;span style="color:#f92672">targets&lt;/span>: [&lt;span style="color:#e6db74">&amp;#39;localhost:9090&amp;#39;&lt;/span>] &lt;span style="color:#75715e"># Replace with Dapr metrics port if not default&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="run-as-process">Run as Process&lt;/h3>
+&lt;p>Run Prometheus with your configuration to start it collecting metrics from the specified targets.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">./prometheus --config.file&lt;span style="color:#f92672">=&lt;/span>/tmp/prometheus.yml --web.listen-address&lt;span style="color:#f92672">=&lt;/span>:8080
+&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>We change the port so it doesn&amp;rsquo;t conflict with Dapr&amp;rsquo;s own metrics endpoint.&lt;/p>
+&lt;/blockquote>
+&lt;p>If you are not currently running a Dapr application, the target will show as offline. In order to start collecting metrics you must start Dapr with the metrics port matching the one provided as the target in the configuration.&lt;/p>
+&lt;p>Once Prometheus is running, you&amp;rsquo;ll be able to visit its dashboard by visiting &lt;code>http://localhost:8080&lt;/code>.&lt;/p>
+&lt;h3 id="run-as-container">Run as Container&lt;/h3>
+&lt;p>To run Prometheus as a Docker container on your local machine, first ensure you have &lt;a href="https://docs.docker.com/install/">Docker&lt;/a> installed and running.&lt;/p>
+&lt;p>Then you can run Prometheus as a Docker container using:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">docker run &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> --net&lt;span style="color:#f92672">=&lt;/span>host &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -v /tmp/prometheus.yml:/etc/prometheus/prometheus.yml &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> prom/prometheus --config.file&lt;span style="color:#f92672">=&lt;/span>/etc/prometheus/prometheus.yml --web.listen-address&lt;span style="color:#f92672">=&lt;/span>:8080
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>--net=host&lt;/code> ensures that the Prometheus instance will be able to connect to any Dapr instances running on the host machine. If you plan to run your Dapr apps in containers as well, you&amp;rsquo;ll need to run them on a shared Docker network and update the configuration with the correct target address.&lt;/p>
+&lt;p>Once Prometheus is running, you&amp;rsquo;ll be able to visit its dashboard by visiting &lt;code>http://localhost:8080&lt;/code>.&lt;/p>
+&lt;h2 id="setup-prometheus-on-kubernetes">Setup Prometheus on Kubernetes&lt;/h2>
+&lt;h3 id="prerequisites">Prerequisites&lt;/h3>
+&lt;ul>
+&lt;li>Kubernetes (&amp;gt; 1.14)&lt;/li>
+&lt;li>&lt;a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/">kubectl&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://helm.sh/">Helm 3&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h3 id="install-prometheus">Install Prometheus&lt;/h3>
+&lt;ol>
+&lt;li>First create namespace that can be used to deploy the Grafana and Prometheus monitoring tools&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl create namespace dapr-monitoring
+&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
+&lt;li>Install Prometheus&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
+helm install dapr-prom prometheus-community/prometheus -n dapr-monitoring
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>If you are Minikube user or want to disable persistent volume for development purposes, you can disable it by using the following command.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm install dapr-prom prometheus-community/prometheus -n dapr-monitoring
+--set alertmanager.persistentVolume.enable&lt;span style="color:#f92672">=&lt;/span>false --set pushgateway.persistentVolume.enabled&lt;span style="color:#f92672">=&lt;/span>false --set server.persistentVolume.enabled&lt;span style="color:#f92672">=&lt;/span>false
+&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="3">
+&lt;li>Validation&lt;/li>
+&lt;/ol>
+&lt;p>Ensure Prometheus is running in your cluster.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl get pods -n dapr-monitoring
+NAME READY STATUS RESTARTS AGE
+dapr-prom-kube-state-metrics-9849d6cc6-t94p8 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 4m58s
+dapr-prom-prometheus-alertmanager-749cc46f6-9b5t8 2/2 Running &lt;span style="color:#ae81ff">0&lt;/span> 4m58s
+dapr-prom-prometheus-node-exporter-5jh8p 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 4m58s
+dapr-prom-prometheus-node-exporter-88gbg 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 4m58s
+dapr-prom-prometheus-node-exporter-bjp9f 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 4m58s
+dapr-prom-prometheus-pushgateway-688665d597-h4xx2 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 4m58s
+dapr-prom-prometheus-server-694fd8d7c-q5d59 2/2 Running &lt;span style="color:#ae81ff">0&lt;/span> 4m58s
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="example-iframe-width560-height315-srchttpswwwyoutubecomembed8w-ibdnvcumstart2577-frameborder0-allowaccelerometer-autoplay-clipboard-write-encrypted-media-gyroscope-picture-in-picture-allowfullscreen-markcrwd-markiframe">Example &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/8W-iBDNvCUM?start=2577" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark">&lt;/iframe>&lt;/h2>
+&lt;h2 id="references">References&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/prometheus-community/helm-charts">Prometheus Installation&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://prometheus.io/docs/prometheus/latest/querying/basics/">Prometheus Query Language&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: How-To: Observe metrics with Grafana</title><link>https://dapr-cn.github.io/docs/operations/monitoring/grafana/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/monitoring/grafana/</guid><description>
+&lt;h2 id="available-dashboards">Available dashboards&lt;/h2>
+&lt;ul class="nav nav-tabs" id="tabs-0" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-0-system-service-tab" data-toggle="tab" href="#tabs-0-system-service" role="tab"
+aria-controls="tabs-0-system-service" aria-selected="true">
+System Service
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-0-sidecars-tab" data-toggle="tab" href="#tabs-0-sidecars" role="tab"
+aria-controls="tabs-0-sidecars" aria-selected="false">
+Sidecars
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-0-actors-tab" data-toggle="tab" href="#tabs-0-actors" role="tab"
+aria-controls="tabs-0-actors" aria-selected="false">
+Actors
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-0-content">
+&lt;div class="tab-pane fade show active" id="tabs-0-system-service" role="tabpanel" aria-labelled-by="tabs-0-system-service-tab">
+&lt;br />&lt;p>The &lt;code>grafana-system-services-dashboard.json&lt;/code> template shows Dapr system component status, dapr-operator, dapr-sidecar-injector, dapr-sentry, and dapr-placement:&lt;/p>
+&lt;img src="https://dapr-cn.github.io/docs/images/grafana-system-service-dashboard.png" alt="Screenshot of the system service dashboard" width=1200>
+&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-0-sidecars" role="tabpanel" aria-labelled-by="tabs-0-sidecars-tab">
+&lt;br />&lt;p>The &lt;code>grafana-sidecar-dashboard.json&lt;/code> template shows Dapr sidecar status, including sidecar health/resources, throughput/latency of HTTP and gRPC, Actor, mTLS, etc.:&lt;/p>
+&lt;img src="https://dapr-cn.github.io/docs/images/grafana-sidecar-dashboard.png" alt="Screenshot of the sidecar dashboard" width=1200>
+&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-0-actors" role="tabpanel" aria-labelled-by="tabs-0-actors-tab">
+&lt;br />&lt;p>The &lt;code>grafana-actor-dashboard.json&lt;/code> template shows Dapr Sidecar status, actor invocation throughput/latency, timer/reminder triggers, and turn-based concurrnecy:&lt;/p>
+&lt;img src="https://dapr-cn.github.io/docs/images/grafana-actor-dashboard.png" alt="Screenshot of the actor dashboard" width=1200>
+&lt;/div>
+&lt;/div>
+&lt;h2 id="pre-requisites">Pre-requisites&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="%7B%7BX%1A16X%7D%7D">Setup Prometheus&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="setup-on-kubernetes">Setup on Kubernetes&lt;/h2>
+&lt;h3 id="install-grafana">Install Grafana&lt;/h3>
+&lt;ol>
+&lt;li>
+&lt;p>Add the Grafana Helm repo:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm repo add grafana https://grafana.github.io/helm-charts
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Install the chart:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm install grafana grafana/grafana -n dapr-monitoring
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;div class="alert alert-primary" role="alert">
+&lt;h4 class="alert-heading">Note&lt;/h4>
+&lt;p>If you are Minikube user or want to disable persistent volume for development purpose, you can disable it by using the following command instead:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm install grafana grafana/grafana -n dapr-monitoring --set persistence.enabled&lt;span style="color:#f92672">=&lt;/span>false
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;/div>
+&lt;/li>
+&lt;li>
+&lt;p>Retrieve the admin password for Grafana login:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl get secret --namespace dapr-monitoring grafana -o jsonpath&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;{.data.admin-password}&amp;#34;&lt;/span> | base64 --decode ; echo
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>You will get a password similar to &lt;code>cj3m0OfBNx8SLzUlTx91dEECgzRlYJb60D2evof1%&lt;/code>. Remove the &lt;code>%&lt;/code> character from the password to get &lt;code>cj3m0OfBNx8SLzUlTx91dEECgzRlYJb60D2evof1&lt;/code> as the admin password.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Validation Grafana is running in your cluster:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl get pods -n dapr-monitoring
+NAME READY STATUS RESTARTS AGE
+dapr-prom-kube-state-metrics-9849d6cc6-t94p8 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 4m58s
+dapr-prom-prometheus-alertmanager-749cc46f6-9b5t8 2/2 Running &lt;span style="color:#ae81ff">0&lt;/span> 4m58s
+dapr-prom-prometheus-node-exporter-5jh8p 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 4m58s
+dapr-prom-prometheus-node-exporter-88gbg 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 4m58s
+dapr-prom-prometheus-node-exporter-bjp9f 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 4m58s
+dapr-prom-prometheus-pushgateway-688665d597-h4xx2 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 4m58s
+dapr-prom-prometheus-server-694fd8d7c-q5d59 2/2 Running &lt;span style="color:#ae81ff">0&lt;/span> 4m58s
+grafana-c49889cff-x56vj 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 5m10s
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;/ol>
+&lt;h3 id="configure-prometheus-as-data-source">Configure Prometheus as data source&lt;/h3>
+&lt;p>First you need to connect Prometheus as a data source to Grafana.&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Port-forward to svc/grafana:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl port-forward svc/grafana 8080:80 -n dapr-monitoring
+Forwarding from 127.0.0.1:8080 -&amp;gt; &lt;span style="color:#ae81ff">3000&lt;/span>
+Forwarding from &lt;span style="color:#f92672">[&lt;/span>::1&lt;span style="color:#f92672">]&lt;/span>:8080 -&amp;gt; &lt;span style="color:#ae81ff">3000&lt;/span>
+Handling connection &lt;span style="color:#66d9ef">for&lt;/span> &lt;span style="color:#ae81ff">8080&lt;/span>
+Handling connection &lt;span style="color:#66d9ef">for&lt;/span> &lt;span style="color:#ae81ff">8080&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Open a browser to &lt;code>http://localhost:8080&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Login to Grafana&lt;/p>
+&lt;ul>
+&lt;li>Username = &lt;code>admin&lt;/code>&lt;/li>
+&lt;li>Password = Password from above&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>Select &lt;code>Configuration&lt;/code> and &lt;code>Data Sources&lt;/code>&lt;/p>
+&lt;img src="https://dapr-cn.github.io/docs/images/grafana-datasources.png" alt="Screenshot of the Grafana add Data Source menu" width=200>
+&lt;/li>
+&lt;li>
+&lt;p>Add Prometheus as a data source.&lt;/p>
+&lt;pre>&lt;code>&amp;lt;img src=&amp;quot;/images/grafana-add-datasources.png&amp;quot; alt=&amp;quot;Screenshot of the Prometheus add Data Source&amp;quot; width=600&amp;gt;
+&lt;/code>&lt;/pre>
+&lt;/li>
+&lt;li>
+&lt;p>Get your Prometheus HTTP URL&lt;/p>
+&lt;p>The Prometheus HTTP URL follows the format &lt;code>http://&amp;lt;prometheus service endpoint&amp;gt;.&amp;lt;namespace&amp;gt;&lt;/code>&lt;/p>
+&lt;p>Start by getting the Prometheus server endpoint by running the following command:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl get svc -n dapr-monitoring
+NAME TYPE CLUSTER-IP EXTERNAL-IP PORT&lt;span style="color:#f92672">(&lt;/span>S&lt;span style="color:#f92672">)&lt;/span> AGE
+dapr-prom-kube-state-metrics ClusterIP 10.0.174.177 &amp;lt;none&amp;gt; 8080/TCP 7d9h
+dapr-prom-prometheus-alertmanager ClusterIP 10.0.255.199 &amp;lt;none&amp;gt; 80/TCP 7d9h
+dapr-prom-prometheus-node-exporter ClusterIP None &amp;lt;none&amp;gt; 9100/TCP 7d9h
+dapr-prom-prometheus-pushgateway ClusterIP 10.0.190.59 &amp;lt;none&amp;gt; 9091/TCP 7d9h
+dapr-prom-prometheus-server ClusterIP 10.0.172.191 &amp;lt;none&amp;gt; 80/TCP 7d9h
+elasticsearch-master ClusterIP 10.0.36.146 &amp;lt;none&amp;gt; 9200/TCP,9300/TCP 7d10h
+elasticsearch-master-headless ClusterIP None &amp;lt;none&amp;gt; 9200/TCP,9300/TCP 7d10h
+grafana ClusterIP 10.0.15.229 &amp;lt;none&amp;gt; 80/TCP 5d5h
+kibana-kibana ClusterIP 10.0.188.224 &amp;lt;none&amp;gt; 5601/TCP 7d10h
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>In this guide the server name is &lt;code>dapr-prom-prometheus-server&lt;/code> and the namespace is &lt;code>dapr-monitoring&lt;/code>, so the HTTP URL will be &lt;code>http://dapr-prom-prometheus-server.dapr-monitoring&lt;/code>.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Fill in the following settings:&lt;/p>
+&lt;ul>
+&lt;li>Name: &lt;code>Dapr&lt;/code>&lt;/li>
+&lt;li>HTTP URL: &lt;code>http://dapr-prom-prometheus-server.dapr-monitoring&lt;/code>&lt;/li>
+&lt;li>Default: On&lt;/li>
+&lt;/ul>
+&lt;img src="https://dapr-cn.github.io/docs/images/grafana-prometheus-dapr-server-url.png" alt="Screenshot of the Prometheus Data Source configuration" width=600>
+&lt;/li>
+&lt;li>
+&lt;p>Click &lt;code>Save &amp;amp; Test&lt;/code> button to verify that the connection succeeded.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="import-dashboards-in-grafana">Import dashboards in Grafana&lt;/h2>
+&lt;ol>
+&lt;li>
+&lt;p>In the upper left corner of the Grafana home screen, click the &amp;ldquo;+&amp;rdquo; option, then &amp;ldquo;Import&amp;rdquo;.&lt;/p>
+&lt;p>You can now import &lt;a href="https://github.com/dapr/dapr/tree/master/grafana">Grafana dashboard templates&lt;/a> from &lt;a href="https://github.com/dapr/dapr/releases">release assets&lt;/a> for your Dapr version:&lt;/p>
+&lt;img src="https://dapr-cn.github.io/docs/images/grafana-uploadjson.png" alt="Screenshot of the Grafana dashboard upload option" width=700>
+&lt;/li>
+&lt;li>
+&lt;p>Find the dashboard that you imported and enjoy&lt;/p>
+&lt;img src="https://dapr-cn.github.io/docs/images/system-service-dashboard.png" alt="Screenshot of Dapr service dashbaord" width=900>
+&lt;div class="alert alert-primary" role="alert">
+&lt;h4 class="alert-heading">Tip&lt;/h4>
+Hover your mouse over the &lt;code>i&lt;/code> in the corner to the description of each chart:&lt;/p>
+&lt;img src="https://dapr-cn.github.io/docs/images/grafana-tooltip.png" alt="Screenshot of the tooltip for graphs" width=700>
+&lt;/div>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="references">References&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="%7B%7BX%1A25X%7D%7D">Dapr Observability&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/prometheus-community/helm-charts">Prometheus Installation&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/coreos/kube-prometheus">Prometheus on Kubernetes&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://prometheus.io/docs/prometheus/latest/querying/basics/">Prometheus Query Language&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/dapr/dapr/blob/master/docs/development/dapr-metrics.md">Supported Dapr metrics&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="example-iframe-width560-height315-srchttpswwwyoutubecomembed8w-ibdnvcumstart2577-frameborder0-allowaccelerometer-autoplay-clipboard-write-encrypted-media-gyroscope-picture-in-picture-allowfullscreen-markcrwd-markiframe">Example &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/8W-iBDNvCUM?start=2577" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark">&lt;/iframe>&lt;/h2></description></item></channel></rss>

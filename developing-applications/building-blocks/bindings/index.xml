@@ -1,0 +1,131 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – Bindings</title><link>https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/</link><description>Recent content in Bindings on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Bindings overview</title><link>https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/bindings-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/bindings-overview/</guid><description>
+&lt;h2 id="introduction">Introduction&lt;/h2>
+&lt;p>Using bindings, you can trigger your app with events coming in from external systems, or interface with external systems. This building block provides several benefits for you and your code:&lt;/p>
+&lt;ul>
+&lt;li>Remove the complexities of connecting to, and polling from, messaging systems such as queues and message buses&lt;/li>
+&lt;li>Focus on business logic and not implementation details of how to interact with a system&lt;/li>
+&lt;li>Keep your code free from SDKs or libraries&lt;/li>
+&lt;li>Handle retries and failure recovery&lt;/li>
+&lt;li>Switch between bindings at run time&lt;/li>
+&lt;li>Build portable applications where environment-specific bindings are set-up and no code changes are required&lt;/li>
+&lt;/ul>
+&lt;p>For a specific example, bindings would allow your microservice to respond to incoming Twilio/SMS messages without adding or configuring a third-party Twilio SDK, worrying about polling from Twilio (or using websockets, etc.).&lt;/p>
+&lt;p>Bindings are developed independently of Dapr runtime. You can view and contribute to the bindings &lt;a href="https://github.com/dapr/components-contrib/tree/master/bindings">here&lt;/a>.&lt;/p>
+&lt;h2 id="input-bindings">Input bindings&lt;/h2>
+&lt;p>Input bindings are used to trigger your application when an event from an external resource has occurred. An optional payload and metadata may be sent with the request.&lt;/p>
+&lt;p>In order to receive events from an input binding:&lt;/p>
+&lt;ol>
+&lt;li>Define the component YAML that describes the type of binding and its metadata (connection info, etc.)&lt;/li>
+&lt;li>Listen on an HTTP endpoint for the incoming event, or use the gRPC proto library to get incoming events&lt;/li>
+&lt;/ol>
+&lt;blockquote>
+&lt;p>On startup Dapr sends a &lt;code>OPTIONS&lt;/code> request for all defined input bindings to the application and expects a status code other than &lt;code>NOT FOUND (404)&lt;/code> if this application wants to subscribe to the binding.&lt;/p>
+&lt;/blockquote>
+&lt;p>Read the &lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">Create an event-driven app using input bindings&lt;/a> page to get started with input bindings.&lt;/p>
+&lt;h2 id="output-bindings">Output bindings&lt;/h2>
+&lt;p>Output bindings allow users to invoke external resources. An optional payload and metadata can be sent with the invocation request.&lt;/p>
+&lt;p>In order to invoke an output binding:&lt;/p>
+&lt;ol>
+&lt;li>Define the component YAML that describes the type of binding and its metadata (connection info, etc.)&lt;/li>
+&lt;li>Use the HTTP endpoint or gRPC method to invoke the binding with an optional payload&lt;/li>
+&lt;/ol>
+&lt;p>Read the &lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">Send events to external systems using output bindings&lt;/a> page to get started with output bindings.&lt;/p>
+&lt;h2 id="related-topics">Related Topics&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/">Trigger a service from different resources with input bindings&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/">Invoke different resources using output bindings&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Developing-Applications: How-To: Trigger your application with input bindings</title><link>https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-triggers/</guid><description>
+&lt;p>Using bindings, your code can be triggered with incoming events from different resources which can be anything: a queue, messaging pipeline, cloud-service, filesystem etc.&lt;/p>
+&lt;p>This is ideal for event-driven processing, data pipelines or just generally reacting to events and doing further processing.&lt;/p>
+&lt;p>Dapr bindings allow you to:&lt;/p>
+&lt;ul>
+&lt;li>Receive events without including specific SDKs or libraries&lt;/li>
+&lt;li>Replace bindings without changing your code&lt;/li>
+&lt;li>Focus on business logic and not the event resource implementation&lt;/li>
+&lt;/ul>
+&lt;p>For more info on bindings, read &lt;a href="%7B%7BX%1A17X%7D%7D">this overview&lt;/a>.&lt;/p>
+&lt;p>For a quickstart sample showing bindings, visit this &lt;a href="https://github.com/dapr/quickstarts/tree/master/bindings">link&lt;/a>.&lt;/p>
+&lt;h2 id="1-create-a-binding">1. Create a binding&lt;/h2>
+&lt;p>An input binding represents an event resource that Dapr uses to read events from and push to your application.&lt;/p>
+&lt;p>For the purpose of this HowTo, we&amp;rsquo;ll use a Kafka binding. You can find a list of the different binding specs &lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/">here&lt;/a>.&lt;/p>
+&lt;p>Create the following YAML file, named binding.yaml, and save this to a &lt;code>components&lt;/code> sub-folder in your application directory. (Use the &lt;code>--components-path&lt;/code> flag with &lt;code>dapr run&lt;/code> to point to your custom components dir)&lt;/p>
+&lt;p>&lt;em>Note: When running in Kubernetes, apply this file to your cluster using &lt;code>kubectl apply -f binding.yaml&lt;/code>&lt;/em>&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">myevent&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">bindings.kafka&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">topics&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">topic1&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">brokers&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">localhost:9092&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">consumerGroup&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">group1&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Here, you create a new binding component with the name of &lt;code>myevent&lt;/code>.&lt;/p>
+&lt;p>Inside the &lt;code>metadata&lt;/code> section, configure the Kafka related properties such as the topics to listen on, the brokers and more.&lt;/p>
+&lt;h2 id="2-listen-for-incoming-events">2. Listen for incoming events&lt;/h2>
+&lt;p>Now configure your application to receive incoming events. If using HTTP, you need to listen on a &lt;code>POST&lt;/code> endpoint with the name of the binding as specified in &lt;code>metadata.name&lt;/code> in the file. In this example, this is &lt;code>myevent&lt;/code>.&lt;/p>
+&lt;p>&lt;em>The following example shows how you would listen for the event in Node.js, but this is applicable to any programming language&lt;/em>&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#a6e22e">express&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">require&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;express&amp;#39;&lt;/span>)
+&lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#a6e22e">bodyParser&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">require&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;body-parser&amp;#39;&lt;/span>)
+&lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#a6e22e">app&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">express&lt;/span>()
+&lt;span style="color:#a6e22e">app&lt;/span>.&lt;span style="color:#a6e22e">use&lt;/span>(&lt;span style="color:#a6e22e">bodyParser&lt;/span>.&lt;span style="color:#a6e22e">json&lt;/span>())
+&lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#a6e22e">port&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">3000&lt;/span>
+&lt;span style="color:#a6e22e">app&lt;/span>.&lt;span style="color:#a6e22e">post&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;/myevent&amp;#39;&lt;/span>, (&lt;span style="color:#a6e22e">req&lt;/span>, &lt;span style="color:#a6e22e">res&lt;/span>) =&amp;gt; {
+&lt;span style="color:#a6e22e">console&lt;/span>.&lt;span style="color:#a6e22e">log&lt;/span>(&lt;span style="color:#a6e22e">req&lt;/span>.&lt;span style="color:#a6e22e">body&lt;/span>)
+&lt;span style="color:#a6e22e">res&lt;/span>.&lt;span style="color:#a6e22e">status&lt;/span>(&lt;span style="color:#ae81ff">200&lt;/span>).&lt;span style="color:#a6e22e">send&lt;/span>()
+})
+&lt;span style="color:#a6e22e">app&lt;/span>.&lt;span style="color:#a6e22e">listen&lt;/span>(&lt;span style="color:#a6e22e">port&lt;/span>, () =&amp;gt; &lt;span style="color:#a6e22e">console&lt;/span>.&lt;span style="color:#a6e22e">log&lt;/span>(&lt;span style="color:#e6db74">`Kafka consumer app listening on port &lt;/span>&lt;span style="color:#e6db74">${&lt;/span>&lt;span style="color:#a6e22e">port&lt;/span>&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74">!`&lt;/span>))
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="ack-ing-an-event">ACK-ing an event&lt;/h3>
+&lt;p>In order to tell Dapr that you successfully processed an event in your application, return a &lt;code>200 OK&lt;/code> response from your HTTP handler.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#a6e22e">res&lt;/span>.&lt;span style="color:#a6e22e">status&lt;/span>(&lt;span style="color:#ae81ff">200&lt;/span>).&lt;span style="color:#a6e22e">send&lt;/span>()
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="rejecting-an-event">Rejecting an event&lt;/h3>
+&lt;p>In order to tell Dapr that the event wasn&amp;rsquo;t processed correctly in your application and schedule it for redelivery, return any response different from &lt;code>200 OK&lt;/code>. For example, a &lt;code>500 Error&lt;/code>.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#a6e22e">res&lt;/span>.&lt;span style="color:#a6e22e">status&lt;/span>(&lt;span style="color:#ae81ff">500&lt;/span>).&lt;span style="color:#a6e22e">send&lt;/span>()
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="event-delivery-guarantees">Event delivery Guarantees&lt;/h3>
+&lt;p>Event delivery guarantees are controlled by the binding implementation. Depending on the binding implementation, the event delivery can be exactly once or at least once.&lt;/p>
+&lt;h2 id="references">References&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Bindings API&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/concepts/components-concept/">Components concept&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/">Supported bindings&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Developing-Applications: How-To: Use bindings to interface with external resources</title><link>https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/howto-bindings/</guid><description>
+&lt;p>Using bindings, it is possible to invoke external resources without tying in to special SDK or libraries. For a complete sample showing output bindings, visit this &lt;a href="https://github.com/dapr/quickstarts/tree/master/bindings">link&lt;/a>.&lt;/p>
+&lt;p>Watch this &lt;a href="https://www.youtube.com/watch?v=ysklxm81MTs&amp;amp;feature=youtu.be&amp;amp;t=1960">video&lt;/a> on how to use bi-directional output bindings.&lt;/p>
+&lt;h2 id="1-create-a-binding">1. Create a binding&lt;/h2>
+&lt;p>An output binding represents a resource that Dapr will use invoke and send messages to.&lt;/p>
+&lt;p>For the purpose of this guide, you&amp;rsquo;ll use a Kafka binding. You can find a list of the different binding specs &lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">here&lt;/a>.&lt;/p>
+&lt;p>Create the following YAML file, named binding.yaml, and save this to a &lt;code>components&lt;/code> sub-folder in your application directory. (Use the &lt;code>--components-path&lt;/code> flag with &lt;code>dapr run&lt;/code> to point to your custom components dir)&lt;/p>
+&lt;p>&lt;em>Note: When running in Kubernetes, apply this file to your cluster using &lt;code>kubectl apply -f binding.yaml&lt;/code>&lt;/em>&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">myevent&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">bindings.kafka&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">brokers&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">localhost:9092&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">publishTopic&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">topic1&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Here, create a new binding component with the name of &lt;code>myevent&lt;/code>.&lt;/p>
+&lt;p>Inside the &lt;code>metadata&lt;/code> section, configure Kafka related properties such as the topic to publish the message to and the broker.&lt;/p>
+&lt;h2 id="2-send-an-event">2. Send an event&lt;/h2>
+&lt;p>All that&amp;rsquo;s left now is to invoke the bindings endpoint on a running Dapr instance.&lt;/p>
+&lt;p>You can do so using HTTP:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl -X POST -H http://localhost:3500/v1.0/bindings/myevent -d &lt;span style="color:#e6db74">&amp;#39;{ &amp;#34;data&amp;#34;: { &amp;#34;message&amp;#34;: &amp;#34;Hi!&amp;#34; }, &amp;#34;operation&amp;#34;: &amp;#34;create&amp;#34; }&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>As seen above, you invoked the &lt;code>/binding&lt;/code> endpoint with the name of the binding to invoke, in our case its &lt;code>myevent&lt;/code>. The payload goes inside the mandatory &lt;code>data&lt;/code> field, and can be any JSON serializable value.&lt;/p>
+&lt;p>You&amp;rsquo;ll also notice that there&amp;rsquo;s an &lt;code>operation&lt;/code> field that tells the binding what you need it to do. You can check &lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">here&lt;/a> which operations are supported for every output binding.&lt;/p>
+&lt;h2 id="references">References&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/bindings_api/">Binding API&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/bindings/">Binding components&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/">Binding detailed specifications&lt;/a>&lt;/li>
+&lt;/ul></description></item></channel></rss>

@@ -1,0 +1,573 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – Publish &amp; subscribe messaging</title><link>https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/</link><description>Recent content in Publish &amp; subscribe messaging on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Publish and subscribe overview</title><link>https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/pubsub-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/pubsub-overview/</guid><description>
+&lt;h2 id="introduction">Introduction&lt;/h2>
+&lt;p>The &lt;a href="https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern">publish/subscribe pattern&lt;/a> allows microservices to communicate with each other using messages. The &lt;strong>producer&lt;/strong> sends messages to a &lt;strong>topic&lt;/strong> without knowledge of what application will receive them. Similarly, a &lt;strong>consumer&lt;/strong> will subscribe to the topic and receive its messages without any knowledge of what application produced these messages. This pattern is especially useful when you need to decouple microservices from one another.&lt;/p>
+&lt;p>The publish/subscribe API in Dapr provides an at-least-once guarantee and integrates with various message brokers and queuing systems. The specific implementation to your application is pluggable and configured externally at runtime. This approach removes the dependency from your application and, as a result, makes your application more portable. The complete list of available publish/subscribe implementations is available &lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/">here&lt;/a>.&lt;/p>
+&lt;h2 id="features">Features&lt;/h2>
+&lt;h3 id="publishsubscribe-api">Publish/Subscribe API&lt;/h3>
+&lt;p>The publish/subscribe API is located in the &lt;a href="https://dapr-cn.github.io/docs/reference/api/pubsub_api/">API reference&lt;/a>.&lt;/p>
+&lt;h3 id="message-format">Message Format&lt;/h3>
+&lt;p>To enable message routing and to provide additional context with each message Dapr uses the &lt;a href="https://github.com/cloudevents/spec/tree/v1.0">CloudEvents 1.0 specification&lt;/a> as its message format. Any message sent by an application to a topic using Dapr will automatically be &amp;ldquo;wrapped&amp;rdquo; in Cloud Events envelope, using &lt;code>Content-Type&lt;/code> header value for &lt;code>datacontenttype&lt;/code> attribute.&lt;/p>
+&lt;p>Dapr implements the following Cloud Events fields:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>id&lt;/code>&lt;/li>
+&lt;li>&lt;code>source&lt;/code>&lt;/li>
+&lt;li>&lt;code>specversion&lt;/code>&lt;/li>
+&lt;li>&lt;code>type&lt;/code>&lt;/li>
+&lt;li>&lt;code>datacontenttype&lt;/code> (Optional)&lt;/li>
+&lt;/ul>
+&lt;p>The following example shows an XML content in CloudEvent v1.0 serialized as JSON:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;specversion&amp;#34;&lt;/span> : &lt;span style="color:#e6db74">&amp;#34;1.0&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;type&amp;#34;&lt;/span> : &lt;span style="color:#e6db74">&amp;#34;xml.message&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;source&amp;#34;&lt;/span> : &lt;span style="color:#e6db74">&amp;#34;https://example.com/message&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;subject&amp;#34;&lt;/span> : &lt;span style="color:#e6db74">&amp;#34;Test XML Message&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;id&amp;#34;&lt;/span> : &lt;span style="color:#e6db74">&amp;#34;id-1234-5678-9101&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;time&amp;#34;&lt;/span> : &lt;span style="color:#e6db74">&amp;#34;2020-09-23T06:23:21Z&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;datacontenttype&amp;#34;&lt;/span> : &lt;span style="color:#e6db74">&amp;#34;text/xml&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;data&amp;#34;&lt;/span> : &lt;span style="color:#e6db74">&amp;#34;&amp;lt;note&amp;gt;&amp;lt;to&amp;gt;User1&amp;lt;/to&amp;gt;&amp;lt;from&amp;gt;user2&amp;lt;/from&amp;gt;&amp;lt;message&amp;gt;hi&amp;lt;/message&amp;gt;&amp;lt;/note&amp;gt;&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>Starting with v0.9 release, Dapr no longer wraps published content into CloudEvent if the published payload is already in the CloudEvent format.&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="message-subscription">Message Subscription&lt;/h3>
+&lt;p>Dapr allows two methods by which you can subscribe to topics: &lt;strong>declarative&lt;/strong>, where a subscription is defined in an external file, and &lt;strong>programmatic&lt;/strong>, where a subscription is defined in the user code. For more information see Dapr&amp;rsquo;s documentation on &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-subscribe-to-topics">subscribing to a topic&lt;/a>.&lt;/p>
+&lt;h3 id="message-delivery">Message Delivery&lt;/h3>
+&lt;p>In principle, Dapr considers message successfully delivered when the subscriber responds with a non-error response after processing the message. For more granular control, Dapr&amp;rsquo;s publish/subscribe API also provides explicit statuses, defined in the response payload, which the subscriber can use to indicate the specific handling instructions to Dapr (e.g. &lt;code>RETRY&lt;/code> or &lt;code>DROP&lt;/code>). For more information message routing see [Dapr publish/subscribe API documentation] (https://dapr-cn.github.io/docs/reference/api/pubsub_api/#provide-routes-for-dapr-to-deliver-topic-events)&lt;/p>
+&lt;h3 id="at-least-once-guarantee">At-Least-Once guarantee&lt;/h3>
+&lt;p>Dapr guarantees at-least-once semantics for message delivery. That means that when an application publishes a message to a topic using the publish/subscribe API, Dapr ensures that this message will be delivered at least once to every subscriber.&lt;/p>
+&lt;h3 id="consumer-groups-and-multiple-instances">Consumer groups and multiple instances&lt;/h3>
+&lt;p>The burden of dealing with concepts like consumer groups and multiple application instances using a single consumer group is all handled automatically by Dapr. When multiple instances of the same application (same IDs) subscribe to a topic, Dapr delivers each message to only one instance of that application. Similarly, if two different applications (different IDs) subscribe to the same topic, Dapr will deliver each message to only one instance of each application.&lt;/p>
+&lt;h3 id="topic-scoping">Topic scoping&lt;/h3>
+&lt;p>By default, all topics backing the Dapr publish/subscribe component (e.g. Kafka, Redis, RabbitMQ) are available to every application configured with that component. To limit which application can publish or subscribe to topics, Dapr provides topic scoping. See &lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/pubsub-scopes/">publish/subscribe topic scoping&lt;/a> for more information.&lt;/p>
+&lt;h2 id="next-steps">Next steps&lt;/h2>
+&lt;ul>
+&lt;li>Read the How-To guide on &lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/howto-publish-subscribe/">publishing and subscribing&lt;/a>&lt;/li>
+&lt;li>Learn about &lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/pubsub-scopes/">Pub/Sub scopes&lt;/a>&lt;/li>
+&lt;li>Read the &lt;a href="https://dapr-cn.github.io/docs/reference/api/pubsub_api/">API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Developing-Applications: How-To: Publish a message and subscribe to a topic</title><link>https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/howto-publish-subscribe/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/howto-publish-subscribe/</guid><description>
+&lt;h2 id="introduction">Introduction&lt;/h2>
+&lt;p>Pub/Sub is a common pattern in a distributed system with many services that want to utilize decoupled, asynchronous messaging. Using Pub/Sub, you can enable scenarios where event consumers are decoupled from event producers.&lt;/p>
+&lt;p>Dapr provides an extensible Pub/Sub system with At-Least-Once guarantees, allowing developers to publish and subscribe to topics. Dapr provides different implementation of the underlying system, and allows operators to bring in their preferred infrastructure, for example Redis Streams, Kafka, etc.&lt;/p>
+&lt;h2 id="step-1-setup-the-pubsub-component">Step 1: Setup the Pub/Sub component&lt;/h2>
+&lt;p>The first step is to setup the Pub/Sub component:&lt;/p>
+&lt;ul class="nav nav-tabs" id="tabs-0" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-0-self-hosted-cli-tab" data-toggle="tab" href="#tabs-0-self-hosted-cli" role="tab"
+aria-controls="tabs-0-self-hosted-cli" aria-selected="true">
+Self-Hosted (CLI)
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-0-kubernetes-tab" data-toggle="tab" href="#tabs-0-kubernetes" role="tab"
+aria-controls="tabs-0-kubernetes" aria-selected="false">
+Kubernetes
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-0-content">
+&lt;div class="tab-pane fade show active" id="tabs-0-self-hosted-cli" role="tabpanel" aria-labelled-by="tabs-0-self-hosted-cli-tab">
+&lt;br />&lt;p>Redis Streams is installed by default on a local machine when running &lt;code>dapr init&lt;/code>.&lt;/p>
+&lt;p>Verify by opening your components file under &lt;code>%UserProfile%\.dapr\components\pubsub.yaml&lt;/code> on Windows or &lt;code>~/.dapr/components/pubsub.yaml&lt;/code> on Linux/MacOS:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">pubsub&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">pubsub.redis&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">redisHost&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">localhost:6379&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">redisPassword&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>You can override this file with another Redis instance or another &lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-pubsub/">pubsub component&lt;/a> by creating a &lt;code>components&lt;/code> directory containing the file and using the flag &lt;code>--components-path&lt;/code> with the &lt;code>dapr run&lt;/code> CLI command.&lt;/p>
+&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-0-kubernetes" role="tabpanel" aria-labelled-by="tabs-0-kubernetes-tab">
+&lt;br />&lt;p>To deploy this into a Kubernetes cluster, fill in the &lt;code>metadata&lt;/code> connection details of your &lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-pubsub/">desired pubsub component&lt;/a> in the yaml below, save as &lt;code>pubsub.yaml&lt;/code>, and run &lt;code>kubectl apply -f pubsub.yaml&lt;/code>.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">pubsub&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">pubsub.redis&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">redisHost&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">localhost:6379&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">redisPassword&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;/div>
+&lt;h2 id="step-2-subscribe-to-topics">Step 2: Subscribe to topics&lt;/h2>
+&lt;p>Dapr allows two methods by which you can subscribe to topics:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Declaratively&lt;/strong>, where subscriptions are are defined in an external file.&lt;/li>
+&lt;li>&lt;strong>Programmatically&lt;/strong>, where subscriptions are defined in user code&lt;/li>
+&lt;/ul>
+&lt;div class="alert alert-primary" role="alert">
+&lt;h4 class="alert-heading">Note&lt;/h4>
+Both declarative and programmatic approaches support the same features. The declarative approach removes the Dapr dependancy from the user code and allows for the use of an existing application to subscribe to topics. The programmatic approach implements the subscription in user code.
+&lt;/div>
+&lt;h3 id="declarative-subscriptions">Declarative subscriptions&lt;/h3>
+&lt;p>You can subscribe to a topic using the following Custom Resources Definition (CRD). Create a file named &lt;code>subscription.yaml&lt;/code> and paste the following:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Subscription&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">myevent-subscription&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">topic&lt;/span>: &lt;span style="color:#ae81ff">deathStarStatus&lt;/span>
+&lt;span style="color:#f92672">route&lt;/span>: &lt;span style="color:#ae81ff">/dsstatus&lt;/span>
+&lt;span style="color:#f92672">pubsubname&lt;/span>: &lt;span style="color:#ae81ff">pubsub&lt;/span>
+&lt;span style="color:#f92672">scopes&lt;/span>:
+- &lt;span style="color:#ae81ff">app1&lt;/span>
+- &lt;span style="color:#ae81ff">app2&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The example above shows an event subscription to topic &lt;code>deathStarStatus&lt;/code>, for the pubsub component &lt;code>pubsub&lt;/code>.&lt;/p>
+&lt;ul>
+&lt;li>The &lt;code>route&lt;/code> field tells Dapr to send all topic messages to the &lt;code>/dsstatus&lt;/code> endpoint in the app.&lt;/li>
+&lt;li>The &lt;code>scopes&lt;/code> field enables this subscription for apps with IDs &lt;code>app1&lt;/code> and &lt;code>app2&lt;/code>.&lt;/li>
+&lt;/ul>
+&lt;p>Set the component with:
+&lt;ul class="nav nav-tabs" id="tabs-2" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-2-self-hosted-cli-tab" data-toggle="tab" href="#tabs-2-self-hosted-cli" role="tab"
+aria-controls="tabs-2-self-hosted-cli" aria-selected="true">
+Self-Hosted (CLI)
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-2-kubernetes-tab" data-toggle="tab" href="#tabs-2-kubernetes" role="tab"
+aria-controls="tabs-2-kubernetes" aria-selected="false">
+Kubernetes
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-2-content">
+&lt;div class="tab-pane fade show active" id="tabs-2-self-hosted-cli" role="tabpanel" aria-labelled-by="tabs-2-self-hosted-cli-tab">
+&lt;br />&lt;p>Place the CRD in your &lt;code>./components&lt;/code> directory. When Dapr starts up, it will load subscriptions along with components.&lt;/p>
+&lt;p>&lt;em>Note: By default, Dapr loads components from &lt;code>$HOME/.dapr/components&lt;/code> on MacOS/Linux and &lt;code>%USERPROFILE%\.dapr\components&lt;/code> on Windows.&lt;/em>&lt;/p>
+&lt;p>You can also override the default directory by pointing the Dapr CLI to a components path:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr run --app-id myapp --components-path ./myComponents -- python3 app1.py
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;em>Note: If you place the subscription in a custom components path, make sure the Pub/Sub component is present also.&lt;/em>&lt;/p>
+&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-2-kubernetes" role="tabpanel" aria-labelled-by="tabs-2-kubernetes-tab">
+&lt;br />&lt;p>In Kubernetes, save the CRD to a file and apply it to the cluster:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl apply -f subscription.yaml
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;/div>&lt;/p>
+&lt;h4 id="example">Example&lt;/h4>
+&lt;ul class="nav nav-tabs" id="tabs-3" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-3-python-tab" data-toggle="tab" href="#tabs-3-python" role="tab"
+aria-controls="tabs-3-python" aria-selected="true">
+Python
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-3-node-tab" data-toggle="tab" href="#tabs-3-node" role="tab"
+aria-controls="tabs-3-node" aria-selected="false">
+Node
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-3-content">
+&lt;div class="tab-pane fade show active" id="tabs-3-python" role="tabpanel" aria-labelled-by="tabs-3-python-tab">
+&lt;br />&lt;p>Create a file named &lt;code>app1.py&lt;/code> and paste in the following:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">import&lt;/span> flask
+&lt;span style="color:#f92672">from&lt;/span> flask &lt;span style="color:#f92672">import&lt;/span> request, jsonify
+&lt;span style="color:#f92672">from&lt;/span> flask_cors &lt;span style="color:#f92672">import&lt;/span> CORS
+&lt;span style="color:#f92672">import&lt;/span> json
+&lt;span style="color:#f92672">import&lt;/span> sys
+app &lt;span style="color:#f92672">=&lt;/span> flask&lt;span style="color:#f92672">.&lt;/span>Flask(__name__)
+CORS(app)
+&lt;span style="color:#a6e22e">@app.route&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;/dsstatus&amp;#39;&lt;/span>, methods&lt;span style="color:#f92672">=&lt;/span>[&lt;span style="color:#e6db74">&amp;#39;POST&amp;#39;&lt;/span>])
+&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">ds_subscriber&lt;/span>():
+&lt;span style="color:#66d9ef">print&lt;/span>(request&lt;span style="color:#f92672">.&lt;/span>json, flush&lt;span style="color:#f92672">=&lt;/span>True)
+&lt;span style="color:#66d9ef">return&lt;/span> json&lt;span style="color:#f92672">.&lt;/span>dumps({&lt;span style="color:#e6db74">&amp;#39;success&amp;#39;&lt;/span>:True}), &lt;span style="color:#ae81ff">200&lt;/span>, {&lt;span style="color:#e6db74">&amp;#39;ContentType&amp;#39;&lt;/span>:&lt;span style="color:#e6db74">&amp;#39;application/json&amp;#39;&lt;/span>}
+app&lt;span style="color:#f92672">.&lt;/span>run()
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>After creating &lt;code>app1.py&lt;/code> ensure flask and flask_cors are installed:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">pip install flask
+pip install flask_cors
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Then run:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr --app-id app1 --app-port &lt;span style="color:#ae81ff">5000&lt;/span> run python app1.py
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-3-node" role="tabpanel" aria-labelled-by="tabs-3-node-tab">
+&lt;br />&lt;p>After setting up the subscription above, download this javascript (Node &amp;gt; 4.16) into a &lt;code>app2.js&lt;/code> file:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#a6e22e">express&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">require&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;express&amp;#39;&lt;/span>)
+&lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#a6e22e">bodyParser&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">require&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;body-parser&amp;#39;&lt;/span>)
+&lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#a6e22e">app&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">express&lt;/span>()
+&lt;span style="color:#a6e22e">app&lt;/span>.&lt;span style="color:#a6e22e">use&lt;/span>(&lt;span style="color:#a6e22e">bodyParser&lt;/span>.&lt;span style="color:#a6e22e">json&lt;/span>({ &lt;span style="color:#a6e22e">type&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#e6db74">&amp;#39;application/*+json&amp;#39;&lt;/span> }));
+&lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#a6e22e">port&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">3000&lt;/span>
+&lt;span style="color:#a6e22e">app&lt;/span>.&lt;span style="color:#a6e22e">post&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;/dsstatus&amp;#39;&lt;/span>, (&lt;span style="color:#a6e22e">req&lt;/span>, &lt;span style="color:#a6e22e">res&lt;/span>) =&amp;gt; {
+&lt;span style="color:#a6e22e">console&lt;/span>.&lt;span style="color:#a6e22e">log&lt;/span>(&lt;span style="color:#a6e22e">req&lt;/span>.&lt;span style="color:#a6e22e">body&lt;/span>);
+&lt;span style="color:#a6e22e">res&lt;/span>.&lt;span style="color:#a6e22e">sendStatus&lt;/span>(&lt;span style="color:#ae81ff">200&lt;/span>);
+});
+&lt;span style="color:#a6e22e">app&lt;/span>.&lt;span style="color:#a6e22e">listen&lt;/span>(&lt;span style="color:#a6e22e">port&lt;/span>, () =&amp;gt; &lt;span style="color:#a6e22e">console&lt;/span>.&lt;span style="color:#a6e22e">log&lt;/span>(&lt;span style="color:#e6db74">`consumer app listening on port &lt;/span>&lt;span style="color:#e6db74">${&lt;/span>&lt;span style="color:#a6e22e">port&lt;/span>&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74">!`&lt;/span>))
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Run this app with:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr --app-id app2 --app-port &lt;span style="color:#ae81ff">3000&lt;/span> run node app2.js
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;/div>
+&lt;h3 id="programmatic-subscriptions">Programmatic subscriptions&lt;/h3>
+&lt;p>To subscribe to topics, start a web server in the programming language of your choice and listen on the following &lt;code>GET&lt;/code> endpoint: &lt;code>/dapr/subscribe&lt;/code>. The Dapr instance will call into your app at startup and expect a JSON response for the topic subscriptions with:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>pubsubname&lt;/code>: Which pub/sub component Dapr should use&lt;/li>
+&lt;li>&lt;code>topic&lt;/code>: Which topic to subscribe to&lt;/li>
+&lt;li>&lt;code>route&lt;/code>: Which endpoint for Dapr to call on when a message comes to that topic&lt;/li>
+&lt;/ul>
+&lt;h4 id="example-1">Example&lt;/h4>
+&lt;ul class="nav nav-tabs" id="tabs-4" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-4-python-tab" data-toggle="tab" href="#tabs-4-python" role="tab"
+aria-controls="tabs-4-python" aria-selected="true">
+Python
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-4-node-tab" data-toggle="tab" href="#tabs-4-node" role="tab"
+aria-controls="tabs-4-node" aria-selected="false">
+Node
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-4-content">
+&lt;div class="tab-pane fade show active" id="tabs-4-python" role="tabpanel" aria-labelled-by="tabs-4-python-tab">
+&lt;br />&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">import&lt;/span> flask
+&lt;span style="color:#f92672">from&lt;/span> flask &lt;span style="color:#f92672">import&lt;/span> request, jsonify
+&lt;span style="color:#f92672">from&lt;/span> flask_cors &lt;span style="color:#f92672">import&lt;/span> CORS
+&lt;span style="color:#f92672">import&lt;/span> json
+&lt;span style="color:#f92672">import&lt;/span> sys
+app &lt;span style="color:#f92672">=&lt;/span> flask&lt;span style="color:#f92672">.&lt;/span>Flask(__name__)
+CORS(app)
+&lt;span style="color:#a6e22e">@app.route&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;/dapr/subscribe&amp;#39;&lt;/span>, methods&lt;span style="color:#f92672">=&lt;/span>[&lt;span style="color:#e6db74">&amp;#39;GET&amp;#39;&lt;/span>])
+&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">subscribe&lt;/span>():
+subscriptions &lt;span style="color:#f92672">=&lt;/span> [{&lt;span style="color:#e6db74">&amp;#39;pubsubname&amp;#39;&lt;/span>: &lt;span style="color:#e6db74">&amp;#39;pubsub&amp;#39;&lt;/span>,
+&lt;span style="color:#e6db74">&amp;#39;topic&amp;#39;&lt;/span>: &lt;span style="color:#e6db74">&amp;#39;deathStarStatus&amp;#39;&lt;/span>,
+&lt;span style="color:#e6db74">&amp;#39;route&amp;#39;&lt;/span>: &lt;span style="color:#e6db74">&amp;#39;dsstatus&amp;#39;&lt;/span>}]
+&lt;span style="color:#66d9ef">return&lt;/span> jsonify(subscriptions)
+&lt;span style="color:#a6e22e">@app.route&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;/dsstatus&amp;#39;&lt;/span>, methods&lt;span style="color:#f92672">=&lt;/span>[&lt;span style="color:#e6db74">&amp;#39;POST&amp;#39;&lt;/span>])
+&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">ds_subscriber&lt;/span>():
+&lt;span style="color:#66d9ef">print&lt;/span>(request&lt;span style="color:#f92672">.&lt;/span>json, flush&lt;span style="color:#f92672">=&lt;/span>True)
+&lt;span style="color:#66d9ef">return&lt;/span> json&lt;span style="color:#f92672">.&lt;/span>dumps({&lt;span style="color:#e6db74">&amp;#39;success&amp;#39;&lt;/span>:True}), &lt;span style="color:#ae81ff">200&lt;/span>, {&lt;span style="color:#e6db74">&amp;#39;ContentType&amp;#39;&lt;/span>:&lt;span style="color:#e6db74">&amp;#39;application/json&amp;#39;&lt;/span>}
+app&lt;span style="color:#f92672">.&lt;/span>run()
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>After creating &lt;code>app1.py&lt;/code> ensure flask and flask_cors are installed:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">pip install flask
+pip install flask_cors
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Then run:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr --app-id app1 --app-port &lt;span style="color:#ae81ff">5000&lt;/span> run python app1.py
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-4-node" role="tabpanel" aria-labelled-by="tabs-4-node-tab">
+&lt;br />&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#a6e22e">express&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">require&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;express&amp;#39;&lt;/span>)
+&lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#a6e22e">bodyParser&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">require&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;body-parser&amp;#39;&lt;/span>)
+&lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#a6e22e">app&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">express&lt;/span>()
+&lt;span style="color:#a6e22e">app&lt;/span>.&lt;span style="color:#a6e22e">use&lt;/span>(&lt;span style="color:#a6e22e">bodyParser&lt;/span>.&lt;span style="color:#a6e22e">json&lt;/span>({ &lt;span style="color:#a6e22e">type&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#e6db74">&amp;#39;application/*+json&amp;#39;&lt;/span> }));
+&lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#a6e22e">port&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">3000&lt;/span>
+&lt;span style="color:#a6e22e">app&lt;/span>.&lt;span style="color:#a6e22e">get&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;/dapr/subscribe&amp;#39;&lt;/span>, (&lt;span style="color:#a6e22e">req&lt;/span>, &lt;span style="color:#a6e22e">res&lt;/span>) =&amp;gt; {
+&lt;span style="color:#a6e22e">res&lt;/span>.&lt;span style="color:#a6e22e">json&lt;/span>([
+{
+&lt;span style="color:#a6e22e">pubsubname&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#e6db74">&amp;#34;pubsub&amp;#34;&lt;/span>,
+&lt;span style="color:#a6e22e">topic&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#e6db74">&amp;#34;deathStarStatus&amp;#34;&lt;/span>,
+&lt;span style="color:#a6e22e">route&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#e6db74">&amp;#34;dsstatus&amp;#34;&lt;/span>
+}
+]);
+})
+&lt;span style="color:#a6e22e">app&lt;/span>.&lt;span style="color:#a6e22e">post&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;/dsstatus&amp;#39;&lt;/span>, (&lt;span style="color:#a6e22e">req&lt;/span>, &lt;span style="color:#a6e22e">res&lt;/span>) =&amp;gt; {
+&lt;span style="color:#a6e22e">console&lt;/span>.&lt;span style="color:#a6e22e">log&lt;/span>(&lt;span style="color:#a6e22e">req&lt;/span>.&lt;span style="color:#a6e22e">body&lt;/span>);
+&lt;span style="color:#a6e22e">res&lt;/span>.&lt;span style="color:#a6e22e">sendStatus&lt;/span>(&lt;span style="color:#ae81ff">200&lt;/span>);
+});
+&lt;span style="color:#a6e22e">app&lt;/span>.&lt;span style="color:#a6e22e">listen&lt;/span>(&lt;span style="color:#a6e22e">port&lt;/span>, () =&amp;gt; &lt;span style="color:#a6e22e">console&lt;/span>.&lt;span style="color:#a6e22e">log&lt;/span>(&lt;span style="color:#e6db74">`consumer app listening on port &lt;/span>&lt;span style="color:#e6db74">${&lt;/span>&lt;span style="color:#a6e22e">port&lt;/span>&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74">!`&lt;/span>))
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Run this app with:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr --app-id app2 --app-port &lt;span style="color:#ae81ff">3000&lt;/span> run node app2.js
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;/div>
+&lt;p>The &lt;code>/dsstatus&lt;/code> endpoint matches the &lt;code>route&lt;/code> defined in the subscriptions and this is where Dapr will send all topic messages to.&lt;/p>
+&lt;h2 id="step-3-publish-a-topic">Step 3: Publish a topic&lt;/h2>
+&lt;p>To publish a message to a topic, invoke the following endpoint on a Dapr instance:&lt;/p>
+&lt;ul class="nav nav-tabs" id="tabs-5" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-5-dapr-cli-tab" data-toggle="tab" href="#tabs-5-dapr-cli" role="tab"
+aria-controls="tabs-5-dapr-cli" aria-selected="true">
+Dapr CLI
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-5-http-api-bash-tab" data-toggle="tab" href="#tabs-5-http-api-bash" role="tab"
+aria-controls="tabs-5-http-api-bash" aria-selected="false">
+HTTP API (Bash)
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-5-http-api-powershell-tab" data-toggle="tab" href="#tabs-5-http-api-powershell" role="tab"
+aria-controls="tabs-5-http-api-powershell" aria-selected="false">
+HTTP API (PowerShell)
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-5-content">
+&lt;div class="tab-pane fade show active" id="tabs-5-dapr-cli" role="tabpanel" aria-labelled-by="tabs-5-dapr-cli-tab">
+&lt;br />&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr publish --pubsub pubsub --topic deathStarStatus --data &lt;span style="color:#e6db74">&amp;#39;{&amp;#34;status&amp;#34;: &amp;#34;completed&amp;#34;}&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-5-http-api-bash" role="tabpanel" aria-labelled-by="tabs-5-http-api-bash-tab">
+&lt;br />&lt;p>Begin by ensuring a Dapr sidecar is running:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr --app-id myapp --port &lt;span style="color:#ae81ff">3500&lt;/span> run
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Then publish a message to the &lt;code>deathStarStatus&lt;/code> topic:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl -X POST http://localhost:3500/v1.0/publish/pubsub/deathStarStatus -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span> -d &lt;span style="color:#e6db74">&amp;#39;{&amp;#34;status&amp;#34;: &amp;#34;completed&amp;#34;}&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-5-http-api-powershell" role="tabpanel" aria-labelled-by="tabs-5-http-api-powershell-tab">
+&lt;br />&lt;p>Begin by ensuring a Dapr sidecar is running:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr --app-id myapp --port &lt;span style="color:#ae81ff">3500&lt;/span> run
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Then publish a message to the &lt;code>deathStarStatus&lt;/code> topic:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-powershell" data-lang="powershell">Invoke-RestMethod -Method Post -ContentType &lt;span style="color:#e6db74">&amp;#39;application/json&amp;#39;&lt;/span> -Body &lt;span style="color:#e6db74">&amp;#39;{&amp;#34;status&amp;#34;: &amp;#34;completed&amp;#34;}&amp;#39;&lt;/span> -Uri &lt;span style="color:#e6db74">&amp;#39;http://localhost:3500/v1.0/publish/pubsub/deathStarStatus&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;/div>
+&lt;p>Dapr automatically wraps the user payload in a Cloud Events v1.0 compliant envelope, using &lt;code>Content-Type&lt;/code> header value for &lt;code>datacontenttype&lt;/code> attribute.&lt;/p>
+&lt;h2 id="step-4-ack-ing-a-message">Step 4: ACK-ing a message&lt;/h2>
+&lt;p>In order to tell Dapr that a message was processed successfully, return a &lt;code>200 OK&lt;/code> response. If Dapr receives any other return status code than &lt;code>200&lt;/code>, or if your app crashes, Dapr will attempt to redeliver the message following At-Least-Once semantics.&lt;/p>
+&lt;h4 id="example-2">Example&lt;/h4>
+&lt;ul class="nav nav-tabs" id="tabs-6" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-6-python-tab" data-toggle="tab" href="#tabs-6-python" role="tab"
+aria-controls="tabs-6-python" aria-selected="true">
+Python
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-6-node-tab" data-toggle="tab" href="#tabs-6-node" role="tab"
+aria-controls="tabs-6-node" aria-selected="false">
+Node
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-6-content">
+&lt;div class="tab-pane fade show active" id="tabs-6-python" role="tabpanel" aria-labelled-by="tabs-6-python-tab">
+&lt;br />&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#a6e22e">@app.route&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;/dsstatus&amp;#39;&lt;/span>, methods&lt;span style="color:#f92672">=&lt;/span>[&lt;span style="color:#e6db74">&amp;#39;POST&amp;#39;&lt;/span>])
+&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">ds_subscriber&lt;/span>():
+&lt;span style="color:#66d9ef">print&lt;/span>(request&lt;span style="color:#f92672">.&lt;/span>json, flush&lt;span style="color:#f92672">=&lt;/span>True)
+&lt;span style="color:#66d9ef">return&lt;/span> json&lt;span style="color:#f92672">.&lt;/span>dumps({&lt;span style="color:#e6db74">&amp;#39;success&amp;#39;&lt;/span>:True}), &lt;span style="color:#ae81ff">200&lt;/span>, {&lt;span style="color:#e6db74">&amp;#39;ContentType&amp;#39;&lt;/span>:&lt;span style="color:#e6db74">&amp;#39;application/json&amp;#39;&lt;/span>}
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-6-node" role="tabpanel" aria-labelled-by="tabs-6-node-tab">
+&lt;br />&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#a6e22e">app&lt;/span>.&lt;span style="color:#a6e22e">post&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;/dsstatus&amp;#39;&lt;/span>, (&lt;span style="color:#a6e22e">req&lt;/span>, &lt;span style="color:#a6e22e">res&lt;/span>) =&amp;gt; {
+&lt;span style="color:#a6e22e">res&lt;/span>.&lt;span style="color:#a6e22e">sendStatus&lt;/span>(&lt;span style="color:#ae81ff">200&lt;/span>);
+});
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;/div>
+&lt;h2 id="next-steps">Next steps&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/pubsub-scopes/">Scope access to your pub/sub topics&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/dapr/quickstarts/tree/master/pub-sub">Pub/Sub quickstart&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-pubsub/">Pub/sub components&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Developing-Applications: Scope Pub/Sub topic access</title><link>https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/pubsub-scopes/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/pubsub-scopes/</guid><description>
+&lt;h2 id="introduction">Introduction&lt;/h2>
+&lt;p>&lt;a href="https://dapr-cn.github.io/docs/operations/components/component-scopes/">Namespaces or component scopes&lt;/a> can be used to limit component access to particular applications. These application scopes added to a component limit only the applications with specific IDs to be able to use the component.&lt;/p>
+&lt;p>In addition to this general component scope, the following can be limited for pub/sub components:&lt;/p>
+&lt;ul>
+&lt;li>Which topics which can be used (published or subscribed)&lt;/li>
+&lt;li>Which applications are allowed to publish to specific topics&lt;/li>
+&lt;li>Which applications are allowed to subscribe to specific topics&lt;/li>
+&lt;/ul>
+&lt;p>This is called &lt;strong>pub/sub topic scoping&lt;/strong>.&lt;/p>
+&lt;p>Pub/sub scopes are defined for each pub/sub component. You may have a pub/sub component named &lt;code>pubsub&lt;/code> that has one set of scopes, and another &lt;code>pubsub2&lt;/code> with a different set.&lt;/p>
+&lt;p>To use this topic scoping three metadata properties can be set for a pub/sub component:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>spec.metadata.publishingScopes&lt;/code>
+&lt;ul>
+&lt;li>A semicolon-separated list of applications &amp;amp; comma-separated topic lists, allowing that app to publish to that list of topics&lt;/li>
+&lt;li>If nothing is specified in &lt;code>publishingScopes&lt;/code> (default behavior), all apps can publish to all topics&lt;/li>
+&lt;li>To deny an app the ability to publish to any topic, leave the topics list blank (&lt;code>app1=;app2=topic2&lt;/code>)&lt;/li>
+&lt;li>For example, &lt;code>app1=topic1;app2=topic2,topic3;app3=&lt;/code> will allow app1 to publish to topic1 and nothing else, app2 to publish to topic2 and topic3 only, and app3 to publish to nothing.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;code>spec.metadata.subscriptionScopes&lt;/code>
+&lt;ul>
+&lt;li>A semicolon-separated list of applications &amp;amp; comma-separated topic lists, allowing that app to subscribe to that list of topics&lt;/li>
+&lt;li>If nothing is specified in &lt;code>subscriptionScopes&lt;/code> (default behavior), all apps can subscribe to all topics&lt;/li>
+&lt;li>For example, &lt;code>app1=topic1;app2=topic2,topic3&lt;/code> will allow app1 to subscribe to topic1 only and app2 to subscribe to topic2 and topic3&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;code>spec.metadata.allowedTopics&lt;/code>
+&lt;ul>
+&lt;li>A comma-separated list of allowed topics for all applications.&lt;/li>
+&lt;li>If &lt;code>allowedTopics&lt;/code> is not set (default behavior), all topics are valid. &lt;code>subscriptionScopes&lt;/code> and &lt;code>publishingScopes&lt;/code> still take place if present.&lt;/li>
+&lt;li>&lt;code>publishingScopes&lt;/code> or &lt;code>subscriptionScopes&lt;/code> can be used in conjuction with &lt;code>allowedTopics&lt;/code> to add granular limitations&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>These metadata properties can be used for all pub/sub components. The following examples use Redis as pub/sub component.&lt;/p>
+&lt;h2 id="example-1-scope-topic-access">Example 1: Scope topic access&lt;/h2>
+&lt;p>Limiting which applications can publish/subscribe to topics can be useful if you have topics which contain sensitive information and only a subset of your applications are allowed to publish or subscribe to these.&lt;/p>
+&lt;p>It can also be used for all topics to have always a &amp;ldquo;ground truth&amp;rdquo; for which applications are using which topics as publishers/subscribers.&lt;/p>
+&lt;p>Here is an example of three applications and three topics:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">pubsub&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">pubsub.redis&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">redisHost&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;localhost:6379&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">redisPassword&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">publishingScopes&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;app1=topic1;app2=topic2,topic3;app3=&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">subscriptionScopes&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;app2=;app3=topic1&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The table below shows which applications are allowed to publish into the topics:&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>&lt;/th>
+&lt;th>topic1&lt;/th>
+&lt;th>topic2&lt;/th>
+&lt;th>topic3&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>app1&lt;/td>
+&lt;td>X&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>app2&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>X&lt;/td>
+&lt;td>X&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>app3&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>The table below shows which applications are allowed to subscribe to the topics:&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>&lt;/th>
+&lt;th>topic1&lt;/th>
+&lt;th>topic2&lt;/th>
+&lt;th>topic3&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>app1&lt;/td>
+&lt;td>X&lt;/td>
+&lt;td>X&lt;/td>
+&lt;td>X&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>app2&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>app3&lt;/td>
+&lt;td>X&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>Note: If an application is not listed (e.g. app1 in subscriptionScopes) it is allowed to subscribe to all topics. Because &lt;code>allowedTopics&lt;/code> is not used and app1 does not have any subscription scopes, it can also use additional topics not listed above.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="example-2-limit-allowed-topics">Example 2: Limit allowed topics&lt;/h2>
+&lt;p>A topic is created if a Dapr application sends a message to it. In some scenarios this topic creation should be governed. For example:&lt;/p>
+&lt;ul>
+&lt;li>A bug in a Dapr application on generating the topic name can lead to an unlimited amount of topics created&lt;/li>
+&lt;li>Streamline the topics names and total count and prevent an unlimited growth of topics&lt;/li>
+&lt;/ul>
+&lt;p>In these situations &lt;code>allowedTopics&lt;/code> can be used.&lt;/p>
+&lt;p>Here is an example of three allowed topics:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">pubsub&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">pubsub.redis&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">redisHost&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;localhost:6379&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">redisPassword&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">allowedTopics&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;topic1,topic2,topic3&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>All applications can use these topics, but only those topics, no others are allowed.&lt;/p>
+&lt;h2 id="example-3-combine-allowedtopics-and-scopes">Example 3: Combine &lt;code>allowedTopics&lt;/code> and scopes&lt;/h2>
+&lt;p>Sometimes you want to combine both scopes, thus only having a fixed set of allowed topics and specify scoping to certain applications.&lt;/p>
+&lt;p>Here is an example of three applications and two topics:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">pubsub&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">pubsub.redis&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">redisHost&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;localhost:6379&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">redisPassword&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">allowedTopics&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;A,B&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">publishingScopes&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;app1=A&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">subscriptionScopes&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;app1=;app2=A&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>Note: The third application is not listed, because if an app is not specified inside the scopes, it is allowed to use all topics.&lt;/p>
+&lt;/blockquote>
+&lt;p>The table below shows which application is allowed to publish into the topics:&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>&lt;/th>
+&lt;th>A&lt;/th>
+&lt;th>B&lt;/th>
+&lt;th>C&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>app1&lt;/td>
+&lt;td>X&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>app2&lt;/td>
+&lt;td>X&lt;/td>
+&lt;td>X&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>app3&lt;/td>
+&lt;td>X&lt;/td>
+&lt;td>X&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>The table below shows which application is allowed to subscribe to the topics:&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>&lt;/th>
+&lt;th>A&lt;/th>
+&lt;th>B&lt;/th>
+&lt;th>C&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>app1&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>app2&lt;/td>
+&lt;td>X&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>app3&lt;/td>
+&lt;td>X&lt;/td>
+&lt;td>X&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="demo-iframe-width560-height315-srchttpswwwyoutubecomembed7vdwbbgcbhqstart513-frameborder0-allowaccelerometer-autoplay-clipboard-write-encrypted-media-gyroscope-picture-in-picture-allowfullscreen-markcrwd-markiframe">Demo &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/7VdWBBGcbHQ?start=513" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark">&lt;/iframe>&lt;/h2></description></item></channel></rss>

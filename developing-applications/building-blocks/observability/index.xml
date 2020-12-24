@@ -1,0 +1,222 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – Observability</title><link>https://dapr-cn.github.io/docs/developing-applications/building-blocks/observability/</link><description>Recent content in Observability on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/observability/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Distributed tracing</title><link>https://dapr-cn.github.io/docs/developing-applications/building-blocks/observability/tracing/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/developing-applications/building-blocks/observability/tracing/</guid><description>
+&lt;p>Dapr uses OpenTelemetry (previously known as OpenCensus) for distributed traces and metrics collection. OpenTelemetry supports various backends including &lt;a href="https://azure.microsoft.com/en-us/services/monitor/">Azure Monitor&lt;/a>, &lt;a href="https://www.datadoghq.com">Datadog&lt;/a>, &lt;a href="https://www.instana.com">Instana&lt;/a>, &lt;a href="https://www.jaegertracing.io/">Jaeger&lt;/a>, &lt;a href="https://www.signalfx.com/">SignalFX&lt;/a>, &lt;a href="https://cloud.google.com/stackdriver">Stackdriver&lt;/a>, &lt;a href="https://zipkin.io">Zipkin&lt;/a> and others.&lt;/p>
+&lt;img src="https://dapr-cn.github.io/docs/images/tracing.png" width=600>
+&lt;h2 id="tracing-design">Tracing design&lt;/h2>
+&lt;p>Dapr adds a HTTP/gRPC middleware to the Dapr sidecar. The middleware intercepts all Dapr and application traffic and automatically injects correlation IDs to trace distributed transactions. This design has several benefits:&lt;/p>
+&lt;ul>
+&lt;li>No need for code instrumentation. All traffic is automatically traced (with configurable tracing levels).&lt;/li>
+&lt;li>Consistent tracing behavior across microservices. Tracing is configured and managed on Dapr sidecar so that it remains consistent across services made by different teams and potentially written in different programming languages.&lt;/li>
+&lt;li>Configurable and extensible. By leveraging OpenTelemetry, Dapr tracing can be configured to work with popular tracing backends, including custom backends a customer may have.&lt;/li>
+&lt;li>OpenTelemetry exporters are defined as first-class Dapr components. You can define and enable multiple exporters at the same time.&lt;/li>
+&lt;/ul>
+&lt;h2 id="w3c-correlation-id">W3C Correlation ID&lt;/h2>
+&lt;p>Dapr uses the standard W3C Trace Context headers. For HTTP requests, Dapr uses &lt;code>traceparent&lt;/code> header. For gRPC requests, Dapr uses &lt;code>grpc-trace-bin&lt;/code> header. When a request arrives without a trace ID, Dapr creates a new one. Otherwise, it passes the trace ID along the call chain.&lt;/p>
+&lt;p>Read &lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/observability/w3c-tracing/">W3C distributed tracing&lt;/a> for more background on W3C Trace Context.&lt;/p>
+&lt;h2 id="configuration">Configuration&lt;/h2>
+&lt;p>Dapr uses &lt;a href="https://opencensus.io/tracing/sampling/probabilistic/">probabilistic sampling&lt;/a> as defined by OpenCensus. The sample rate defines the probability a tracing span will be sampled and can have a value between 0 and 1 (inclusive). The deafault sample rate is 0.0001 (i.e. 1 in 10,000 spans is sampled).&lt;/p>
+&lt;p>To change the default tracing behavior, use a configuration file (in self hosted mode) or a Kubernetes configuration object (in Kubernetes mode). For example, the following configuration object changes the sample rate to 1 (i.e. every span is sampled), and sends trace using Zipkin protocol to the Zipkin server at &lt;a href="http://zipkin.default.svc.cluster.local">http://zipkin.default.svc.cluster.local&lt;/a>&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">tracing&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">tracing&lt;/span>:
+&lt;span style="color:#f92672">samplingRate&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">zipkin&lt;/span>:
+&lt;span style="color:#f92672">endpointAddress&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;http://zipkin.default.svc.cluster.local:9411/api/v2/spans&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Changing &lt;code>samplingRate&lt;/code> to 0 will disable tracing altogether.&lt;/p>
+&lt;p>See the &lt;a href="#references">References&lt;/a> section for more details on how to configure tracing on local environment and Kubernetes environment.&lt;/p>
+&lt;h2 id="references">References&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/operations/monitoring/open-telemetry-collector/">How-To: Setup Application Insights for distributed tracing with OpenTelemetry Collector&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/operations/monitoring/zipkin/">How-To: Set up Zipkin for distributed tracing&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/observability/w3c-tracing/">W3C distributed tracing&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Developing-Applications: W3C trace context</title><link>https://dapr-cn.github.io/docs/developing-applications/building-blocks/observability/w3c-tracing/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/developing-applications/building-blocks/observability/w3c-tracing/</guid><description/></item><item><title>Developing-Applications: Logs</title><link>https://dapr-cn.github.io/docs/developing-applications/building-blocks/observability/logs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/developing-applications/building-blocks/observability/logs/</guid><description>
+&lt;p>Dapr produces structured logs to stdout either as a plain text or JSON formatted. By default, all Dapr processes (runtime and system services) write to console out in plain text. To enable JSON formatted logs, you need to add the &lt;code>--log-as-json&lt;/code> command flag when running Dapr processes.&lt;/p>
+&lt;p>If you want to use a search engine such as Elastic Search or Azure Monitor to search the logs, it is recommended to use JSON-formatted logs which the log collector and search engine can parse using the built-in JSON parser.&lt;/p>
+&lt;h2 id="log-schema">Log schema&lt;/h2>
+&lt;p>Dapr produces logs based on the following schema.&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Field&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;th>Example&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>time&lt;/td>
+&lt;td>ISO8601 Timestamp&lt;/td>
+&lt;td>&lt;code>2011-10-05T14:48:00.000Z&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>level&lt;/td>
+&lt;td>Log Level (info/warn/debug/error)&lt;/td>
+&lt;td>&lt;code>info&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>type&lt;/td>
+&lt;td>Log Type&lt;/td>
+&lt;td>&lt;code>log&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>msg&lt;/td>
+&lt;td>Log Message&lt;/td>
+&lt;td>&lt;code>hello dapr!&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>scope&lt;/td>
+&lt;td>Logging Scope&lt;/td>
+&lt;td>&lt;code>dapr.runtime&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>instance&lt;/td>
+&lt;td>Container Name&lt;/td>
+&lt;td>&lt;code>dapr-pod-xxxxx&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>app_id&lt;/td>
+&lt;td>Dapr App ID&lt;/td>
+&lt;td>&lt;code>dapr-app&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ver&lt;/td>
+&lt;td>Dapr Runtime Version&lt;/td>
+&lt;td>&lt;code>0.5.0&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="plain-text-and-json-formatted-logs">Plain text and JSON formatted logs&lt;/h2>
+&lt;ul>
+&lt;li>Plain text log examples&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2020-03-11T17:08:48.303776-07:00&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;starting Dapr Runtime -- version 0.5.0-rc.2 -- commit v0.3.0-rc.0-155-g5dfcf2e&amp;#34;&lt;/span> instance&lt;span style="color:#f92672">=&lt;/span>dapr-pod-xxxx scope&lt;span style="color:#f92672">=&lt;/span>dapr.runtime type&lt;span style="color:#f92672">=&lt;/span>log ver&lt;span style="color:#f92672">=&lt;/span>0.5.0-rc.2
+time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2020-03-11T17:08:48.303913-07:00&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;log level set to: info&amp;#34;&lt;/span> instance&lt;span style="color:#f92672">=&lt;/span>dapr-pod-xxxx scope&lt;span style="color:#f92672">=&lt;/span>dapr.runtime type&lt;span style="color:#f92672">=&lt;/span>log ver&lt;span style="color:#f92672">=&lt;/span>0.5.0-rc.2
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>JSON formatted log examples&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{&lt;span style="color:#f92672">&amp;#34;instance&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;dapr-pod-xxxx&amp;#34;&lt;/span>,&lt;span style="color:#f92672">&amp;#34;level&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;info&amp;#34;&lt;/span>,&lt;span style="color:#f92672">&amp;#34;msg&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;starting Dapr Runtime -- version 0.5.0-rc.2 -- commit v0.3.0-rc.0-155-g5dfcf2e&amp;#34;&lt;/span>,&lt;span style="color:#f92672">&amp;#34;scope&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;dapr.runtime&amp;#34;&lt;/span>,&lt;span style="color:#f92672">&amp;#34;time&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;2020-03-11T17:09:45.788005Z&amp;#34;&lt;/span>,&lt;span style="color:#f92672">&amp;#34;type&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;log&amp;#34;&lt;/span>,&lt;span style="color:#f92672">&amp;#34;ver&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;0.5.0-rc.2&amp;#34;&lt;/span>}
+{&lt;span style="color:#f92672">&amp;#34;instance&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;dapr-pod-xxxx&amp;#34;&lt;/span>,&lt;span style="color:#f92672">&amp;#34;level&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;info&amp;#34;&lt;/span>,&lt;span style="color:#f92672">&amp;#34;msg&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;log level set to: info&amp;#34;&lt;/span>,&lt;span style="color:#f92672">&amp;#34;scope&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;dapr.runtime&amp;#34;&lt;/span>,&lt;span style="color:#f92672">&amp;#34;time&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;2020-03-11T17:09:45.788075Z&amp;#34;&lt;/span>,&lt;span style="color:#f92672">&amp;#34;type&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;log&amp;#34;&lt;/span>,&lt;span style="color:#f92672">&amp;#34;ver&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;0.5.0-rc.2&amp;#34;&lt;/span>}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="configurating-plain-text-or-json-formatted-logs">Configurating plain text or JSON formatted logs&lt;/h2>
+&lt;p>Dapr supports both plain text and JSON formatted logs. The default format is plain-text. If you want to use plain text with a search engine, you will not need to change any configuring options.&lt;/p>
+&lt;p>To use JSON formatted logs, you need to add additional configuration when you install Dapr and deploy your app. The recommendation is to use JSONformatted logs because most log collectors and search engines can parse JSON more easily with built-in parsers.&lt;/p>
+&lt;h2 id="configuring-log-format-in-kubernetes">Configuring log format in Kubernetes&lt;/h2>
+&lt;p>The following steps describe how to configure JSON formatted logs for Kubernetes&lt;/p>
+&lt;h3 id="install-dapr-to-your-cluster-using-the-helm-chart">Install Dapr to your cluster using the Helm chart&lt;/h3>
+&lt;p>You can enable JSON formatted logs for Dapr system services by adding &lt;code>--set global.logAsJson=true&lt;/code> option to Helm command.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm install dapr dapr/dapr --namespace dapr-system --set global.logAsJson&lt;span style="color:#f92672">=&lt;/span>true
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="enable-json-formatted-log-for-dapr-sidecars">Enable JSON formatted log for Dapr sidecars&lt;/h3>
+&lt;p>You can enable JSON-formatted logs in Dapr sidecars activated by the Dapr sidecar-injector service by adding the &lt;code>dapr.io/log-as-json: &amp;quot;true&amp;quot;&lt;/code> annotation to the deployment.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">apps/v1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Deployment&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">pythonapp&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">labels&lt;/span>:
+&lt;span style="color:#f92672">app&lt;/span>: &lt;span style="color:#ae81ff">python&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">replicas&lt;/span>: &lt;span style="color:#ae81ff">1&lt;/span>
+&lt;span style="color:#f92672">selector&lt;/span>:
+&lt;span style="color:#f92672">matchLabels&lt;/span>:
+&lt;span style="color:#f92672">app&lt;/span>: &lt;span style="color:#ae81ff">python&lt;/span>
+&lt;span style="color:#f92672">template&lt;/span>:
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">labels&lt;/span>:
+&lt;span style="color:#f92672">app&lt;/span>: &lt;span style="color:#ae81ff">python&lt;/span>
+&lt;span style="color:#f92672">annotations&lt;/span>:
+&lt;span style="color:#f92672">dapr.io/enabled&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">dapr.io/app-id&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;pythonapp&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">dapr.io/log-as-json&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
+...
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="log-collectors">Log collectors&lt;/h2>
+&lt;p>If you run Dapr in a Kubernetes cluster, &lt;a href="https://www.fluentd.org/">Fluentd&lt;/a> is a popular container log collector. You can use Fluentd with a &lt;a href="https://docs.fluentd.org/parser/json">json parser plugin&lt;/a> to parse Dapr JSON formatted logs. This &lt;a href="https://dapr-cn.github.io/docs/operations/monitoring/fluentd/">how-to&lt;/a> shows how to configure the Fleuntd in your cluster.&lt;/p>
+&lt;p>If you are using the Azure Kubernetes Service, you can use the default OMS Agent to collect logs with Azure Monitor without needing to install Fluentd.&lt;/p>
+&lt;h2 id="search-engines">Search engines&lt;/h2>
+&lt;p>If you use &lt;a href="https://www.fluentd.org/">Fluentd&lt;/a>, we recommend to using Elastic Search and Kibana. This &lt;a href="https://dapr-cn.github.io/docs/operations/monitoring/fluentd/">how-to&lt;/a> shows how to set up Elastic Search and Kibana in your Kubernetes cluster.&lt;/p>
+&lt;p>If you are using the Azure Kubernetes Service, you can use &lt;a href="https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-overview">Azure monitor for containers&lt;/a> without indstalling any additional monitoring tools. Also read &lt;a href="https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-onboard">How to enable Azure Monitor for containers&lt;/a>&lt;/p>
+&lt;h2 id="references">References&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/operations/monitoring/fluentd/">How-to : Set up Fleuntd, Elastic search, and Kibana&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/operations/monitoring/azure-monitor/">How-to : Set up Azure Monitor in Azure Kubernetes Service&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Developing-Applications: Metrics</title><link>https://dapr-cn.github.io/docs/developing-applications/building-blocks/observability/metrics/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/developing-applications/building-blocks/observability/metrics/</guid><description>
+&lt;p>Dapr exposes a &lt;a href="https://prometheus.io/">Prometheus&lt;/a> metrics endpoint that you can scrape to gain a greater understanding of how Dapr is behaving and to setup alerts for specific conditions.&lt;/p>
+&lt;h2 id="configuration">Configuration&lt;/h2>
+&lt;p>The metrics endpoint is enabled by default, you can disable it by passing the command line argument &lt;code>--enable-metrics=false&lt;/code> to Dapr system processes.&lt;/p>
+&lt;p>The default metrics port is &lt;code>9090&lt;/code>. This can be overridden by passing the command line argument &lt;code>--metrics-port&lt;/code> to Daprd.&lt;/p>
+&lt;p>To disable the metrics in the Dapr side car, you can use the &lt;code>metric&lt;/code> spec configuration and set &lt;code>enabled: false&lt;/code> to disable the metrics in the Dapr runtime.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">tracing&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">tracing&lt;/span>:
+&lt;span style="color:#f92672">samplingRate&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">metric&lt;/span>:
+&lt;span style="color:#f92672">enabled&lt;/span>: &lt;span style="color:#66d9ef">false&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="metrics">Metrics&lt;/h2>
+&lt;p>Each Dapr system process emits Go runtime/process metrics by default and have their own metrics:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/dapr/dapr/blob/master/docs/development/dapr-metrics.md">Dapr metric list&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="references">References&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/operations/monitoring/prometheus/">Howto: Run Prometheus locally&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/operations/monitoring/grafana/">Howto: Set up Prometheus and Grafana for metrics&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/operations/monitoring/azure-monitor/">Howto: Set up Azure monitor to search logs and collect metrics for Dapr&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Developing-Applications: Sidecar health</title><link>https://dapr-cn.github.io/docs/developing-applications/building-blocks/observability/sidecar-health/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/developing-applications/building-blocks/observability/sidecar-health/</guid><description>
+&lt;p>Dapr provides a way to determine it&amp;rsquo;s health using an HTTP /healthz endpoint. With this endpoint, the Dapr process, or sidecar, can be probed for its health and hence determine its readiness and liveness. See &lt;a href="https://dapr-cn.github.io/docs/reference/api/health_api/">health API &lt;/a>&lt;/p>
+&lt;p>The Dapr &lt;code>/healthz&lt;/code> endpoint can be used by health probes from the application hosting platform. This topic describes how Dapr integrates with probes from different hosting platforms.&lt;/p>
+&lt;p>As a user, when deploying Dapr to a hosting platform (for example Kubernetes), the Dapr health endpoint is automatically configured for you. There is nothing you need to configure.&lt;/p>
+&lt;p>Note: Dapr actors also have a health API endpoint where Dapr probes the application for a response to a signal from Dapr that the actor application is healthy and running. See &lt;a href="https://dapr-cn.github.io/docs/reference/api/actors_api/#health-check">actor health API&lt;/a>&lt;/p>
+&lt;h2 id="health-endpoint-integration-with-kubernetes">Health endpoint: Integration with Kubernetes&lt;/h2>
+&lt;p>Kubernetes uses &lt;em>readiness&lt;/em> and &lt;em>liveness&lt;/em> probes to determines the health of the container.&lt;/p>
+&lt;p>The kubelet uses liveness probes to know when to restart a container. For example, liveness probes could catch a deadlock, where an application is running, but unable to make progress. Restarting a container in such a state can help to make the application more available despite having bugs.&lt;/p>
+&lt;p>The kubelet uses readiness probes to know when a container is ready to start accepting traffic. A pod is considered ready when all of its containers are ready. One use of this readiness signal is to control which Pods are used as backends for Kubernetes services. When a pod is not ready, it is removed from Kubernetes service load balancers.&lt;/p>
+&lt;p>When integrating with Kubernetes, the Dapr sidecar is injected with a Kubernetes probe configuration telling it to use the Dapr healthz endpoint. This is done by the &lt;code>Sidecar Injector&lt;/code> system service. The integration with the kubelet is shown in the diagram below.&lt;/p>
+&lt;img src="https://dapr-cn.github.io/docs/images/security-mTLS-dapr-system-services.png" width=600>
+&lt;h3 id="how-to-configure-a-liveness-probe-in-kubernetes">How to configure a liveness probe in Kubernetes&lt;/h3>
+&lt;p>In the pod configuration file, the liveness probe is added in the containers spec section as shown below :&lt;/p>
+&lt;pre>&lt;code> livenessProbe:
+httpGet:
+path: /healthz
+port: 8080
+initialDelaySeconds: 3
+periodSeconds: 3
+&lt;/code>&lt;/pre>&lt;p>In the above &lt;em>example&lt;/em>, the &lt;code>periodSeconds&lt;/code> field specifies that the kubelet should perform a liveness probe every 3 seconds. The &lt;code>initialDelaySeconds&lt;/code> field tells the kubelet that it should wait 3 seconds before performing the first probe. To perform a probe, the kubelet sends an HTTP GET request to the server that is running in the container and listening on port 8080 in this example. If the handler for the server’s /healthz path returns a success code, the kubelet considers the container to be alive and healthy. If the handler returns a failure code, the kubelet kills the container and restarts it.&lt;/p>
+&lt;p>Any code greater than or equal to 200 and less than 400 indicates success. Any other code indicates failure.&lt;/p>
+&lt;h3 id="how-to-configure-a-readiness-probe-in-kubernetes">How to configure a readiness probe in Kubernetes&lt;/h3>
+&lt;p>Readiness probes are configured similarly to liveness probes. The only difference is that you use the &lt;code>readinessProbe&lt;/code> field instead of the &lt;code>livenessProbe&lt;/code> field.&lt;/p>
+&lt;pre>&lt;code>readinessProbe:
+httpGet:
+path: /healthz
+port: 8080
+initialDelaySeconds: 3
+periodSeconds: 3
+&lt;/code>&lt;/pre>&lt;h3 id="how-the-dapr-sidecar-health-endpoint-is-configured-with-kubernetes">How the Dapr sidecar health endpoint is configured with Kubernetes&lt;/h3>
+&lt;p>As mentioned above, this configuration is done automatically by the Sidecar Injector service. This section describes the specific values that are set on the liveness and readiness probes.&lt;/p>
+&lt;p>Dapr has its HTTP health endpoint &lt;code>/v1.0/healthz&lt;/code> on port 3500, This can be used with Kubernetes for readiness and liveness probe. When the Dapr sidecar is injected , the readiness and liveness probes are configured in the pod configuration file with the following values.&lt;/p>
+&lt;pre>&lt;code>livenessProbe:
+httpGet:
+path: v1.0/healthz
+port: 3500
+initialDelaySeconds: 5
+periodSeconds: 10
+timeoutSeconds : 5
+failureThreshold : 3
+readinessProbe:
+httpGet:
+path: v1.0/healthz
+port: 3500
+initialDelaySeconds: 5
+periodSeconds: 10
+timeoutSeconds : 5
+failureThreshold: 3
+&lt;/code>&lt;/pre>&lt;p>For more information refer to;&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/health_api/"> Endpoint health API&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/reference/api/actors_api/#health-check">Actor health API&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/">Kubernetes probe configuration parameters&lt;/a>&lt;/li>
+&lt;/ul></description></item></channel></rss>

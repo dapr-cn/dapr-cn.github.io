@@ -1,0 +1,804 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – Supported pub/sub components</title><link>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/</link><description>Recent content in Supported pub/sub components on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: Redis Streams</title><link>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/setup-redis-pubsub/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/setup-redis-pubsub/</guid><description>
+&lt;h2 id="setup-a-redis-instance">Setup a Redis instance&lt;/h2>
+&lt;p>Dapr can use any Redis instance - containerized, running on your local dev machine, or a managed cloud service, provided the version of Redis is 5.0.0 or later. If you already have a Redis instance &amp;gt; 5.0.0 installed, move on to the &lt;a href="#configuration">Configuration&lt;/a> section.&lt;/p>
+&lt;ul class="nav nav-tabs" id="tabs-0" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-0-self-hosted-tab" data-toggle="tab" href="#tabs-0-self-hosted" role="tab"
+aria-controls="tabs-0-self-hosted" aria-selected="true">
+Self-Hosted
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-0-kubernetes-tab" data-toggle="tab" href="#tabs-0-kubernetes" role="tab"
+aria-controls="tabs-0-kubernetes" aria-selected="false">
+Kubernetes
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-0-aws-tab" data-toggle="tab" href="#tabs-0-aws" role="tab"
+aria-controls="tabs-0-aws" aria-selected="false">
+AWS
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-0-gcp-tab" data-toggle="tab" href="#tabs-0-gcp" role="tab"
+aria-controls="tabs-0-gcp" aria-selected="false">
+GCP
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-0-azure-tab" data-toggle="tab" href="#tabs-0-azure" role="tab"
+aria-controls="tabs-0-azure" aria-selected="false">
+Azure
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-0-content">
+&lt;div class="tab-pane fade show active" id="tabs-0-self-hosted" role="tabpanel" aria-labelled-by="tabs-0-self-hosted-tab">
+&lt;br />&lt;p>The Dapr CLI will automatically create and setup a Redis Streams instance for you. The Redis instance will be installed via Docker when you run &lt;code>dapr init&lt;/code>, and the component file will be created in default directory. (&lt;code>$HOME/.dapr/components&lt;/code> directory (Mac/Linux) or &lt;code>%USERPROFILE%\.dapr\components&lt;/code> on Windows).&lt;/p>
+&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-0-kubernetes" role="tabpanel" aria-labelled-by="tabs-0-kubernetes-tab">
+&lt;br />&lt;p>You can use &lt;a href="https://helm.sh/">Helm&lt;/a> to quickly create a Redis instance in our Kubernetes cluster. This approach requires &lt;a href="https://github.com/helm/helm#install">Installing Helm&lt;/a>.&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Install Redis into your cluster.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm repo add bitnami https://charts.bitnami.com/bitnami
+helm install redis bitnami/redis
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Run &lt;code>kubectl get pods&lt;/code> to see the Redis containers now running in your cluster.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Add &lt;code>redis-master:6379&lt;/code> as the &lt;code>redisHost&lt;/code> in your redis.yaml file. For example:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml"> &lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">redisHost&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">redis-master:6379&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Next, we&amp;rsquo;ll get our Redis password, which is slightly different depending on the OS we&amp;rsquo;re using:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Windows&lt;/strong>: Run &lt;code>kubectl get secret --namespace default redis -o jsonpath=&amp;quot;{.data.redis-password}&amp;quot; &amp;gt; encoded.b64&lt;/code>, which will create a file with your encoded password. Next, run &lt;code>certutil -decode encoded.b64 password.txt&lt;/code>, which will put your redis password in a text file called &lt;code>password.txt&lt;/code>. Copy the password and delete the two files.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Linux/MacOS&lt;/strong>: Run &lt;code>kubectl get secret --namespace default redis -o jsonpath=&amp;quot;{.data.redis-password}&amp;quot; | base64 --decode&lt;/code> and copy the outputted password.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>Add this password as the &lt;code>redisPassword&lt;/code> value in your redis.yaml file. For example:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml"> - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">redisPassword&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;lhDOkwTlp0&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;/ol>
+&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-0-aws" role="tabpanel" aria-labelled-by="tabs-0-aws-tab">
+&lt;br />&lt;p>&lt;a href="https://aws.amazon.com/redis/">AWS Redis&lt;/a>&lt;/p>
+&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-0-gcp" role="tabpanel" aria-labelled-by="tabs-0-gcp-tab">
+&lt;br />&lt;p>&lt;a href="https://cloud.google.com/memorystore/">GCP Cloud MemoryStore&lt;/a>&lt;/p>
+&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-0-azure" role="tabpanel" aria-labelled-by="tabs-0-azure-tab">
+&lt;br />&lt;p>&lt;a href="https://docs.microsoft.com/en-us/azure/azure-cache-for-redis/quickstart-create-redis">Azure Redis&lt;/a>&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;h2 id="create-a-dapr-component">Create a Dapr component&lt;/h2>
+&lt;p>To setup Redis, you need to create a component for &lt;code>pubsub.redis&lt;/code>.&lt;/p>
+&lt;p>The following yaml files demonstrates how to define each. If the Redis instance supports TLS with public certificates it can be configured to enable or disable TLS in the yaml.&lt;/p>
+&lt;p>Create a file called pubsub.yaml, and paste the following:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">messagebus&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">pubsub.redis&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">redisHost&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;HOST&amp;gt;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">redisPassword&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;PASSWORD&amp;gt;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">enableTLS&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;bool&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="apply-the-configuration">Apply the configuration&lt;/h2>
+&lt;div class="alert alert-primary" role="alert">
+&lt;h4 class="alert-heading">Note&lt;/h4>
+The Dapr CLI automatically deploys a redis instance and creates Dapr components as part of the &lt;code>dapr init&lt;/code> command.
+&lt;/div>
+&lt;p>Visit &lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components.&lt;/p>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Apache Kafka</title><link>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/setup-apache-kafka/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/setup-apache-kafka/</guid><description>
+&lt;h2 id="setup-kafka">Setup Kafka&lt;/h2>
+&lt;ul class="nav nav-tabs" id="tabs-0" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-0-self-hosted-tab" data-toggle="tab" href="#tabs-0-self-hosted" role="tab"
+aria-controls="tabs-0-self-hosted" aria-selected="true">
+Self-Hosted
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-0-kubernetes-tab" data-toggle="tab" href="#tabs-0-kubernetes" role="tab"
+aria-controls="tabs-0-kubernetes" aria-selected="false">
+Kubernetes
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-0-content">
+&lt;div class="tab-pane fade show active" id="tabs-0-self-hosted" role="tabpanel" aria-labelled-by="tabs-0-self-hosted-tab">
+&lt;br />&lt;p>You can run Kafka locally using &lt;a href="https://github.com/wurstmeister/kafka-docker">this&lt;/a> Docker image. To run without Docker, see the getting started guide &lt;a href="https://kafka.apache.org/quickstart">here&lt;/a>.&lt;/p>
+&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-0-kubernetes" role="tabpanel" aria-labelled-by="tabs-0-kubernetes-tab">
+&lt;br />&lt;p>To run Kafka on Kubernetes, you can use the &lt;a href="https://github.com/helm/charts/tree/master/incubator/kafka#installing-the-chart">Helm Chart&lt;/a>.&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;h2 id="create-a-dapr-component">Create a Dapr component&lt;/h2>
+&lt;p>The next step is to create a Dapr component for Kafka.&lt;/p>
+&lt;p>Create the following YAML file named &lt;code>kafka.yaml&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">pubsub.kafka&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#75715e"># Kafka broker connection setting&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">brokers&lt;/span>
+&lt;span style="color:#75715e"># Comma separated list of kafka brokers&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;dapr-kafka.dapr-tests.svc.cluster.local:9092&amp;#34;&lt;/span>
+&lt;span style="color:#75715e"># Enable auth. Default is &amp;#34;false&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">authRequired&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;false&amp;#34;&lt;/span>
+&lt;span style="color:#75715e"># Only available is authRequired is set to true&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">saslUsername&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;username&amp;gt;&lt;/span>
+&lt;span style="color:#75715e"># Only available is authRequired is set to true&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">saslPassword&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;password&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="apply-the-configuration">Apply the configuration&lt;/h2>
+&lt;p>Visit &lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components.&lt;/p>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: AWS SNS/SQS</title><link>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/setup-aws-snssqs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/setup-aws-snssqs/</guid><description>
+&lt;p>This article describes configuring Dapr to use AWS SNS/SQS for pub/sub on local and Kubernetes environments.&lt;/p>
+&lt;h2 id="setup-snssqs">Setup SNS/SQS&lt;/h2>
+&lt;ul class="nav nav-tabs" id="tabs-0" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-0-self-hosted-tab" data-toggle="tab" href="#tabs-0-self-hosted" role="tab"
+aria-controls="tabs-0-self-hosted" aria-selected="true">
+Self-Hosted
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-0-kubernetes-tab" data-toggle="tab" href="#tabs-0-kubernetes" role="tab"
+aria-controls="tabs-0-kubernetes" aria-selected="false">
+Kubernetes
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-0-aws-tab" data-toggle="tab" href="#tabs-0-aws" role="tab"
+aria-controls="tabs-0-aws" aria-selected="false">
+AWS
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-0-content">
+&lt;div class="tab-pane fade show active" id="tabs-0-self-hosted" role="tabpanel" aria-labelled-by="tabs-0-self-hosted-tab">
+&lt;br />&lt;p>For local development the &lt;a href="https://github.com/localstack/localstack">localstack project&lt;/a> is used to integrate AWS SNS/SQS. Follow the instructions &lt;a href="https://github.com/localstack/localstack#installing">here&lt;/a> to install the localstack CLI.&lt;/p>
+&lt;p>In order to use localstack with your pubsub binding, you need to provide the &lt;code>endpoint&lt;/code> configuration in the component metadata. The &lt;code>endpoint&lt;/code> is unncessary when running against production AWS.&lt;/p>
+&lt;p>See &lt;a href="https://dapr-cn.github.io/docs/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a> for information about authentication-related attributes&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">messagebus&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">pubsub.snssqs&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">endpoint&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">http://localhost:4566&lt;/span>
+&lt;span style="color:#75715e"># Use us-east-1 for localstack&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">awsRegion&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">us-east-1&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-0-kubernetes" role="tabpanel" aria-labelled-by="tabs-0-kubernetes-tab">
+&lt;br />&lt;p>To run localstack on Kubernetes, you can apply the configuration below. Localstack is then reachable at the DNS name &lt;code>http://localstack.default.svc.cluster.local:4566&lt;/code> (assuming this was applied to the default namespace) and this should be used as the &lt;code>endpoint&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">apps/v1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Deployment&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">localstack&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#75715e"># using the selector, we will expose the running deployments&lt;/span>
+&lt;span style="color:#75715e"># this is how Kubernetes knows, that a given service belongs to a deployment&lt;/span>
+&lt;span style="color:#f92672">selector&lt;/span>:
+&lt;span style="color:#f92672">matchLabels&lt;/span>:
+&lt;span style="color:#f92672">app&lt;/span>: &lt;span style="color:#ae81ff">localstack&lt;/span>
+&lt;span style="color:#f92672">replicas&lt;/span>: &lt;span style="color:#ae81ff">1&lt;/span>
+&lt;span style="color:#f92672">template&lt;/span>:
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">labels&lt;/span>:
+&lt;span style="color:#f92672">app&lt;/span>: &lt;span style="color:#ae81ff">localstack&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">containers&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">localstack&lt;/span>
+&lt;span style="color:#f92672">image&lt;/span>: &lt;span style="color:#ae81ff">localstack/localstack:latest&lt;/span>
+&lt;span style="color:#f92672">ports&lt;/span>:
+&lt;span style="color:#75715e"># Expose the edge endpoint&lt;/span>
+- &lt;span style="color:#f92672">containerPort&lt;/span>: &lt;span style="color:#ae81ff">4566&lt;/span>
+---
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Service&lt;/span>
+&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">localstack&lt;/span>
+&lt;span style="color:#f92672">labels&lt;/span>:
+&lt;span style="color:#f92672">app&lt;/span>: &lt;span style="color:#ae81ff">localstack&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">selector&lt;/span>:
+&lt;span style="color:#f92672">app&lt;/span>: &lt;span style="color:#ae81ff">localstack&lt;/span>
+&lt;span style="color:#f92672">ports&lt;/span>:
+- &lt;span style="color:#f92672">protocol&lt;/span>: &lt;span style="color:#ae81ff">TCP&lt;/span>
+&lt;span style="color:#f92672">port&lt;/span>: &lt;span style="color:#ae81ff">4566&lt;/span>
+&lt;span style="color:#f92672">targetPort&lt;/span>: &lt;span style="color:#ae81ff">4566&lt;/span>
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">LoadBalancer&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-0-aws" role="tabpanel" aria-labelled-by="tabs-0-aws-tab">
+&lt;br />&lt;p>In order to run in AWS, you should create an IAM user with permissions to the SNS and SQS services. Use the account ID and account secret and plug them into the &lt;code>awsAccountID&lt;/code> and &lt;code>awsAccountSecret&lt;/code> in the component metadata using kubernetes secrets.&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;h2 id="create-a-dapr-component">Create a Dapr component&lt;/h2>
+&lt;p>The next step is to create a Dapr component for SNS/SQS.&lt;/p>
+&lt;p>Create the following YAML file named &lt;code>snssqs.yaml&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">pubsub.snssqs&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#75715e"># ID of the AWS account with appropriate permissions to SNS and SQS&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">accessKey&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#75715e">**********&lt;/span>
+&lt;span style="color:#75715e"># Secret for the AWS user&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">secretKey&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#75715e">**********&lt;/span>
+&lt;span style="color:#75715e"># The AWS region you want to operate in. &lt;/span>
+&lt;span style="color:#75715e"># See this page for valid regions: https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html&lt;/span>
+&lt;span style="color:#75715e"># Make sure that SNS and SQS are available in that region.&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">region&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">us-east-1&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="apply-the-configuration">Apply the configuration&lt;/h2>
+&lt;p>Visit &lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components.&lt;/p>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.aws.amazon.com/sns/latest/dg/sns-sqs-as-subscriber.html">AWS SQS as subscriber to SNS&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.aws.amazon.com/sns/latest/api/Welcome.html">AWS SNS API refernce&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/Welcome.html">AWS SQS API refernce&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Azure Events Hub</title><link>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/setup-azure-eventhubs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/setup-azure-eventhubs/</guid><description>
+&lt;h2 id="setup-azure-event-hubs">Setup Azure Event Hubs&lt;/h2>
+&lt;p>Follow the instructions &lt;a href="https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-create">here&lt;/a> on setting up Azure Event Hubs. Since this implementation uses the Event Processor Host, you will also need an &lt;a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-account-create?tabs=azure-portal">Azure Storage Account&lt;/a>.&lt;/p>
+&lt;h2 id="create-a-dapr-component">Create a Dapr component&lt;/h2>
+&lt;p>The next step is to create a Dapr component for Azure Event Hubs.&lt;/p>
+&lt;p>Create the following YAML file named &lt;code>eventhubs.yaml&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">pubsub.azure.eventhubs&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">connectionString&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-CONNECTION-STRING&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Required. &amp;#34;Endpoint=sb://****&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">storageAccountName&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-STORAGE-ACCOUNT-NAME&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Required.&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">storageAccountKey&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-STORAGE-ACCOUNT-KEY&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Required.&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">storageContainerName&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-CONTAINER-NAME &amp;gt;&lt;/span> &lt;span style="color:#75715e"># Required.&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>See &lt;a href="https://docs.microsoft.com/en-us/azure/event-hubs/authorize-access-shared-access-signature">here&lt;/a> on how to get the Event Hubs connection string. Note this is not the Event Hubs namespace.&lt;/p>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="create-consumer-groups-for-each-subscriber">Create consumer groups for each subscriber&lt;/h2>
+&lt;p>For every Dapr app that wants to subscribe to events, create an Event Hubs consumer group with the name of the &lt;code>dapr id&lt;/code>. For example, a Dapr app running on Kubernetes with &lt;code>dapr.io/app-id: &amp;quot;myapp&amp;quot;&lt;/code> will need an Event Hubs consumer group named &lt;code>myapp&lt;/code>.&lt;/p>
+&lt;h2 id="apply-the-configuration">Apply the configuration&lt;/h2>
+&lt;p>Visit &lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components.&lt;/p>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Azure Service Bus</title><link>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/setup-azure-servicebus/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/setup-azure-servicebus/</guid><description>
+&lt;h2 id="setup-azure-service-bus">Setup Azure Service Bus&lt;/h2>
+&lt;p>Follow the instructions &lt;a href="https://docs.microsoft.com/en-us/azure/service-bus-messaging/service-bus-quickstart-topics-subscriptions-portal">here&lt;/a> on setting up Azure Service Bus Topics.&lt;/p>
+&lt;h2 id="create-a-dapr-component">Create a Dapr component&lt;/h2>
+&lt;p>The next step is to create a Dapr component for Azure Service Bus.&lt;/p>
+&lt;p>Create the following YAML file named &lt;code>azuresb.yaml&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">pubsub.azure.servicebus&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">connectionString&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-CONNECTION-STRING&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Required.&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">timeoutInSec&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-TIMEOUT-IN-SEC&amp;gt; # Optional. Default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;60&amp;#34;&lt;/span>&lt;span style="color:#ae81ff">. Timeout for sending messages and management operations.&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">handlerTimeoutInSec&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-HANDLER-TIMEOUT-IN-SEC&amp;gt; # Optional. Default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;60&amp;#34;&lt;/span>&lt;span style="color:#ae81ff">. Timeout for invoking app handler.&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">disableEntityManagement&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-DISABLE-ENTITY-MANAGEMENT&amp;gt; # Optional. Default&lt;/span>: &lt;span style="color:#66d9ef">false&lt;/span>&lt;span style="color:#ae81ff">. When set to true, topics and subscriptions do not get created automatically.&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">maxDeliveryCount&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-MAX-DELIVERY-COUNT&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional. Defines the number of attempts the server will make to deliver a message.&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">lockDurationInSec&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-LOCK-DURATION-IN-SEC&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional. Defines the length in seconds that a message will be locked for before expiring.&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">lockRenewalInSec&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-LOCK-RENEWAL-IN-SEC&amp;gt; # Optional. Default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;20&amp;#34;&lt;/span>&lt;span style="color:#ae81ff">. Defines the frequency at which buffered message locks will be renewed.&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">maxActiveMessages&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-MAX-ACTIVE-MESSAGES&amp;gt; # Optional. Default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;10000&amp;#34;&lt;/span>&lt;span style="color:#ae81ff">. Defines the maximum number of messages to be buffered or processing at once.&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">maxActiveMessagesRecoveryInSec&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-MAX-ACTIVE-MESSAGES-RECOVERY-IN-SEC&amp;gt; # Optional. Default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;2&amp;#34;&lt;/span>&lt;span style="color:#ae81ff">. Defines the number of seconds to wait once the maximum active message limit is reached.&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">maxConcurrentHandlers&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-MAX-CONCURRENT-HANDLERS&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional. Defines the maximum number of concurrent message handlers&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">prefetchCount&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-PREFETCH-COUNT&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional. Defines the number of prefetched messages (use for high throughput / low latency scenarios)&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">defaultMessageTimeToLiveInSec&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-MESSAGE-TIME-TO-LIVE-IN-SEC&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional.&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">autoDeleteOnIdleInSec&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-AUTO-DELETE-ON-IDLE-IN-SEC&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional.&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>&lt;strong>NOTE:&lt;/strong> The above settings are shared across all topics that use this component.&lt;/p>
+&lt;/blockquote>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="apply-the-configuration">Apply the configuration&lt;/h2>
+&lt;p>Visit &lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components.&lt;/p>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: GCP Pub/Sub</title><link>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/setup-gcp/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/setup-gcp/</guid><description>
+&lt;h2 id="setup-gcp-pubsub">Setup GCP Pub/Sub&lt;/h2>
+&lt;p>Follow the instructions &lt;a href="https://cloud.google.com/pubsub/docs/quickstart-console">here&lt;/a> on setting up Google Cloud Pub/Sub system.&lt;/p>
+&lt;h2 id="create-a-dapr-component">Create a Dapr component&lt;/h2>
+&lt;p>The next step is to create a Dapr component for Google Cloud Pub/Sub&lt;/p>
+&lt;p>Create the following YAML file named &lt;code>messagebus.yaml&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">pubsub.gcp.pubsub&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">topic&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;TOPIC_NAME&amp;gt;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">type&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">service_account&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">project_id&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;PROJECT_ID&amp;gt;&lt;/span> &lt;span style="color:#75715e"># replace&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">private_key_id&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;PRIVATE_KEY_ID&amp;gt;&lt;/span> &lt;span style="color:#75715e">#replace&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">client_email&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;CLIENT_EMAIL&amp;gt;&lt;/span> &lt;span style="color:#75715e">#replace&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">client_id&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;CLIENT_ID&amp;gt;&lt;/span> &lt;span style="color:#75715e"># replace&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">auth_uri&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">https://accounts.google.com/o/oauth2/auth&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">token_uri&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">https://oauth2.googleapis.com/token&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">auth_provider_x509_cert_url&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">https://www.googleapis.com/oauth2/v1/certs&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">client_x509_cert_url&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">https://www.googleapis.com/robot/v1/metadata/x509/&amp;lt;PROJECT_NAME&amp;gt;.iam.gserviceaccount.com&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">private_key&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;PRIVATE_KEY&amp;gt;&lt;/span> &lt;span style="color:#75715e"># replace x509 cert here&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">disableEntityManagement&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-DISABLE-ENTITY-MANAGEMENT&amp;gt; # Optional. Default&lt;/span>: &lt;span style="color:#66d9ef">false&lt;/span>&lt;span style="color:#ae81ff">. When set to true, topics and subscriptions do not get created automatically.&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>&lt;code>topic&lt;/code> is the Pub/Sub topic name.&lt;/li>
+&lt;li>&lt;code>type&lt;/code> is the GCP credentials type.&lt;/li>
+&lt;li>&lt;code>project_id&lt;/code> is the GCP project id.&lt;/li>
+&lt;li>&lt;code>private_key_id&lt;/code> is the GCP private key id.&lt;/li>
+&lt;li>&lt;code>client_email&lt;/code> is the GCP client email.&lt;/li>
+&lt;li>&lt;code>client_id&lt;/code> is the GCP client id.&lt;/li>
+&lt;li>&lt;code>auth_uri&lt;/code> is Google account OAuth endpoint.&lt;/li>
+&lt;li>&lt;code>token_uri&lt;/code> is Google account token uri.&lt;/li>
+&lt;li>&lt;code>auth_provider_x509_cert_url&lt;/code> is the GCP credentials cert url.&lt;/li>
+&lt;li>&lt;code>client_x509_cert_url&lt;/code> is the GCP credentials project x509 cert url.&lt;/li>
+&lt;li>&lt;code>private_key&lt;/code> is the GCP credentials private key.&lt;/li>
+&lt;li>&lt;code>disableEntityManagement&lt;/code> Optional. Default: false. When set to true, topics and subscriptions do not get created automatically.&lt;/li>
+&lt;/ul>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="apply-the-configuration">Apply the configuration&lt;/h2>
+&lt;p>Visit &lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components.&lt;/p>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Hazelcast</title><link>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/setup-hazelcast/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/setup-hazelcast/</guid><description>
+&lt;h2 id="setup-hazelcast">Setup Hazelcast&lt;/h2>
+&lt;ul class="nav nav-tabs" id="tabs-0" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-0-self-hosted-tab" data-toggle="tab" href="#tabs-0-self-hosted" role="tab"
+aria-controls="tabs-0-self-hosted" aria-selected="true">
+Self-Hosted
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-0-kubernetes-tab" data-toggle="tab" href="#tabs-0-kubernetes" role="tab"
+aria-controls="tabs-0-kubernetes" aria-selected="false">
+Kubernetes
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-0-content">
+&lt;div class="tab-pane fade show active" id="tabs-0-self-hosted" role="tabpanel" aria-labelled-by="tabs-0-self-hosted-tab">
+&lt;br />&lt;p>You can run Hazelcast locally using Docker:&lt;/p>
+&lt;pre>&lt;code>docker run -e JAVA_OPTS=&amp;quot;-Dhazelcast.local.publicAddress=127.0.0.1:5701&amp;quot; -p 5701:5701 hazelcast/hazelcast
+&lt;/code>&lt;/pre>&lt;p>You can then interact with the server using the &lt;code>127.0.0.1:5701&lt;/code>.&lt;/p>
+&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-0-kubernetes" role="tabpanel" aria-labelled-by="tabs-0-kubernetes-tab">
+&lt;br />&lt;p>The easiest way to install Hazelcast on Kubernetes is by using the &lt;a href="https://github.com/helm/charts/tree/master/stable/hazelcast">Helm chart&lt;/a>.&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;h2 id="create-a-dapr-component">Create a Dapr component&lt;/h2>
+&lt;p>The next step is to create a Dapr component for Hazelcast.&lt;/p>
+&lt;p>Create the following YAML file named &lt;code>hazelcast.yaml&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">pubsub.hazelcast&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">hazelcastServers&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-HOSTS&amp;gt; # Required. A comma delimited string of servers. Example&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;hazelcast:3000,hazelcast2:3000&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="apply-the-configuration">Apply the configuration&lt;/h2>
+&lt;p>Visit &lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components.&lt;/p>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: MQTT</title><link>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/setup-mqtt/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/setup-mqtt/</guid><description>
+&lt;h2 id="setup-mqtt">Setup MQTT&lt;/h2>
+&lt;ul class="nav nav-tabs" id="tabs-0" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-0-self-hosted-tab" data-toggle="tab" href="#tabs-0-self-hosted" role="tab"
+aria-controls="tabs-0-self-hosted" aria-selected="true">
+Self-Hosted
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-0-kubernetes-tab" data-toggle="tab" href="#tabs-0-kubernetes" role="tab"
+aria-controls="tabs-0-kubernetes" aria-selected="false">
+Kubernetes
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-0-content">
+&lt;div class="tab-pane fade show active" id="tabs-0-self-hosted" role="tabpanel" aria-labelled-by="tabs-0-self-hosted-tab">
+&lt;br />&lt;p>You can run a MQTT broker &lt;a href="https://hub.docker.com/_/eclipse-mosquitto">locally using Docker&lt;/a>:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">docker run -d -p 1883:1883 -p 9001:9001 --name mqtt eclipse-mosquitto:1.6.9
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>You can then interact with the server using the client port: &lt;code>mqtt://localhost:1883&lt;/code>&lt;/p>
+&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-0-kubernetes" role="tabpanel" aria-labelled-by="tabs-0-kubernetes-tab">
+&lt;br />&lt;p>You can run a MQTT broker in kubernetes using following yaml:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">apps/v1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Deployment&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">mqtt-broker&lt;/span>
+&lt;span style="color:#f92672">labels&lt;/span>:
+&lt;span style="color:#f92672">app-name&lt;/span>: &lt;span style="color:#ae81ff">mqtt-broker&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">replicas&lt;/span>: &lt;span style="color:#ae81ff">1&lt;/span>
+&lt;span style="color:#f92672">selector&lt;/span>:
+&lt;span style="color:#f92672">matchLabels&lt;/span>:
+&lt;span style="color:#f92672">app-name&lt;/span>: &lt;span style="color:#ae81ff">mqtt-broker&lt;/span>
+&lt;span style="color:#f92672">template&lt;/span>:
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">labels&lt;/span>:
+&lt;span style="color:#f92672">app-name&lt;/span>: &lt;span style="color:#ae81ff">mqtt-broker&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">containers&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">mqtt&lt;/span>
+&lt;span style="color:#f92672">image&lt;/span>: &lt;span style="color:#ae81ff">eclipse-mosquitto:1.6.9&lt;/span>
+&lt;span style="color:#f92672">imagePullPolicy&lt;/span>: &lt;span style="color:#ae81ff">IfNotPresent&lt;/span>
+&lt;span style="color:#f92672">ports&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">containerPort&lt;/span>: &lt;span style="color:#ae81ff">1883&lt;/span>
+&lt;span style="color:#f92672">protocol&lt;/span>: &lt;span style="color:#ae81ff">TCP&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">websocket&lt;/span>
+&lt;span style="color:#f92672">containerPort&lt;/span>: &lt;span style="color:#ae81ff">9001&lt;/span>
+&lt;span style="color:#f92672">protocol&lt;/span>: &lt;span style="color:#ae81ff">TCP&lt;/span>
+---
+&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Service&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">mqtt-broker&lt;/span>
+&lt;span style="color:#f92672">labels&lt;/span>:
+&lt;span style="color:#f92672">app-name&lt;/span>: &lt;span style="color:#ae81ff">mqtt-broker&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">ClusterIP&lt;/span>
+&lt;span style="color:#f92672">selector&lt;/span>:
+&lt;span style="color:#f92672">app-name&lt;/span>: &lt;span style="color:#ae81ff">mqtt-broker&lt;/span>
+&lt;span style="color:#f92672">ports&lt;/span>:
+- &lt;span style="color:#f92672">port&lt;/span>: &lt;span style="color:#ae81ff">1883&lt;/span>
+&lt;span style="color:#f92672">targetPort&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">protocol&lt;/span>: &lt;span style="color:#ae81ff">TCP&lt;/span>
+- &lt;span style="color:#f92672">port&lt;/span>: &lt;span style="color:#ae81ff">9001&lt;/span>
+&lt;span style="color:#f92672">targetPort&lt;/span>: &lt;span style="color:#ae81ff">websocket&lt;/span>
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">websocket&lt;/span>
+&lt;span style="color:#f92672">protocol&lt;/span>: &lt;span style="color:#ae81ff">TCP&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>You can then interact with the server using the client port: &lt;code>tcp://mqtt-broker.default.svc.cluster.local:1883&lt;/code>&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;h2 id="create-a-dapr-component">Create a Dapr component&lt;/h2>
+&lt;p>The next step is to create a Dapr component for MQTT.&lt;/p>
+&lt;p>Create the following yaml file named &lt;code>mqtt.yaml&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">pubsub.mqtt&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">url&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;tcp://[username][:password]@host.domain[:port]&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">qos&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">1&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">retain&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;false&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">cleanSession&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;false&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>To configure communication using TLS, ensure mosquitto broker is configured to support certificates. Pre-requisite includes &lt;code>certficate authority certificate&lt;/code>, &lt;code>ca issued client certificate&lt;/code>, &lt;code>client private key&lt;/code>. Make following additional changes to mqtt pubsub components for supporting TLS.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">...
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">pubsub.mqtt&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">url&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;tcps://host.domain[:port]&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">caCert&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#39;&amp;#39;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">clientCert&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#39;&amp;#39;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">clientKey&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#39;&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Where:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>url&lt;/strong> (required) is the address of the MQTT broker.&lt;/li>
+&lt;li>
+&lt;ul>
+&lt;li>use &lt;strong>tcp://&lt;/strong> scheme for non-TLS communication.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;ul>
+&lt;li>use &lt;strong>tcps://&lt;/strong> scheme for TLS communication.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>qos&lt;/strong> (optional) indicates the Quality of Service Level (QoS) of the message. (Default 0)&lt;/li>
+&lt;li>&lt;strong>retain&lt;/strong> (optional) defines whether the message is saved by the broker as the last known good value for a specified topic. (Default false)&lt;/li>
+&lt;li>&lt;strong>cleanSession&lt;/strong> (optional) will set the &amp;ldquo;clean session&amp;rdquo; in the connect message when client connects to an MQTT broker . (Default true)&lt;/li>
+&lt;li>&lt;strong>caCert&lt;/strong> (required for using TLS) is the certificate authority certificate.&lt;/li>
+&lt;li>&lt;strong>clientCert&lt;/strong> (required for using TLS) is the client certificate.&lt;/li>
+&lt;li>&lt;strong>clientKey&lt;/strong> (required for using TLS) is the client key.&lt;/li>
+&lt;/ul>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="apply-the-configuration">Apply the configuration&lt;/h2>
+&lt;p>Visit &lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components.&lt;/p>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: NATS streaming</title><link>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/setup-nats-streaming/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/setup-nats-streaming/</guid><description>
+&lt;h2 id="setup-nats">Setup NATS&lt;/h2>
+&lt;ul class="nav nav-tabs" id="tabs-0" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-0-self-hosted-tab" data-toggle="tab" href="#tabs-0-self-hosted" role="tab"
+aria-controls="tabs-0-self-hosted" aria-selected="true">
+Self-Hosted
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-0-kubernetes-tab" data-toggle="tab" href="#tabs-0-kubernetes" role="tab"
+aria-controls="tabs-0-kubernetes" aria-selected="false">
+Kubernetes
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-0-content">
+&lt;div class="tab-pane fade show active" id="tabs-0-self-hosted" role="tabpanel" aria-labelled-by="tabs-0-self-hosted-tab">
+&lt;br />&lt;p>You can run a NATS server locally using Docker:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">docker run -d -name nats-streaming -p 4222:4222 -p 8222:8222 nats-streaming
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>You can then interact with the server using the client port: &lt;code>localhost:4222&lt;/code>.&lt;/p>
+&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-0-kubernetes" role="tabpanel" aria-labelled-by="tabs-0-kubernetes-tab">
+&lt;br />&lt;p>Install NATS on Kubernetes by using the &lt;a href="https://docs.nats.io/nats-on-kubernetes/minimal-setup">kubectl&lt;/a>:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#75715e"># Single server NATS&lt;/span>
+kubectl apply -f https://raw.githubusercontent.com/nats-io/k8s/master/nats-server/single-server-nats.yml
+kubectl apply -f https://raw.githubusercontent.com/nats-io/k8s/master/nats-streaming-server/single-server-stan.yml
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>This will install a single NATS-Streaming and Nats into the &lt;code>default&lt;/code> namespace. To interact with NATS, find the service with: &lt;code>kubectl get svc stan&lt;/code>.&lt;/p>
+&lt;p>For example, if installing using the example above, the NATS Streaming address would be:&lt;/p>
+&lt;p>&lt;code>&amp;lt;YOUR-HOST&amp;gt;:4222&lt;/code>&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;h2 id="create-a-dapr-component">Create a Dapr component&lt;/h2>
+&lt;p>The next step is to create a Dapr component for NATS-Streaming.&lt;/p>
+&lt;p>Create the following YAML file named &lt;code>nats-stan.yaml&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">pubsub.natsstreaming&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">natsURL&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-NATS-SERVER-ADDRESS&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Required. example nats://localhost:4222&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">natsStreamingClusterID&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-NATS-CLUSTERID&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Required.&lt;/span>
+&lt;span style="color:#75715e"># blow are subscription configuration.&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">subscriptionType&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-SUBSCRIPTION-TYPE&amp;gt; # Required. Allowed values&lt;/span>: &lt;span style="color:#ae81ff">topic, queue.&lt;/span>
+&lt;span style="color:#75715e"># - name: ackWaitTime&lt;/span>
+&lt;span style="color:#75715e"># value: &amp;#34;&amp;#34; # Optional. See: https://docs.nats.io/developing-with-nats-streaming/acks#acknowledgements&lt;/span>
+&lt;span style="color:#75715e"># - name: maxInFlight&lt;/span>
+&lt;span style="color:#75715e"># value: &amp;#34;&amp;#34; # Optional. See: https://docs.nats.io/developing-with-nats-streaming/acks#acknowledgements&lt;/span>
+&lt;span style="color:#75715e"># - name: durableSubscriptionName&lt;/span>
+&lt;span style="color:#75715e"># value: &amp;#34;&amp;#34;&lt;/span>
+&lt;span style="color:#75715e"># following subscription options - only one can be used&lt;/span>
+&lt;span style="color:#75715e"># - name: startAtSequence&lt;/span>
+&lt;span style="color:#75715e"># value: 1&lt;/span>
+&lt;span style="color:#75715e"># - name: startWithLastReceived&lt;/span>
+&lt;span style="color:#75715e"># value: false&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">deliverAll&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;span style="color:#75715e"># - name: deliverNew&lt;/span>
+&lt;span style="color:#75715e"># value: false&lt;/span>
+&lt;span style="color:#75715e"># - name: startAtTimeDelta&lt;/span>
+&lt;span style="color:#75715e"># value: &amp;#34;&amp;#34;&lt;/span>
+&lt;span style="color:#75715e"># - name: startAtTime&lt;/span>
+&lt;span style="color:#75715e"># value: &amp;#34;&amp;#34;&lt;/span>
+&lt;span style="color:#75715e"># - name: startAtTimeFormat&lt;/span>
+&lt;span style="color:#75715e"># value: &amp;#34;&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="apply-the-configuration">Apply the configuration&lt;/h2>
+&lt;p>Visit &lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components.&lt;/p>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Pulsar</title><link>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/setup-pulsar/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/setup-pulsar/</guid><description>
+&lt;h2 id="setup-pulsar">Setup Pulsar&lt;/h2>
+&lt;ul class="nav nav-tabs" id="tabs-0" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-0-self-hosted-tab" data-toggle="tab" href="#tabs-0-self-hosted" role="tab"
+aria-controls="tabs-0-self-hosted" aria-selected="true">
+Self-Hosted
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-0-kubernetes-tab" data-toggle="tab" href="#tabs-0-kubernetes" role="tab"
+aria-controls="tabs-0-kubernetes" aria-selected="false">
+Kubernetes
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-0-content">
+&lt;div class="tab-pane fade show active" id="tabs-0-self-hosted" role="tabpanel" aria-labelled-by="tabs-0-self-hosted-tab">
+&lt;br />&lt;pre>&lt;code>docker run -it \
+-p 6650:6650 \
+-p 8080:8080 \
+--mount source=pulsardata,target=/pulsar/data \
+--mount source=pulsarconf,target=/pulsar/conf \
+apachepulsar/pulsar:2.5.1 \
+bin/pulsar standalone
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-0-kubernetes" role="tabpanel" aria-labelled-by="tabs-0-kubernetes-tab">
+&lt;br />&lt;p>Please refer to the following &lt;a href="https://pulsar.apache.org/docs/en/kubernetes-helm/">Helm chart&lt;/a> Documentation.&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;h2 id="create-a-dapr-component">Create a Dapr component&lt;/h2>
+&lt;p>The next step is to create a Dapr component for Pulsar.&lt;/p>
+&lt;p>Create the following YAML file named pulsar.yaml:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">pubsub.pulsar&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">host&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE WITH PULSAR URL&amp;gt;&lt;/span> &lt;span style="color:#75715e">#default is localhost:6650&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">enableTLS&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;TRUE/FALSE&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="apply-the-configuration">Apply the configuration&lt;/h2>
+&lt;p>Visit &lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components.&lt;/p>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: RabbitMQ</title><link>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/setup-rabbitmq/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-pubsub/supported-pubsub/setup-rabbitmq/</guid><description>
+&lt;h2 id="setup-rabbitmq">Setup RabbitMQ&lt;/h2>
+&lt;ul class="nav nav-tabs" id="tabs-0" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-0-self-hosted-tab" data-toggle="tab" href="#tabs-0-self-hosted" role="tab"
+aria-controls="tabs-0-self-hosted" aria-selected="true">
+Self-Hosted
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-0-kubernetes-tab" data-toggle="tab" href="#tabs-0-kubernetes" role="tab"
+aria-controls="tabs-0-kubernetes" aria-selected="false">
+Kubernetes
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-0-content">
+&lt;div class="tab-pane fade show active" id="tabs-0-self-hosted" role="tabpanel" aria-labelled-by="tabs-0-self-hosted-tab">
+&lt;br />&lt;p>You can run a RabbitMQ server locally using Docker:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">docker run -d --hostname my-rabbit --name some-rabbit rabbitmq:3
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>You can then interact with the server using the client port: &lt;code>localhost:5672&lt;/code>.&lt;/p>
+&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-0-kubernetes" role="tabpanel" aria-labelled-by="tabs-0-kubernetes-tab">
+&lt;br />&lt;p>The easiest way to install RabbitMQ on Kubernetes is by using the &lt;a href="https://github.com/helm/charts/tree/master/stable/rabbitmq">Helm chart&lt;/a>:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm install rabbitmq stable/rabbitmq
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Look at the chart output and get the username and password.&lt;/p>
+&lt;p>This will install RabbitMQ into the &lt;code>default&lt;/code> namespace. To interact with RabbitMQ, find the service with: &lt;code>kubectl get svc rabbitmq&lt;/code>.&lt;/p>
+&lt;p>For example, if installing using the example above, the RabbitMQ server client address would be:&lt;/p>
+&lt;p>&lt;code>rabbitmq.default.svc.cluster.local:5672&lt;/code>&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;h2 id="create-a-dapr-component">Create a Dapr component&lt;/h2>
+&lt;p>The next step is to create a Dapr component for RabbitMQ.&lt;/p>
+&lt;p>Create the following YAML file named &lt;code>rabbitmq.yaml&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">pubsub.rabbitmq&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">host&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-HOST&amp;gt; # Required. Example&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;amqp://rabbitmq.default.svc.cluster.local:5672&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;amqp://localhost:5672&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">durable&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-DURABLE&amp;gt; # Optional. Default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;false&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">deletedWhenUnused&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-DELETE-WHEN-UNUSED&amp;gt; # Optional. Default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;false&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">autoAck&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-AUTO-ACK&amp;gt; # Optional. Default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;false&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">deliveryMode&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-DELIVERY-MODE&amp;gt; # Optional. Default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;0&amp;#34;&lt;/span>&lt;span style="color:#ae81ff">. Values between 0 - 2.&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">requeueInFailure&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-REQUEUE-IN-FAILURE&amp;gt; # Optional. Default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;false&amp;#34;&lt;/span>&lt;span style="color:#ae81ff">.&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/docs/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="apply-the-configuration">Apply the configuration&lt;/h2>
+&lt;p>Visit &lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components.&lt;/p>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
+&lt;/ul></description></item></channel></rss>

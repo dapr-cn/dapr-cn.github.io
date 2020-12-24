@@ -1,0 +1,2286 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – Dapr API reference</title><link>https://dapr-cn.github.io/docs/reference/api/</link><description>Recent content in Dapr API reference on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="https://dapr-cn.github.io/docs/reference/api/index.xml" rel="self" type="application/rss+xml"/><item><title>Reference: Service invocation API reference</title><link>https://dapr-cn.github.io/docs/reference/api/service_invocation_api/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/reference/api/service_invocation_api/</guid><description>
+&lt;p>Dapr provides users with the ability to call other applications that have unique ids. This functionality allows apps to interact with one another via named identifiers and puts the burden of service discovery on the Dapr runtime.&lt;/p>
+&lt;h2 id="invoke-a-method-on-a-remote-dapr-app">Invoke a method on a remote dapr app&lt;/h2>
+&lt;p>This endpoint lets you invoke a method in another Dapr enabled app.&lt;/p>
+&lt;h3 id="http-request">HTTP Request&lt;/h3>
+&lt;pre>&lt;code>POST/GET/PUT/DELETE http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/invoke/&amp;lt;appId&amp;gt;/method/&amp;lt;method-name&amp;gt;
+&lt;/code>&lt;/pre>&lt;h3 id="http-response-codes">HTTP Response codes&lt;/h3>
+&lt;p>When a service invokes another service with Dapr, the status code of the called service will be returned to the caller. If there&amp;rsquo;s a network error or other transient error, Dapr will return a &lt;code>500&lt;/code> error with the detailed error message.&lt;/p>
+&lt;p>In case a user invokes Dapr over HTTP to talk to a gRPC enabled service, an error from the called gRPC service will return as &lt;code>500&lt;/code> and a successful response will return as &lt;code>200OK&lt;/code>.&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>Request failed&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="url-parameters">URL Parameters&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>daprPort&lt;/td>
+&lt;td>the Dapr port&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>appId&lt;/td>
+&lt;td>the App ID associated with the remote app&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>method-name&lt;/td>
+&lt;td>the name of the method or url to invoke on the remote app&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>Note, all URL parameters are case-sensitive.&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="request-contents">Request Contents&lt;/h3>
+&lt;p>In the request you can pass along headers:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;Content-Type&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;application/json&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Within the body of the request place the data you want to send to the service:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;arg1&amp;#34;&lt;/span>: &lt;span style="color:#ae81ff">10&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;arg2&amp;#34;&lt;/span>: &lt;span style="color:#ae81ff">23&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;operator&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;+&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="request-received-by-invoked-service">Request received by invoked service&lt;/h3>
+&lt;p>Once your service code invokes a method in another Dapr enabled app, Dapr will send the request, along with the headers and body, to the app on the &lt;code>&amp;lt;method-name&amp;gt;&lt;/code> endpoint.&lt;/p>
+&lt;p>The Dapr app being invoked will need to be listening for and responding to requests on that endpoint.&lt;/p>
+&lt;h3 id="cross-namespace-invocation">Cross namespace invocation&lt;/h3>
+&lt;p>On hosting platforms that support namespaces, Dapr app IDs conform to a valid FQDN format that includes the target namespace. For example, the following string contains the app ID (&lt;code>myApp&lt;/code>) in addition to the namespace the app runs in (&lt;code>production&lt;/code>).&lt;/p>
+&lt;pre>&lt;code>myApp.production
+&lt;/code>&lt;/pre>&lt;h4 id="namespace-supported-platforms">Namespace supported platforms&lt;/h4>
+&lt;ul>
+&lt;li>Kubernetes&lt;/li>
+&lt;/ul>
+&lt;h3 id="examples">Examples&lt;/h3>
+&lt;p>You can invoke the &lt;code>add&lt;/code> method on the &lt;code>mathService&lt;/code> service by sending the following:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl http://localhost:3500/v1.0/invoke/mathService/method/add &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span>
+-d &lt;span style="color:#e6db74">&amp;#39;{ &amp;#34;arg1&amp;#34;: 10, &amp;#34;arg2&amp;#34;: 23}&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The &lt;code>mathService&lt;/code> service will need to be listening on the &lt;code>/add&lt;/code> endpoint to receive and process the request.&lt;/p>
+&lt;p>For a Node app this would look like:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-js" data-lang="js">&lt;span style="color:#a6e22e">app&lt;/span>.&lt;span style="color:#a6e22e">post&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;/add&amp;#39;&lt;/span>, (&lt;span style="color:#a6e22e">req&lt;/span>, &lt;span style="color:#a6e22e">res&lt;/span>) =&amp;gt; {
+&lt;span style="color:#66d9ef">let&lt;/span> &lt;span style="color:#a6e22e">args&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">req&lt;/span>.&lt;span style="color:#a6e22e">body&lt;/span>;
+&lt;span style="color:#66d9ef">const&lt;/span> [&lt;span style="color:#a6e22e">operandOne&lt;/span>, &lt;span style="color:#a6e22e">operandTwo&lt;/span>] &lt;span style="color:#f92672">=&lt;/span> [Number(&lt;span style="color:#a6e22e">args&lt;/span>[&lt;span style="color:#e6db74">&amp;#39;arg1&amp;#39;&lt;/span>]), Number(&lt;span style="color:#a6e22e">args&lt;/span>[&lt;span style="color:#e6db74">&amp;#39;arg2&amp;#39;&lt;/span>])];
+&lt;span style="color:#66d9ef">let&lt;/span> &lt;span style="color:#a6e22e">result&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">operandOne&lt;/span> &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#a6e22e">operandTwo&lt;/span>;
+&lt;span style="color:#a6e22e">res&lt;/span>.&lt;span style="color:#a6e22e">send&lt;/span>(&lt;span style="color:#a6e22e">result&lt;/span>.&lt;span style="color:#a6e22e">toString&lt;/span>());
+});
+&lt;span style="color:#a6e22e">app&lt;/span>.&lt;span style="color:#a6e22e">listen&lt;/span>(&lt;span style="color:#a6e22e">port&lt;/span>, () =&amp;gt; &lt;span style="color:#a6e22e">console&lt;/span>.&lt;span style="color:#a6e22e">log&lt;/span>(&lt;span style="color:#e6db74">`Listening on port &lt;/span>&lt;span style="color:#e6db74">${&lt;/span>&lt;span style="color:#a6e22e">port&lt;/span>&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74">!`&lt;/span>));
+&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>The response from the remote endpoint will be returned in the response body.&lt;/p>
+&lt;/blockquote>
+&lt;p>In case when your service listens on a more nested path (e.g. &lt;code>/api/v1/add&lt;/code>), Dapr implements a full reverse proxy so you can append all the necessary path fragments to your request URL like this:&lt;/p>
+&lt;p>&lt;code>http://localhost:3500/v1.0/invoke/mathService/method/api/v1/add&lt;/code>&lt;/p>
+&lt;p>In case you are invoking &lt;code>mathService&lt;/code> on a different namespace, you can use the following URL:&lt;/p>
+&lt;p>&lt;code>http://localhost:3500/v1.0/invoke/mathService.testing/method/api/v1/add&lt;/code>&lt;/p>
+&lt;p>In this URL, &lt;code>testing&lt;/code> is the namespace that &lt;code>mathService&lt;/code> is running in.&lt;/p>
+&lt;h2 id="next-steps">Next Steps&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/service-invocation/howto-invoke-discover-services/">How-To: Invoke and discover services&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Reference: State management API reference</title><link>https://dapr-cn.github.io/docs/reference/api/state_api/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/reference/api/state_api/</guid><description>
+&lt;h2 id="component-file">Component file&lt;/h2>
+&lt;p>A Dapr State Store component yaml file has the following structure:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">state.&amp;lt;TYPE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#ae81ff">name:&amp;lt;KEY&amp;gt;&lt;/span>
+&lt;span style="color:#ae81ff">value:&amp;lt;VALUE&amp;gt;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;KEY&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;VALUE&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The &lt;code>metadata.name&lt;/code> is the name of the state store.&lt;/p>
+&lt;p>the &lt;code>spec/metadata&lt;/code> section is an open key value pair metadata that allows a binding to define connection properties.&lt;/p>
+&lt;p>Starting with 0.4.0 release, support for multiple state stores was added. This is a breaking change from previous releases as the state APIs were changed to support this new scenario.&lt;/p>
+&lt;p>Please refer &lt;a href="https://github.com/dapr/dapr/blob/master/docs/decision_records/api/API-008-multi-state-store-api-design.md">https://github.com/dapr/dapr/blob/master/docs/decision_records/api/API-008-multi-state-store-api-design.md&lt;/a> for more details.&lt;/p>
+&lt;h2 id="key-scheme">Key scheme&lt;/h2>
+&lt;p>Dapr state stores are key/value stores. To ensure data compatibility, Dapr requires these data stores follow a fixed key scheme. For general states, the key format is:&lt;/p>
+&lt;pre>&lt;code>&amp;lt;App ID&amp;gt;||&amp;lt;state key&amp;gt;
+&lt;/code>&lt;/pre>&lt;p>For Actor states, the key format is:&lt;/p>
+&lt;pre>&lt;code>&amp;lt;App ID&amp;gt;||&amp;lt;Actor type&amp;gt;||&amp;lt;Actor id&amp;gt;||&amp;lt;state key&amp;gt;
+&lt;/code>&lt;/pre>&lt;h2 id="save-state">Save state&lt;/h2>
+&lt;p>This endpoint lets you save an array of state objects.&lt;/p>
+&lt;h3 id="http-request">HTTP Request&lt;/h3>
+&lt;pre>&lt;code>POST http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/state/&amp;lt;storename&amp;gt;
+&lt;/code>&lt;/pre>&lt;h4 id="url-parameters">URL Parameters&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>daprPort&lt;/td>
+&lt;td>the Dapr port&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>storename&lt;/td>
+&lt;td>&lt;code>metadata.name&lt;/code> field in the user configured state store component yaml. Please refer Dapr State Store configuration structure mentioned above.&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>Note, all URL parameters are case-sensitive.&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="request-body">Request Body&lt;/h4>
+&lt;p>A JSON array of state objects. Each state object is comprised with the following fields:&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Field&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>key&lt;/td>
+&lt;td>state key&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>value&lt;/td>
+&lt;td>state value, which can be any byte array&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>etag&lt;/td>
+&lt;td>(optional) state ETag&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>metadata&lt;/td>
+&lt;td>(optional) additional key-value pairs to be passed to the state store&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>options&lt;/td>
+&lt;td>(optional) state operation options, see &lt;a href="#optional-behaviors">state operation options&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>&lt;strong>ETag format&lt;/strong> Dapr runtime treats ETags as opaque strings. The exact ETag format is defined by the corresponding data store.&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="http-response">HTTP Response&lt;/h3>
+&lt;h4 id="response-codes">Response Codes&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>201&lt;/td>
+&lt;td>State saved&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>400&lt;/td>
+&lt;td>State store is missing or misconfigured&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>Failed to save state&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="response-body">Response Body&lt;/h4>
+&lt;p>None.&lt;/p>
+&lt;h3 id="example">Example&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X POST http://localhost:3500/v1.0/state/starwars &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -d &lt;span style="color:#e6db74">&amp;#39;[
+&lt;/span>&lt;span style="color:#e6db74"> {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;key&amp;#34;: &amp;#34;weapon&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;value&amp;#34;: &amp;#34;DeathStar&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> },
+&lt;/span>&lt;span style="color:#e6db74"> {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;key&amp;#34;: &amp;#34;planet&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;value&amp;#34;: {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;name&amp;#34;: &amp;#34;Tatooine&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74"> ]&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="get-state">Get state&lt;/h2>
+&lt;p>This endpoint lets you get the state for a specific key.&lt;/p>
+&lt;h3 id="http-request-1">HTTP Request&lt;/h3>
+&lt;pre>&lt;code>GET http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/state/&amp;lt;storename&amp;gt;/&amp;lt;key&amp;gt;
+&lt;/code>&lt;/pre>&lt;h4 id="url-parameters-1">URL Parameters&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>daprPort&lt;/td>
+&lt;td>the Dapr port&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>storename&lt;/td>
+&lt;td>&lt;code>metadata.name&lt;/code> field in the user configured state store component yaml. Please refer Dapr State Store configuration structure mentioned above.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>key&lt;/td>
+&lt;td>the key of the desired state&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>consistency&lt;/td>
+&lt;td>(optional) read consistency mode, see &lt;a href="#optional-behaviors">state operation options&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>metadata&lt;/td>
+&lt;td>(optional) metadata as query parameters to the state store&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>Note, all URL parameters are case-sensitive.&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="http-response-1">HTTP Response&lt;/h3>
+&lt;h4 id="response-codes-1">Response Codes&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>200&lt;/td>
+&lt;td>Get state successful&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>204&lt;/td>
+&lt;td>Key is not found&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>400&lt;/td>
+&lt;td>State store is missing or misconfigured&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>Get state failed&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="response-headers">Response Headers&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Header&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>ETag&lt;/td>
+&lt;td>ETag of returned value&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="response-body-1">Response Body&lt;/h4>
+&lt;p>JSON-encoded value&lt;/p>
+&lt;h3 id="example-1">Example&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl http://localhost:3500/v1.0/state/starwars/planet &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>The above command returns the state:&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;name&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;Tatooine&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>To pass metadata as query parammeter:&lt;/p>
+&lt;pre>&lt;code>GET http://localhost:3500/v1.0/state/starwars/planet?metadata.partitionKey=mypartitionKey
+&lt;/code>&lt;/pre>&lt;h2 id="get-bulk-state">Get bulk state&lt;/h2>
+&lt;p>This endpoint lets you get a list of values for a given list of keys.&lt;/p>
+&lt;h3 id="http-request-2">HTTP Request&lt;/h3>
+&lt;pre>&lt;code>POST http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/state/&amp;lt;storename&amp;gt;/bulk
+&lt;/code>&lt;/pre>&lt;h4 id="url-parameters-2">URL Parameters&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>daprPort&lt;/td>
+&lt;td>the Dapr port&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>storename&lt;/td>
+&lt;td>&lt;code>metadata.name&lt;/code> field in the user configured state store component yaml. Please refer Dapr State Store configuration structure mentioned above.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>metadata&lt;/td>
+&lt;td>(optional) metadata as query parameters to the state store&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>Note, all URL parameters are case-sensitive.&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="http-response-2">HTTP Response&lt;/h3>
+&lt;h4 id="response-codes-2">Response Codes&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>200&lt;/td>
+&lt;td>Get state successful&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>400&lt;/td>
+&lt;td>State store is missing or misconfigured&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>Get bulk state failed&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="response-body-2">Response Body&lt;/h4>
+&lt;p>An array of JSON-encoded values&lt;/p>
+&lt;h3 id="example-2">Example&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl http://localhost:3500/v1.0/state/myRedisStore/bulk &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -d &lt;span style="color:#e6db74">&amp;#39;{
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;keys&amp;#34;: [ &amp;#34;key1&amp;#34;, &amp;#34;key2&amp;#34; ],
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;parallelism&amp;#34;: 10,
+&lt;/span>&lt;span style="color:#e6db74"> }&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>The above command returns an array of key/value objects:&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">[
+{
+&lt;span style="color:#f92672">&amp;#34;key&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;key1&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;data&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;value1&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;etag&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span>
+},
+{
+&lt;span style="color:#f92672">&amp;#34;key&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;key2&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;data&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;value2&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;etag&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span>
+},
+]
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>To pass metadata as query parammeter:&lt;/p>
+&lt;pre>&lt;code>POST http://localhost:3500/v1.0/state/myRedisStore/bulk?metadata.partitionKey=mypartitionKey
+&lt;/code>&lt;/pre>&lt;h2 id="delete-state">Delete state&lt;/h2>
+&lt;p>This endpoint lets you delete the state for a specific key.&lt;/p>
+&lt;h3 id="http-request-3">HTTP Request&lt;/h3>
+&lt;pre>&lt;code>DELETE http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/state/&amp;lt;storename&amp;gt;/&amp;lt;key&amp;gt;
+&lt;/code>&lt;/pre>&lt;h4 id="url-parameters-3">URL Parameters&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>daprPort&lt;/td>
+&lt;td>the Dapr port&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>storename&lt;/td>
+&lt;td>&lt;code>metadata.name&lt;/code> field in the user configured state store component yaml. Please refer Dapr State Store configuration structure mentioned above.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>key&lt;/td>
+&lt;td>the key of the desired state&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>concurrency&lt;/td>
+&lt;td>(optional) either &lt;em>first-write&lt;/em> or &lt;em>last-write&lt;/em>, see &lt;a href="#optional-behaviors">state operation options&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>consistency&lt;/td>
+&lt;td>(optional) either &lt;em>strong&lt;/em> or &lt;em>eventual&lt;/em>, see &lt;a href="#optional-behaviors">state operation options&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>Note, all URL parameters are case-sensitive.&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="request-headers">Request Headers&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Header&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>If-Match&lt;/td>
+&lt;td>(Optional) ETag associated with the key to be deleted&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="http-response-3">HTTP Response&lt;/h3>
+&lt;h4 id="response-codes-3">Response Codes&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>200&lt;/td>
+&lt;td>Delete state successful&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>400&lt;/td>
+&lt;td>State store is missing or misconfigured&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>Delete state failed&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="response-body-3">Response Body&lt;/h4>
+&lt;p>None.&lt;/p>
+&lt;h3 id="example-3">Example&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X &lt;span style="color:#e6db74">&amp;#34;DELETE&amp;#34;&lt;/span> http://localhost:3500/v1.0/state/starwars/planet -H &lt;span style="color:#e6db74">&amp;#34;ETag: xxxxxxx&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="state-transactions">State transactions&lt;/h2>
+&lt;p>Persists the changes to the state store as a multi-item transaction.&lt;/p>
+&lt;p>&lt;em>&lt;strong>Note that this operation is dependant on a using state store component that supports multi-item transactions.&lt;/strong>&lt;/em>&lt;/p>
+&lt;p>List of state stores that support transactions:&lt;/p>
+&lt;ul>
+&lt;li>Redis&lt;/li>
+&lt;li>MongoDB&lt;/li>
+&lt;li>PostgreSQL&lt;/li>
+&lt;li>SQL Server&lt;/li>
+&lt;li>Azure CosmosDB&lt;/li>
+&lt;/ul>
+&lt;h4 id="http-request-4">HTTP Request&lt;/h4>
+&lt;pre>&lt;code>POST/PUT http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/state/&amp;lt;storename&amp;gt;/transaction
+&lt;/code>&lt;/pre>&lt;h4 id="http-response-codes">HTTP Response Codes&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>201&lt;/td>
+&lt;td>Request successful&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>400&lt;/td>
+&lt;td>State store is missing or misconfigured&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>Request failed&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="url-parameters-4">URL Parameters&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>daprPort&lt;/td>
+&lt;td>the Dapr port&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>storename&lt;/td>
+&lt;td>&lt;code>metadata.name&lt;/code> field in the user configured state store component yaml. Please refer Dapr State Store configuration structure mentioned above.&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>Note, all URL parameters are case-sensitive.&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="request-body-1">Request Body&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Field&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>operations&lt;/td>
+&lt;td>A JSON array of state operation&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>metadata&lt;/td>
+&lt;td>(optional) the metadata for transaction that applies to all operations&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>Each state operation is comprised with the following fields:&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Field&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>key&lt;/td>
+&lt;td>state key&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>value&lt;/td>
+&lt;td>state value, which can be any byte array&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>etag&lt;/td>
+&lt;td>(optional) state ETag&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>metadata&lt;/td>
+&lt;td>(optional) additional key-value pairs to be passed to the state store&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>options&lt;/td>
+&lt;td>(optional) state operation options, see &lt;a href="#optional-behaviors">state operation options&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="examples">Examples&lt;/h4>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X POST http://localhost:3500/v1.0/state/starwars/transaction &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -d &lt;span style="color:#e6db74">&amp;#39;{
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;operations&amp;#34;: [
+&lt;/span>&lt;span style="color:#e6db74"> {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;operation&amp;#34;: &amp;#34;upsert&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;request&amp;#34;: {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;key&amp;#34;: &amp;#34;key1&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;value&amp;#34;: &amp;#34;myData&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74"> },
+&lt;/span>&lt;span style="color:#e6db74"> {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;operation&amp;#34;: &amp;#34;delete&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;request&amp;#34;: {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;key&amp;#34;: &amp;#34;key2&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74"> ],
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;metadata&amp;#34;: {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;partitionKey&amp;#34;: &amp;#34;planet&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74"> }&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="configuring-state-store-for-actors">Configuring state store for actors&lt;/h2>
+&lt;p>Actors don&amp;rsquo;t support multiple state stores and require a transactional state store to be used with Dapr. Currently Mongodb, Redis, PostgreSQL, SQL Server, and Azure CosmosDB implement the transactional state store interface. To specify which state store to be used for actors, specify value of property &lt;code>actorStateStore&lt;/code> as true in the metadata section of the state store component yaml file. Example: Following components yaml will configure redis to be used as the state store for Actors.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">statestore&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">state.redis&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">redisHost&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;redis host&amp;gt;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">redisPassword&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">actorStateStore&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="optional-behaviors">Optional behaviors&lt;/h2>
+&lt;h3 id="key-scheme-1">Key scheme&lt;/h3>
+&lt;p>A Dapr-compatible state store shall use the following key scheme:&lt;/p>
+&lt;ul>
+&lt;li>&lt;em>&amp;lt;App ID&amp;gt;||&amp;lt;state key&amp;gt;&lt;/em> key format for general states&lt;/li>
+&lt;li>&lt;em>&amp;lt;App ID&amp;gt;||&amp;lt;Actor type&amp;gt;||&amp;lt;Actor id&amp;gt;||&amp;lt;state key&amp;gt;&lt;/em> key format for Actor states.&lt;/li>
+&lt;/ul>
+&lt;h3 id="concurrency">Concurrency&lt;/h3>
+&lt;p>Dapr uses Optimized Concurrency Control (OCC) with ETags. Dapr makes optional the following requirements on state stores:&lt;/p>
+&lt;ul>
+&lt;li>An Dapr-compatible state store may support optimistic concurrency control using ETags. When an ETag is associated with an &lt;em>save&lt;/em> or &lt;em>delete&lt;/em> request, the store shall allow the update only if the attached ETag matches with the latest ETag in the database.&lt;/li>
+&lt;li>When ETag is missing in the write requests, the state store shall handle the requests in a last-write-wins fashion. This is to allow optimizations for high-throughput write scenarios in which data contingency is low or has no negative effects.&lt;/li>
+&lt;li>A store shall &lt;strong>always&lt;/strong> return ETags when returning states to callers.&lt;/li>
+&lt;/ul>
+&lt;h3 id="consistency">Consistency&lt;/h3>
+&lt;p>Dapr allows clients to attach a consistency hint to &lt;em>get&lt;/em>, &lt;em>set&lt;/em> and &lt;em>delete&lt;/em> operation. Dapr support two consistency level: &lt;strong>strong&lt;/strong> and &lt;strong>eventual&lt;/strong>, which are defined as the follows:&lt;/p>
+&lt;h4 id="eventual-consistency">Eventual Consistency&lt;/h4>
+&lt;p>Dapr assumes data stores are eventually consistent by default. A state should:&lt;/p>
+&lt;ul>
+&lt;li>For read requests, the state store can return data from any of the replicas&lt;/li>
+&lt;li>For write request, the state store should asynchronously replicate updates to configured quorum after acknowledging the update request.&lt;/li>
+&lt;/ul>
+&lt;h4 id="strong-consistency">Strong Consistency&lt;/h4>
+&lt;p>When a strong consistency hint is attached, a state store should:&lt;/p>
+&lt;ul>
+&lt;li>For read requests, the state store should return the most up-to-date data consistently across replicas.&lt;/li>
+&lt;li>For write/delete requests, the state store should synchronisely replicate updated data to configured quorum before completing the write request.&lt;/li>
+&lt;/ul>
+&lt;h3 id="example-4">Example&lt;/h3>
+&lt;p>The following is a sample &lt;em>set&lt;/em> request with a complete operation option definition:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X POST http://localhost:3500/v1.0/state/starwars &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -d &lt;span style="color:#e6db74">&amp;#39;[
+&lt;/span>&lt;span style="color:#e6db74"> {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;key&amp;#34;: &amp;#34;weapon&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;value&amp;#34;: &amp;#34;DeathStar&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;etag&amp;#34;: &amp;#34;xxxxx&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;options&amp;#34;: {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;concurrency&amp;#34;: &amp;#34;first-write&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;consistency&amp;#34;: &amp;#34;strong&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74"> ]&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="next-steps">Next Steps&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/state-management/state-management-overview/">State management overview&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/state-management/howto-get-save-state/">How-To: Save &amp;amp; get state&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Reference: Pub/sub API reference</title><link>https://dapr-cn.github.io/docs/reference/api/pubsub_api/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/reference/api/pubsub_api/</guid><description>
+&lt;h2 id="publish-a-message-to-a-given-topic">Publish a message to a given topic&lt;/h2>
+&lt;p>This endpoint lets you publish data to multiple consumers who are listening on a &lt;code>topic&lt;/code>. Dapr guarantees at least once semantics for this endpoint.&lt;/p>
+&lt;h3 id="http-request">HTTP Request&lt;/h3>
+&lt;pre>&lt;code>POST http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/publish/&amp;lt;pubsubname&amp;gt;/&amp;lt;topic&amp;gt;
+&lt;/code>&lt;/pre>&lt;h3 id="http-response-codes">HTTP Response codes&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>200&lt;/td>
+&lt;td>Message delivered&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>Delivery failed&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="url-parameters">URL Parameters&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>daprPort&lt;/td>
+&lt;td>the Dapr port&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>pubsubname&lt;/td>
+&lt;td>the name of pubsub component.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>topic&lt;/td>
+&lt;td>the name of the topic&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>Note, all URL parameters are case-sensitive.&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X POST http://localhost:3500/v1.0/publish/pubsubName/deathStarStatus &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -d &lt;span style="color:#e6db74">&amp;#39;{
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;status&amp;#34;: &amp;#34;completed&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="optional-application-user-code-routes">Optional Application (User Code) Routes&lt;/h2>
+&lt;h3 id="provide-a-route-for-dapr-to-discover-topic-subscriptions">Provide a route for Dapr to discover topic subscriptions&lt;/h3>
+&lt;p>Dapr will invoke the following endpoint on user code to discover topic subscriptions:&lt;/p>
+&lt;h4 id="http-request-1">HTTP Request&lt;/h4>
+&lt;pre>&lt;code>GET http://localhost:&amp;lt;appPort&amp;gt;/dapr/subscribe
+&lt;/code>&lt;/pre>&lt;h4 id="url-parameters-1">URL Parameters&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>appPort&lt;/td>
+&lt;td>the application port&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="http-response-body">HTTP Response body&lt;/h4>
+&lt;p>A json encoded array of strings.&lt;/p>
+&lt;p>Example:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">[
+{
+&lt;span style="color:#f92672">&amp;#34;pubsubname&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;pubsub&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;topic&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;newOrder&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;route&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;/orders&amp;#34;&lt;/span>
+}
+]
+&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>Note, all subscription parameters are case-sensitive.&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="provide-routes-for-dapr-to-deliver-topic-events">Provide route(s) for Dapr to deliver topic events&lt;/h3>
+&lt;p>In order to deliver topic events, a &lt;code>POST&lt;/code> call will be made to user code with the route specified in the subscription response.&lt;/p>
+&lt;p>The following example illustrates this point, considering a subscription for topic &lt;code>newOrder&lt;/code> with route &lt;code>orders&lt;/code> on port 3000: &lt;code>POST http://localhost:3000/orders&lt;/code>&lt;/p>
+&lt;h4 id="http-request-2">HTTP Request&lt;/h4>
+&lt;pre>&lt;code>POST http://localhost:&amp;lt;appPort&amp;gt;/&amp;lt;path&amp;gt;
+&lt;/code>&lt;/pre>&lt;blockquote>
+&lt;p>Note, all URL parameters are case-sensitive.&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="url-parameters-2">URL Parameters&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>appPort&lt;/td>
+&lt;td>the application port&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>path&lt;/td>
+&lt;td>route path from the subscription configuration&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="expected-http-response">Expected HTTP Response&lt;/h4>
+&lt;p>An HTTP 200 response with JSON encoded payload body with the processing status:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;status&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;lt;status&amp;gt;&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Status&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>SUCCESS&lt;/td>
+&lt;td>message is processed successfully&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>RETRY&lt;/td>
+&lt;td>message to be retried by Dapr&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>DROP&lt;/td>
+&lt;td>warning is logged and message is dropped&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>For empty payload responses in HTTP 2xx, Dapr assumes &lt;code>SUCCESS&lt;/code>.&lt;/p>
+&lt;p>The HTTP response might be different from HTTP 2xx, the following are Dapr&amp;rsquo;s behavior in different HTTP statuses:&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>HTTP Status&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>2xx&lt;/td>
+&lt;td>message is processed as per status in payload (&lt;code>SUCCESS&lt;/code> if empty; ignored if invalid payload).&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>404&lt;/td>
+&lt;td>error is logged and message is dropped&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>other&lt;/td>
+&lt;td>warning is logged and message to be retried&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="message-envelope">Message envelope&lt;/h2>
+&lt;p>Dapr Pub/Sub adheres to version 1.0 of Cloud Events.&lt;/p>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/pubsub/howto-publish-subscribe/">How to publish to and consume topics&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/dapr/quickstarts/tree/master/pub-sub">Sample for pub/sub&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Reference: Bindings API reference</title><link>https://dapr-cn.github.io/docs/reference/api/bindings_api/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/reference/api/bindings_api/</guid><description>
+&lt;p>Dapr provides bi-directional binding capabilities for applications and a consistent approach to interacting with different cloud/on-premise services or systems. Developers can invoke output bindings using the Dapr API, and have the Dapr runtime trigger an application with input bindings.&lt;/p>
+&lt;p>Examples for bindings include &lt;code>Kafka&lt;/code>, &lt;code>Rabbit MQ&lt;/code>, &lt;code>Azure Event Hubs&lt;/code>, &lt;code>AWS SQS&lt;/code>, &lt;code>GCP Storage&lt;/code> to name a few.&lt;/p>
+&lt;h2 id="bindings-structure">Bindings Structure&lt;/h2>
+&lt;p>A Dapr Binding yaml file has the following structure:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">bindings.&amp;lt;TYPE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;VALUE&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The &lt;code>metadata.name&lt;/code> is the name of the binding.&lt;/p>
+&lt;p>If running self hosted locally, place this file in your &lt;code>components&lt;/code> folder next to your state store and message queue yml configurations.&lt;/p>
+&lt;p>If running on kubernetes apply the component to your cluster.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Note:&lt;/strong> In production never place passwords or secrets within Dapr component files. For information on securely storing and retrieving secrets using secret stores refer to &lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-secret-store/">Setup Secret Store&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="invoking-service-code-through-input-bindings">Invoking Service Code Through Input Bindings&lt;/h2>
+&lt;p>A developer who wants to trigger their app using an input binding can listen on a &lt;code>POST&lt;/code> http endpoint with the route name being the same as &lt;code>metadata.name&lt;/code>.&lt;/p>
+&lt;p>On startup Dapr sends a &lt;code>OPTIONS&lt;/code> request to the &lt;code>metadata.name&lt;/code> endpoint and expects a different status code as &lt;code>NOT FOUND (404)&lt;/code> if this application wants to subscribe to the binding.&lt;/p>
+&lt;p>The &lt;code>metadata&lt;/code> section is an open key/value metadata pair that allows a binding to define connection properties, as well as custom properties unique to the component implementation.&lt;/p>
+&lt;h3 id="examples">Examples&lt;/h3>
+&lt;p>For example, here&amp;rsquo;s how a Python application subscribes for events from &lt;code>Kafka&lt;/code> using a Dapr API compliant platform. Note how the metadata.name value &lt;code>kafkaevent&lt;/code> in the components matches the POST route name in the Python code.&lt;/p>
+&lt;h4 id="kafka-component">Kafka Component&lt;/h4>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">kafkaevent&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">bindings.kafka&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">brokers&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;http://localhost:5050&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">topics&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;someTopic&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">publishTopic&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;someTopic2&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">consumerGroup&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;group1&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="python-code">Python Code&lt;/h4>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">from&lt;/span> flask &lt;span style="color:#f92672">import&lt;/span> Flask
+app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
+&lt;span style="color:#a6e22e">@app.route&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;/kafkaevent&amp;#34;&lt;/span>, methods&lt;span style="color:#f92672">=&lt;/span>[&lt;span style="color:#e6db74">&amp;#39;POST&amp;#39;&lt;/span>])
+&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">incoming&lt;/span>():
+&lt;span style="color:#66d9ef">print&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;Hello from Kafka!&amp;#34;&lt;/span>, flush&lt;span style="color:#f92672">=&lt;/span>True)
+&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Kafka Event Processed!&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="binding-endpoints">Binding endpoints&lt;/h3>
+&lt;p>Bindings are discovered from component yaml files. Dapr calls this endpoint on startup to ensure that app can handle this call. If the app doesn&amp;rsquo;t have the endpoint, Dapr ignores it.&lt;/p>
+&lt;h4 id="http-request">HTTP Request&lt;/h4>
+&lt;pre>&lt;code>OPTIONS http://localhost:&amp;lt;appPort&amp;gt;/&amp;lt;name&amp;gt;
+&lt;/code>&lt;/pre>&lt;h4 id="http-response-codes">HTTP Response codes&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>404&lt;/td>
+&lt;td>Application does not want to bind to the binding&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>all others&lt;/td>
+&lt;td>Application wants to bind to the binding&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="url-parameters">URL Parameters&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>appPort&lt;/td>
+&lt;td>the application port&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>name&lt;/td>
+&lt;td>the name of the binding&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>Note, all URL parameters are case-sensitive.&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="binding-payload">Binding payload&lt;/h3>
+&lt;p>In order to deliver binding inputs, a POST call is made to user code with the name of the binding as the URL path.&lt;/p>
+&lt;h4 id="http-request-1">HTTP Request&lt;/h4>
+&lt;pre>&lt;code>POST http://localhost:&amp;lt;appPort&amp;gt;/&amp;lt;name&amp;gt;
+&lt;/code>&lt;/pre>&lt;h4 id="http-response-codes-1">HTTP Response codes&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>200&lt;/td>
+&lt;td>Application processed the input binding successfully&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="url-parameters-1">URL Parameters&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>appPort&lt;/td>
+&lt;td>the application port&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>name&lt;/td>
+&lt;td>the name of the binding&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>Note, all URL parameters are case-sensitive.&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="http-response-body-optional">HTTP Response body (optional)&lt;/h4>
+&lt;p>Optionally, a response body can be used to directly bind input bindings with state stores or output bindings.&lt;/p>
+&lt;p>&lt;strong>Example:&lt;/strong> Dapr stores &lt;code>stateDataToStore&lt;/code> into a state store named &amp;ldquo;stateStore&amp;rdquo;. Dapr sends &lt;code>jsonObject&lt;/code> to the output bindings named &amp;ldquo;storage&amp;rdquo; and &amp;ldquo;queue&amp;rdquo; in parallel. If &lt;code>concurrency&lt;/code> is not set, it is sent out sequential (the example below shows these operations are done in parallel)&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;storeName&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;stateStore&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;state&amp;#34;&lt;/span>: &lt;span style="color:#960050;background-color:#1e0010">stateDataToStore&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;to&amp;#34;&lt;/span>: [&lt;span style="color:#960050;background-color:#1e0010">&amp;#39;storage&amp;#39;&lt;/span>, &lt;span style="color:#960050;background-color:#1e0010">&amp;#39;queue&amp;#39;&lt;/span>],
+&lt;span style="color:#f92672">&amp;#34;concurrency&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;parallel&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;data&amp;#34;&lt;/span>: &lt;span style="color:#960050;background-color:#1e0010">jsonObject&lt;/span>,
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="invoking-output-bindings">Invoking Output Bindings&lt;/h2>
+&lt;p>This endpoint lets you invoke a Dapr output binding. Dapr bindings support various operations, such as &lt;code>create&lt;/code>.&lt;/p>
+&lt;p>See the &lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/">different specs&lt;/a> on each binding to see the list of supported operations.&lt;/p>
+&lt;h3 id="http-request-2">HTTP Request&lt;/h3>
+&lt;pre>&lt;code>POST/PUT http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/bindings/&amp;lt;name&amp;gt;
+&lt;/code>&lt;/pre>&lt;h3 id="http-response-codes-2">HTTP Response codes&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>200&lt;/td>
+&lt;td>Request successful&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>Request failed&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="payload">Payload&lt;/h3>
+&lt;p>The bindings endpoint receives the following JSON payload:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;data&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;metadata&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+},
+&lt;span style="color:#f92672">&amp;#34;operation&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>Note, all URL parameters are case-sensitive.&lt;/p>
+&lt;/blockquote>
+&lt;p>The &lt;code>data&lt;/code> field takes any JSON serializable value and acts as the payload to be sent to the output binding. The &lt;code>metadata&lt;/code> field is an array of key/value pairs and allows you to set binding specific metadata for each call. The &lt;code>operation&lt;/code> field tells the Dapr binding which operation it should perform.&lt;/p>
+&lt;h3 id="url-parameters-2">URL Parameters&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>daprPort&lt;/td>
+&lt;td>the Dapr port&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>name&lt;/td>
+&lt;td>the name of the output binding to invoke&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>Note, all URL parameters are case-sensitive.&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="examples-1">Examples&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X POST http://localhost:3500/v1.0/bindings/myKafka &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -d &lt;span style="color:#e6db74">&amp;#39;{
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;data&amp;#34;: {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;message&amp;#34;: &amp;#34;Hi&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> },
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;metadata&amp;#34;: {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;key&amp;#34;: &amp;#34;redis-key-1&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> },
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;operation&amp;#34;: &amp;#34;create&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="common-metadata-values">Common metadata values&lt;/h3>
+&lt;p>There are common metadata properties which are support across multiple binding components. The list below illustrates them:&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Property&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;th>Binding definition&lt;/th>
+&lt;th>Available in&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>ttlInSeconds&lt;/td>
+&lt;td>Defines the time to live in seconds for the message&lt;/td>
+&lt;td>If set in the binding definition will cause all messages to have a default time to live. The message ttl overrides any value in the binding definition.&lt;/td>
+&lt;td>RabbitMQ, Azure Service Bus, Azure Storage Queue&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table></description></item><item><title>Reference: Actors API reference</title><link>https://dapr-cn.github.io/docs/reference/api/actors_api/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/reference/api/actors_api/</guid><description>
+&lt;p>Dapr provides native, cross-platform and cross-language virtual actor capabilities. Besides the language specific Dapr SDKs, a developer can invoke an actor using the API endpoints below.&lt;/p>
+&lt;h2 id="user-service-code-calling-dapr">User service code calling dapr&lt;/h2>
+&lt;h3 id="invoke-actor-method">Invoke actor method&lt;/h3>
+&lt;p>Invoke an actor method through Dapr.&lt;/p>
+&lt;h4 id="http-request">HTTP Request&lt;/h4>
+&lt;pre>&lt;code>POST/GET/PUT/DELETE http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/actors/&amp;lt;actorType&amp;gt;/&amp;lt;actorId&amp;gt;/method/&amp;lt;method&amp;gt;
+&lt;/code>&lt;/pre>&lt;h4 id="http-response-codes">HTTP Response Codes&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>200&lt;/td>
+&lt;td>Request successful&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>Request failed&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>404&lt;/td>
+&lt;td>Actor not found&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="url-parameters">URL Parameters&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>daprPort&lt;/td>
+&lt;td>The Dapr port.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorType&lt;/td>
+&lt;td>The actor type.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorId&lt;/td>
+&lt;td>The actor ID.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>method&lt;/td>
+&lt;td>The name of the method to invoke.&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>Note, all URL parameters are case-sensitive.&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="examples">Examples&lt;/h4>
+&lt;p>Example of invoking a method on an actor:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X POST http://localhost:3500/v1.0/actors/stormtrooper/50/method/shoot &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Example of invoking a method on an actor that takes parameters: You can provided the method parameters and values in the body of the request, for example in curl using -d &amp;ldquo;{&amp;quot;param&amp;quot;:&amp;quot;value&amp;quot;}&amp;rdquo;&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X POST http://localhost:3500/v1.0/actors/x-wing/33/method/fly &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span>
+-d &lt;span style="color:#e6db74">&amp;#39;{
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;destination&amp;#34;: &amp;#34;Hoth&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>or&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X POST http://localhost:3500/v1.0/actors/x-wing/33/method/fly &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span>
+-d &lt;span style="color:#e6db74">&amp;#34;{\&amp;#34;destination\&amp;#34;:\&amp;#34;Hoth\&amp;#34;}&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The response (the method return) from the remote endpoint is returned in the request body.&lt;/p>
+&lt;h3 id="actor-state-transactions">Actor state transactions&lt;/h3>
+&lt;p>Persists the changed to the state for an actor as a multi-item transaction.&lt;/p>
+&lt;p>&lt;em>&lt;strong>Note that this operation is dependant on a using state store component that supports multi-item transactions.&lt;/strong>&lt;/em>&lt;/p>
+&lt;h4 id="http-request-1">HTTP Request&lt;/h4>
+&lt;pre>&lt;code>POST/PUT http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/actors/&amp;lt;actorType&amp;gt;/&amp;lt;actorId&amp;gt;/state
+&lt;/code>&lt;/pre>&lt;h4 id="http-response-codes-1">HTTP Response Codes&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>201&lt;/td>
+&lt;td>Request successful&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>400&lt;/td>
+&lt;td>Actor not found&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>Request failed&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="url-parameters-1">URL Parameters&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>daprPort&lt;/td>
+&lt;td>The Dapr port.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorType&lt;/td>
+&lt;td>The actor type.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorId&lt;/td>
+&lt;td>The actor ID.&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>Note, all URL parameters are case-sensitive.&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="examples-1">Examples&lt;/h4>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X POST http://localhost:3500/v1.0/actors/stormtrooper/50/state &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span>
+-d &lt;span style="color:#e6db74">&amp;#39;[
+&lt;/span>&lt;span style="color:#e6db74"> {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;operation&amp;#34;: &amp;#34;upsert&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;request&amp;#34;: {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;key&amp;#34;: &amp;#34;key1&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;value&amp;#34;: &amp;#34;myData&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74"> },
+&lt;/span>&lt;span style="color:#e6db74"> {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;operation&amp;#34;: &amp;#34;delete&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;request&amp;#34;: {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;key&amp;#34;: &amp;#34;key2&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74"> ]&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="get-actor-state">Get actor state&lt;/h3>
+&lt;p>Gets the state for an actor using a specified key.&lt;/p>
+&lt;h4 id="http-request-2">HTTP Request&lt;/h4>
+&lt;pre>&lt;code>GET http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/actors/&amp;lt;actorType&amp;gt;/&amp;lt;actorId&amp;gt;/state/&amp;lt;key&amp;gt;
+&lt;/code>&lt;/pre>&lt;h4 id="http-response-codes-2">HTTP Response Codes&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>200&lt;/td>
+&lt;td>Request successful&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>204&lt;/td>
+&lt;td>Key not found, and the response will be empty&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>400&lt;/td>
+&lt;td>Actor not found&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>Request failed&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="url-parameters-2">URL Parameters&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>daprPort&lt;/td>
+&lt;td>The Dapr port.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorType&lt;/td>
+&lt;td>The actor type.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorId&lt;/td>
+&lt;td>The actor ID.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>key&lt;/td>
+&lt;td>The key for the state value.&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>Note, all URL parameters are case-sensitive.&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="examples-2">Examples&lt;/h4>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl http://localhost:3500/v1.0/actors/stormtrooper/50/state/location &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The above command returns the state:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;location&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;Alderaan&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="create-actor-reminder">Create actor reminder&lt;/h3>
+&lt;p>Creates a persistent reminder for an actor.&lt;/p>
+&lt;h4 id="http-request-3">HTTP Request&lt;/h4>
+&lt;pre>&lt;code>POST/PUT http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/actors/&amp;lt;actorType&amp;gt;/&amp;lt;actorId&amp;gt;/reminders/&amp;lt;name&amp;gt;
+&lt;/code>&lt;/pre>&lt;p>Body:&lt;/p>
+&lt;p>The following specifies a &lt;code>dueTime&lt;/code> of 3 seconds and a period of 7 seconds.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;dueTime&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;0h0m3s0ms&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;period&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;0h0m7s0ms&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>A &lt;code>dueTime&lt;/code> of 0 means to fire immediately. The following body means to fire immediately, then every 9 seconds.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;dueTime&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;0h0m0s0ms&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;period&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;0h0m9s0ms&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>To configure the reminder to fire once only, the period should be set to empty string. The following specifies a &lt;code>dueTime&lt;/code> of 3 seconds with a period of empty string, which means the reminder will fire in 3 seconds and then never fire again.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;dueTime&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;0h0m3s0ms&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;period&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="http-response-codes-3">HTTP Response Codes&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>200&lt;/td>
+&lt;td>Request successful&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>Request failed&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>404&lt;/td>
+&lt;td>Actor not found&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="url-parameters-3">URL Parameters&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>daprPort&lt;/td>
+&lt;td>The Dapr port.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorType&lt;/td>
+&lt;td>The actor type.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorId&lt;/td>
+&lt;td>The actor ID.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>name&lt;/td>
+&lt;td>The name of the reminder to create.&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>Note, all URL parameters are case-sensitive.&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="examples-3">Examples&lt;/h4>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl http://localhost:3500/v1.0/actors/stormtrooper/50/reminders/checkRebels &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span>
+-d &lt;span style="color:#e6db74">&amp;#39;{
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;data&amp;#34;: &amp;#34;someData&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;dueTime&amp;#34;: &amp;#34;1m&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;period&amp;#34;: &amp;#34;20s&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="get-actor-reminder">Get actor reminder&lt;/h3>
+&lt;p>Gets a reminder for an actor.&lt;/p>
+&lt;h4 id="http-request-4">HTTP Request&lt;/h4>
+&lt;pre>&lt;code>GET http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/actors/&amp;lt;actorType&amp;gt;/&amp;lt;actorId&amp;gt;/reminders/&amp;lt;name&amp;gt;
+&lt;/code>&lt;/pre>&lt;h4 id="http-response-codes-4">HTTP Response Codes&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>200&lt;/td>
+&lt;td>Request successful&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>Request failed&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>404&lt;/td>
+&lt;td>Actor not found&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="url-parameters-4">URL Parameters&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>daprPort&lt;/td>
+&lt;td>The Dapr port.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorType&lt;/td>
+&lt;td>The actor type.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorId&lt;/td>
+&lt;td>The actor ID.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>name&lt;/td>
+&lt;td>The name of the reminder to get.&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>Note, all URL parameters are case-sensitive.&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="examples-4">Examples&lt;/h4>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl http://localhost:3500/v1.0/actors/stormtrooper/50/reminders/checkRebels &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The above command returns the reminder:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;dueTime&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1s&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;period&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;5s&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;data&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;0&amp;#34;&lt;/span>,
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="delete-actor-reminder">Delete actor reminder&lt;/h3>
+&lt;p>Deletes a reminder for an actor.&lt;/p>
+&lt;h4 id="http-request-5">HTTP Request&lt;/h4>
+&lt;pre>&lt;code>DELETE http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/actors/&amp;lt;actorType&amp;gt;/&amp;lt;actorId&amp;gt;/reminders/&amp;lt;name&amp;gt;
+&lt;/code>&lt;/pre>&lt;h4 id="http-response-codes-5">HTTP Response Codes&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>200&lt;/td>
+&lt;td>Request successful&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>Request failed&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>404&lt;/td>
+&lt;td>Actor not found&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="url-parameters-5">URL Parameters&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>daprPort&lt;/td>
+&lt;td>The Dapr port.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorType&lt;/td>
+&lt;td>The actor type.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorId&lt;/td>
+&lt;td>The actor ID.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>name&lt;/td>
+&lt;td>The name of the reminder to delete.&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>Note, all URL parameters are case-sensitive.&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="examples-5">Examples&lt;/h4>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl http://localhost:3500/v1.0/actors/stormtrooper/50/reminders/checkRebels &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -X &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="create-actor-timer">Create actor timer&lt;/h3>
+&lt;p>Creates a timer for an actor.&lt;/p>
+&lt;h4 id="http-request-6">HTTP Request&lt;/h4>
+&lt;pre>&lt;code>POST/PUT http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/actors/&amp;lt;actorType&amp;gt;/&amp;lt;actorId&amp;gt;/timers/&amp;lt;name&amp;gt;
+&lt;/code>&lt;/pre>&lt;p>Body:&lt;/p>
+&lt;p>The following specifies a &lt;code>dueTime&lt;/code> of 3 seconds and a period of 7 seconds.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;dueTime&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;0h0m3s0ms&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;period&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;0h0m7s0ms&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>A &lt;code>dueTime&lt;/code> of 0 means to fire immediately. The following body means to fire immediately, then every 9 seconds.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;dueTime&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;0h0m0s0ms&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;period&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;0h0m9s0ms&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="http-response-codes-6">HTTP Response Codes&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>200&lt;/td>
+&lt;td>Request successful&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>Request failed&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>404&lt;/td>
+&lt;td>Actor not found&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="url-parameters-6">URL Parameters&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>daprPort&lt;/td>
+&lt;td>The Dapr port.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorType&lt;/td>
+&lt;td>The actor type.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorId&lt;/td>
+&lt;td>The actor ID.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>name&lt;/td>
+&lt;td>The name of the timer to create.&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>Note, all URL parameters are case-sensitive.&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="examples-6">Examples&lt;/h4>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl http://localhost:3500/v1.0/actors/stormtrooper/50/timers/checkRebels &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span>
+-d &lt;span style="color:#e6db74">&amp;#39;{
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;data&amp;#34;: &amp;#34;someData&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;dueTime&amp;#34;: &amp;#34;1m&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;period&amp;#34;: &amp;#34;20s&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;callback&amp;#34;: &amp;#34;myEventHandler&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="delete-actor-timer">Delete actor timer&lt;/h3>
+&lt;p>Deletes a timer for an actor.&lt;/p>
+&lt;h4 id="http-request-7">HTTP Request&lt;/h4>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-http" data-lang="http">&lt;span style="color:#960050;background-color:#1e0010">DELETE http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/actors/&amp;lt;actorType&amp;gt;/&amp;lt;actorId&amp;gt;/timers/&amp;lt;name&amp;gt;
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="http-response-codes-7">HTTP Response Codes&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>200&lt;/td>
+&lt;td>Request successful&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>Request failed&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>404&lt;/td>
+&lt;td>Actor not found&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="url-parameters-7">URL Parameters&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>daprPort&lt;/td>
+&lt;td>The Dapr port.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorType&lt;/td>
+&lt;td>The actor type.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorId&lt;/td>
+&lt;td>The actor ID.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>name&lt;/td>
+&lt;td>The name of the timer to delete.&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>Note, all URL parameters are case-sensitive.&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl http://localhost:3500/v1.0/actors/stormtrooper/50/timers/checkRebels &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -X &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="dapr-calling-to-user-service-code">Dapr calling to user service code&lt;/h2>
+&lt;h3 id="get-registered-actors">Get registered actors&lt;/h3>
+&lt;p>Gets the registered actors types for this app and the Dapr actor configuration settings.&lt;/p>
+&lt;h4 id="http-request-8">HTTP Request&lt;/h4>
+&lt;pre>&lt;code>GET http://localhost:&amp;lt;appPort&amp;gt;/dapr/config
+&lt;/code>&lt;/pre>&lt;h4 id="http-response-codes-8">HTTP Response Codes&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>200&lt;/td>
+&lt;td>Request successful&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>Request failed&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="url-parameters-8">URL Parameters&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>appPort&lt;/td>
+&lt;td>The application port.&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="examples-7">Examples&lt;/h4>
+&lt;p>Example of getting the registered actors:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X GET http://localhost:3000/dapr/config &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The above command returns the config (all fields are optional):&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>entities&lt;/td>
+&lt;td>The actor types this app supports.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorIdleTimeout&lt;/td>
+&lt;td>Specifies how long to wait before deactivating an idle actor. An actor is idle if no actor method calls and no reminders have fired on it.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorScanInterval&lt;/td>
+&lt;td>A duration which specifies how often to scan for actors to deactivate idle actors. Actors that have been idle longer than the actorIdleTimeout will be deactivated.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>drainOngoingCallTimeout&lt;/td>
+&lt;td>A duration used when in the process of draining rebalanced actors. This specifies how long to wait for the current active actor method to finish. If there is no current actor method call, this is ignored.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>drainRebalancedActors&lt;/td>
+&lt;td>A bool. If true, Dapr will wait for &lt;code>drainOngoingCallTimeout&lt;/code> to allow a current actor call to complete before trying to deactivate an actor. If false, do not wait.&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;entities&amp;#34;&lt;/span>:[&lt;span style="color:#e6db74">&amp;#34;actorType1&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;actorType2&amp;#34;&lt;/span>],
+&lt;span style="color:#f92672">&amp;#34;actorIdleTimeout&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1h&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;actorScanInterval&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;30s&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;drainOngoingCallTimeout&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;30s&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;drainRebalancedActors&amp;#34;&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="deactivate-actor">Deactivate actor&lt;/h3>
+&lt;p>Deactivates an actor by persisting the instance of the actor to the state store with the specified actorId&lt;/p>
+&lt;h4 id="http-request-9">HTTP Request&lt;/h4>
+&lt;pre>&lt;code>DELETE http://localhost:&amp;lt;appPort&amp;gt;/actors/&amp;lt;actorType&amp;gt;/&amp;lt;actorId&amp;gt;
+&lt;/code>&lt;/pre>&lt;h4 id="http-response-codes-9">HTTP Response Codes&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>200&lt;/td>
+&lt;td>Request successful&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>Request failed&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>404&lt;/td>
+&lt;td>Actor not found&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="url-parameters-9">URL Parameters&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>appPort&lt;/td>
+&lt;td>The application port.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorType&lt;/td>
+&lt;td>The actor type.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorId&lt;/td>
+&lt;td>The actor ID.&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>Note, all URL parameters are case-sensitive.&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="examples-8">Examples&lt;/h4>
+&lt;p>Example of deactivating an actor: The example deactives the actor type stormtrooper that has actorId of 50&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X DELETE http://localhost:3000/actors/stormtrooper/50 &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="invoke-actor-method-1">Invoke actor method&lt;/h3>
+&lt;p>Invokes a method for an actor with the specified methodName where parameters to the method are passed in the body of the request message and return values are provided in the body of the response message. If the actor is not already running, the app side should &lt;a href="#activating-an-actor">activate&lt;/a> it.&lt;/p>
+&lt;h4 id="http-request-10">HTTP Request&lt;/h4>
+&lt;pre>&lt;code>PUT http://localhost:&amp;lt;appPort&amp;gt;/actors/&amp;lt;actorType&amp;gt;/&amp;lt;actorId&amp;gt;/method/&amp;lt;methodName&amp;gt;
+&lt;/code>&lt;/pre>&lt;h4 id="http-response-codes-10">HTTP Response Codes&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>200&lt;/td>
+&lt;td>Request successful&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>Request failed&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>404&lt;/td>
+&lt;td>Actor not found&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="url-parameters-10">URL Parameters&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>appPort&lt;/td>
+&lt;td>The application port.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorType&lt;/td>
+&lt;td>The actor type.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorId&lt;/td>
+&lt;td>The actor ID.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>methodName&lt;/td>
+&lt;td>The name of the method to invoke.&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>Note, all URL parameters are case-sensitive.&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="examples-9">Examples&lt;/h4>
+&lt;p>Example of invoking a method for an actor: The example calls the performAction method on the actor type stormtrooper that has actorId of 50&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X POST http://localhost:3000/actors/stormtrooper/50/method/performAction &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="invoke-reminder">Invoke reminder&lt;/h3>
+&lt;p>Invokes a reminder for an actor with the specified reminderName. If the actor is not already running, the app side should &lt;a href="#activating-an-actor">activate&lt;/a> it.&lt;/p>
+&lt;h4 id="http-request-11">HTTP Request&lt;/h4>
+&lt;pre>&lt;code>PUT http://localhost:&amp;lt;appPort&amp;gt;/actors/&amp;lt;actorType&amp;gt;/&amp;lt;actorId&amp;gt;/method/remind/&amp;lt;reminderName&amp;gt;
+&lt;/code>&lt;/pre>&lt;h4 id="http-response-codes-11">HTTP Response Codes&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>200&lt;/td>
+&lt;td>Request successful&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>Request failed&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>404&lt;/td>
+&lt;td>Actor not found&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="url-parameters-11">URL Parameters&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>appPort&lt;/td>
+&lt;td>The application port.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorType&lt;/td>
+&lt;td>The actor type.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorId&lt;/td>
+&lt;td>The actor ID.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>reminderName&lt;/td>
+&lt;td>The name of the reminder to invoke.&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>Note, all URL parameters are case-sensitive.&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="examples-10">Examples&lt;/h4>
+&lt;p>Example of invoking a reminder for an actor: The example calls the checkRebels reminder method on the actor type stormtrooper that has actorId of 50&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X POST http://localhost:3000/actors/stormtrooper/50/method/remind/checkRebels &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="invoke-timer">Invoke timer&lt;/h3>
+&lt;p>Invokes a timer for an actor rwith the specified timerName. If the actor is not already running, the app side should &lt;a href="#activating-an-actor">activate&lt;/a> it.&lt;/p>
+&lt;h4 id="http-request-12">HTTP Request&lt;/h4>
+&lt;pre>&lt;code>PUT http://localhost:&amp;lt;appPort&amp;gt;/actors/&amp;lt;actorType&amp;gt;/&amp;lt;actorId&amp;gt;/method/timer/&amp;lt;timerName&amp;gt;
+&lt;/code>&lt;/pre>&lt;h4 id="http-response-codes-12">HTTP Response Codes&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>200&lt;/td>
+&lt;td>Request successful&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>Request failed&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>404&lt;/td>
+&lt;td>Actor not found&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="url-parameters-12">URL Parameters&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>appPort&lt;/td>
+&lt;td>The application port.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorType&lt;/td>
+&lt;td>The actor type.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorId&lt;/td>
+&lt;td>The actor ID.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>timerName&lt;/td>
+&lt;td>The name of the timer to invoke.&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>Note, all URL parameters are case-sensitive.&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="examples-11">Examples&lt;/h4>
+&lt;p>Example of invoking a timer for an actor: The example calls the checkRebels timer method on the actor type stormtrooper that has actorId of 50&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X POST http://localhost:3000/actors/stormtrooper/50/method/timer/checkRebels &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="health-check">Health check&lt;/h3>
+&lt;p>Probes the application for a response to signal to Dapr that the app is healthy and running. Any other response status code other than &lt;code>200&lt;/code> will be considered as an unhealthy response.&lt;/p>
+&lt;p>A response body is not required.&lt;/p>
+&lt;h4 id="http-request-13">HTTP Request&lt;/h4>
+&lt;pre>&lt;code>GET http://localhost:&amp;lt;appPort&amp;gt;/healthz
+&lt;/code>&lt;/pre>&lt;h4 id="http-response-codes-13">HTTP Response Codes&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>200&lt;/td>
+&lt;td>App is healthy&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="url-parameters-13">URL Parameters&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>appPort&lt;/td>
+&lt;td>The application port.&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="examples-12">Examples&lt;/h4>
+&lt;p>Example of getting a health check response from the app:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X GET http://localhost:3000/healthz &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="activating-an-actor">Activating an Actor&lt;/h2>
+&lt;p>Conceptually, activating an actor means creating the actor&amp;rsquo;s object and adding the actor to a tracking table. Here is an &lt;a href="https://github.com/dapr/dotnet-sdk/blob/6c271262231c41b21f3ca866eb0d55f7ce8b7dbc/src/Dapr.Actors/Runtime/ActorManager.cs#L199">example&lt;/a> from the .NET SDK.&lt;/p>
+&lt;h2 id="querying-actor-state-externally">Querying actor state externally&lt;/h2>
+&lt;p>In order to enable visibility into the state of an actor and allow for complex scenarios such as state aggregation, Dapr saves actor state in external state stores such as databases. As such, it is possible to query for an actor state externally by composing the correct key or query.&lt;/p>
+&lt;p>The state namespace created by Dapr for actors is composed of the following items:&lt;/p>
+&lt;ul>
+&lt;li>App ID - Represents the unique ID given to the Dapr application.&lt;/li>
+&lt;li>Actor Type - Represents the type of the actor.&lt;/li>
+&lt;li>Actor ID - Represents the unique ID of the actor instance for an actor type.&lt;/li>
+&lt;li>Key - A key for the specific state value. An actor ID can hold multiple state keys.&lt;/li>
+&lt;/ul>
+&lt;p>The following example shows how to construct a key for the state of an actor instance under the &lt;code>myapp&lt;/code> App ID namespace: &lt;code>myapp-cat-hobbit-food&lt;/code>&lt;/p>
+&lt;p>In the example above, we are getting the value for the state key &lt;code>food&lt;/code>, for the actor ID &lt;code>hobbit&lt;/code> with an actor type of &lt;code>cat&lt;/code>, under the App ID namespace of &lt;code>myapp&lt;/code>.&lt;/p></description></item><item><title>Reference: Secrets API reference</title><link>https://dapr-cn.github.io/docs/reference/api/secrets_api/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/reference/api/secrets_api/</guid><description>
+&lt;h2 id="get-secret">Get Secret&lt;/h2>
+&lt;p>This endpoint lets you get the value of a secret for a given secret store.&lt;/p>
+&lt;h3 id="http-request">HTTP Request&lt;/h3>
+&lt;pre>&lt;code>GET http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/secrets/&amp;lt;secret-store-name&amp;gt;/&amp;lt;name&amp;gt;
+&lt;/code>&lt;/pre>&lt;h4 id="url-parameters">URL Parameters&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>daprPort&lt;/td>
+&lt;td>the Dapr port&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>secret-store-name&lt;/td>
+&lt;td>the name of the secret store to get the secret from&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>name&lt;/td>
+&lt;td>the name of the secret to get&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>Note, all URL parameters are case-sensitive.&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="query-parameters">Query Parameters&lt;/h4>
+&lt;p>Some secret stores have &lt;strong>optional&lt;/strong> metadata properties. metadata is populated using query parameters:&lt;/p>
+&lt;pre>&lt;code>GET http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/secrets/&amp;lt;secret-store-name&amp;gt;/&amp;lt;name&amp;gt;?metadata.version_id=15
+&lt;/code>&lt;/pre>&lt;h5 id="gcp-secret-manager">GCP Secret Manager&lt;/h5>
+&lt;p>The following optional meta can be provided to the GCP Secret Manager component&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Query Parameter&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>metadata.version_id&lt;/td>
+&lt;td>version for the given secret key&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h5 id="aws-secret-manager">AWS Secret Manager&lt;/h5>
+&lt;p>The following optional meta can be provided to the AWS Secret Manager component&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Query Parameter&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>metadata.version_id&lt;/td>
+&lt;td>version for the given secret key&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>metadata.version_stage&lt;/td>
+&lt;td>version stage for the given secret key&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="http-response">HTTP Response&lt;/h3>
+&lt;h4 id="response-body">Response Body&lt;/h4>
+&lt;p>If a secret store has support for multiple keys in a secret, a JSON payload is returned with the key names as fields and their respective values.&lt;/p>
+&lt;p>In case of a secret store that only has name/value semantics, a JSON payload is returned with the name of the secret as the field and the value of the secret as the value.&lt;/p>
+&lt;h5 id="response-with-multiple-keys-in-a-secret-eg-kubernetes">Response with multiple keys in a secret (eg. Kubernetes):&lt;/h5>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl http://localhost:3500/v1.0/secrets/kubernetes/db-secret
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;key1&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;value1&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;key2&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;value2&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h5 id="response-with-no-keys-in-a-secret">Response with no keys in a secret:&lt;/h5>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl http://localhost:3500/v1.0/secrets/vault/db-secret
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;db-secret&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;value1&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="response-codes">Response Codes&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>200&lt;/td>
+&lt;td>OK&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>204&lt;/td>
+&lt;td>Secret not found&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>400&lt;/td>
+&lt;td>Secret store is missing or misconfigured&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>Failed to get secret&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="examples">Examples&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl http://localhost:3500/v1.0/secrets/vault/db-secret &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl http://localhost:3500/v1.0/secrets/vault/db-secret?metadata.version_id&lt;span style="color:#f92672">=&lt;/span>15&amp;amp;metadata.version_stage&lt;span style="color:#f92672">=&lt;/span>AAA &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>Note, in case of deploying into namespace other than default&lt;code>, the above query will also have to include the namespace metadata (e.g.&lt;/code>production` below)&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl http://localhost:3500/v1.0/secrets/vault/db-secret?metadata.version_id&lt;span style="color:#f92672">=&lt;/span>15&amp;amp;?metadata.namespace&lt;span style="color:#f92672">=&lt;/span>production
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: Health API reference</title><link>https://dapr-cn.github.io/docs/reference/api/health_api/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/reference/api/health_api/</guid><description>
+&lt;p>Dapr provides health checking probes that can be used as readiness or liveness of Dapr.&lt;/p>
+&lt;h2 id="get-dapr-health-state">Get Dapr health state&lt;/h2>
+&lt;p>Gets the health state for Dapr.&lt;/p>
+&lt;h3 id="http-request">HTTP Request&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-http" data-lang="http">&lt;span style="color:#960050;background-color:#1e0010">GET http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/healthz
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="http-response-codes">HTTP Response Codes&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>200&lt;/td>
+&lt;td>dapr is healthy&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>dapr is not healthy&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="url-parameters">URL Parameters&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>daprPort&lt;/td>
+&lt;td>The Dapr port.&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="examples">Examples&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl http://localhost:3500/v1.0/healthz
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: Error codes returned by APIs</title><link>https://dapr-cn.github.io/docs/reference/api/error_codes/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/reference/api/error_codes/</guid><description>
+&lt;p>For http calls made to Dapr runtime, when an error is encountered, an error json is returned in http response body. The json contains an error code and an descriptive error message, e.g.&lt;/p>
+&lt;pre>&lt;code>{
+&amp;quot;errorCode&amp;quot;: &amp;quot;ERR_STATE_GET&amp;quot;,
+&amp;quot;message&amp;quot;: &amp;quot;Requested state key does not exist in state store.&amp;quot;
+}
+&lt;/code>&lt;/pre>&lt;p>Following table lists the error codes returned by Dapr runtime:&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Error Code&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>ERR_ACTOR_INSTANCE_MISSING&lt;/td>
+&lt;td>Error getting an actor instance. This means that actor is now hosted in some other service replica.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_ACTOR_RUNTIME_NOT_FOUND&lt;/td>
+&lt;td>Error getting the actor instance.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_ACTOR_REMINDER_CREATE&lt;/td>
+&lt;td>Error creating a reminder for an actor.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_ACTOR_REMINDER_DELETE&lt;/td>
+&lt;td>Error deleting a reminder for an actor.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_ACTOR_TIMER_CREATE&lt;/td>
+&lt;td>Error creating a timer for an actor.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_ACTOR_TIMER_DELETE&lt;/td>
+&lt;td>Error deleting a timer for an actor.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_ACTOR_REMINDER_GET&lt;/td>
+&lt;td>Error getting a reminder for an actor.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_ACTOR_INVOKE_METHOD&lt;/td>
+&lt;td>Error invoking a method on an actor.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_ACTOR_STATE_DELETE&lt;/td>
+&lt;td>Error deleting the state for an actor.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_ACTOR_STATE_GET&lt;/td>
+&lt;td>Error getting the state for an actor.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_ACTOR_STATE_TRANSACTION_SAVE&lt;/td>
+&lt;td>Error storing actor state transactionally.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_PUBSUB_NOT_FOUND&lt;/td>
+&lt;td>Error referencing the Pub/Sub component in Dapr runtime.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_PUBSUB_PUBLISH_MESSAGE&lt;/td>
+&lt;td>Error publishing a message.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_PUBSUB_CLOUD_EVENTS_SER&lt;/td>
+&lt;td>Error serializing Pub/Sub event envelope.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_STATE_STORE_NOT_FOUND&lt;/td>
+&lt;td>Error referencing a state store not found.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_STATE_GET&lt;/td>
+&lt;td>Error getting a state for state store.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_STATE_DELETE&lt;/td>
+&lt;td>Error deleting a state from state store.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_STATE_SAVE&lt;/td>
+&lt;td>Error saving a state in state store.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_INVOKE_OUTPUT_BINDING&lt;/td>
+&lt;td>Error invoking an output binding.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_MALFORMED_REQUEST&lt;/td>
+&lt;td>Error with a malformed request.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_DIRECT_INVOKE&lt;/td>
+&lt;td>Error in direct invocation.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_DESERIALIZE_HTTP_BODY&lt;/td>
+&lt;td>Error deserializing an HTTP request body.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_SECRET_STORE_NOT_CONFIGURED&lt;/td>
+&lt;td>Error that no secret store is configured.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_SECRET_STORE_NOT_FOUND&lt;/td>
+&lt;td>Error that specified secret store is not found.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_HEALTH_NOT_READY&lt;/td>
+&lt;td>Error that Dapr is not ready.&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table></description></item></channel></rss>

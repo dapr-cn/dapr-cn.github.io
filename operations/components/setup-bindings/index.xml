@@ -1,0 +1,222 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – Bindings components</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/</link><description>Recent content in Bindings components on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="https://dapr-cn.github.io/docs/operations/components/setup-bindings/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: Supported external bindings</title><link>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/</guid><description>
+&lt;p>Every binding has its own unique set of properties. Click the name link to see the component YAML for each binding.&lt;/p>
+&lt;h3 id="generic">Generic&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th style="text-align:center">Input&lt;br>Binding&lt;/th>
+&lt;th style="text-align:center">Output&lt;br>Binding&lt;/th>
+&lt;th>Status&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/apns/">APNs&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Experimental&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/cron/">Cron (Scheduler)&lt;/a>&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Experimental&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/http/">HTTP&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Experimental&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/influxdb/">InfluxDB&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Experimental&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/kafka/">Kafka&lt;/a>&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Experimental&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/kubernetes-binding/">Kubernetes Events&lt;/a>&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td>Experimental&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/mqtt/">MQTT&lt;/a>&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Experimental&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/postgres/">PostgreSql&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Experimental&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/postmark/">Postmark&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Experimental&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/rabbitmq/">RabbitMQ&lt;/a>&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Experimental&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/redis/">Redis&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Experimental&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/twilio/">Twilio&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Experimental&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/twitter/">Twitter&lt;/a>&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Experimental&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/sendgrid/">SendGrid&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Experimental&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="amazon-web-services-aws">Amazon Web Services (AWS)&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th style="text-align:center">Input&lt;br>Binding&lt;/th>
+&lt;th style="text-align:center">Output&lt;br>Binding&lt;/th>
+&lt;th>Status&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/dynamodb/">AWS DynamoDB&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Experimental&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/s3/">AWS S3&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Experimental&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/sns/">AWS SNS&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Experimental&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/sqs/">AWS SQS&lt;/a>&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Experimental&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/kinesis/">AWS Kinesis&lt;/a>&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Experimental&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="google-cloud-platform-gcp">Google Cloud Platform (GCP)&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th style="text-align:center">Input&lt;br>Binding&lt;/th>
+&lt;th style="text-align:center">Output&lt;br>Binding&lt;/th>
+&lt;th>Status&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/gcppubsub/">GCP Cloud Pub/Sub&lt;/a>&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Experimental&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/gcpbucket/">GCP Storage Bucket&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Experimental&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="microsoft-azure">Microsoft Azure&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th style="text-align:center">Input&lt;br>Binding&lt;/th>
+&lt;th style="text-align:center">Output&lt;br>Binding&lt;/th>
+&lt;th>Status&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/blobstorage/">Azure Blob Storage&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Experimental&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/eventhubs/">Azure EventHubs&lt;/a>&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Experimental&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/cosmosdb/">Azure CosmosDB&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Experimental&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/servicebusqueues/">Azure Service Bus Queues&lt;/a>&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Experimental&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/signalr/">Azure SignalR&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Experimental&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/storagequeues/">Azure Storage Queues&lt;/a>&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Experimental&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://dapr-cn.github.io/docs/operations/components/setup-bindings/supported-bindings/eventgrid/">Azure Event Grid&lt;/a>&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Experimental&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table></description></item></channel></rss>

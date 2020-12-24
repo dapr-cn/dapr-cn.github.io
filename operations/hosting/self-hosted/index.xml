@@ -1,0 +1,170 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – Run Dapr in Self Hosted Mode</title><link>https://dapr-cn.github.io/docs/operations/hosting/self-hosted/</link><description>Recent content in Run Dapr in Self Hosted Mode on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="https://dapr-cn.github.io/docs/operations/hosting/self-hosted/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: Overview of Dapr in self-hosted mode</title><link>https://dapr-cn.github.io/docs/operations/hosting/self-hosted/self-hosted-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/hosting/self-hosted/self-hosted-overview/</guid><description>
+&lt;p>Dapr can be configured to run on your local developer machine in self hosted mode. Each running service has a Dapr runtime process (or sidecar) which is configured to use state stores, pub/sub, binding components and the other building blocks.&lt;/p>
+&lt;p>In self hosted mode, Redis is running locally in a container and is configured to serve as both the default component for state store and for pub/sub. A Zipkin container is also configured for diagnostics and tracing. After running &lt;code>dapr init&lt;/code>, see the &lt;code>$HOME/.dapr/components&lt;/code> directory (Mac/Linux) or &lt;code>%USERPROFILE%\.dapr\components&lt;/code> on Windows.&lt;/p>
+&lt;p>The &lt;code>dapr-placement&lt;/code> service is responsible for managing the actor distribution scheme and key range settings. This service is only required if you are using Dapr actors. For more information on the actor &lt;code>Placement&lt;/code> service read &lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/actors/actors-overview/">actor overview&lt;/a>.&lt;/p>
+&lt;img src="https://dapr-cn.github.io/docs/images/overview_standalone.png" width=800>
+&lt;p>You can use the &lt;a href="https://github.com/dapr/cli#launch-dapr-and-your-app">Dapr CLI&lt;/a> to run a Dapr enabled application on your local machine.&lt;/p></description></item><item><title>Operations: How-To: Run Dapr in self-hosted mode with Docker</title><link>https://dapr-cn.github.io/docs/operations/hosting/self-hosted/self-hosted-with-docker/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/hosting/self-hosted/self-hosted-with-docker/</guid><description>
+&lt;p>This article provides guidance on running Dapr with Docker outside of Kubernetes. There are a number of different configurations in which you may wish to run Dapr with Docker that are documented below.&lt;/p>
+&lt;h2 id="prerequisites">Prerequisites&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.docker.com/get-docker/">Docker&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.docker.com/compose/install/">Docker-Compose&lt;/a> (optional)&lt;/li>
+&lt;/ul>
+&lt;h2 id="select-a-docker-image">Select a Docker image&lt;/h2>
+&lt;p>Dapr provides a number of prebuilt Docker images for different components, you should select the relevant image for your desired binary, architecture, and tag/version.&lt;/p>
+&lt;h3 id="images">Images&lt;/h3>
+&lt;p>There are published Docker images for each of the Dapr components available on &lt;a href="https://hub.docker.com/u/daprio">Docker Hub&lt;/a>.&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://hub.docker.com/r/daprio/dapr">daprio/dapr&lt;/a> (contains all Dapr binaries)&lt;/li>
+&lt;li>&lt;a href="https://hub.docker.com/r/daprio/daprd">daprio/daprd&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://hub.docker.com/r/daprio/placement">daprio/placement&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://hub.docker.com/r/daprio/sentry">daprio/sentry&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://hub.docker.com/r/daprio/dapr-dev">daprio/dapr-dev&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h3 id="tags">Tags&lt;/h3>
+&lt;h4 id="linuxamd64">Linux/amd64&lt;/h4>
+&lt;ul>
+&lt;li>&lt;code>latest&lt;/code>: The latest release version, &lt;strong>ONLY&lt;/strong> use for development purposes.&lt;/li>
+&lt;li>&lt;code>edge&lt;/code>: The latest edge build (master).&lt;/li>
+&lt;li>&lt;code>major.minor.patch&lt;/code>: A release version.&lt;/li>
+&lt;li>&lt;code>major.minor.patch-rc.iteration&lt;/code>: A release candidate.&lt;/li>
+&lt;/ul>
+&lt;h4 id="linuxarmv7">Linux/arm/v7&lt;/h4>
+&lt;ul>
+&lt;li>&lt;code>latest-arm&lt;/code>: The latest release version for ARM, &lt;strong>ONLY&lt;/strong> use for development purposes.&lt;/li>
+&lt;li>&lt;code>edge-arm&lt;/code>: The latest edge build for ARM (master).&lt;/li>
+&lt;li>&lt;code>major.minor.patch-arm&lt;/code>: A release version for ARM.&lt;/li>
+&lt;li>&lt;code>major.minor.patch-rc.iteration-arm&lt;/code>: A release candidate for ARM.&lt;/li>
+&lt;/ul>
+&lt;h2 id="run-app-as-a-process">Run app as a process&lt;/h2>
+&lt;blockquote>
+&lt;p>For development purposes ONLY&lt;/p>
+&lt;/blockquote>
+&lt;p>If you are running Dapr in a Docker container and your app as a process on the host machine, then you need to configure Docker to use the host network so that Dapr and the app can share a localhost network interface. Unfortunately, the host networking driver for Docker is only supported on Linux hosts. If you are running your Docker daemon on a Linux host, you should be able to run the following to launch Dapr.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">docker run --net&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;host&amp;#34;&lt;/span> --mount type&lt;span style="color:#f92672">=&lt;/span>bind,source&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span>&lt;span style="color:#66d9ef">$(&lt;/span>pwd&lt;span style="color:#66d9ef">)&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span>/components,target&lt;span style="color:#f92672">=&lt;/span>/components daprio/daprd:edge ./daprd -app-id &amp;lt;my-app-id&amp;gt; -app-port &amp;lt;my-app-port&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Then you can run your app on the host and they should connect over the localhost network interface.&lt;/p>
+&lt;p>However, if you are not running your Docker daemon on a Linux host, it is recommended you follow the steps below to run both your app and the &lt;a href="#run-dapr-in-a-docker-container-using-docker-compose">Dapr runtime in Docker containers using Docker Compose&lt;/a>.&lt;/p>
+&lt;h2 id="run-app-and-dapr-in-a-single-docker-container">Run app and Dapr in a single Docker container&lt;/h2>
+&lt;blockquote>
+&lt;p>For development purposes ONLY&lt;/p>
+&lt;/blockquote>
+&lt;p>It is not recommended to run both the Dapr runtime and an application inside the same container. However, it is possible to do so for local development scenarios. In order to do this, you&amp;rsquo;ll need to write a Dockerfile that installs the Dapr runtime, Dapr CLI and your app code. You can then invoke both the Dapr runtime and your app code using the Dapr CLI.&lt;/p>
+&lt;p>Below is an example of a Dockerfile which achieves this:&lt;/p>
+&lt;pre>&lt;code>FROM python:3.7.1
+# Install dapr CLI
+RUN wget -q https://raw.githubusercontent.com/dapr/cli/master/install/install.sh -O - | /bin/bash
+# Install daprd
+ARG DAPR_BUILD_DIR
+COPY $DAPR_BUILD_DIR /opt/dapr
+ENV PATH=&amp;quot;/opt/dapr/:${PATH}&amp;quot;
+# Install your app
+WORKDIR /app
+COPY python .
+RUN pip install requests
+ENTRYPOINT [&amp;quot;dapr&amp;quot;]
+CMD [&amp;quot;run&amp;quot;, &amp;quot;--app-id&amp;quot;, &amp;quot;nodeapp&amp;quot;, &amp;quot;--app-port&amp;quot;, &amp;quot;3000&amp;quot;, &amp;quot;node&amp;quot;, &amp;quot;app.js&amp;quot;]
+&lt;/code>&lt;/pre>&lt;p>Remember that if Dapr needs to communicate with other components i.e. Redis, these also need to be made accessible to it.&lt;/p>
+&lt;h2 id="run-on-a-docker-network">Run on a Docker network&lt;/h2>
+&lt;p>If you have multiple instances of Dapr running in Docker containers and want them to be able to communicate with each other i.e. for service invocation, then you&amp;rsquo;ll need to create a shared Docker network and make sure those Dapr containers are attached to it.&lt;/p>
+&lt;p>You can create a simple Docker network using&lt;/p>
+&lt;pre>&lt;code>docker network create my-dapr-network
+&lt;/code>&lt;/pre>&lt;p>When running your Docker containers, you can attach them to the network using&lt;/p>
+&lt;pre>&lt;code>docker run --net=my-dapr-network ...
+&lt;/code>&lt;/pre>&lt;p>Each container will receive a unique IP on that network and be able to communicate with other containers on that network.&lt;/p>
+&lt;h2 id="run-using-docker-compose">Run using Docker-Compose&lt;/h2>
+&lt;p>&lt;a href="https://docs.docker.com/compose/">Docker Compose&lt;/a> can be used to define multi-container application configurations. If you wish to run multiple apps with Dapr sidecars locally without Kubernetes then it is recommended to use a Docker Compose definition (&lt;code>docker-compose.yml&lt;/code>).&lt;/p>
+&lt;p>The syntax and tooling of Docker Compose is outside the scope of this article, however, it is recommended you refer to the &lt;a href="https://docs.docker.com/compose/">offical Docker documentation&lt;/a> for further details.&lt;/p>
+&lt;p>In order to run your applications using Dapr and Docker Compose you&amp;rsquo;ll need to define the sidecar pattern in your &lt;code>docker-compose.yml&lt;/code>. For example:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#e6db74">&amp;#39;3&amp;#39;&lt;/span>
+&lt;span style="color:#f92672">services&lt;/span>:
+&lt;span style="color:#f92672">nodeapp&lt;/span>:
+&lt;span style="color:#f92672">build&lt;/span>: &lt;span style="color:#ae81ff">./node&lt;/span>
+&lt;span style="color:#f92672">ports&lt;/span>:
+- &lt;span style="color:#e6db74">&amp;#34;50001:50001&amp;#34;&lt;/span> &lt;span style="color:#75715e"># Dapr instances communicate over gRPC so we need to expose the gRPC port&lt;/span>
+&lt;span style="color:#f92672">depends_on&lt;/span>:
+- &lt;span style="color:#ae81ff">redis&lt;/span>
+- &lt;span style="color:#ae81ff">placement&lt;/span>
+&lt;span style="color:#f92672">networks&lt;/span>:
+- &lt;span style="color:#ae81ff">hello-dapr&lt;/span>
+&lt;span style="color:#f92672">nodeapp-dapr&lt;/span>:
+&lt;span style="color:#f92672">image&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;daprio/daprd:edge&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">command&lt;/span>: [
+&lt;span style="color:#e6db74">&amp;#34;./daprd&amp;#34;&lt;/span>,
+&lt;span style="color:#e6db74">&amp;#34;-app-id&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;nodeapp&amp;#34;&lt;/span>,
+&lt;span style="color:#e6db74">&amp;#34;-app-port&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;3000&amp;#34;&lt;/span>,
+&lt;span style="color:#e6db74">&amp;#34;-placement-host-address&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;placement:50006&amp;#34;&lt;/span> &lt;span style="color:#75715e"># Dapr&amp;#39;s placement service can be reach via the docker DNS entry&lt;/span>
+]
+&lt;span style="color:#f92672">volumes&lt;/span>:
+- &lt;span style="color:#e6db74">&amp;#34;./components/:/components&amp;#34;&lt;/span> &lt;span style="color:#75715e"># Mount our components folder for the runtime to use&lt;/span>
+&lt;span style="color:#f92672">depends_on&lt;/span>:
+- &lt;span style="color:#ae81ff">nodeapp&lt;/span>
+&lt;span style="color:#f92672">network_mode&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;service:nodeapp&amp;#34;&lt;/span> &lt;span style="color:#75715e"># Attach the nodeapp-dapr service to the nodeapp network namespace&lt;/span>
+&lt;span style="color:#ae81ff">...&lt;/span> &lt;span style="color:#75715e"># Deploy other daprized services and components (i.e. Redis)&lt;/span>
+&lt;span style="color:#f92672">placement&lt;/span>:
+&lt;span style="color:#f92672">image&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;daprio/dapr&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">command&lt;/span>: [&lt;span style="color:#e6db74">&amp;#34;./placement&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;-port&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;50006&amp;#34;&lt;/span>]
+&lt;span style="color:#f92672">ports&lt;/span>:
+- &lt;span style="color:#e6db74">&amp;#34;50006:50006&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">networks&lt;/span>:
+- &lt;span style="color:#ae81ff">hello-dapr&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>For those running the Docker daemon on a Linux host, you can also use &lt;code>network_mode: host&lt;/code> to leverage host networking if needed.&lt;/p>
+&lt;/blockquote>
+&lt;p>To further learn how to run Dapr with Docker Compose, see the &lt;a href="https://github.com/dapr/samples/tree/master/hello-docker-compose">Docker-Compose Sample&lt;/a>.&lt;/p>
+&lt;h2 id="run-on-kubernetes">Run on Kubernetes&lt;/h2>
+&lt;p>If your deployment target is Kubernetes then you&amp;rsquo;re probably better of running your applicaiton and Dapr sidecars directly on a Kubernetes platform. Running Dapr on Kubernetes is a first class experience and is documented separately. Please refer to the &lt;a href="https://dapr-cn.github.io/docs/operations/hosting/kubernetes/kubernetes-overview/">Dapr on Kubernetes docs&lt;/a>&lt;/p></description></item><item><title>Operations: How-To: Run Dapr in self-hosted mode without Docker</title><link>https://dapr-cn.github.io/docs/operations/hosting/self-hosted/self-hosted-no-docker/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/hosting/self-hosted/self-hosted-no-docker/</guid><description>
+&lt;p>This article provides guidance on running Dapr in self-hosted mode without Docker.&lt;/p>
+&lt;h2 id="prerequisites">Prerequisites&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/docs/getting-started/install-dapr-selfhost/#installing-dapr-cli">Dapr CLI&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="initialize-dapr-without-containers">Initialize Dapr without containers&lt;/h2>
+&lt;p>The Dapr CLI provides an option to initialize Dapr using slim init, without the default creation of a development environment which has a dependency on Docker. To initialize Dapr with slim init, after installing the Dapr CLI use the following command:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr init --slim
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>In this mode two different binaries are installed &lt;code>daprd&lt;/code> and &lt;code>placement&lt;/code>. The &lt;code>placement&lt;/code> binary is needed to enable &lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/actors/actors-overview/">actors&lt;/a> in a Dapr self-hosted installation.&lt;/p>
+&lt;p>In this mode no default components such as Redis are installed for state management or pub/sub. This means, that aside from &lt;a href="https://dapr-cn.github.io/docs/developing-applications/building-blocks/service-invocation/service-invocation-overview/">Service Invocation&lt;/a>, no other building block functionality is available on install out of the box. Users are free to setup their own environment and custom components. Furthermore, actor based service invocation is possible if a state store is configured as explained in the following sections.&lt;/p>
+&lt;h2 id="service-invocation">Service invocation&lt;/h2>
+&lt;p>See &lt;a href="https://github.com/dapr/samples/tree/master/hello-dapr-slim">this sample&lt;/a> for an example on how to perform service invocation in this mode.&lt;/p>
+&lt;h2 id="enabling-state-management-or-pubsub">Enabling state management or pub/sub&lt;/h2>
+&lt;p>See configuring Redis in self hosted mode &lt;a href="https://redis.io/topics/quickstart">without docker&lt;/a> to enable a local state store or pub/sub broker for messaging.&lt;/p>
+&lt;h2 id="enabling-actors">Enabling actors&lt;/h2>
+&lt;p>The placement service must be run locally to enable actor placement. Also a &lt;a href="#Enabling-state-management-or-pub/sub">transactional state store&lt;/a> must be enabled for actors.&lt;/p>
+&lt;p>By default for Linux/MacOS the &lt;code>placement&lt;/code> binary is installed in &lt;code>/$HOME/.dapr/bin&lt;/code> or for Windows at &lt;code>%USERPROFILE%\.dapr\bin&lt;/code>.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">$ $HOME/.dapr/bin/placement
+INFO&lt;span style="color:#f92672">[&lt;/span>0000&lt;span style="color:#f92672">]&lt;/span> starting Dapr Placement Service -- version 1.0.0-rc.1 -- commit 13ae49d instance&lt;span style="color:#f92672">=&lt;/span>Nicoletaz-L10.redmond.corp.microsoft.com scope&lt;span style="color:#f92672">=&lt;/span>dapr.placement type&lt;span style="color:#f92672">=&lt;/span>log ver&lt;span style="color:#f92672">=&lt;/span>1.0.0-rc.1
+INFO&lt;span style="color:#f92672">[&lt;/span>0000&lt;span style="color:#f92672">]&lt;/span> log level set to: info instance&lt;span style="color:#f92672">=&lt;/span>Nicoletaz-L10.redmond.corp.microsoft.com scope&lt;span style="color:#f92672">=&lt;/span>dapr.placement type&lt;span style="color:#f92672">=&lt;/span>log ver&lt;span style="color:#f92672">=&lt;/span>1.0.0-rc.1
+INFO&lt;span style="color:#f92672">[&lt;/span>0000&lt;span style="color:#f92672">]&lt;/span> metrics server started on :9090/ instance&lt;span style="color:#f92672">=&lt;/span>Nicoletaz-L10.redmond.corp.microsoft.com scope&lt;span style="color:#f92672">=&lt;/span>dapr.metrics type&lt;span style="color:#f92672">=&lt;/span>log ver&lt;span style="color:#f92672">=&lt;/span>1.0.0-rc.1
+INFO&lt;span style="color:#f92672">[&lt;/span>0000&lt;span style="color:#f92672">]&lt;/span> Raft server is starting on 127.0.0.1:8201... instance&lt;span style="color:#f92672">=&lt;/span>Nicoletaz-L10.redmond.corp.microsoft.com scope&lt;span style="color:#f92672">=&lt;/span>dapr.placement.raft type&lt;span style="color:#f92672">=&lt;/span>log ver&lt;span style="color:#f92672">=&lt;/span>1.0.0-rc.1
+INFO&lt;span style="color:#f92672">[&lt;/span>0000&lt;span style="color:#f92672">]&lt;/span> placement service started on port &lt;span style="color:#ae81ff">50005&lt;/span> instance&lt;span style="color:#f92672">=&lt;/span>Nicoletaz-L10.redmond.corp.microsoft.com scope&lt;span style="color:#f92672">=&lt;/span>dapr.placement type&lt;span style="color:#f92672">=&lt;/span>log ver&lt;span style="color:#f92672">=&lt;/span>1.0.0-rc.1
+INFO&lt;span style="color:#f92672">[&lt;/span>0000&lt;span style="color:#f92672">]&lt;/span> Healthz server is listening on :8080 instance&lt;span style="color:#f92672">=&lt;/span>Nicoletaz-L10.redmond.corp.microsoft.com scope&lt;span style="color:#f92672">=&lt;/span>dapr.placement type&lt;span style="color:#f92672">=&lt;/span>log ver&lt;span style="color:#f92672">=&lt;/span>1.0.0-rc.1
+INFO&lt;span style="color:#f92672">[&lt;/span>0001&lt;span style="color:#f92672">]&lt;/span> cluster leadership acquired instance&lt;span style="color:#f92672">=&lt;/span>Nicoletaz-L10.redmond.corp.microsoft.com scope&lt;span style="color:#f92672">=&lt;/span>dapr.placement type&lt;span style="color:#f92672">=&lt;/span>log ver&lt;span style="color:#f92672">=&lt;/span>1.0.0-rc.1
+INFO&lt;span style="color:#f92672">[&lt;/span>0001&lt;span style="color:#f92672">]&lt;/span> leader is established. instance&lt;span style="color:#f92672">=&lt;/span>Nicoletaz-L10.redmond.corp.microsoft.com scope&lt;span style="color:#f92672">=&lt;/span>dapr.placement type&lt;span style="color:#f92672">=&lt;/span>log ver&lt;span style="color:#f92672">=&lt;/span>1.0.0-rc.1
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>From here on you can follow the sample example created for the &lt;a href="https://github.com/dapr/java-sdk/tree/master/examples/src/main/java/io/dapr/examples/actors/http">java-sdk&lt;/a>, &lt;a href="https://github.com/dapr/python-sdk/tree/master/examples/demo_actor">python-sdk&lt;/a> or &lt;a href="https://github.com/dapr/dotnet-sdk/tree/master/samples/Actor">dotnet-sdk&lt;/a> for running an application with Actors enabled.&lt;/p>
+&lt;p>Update the state store configuration files to have the Redis host and password match the setup that you have. Additionally to enable it as a actor state store have the metadata piece added similar to the &lt;a href="https://github.com/dapr/java-sdk/blob/master/examples/components/redis.yaml">sample Java Redis component&lt;/a> definition.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml"> - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">actorStateStore&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="cleanup">Cleanup&lt;/h2>
+&lt;p>Follow the uninstall &lt;a href="https://dapr-cn.github.io/docs/getting-started/install-dapr-selfhost/#uninstall-dapr-in-a-self-hosted-mode">instructions&lt;/a> to remove the binaries.&lt;/p></description></item><item><title>Operations: Steps to upgrade Dapr in a self-hosted environment</title><link>https://dapr-cn.github.io/docs/operations/hosting/self-hosted/self-hosted-upgrade/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/docs/operations/hosting/self-hosted/self-hosted-upgrade/</guid><description>
+&lt;ol>
+&lt;li>
+&lt;p>Uninstall the current Dapr deployment:&lt;/p>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Note&lt;/h4>
+This will remove the default &lt;code>$HOME/.dapr&lt;/code> directory, binaries and all containers (dapr_redis, dapr_placement and dapr_zipkin). Linux users need to run &lt;code>sudo&lt;/code> if docker command needs sudo.
+&lt;/div>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr uninstall --all
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Download and install the latest CLI by visiting &lt;a href="https://dapr-cn.github.io/docs/getting-started/install-dapr-cli/">this guide&lt;/a>.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Initialize the Dapr runtime:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr init --runtime-version&lt;span style="color:#f92672">=&lt;/span>1.0.0-rc.2
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Ensure you are using the latest version of Dapr (1.0.0-rc.2) with:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">$ dapr --version
+CLI version: 1.0.0-rc.3
+Runtime version: 1.0.0-rc.2
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;/ol></description></item></channel></rss>
