@@ -15,30 +15,30 @@
 &lt;img src="https://dapr-cn.github.io/images/service-invocation-overview.png" width=800 alt="Diagram showing the steps of service invocation">
 &lt;ol>
 &lt;li>
-&lt;p>Service A makes an http/gRPC call targeting Service B. The call goes to the local Dapr sidecar.&lt;/p>
+&lt;p>服务 A 对服务 B 发起HTTP/gRPC的调用。调用发送到本地 Dapr 边车。&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>Dapr discovers Service B&amp;rsquo;s location using the &lt;a href="https://github.com/dapr/components-contrib/tree/master/nameresolution">name resolution component&lt;/a> which is running on the given &lt;a href="https://dapr-cn.github.io/operations/hosting/">hosting platform&lt;/a>.&lt;/p>
+&lt;p>Dapr 使用在给定 &lt;a href="https://dapr-cn.github.io/operations/hosting/"> 托管平台&lt;/a> 上运行的 &lt;a href="https://github.com/dapr/components-contrib/tree/master/nameresolution">命名解析组件&lt;/a> 发现服务 B的位置。&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>Dapr forwards the message to Service B&amp;rsquo;s Dapr sidecar&lt;/p>
-&lt;p>&lt;strong>Note&lt;/strong>: All calls between Dapr sidecars go over gRPC for performance. Only calls between services and Dapr sidecars can be either HTTP or gRPC&lt;/p>
+&lt;p>Dapr 将消息转发至服务 B的 Dapr 边车&lt;/p>
+&lt;p>&lt;strong>注&lt;/strong>: Dapr 边车之间的所有调用考虑到性能都优先使用 gRPC。 仅服务与 Dapr 边车之间的调用可以是 HTTP 或 gRPC&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>Service B&amp;rsquo;s Dapr sidecar forwards the request to the specified endpoint (or method) on Service B. Service B then runs its business logic code.&lt;/p>
+&lt;p>服务 B的 Dapr 边车将请求转发至服务 B 上的特定端点 (或方法) 。服务 B 随后运行其业务逻辑代码。&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>Service B sends a response to Service A. The response goes to Service B&amp;rsquo;s sidecar.&lt;/p>
+&lt;p>服务 B 发送响应给服务 A。响应将转至服务 B 的边车。&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>Dapr forwards the response to Service A&amp;rsquo;s Dapr sidecar.&lt;/p>
+&lt;p>Dapr 将消息转发至服务 A 的 Dapr 边车。&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>Service A receives the response.&lt;/p>
+&lt;p>服务 A 接收响应。&lt;/p>
 &lt;/li>
 &lt;/ol>
-&lt;h2 id="features">Features&lt;/h2>
-&lt;p>Service invocation provides several features to make it easy for you to call methods on remote applications.&lt;/p>
+&lt;h2 id="特性">特性&lt;/h2>
+&lt;p>服务调用提供了一系列特性，使您可以方便地调用远程应用程序上的方法。&lt;/p>
 &lt;h3 id="service-invocation-api">Service invocation API&lt;/h3>
 &lt;p>The API for Pservice invocation can be found in the &lt;a href="https://dapr-cn.github.io/reference/api/service_invocation_api/">spec repo&lt;/a>.&lt;/p>
 &lt;h3 id="namespaces-scoping">Namespaces scoping&lt;/h3>

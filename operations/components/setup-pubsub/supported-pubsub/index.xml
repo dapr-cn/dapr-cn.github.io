@@ -613,7 +613,7 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;ul>
 &lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: NATS streaming</title><link>https://dapr-cn.github.io/operations/components/setup-pubsub/supported-pubsub/setup-nats-streaming/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-pubsub/supported-pubsub/setup-nats-streaming/</guid><description>
-&lt;h2 id="setup-nats">Setup NATS&lt;/h2>
+&lt;h2 id="安装-nats">安装 NATS&lt;/h2>
 &lt;ul class="nav nav-tabs" id="tabs-0" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
 id="tabs-0-self-hosted-tab" data-toggle="tab" href="#tabs-0-self-hosted" role="tab"
 aria-controls="tabs-0-self-hosted" aria-selected="true">
@@ -627,23 +627,23 @@ Kubernetes
 &lt;/li>&lt;/ul>
 &lt;div class="tab-content" id="tabs-0-content">
 &lt;div class="tab-pane fade show active" id="tabs-0-self-hosted" role="tabpanel" aria-labelled-by="tabs-0-self-hosted-tab">
-&lt;br />&lt;p>You can run a NATS server locally using Docker:&lt;/p>
+&lt;br />&lt;p>您可以在本地使用 Docker运行NATS 服务器：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">docker run -d -name nats-streaming -p 4222:4222 -p 8222:8222 nats-streaming
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>You can then interact with the server using the client port: &lt;code>localhost:4222&lt;/code>.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后，您可以使用 &lt;code>localhost:4222&lt;/code> 与服务器进行交互。&lt;/p>
 &lt;/div>
 &lt;div class="tab-pane fade" id="tabs-0-kubernetes" role="tabpanel" aria-labelled-by="tabs-0-kubernetes-tab">
-&lt;br />&lt;p>Install NATS on Kubernetes by using the &lt;a href="https://docs.nats.io/nats-on-kubernetes/minimal-setup">kubectl&lt;/a>:&lt;/p>
+&lt;br />&lt;p>使用 &lt;a href="https://docs.nats.io/nats-on-kubernetes/minimal-setup">kubectl&lt;/a> 在 Kubernetes 上安装 NATS:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#75715e"># Single server NATS&lt;/span>
 kubectl apply -f https://raw.githubusercontent.com/nats-io/k8s/master/nats-server/single-server-nats.yml
 kubectl apply -f https://raw.githubusercontent.com/nats-io/k8s/master/nats-streaming-server/single-server-stan.yml
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>This will install a single NATS-Streaming and Nats into the &lt;code>default&lt;/code> namespace. To interact with NATS, find the service with: &lt;code>kubectl get svc stan&lt;/code>.&lt;/p>
-&lt;p>For example, if installing using the example above, the NATS Streaming address would be:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这将把一个 NATS-Streaming 和 NATS 安装到 &lt;code>default&lt;/code> 命名空间。 To interact with NATS, find the service with: &lt;code>kubectl get svc stan&lt;/code>.&lt;/p>
+&lt;p>如果使用上面的示例进行安装，那么 NATS Streaming 的请求地址将是:&lt;/p>
 &lt;p>&lt;code>&amp;lt;YOUR-HOST&amp;gt;:4222&lt;/code>&lt;/p>
 &lt;/div>
 &lt;/div>
-&lt;h2 id="create-a-dapr-component">Create a Dapr component&lt;/h2>
-&lt;p>The next step is to create a Dapr component for NATS-Streaming.&lt;/p>
-&lt;p>Create the following YAML file named &lt;code>nats-stan.yaml&lt;/code>:&lt;/p>
+&lt;h2 id="创建-dapr-组件">创建 Dapr 组件&lt;/h2>
+&lt;p>下一步是该 NATS - Streaming 创建 Dapr 组件描述的 Yaml 文件, 以供 Dapr 装载该 pubsub 组件。&lt;/p>
+&lt;p>创建 &lt;code>nats-stan.yaml&lt;/code> YAML 文件, 内容如下:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -684,11 +684,11 @@ kubectl apply -f https://raw.githubusercontent.com/nats-io/k8s/master/nats-strea
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/">here&lt;/a>.
+以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/%7D">here&lt;/a>。
 &lt;/div>
-&lt;h2 id="apply-the-configuration">Apply the configuration&lt;/h2>
-&lt;p>Visit &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components.&lt;/p>
-&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;h2 id="应用配置">应用配置&lt;/h2>
+&lt;p>请访问 &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">本指南&lt;/a> ，了解如何配置 pub/sub 组件。&lt;/p>
+&lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: Pulsar</title><link>https://dapr-cn.github.io/operations/components/setup-pubsub/supported-pubsub/setup-pulsar/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-pubsub/supported-pubsub/setup-pulsar/</guid><description>

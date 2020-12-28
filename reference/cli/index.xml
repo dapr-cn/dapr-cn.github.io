@@ -423,15 +423,15 @@ zsh Generates zsh completion scripts
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr invoke --app-id target --method sample --data &lt;span style="color:#e6db74">&amp;#39;{&amp;#34;key&amp;#34;:&amp;#34;value&amp;#34;}&amp;#39;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="invoke-a-sample-method-on-target-app-with-get-verb">Invoke a sample method on target app with GET Verb&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr invoke --app-id target --method sample --verb GET
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: list CLI command reference</title><link>https://dapr-cn.github.io/reference/cli/dapr-list/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/reference/cli/dapr-list/</guid><description>
-&lt;h2 id="description">Description&lt;/h2>
-&lt;p>List all Dapr instances.&lt;/p>
-&lt;h2 id="supported-platforms">Supported platforms&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: list CLI 命令参考</title><link>https://dapr-cn.github.io/reference/cli/dapr-list/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/reference/cli/dapr-list/</guid><description>
+&lt;h2 id="描述">描述&lt;/h2>
+&lt;p>列出所有 Dapr 实例。&lt;/p>
+&lt;h2 id="支持的平台">支持的平台&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/operations/hosting/self-hosted/">Self-Hosted&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/operations/hosting/self-hosted/">自托管&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://dapr-cn.github.io/operations/hosting/kubernetes/">Kubernetes&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;h2 id="usage">Usage&lt;/h2>
+&lt;h2 id="用法">用法&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr list &lt;span style="color:#f92672">[&lt;/span>flags&lt;span style="color:#f92672">]&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="flags">Flags&lt;/h2>
 &lt;table>

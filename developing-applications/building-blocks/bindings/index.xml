@@ -1,55 +1,55 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – Bindings</title><link>https://dapr-cn.github.io/developing-applications/building-blocks/bindings/</link><description>Recent content in Bindings on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Bindings overview</title><link>https://dapr-cn.github.io/developing-applications/building-blocks/bindings/bindings-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/building-blocks/bindings/bindings-overview/</guid><description>
-&lt;h2 id="introduction">Introduction&lt;/h2>
-&lt;p>Using bindings, you can trigger your app with events coming in from external systems, or interface with external systems. This building block provides several benefits for you and your code:&lt;/p>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – 绑定</title><link>https://dapr-cn.github.io/developing-applications/building-blocks/bindings/</link><description>Recent content in 绑定 on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: 绑定概述</title><link>https://dapr-cn.github.io/developing-applications/building-blocks/bindings/bindings-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/building-blocks/bindings/bindings-overview/</guid><description>
+&lt;h2 id="简介">简介&lt;/h2>
+&lt;p>使用绑定，您可以使用来自外部系统的事件或与外部系统的接口来触发应用程序。 此构建块为您和您的代码提供了若干益处 :&lt;/p>
 &lt;ul>
-&lt;li>Remove the complexities of connecting to, and polling from, messaging systems such as queues and message buses&lt;/li>
-&lt;li>Focus on business logic and not implementation details of how to interact with a system&lt;/li>
-&lt;li>Keep your code free from SDKs or libraries&lt;/li>
-&lt;li>Handle retries and failure recovery&lt;/li>
-&lt;li>Switch between bindings at run time&lt;/li>
-&lt;li>Build portable applications where environment-specific bindings are set-up and no code changes are required&lt;/li>
+&lt;li>除去连接到消息传递系统 ( 如队列和消息总线 ) 并进行轮询的复杂性&lt;/li>
+&lt;li>聚焦于业务逻辑，而不是如何与系统交互的实现细节&lt;/li>
+&lt;li>使代码不受 SDK 或库的跟踪&lt;/li>
+&lt;li>处理重试和故障恢复&lt;/li>
+&lt;li>在运行时在绑定之间切换&lt;/li>
+&lt;li>构建具有特定于环境的绑定的可移植应用程序，不需要进行代码更改&lt;/li>
 &lt;/ul>
-&lt;p>For a specific example, bindings would allow your microservice to respond to incoming Twilio/SMS messages without adding or configuring a third-party Twilio SDK, worrying about polling from Twilio (or using websockets, etc.).&lt;/p>
-&lt;p>Bindings are developed independently of Dapr runtime. You can view and contribute to the bindings &lt;a href="https://github.com/dapr/components-contrib/tree/master/bindings">here&lt;/a>.&lt;/p>
-&lt;h2 id="input-bindings">Input bindings&lt;/h2>
-&lt;p>Input bindings are used to trigger your application when an event from an external resource has occurred. An optional payload and metadata may be sent with the request.&lt;/p>
-&lt;p>In order to receive events from an input binding:&lt;/p>
+&lt;p>对于特定示例，绑定将允许微服务响应入局 Twilo/SMS 消息而不添加或配置第三方 Twilio SDK，担心来自 Twilio 的轮询 (或使用 websockets 等 ) 。&lt;/p>
+&lt;p>绑定是独立于 Dapr 运行时开发的。 您可以在 &lt;a href="https://github.com/dapr/components-contrib/tree/master/bindings">这里&lt;/a> 查看绑定并做出贡献。&lt;/p>
+&lt;h2 id="输入绑定">输入绑定&lt;/h2>
+&lt;p>输入绑定用于在发生来自外部资源的事件时触发应用程序。 可选的有效负载和元数据可以与请求一起发送。&lt;/p>
+&lt;p>为了接收来自输入绑定的事件 :&lt;/p>
 &lt;ol>
-&lt;li>Define the component YAML that describes the type of binding and its metadata (connection info, etc.)&lt;/li>
-&lt;li>Listen on an HTTP endpoint for the incoming event, or use the gRPC proto library to get incoming events&lt;/li>
+&lt;li>定义描述绑定类型及其元数据 ( 连接信息等) 的组件 YAML&lt;/li>
+&lt;li>监听传入事件的 HTTP 终结点，或使用 gRPC 原型库获取传入事件&lt;/li>
 &lt;/ol>
 &lt;blockquote>
-&lt;p>On startup Dapr sends a &lt;code>OPTIONS&lt;/code> request for all defined input bindings to the application and expects a status code other than &lt;code>NOT FOUND (404)&lt;/code> if this application wants to subscribe to the binding.&lt;/p>
+&lt;p>如果应用程序要订阅绑定，在启动 Dapr 时，对应用程序的所有已定义输入绑定发送 &lt;code>OPTIONS&lt;/code> 请求，并期望 &lt;code>NOT FOUND (404)&lt;/code> 以外的状态码。&lt;/p>
 &lt;/blockquote>
-&lt;p>Read the &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/">Create an event-driven app using input bindings&lt;/a> page to get started with input bindings.&lt;/p>
-&lt;h2 id="output-bindings">Output bindings&lt;/h2>
-&lt;p>Output bindings allow users to invoke external resources. An optional payload and metadata can be sent with the invocation request.&lt;/p>
-&lt;p>In order to invoke an output binding:&lt;/p>
+&lt;p>阅读 &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/">使用输入绑定创建事件驱动的应用程序&lt;/a> 页以开始使用输入绑定。&lt;/p>
+&lt;h2 id="输出绑定">输出绑定&lt;/h2>
+&lt;p>输出绑定允许用户调用外部资源。 可选的有效负载和元数据可与调用请求一起发送。&lt;/p>
+&lt;p>为了调用输出绑定：&lt;/p>
 &lt;ol>
-&lt;li>Define the component YAML that describes the type of binding and its metadata (connection info, etc.)&lt;/li>
-&lt;li>Use the HTTP endpoint or gRPC method to invoke the binding with an optional payload&lt;/li>
+&lt;li>定义描述绑定类型及其元数据 ( 连接信息等) 的组件 YAML&lt;/li>
+&lt;li>使用 HTTP 终结点或 gRPC 方法调用具有可选有效负载的绑定&lt;/li>
 &lt;/ol>
-&lt;p>Read the &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/">Send events to external systems using output bindings&lt;/a> page to get started with output bindings.&lt;/p>
-&lt;h2 id="related-topics">Related Topics&lt;/h2>
+&lt;p>阅读 &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/"> 使用输出绑定向外部系统发送事件&lt;/a> 页以开始使用输出绑定。&lt;/p>
+&lt;h2 id="相关主题">相关主题&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/">Trigger a service from different resources with input bindings&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/">Invoke different resources using output bindings&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Developing-Applications: How-To: Trigger your application with input bindings</title><link>https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/</guid><description>
-&lt;p>Using bindings, your code can be triggered with incoming events from different resources which can be anything: a queue, messaging pipeline, cloud-service, filesystem etc.&lt;/p>
-&lt;p>This is ideal for event-driven processing, data pipelines or just generally reacting to events and doing further processing.&lt;/p>
-&lt;p>Dapr bindings allow you to:&lt;/p>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/">使用输入绑定从不同资源触发服务&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/">使用输出绑定调用不同的资源&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Developing-Applications: How-To: 使用输入绑定来触发应用程序</title><link>https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/</guid><description>
+&lt;p>使用绑定，代码可以被来自不同资源的传入事件触发，这些事件可以是任何内容：队列、消息传递管道、云服务、文件系统等。&lt;/p>
+&lt;p>这对于事件驱动的处理，数据管道或只是对事件作出反应并进一步处理都很理想。&lt;/p>
+&lt;p>Dapr 绑定允许您 :&lt;/p>
 &lt;ul>
-&lt;li>Receive events without including specific SDKs or libraries&lt;/li>
-&lt;li>Replace bindings without changing your code&lt;/li>
-&lt;li>Focus on business logic and not the event resource implementation&lt;/li>
+&lt;li>接收不包含特定 SDK 或库的事件&lt;/li>
+&lt;li>在不更改代码的情况下替换绑定&lt;/li>
+&lt;li>关注业务逻辑而不是事件资源实现&lt;/li>
 &lt;/ul>
-&lt;p>For more info on bindings, read &lt;a href="%7B%7BX%1A17X%7D%7D">this overview&lt;/a>.&lt;/p>
-&lt;p>For a quickstart sample showing bindings, visit this &lt;a href="https://github.com/dapr/quickstarts/tree/master/bindings">link&lt;/a>.&lt;/p>
-&lt;h2 id="1-create-a-binding">1. Create a binding&lt;/h2>
-&lt;p>An input binding represents an event resource that Dapr uses to read events from and push to your application.&lt;/p>
-&lt;p>For the purpose of this HowTo, we&amp;rsquo;ll use a Kafka binding. You can find a list of the different binding specs &lt;a href="https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/">here&lt;/a>.&lt;/p>
-&lt;p>Create the following YAML file, named binding.yaml, and save this to a &lt;code>components&lt;/code> sub-folder in your application directory. (Use the &lt;code>--components-path&lt;/code> flag with &lt;code>dapr run&lt;/code> to point to your custom components dir)&lt;/p>
-&lt;p>&lt;em>Note: When running in Kubernetes, apply this file to your cluster using &lt;code>kubectl apply -f binding.yaml&lt;/code>&lt;/em>&lt;/p>
+&lt;p>有关绑定的更多信息，请阅读 &lt;a href="%7B%7BX%1A17X%7D%7D">概述&lt;/a>。&lt;/p>
+&lt;p>有关展示绑定的快速入门示例，请访问此 &lt;a href="https://github.com/dapr/quickstarts/tree/master/bindings">链接&lt;/a>。&lt;/p>
+&lt;h2 id="1-创建绑定">1. 创建绑定&lt;/h2>
+&lt;p>输入绑定表示 Dapr 用于读取事件并推送到应用程序的事件资源。&lt;/p>
+&lt;p>就本指南的目的，我们会使用 Kafka 绑定。 您可以在 &lt;a href="https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/">此处&lt;/a> 找到不同绑定规范的列表。&lt;/p>
+&lt;p>创建以下 YAML 文件，名为 binding.yaml，并将其保存到应用程序的 &lt;code>components&lt;/code> 子文件夹中。 （使用具有 &lt;code>--components-path&lt;/code> 标记 的 &lt;code>dapr run&lt;/code> 命令来指向自定义组件目录）&lt;/p>
+&lt;p>&lt;em>注: 在 Kubernetes 中运行时，使用 &lt;code>kubectl apply -f binding.yaml&lt;/code> 将此文件应用于您的集群&lt;/em>&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -65,11 +65,11 @@
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">localhost:9092&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">consumerGroup&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">group1&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Here, you create a new binding component with the name of &lt;code>myevent&lt;/code>.&lt;/p>
-&lt;p>Inside the &lt;code>metadata&lt;/code> section, configure the Kafka related properties such as the topics to listen on, the brokers and more.&lt;/p>
-&lt;h2 id="2-listen-for-incoming-events">2. Listen for incoming events&lt;/h2>
-&lt;p>Now configure your application to receive incoming events. If using HTTP, you need to listen on a &lt;code>POST&lt;/code> endpoint with the name of the binding as specified in &lt;code>metadata.name&lt;/code> in the file. In this example, this is &lt;code>myevent&lt;/code>.&lt;/p>
-&lt;p>&lt;em>The following example shows how you would listen for the event in Node.js, but this is applicable to any programming language&lt;/em>&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>在这里，创建一个新的名称为 &lt;code>myevent&lt;/code> 的绑定组件。&lt;/p>
+&lt;p>在 &lt;code>metadata&lt;/code> 部分中，配置 Kafka 相关属性，如要监听的topics，代理或者更多。&lt;/p>
+&lt;h2 id="2-监听传入事件">2. 监听传入事件&lt;/h2>
+&lt;p>现在配置您的应用程序来接收传入事件。 如果使用 HTTP ，那么需要监听在文件 &lt;code>metadata.name&lt;/code> 中指定的绑定名称所对应的&lt;code>POST&lt;/code> 终结点。 在此示例中，是 &lt;code>myevent&lt;/code>。&lt;/p>
+&lt;p>&lt;em>以下示例演示了在 Node.js 中您该如何监听事件，但这适用于任何编程语言&lt;/em>&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#a6e22e">express&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">require&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;express&amp;#39;&lt;/span>)
 &lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#a6e22e">bodyParser&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">require&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;body-parser&amp;#39;&lt;/span>)
 &lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#a6e22e">app&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">express&lt;/span>()
@@ -80,28 +80,28 @@
 &lt;span style="color:#a6e22e">res&lt;/span>.&lt;span style="color:#a6e22e">status&lt;/span>(&lt;span style="color:#ae81ff">200&lt;/span>).&lt;span style="color:#a6e22e">send&lt;/span>()
 })
 &lt;span style="color:#a6e22e">app&lt;/span>.&lt;span style="color:#a6e22e">listen&lt;/span>(&lt;span style="color:#a6e22e">port&lt;/span>, () =&amp;gt; &lt;span style="color:#a6e22e">console&lt;/span>.&lt;span style="color:#a6e22e">log&lt;/span>(&lt;span style="color:#e6db74">`Kafka consumer app listening on port &lt;/span>&lt;span style="color:#e6db74">${&lt;/span>&lt;span style="color:#a6e22e">port&lt;/span>&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74">!`&lt;/span>))
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="ack-ing-an-event">ACK-ing an event&lt;/h3>
-&lt;p>In order to tell Dapr that you successfully processed an event in your application, return a &lt;code>200 OK&lt;/code> response from your HTTP handler.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="确认事件">确认事件&lt;/h3>
+&lt;p>为了告诉 Dapr 您成功处理了应用程序中的事件，请从 http 处理程序 返回 &lt;code>200 OK&lt;/code> 响应。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#a6e22e">res&lt;/span>.&lt;span style="color:#a6e22e">status&lt;/span>(&lt;span style="color:#ae81ff">200&lt;/span>).&lt;span style="color:#a6e22e">send&lt;/span>()
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="rejecting-an-event">Rejecting an event&lt;/h3>
-&lt;p>In order to tell Dapr that the event wasn&amp;rsquo;t processed correctly in your application and schedule it for redelivery, return any response different from &lt;code>200 OK&lt;/code>. For example, a &lt;code>500 Error&lt;/code>.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="拒绝事件">拒绝事件&lt;/h3>
+&lt;p>为了告知 Dapr 事件未在应用程序中正确处理事件并将其调度为重新交付，请返回与 &lt;code>200 OK&lt;/code> 不同的响应。 例如， &lt;code>500 Error&lt;/code>。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#a6e22e">res&lt;/span>.&lt;span style="color:#a6e22e">status&lt;/span>(&lt;span style="color:#ae81ff">500&lt;/span>).&lt;span style="color:#a6e22e">send&lt;/span>()
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="event-delivery-guarantees">Event delivery Guarantees&lt;/h3>
-&lt;p>Event delivery guarantees are controlled by the binding implementation. Depending on the binding implementation, the event delivery can be exactly once or at least once.&lt;/p>
-&lt;h2 id="references">References&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="事件传递保证">事件传递保证&lt;/h3>
+&lt;p>事件传递保证由绑定实现控制。 根据绑定实现，事件传递可以正好一次或至少一次。&lt;/p>
+&lt;h2 id="参考资料">参考资料&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://dapr-cn.github.io/reference/api/bindings_api/">Bindings API&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://dapr-cn.github.io/concepts/components-concept/">Components concept&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/">Supported bindings&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Developing-Applications: How-To: Use bindings to interface with external resources</title><link>https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/</guid><description>
-&lt;p>Using bindings, it is possible to invoke external resources without tying in to special SDK or libraries. For a complete sample showing output bindings, visit this &lt;a href="https://github.com/dapr/quickstarts/tree/master/bindings">link&lt;/a>.&lt;/p>
-&lt;p>Watch this &lt;a href="https://www.youtube.com/watch?v=ysklxm81MTs&amp;amp;feature=youtu.be&amp;amp;t=1960">video&lt;/a> on how to use bi-directional output bindings.&lt;/p>
-&lt;h2 id="1-create-a-binding">1. Create a binding&lt;/h2>
-&lt;p>An output binding represents a resource that Dapr will use invoke and send messages to.&lt;/p>
-&lt;p>For the purpose of this guide, you&amp;rsquo;ll use a Kafka binding. You can find a list of the different binding specs &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/">here&lt;/a>.&lt;/p>
-&lt;p>Create the following YAML file, named binding.yaml, and save this to a &lt;code>components&lt;/code> sub-folder in your application directory. (Use the &lt;code>--components-path&lt;/code> flag with &lt;code>dapr run&lt;/code> to point to your custom components dir)&lt;/p>
-&lt;p>&lt;em>Note: When running in Kubernetes, apply this file to your cluster using &lt;code>kubectl apply -f binding.yaml&lt;/code>&lt;/em>&lt;/p>
+&lt;/ul></description></item><item><title>Developing-Applications: How-To：使用绑定与外部资源进行交互</title><link>https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/</guid><description>
+&lt;p>使用绑定，可以调用外部资源，而无需绑定到特定的 SDK 或库。 有关显示输出绑定的完整示例，请访问此 &lt;a href="https://github.com/dapr/quickstarts/tree/master/bindings">链接&lt;/a>。&lt;/p>
+&lt;p>观看如何使用双向输出绑定的 &lt;a href="https://www.youtube.com/watch?v=ysklxm81MTs&amp;amp;feature=youtu.be&amp;amp;t=1960">视频&lt;/a> 。&lt;/p>
+&lt;h2 id="1-创建绑定">1. 创建绑定&lt;/h2>
+&lt;p>输出绑定表示 Dapr 将使用调用和向其发送消息的资源。&lt;/p>
+&lt;p>就本指南的目的，您将使用 Kafka 绑定。 您可以在 &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/">此处&lt;/a> 找到不同绑定规范的列表。&lt;/p>
+&lt;p>创建以下 YAML 文件，名为 binding.yaml，并将其保存到应用程序的 &lt;code>components&lt;/code> 子文件夹中。 （使用具有 &lt;code>--components-path&lt;/code> 标记 的 &lt;code>dapr run&lt;/code> 命令来指向自定义组件目录）&lt;/p>
+&lt;p>&lt;em>注: 在 Kubernetes 中运行时，使用 &lt;code>kubectl apply -f binding.yaml&lt;/code> 将此文件应用于您的集群&lt;/em>&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -115,15 +115,15 @@
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">localhost:9092&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">publishTopic&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">topic1&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Here, create a new binding component with the name of &lt;code>myevent&lt;/code>.&lt;/p>
-&lt;p>Inside the &lt;code>metadata&lt;/code> section, configure Kafka related properties such as the topic to publish the message to and the broker.&lt;/p>
-&lt;h2 id="2-send-an-event">2. Send an event&lt;/h2>
-&lt;p>All that&amp;rsquo;s left now is to invoke the bindings endpoint on a running Dapr instance.&lt;/p>
-&lt;p>You can do so using HTTP:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>在这里，创建一个新的名称为 &lt;code>myevent&lt;/code> 的绑定组件。&lt;/p>
+&lt;p>在 &lt;code>metadata&lt;/code> 部分中，配置 Kafka 相关属性，如要将消息发布到其的topics和代理。&lt;/p>
+&lt;h2 id="2-发送事件">2. 发送事件&lt;/h2>
+&lt;p>现在剩下的就是在正在运行的 Dapr 实例上调用绑定终结点。&lt;/p>
+&lt;p>您可以使用 HTTP 来这样做：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl -X POST -H http://localhost:3500/v1.0/bindings/myevent -d &lt;span style="color:#e6db74">&amp;#39;{ &amp;#34;data&amp;#34;: { &amp;#34;message&amp;#34;: &amp;#34;Hi!&amp;#34; }, &amp;#34;operation&amp;#34;: &amp;#34;create&amp;#34; }&amp;#39;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>As seen above, you invoked the &lt;code>/binding&lt;/code> endpoint with the name of the binding to invoke, in our case its &lt;code>myevent&lt;/code>. The payload goes inside the mandatory &lt;code>data&lt;/code> field, and can be any JSON serializable value.&lt;/p>
-&lt;p>You&amp;rsquo;ll also notice that there&amp;rsquo;s an &lt;code>operation&lt;/code> field that tells the binding what you need it to do. You can check &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/">here&lt;/a> which operations are supported for every output binding.&lt;/p>
-&lt;h2 id="references">References&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>如上文所见，您使用了要调用的绑定的名称来调用 &lt;code>/binding&lt;/code> 终结点。 在我们的示例中，它的名称是 &lt;code>myevent&lt;/code> 。 有效载荷位于必需的 &lt;code>data&lt;/code> 字段中，并且可以是任何 JSON 可序列化的值。&lt;/p>
+&lt;p>您还会注意到，有一个 &lt;code>operation&lt;/code> 字段告诉绑定您需要它执行的操作。 您可以查看 &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/">这里&lt;/a> 查看每个输出绑定都支持的操作。&lt;/p>
+&lt;h2 id="参考资料">参考资料&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://dapr-cn.github.io/reference/api/bindings_api/">Binding API&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/">Binding components&lt;/a>&lt;/li>
