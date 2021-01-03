@@ -39,16 +39,16 @@
 &lt;/ol>
 &lt;h2 id="特性">特性&lt;/h2>
 &lt;p>服务调用提供了一系列特性，使您可以方便地调用远程应用程序上的方法。&lt;/p>
-&lt;h3 id="service-invocation-api">Service invocation API&lt;/h3>
-&lt;p>The API for Pservice invocation can be found in the &lt;a href="https://dapr-cn.github.io/reference/api/service_invocation_api/">spec repo&lt;/a>.&lt;/p>
-&lt;h3 id="namespaces-scoping">Namespaces scoping&lt;/h3>
-&lt;p>Service invocation supports calls across namespaces. On all supported hosting platforms, Dapr app IDs conform to a valid FQDN format that includes the target namespace.&lt;/p>
-&lt;p>For example, the following string contains the app ID &lt;code>nodeapp&lt;/code> in addition to the namespace the app runs in &lt;code>production&lt;/code>.&lt;/p>
+&lt;h3 id="服务调用api">服务调用API&lt;/h3>
+&lt;p>服务调用的 API 规范可在 &lt;a href="https://dapr-cn.github.io/reference/api/service_invocation_api/">规范仓库&lt;/a> 中找到。&lt;/p>
+&lt;h3 id="命名空间作用域">命名空间作用域&lt;/h3>
+&lt;p>服务调用支持跨命名空间调用。 在所有受支持的托管平台上， Dapr 应用程序标识（ID）遵循包含了目标命名空间的有效 FQDN 格式。&lt;/p>
+&lt;p>例如，以下字符串包含应用程序标识 &lt;code>nodeapp&lt;/code> 以及应用程序在 &lt;code>production&lt;/code> 中运行的名称空间。&lt;/p>
 &lt;pre>&lt;code>localhost:3500/v1.0/invoke/nodeapp.production/method/neworder
-&lt;/code>&lt;/pre>&lt;p>This is especially useful in cross namespace calls in a Kubernetes cluster. Watch this video for a demo on how to use namespaces with service invocation. &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/LYYV_jouEuA?start=497" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark">&lt;/iframe>&lt;/p>
-&lt;h3 id="retries">Retries&lt;/h3>
-&lt;p>Service invocation performs automatic retries with backoff time periods in the event of call failures and transient errors.&lt;/p>
-&lt;p>Errors that cause retries are:&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>这在 Kubernetes 集群中进行跨命名空间调用特别有用。 观看此演示视频以获取有关如何使用具有命名空间的服务调用。 &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/LYYV_jouEuA?start=497" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark">&lt;/iframe>&lt;/p>
+&lt;h3 id="重试">重试&lt;/h3>
+&lt;p>在发生调用失败和瞬态错误的情况下，服务调用会在回退（backoff）时间段内执行自动重试。&lt;/p>
+&lt;p>导致重试的错误有：&lt;/p>
 &lt;ul>
 &lt;li>Network errors including endpoint unavailability and refused connections&lt;/li>
 &lt;li>Authentication errors due to a renewing certificate on the calling/callee Dapr sidecars&lt;/li>
