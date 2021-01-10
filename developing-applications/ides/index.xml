@@ -10,7 +10,7 @@
 &lt;li>Publish events to Dapr applications &lt;br />&lt;img src="https://dapr-cn.github.io/images/vscode-extension-publish.png" alt="Screenshot of the Dapr VSCode extension publish option" width="800" />&lt;/li>
 &lt;/ul>
 &lt;h4 id="example">Example&lt;/h4>
-&lt;p>Watch this &lt;a href="https://www.youtube.com/watch?v=OtbYCBt9C34&amp;amp;t=85">video&lt;/a> on how to use the Dapr VS Code extension: &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/OtbYCBt9C34?start=85" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark">&lt;/iframe>&lt;/p>
+&lt;p>观看有关如何使用 Dapr VS 代码扩展的 &lt;a href="https://www.bilibili.com/video/BV1QK4y1p7fn?p=9&amp;amp;t=85">视频&lt;/a>: &lt;iframe width="560" height="315" src="//player.bilibili.com/player.html?aid=886064109&amp;bvid=BV1QK4y1p7fn&amp;cid=277945842&amp;page=9&amp;t=85" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark">&lt;/iframe>&lt;/p>
 &lt;h2 id="remote-dev-containers">Remote Dev Containers&lt;/h2>
 &lt;p>The Visual Studio Code Remote Containers extension lets you use a Docker container as a full-featured development environment enabling you to &lt;a href="https://code.visualstudio.com/docs/remote/containers">develop inside a container&lt;/a> without installing any additional frameworks or packages to your local filesystem.&lt;/p>
 &lt;p>Dapr has pre-built Docker remote containers for each of the language SDKs. You can pick the one of your choice for a ready made environment. Note these pre-built containers automatically update to the latest Dapr release.&lt;/p>
@@ -29,7 +29,7 @@
 &lt;li>Follow the prompts to rebuild your application in container. &lt;br />&lt;img src="https://dapr-cn.github.io/images/vscode-remotecontainers-reopen.png" alt="Screenshot of reopening an application in the dev container" width="700" />&lt;/li>
 &lt;/ol>
 &lt;h4 id="example-1">Example&lt;/h4>
-&lt;p>Watch this &lt;a href="https://www.youtube.com/watch?v=D2dO4aGpHcg&amp;amp;t=120">video&lt;/a> on how to use the Dapr VS Code Remote Containers with your application. &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/D2dO4aGpHcg?start=120" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark">&lt;/iframe>&lt;/p>
+&lt;p>观看有关如何使用应用程序的 Dapr VS 代码远程容器的 &lt;a href="https://www.bilibili.com/video/BV1QK4y1p7fn?p=8&amp;amp;t=120">视频&lt;/a>。 &lt;iframe width="560" height="315" src="//player.bilibili.com/player.html?aid=886064109&amp;bvid=BV1QK4y1p7fn&amp;cid=277945960&amp;page=8&amp;t=120" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark">&lt;/iframe>&lt;/p>
 &lt;h2 id="troubleshooting">Troubleshooting&lt;/h2>
 &lt;h3 id="debugging-multiple-dapr-applications-at-the-same-time">Debugging multiple Dapr applications at the same time&lt;/h3>
 &lt;p>Using the VS Code extension you can debug multiple Dapr applications at the same time with &lt;a href="https://code.visualstudio.com/docs/editor/debugging#_multitarget-debugging">Multi-target debugging&lt;/a>&lt;/p>

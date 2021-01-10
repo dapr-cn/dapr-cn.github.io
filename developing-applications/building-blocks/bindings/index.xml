@@ -96,7 +96,7 @@
 &lt;li>&lt;a href="https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/">Supported bindings&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Developing-Applications: How-To：使用绑定与外部资源进行交互</title><link>https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/</guid><description>
 &lt;p>使用绑定，可以调用外部资源，而无需绑定到特定的 SDK 或库。 有关显示输出绑定的完整示例，请访问此 &lt;a href="https://github.com/dapr/quickstarts/tree/master/bindings">链接&lt;/a>。&lt;/p>
-&lt;p>观看如何使用双向输出绑定的 &lt;a href="https://www.youtube.com/watch?v=ysklxm81MTs&amp;amp;feature=youtu.be&amp;amp;t=1960">视频&lt;/a> 。&lt;/p>
+&lt;p>观看如何使用双向输出绑定的 &lt;a href="https://www.bilibili.com/video/BV1EA411W71L?p=3&amp;amp;t=1960">视频&lt;/a> 。&lt;/p>
 &lt;h2 id="1-创建绑定">1. 创建绑定&lt;/h2>
 &lt;p>输出绑定表示 Dapr 将使用调用和向其发送消息的资源。&lt;/p>
 &lt;p>就本指南的目的，您将使用 Kafka 绑定。 您可以在 &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/">此处&lt;/a> 找到不同绑定规范的列表。&lt;/p>

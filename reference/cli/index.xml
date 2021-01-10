@@ -518,24 +518,24 @@ zsh Generates zsh completion scripts
 &lt;h2 id="示例">示例&lt;/h2>
 &lt;h3 id="从定制名称空间中的目标-pod-获取-应用程序的日志">从定制名称空间中的目标 Pod 获取 应用程序的日志&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr logs -k --app-id sample --pod-name target --namespace custom
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: mtls CLI command reference</title><link>https://dapr-cn.github.io/reference/cli/dapr-mtls/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/reference/cli/dapr-mtls/</guid><description>
-&lt;h2 id="description">Description&lt;/h2>
-&lt;p>Check if mTLS is enabled.&lt;/p>
-&lt;h2 id="supported-platforms">Supported platforms&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: mtls CLI 命令参考</title><link>https://dapr-cn.github.io/reference/cli/dapr-mtls/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/reference/cli/dapr-mtls/</guid><description>
+&lt;h2 id="说明">说明&lt;/h2>
+&lt;p>检查是否启用了 mTLS&lt;/p>
+&lt;h2 id="支持的平台">支持的平台&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://dapr-cn.github.io/operations/hosting/kubernetes/">Kubernetes&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;h2 id="usage">Usage&lt;/h2>
+&lt;h2 id="用法">用法&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr mtls &lt;span style="color:#f92672">[&lt;/span>flags&lt;span style="color:#f92672">]&lt;/span>
 dapr mtls &lt;span style="color:#f92672">[&lt;/span>command&lt;span style="color:#f92672">]&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="flags">Flags&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="参数">参数&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>Name&lt;/th>
-&lt;th>Environment Variable&lt;/th>
-&lt;th>Default&lt;/th>
-&lt;th>Description&lt;/th>
+&lt;th>名称&lt;/th>
+&lt;th>环境变量&lt;/th>
+&lt;th>默认值&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -543,27 +543,27 @@ dapr mtls &lt;span style="color:#f92672">[&lt;/span>command&lt;span style="color
 &lt;td>&lt;code>--help&lt;/code>, &lt;code>-h&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;/td>
-&lt;td>Print this help message&lt;/td>
+&lt;td>显示此帮助消息&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--kubernetes&lt;/code>, &lt;code>-k&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;code>false&lt;/code>&lt;/td>
-&lt;td>Check if mTLS is enabled in a Kubernetes cluster&lt;/td>
+&lt;td>检查是否在 Kubernetes 集群中启用了 mTLS&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="available-commands">Available Commands&lt;/h2>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-txt" data-lang="txt">expiry Checks the expiry of the root certificate
-export Export the root CA, issuer cert and key from Kubernetes to local files
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="command-reference">Command Reference&lt;/h2>
-&lt;p>You can learn more about each sub command from the links below.&lt;/p>
+&lt;h2 id="可用命令">可用命令&lt;/h2>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-txt" data-lang="txt">expiry 检查根证书是否过期
+export 从 Kubernetes 中导出根证书、签发密钥到本地文件
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="命令参考">命令参考&lt;/h2>
+&lt;p>您可以通过以下链接了解有关每个 子命令的详细信息。&lt;/p>
 &lt;ul>
 &lt;li>&lt;a href="https://dapr-cn.github.io/reference/cli/dapr-mtls/dapr-mtls-expiry/">&lt;code>dapr mtls expiry&lt;/code>&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://dapr-cn.github.io/reference/cli/dapr-mtls/dapr-mtls-export/">&lt;code>dapr mtls export&lt;/code>&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;h2 id="examples">Examples&lt;/h2>
-&lt;h3 id="check-if-mtls-is-enabled">Check if mTLS is enabled&lt;/h3>
+&lt;h2 id="示例">示例&lt;/h2>
+&lt;h3 id="检查是否启用了-mtls">检查是否启用了 mTLS&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr mtls -k
 &lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: publish CLI 命令参考</title><link>https://dapr-cn.github.io/reference/cli/dapr-publish/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/reference/cli/dapr-publish/</guid><description>
 &lt;h2 id="说明">说明&lt;/h2>

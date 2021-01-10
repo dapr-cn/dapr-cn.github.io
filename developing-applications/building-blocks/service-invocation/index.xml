@@ -45,7 +45,7 @@
 &lt;p>服务调用支持跨命名空间调用。 在所有受支持的托管平台上， Dapr 应用程序标识（ID）遵循包含了目标命名空间的有效 FQDN 格式。&lt;/p>
 &lt;p>例如，以下字符串包含应用程序标识 &lt;code>nodeapp&lt;/code> 以及应用程序在 &lt;code>production&lt;/code> 中运行的名称空间。&lt;/p>
 &lt;pre>&lt;code>localhost:3500/v1.0/invoke/nodeapp.production/method/neworder
-&lt;/code>&lt;/pre>&lt;p>这在 Kubernetes 集群中进行跨命名空间调用特别有用。 观看此演示视频以获取有关如何使用具有命名空间的服务调用。 &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/LYYV_jouEuA?start=497" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark">&lt;/iframe>&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>这在 Kubernetes 集群中进行跨命名空间调用特别有用。 观看此演示视频以获取有关如何使用具有命名空间的服务调用。 &lt;iframe width="560" height="315" src="https://www.bilibili.com/video/BV14z4y167te?p=2&amp;t=497" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark">&lt;/iframe>&lt;/p>
 &lt;h3 id="重试">重试&lt;/h3>
 &lt;p>在发生调用失败和瞬态错误的情况下，服务调用会在回退（backoff）时间段内执行自动重试。&lt;/p>
 &lt;p>导致重试的错误有：&lt;/p>

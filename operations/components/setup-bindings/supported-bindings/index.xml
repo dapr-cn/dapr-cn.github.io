@@ -992,8 +992,8 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://dapr-cn.github.io/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: HTTP binding spec</title><link>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/http/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/http/</guid><description>
-&lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
+&lt;/ul></description></item><item><title>Operations: HTTP 绑定规范</title><link>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/http/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/http/</guid><description>
+&lt;h2 id="设置-dapr-组件">设置 Dapr 组件&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -1008,19 +1008,19 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">method&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">GET&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;ul>
-&lt;li>&lt;code>url&lt;/code> is the HTTP url to invoke.&lt;/li>
-&lt;li>&lt;code>method&lt;/code> is the HTTP verb to use for the request.&lt;/li>
+&lt;li>&lt;code>url&lt;/code> 是要调用的 HTTP 网址。&lt;/li>
+&lt;li>&lt;code>method&lt;/code> 是用于请求的 HTTP 动作。&lt;/li>
 &lt;/ul>
-&lt;h2 id="output-binding-supported-operations">Output Binding Supported Operations&lt;/h2>
+&lt;h2 id="输出绑定支持的操作">输出绑定支持的操作&lt;/h2>
 &lt;ul>
 &lt;li>create&lt;/li>
 &lt;/ul>
-&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/">如何通过 input binding 触发应用&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/">如何使用 Bindings 作为接口连接外部资源&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/api/bindings_api/">绑定API 参考&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: InfluxDB binding spec</title><link>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/influxdb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/influxdb/</guid><description>
 &lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
@@ -1394,8 +1394,8 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://dapr-cn.github.io/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: RabbitMQ binding spec</title><link>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/rabbitmq/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/rabbitmq/</guid><description>
-&lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
+&lt;/ul></description></item><item><title>Operations: RabbitMQ 绑定规范</title><link>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/rabbitmq/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/rabbitmq/</guid><description>
+&lt;h2 id="设置-dapr-组件">设置 Dapr 组件&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -1418,22 +1418,22 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">prefetchCount&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">0&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;ul>
-&lt;li>&lt;code>queueName&lt;/code> is the RabbitMQ queue name.&lt;/li>
-&lt;li>&lt;code>host&lt;/code> is the RabbitMQ host address.&lt;/li>
-&lt;li>&lt;code>durable&lt;/code> tells RabbitMQ to persist message in storage.&lt;/li>
-&lt;li>&lt;code>deleteWhenUnused&lt;/code> enables or disables auto-delete.&lt;/li>
-&lt;li>&lt;code>ttlInSeconds&lt;/code> is an optional parameter to set the &lt;a href="https://www.rabbitmq.com/ttl.html">default message time to live at RabbitMQ queue level&lt;/a>. If this parameter is omitted, messages won&amp;rsquo;t expire, continuing to exist on the queue until processed.&lt;/li>
-&lt;li>&lt;code>prefetchCount&lt;/code> is an optional parameter to set the &lt;a href="https://www.rabbitmq.com/confirms.html#channel-qos-prefetch">Channel Prefetch Setting (QoS)&lt;/a>. If this parameter is omiited, QoS would set value to 0 as no limit.&lt;/li>
+&lt;li>&lt;code>queueName&lt;/code> 是 RabbitMQ 队列名。&lt;/li>
+&lt;li>&lt;code>host&lt;/code> 是 RabbitMQ 主机地址。&lt;/li>
+&lt;li>&lt;code>durable&lt;/code> 告诉 RabbitMQ 将消息持久存储在存储器中。&lt;/li>
+&lt;li>&lt;code>deleteWhenUnused&lt;/code> 启用或禁用自动删除。&lt;/li>
+&lt;li>&lt;code>ttlInSeconds&lt;/code> 是一个可选的参数，可以将 &lt;a href="https://www.rabbitmq.com/ttl.html">默认消息时间设置为在RabbitMQ 队列级别&lt;/a> 如果此参数为空，消息将不会过期，继续在队列上存在，直到处理完毕。&lt;/li>
+&lt;li>&lt;code>prefetchCount&lt;/code> 是一个可选参数，用于设置 &lt;a href="https://www.rabbitmq.com/confirms.html#channel-qos-prefetch">通道预取设置 (QoS)&lt;/a>。 如果此参数为空，QOS 会设置为0为无限制。&lt;/li>
 &lt;/ul>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/">here&lt;/a>.
+以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/%7D">here&lt;/a>。
 &lt;/div>
-&lt;h2 id="specifying-a-time-to-live-on-message-level">Specifying a time to live on message level&lt;/h2>
-&lt;p>Time to live can be defined on queue level (as illustrated above) or at the message level. The value defined at message level overwrites any value set at queue level.&lt;/p>
-&lt;p>To set time to live at message level use the &lt;code>metadata&lt;/code> section in the request body during the binding invocation.&lt;/p>
-&lt;p>The field name is &lt;code>ttlInSeconds&lt;/code>.&lt;/p>
-&lt;p>Example:&lt;/p>
+&lt;h2 id="指定在消息级别上的生存时间">指定在消息级别上的生存时间&lt;/h2>
+&lt;p>可以在队列级别 ( 如上所述) 或消息级别定义生存时间。 在消息级别定义的值会覆盖在队列级别设置的任何值。&lt;/p>
+&lt;p>若要设置在消息级别生存的时间，请使用 &lt;code>metadata&lt;/code> 请求正文中的元数据部分。&lt;/p>
+&lt;p>字段名为 &lt;code>ttlInSeconds&lt;/code>。&lt;/p>
+&lt;p>示例:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X POST http://localhost:3500/v1.0/bindings/myRabbitMQ &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span> &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -d &lt;span style="color:#e6db74">&amp;#39;{
@@ -1445,18 +1445,18 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/span>&lt;span style="color:#e6db74"> },
 &lt;/span>&lt;span style="color:#e6db74"> &amp;#34;operation&amp;#34;: &amp;#34;create&amp;#34;
 &lt;/span>&lt;span style="color:#e6db74"> }&amp;#39;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="output-binding-supported-operations">Output Binding Supported Operations&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="输出绑定支持的操作">输出绑定支持的操作&lt;/h2>
 &lt;ul>
 &lt;li>create&lt;/li>
 &lt;/ul>
-&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://dapr-cn.github.io/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Redis binding spec</title><link>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/redis/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/redis/</guid><description>
-&lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
+&lt;/ul></description></item><item><title>Operations: Redis 绑定规范</title><link>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/redis/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/redis/</guid><description>
+&lt;h2 id="设置-dapr-组件">设置 Dapr 组件&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -1473,24 +1473,24 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">enableTLS&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;bool&amp;gt;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;ul>
-&lt;li>&lt;code>redisHost&lt;/code> is the Redis host address.&lt;/li>
-&lt;li>&lt;code>redisPassword&lt;/code> is the Redis password.&lt;/li>
-&lt;li>&lt;code>enableTLS&lt;/code> - If the Redis instance supports TLS with public certificates it can be configured to enable or disable TLS.&lt;/li>
+&lt;li>&lt;code>redisHost&lt;/code> 是 Redis 主机地址。&lt;/li>
+&lt;li>&lt;code>RedisPassword&lt;/code> 是 Redis 密码。&lt;/li>
+&lt;li>&lt;code>enableTLS&lt;/code> - 如果 Redis 实例支持使用公用证书的 TLS ，那么可以将其配置为启用或禁用 TLS。&lt;/li>
 &lt;/ul>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/">here&lt;/a>.
+以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/">点击这里查看操作方法&lt;/a>。
 &lt;/div>
-&lt;h2 id="output-binding-supported-operations">Output Binding Supported Operations&lt;/h2>
+&lt;h2 id="输出绑定支持的操作">输出绑定支持的操作&lt;/h2>
 &lt;ul>
 &lt;li>create&lt;/li>
 &lt;/ul>
-&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-triggers/">如何通过 input binding 触发应用&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/bindings/howto-bindings/">如何使用 Bindings 作为接口连接外部资源&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/reference/api/bindings_api/">Bindings API 参考&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: RethinkDB binding spec</title><link>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/rethinkdb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/rethinkdb/</guid><description>
 &lt;h2 id="introduction">Introduction&lt;/h2>
 &lt;p>The RethinkDB state store supports transactions which means it can be used to support Dapr actors. Dapr persists only the actor&amp;rsquo;s current state which doesn&amp;rsquo;t allow the users to track how actor&amp;rsquo;s state may have changed over time.&lt;/p>

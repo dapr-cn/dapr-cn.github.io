@@ -1,20 +1,20 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – mtls CLI command reference</title><link>https://dapr-cn.github.io/reference/cli/dapr-mtls/</link><description>Recent content in mtls CLI command reference on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="https://dapr-cn.github.io/reference/cli/dapr-mtls/index.xml" rel="self" type="application/rss+xml"/><item><title>Reference: mtls export CLI command reference</title><link>https://dapr-cn.github.io/reference/cli/dapr-mtls/dapr-mtls-export/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/reference/cli/dapr-mtls/dapr-mtls-export/</guid><description>
-&lt;h2 id="description">Description&lt;/h2>
-&lt;p>Export the root CA, issuer cert and key from Kubernetes to local files&lt;/p>
-&lt;h2 id="supported-platforms">Supported platforms&lt;/h2>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – mtls CLI 命令参考</title><link>https://dapr-cn.github.io/reference/cli/dapr-mtls/</link><description>Recent content in mtls CLI 命令参考 on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="https://dapr-cn.github.io/reference/cli/dapr-mtls/index.xml" rel="self" type="application/rss+xml"/><item><title>Reference: mtls export CLI 命令参考</title><link>https://dapr-cn.github.io/reference/cli/dapr-mtls/dapr-mtls-export/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/reference/cli/dapr-mtls/dapr-mtls-export/</guid><description>
+&lt;h2 id="说明">说明&lt;/h2>
+&lt;p>将根 CA，颁发者证书和密钥从 Kubernetes 导出到本地文件&lt;/p>
+&lt;h2 id="支持的平台">支持的平台&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://dapr-cn.github.io/operations/hosting/kubernetes/">Kubernetes&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;h2 id="usage">Usage&lt;/h2>
+&lt;h2 id="用法">用法&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr mtls export &lt;span style="color:#f92672">[&lt;/span>flags&lt;span style="color:#f92672">]&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="flags">Flags&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="参数">参数&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>Name&lt;/th>
-&lt;th>Environment Variable&lt;/th>
-&lt;th>Default&lt;/th>
-&lt;th>Description&lt;/th>
+&lt;th>名称&lt;/th>
+&lt;th>环境变量&lt;/th>
+&lt;th>默认值&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -22,36 +22,36 @@
 &lt;td>&lt;code>--help&lt;/code>, &lt;code>-h&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;/td>
-&lt;td>help for export&lt;/td>
+&lt;td>帮助信息&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--out&lt;/code>, &lt;code>-o&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
-&lt;td>current directory&lt;/td>
-&lt;td>The output directory path to save the certs&lt;/td>
+&lt;td>当前目录&lt;/td>
+&lt;td>用于保存证书的输出目录路径&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="examples">Examples&lt;/h2>
-&lt;h3 id="check-expiry-of-kubernetes-certs">Check expiry of Kubernetes certs&lt;/h3>
+&lt;h2 id="示例">示例&lt;/h2>
+&lt;h3 id="检查-kubernetes-证书的过期时间">检查 Kubernetes 证书的过期时间&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr mtls export -o ./certs
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: mtls expiry CLI command reference</title><link>https://dapr-cn.github.io/reference/cli/dapr-mtls/dapr-mtls-expiry/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/reference/cli/dapr-mtls/dapr-mtls-expiry/</guid><description>
-&lt;h2 id="description">Description&lt;/h2>
-&lt;p>Checks the expiry of the root certificate&lt;/p>
-&lt;h2 id="supported-platforms">Supported platforms&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: mtls expiry CLI 命令参考</title><link>https://dapr-cn.github.io/reference/cli/dapr-mtls/dapr-mtls-expiry/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/reference/cli/dapr-mtls/dapr-mtls-expiry/</guid><description>
+&lt;h2 id="说明">说明&lt;/h2>
+&lt;p>检查根证书的到期时间&lt;/p>
+&lt;h2 id="支持的平台">支持的平台&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://dapr-cn.github.io/operations/hosting/kubernetes/">Kubernetes&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;h2 id="usage">Usage&lt;/h2>
+&lt;h2 id="用法">用法&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr mtls expiry &lt;span style="color:#f92672">[&lt;/span>flags&lt;span style="color:#f92672">]&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="flags">Flags&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="参数">参数&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>Name&lt;/th>
-&lt;th>Environment Variable&lt;/th>
-&lt;th>Default&lt;/th>
-&lt;th>Description&lt;/th>
+&lt;th>名称&lt;/th>
+&lt;th>环境变量&lt;/th>
+&lt;th>默认值&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -59,11 +59,11 @@
 &lt;td>&lt;code>--help&lt;/code>, &lt;code>-h&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;/td>
-&lt;td>help for expiry&lt;/td>
+&lt;td>帮助信息&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="examples">Examples&lt;/h2>
-&lt;h3 id="check-expiry-of-kubernetes-certs">Check expiry of Kubernetes certs&lt;/h3>
+&lt;h2 id="示例">示例&lt;/h2>
+&lt;h3 id="检查-kubernetes-证书的过期时间">检查 Kubernetes 证书的过期时间&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr mtls expiry
 &lt;/code>&lt;/pre>&lt;/div></description></item></channel></rss>
