@@ -1,4 +1,4 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – IDE support</title><link>https://dapr-cn.github.io/developing-applications/ides/</link><description>Recent content in IDE support on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="https://dapr-cn.github.io/developing-applications/ides/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Visual Studio Code integrations with Dapr</title><link>https://dapr-cn.github.io/developing-applications/ides/vscode/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/ides/vscode/</guid><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – IDE support</title><link>https://dapr-cn.github.io/developing-applications/ides/</link><description>Recent content in IDE support on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh</language><atom:link href="https://dapr-cn.github.io/developing-applications/ides/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Visual Studio Code integrations with Dapr</title><link>https://dapr-cn.github.io/developing-applications/ides/vscode/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/ides/vscode/</guid><description>
 &lt;h2 id="extension">Extension&lt;/h2>
 &lt;p>Dapr offers a &lt;em>preview&lt;/em> &lt;a href="https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-dapr">Dapr Visual Studio Code extension&lt;/a> for local development and debugging of your Dapr applications.&lt;/p>
 &lt;p>&lt;a href="vscode:extension/ms-azuretools.vscode-dapr" class="btn btn-primary" role="button">Open in VSCode&lt;/a>&lt;/p>
@@ -9,8 +9,8 @@
 &lt;li>Invoke Dapr application methods &lt;br />&lt;img src="https://dapr-cn.github.io/images/vscode-extension-invoke.png" alt="Screenshot of the Dapr VSCode extension invoke option" width="800" />&lt;/li>
 &lt;li>Publish events to Dapr applications &lt;br />&lt;img src="https://dapr-cn.github.io/images/vscode-extension-publish.png" alt="Screenshot of the Dapr VSCode extension publish option" width="800" />&lt;/li>
 &lt;/ul>
-&lt;h4 id="example">Example&lt;/h4>
-&lt;p>观看有关如何使用 Dapr VS 代码扩展的 &lt;a href="https://www.bilibili.com/video/BV1QK4y1p7fn?p=9&amp;amp;t=85">视频&lt;/a>: &lt;iframe width="560" height="315" src="//player.bilibili.com/player.html?aid=886064109&amp;bvid=BV1QK4y1p7fn&amp;cid=277945842&amp;page=9&amp;t=85" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark">&lt;/iframe>&lt;/p>
+&lt;h4 id="示例">示例&lt;/h4>
+&lt;p>观看有关如何使用 Dapr VS 代码扩展的 &lt;a href="https://www.bilibili.com/video/BV1QK4y1p7fn?p=9&amp;amp;t=85">视频&lt;/a>: &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/OtbYCBt9C34?start=85" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark">&lt;/iframe>&lt;/p>
 &lt;h2 id="remote-dev-containers">Remote Dev Containers&lt;/h2>
 &lt;p>The Visual Studio Code Remote Containers extension lets you use a Docker container as a full-featured development environment enabling you to &lt;a href="https://code.visualstudio.com/docs/remote/containers">develop inside a container&lt;/a> without installing any additional frameworks or packages to your local filesystem.&lt;/p>
 &lt;p>Dapr has pre-built Docker remote containers for each of the language SDKs. You can pick the one of your choice for a ready made environment. Note these pre-built containers automatically update to the latest Dapr release.&lt;/p>
@@ -28,8 +28,8 @@
 &lt;li>Type &lt;code>dapr&lt;/code> to filter the list to available Dapr remote containers and choose the language container that matches your application. Note you may need to select &lt;code>Show All Definitions...&lt;/code> &lt;br />&lt;img src="https://dapr-cn.github.io/images/vscode-remotecontainers-daprcontainers.png" alt="Screenshot of adding a Dapr container" width="700" />&lt;/li>
 &lt;li>Follow the prompts to rebuild your application in container. &lt;br />&lt;img src="https://dapr-cn.github.io/images/vscode-remotecontainers-reopen.png" alt="Screenshot of reopening an application in the dev container" width="700" />&lt;/li>
 &lt;/ol>
-&lt;h4 id="example-1">Example&lt;/h4>
-&lt;p>观看有关如何使用应用程序的 Dapr VS 代码远程容器的 &lt;a href="https://www.bilibili.com/video/BV1QK4y1p7fn?p=8&amp;amp;t=120">视频&lt;/a>。 &lt;iframe width="560" height="315" src="//player.bilibili.com/player.html?aid=886064109&amp;bvid=BV1QK4y1p7fn&amp;cid=277945960&amp;page=8&amp;t=120" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark">&lt;/iframe>&lt;/p>
+&lt;h4 id="例子">例子&lt;/h4>
+&lt;p>观看有关如何使用应用程序的 Dapr VS 代码远程容器的 &lt;a href="https://www.bilibili.com/video/BV1QK4y1p7fn?p=8&amp;amp;t=120">视频&lt;/a>。 &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/D2dO4aGpHcg?start=120" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark">&lt;/iframe>&lt;/p>
 &lt;h2 id="troubleshooting">Troubleshooting&lt;/h2>
 &lt;h3 id="debugging-multiple-dapr-applications-at-the-same-time">Debugging multiple Dapr applications at the same time&lt;/h3>
 &lt;p>Using the VS Code extension you can debug multiple Dapr applications at the same time with &lt;a href="https://code.visualstudio.com/docs/editor/debugging#_multitarget-debugging">Multi-target debugging&lt;/a>&lt;/p>
@@ -188,19 +188,53 @@ Since you didn&amp;rsquo;t launch the service(s) using the &lt;strong>dapr&lt;/s
 &lt;p>This document explains how to use &lt;code>dapr&lt;/code> directly from IntelliJ. As a pre-requisite, make sure you have initialized the Dapr&amp;rsquo;s dev environment via &lt;code>dapr init&lt;/code>.&lt;/p>
 &lt;p>Let&amp;rsquo;s get started!&lt;/p>
 &lt;h2 id="add-dapr-as-an-external-tool">Add Dapr as an &amp;lsquo;External Tool&amp;rsquo;&lt;/h2>
-&lt;p>First, quit IntelliJ.&lt;/p>
-&lt;p>Create or edit the file in &lt;code>$HOME/.IdeaIC2019.3/config/tools/External\ Tools.xml&lt;/code> (change IntelliJ version in path if needed) to add a new &lt;code>&amp;lt;tool&amp;gt;&amp;lt;/tool&amp;gt;&lt;/code> entry:&lt;/p>
+&lt;p>First, quit IntelliJ before modifying the configurations file directly.&lt;/p>
+&lt;h3 id="intellij-configuration-file-location">IntelliJ configuration file location&lt;/h3>
+&lt;p>For versions &lt;a href="https://www.jetbrains.com/help/idea/2020.1/tuning-the-ide.html#config-directory">2020.1&lt;/a> and above the configuration files for tools should be located in:&lt;/p>
+&lt;ul class="nav nav-tabs" id="tabs-0" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-0-windows-tab" data-toggle="tab" href="#tabs-0-windows" role="tab"
+aria-controls="tabs-0-windows" aria-selected="true">
+Windows
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-0-linux-tab" data-toggle="tab" href="#tabs-0-linux" role="tab"
+aria-controls="tabs-0-linux" aria-selected="false">
+Linux
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-0-macos-tab" data-toggle="tab" href="#tabs-0-macos" role="tab"
+aria-controls="tabs-0-macos" aria-selected="false">
+MacOS
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-0-content">
+&lt;div class="tab-pane fade show active" id="tabs-0-windows" role="tabpanel" aria-labelled-by="tabs-0-windows-tab">
+&lt;br />&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-powershell" data-lang="powershell">&lt;span style="color:#66d9ef">%&lt;/span>USERPROFILE%\AppData\Roaming\JetBrains\IntelliJIdea2020.1\tools\
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-0-linux" role="tabpanel" aria-labelled-by="tabs-0-linux-tab">
+&lt;br />&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">$HOME/.config/JetBrains/IntelliJIdea2020.1/tools/
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-0-macos" role="tabpanel" aria-labelled-by="tabs-0-macos-tab">
+&lt;br />&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">~/Library/Application Support/JetBrains/IntelliJIdea2020.1/tools/
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;/div>
+&lt;blockquote>
+&lt;p>The configuration file location is different for version 2019.3 or prior. See &lt;a href="https://www.jetbrains.com/help/idea/2019.3/tuning-the-ide.html#config-directory">here&lt;/a> for more details.&lt;/p>
+&lt;/blockquote>
+&lt;p>Change the version of IntelliJ in the path if needed.&lt;/p>
+&lt;p>Create or edit the file in &lt;code>&amp;lt;CONFIG PATH&amp;gt;/tools/External\ Tools.xml&lt;/code> (change IntelliJ version in path if needed). The &lt;code>&amp;lt;CONFIG PATH&amp;gt;&lt;/code> is OS dependennt as seen above.&lt;/p>
+&lt;p>Add a new &lt;code>&amp;lt;tool&amp;gt;&amp;lt;/tool&amp;gt;&lt;/code> entry:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-xml" data-lang="xml">&lt;span style="color:#f92672">&amp;lt;toolSet&lt;/span> &lt;span style="color:#a6e22e">name=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;External Tools&amp;#34;&lt;/span>&lt;span style="color:#f92672">&amp;gt;&lt;/span>
 ...
 &lt;span style="color:#75715e">&amp;lt;!-- 1. Each tool has its own app-id, so create one per application to be debugged --&amp;gt;&lt;/span>
 &lt;span style="color:#f92672">&amp;lt;tool&lt;/span> &lt;span style="color:#a6e22e">name=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;dapr for DemoService in examples&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">description=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;Dapr sidecar&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">showInMainMenu=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;false&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">showInEditor=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;false&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">showInProject=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;false&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">showInSearchPopup=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;false&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">disabled=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;false&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">useConsole=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">showConsoleOnStdOut=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">showConsoleOnStdErr=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">synchronizeAfterRun=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>&lt;span style="color:#f92672">&amp;gt;&lt;/span>
 &lt;span style="color:#f92672">&amp;lt;exec&amp;gt;&lt;/span>
-&lt;span style="color:#75715e">&amp;lt;!-- 2. For Linux or MacOS use: /usr/local/bin/daprd --&amp;gt;&lt;/span>
-&lt;span style="color:#f92672">&amp;lt;option&lt;/span> &lt;span style="color:#a6e22e">name=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;COMMAND&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">value=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;C:\dapr\daprd.exe&amp;#34;&lt;/span> &lt;span style="color:#f92672">/&amp;gt;&lt;/span>
+&lt;span style="color:#75715e">&amp;lt;!-- 2. For Linux or MacOS use: /usr/local/bin/dapr --&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">&amp;lt;option&lt;/span> &lt;span style="color:#a6e22e">name=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;COMMAND&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">value=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;C:\dapr\dapr.exe&amp;#34;&lt;/span> &lt;span style="color:#f92672">/&amp;gt;&lt;/span>
 &lt;span style="color:#75715e">&amp;lt;!-- 3. Choose app, http and grpc ports that do not conflict with other daprd command entries (placement address should not change). --&amp;gt;&lt;/span>
-&lt;span style="color:#f92672">&amp;lt;option&lt;/span> &lt;span style="color:#a6e22e">name=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;PARAMETERS&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">value=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;-app-id demoservice -app-port 3000 -dapr-http-port 3005 -dapr-grpc-port 52000 -placement-host-address localhost:50005&amp;#34;&lt;/span> &lt;span style="color:#f92672">/&amp;gt;&lt;/span>
-&lt;span style="color:#75715e">&amp;lt;!-- 4. Use the folder where the `components` folder is located --&amp;gt;&lt;/span>
-&lt;span style="color:#f92672">&amp;lt;option&lt;/span> &lt;span style="color:#a6e22e">name=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;WORKING_DIRECTORY&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">value=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;C:/Code/dapr/java-sdk/examples&amp;#34;&lt;/span> &lt;span style="color:#f92672">/&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">&amp;lt;option&lt;/span> &lt;span style="color:#a6e22e">name=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;PARAMETERS&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">value=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;run -app-id demoservice -app-port 3000 -dapr-http-port 3005 -dapr-grpc-port 52000 /&amp;gt;
+&lt;/span>&lt;span style="color:#e6db74"> &amp;lt;!-- 4. Use the folder where the `components` folder is located --&amp;gt;
+&lt;/span>&lt;span style="color:#e6db74"> &amp;lt;option name=&amp;#34;&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">WORKING_DIRECTORY&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">value=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;C:/Code/dapr/java-sdk/examples&amp;#34;&lt;/span> &lt;span style="color:#f92672">/&amp;gt;&lt;/span>
 &lt;span style="color:#f92672">&amp;lt;/exec&amp;gt;&lt;/span>
 &lt;span style="color:#f92672">&amp;lt;/tool&amp;gt;&lt;/span>
 ...
@@ -211,7 +245,7 @@ Since you didn&amp;rsquo;t launch the service(s) using the &lt;strong>dapr&lt;/s
 &lt;span style="color:#75715e">&amp;lt;!-- 1. Reusable entry for apps with app port. --&amp;gt;&lt;/span>
 &lt;span style="color:#f92672">&amp;lt;tool&lt;/span> &lt;span style="color:#a6e22e">name=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;dapr with app-port&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">description=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;Dapr sidecar&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">showInMainMenu=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;false&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">showInEditor=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;false&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">showInProject=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;false&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">showInSearchPopup=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;false&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">disabled=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;false&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">useConsole=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">showConsoleOnStdOut=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">showConsoleOnStdErr=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">synchronizeAfterRun=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>&lt;span style="color:#f92672">&amp;gt;&lt;/span>
 &lt;span style="color:#f92672">&amp;lt;exec&amp;gt;&lt;/span>
-&lt;span style="color:#75715e">&amp;lt;!-- 2. For Linux or MacOS use: /usr/bin/dapr --&amp;gt;&lt;/span>
+&lt;span style="color:#75715e">&amp;lt;!-- 2. For Linux or MacOS use: /usr/local/bin/dapr --&amp;gt;&lt;/span>
 &lt;span style="color:#f92672">&amp;lt;option&lt;/span> &lt;span style="color:#a6e22e">name=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;COMMAND&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">value=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;c:\dapr\dapr.exe&amp;#34;&lt;/span> &lt;span style="color:#f92672">/&amp;gt;&lt;/span>
 &lt;span style="color:#75715e">&amp;lt;!-- 3. Prompts user 4 times (in order): app id, app port, Dapr&amp;#39;s http port, Dapr&amp;#39;s grpc port. --&amp;gt;&lt;/span>
 &lt;span style="color:#f92672">&amp;lt;option&lt;/span> &lt;span style="color:#a6e22e">name=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;PARAMETERS&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">value=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;run --app-id $Prompt$ --app-port $Prompt$ --dapr-http-port $Prompt$ --dapr-grpc-port $Prompt$&amp;#34;&lt;/span> &lt;span style="color:#f92672">/&amp;gt;&lt;/span>
@@ -222,7 +256,7 @@ Since you didn&amp;rsquo;t launch the service(s) using the &lt;strong>dapr&lt;/s
 &lt;span style="color:#75715e">&amp;lt;!-- 1. Reusable entry for apps without app port. --&amp;gt;&lt;/span>
 &lt;span style="color:#f92672">&amp;lt;tool&lt;/span> &lt;span style="color:#a6e22e">name=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;dapr without app-port&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">description=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;Dapr sidecar&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">showInMainMenu=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;false&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">showInEditor=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;false&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">showInProject=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;false&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">showInSearchPopup=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;false&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">disabled=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;false&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">useConsole=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">showConsoleOnStdOut=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">showConsoleOnStdErr=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">synchronizeAfterRun=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>&lt;span style="color:#f92672">&amp;gt;&lt;/span>
 &lt;span style="color:#f92672">&amp;lt;exec&amp;gt;&lt;/span>
-&lt;span style="color:#75715e">&amp;lt;!-- 2. For Linux or MacOS use: /usr/bin/dapr --&amp;gt;&lt;/span>
+&lt;span style="color:#75715e">&amp;lt;!-- 2. For Linux or MacOS use: /usr/local/bin/dapr --&amp;gt;&lt;/span>
 &lt;span style="color:#f92672">&amp;lt;option&lt;/span> &lt;span style="color:#a6e22e">name=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;COMMAND&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">value=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;c:\dapr\dapr.exe&amp;#34;&lt;/span> &lt;span style="color:#f92672">/&amp;gt;&lt;/span>
 &lt;span style="color:#75715e">&amp;lt;!-- 3. Prompts user 3 times (in order): app id, Dapr&amp;#39;s http port, Dapr&amp;#39;s grpc port. --&amp;gt;&lt;/span>
 &lt;span style="color:#f92672">&amp;lt;option&lt;/span> &lt;span style="color:#a6e22e">name=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;PARAMETERS&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">value=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;run --app-id $Prompt$ --dapr-http-port $Prompt$ --dapr-grpc-port $Prompt$&amp;#34;&lt;/span> &lt;span style="color:#f92672">/&amp;gt;&lt;/span>
@@ -256,4 +290,30 @@ Since you didn&amp;rsquo;t launch the service(s) using the &lt;strong>dapr&lt;/s
 &lt;blockquote>
 &lt;p>Note: Since you launched the service(s) using the &lt;strong>dapr&lt;/strong> &lt;em>&lt;strong>run&lt;/strong>&lt;/em> CLI command, the &lt;strong>dapr&lt;/strong> &lt;em>&lt;strong>list&lt;/strong>&lt;/em> command will show runs from IntelliJ in the list of apps that are currently running with Dapr.&lt;/p>
 &lt;/blockquote>
-&lt;p>Happy debugging!&lt;/p></description></item></channel></rss>
+&lt;p>Happy debugging!&lt;/p>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://intellij-support.jetbrains.com/hc/en-us/articles/206544519-Directories-used-by-the-IDE-to-store-settings-caches-plugins-and-logs">Change&lt;/a> in IntelliJ configuration directory location&lt;/li>
+&lt;/ul></description></item><item><title>Developing-Applications: Developing with GitHub Codespaces</title><link>https://dapr-cn.github.io/developing-applications/ides/codespaces/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/ides/codespaces/</guid><description>
+&lt;p>&lt;a href="https://github.com/features/codespaces">GitHub Codespaces&lt;/a> are the easiest way to get up and running in a Dapr environment. In as little as a single click you have the environment, packages, code, samples, and documentation all ready to go in your browser. In as little as a single click you have the environment, packages, code, samples, and documentation all ready to go in your browser.&lt;/p>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Private Beta&lt;/h4>
+GitHub Codespaces is currently in a private beta. Sign up &lt;a href="https://github.com/features/codespaces/signup">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="features">Features&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>Click and Run&lt;/strong>: Get a dedicated and sandboxed environment with all of the required frameworks and packages ready to go.&lt;/li>
+&lt;li>&lt;strong>Usage-based Billing&lt;/strong>: Only pay for the time you spend developing in the Codespace. Environments are spun down automatically when not in use.&lt;/li>
+&lt;li>&lt;strong>Portable&lt;/strong>: Run in your browser or in Visual Studio Code&lt;/li>
+&lt;/ul>
+&lt;h2 id="open-a-dapr-repo-in-a-codespace">Open a Dapr repo in a Codespace&lt;/h2>
+&lt;p>To open a Dapr repository in a Codespace simply select &amp;ldquo;Code&amp;rdquo; from the repo homepage and &amp;ldquo;Open with Codespaces&amp;rdquo;:&lt;/p>
+&lt;p>&lt;img src="https://dapr-cn.github.io/images/codespaces-create.png" alt="Screenshot of creating a Dapr Codespace" width="300" />&lt;/p>
+&lt;h3 id="supported-repos">Supported repos&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/dapr/python-sdk">Python SDK&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.github.com/en/github/developing-online-with-codespaces/about-codespaces">GitHub documentation&lt;/a>&lt;/li>
+&lt;/ul></description></item></channel></rss>

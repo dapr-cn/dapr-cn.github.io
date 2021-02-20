@@ -1,4 +1,118 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – SDKs</title><link>https://dapr-cn.github.io/developing-applications/sdks/</link><description>Recent content in SDKs on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="https://dapr-cn.github.io/developing-applications/sdks/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Serialization in Dapr's SDKs</title><link>https://dapr-cn.github.io/developing-applications/sdks/serialization/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/sdks/serialization/</guid><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – Dapr Software Development Kits (SDKs)</title><link>https://dapr-cn.github.io/developing-applications/sdks/</link><description>Recent content in Dapr Software Development Kits (SDKs) on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh</language><atom:link href="https://dapr-cn.github.io/developing-applications/sdks/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Dapr PHP SDK</title><link>https://dapr-cn.github.io/developing-applications/sdks/php/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/sdks/php/</guid><description>
+&lt;p>Dapr offers an SDK to help with the development of PHP applications. Using it, you can create PHP clients, servers, and virtual actors with Dapr.&lt;/p>
+&lt;h2 id="setting-up">Setting up&lt;/h2>
+&lt;h3 id="prerequisites">Prerequisites&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a href="https://getcomposer.org/">Composer&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.php.net/">PHP 8&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h3 id="optional-prerequisites">Optional Prerequisites&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a href="https://www.docker.com/">Docker&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://xdebug.org/">xdebug&lt;/a> &amp;ndash; for debugging&lt;/li>
+&lt;/ul>
+&lt;h2 id="initialize-your-project">Initialize your project&lt;/h2>
+&lt;p>In a directory where you want to create your service, run &lt;code>composer init&lt;/code> and answer the questions.
+Install &lt;code>dapr/php-sdk&lt;/code> and any other dependencies you may wish to use.&lt;/p>
+&lt;h2 id="configure-your-service">Configure your service&lt;/h2>
+&lt;p>Create a config.php, copying the contents below:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
+&lt;span style="color:#66d9ef">use&lt;/span> &lt;span style="color:#a6e22e">Dapr\Actors\Generators\ProxyFactory&lt;/span>;
+&lt;span style="color:#66d9ef">use&lt;/span> &lt;span style="color:#a6e22e">Dapr\Middleware\Defaults\&lt;/span>{&lt;span style="color:#a6e22e">Response\ApplicationJson&lt;/span>,&lt;span style="color:#a6e22e">Tracing&lt;/span>};
+&lt;span style="color:#66d9ef">use&lt;/span> &lt;span style="color:#a6e22e">Psr\Log\LogLevel&lt;/span>;
+&lt;span style="color:#66d9ef">use&lt;/span> &lt;span style="color:#66d9ef">function&lt;/span> &lt;span style="color:#a6e22e">DI\&lt;/span>{&lt;span style="color:#a6e22e">env&lt;/span>,&lt;span style="color:#a6e22e">get&lt;/span>};
+&lt;span style="color:#66d9ef">return&lt;/span> [
+&lt;span style="color:#75715e">// set the log level
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#e6db74">&amp;#39;dapr.log.level&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> &lt;span style="color:#a6e22e">LogLevel&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">WARNING&lt;/span>,
+&lt;span style="color:#75715e">// Generate a new proxy on each request - recommended for development
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#e6db74">&amp;#39;dapr.actors.proxy.generation&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> &lt;span style="color:#a6e22e">ProxyFactory&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">GENERATED&lt;/span>,
+&lt;span style="color:#75715e">// put any subscriptions here
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#e6db74">&amp;#39;dapr.subscriptions&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> [],
+&lt;span style="color:#75715e">// if this service will be hosting any actors, add them here
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#e6db74">&amp;#39;dapr.actors&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> [],
+&lt;span style="color:#75715e">// if this service will be hosting any actors, configure how long until dapr should consider an actor idle
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#e6db74">&amp;#39;dapr.actors.idle_timeout&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> &lt;span style="color:#66d9ef">null&lt;/span>,
+&lt;span style="color:#75715e">// if this service will be hosting any actors, configure how often dapr will check for idle actors
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#e6db74">&amp;#39;dapr.actors.scan_interval&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> &lt;span style="color:#66d9ef">null&lt;/span>,
+&lt;span style="color:#75715e">// if this service will be hosting any actors, configure how long dapr will wait for an actor to finish during drains
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#e6db74">&amp;#39;dapr.actors.drain_timeout&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> &lt;span style="color:#66d9ef">null&lt;/span>,
+&lt;span style="color:#75715e">// if this service will be hosting any actors, configure if dapr should wait for an actor to finish
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#e6db74">&amp;#39;dapr.actors.drain_enabled&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> &lt;span style="color:#66d9ef">null&lt;/span>,
+&lt;span style="color:#75715e">// you shouldn&amp;#39;t have to change this, but the setting is here if you need to
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#e6db74">&amp;#39;dapr.port&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> &lt;span style="color:#a6e22e">env&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;DAPR_HTTP_PORT&amp;#39;&lt;/span>, &lt;span style="color:#e6db74">&amp;#39;3500&amp;#39;&lt;/span>),
+&lt;span style="color:#75715e">// add any custom serialization routines here
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#e6db74">&amp;#39;dapr.serializers.custom&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> [],
+&lt;span style="color:#75715e">// add any custom deserialization routines here
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#e6db74">&amp;#39;dapr.deserializers.custom&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> [],
+&lt;span style="color:#75715e">// the following has no effect, as it is the default middlewares and processed in order specified
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#e6db74">&amp;#39;dapr.http.middleware.request&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> [&lt;span style="color:#a6e22e">get&lt;/span>(&lt;span style="color:#a6e22e">Tracing&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">class&lt;/span>)],
+&lt;span style="color:#e6db74">&amp;#39;dapr.http.middleware.response&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> [&lt;span style="color:#a6e22e">get&lt;/span>(&lt;span style="color:#a6e22e">ApplicationJson&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">class&lt;/span>), &lt;span style="color:#a6e22e">get&lt;/span>(&lt;span style="color:#a6e22e">Tracing&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">class&lt;/span>)],
+];
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="create-your-service">Create your service&lt;/h2>
+&lt;p>Create &lt;code>index.php&lt;/code> and put the following contents:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
+&lt;span style="color:#66d9ef">require_once&lt;/span> &lt;span style="color:#66d9ef">__DIR__&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#e6db74">&amp;#39;/vendor/autoload.php&amp;#39;&lt;/span>;
+&lt;span style="color:#66d9ef">use&lt;/span> &lt;span style="color:#a6e22e">Dapr\App&lt;/span>;
+$app &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">App&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">create&lt;/span>(&lt;span style="color:#a6e22e">configure&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#a6e22e">fn&lt;/span>(&lt;span style="color:#a6e22e">\DI\ContainerBuilder&lt;/span> $builder) &lt;span style="color:#f92672">=&amp;gt;&lt;/span> $builder&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">addDefinitions&lt;/span>(&lt;span style="color:#66d9ef">__DIR__&lt;/span> &lt;span style="color:#f92672">.&lt;/span> &lt;span style="color:#e6db74">&amp;#39;/config.php&amp;#39;&lt;/span>));
+$app&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">get&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;/hello/{name}&amp;#39;&lt;/span>, &lt;span style="color:#66d9ef">function&lt;/span>(&lt;span style="color:#a6e22e">string&lt;/span> $name) {
+&lt;span style="color:#66d9ef">return&lt;/span> [&lt;span style="color:#e6db74">&amp;#39;hello&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> $name];
+});
+$app&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">start&lt;/span>();
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="try-it-out">Try it out&lt;/h2>
+&lt;p>Initialize dapr with &lt;code>dapr init&lt;/code> and then start the project with &lt;code>dapr run -a dev -p 3000 -- php -S 0.0.0.0:3000&lt;/code>.&lt;/p>
+&lt;p>You can now open a web browser and point it to &lt;a href="http://localhost:3000/hello/world">http://localhost:3000/hello/world&lt;/a>
+replacing &lt;code>world&lt;/code> with your name, a pet&amp;rsquo;s name, or whatever you want.&lt;/p>
+&lt;p>Congratulations, you&amp;rsquo;ve created your first Dapr service! I&amp;rsquo;m excited to see what you&amp;rsquo;ll do with it!&lt;/p>
+&lt;h2 id="more-information">More Information&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://packagist.org/packages/dapr/php-sdk">Packagist&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/sdks/sdk-serialization/">Dapr SDK serialization&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Developing-Applications: Dapr Python SDK</title><link>https://dapr-cn.github.io/developing-applications/sdks/python/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/sdks/python/</guid><description>
+&lt;p>Dapr offers a variety of packages to help with the development of Python applications. Using them you can create Python clients, servers, and virtual actors with Dapr.&lt;/p>
+&lt;h2 id="available-packages">Available packages&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/sdks/python/python-client/">&lt;strong>Dapr client&lt;/strong>&lt;/a> for writing Python applications to interact with the Dapr sidecar and other Dapr applications&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/sdks/python/python-actor/">&lt;strong>Dapr actor&lt;/strong>&lt;/a> for creating for creating and interacting with stateful virtual actors in Python&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/sdks/python/python-sdk-extensions/">&lt;strong>Extensions&lt;/strong>&lt;/a> for adding Dapr capabilities to other Python frameworks
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/sdks/python/python-sdk-extensions/python-grpc/">&lt;strong>gRPC extension&lt;/strong>&lt;/a> for creating a gRPC server with Dapr&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/sdks/python/python-sdk-extensions/python-fastapi/">&lt;strong>FastAPI extension&lt;/strong>&lt;/a> for adding Dapr actor capabilities to FastAPI applications&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/sdks/python/python-sdk-extensions/python-flask/">&lt;strong>Flask extension&lt;/strong>&lt;/a> for adding Dapr actor capabilities to Flask applications&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="install-the-dapr-module">Install the Dapr module&lt;/h2>
+&lt;ul class="nav nav-tabs" id="tabs-6" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-6-stable-tab" data-toggle="tab" href="#tabs-6-stable" role="tab"
+aria-controls="tabs-6-stable" aria-selected="true">
+Stable
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-6-development-tab" data-toggle="tab" href="#tabs-6-development" role="tab"
+aria-controls="tabs-6-development" aria-selected="false">
+Development
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-6-content">
+&lt;div class="tab-pane fade show active" id="tabs-6-stable" role="tabpanel" aria-labelled-by="tabs-6-stable-tab">
+&lt;br />&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">pip install dapr
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-6-development" role="tabpanel" aria-labelled-by="tabs-6-development-tab">
+&lt;br />&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Note&lt;/h4>
+The development package will contain features and behavior that will be compatible with the pre-release version of the Dapr runtime. Make sure to uninstall any stable versions of the Python SDK before installing the dapr-dev package.
+&lt;/div>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">pip install dapr-dev
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;/div>
+&lt;h2 id="try-it-out">Try it out&lt;/h2>
+&lt;p>Clone the Python SDK repo to try out some of the &lt;a href="https://github.com/dapr/python-sdk/tree/master/examples">examples&lt;/a>.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">git clone https://github.com/dapr/python-sdk.git
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="more-information">More information&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://pypi.org/user/dapr.io/">Python Package Index (PyPI)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/sdks/sdk-serialization/">Dapr SDK serialization&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Developing-Applications: Serialization in Dapr's SDKs</title><link>https://dapr-cn.github.io/developing-applications/sdks/sdk-serialization/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/sdks/sdk-serialization/</guid><description>
 &lt;p>An SDK for Dapr should provide serialization for two use cases. First, for API objects sent through request and response payloads. Second, for objects to be persisted. For both these use cases, a default serialization is provided. In the Java SDK, it is the &lt;a href="https://dapr.github.io/java-sdk/io/dapr/serializer/DefaultObjectSerializer.html">DefaultObjectSerializer&lt;/a> class, providing JSON serialization.&lt;/p>
 &lt;h2 id="service-invocation">Service invocation&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java"> DaprClient client &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#66d9ef">new&lt;/span> DaprClientBuilder&lt;span style="color:#f92672">()).&lt;/span>&lt;span style="color:#a6e22e">build&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
@@ -77,7 +191,7 @@ System&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">o
 &lt;p>The default serializer for Dapr is a JSON serializer with the following expectations:&lt;/p>
 &lt;ol>
 &lt;li>Use of basic &lt;a href="https://www.w3schools.com/js/js_json_datatypes.asp">JSON data types&lt;/a> for cross-language and cross-platform compatibility: string, number, array, boolean, null and another JSON object. Every complex property type in application&amp;rsquo;s serializable objects (DateTime, for example), should be represented as one of the JSON&amp;rsquo;s basic types.&lt;/li>
-&lt;li>Data persisted with the default serializer should be saved as JSON objects too, without extra quotes or encoding. The example below shows how a string and a JSON object would look like in a Redis store.&lt;/li>
+&lt;li>Data persisted with the default serializer should be saved as JSON objects too, without extra quotes or encoding. The example below shows how a string and a JSON object would look like in a Redis store. The example below shows how a string and a JSON object would look like in a Redis store.&lt;/li>
 &lt;/ol>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">redis-cli MGET &lt;span style="color:#e6db74">&amp;#34;ActorStateIT_StatefulActorService||StatefulActorTest||1581130928192||message
 &lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span>This is a message to be saved and retrieved.&lt;span style="color:#e6db74">&amp;#34;

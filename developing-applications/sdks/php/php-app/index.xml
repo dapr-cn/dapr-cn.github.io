@@ -1,0 +1,246 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – The App</title><link>https://dapr-cn.github.io/developing-applications/sdks/php/php-app/</link><description>Recent content in The App on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh</language><atom:link href="https://dapr-cn.github.io/developing-applications/sdks/php/php-app/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Unit Testing</title><link>https://dapr-cn.github.io/developing-applications/sdks/php/php-app/php-unit-testing/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/sdks/php/php-app/php-unit-testing/</guid><description>
+&lt;p>Unit and integration tests are first-class citizens with the PHP SDK. Using the DI container, mocks, stubs,
+and the provided &lt;code>\Dapr\Mocks\TestClient&lt;/code> allows you to have very fine-grained tests.&lt;/p>
+&lt;h2 id="testing-actors">Testing Actors&lt;/h2>
+&lt;p>With actors, there are two things we&amp;rsquo;re interested in while the actor is under test:&lt;/p>
+&lt;ol>
+&lt;li>The returned result based on an initial state&lt;/li>
+&lt;li>The resulting state based on the initial state&lt;/li>
+&lt;/ol>
+&lt;ul class="nav nav-tabs" id="tabs-0" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-0-integration-test-with-testclient-tab" data-toggle="tab" href="#tabs-0-integration-test-with-testclient" role="tab"
+aria-controls="tabs-0-integration-test-with-testclient" aria-selected="true">
+integration test with TestClient
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-0-unit-test-tab" data-toggle="tab" href="#tabs-0-unit-test" role="tab"
+aria-controls="tabs-0-unit-test" aria-selected="false">
+unit test
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-0-content">
+&lt;div class="tab-pane fade show active" id="tabs-0-integration-test-with-testclient" role="tabpanel" aria-labelled-by="tabs-0-integration-test-with-testclient-tab">
+&lt;br />&lt;p>Here&amp;rsquo;s an example test a very simple actor that updates its state and returns a specific value:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
+&lt;span style="color:#75715e">// TestState.php
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>
+&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">TestState&lt;/span> &lt;span style="color:#66d9ef">extends&lt;/span> &lt;span style="color:#a6e22e">\Dapr\Actors\ActorState&lt;/span>
+{
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#a6e22e">int&lt;/span> $number;
+}
+&lt;span style="color:#75715e">// TestActor.php
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>
+&lt;span style="color:#75715e">#[\Dapr\Actors\Attributes\DaprType(&amp;#39;TestActor&amp;#39;)]
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">TestActor&lt;/span> &lt;span style="color:#66d9ef">extends&lt;/span> &lt;span style="color:#a6e22e">\Dapr\Actors\Actor&lt;/span>
+{
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">function&lt;/span> __construct(&lt;span style="color:#a6e22e">string&lt;/span> $id, &lt;span style="color:#66d9ef">private&lt;/span> &lt;span style="color:#a6e22e">TestState&lt;/span> $state)
+{
+&lt;span style="color:#66d9ef">parent&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">__construct&lt;/span>($id);
+}
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">function&lt;/span> &lt;span style="color:#a6e22e">oddIncrement&lt;/span>()&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#a6e22e">bool&lt;/span>
+{
+&lt;span style="color:#66d9ef">if&lt;/span> ($this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">state&lt;/span>&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">number&lt;/span> &lt;span style="color:#f92672">%&lt;/span> &lt;span style="color:#ae81ff">2&lt;/span> &lt;span style="color:#f92672">===&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span>) {
+&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#66d9ef">false&lt;/span>;
+}
+$this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">state&lt;/span>&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">number&lt;/span> &lt;span style="color:#f92672">+=&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span>;
+&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#66d9ef">true&lt;/span>;
+}
+}
+&lt;span style="color:#75715e">// TheTest.php
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>
+&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">TheTest&lt;/span> &lt;span style="color:#66d9ef">extends&lt;/span> &lt;span style="color:#a6e22e">\PHPUnit\Framework\TestCase&lt;/span>
+{
+&lt;span style="color:#66d9ef">private&lt;/span> &lt;span style="color:#a6e22e">\DI\Container&lt;/span> $container;
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">function&lt;/span> &lt;span style="color:#a6e22e">setUp&lt;/span>()&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#a6e22e">void&lt;/span>
+{
+&lt;span style="color:#66d9ef">parent&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">setUp&lt;/span>();
+&lt;span style="color:#75715e">// create a default app and extract the DI container from it
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> $app &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">\Dapr\App&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">create&lt;/span>(
+&lt;span style="color:#a6e22e">configure&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#a6e22e">fn&lt;/span>(&lt;span style="color:#a6e22e">\DI\ContainerBuilder&lt;/span> $builder) &lt;span style="color:#f92672">=&amp;gt;&lt;/span> $builder&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">addDefinitions&lt;/span>(
+[&lt;span style="color:#e6db74">&amp;#39;dapr.actors&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> [&lt;span style="color:#a6e22e">TestActor&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">class&lt;/span>]],
+[&lt;span style="color:#a6e22e">\Dapr\DaprClient&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">class&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> &lt;span style="color:#a6e22e">\DI\autowire&lt;/span>(&lt;span style="color:#a6e22e">\Dapr\Mocks\TestClient&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">class&lt;/span>)]
+));
+$app&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">run&lt;/span>(&lt;span style="color:#a6e22e">fn&lt;/span>(&lt;span style="color:#a6e22e">\DI\Container&lt;/span> $container) &lt;span style="color:#f92672">=&amp;gt;&lt;/span> $this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">container&lt;/span> &lt;span style="color:#f92672">=&lt;/span> $container);
+}
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">function&lt;/span> &lt;span style="color:#a6e22e">testIncrementsWhenOdd&lt;/span>()
+{
+$id &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">uniqid&lt;/span>();
+$runtime &lt;span style="color:#f92672">=&lt;/span> $this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">container&lt;/span>&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">get&lt;/span>(&lt;span style="color:#a6e22e">\Dapr\Actors\ActorRuntime&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">class&lt;/span>);
+$client &lt;span style="color:#f92672">=&lt;/span> $this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">getClient&lt;/span>();
+&lt;span style="color:#75715e">// return the current state from http://localhost:1313/reference/api/actors_api/
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> $client&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">register_get&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;/actors/TestActor/&lt;/span>&lt;span style="color:#e6db74">$id&lt;/span>&lt;span style="color:#e6db74">/state/number&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">code&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#ae81ff">200&lt;/span>, &lt;span style="color:#a6e22e">data&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#ae81ff">3&lt;/span>);
+&lt;span style="color:#75715e">// ensure it increments from http://localhost:1313/reference/api/actors_api/
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> $client&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">register_post&lt;/span>(
+&lt;span style="color:#e6db74">&amp;#34;/actors/TestActor/&lt;/span>&lt;span style="color:#e6db74">$id&lt;/span>&lt;span style="color:#e6db74">/state&amp;#34;&lt;/span>,
+&lt;span style="color:#a6e22e">code&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#ae81ff">204&lt;/span>,
+&lt;span style="color:#a6e22e">response_data&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#66d9ef">null&lt;/span>,
+&lt;span style="color:#a6e22e">expected_request&lt;/span>&lt;span style="color:#f92672">:&lt;/span> [
+[
+&lt;span style="color:#e6db74">&amp;#39;operation&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> &lt;span style="color:#e6db74">&amp;#39;upsert&amp;#39;&lt;/span>,
+&lt;span style="color:#e6db74">&amp;#39;request&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> [
+&lt;span style="color:#e6db74">&amp;#39;key&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> &lt;span style="color:#e6db74">&amp;#39;number&amp;#39;&lt;/span>,
+&lt;span style="color:#e6db74">&amp;#39;value&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> &lt;span style="color:#ae81ff">4&lt;/span>,
+],
+],
+]
+);
+$result &lt;span style="color:#f92672">=&lt;/span> $runtime&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">resolve_actor&lt;/span>(
+&lt;span style="color:#e6db74">&amp;#39;TestActor&amp;#39;&lt;/span>,
+$id,
+&lt;span style="color:#a6e22e">fn&lt;/span>($actor) &lt;span style="color:#f92672">=&amp;gt;&lt;/span> $runtime&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">do_method&lt;/span>($actor, &lt;span style="color:#e6db74">&amp;#39;oddIncrement&amp;#39;&lt;/span>, &lt;span style="color:#66d9ef">null&lt;/span>)
+);
+$this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">assertTrue&lt;/span>($result);
+}
+&lt;span style="color:#66d9ef">private&lt;/span> &lt;span style="color:#66d9ef">function&lt;/span> &lt;span style="color:#a6e22e">getClient&lt;/span>()&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#a6e22e">\Dapr\Mocks\TestClient&lt;/span>
+{
+&lt;span style="color:#66d9ef">return&lt;/span> $this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">container&lt;/span>&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">get&lt;/span>(&lt;span style="color:#a6e22e">\Dapr\DaprClient&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">class&lt;/span>);
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-0-unit-test" role="tabpanel" aria-labelled-by="tabs-0-unit-test-tab">
+&lt;br />&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
+&lt;span style="color:#75715e">// TestState.php
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>
+&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">TestState&lt;/span> &lt;span style="color:#66d9ef">extends&lt;/span> &lt;span style="color:#a6e22e">\Dapr\Actors\ActorState&lt;/span>
+{
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#a6e22e">int&lt;/span> $number;
+}
+&lt;span style="color:#75715e">// TestActor.php
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>
+&lt;span style="color:#75715e">#[\Dapr\Actors\Attributes\DaprType(&amp;#39;TestActor&amp;#39;)]
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">TestActor&lt;/span> &lt;span style="color:#66d9ef">extends&lt;/span> &lt;span style="color:#a6e22e">\Dapr\Actors\Actor&lt;/span>
+{
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">function&lt;/span> __construct(&lt;span style="color:#a6e22e">string&lt;/span> $id, &lt;span style="color:#66d9ef">private&lt;/span> &lt;span style="color:#a6e22e">TestState&lt;/span> $state)
+{
+&lt;span style="color:#66d9ef">parent&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">__construct&lt;/span>($id);
+}
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">function&lt;/span> &lt;span style="color:#a6e22e">oddIncrement&lt;/span>()&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#a6e22e">bool&lt;/span>
+{
+&lt;span style="color:#66d9ef">if&lt;/span> ($this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">state&lt;/span>&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">number&lt;/span> &lt;span style="color:#f92672">%&lt;/span> &lt;span style="color:#ae81ff">2&lt;/span> &lt;span style="color:#f92672">===&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span>) {
+&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#66d9ef">false&lt;/span>;
+}
+$this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">state&lt;/span>&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">number&lt;/span> &lt;span style="color:#f92672">+=&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span>;
+&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#66d9ef">true&lt;/span>;
+}
+}
+&lt;span style="color:#75715e">// TheTest.php
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>
+&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">TheTest&lt;/span> &lt;span style="color:#66d9ef">extends&lt;/span> &lt;span style="color:#a6e22e">\PHPUnit\Framework\TestCase&lt;/span>
+{
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">function&lt;/span> &lt;span style="color:#a6e22e">testNotIncrementsWhenEven&lt;/span>() {
+$container &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> &lt;span style="color:#a6e22e">\DI\Container&lt;/span>();
+$state &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> &lt;span style="color:#a6e22e">TestState&lt;/span>($container, $container);
+$state&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">number&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">4&lt;/span>;
+$id &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">uniqid&lt;/span>();
+$actor &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> &lt;span style="color:#a6e22e">TestActor&lt;/span>($id, $state);
+$this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">assertFalse&lt;/span>($actor&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">oddIncrement&lt;/span>());
+$this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">assertSame&lt;/span>(&lt;span style="color:#ae81ff">4&lt;/span>, $state&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">number&lt;/span>);
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;/div>
+&lt;h2 id="testing-transactions">Testing Transactions&lt;/h2>
+&lt;p>When building on transactions, you&amp;rsquo;ll likely want to test how a failed transaction is handled. In order to do that, you
+need to inject failures and ensure the transaction matches what you expect.&lt;/p>
+&lt;ul class="nav nav-tabs" id="tabs-1" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-1-integration-test-with-testclient-tab" data-toggle="tab" href="#tabs-1-integration-test-with-testclient" role="tab"
+aria-controls="tabs-1-integration-test-with-testclient" aria-selected="true">
+integration test with TestClient
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-1-unit-test-tab" data-toggle="tab" href="#tabs-1-unit-test" role="tab"
+aria-controls="tabs-1-unit-test" aria-selected="false">
+unit test
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-1-content">
+&lt;div class="tab-pane fade show active" id="tabs-1-integration-test-with-testclient" role="tabpanel" aria-labelled-by="tabs-1-integration-test-with-testclient-tab">
+&lt;br />&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
+&lt;span style="color:#75715e">// MyState.php
+&lt;/span>&lt;span style="color:#75715e">#[\Dapr\State\Attributes\StateStore(&amp;#39;statestore&amp;#39;, \Dapr\consistency\EventualFirstWrite::class)]
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">MyState&lt;/span> &lt;span style="color:#66d9ef">extends&lt;/span> &lt;span style="color:#a6e22e">\Dapr\State\TransactionalState&lt;/span> {
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#a6e22e">string&lt;/span> $value &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;&amp;#39;&lt;/span>;
+}
+&lt;span style="color:#75715e">// SomeService.php
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">SomeService&lt;/span> {
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">function&lt;/span> __construct(&lt;span style="color:#66d9ef">private&lt;/span> &lt;span style="color:#a6e22e">MyState&lt;/span> $state) {}
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">function&lt;/span> &lt;span style="color:#a6e22e">doWork&lt;/span>() {
+$this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">state&lt;/span>&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">begin&lt;/span>();
+$this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">state&lt;/span>&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">value&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;hello world&amp;#34;&lt;/span>;
+$this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">state&lt;/span>&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">commit&lt;/span>();
+}
+}
+&lt;span style="color:#75715e">// TheTest.php
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">TheTest&lt;/span> &lt;span style="color:#66d9ef">extends&lt;/span> &lt;span style="color:#a6e22e">\PHPUnit\Framework\TestCase&lt;/span> {
+&lt;span style="color:#66d9ef">private&lt;/span> &lt;span style="color:#a6e22e">\DI\Container&lt;/span> $container;
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">function&lt;/span> &lt;span style="color:#a6e22e">setUp&lt;/span>()&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#a6e22e">void&lt;/span>
+{
+&lt;span style="color:#66d9ef">parent&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">setUp&lt;/span>();
+$app &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">\Dapr\App&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">create&lt;/span>(&lt;span style="color:#a6e22e">configure&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#a6e22e">fn&lt;/span>(&lt;span style="color:#a6e22e">\DI\ContainerBuilder&lt;/span> $builder)
+&lt;span style="color:#f92672">=&amp;gt;&lt;/span> $builder&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">addDefinitions&lt;/span>([&lt;span style="color:#a6e22e">\Dapr\DaprClient&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">class&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> &lt;span style="color:#a6e22e">\DI\autowire&lt;/span>(&lt;span style="color:#a6e22e">\Dapr\Mocks\TestClient&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">class&lt;/span>)]));
+$this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">container&lt;/span> &lt;span style="color:#f92672">=&lt;/span> $app&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">run&lt;/span>(&lt;span style="color:#a6e22e">fn&lt;/span>(&lt;span style="color:#a6e22e">\DI\Container&lt;/span> $container) &lt;span style="color:#f92672">=&amp;gt;&lt;/span> $container);
+}
+&lt;span style="color:#66d9ef">private&lt;/span> &lt;span style="color:#66d9ef">function&lt;/span> &lt;span style="color:#a6e22e">getClient&lt;/span>()&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#a6e22e">\Dapr\Mocks\TestClient&lt;/span> {
+&lt;span style="color:#66d9ef">return&lt;/span> $this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">container&lt;/span>&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">get&lt;/span>(&lt;span style="color:#a6e22e">\Dapr\DaprClient&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">class&lt;/span>);
+}
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">function&lt;/span> &lt;span style="color:#a6e22e">testTransactionFailure&lt;/span>() {
+$client &lt;span style="color:#f92672">=&lt;/span> $this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">getClient&lt;/span>();
+&lt;span style="color:#75715e">// create a response from https://dapr-cn.github.io/reference/api/state_api/
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> $client&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">register_post&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;/state/statestore/bulk&amp;#39;&lt;/span>, &lt;span style="color:#a6e22e">code&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#ae81ff">200&lt;/span>, &lt;span style="color:#a6e22e">response_data&lt;/span>&lt;span style="color:#f92672">:&lt;/span> [
+[
+&lt;span style="color:#e6db74">&amp;#39;key&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> &lt;span style="color:#e6db74">&amp;#39;value&amp;#39;&lt;/span>,
+&lt;span style="color:#75715e">// no previous value
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> ],
+], &lt;span style="color:#a6e22e">expected_request&lt;/span>&lt;span style="color:#f92672">:&lt;/span> [
+&lt;span style="color:#e6db74">&amp;#39;keys&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> [&lt;span style="color:#e6db74">&amp;#39;value&amp;#39;&lt;/span>],
+&lt;span style="color:#e6db74">&amp;#39;parallelism&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> &lt;span style="color:#ae81ff">10&lt;/span>
+]);
+$client&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">register_post&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;/state/statestore/transaction&amp;#39;&lt;/span>,
+&lt;span style="color:#a6e22e">code&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#ae81ff">200&lt;/span>,
+&lt;span style="color:#a6e22e">response_data&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#66d9ef">null&lt;/span>,
+&lt;span style="color:#a6e22e">expected_request&lt;/span>&lt;span style="color:#f92672">:&lt;/span> [
+&lt;span style="color:#e6db74">&amp;#39;operations&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> [
+[
+&lt;span style="color:#e6db74">&amp;#39;operation&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> &lt;span style="color:#e6db74">&amp;#39;upsert&amp;#39;&lt;/span>,
+&lt;span style="color:#e6db74">&amp;#39;request&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> [
+&lt;span style="color:#e6db74">&amp;#39;key&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> &lt;span style="color:#e6db74">&amp;#39;value&amp;#39;&lt;/span>,
+&lt;span style="color:#e6db74">&amp;#39;value&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> &lt;span style="color:#e6db74">&amp;#39;hello world&amp;#39;&lt;/span>
+]
+]
+]
+]
+);
+$state &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> &lt;span style="color:#a6e22e">MyState&lt;/span>($this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">container&lt;/span>, $this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">container&lt;/span>);
+$service &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> &lt;span style="color:#a6e22e">SomeService&lt;/span>($state);
+$service&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">doWork&lt;/span>();
+$this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">assertSame&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;hello world&amp;#39;&lt;/span>, $state&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">value&lt;/span>);
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-1-unit-test" role="tabpanel" aria-labelled-by="tabs-1-unit-test-tab">
+&lt;br />&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
+&lt;span style="color:#75715e">// MyState.php
+&lt;/span>&lt;span style="color:#75715e">#[\Dapr\State\Attributes\StateStore(&amp;#39;statestore&amp;#39;, \Dapr\consistency\EventualFirstWrite::class)]
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">MyState&lt;/span> &lt;span style="color:#66d9ef">extends&lt;/span> &lt;span style="color:#a6e22e">\Dapr\State\TransactionalState&lt;/span> {
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#a6e22e">string&lt;/span> $value &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;&amp;#39;&lt;/span>;
+}
+&lt;span style="color:#75715e">// SomeService.php
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">SomeService&lt;/span> {
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">function&lt;/span> __construct(&lt;span style="color:#66d9ef">private&lt;/span> &lt;span style="color:#a6e22e">MyState&lt;/span> $state) {}
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">function&lt;/span> &lt;span style="color:#a6e22e">doWork&lt;/span>() {
+$this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">state&lt;/span>&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">begin&lt;/span>();
+$this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">state&lt;/span>&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">value&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;hello world&amp;#34;&lt;/span>;
+$this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">state&lt;/span>&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">commit&lt;/span>();
+}
+}
+&lt;span style="color:#75715e">// TheTest.php
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">TheTest&lt;/span> &lt;span style="color:#66d9ef">extends&lt;/span> &lt;span style="color:#a6e22e">\PHPUnit\Framework\TestCase&lt;/span> {
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">function&lt;/span> &lt;span style="color:#a6e22e">testTransactionFailure&lt;/span>() {
+$state &lt;span style="color:#f92672">=&lt;/span> $this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">createStub&lt;/span>(&lt;span style="color:#a6e22e">MyState&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">class&lt;/span>);
+$service &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> &lt;span style="color:#a6e22e">SomeService&lt;/span>($state);
+$service&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">doWork&lt;/span>();
+$this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">assertSame&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;hello world&amp;#39;&lt;/span>, $state&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">value&lt;/span>);
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;/div></description></item></channel></rss>

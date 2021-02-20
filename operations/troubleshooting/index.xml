@@ -1,4 +1,4 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – Debugging and Troubleshooting</title><link>https://dapr-cn.github.io/operations/troubleshooting/</link><description>Recent content in Debugging and Troubleshooting on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="https://dapr-cn.github.io/operations/troubleshooting/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: Common issues when running Dapr</title><link>https://dapr-cn.github.io/operations/troubleshooting/common_issues/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/troubleshooting/common_issues/</guid><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – Debugging and Troubleshooting</title><link>https://dapr-cn.github.io/operations/troubleshooting/</link><description>Recent content in Debugging and Troubleshooting on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh</language><atom:link href="https://dapr-cn.github.io/operations/troubleshooting/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: Common issues when running Dapr</title><link>https://dapr-cn.github.io/operations/troubleshooting/common_issues/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/troubleshooting/common_issues/</guid><description>
 &lt;h2 id="i-dont-see-the-dapr-sidecar-injected-to-my-pod">I don&amp;rsquo;t see the Dapr sidecar injected to my pod&lt;/h2>
 &lt;p>There could be several reasons to why a sidecar will not be injected into a pod. First, check your Deployment or Pod YAML file, and check that you have the following annotations in the right place:&lt;/p>
 &lt;p>Sample deployment:&lt;/p>
@@ -49,7 +49,7 @@ Warning BackOff 3m2s (x18 over 6m48s) kubelet, aks-agentpool-12499885-vmss000000
 &lt;p>The most common cause of this failure is that a component (such as a state store) is misconfigured and is causing initialization to take too long. When initialization takes a long time, it&amp;rsquo;s possible that the health check could terminate the sidecar before anything useful is logged by the sidecar.&lt;/p>
 &lt;p>To diagnose the root cause:&lt;/p>
 &lt;ul>
-&lt;li>Significantly increase the liveness probe delay - [link]https://dapr-cn.github.io/operations/hosting/kubernetes/kubernetes-overview/)&lt;/li>
+&lt;li>Significantly increase the liveness probe delay - &lt;a href="https://dapr-cn.github.io/operations/hosting/kubernetes/kubernetes-overview/">link&lt;/a>&lt;/li>
 &lt;li>Set the log level of the sidecar to debug - &lt;a href="https://dapr-cn.github.io/operations/troubleshooting/logs-troubleshooting/#setting-the-sidecar-log-level">link&lt;/a>&lt;/li>
 &lt;li>Watch the logs for meaningful information - &lt;a href="https://dapr-cn.github.io/operations/troubleshooting/logs-troubleshooting/#viewing-logs-on-kubernetes">link&lt;/a>&lt;/li>
 &lt;/ul>
@@ -87,7 +87,7 @@ Warning BackOff 3m2s (x18 over 6m48s) kubelet, aks-agentpool-12499885-vmss000000
 &lt;span style="color:#f92672">dapr.io/app-port&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;3000&amp;#34;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>If using Dapr Standalone and the Dapr CLI, make sure you pass the &lt;code>--app-port&lt;/code> flag to the &lt;code>dapr run&lt;/code> command.&lt;/p>
 &lt;h2 id="my-dapr-enabled-app-isnt-behaving-correctly">My Dapr-enabled app isn&amp;rsquo;t behaving correctly&lt;/h2>
-&lt;p>The first thing to do is inspect the HTTP error code returned from the Dapr API, if any. If you still can&amp;rsquo;t find the issue, try enabling &lt;code>debug&lt;/code> log levels for the Dapr runtime. See &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/observability/logs/">here&lt;/a> how to do so.&lt;/p>
+&lt;p>The first thing to do is inspect the HTTP error code returned from the Dapr API, if any. If you still can&amp;rsquo;t find the issue, try enabling &lt;code>debug&lt;/code> log levels for the Dapr runtime. See &lt;a href="https://dapr-cn.github.io/operations/monitoring/logging/logs/">here&lt;/a> how to do so.&lt;/p>
 &lt;p>You might also want to look at error logs from your own process. If running on Kubernetes, find the pod containing your app, and execute the following:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl logs &amp;lt;pod-name&amp;gt; &amp;lt;name-of-your-container&amp;gt;
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>If running in Standalone mode, you should see the stderr and stdout outputs from your app displayed in the main console session.&lt;/p>
@@ -98,7 +98,13 @@ Warning BackOff 3m2s (x18 over 6m48s) kubelet, aks-agentpool-12499885-vmss000000
 &lt;p>The following example shows how to set the Host IP env var to &lt;code>127.0.0.1&lt;/code>:&lt;/p>
 &lt;p>&lt;strong>Note: for versions &amp;lt;= 0.4.0 use &lt;code>HOST_IP&lt;/code>&lt;/strong>&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">export DAPR_HOST_IP&lt;span style="color:#f92672">=&lt;/span>127.0.0.1
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Operations: Configure and view Dapr Logs</title><link>https://dapr-cn.github.io/operations/troubleshooting/logs-troubleshooting/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/troubleshooting/logs-troubleshooting/</guid><description>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="none-of-my-components-are-getting-loaded-when-my-application-starts-i-keep-getting-error-component-x-cannot-be-found">None of my components are getting loaded when my application starts. I keep getting &amp;ldquo;Error component X cannot be found&amp;rdquo;&lt;/h2>
+&lt;p>This is usually due to one of the following issues&lt;/p>
+&lt;ul>
+&lt;li>You may have defined the &lt;code>NAMESPACE&lt;/code> environment variable locally or deployed your components into a different namespace in Kubernetes. Check which namespace your app and the components are deployed to. Read &lt;a href="https://dapr-cn.github.io/operations/components/component-scopes/">scoping components to one or more applications&lt;/a> for more information.&lt;/li>
+&lt;li>You may have not provided a &lt;code>--components-path&lt;/code> with the Dapr &lt;code>run&lt;/code> commands or not placed your components into the default components folder for your OS. Read &lt;a href="https://dapr-cn.github.io/getting-started/get-started-component/">define a component&lt;/a> for more information.&lt;/li>
+&lt;li>You may have a syntax issue in component YAML file. Check your component YAML with the component &lt;a href="https://dapr-cn.github.io/operations/components/">YAML samples&lt;/a>.&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Configure and view Dapr Logs</title><link>https://dapr-cn.github.io/operations/troubleshooting/logs-troubleshooting/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/troubleshooting/logs-troubleshooting/</guid><description>
 &lt;p>This section will assist you in understanding how logging works in Dapr, configuring and viewing logs.&lt;/p>
 &lt;h2 id="overview">Overview&lt;/h2>
 &lt;p>Logs have different, configurable verbosity levels. The levels outlined below are the same for both system components and the Dapr sidecar process/container:&lt;/p>
@@ -201,92 +207,11 @@ time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&am
 time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-04T00:21:57Z&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;host added: 10.244.1.89&amp;#34;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;em>Note: If Dapr is installed to a different namespace than dapr-system, simply replace the namespace to the desired one in the command above&lt;/em>&lt;/p>
 &lt;h3 id="non-kubernetes-environments">Non Kubernetes Environments&lt;/h3>
-&lt;p>The examples above are specific specific to Kubernetes, but the principal is the same for any kind of container based environment: simply grab the container ID of the Dapr sidecar and/or system component (if applicable) and view its logs.&lt;/p></description></item><item><title>Operations: Tracing</title><link>https://dapr-cn.github.io/operations/troubleshooting/setup-tracing/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/troubleshooting/setup-tracing/</guid><description>
-&lt;p>It is recommended to run Dapr with tracing enabled for any production scenario. Since Dapr uses Open Census, you can configure various exporters for tracing and telemetry data based on your environment, whether it is running in the cloud or on-premises.&lt;/p>
-&lt;h2 id="tracing-configuration">Tracing configuration&lt;/h2>
-&lt;p>The &lt;code>tracing&lt;/code> section under the &lt;code>Configuration&lt;/code> spec contains the following properties:&lt;/p>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yml" data-lang="yml">&lt;span style="color:#f92672">tracing&lt;/span>:
-&lt;span style="color:#f92672">tracing&lt;/span>:
-&lt;span style="color:#f92672">samplingRate&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span>
-&lt;span style="color:#f92672">zipkin&lt;/span>:
-&lt;span style="color:#f92672">endpointAddress&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;https://...&amp;#34;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>The following table lists the properties for tracing:&lt;/p>
-&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th>Property&lt;/th>
-&lt;th>Type&lt;/th>
-&lt;th>Description&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td>&lt;code>samplingRate&lt;/code>&lt;/td>
-&lt;td>string&lt;/td>
-&lt;td>Set sampling rate for tracing to be enabled or disabled.&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;code>zipkin.endpointAddress&lt;/code>&lt;/td>
-&lt;td>string&lt;/td>
-&lt;td>Set the Zipkin server address.&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;h2 id="zipkin-in-stand-alone-mode">Zipkin in stand-alone mode&lt;/h2>
-&lt;p>The following steps show you how to configure Dapr to send distributed tracing data to Zipkin running as a container on your local machine and view them.&lt;/p>
-&lt;p>For Standalone mode, create a Dapr configuration file locally and reference it with the Dapr CLI.&lt;/p>
-&lt;ol>
-&lt;li>
-&lt;p>Create the following YAML file:&lt;/p>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
-&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
-&lt;span style="color:#f92672">metadata&lt;/span>:
-&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">zipkin&lt;/span>
-&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
-&lt;span style="color:#f92672">spec&lt;/span>:
-&lt;span style="color:#f92672">tracing&lt;/span>:
-&lt;span style="color:#f92672">samplingRate&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span>
-&lt;span style="color:#f92672">zipkin&lt;/span>:
-&lt;span style="color:#f92672">endpointAddress&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;http://localhost:9411/api/v2/spans&amp;#34;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
-&lt;li>
-&lt;p>Launch Zipkin using Docker:&lt;/p>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">docker run -d -p 9411:9411 openzipkin/zipkin
-&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
-&lt;li>
-&lt;p>Launch Dapr with the &lt;code>--config&lt;/code> param:&lt;/p>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr run --app-id mynode --app-port &lt;span style="color:#ae81ff">3000&lt;/span> --config ./config.yaml node app.js
-&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
-&lt;/ol>
-&lt;h2 id="zipkin-in-kubernetes-mode">Zipkin in Kubernetes mode&lt;/h2>
-&lt;p>The following steps show you how to configure Dapr to send distributed tracing data to Zipkin running as a container in your Kubernetes cluster, and how to view them.&lt;/p>
-&lt;h3 id="setup">Setup&lt;/h3>
-&lt;p>First, deploy Zipkin:&lt;/p>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl create deployment zipkin --image openzipkin/zipkin
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Create a Kubernetes Service for the Zipkin pod:&lt;/p>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl expose deployment zipkin --type ClusterIP --port &lt;span style="color:#ae81ff">9411&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Next, create the following YAML file locally:&lt;/p>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yml" data-lang="yml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
-&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
-&lt;span style="color:#f92672">metadata&lt;/span>:
-&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">zipkin&lt;/span>
-&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
-&lt;span style="color:#f92672">spec&lt;/span>:
-&lt;span style="color:#f92672">tracing&lt;/span>:
-&lt;span style="color:#f92672">samplingRate&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span>
-&lt;span style="color:#f92672">zipkin&lt;/span>:
-&lt;span style="color:#f92672">endpointAddress&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;http://zipkin.default.svc.cluster.local:9411/api/v2/spans&amp;#34;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Finally, deploy the Dapr configuration:&lt;/p>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl apply -f config.yaml
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>In order to enable this configuration for your Dapr sidecar, add the following annotation to your pod spec template:&lt;/p>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yml" data-lang="yml">&lt;span style="color:#f92672">annotations&lt;/span>:
-&lt;span style="color:#f92672">dapr.io/config&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;zipkin&amp;#34;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>That&amp;rsquo;s it! Your sidecar is now configured for use with Open Census and Zipkin.&lt;/p>
-&lt;h3 id="viewing-tracing-data">Viewing Tracing Data&lt;/h3>
-&lt;p>To view traces, connect to the Zipkin service and open the UI:&lt;/p>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl port-forward svc/zipkin 9411:9411
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>On your browser, go to &lt;code>http://localhost:9411&lt;/code> and you should see the Zipkin UI.&lt;/p>
-&lt;p>&lt;img src="https://dapr-cn.github.io/images/zipkin_ui.png" alt="zipkin">&lt;/p></description></item><item><title>Operations: Profiling &amp; Debugging</title><link>https://dapr-cn.github.io/operations/troubleshooting/profiling-debugging/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/troubleshooting/profiling-debugging/</guid><description>
+&lt;p>The examples above are specific specific to Kubernetes, but the principal is the same for any kind of container based environment: simply grab the container ID of the Dapr sidecar and/or system component (if applicable) and view its logs.&lt;/p>
+&lt;h2 id="参考文档">参考文档&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/operations/monitoring/logging/">How to setup loggings for Dapr sidecar, and your application&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Profiling &amp; Debugging</title><link>https://dapr-cn.github.io/operations/troubleshooting/profiling-debugging/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/troubleshooting/profiling-debugging/</guid><description>
 &lt;p>In any real world scenario, an app might start exhibiting undesirable behavior in terms of resource spikes. CPU/Memory spikes are not uncommon in most cases.&lt;/p>
 &lt;p>Dapr allows users to start an on-demand profiling session using &lt;code>pprof&lt;/code> through its profiling server endpoint and start an instrumentation session to discover problems and issues such as concurrency, performance, cpu and memory usage.&lt;/p>
 &lt;h2 id="enable-profiling">Enable profiling&lt;/h2>

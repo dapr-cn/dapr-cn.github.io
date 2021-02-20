@@ -1,0 +1,147 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – Dapr Python SDK extensions</title><link>https://dapr-cn.github.io/developing-applications/sdks/python/python-sdk-extensions/</link><description>Recent content in Dapr Python SDK extensions on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh</language><atom:link href="https://dapr-cn.github.io/developing-applications/sdks/python/python-sdk-extensions/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Getting started with the Dapr Python gRPC service extension</title><link>https://dapr-cn.github.io/developing-applications/sdks/python/python-sdk-extensions/python-grpc/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/sdks/python/python-sdk-extensions/python-grpc/</guid><description>
+&lt;p>The Dapr Python SDK provides a built in gRPC server extension module, &lt;code>dapr.ext.grpc&lt;/code>, for creating Dapr services.&lt;/p>
+&lt;h2 id="installation">Installation&lt;/h2>
+&lt;p>You can download and install the Dapr gRPC server extension module with:&lt;/p>
+&lt;ul class="nav nav-tabs" id="tabs-0" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-0-stable-tab" data-toggle="tab" href="#tabs-0-stable" role="tab"
+aria-controls="tabs-0-stable" aria-selected="true">
+Stable
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-0-development-tab" data-toggle="tab" href="#tabs-0-development" role="tab"
+aria-controls="tabs-0-development" aria-selected="false">
+Development
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-0-content">
+&lt;div class="tab-pane fade show active" id="tabs-0-stable" role="tabpanel" aria-labelled-by="tabs-0-stable-tab">
+&lt;br />&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">pip install dapr-ext-grpc
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-0-development" role="tabpanel" aria-labelled-by="tabs-0-development-tab">
+&lt;br />&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Note&lt;/h4>
+The development package will contain features and behavior that will be compatible with the pre-release version of the Dapr runtime. Make sure to uninstall any stable versions of the Python SDK extension before installing the dapr-dev package.
+&lt;/div>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">pip3 install dapr-ext-grpc-dev
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;/div>
+&lt;h2 id="examples">Examples&lt;/h2>
+&lt;p>The &lt;code>App&lt;/code> object can be used to create a server.&lt;/p>
+&lt;h3 id="listen-for-service-invocation-requests">Listen for service invocation requests&lt;/h3>
+&lt;p>The &lt;code>InvokeServiceReqest&lt;/code> and &lt;code>InvokeServiceResponse&lt;/code> objects can be used to handle incoming requests.&lt;/p>
+&lt;p>A simple service that will listen and respond to requests will look like:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">from&lt;/span> dapr.ext.grpc &lt;span style="color:#f92672">import&lt;/span> App, InvokeServiceRequest, InvokeServiceResponse
+app &lt;span style="color:#f92672">=&lt;/span> App()
+&lt;span style="color:#a6e22e">@app.method&lt;/span>(name&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;my-method&amp;#39;&lt;/span>)
+&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">mymethod&lt;/span>(request: InvokeServiceRequest) &lt;span style="color:#f92672">-&amp;gt;&lt;/span> InvokeServiceResponse:
+&lt;span style="color:#66d9ef">print&lt;/span>(request&lt;span style="color:#f92672">.&lt;/span>metadata, flush&lt;span style="color:#f92672">=&lt;/span>True)
+&lt;span style="color:#66d9ef">print&lt;/span>(request&lt;span style="color:#f92672">.&lt;/span>text(), flush&lt;span style="color:#f92672">=&lt;/span>True)
+&lt;span style="color:#66d9ef">return&lt;/span> InvokeServiceResponse(&lt;span style="color:#e6db74">b&lt;/span>&lt;span style="color:#e6db74">&amp;#39;INVOKE_RECEIVED&amp;#39;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;text/plain; charset=UTF-8&amp;#34;&lt;/span>)
+app&lt;span style="color:#f92672">.&lt;/span>run(&lt;span style="color:#ae81ff">50051&lt;/span>)
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>A full sample can be found &lt;a href="https://github.com/dapr/python-sdk/tree/v1.0.0rc2/examples/invoke-simple">here&lt;/a>.&lt;/p>
+&lt;h3 id="subscribe-to-a-topic">Subscribe to a topic&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">from&lt;/span> cloudevents.sdk.event &lt;span style="color:#f92672">import&lt;/span> v1
+&lt;span style="color:#f92672">from&lt;/span> dapr.ext.grpc &lt;span style="color:#f92672">import&lt;/span> App
+app &lt;span style="color:#f92672">=&lt;/span> App()
+&lt;span style="color:#a6e22e">@app.subscribe&lt;/span>(pubsub_name&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;pubsub&amp;#39;&lt;/span>, topic&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;TOPIC_A&amp;#39;&lt;/span>)
+&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">mytopic&lt;/span>(event: v1&lt;span style="color:#f92672">.&lt;/span>Event) &lt;span style="color:#f92672">-&amp;gt;&lt;/span> None:
+&lt;span style="color:#66d9ef">print&lt;/span>(event&lt;span style="color:#f92672">.&lt;/span>Data(),flush&lt;span style="color:#f92672">=&lt;/span>True)
+app&lt;span style="color:#f92672">.&lt;/span>run(&lt;span style="color:#ae81ff">50051&lt;/span>)
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>A full sample can be found &lt;a href="https://github.com/dapr/python-sdk/blob/v1.0.0rc2/examples/pubsub-simple/subscriber.py">here&lt;/a>.&lt;/p>
+&lt;h3 id="setup-input-binding-trigger">Setup input binding trigger&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">from&lt;/span> dapr.ext.grpc &lt;span style="color:#f92672">import&lt;/span> App, BindingRequest
+app &lt;span style="color:#f92672">=&lt;/span> App()
+&lt;span style="color:#a6e22e">@app.binding&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;kafkaBinding&amp;#39;&lt;/span>)
+&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">binding&lt;/span>(request: BindingRequest):
+&lt;span style="color:#66d9ef">print&lt;/span>(request&lt;span style="color:#f92672">.&lt;/span>text(), flush&lt;span style="color:#f92672">=&lt;/span>True)
+app&lt;span style="color:#f92672">.&lt;/span>run(&lt;span style="color:#ae81ff">50051&lt;/span>)
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>A full sample can be found &lt;a href="https://github.com/dapr/python-sdk/tree/v1.0.0rc2/examples/invoke-binding">here&lt;/a>.&lt;/p>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://pypi.org/project/dapr-ext-grpc/">PyPi&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Developing-Applications: Dapr Python SDK integration with FastAPI</title><link>https://dapr-cn.github.io/developing-applications/sdks/python/python-sdk-extensions/python-fastapi/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/sdks/python/python-sdk-extensions/python-fastapi/</guid><description>
+&lt;p>The Dapr Python SDK provides integration with FastAPI using the &lt;code>dapr-ext-fastapi&lt;/code> module&lt;/p>
+&lt;h2 id="installation">Installation&lt;/h2>
+&lt;p>You can download and install the Dapr FastAPI extension module with:&lt;/p>
+&lt;ul class="nav nav-tabs" id="tabs-0" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-0-stable-tab" data-toggle="tab" href="#tabs-0-stable" role="tab"
+aria-controls="tabs-0-stable" aria-selected="true">
+Stable
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-0-development-tab" data-toggle="tab" href="#tabs-0-development" role="tab"
+aria-controls="tabs-0-development" aria-selected="false">
+Development
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-0-content">
+&lt;div class="tab-pane fade show active" id="tabs-0-stable" role="tabpanel" aria-labelled-by="tabs-0-stable-tab">
+&lt;br />&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">pip install dapr-ext-fastapi
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-0-development" role="tabpanel" aria-labelled-by="tabs-0-development-tab">
+&lt;br />&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Note&lt;/h4>
+The development package will contain features and behavior that will be compatible with the pre-release version of the Dapr runtime. Make sure to uninstall any stable versions of the Python SDK extension before installing the dapr-dev package.
+&lt;/div>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">pip install dapr-ext-fastapi-dev
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;/div>
+&lt;h2 id="example">Example&lt;/h2>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">from&lt;/span> fastapi &lt;span style="color:#f92672">import&lt;/span> FastAPI
+&lt;span style="color:#f92672">from&lt;/span> dapr.ext.fastapi &lt;span style="color:#f92672">import&lt;/span> DaprActor
+&lt;span style="color:#f92672">from&lt;/span> demo_actor &lt;span style="color:#f92672">import&lt;/span> DemoActor
+app &lt;span style="color:#f92672">=&lt;/span> FastAPI(title&lt;span style="color:#f92672">=&lt;/span>f&lt;span style="color:#e6db74">&amp;#39;{DemoActor.__name__}Service&amp;#39;&lt;/span>)
+&lt;span style="color:#75715e"># Add Dapr Actor Extension&lt;/span>
+actor &lt;span style="color:#f92672">=&lt;/span> DaprActor(app)
+&lt;span style="color:#a6e22e">@app.on_event&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;startup&amp;#34;&lt;/span>)
+async &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">startup_event&lt;/span>():
+&lt;span style="color:#75715e"># Register DemoActor&lt;/span>
+await actor&lt;span style="color:#f92672">.&lt;/span>register_actor(DemoActor)
+&lt;span style="color:#a6e22e">@app.get&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;/GetMyData&amp;#34;&lt;/span>)
+&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">get_my_data&lt;/span>():
+&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#e6db74">&amp;#34;{&amp;#39;message&amp;#39;: &amp;#39;myData&amp;#39;}&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Developing-Applications: Dapr Python SDK integration with Flask</title><link>https://dapr-cn.github.io/developing-applications/sdks/python/python-sdk-extensions/python-flask/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/sdks/python/python-sdk-extensions/python-flask/</guid><description>
+&lt;p>The Dapr Python SDK provides integration with Flask using the &lt;code>flask-dapr&lt;/code> module&lt;/p>
+&lt;h2 id="installation">Installation&lt;/h2>
+&lt;p>You can download and install the Dapr Flask extension module with:&lt;/p>
+&lt;ul class="nav nav-tabs" id="tabs-0" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-0-stable-tab" data-toggle="tab" href="#tabs-0-stable" role="tab"
+aria-controls="tabs-0-stable" aria-selected="true">
+Stable
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-0-development-tab" data-toggle="tab" href="#tabs-0-development" role="tab"
+aria-controls="tabs-0-development" aria-selected="false">
+Development
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-0-content">
+&lt;div class="tab-pane fade show active" id="tabs-0-stable" role="tabpanel" aria-labelled-by="tabs-0-stable-tab">
+&lt;br />&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">pip install flask-dapr
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-0-development" role="tabpanel" aria-labelled-by="tabs-0-development-tab">
+&lt;br />&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Note&lt;/h4>
+The development package will contain features and behavior that will be compatible with the pre-release version of the Dapr runtime. Make sure to uninstall any stable versions of the Python SDK extension before installing the dapr-dev package.
+&lt;/div>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">pip install flask-dapr-dev
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;/div>
+&lt;h2 id="example">Example&lt;/h2>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">from&lt;/span> flask &lt;span style="color:#f92672">import&lt;/span> Flask
+&lt;span style="color:#f92672">from&lt;/span> flask_dapr.actor &lt;span style="color:#f92672">import&lt;/span> DaprActor
+&lt;span style="color:#f92672">from&lt;/span> dapr.conf &lt;span style="color:#f92672">import&lt;/span> settings
+&lt;span style="color:#f92672">from&lt;/span> demo_actor &lt;span style="color:#f92672">import&lt;/span> DemoActor
+app &lt;span style="color:#f92672">=&lt;/span> Flask(f&lt;span style="color:#e6db74">&amp;#39;{DemoActor.__name__}Service&amp;#39;&lt;/span>)
+&lt;span style="color:#75715e"># Enable DaprActor Flask extension&lt;/span>
+actor &lt;span style="color:#f92672">=&lt;/span> DaprActor(app)
+&lt;span style="color:#75715e"># Register DemoActor&lt;/span>
+actor&lt;span style="color:#f92672">.&lt;/span>register_actor(DemoActor)
+&lt;span style="color:#75715e"># Setup method route&lt;/span>
+&lt;span style="color:#a6e22e">@app.route&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;/GetMyData&amp;#39;&lt;/span>, methods&lt;span style="color:#f92672">=&lt;/span>[&lt;span style="color:#e6db74">&amp;#39;GET&amp;#39;&lt;/span>])
+&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">get_my_data&lt;/span>():
+&lt;span style="color:#66d9ef">return&lt;/span> {&lt;span style="color:#e6db74">&amp;#39;message&amp;#39;&lt;/span>: &lt;span style="color:#e6db74">&amp;#39;myData&amp;#39;&lt;/span>}, &lt;span style="color:#ae81ff">200&lt;/span>
+&lt;span style="color:#75715e"># Run application&lt;/span>
+&lt;span style="color:#66d9ef">if&lt;/span> __name__ &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#e6db74">&amp;#39;__main__&amp;#39;&lt;/span>:
+app&lt;span style="color:#f92672">.&lt;/span>run(port&lt;span style="color:#f92672">=&lt;/span>settings&lt;span style="color:#f92672">.&lt;/span>HTTP_APP_PORT)
+&lt;/code>&lt;/pre>&lt;/div></description></item></channel></rss>

@@ -1,5 +1,5 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – Service invocation</title><link>https://dapr-cn.github.io/developing-applications/building-blocks/service-invocation/</link><description>Recent content in Service invocation on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="https://dapr-cn.github.io/developing-applications/building-blocks/service-invocation/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: 服务调用概述</title><link>https://dapr-cn.github.io/developing-applications/building-blocks/service-invocation/service-invocation-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/building-blocks/service-invocation/service-invocation-overview/</guid><description>
-&lt;h2 id="介绍">介绍&lt;/h2>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – 服务调用</title><link>https://dapr-cn.github.io/developing-applications/building-blocks/service-invocation/</link><description>Recent content in 服务调用 on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh</language><atom:link href="https://dapr-cn.github.io/developing-applications/building-blocks/service-invocation/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: 服务调用概述</title><link>https://dapr-cn.github.io/developing-applications/building-blocks/service-invocation/service-invocation-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/building-blocks/service-invocation/service-invocation-overview/</guid><description>
+&lt;h2 id="introduction">Introduction&lt;/h2>
 &lt;p>通过服务调用，应用程序可以使用 &lt;a href="https://grpc.io">gRPC&lt;/a> 或 &lt;a href="https://www.w3.org/Protocols/">HTTP&lt;/a> 这样的标准协议来发现并可靠地与其他应用程序通信。&lt;/p>
 &lt;p>在许多具有多个需要相互通信的服务的环境中，开发者经常会问自己以下问题：&lt;/p>
 &lt;ul>
@@ -8,14 +8,14 @@
 &lt;li>我如何处理重试和瞬态错误？&lt;/li>
 &lt;li>我如何使用分布式跟踪来查看调用图来诊断生产中的问题？&lt;/li>
 &lt;/ul>
-&lt;p>Dapr 允许您通过一个组合了反向代理与内置服务发现的端点来克服这些挑战，同时能够利用内置的分布式跟踪，度量，错误处理等能力。&lt;/p>
-&lt;p>Dapr 采用一种边车（Sidecar）、去中心化的架构。 要使用 Dapr 来调用应用程序，请在任意 Dapr 实例上使用 &lt;code>invoke&lt;/code> 这个API。 Sidecar 编程模型鼓励每个应用程序与自己的 Dapr 实例对话。 Dapr 实例会相互发现并进行通信。&lt;/p>
+&lt;p>Dapr addresses these challenges by providing a service invocation API that acts as a combination of a reverse proxy with built-in service discovery, while leveraging built-in distributed tracing, metrics, error handling, encryption and more.&lt;/p>
+&lt;p>Dapr 采用边车（Sidecar）、去中心化的架构。 要使用 Dapr 来调用应用程序，请在任意 Dapr 实例上使用 &lt;code>invoke&lt;/code> 这个API。 Sidecar 编程模型鼓励每个应用程序与自己的 Dapr 实例对话。 Dapr 实例会相互发现并进行通信。&lt;/p>
 &lt;h3 id="调用逻辑">调用逻辑&lt;/h3>
 &lt;p>下图是 Dapr的服务调用如何工作的总览图&lt;/p>
 &lt;img src="https://dapr-cn.github.io/images/service-invocation-overview.png" width=800 alt="Diagram showing the steps of service invocation">
 &lt;ol>
 &lt;li>
-&lt;p>服务 A 对服务 B 发起HTTP/gRPC的调用。调用发送到本地 Dapr 边车。&lt;/p>
+&lt;p>服务 A 对服务 B 发起HTTP/gRPC的调用。&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>Dapr 使用在给定 &lt;a href="https://dapr-cn.github.io/operations/hosting/"> 托管平台&lt;/a> 上运行的 &lt;a href="https://github.com/dapr/components-contrib/tree/master/nameresolution">命名解析组件&lt;/a> 发现服务 B的位置。&lt;/p>
@@ -25,10 +25,10 @@
 &lt;p>&lt;strong>注&lt;/strong>: Dapr 边车之间的所有调用考虑到性能都优先使用 gRPC。 仅服务与 Dapr 边车之间的调用可以是 HTTP 或 gRPC&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>服务 B的 Dapr 边车将请求转发至服务 B 上的特定端点 (或方法) 。服务 B 随后运行其业务逻辑代码。&lt;/p>
+&lt;p>服务 B的 Dapr 边车将请求转发至服务 B 上的特定端点 (或方法) 。 服务 B 随后运行其业务逻辑代码。&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>服务 B 发送响应给服务 A。响应将转至服务 B 的边车。&lt;/p>
+&lt;p>服务 B 发送响应给服务 A。 响应将转至服务 B 的边车。&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>Dapr 将消息转发至服务 A 的 Dapr 边车。&lt;/p>
@@ -37,38 +37,44 @@
 &lt;p>服务 A 接收响应。&lt;/p>
 &lt;/li>
 &lt;/ol>
-&lt;h2 id="特性">特性&lt;/h2>
+&lt;h2 id="功能">功能&lt;/h2>
 &lt;p>服务调用提供了一系列特性，使您可以方便地调用远程应用程序上的方法。&lt;/p>
-&lt;h3 id="服务调用api">服务调用API&lt;/h3>
-&lt;p>服务调用的 API 规范可在 &lt;a href="https://dapr-cn.github.io/reference/api/service_invocation_api/">规范仓库&lt;/a> 中找到。&lt;/p>
-&lt;h3 id="命名空间作用域">命名空间作用域&lt;/h3>
-&lt;p>服务调用支持跨命名空间调用。 在所有受支持的托管平台上， Dapr 应用程序标识（ID）遵循包含了目标命名空间的有效 FQDN 格式。&lt;/p>
-&lt;p>例如，以下字符串包含应用程序标识 &lt;code>nodeapp&lt;/code> 以及应用程序在 &lt;code>production&lt;/code> 中运行的名称空间。&lt;/p>
+&lt;h3 id="namespaces-scoping">Namespaces scoping&lt;/h3>
+&lt;p>Service invocation supports calls across namespaces. On all supported hosting platforms, Dapr app IDs conform to a valid FQDN format that includes the target namespace.&lt;/p>
+&lt;p>For example, the following string contains the app ID &lt;code>nodeapp&lt;/code> in addition to the namespace the app runs in &lt;code>production&lt;/code>.&lt;/p>
 &lt;pre>&lt;code>localhost:3500/v1.0/invoke/nodeapp.production/method/neworder
-&lt;/code>&lt;/pre>&lt;p>这在 Kubernetes 集群中进行跨命名空间调用特别有用。 观看此演示视频以获取有关如何使用具有命名空间的服务调用。 &lt;iframe width="560" height="315" src="https://www.bilibili.com/video/BV14z4y167te?p=2&amp;t=497" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark">&lt;/iframe>&lt;/p>
-&lt;h3 id="重试">重试&lt;/h3>
-&lt;p>在发生调用失败和瞬态错误的情况下，服务调用会在回退（backoff）时间段内执行自动重试。&lt;/p>
-&lt;p>导致重试的错误有：&lt;/p>
-&lt;ul>
-&lt;li>Network errors including endpoint unavailability and refused connections&lt;/li>
-&lt;li>Authentication errors due to a renewing certificate on the calling/callee Dapr sidecars&lt;/li>
-&lt;/ul>
-&lt;p>Per call retries are performed with a backoff interval of 1 second up to a threshold of 3 times. Connection establishment via gRPC to the target sidecar has a timeout of 5 seconds.&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>This is especially useful in cross namespace calls in a Kubernetes cluster. Watch this video for a demo on how to use namespaces with service invocation. &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/LYYV_jouEuA?start=497" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark">&lt;/iframe>&lt;/p>
 &lt;h3 id="service-to-service-security">Service-to-service security&lt;/h3>
 &lt;p>All calls between Dapr applications can be made secure with mutual (mTLS) authentication on hosted platforms, including automatic certificate rollover, via the Dapr Sentry service. The diagram below shows this for self hosted applications.&lt;/p>
 &lt;p>For more information read the &lt;a href="https://dapr-cn.github.io/concepts/security-concept/#sidecar-to-sidecar-communication">service-to-service security&lt;/a> article.&lt;/p>
-&lt;img src="https://dapr-cn.github.io/images/security-mTLS-sentry-selfhosted.png" width=800>
-&lt;h3 id="service-access-security">Service access security&lt;/h3>
+&lt;h3 id="重试">重试&lt;/h3>
 &lt;p>Applications can control which other applications are allowed to call them and what they are authorized to do via access policies. This enables you to restrict sensitive applications, that say have personnel information, from being accessed by unauthorized applications, and combined with service-to-service secure communication, provides for soft multi-tenancy deployments.&lt;/p>
 &lt;p>For more information read the &lt;a href="https://dapr-cn.github.io/operations/configuration/invoke-allowlist/">access control allow lists for service invocation&lt;/a> article.&lt;/p>
-&lt;h3 id="observability">Observability&lt;/h3>
-&lt;p>By default, all calls between applications are traced and metrics are gathered to provide insights and diagnostics for applications, which is especially important in production scenarios.&lt;/p>
-&lt;p>For more information read the &lt;a href="https://dapr-cn.github.io/concepts/observability-concept/">observability&lt;/a> article.&lt;/p>
+&lt;h4 id="example-service-invocation-security">Example service invocation security&lt;/h4>
+&lt;p>The diagram below is an example deployment on a Kubernetes cluster with a Daprized &lt;code>Ingress&lt;/code> service that calls onto &lt;code>Service A&lt;/code> using service invocation with mTLS encryption and an applies access control policy. &lt;code>Service A&lt;/code> then calls onto &lt;code>Service B&lt;/code> also using service invocation and mTLS. Each service is running in different namespaces for added isolation.&lt;/p>
+&lt;img src="https://dapr-cn.github.io/images/service-invocation-security.png" width=800>
+&lt;h3 id="retries">Retries&lt;/h3>
+&lt;p>Service invocation performs automatic retries with backoff time periods in the event of call failures and transient errors.&lt;/p>
+&lt;p>Errors that cause retries are:&lt;/p>
+&lt;ul>
+&lt;li>网络错误，包括端点不可用和拒绝连接&lt;/li>
+&lt;li>因续订主调/被调方Dapr边车上的证书而导致的身份验证错误&lt;/li>
+&lt;/ul>
+&lt;p>Per call retries are performed with a backoff interval of 1 second up to a threshold of 3 times. Connection establishment via gRPC to the target sidecar has a timeout of 5 seconds.&lt;/p>
 &lt;h3 id="pluggable-service-discovery">Pluggable service discovery&lt;/h3>
-&lt;p>Dapr can run on any &lt;a href="https://dapr-cn.github.io/operations/hosting/">hosting platform&lt;/a>. For the supported hosting platforms this means they have a &lt;a href="https://github.com/dapr/components-contrib/tree/master/nameresolution">name resolution component&lt;/a> developed for them that enables service discovery. For example, the Kubernetes name resolution component uses the Kubernetes DNS service to resolve the location of other applications running in the cluster.&lt;/p>
+&lt;p>Dapr can run on any &lt;a href="https://dapr-cn.github.io/operations/hosting/">hosting platform&lt;/a>. For the supported hosting platforms this means they have a &lt;a href="https://github.com/dapr/components-contrib/tree/master/nameresolution">name resolution component&lt;/a> developed for them that enables service discovery. For example, the Kubernetes name resolution component uses the Kubernetes DNS service to resolve the location of other applications running in the cluster. For local and multiple physical machines this uses the mDNS protocol.&lt;/p>
+&lt;h3 id="round-robin-load-balancing-with-mdns">Round robin load balancing with mDNS&lt;/h3>
+&lt;p>Dapr provides round robin load balancing of service invocation requests with the mDNS protocol, for example with a single machine or with multiple, networked, physical machines.&lt;/p>
+&lt;p>The diagram below shows an example of how this works. If you have 1 instance of an application with app ID &lt;code>FrontEnd&lt;/code> and 3 instances of application with app ID &lt;code>Cart&lt;/code> and you call from &lt;code>FrontEnd&lt;/code> app to &lt;code>Cart&lt;/code> app, Dapr round robins' between the 3 instances. These instance can be on the same machine or on different machines. .&lt;/p>
+&lt;img src="https://dapr-cn.github.io/images/service-invocation-mdns-round-robin.png" width=800 alt="Diagram showing the steps of service invocation">
+&lt;p>Note: You can have N instances of the same app with the same app ID as app ID is unique per app. And you can have multiple instances of that app where all those instances have the same app ID.&lt;/p>
+&lt;h3 id="tracing-and-metrics-with-observability">Tracing and metrics with observability&lt;/h3>
+&lt;p>By default, all calls between applications are traced and metrics are gathered to provide insights and diagnostics for applications, which is especially important in production scenarios. This gives you call graphs and metrics on the calls between your services. For more information read about &lt;a href="https://dapr-cn.github.io/concepts/observability-concept/">observability&lt;/a>.&lt;/p>
+&lt;h3 id="service-invocation-api">Service invocation API&lt;/h3>
+&lt;p>服务调用的 API 规范可在 &lt;a href="https://dapr-cn.github.io/reference/api/service_invocation_api/">规范仓库&lt;/a> 中找到。&lt;/p>
 &lt;h2 id="example">Example&lt;/h2>
 &lt;p>Following the above call sequence, suppose you have the applications as described in the &lt;a href="https://github.com/dapr/quickstarts/blob/master/hello-world/README.md">hello world quickstart&lt;/a>, where a python app invokes a node.js app. In such a scenario, the python app would be &amp;ldquo;Service A&amp;rdquo; , and a Node.js app would be &amp;ldquo;Service B&amp;rdquo;.&lt;/p>
-&lt;p>The diagram below shows sequence 1-7 again on a local machine showing the API call:&lt;/p>
+&lt;p>The diagram below shows sequence 1-7 again on a local machine showing the API calls:&lt;/p>
 &lt;img src="https://dapr-cn.github.io/images/service-invocation-overview-example.png" width=800>
 &lt;ol>
 &lt;li>The Node.js app has a Dapr app ID of &lt;code>nodeapp&lt;/code>. The python app invokes the Node.js app&amp;rsquo;s &lt;code>neworder&lt;/code> method by POSTing &lt;code>http://localhost:3500/v1.0/invoke/nodeapp/method/neworder&lt;/code>, which first goes to the python app&amp;rsquo;s local Dapr sidecar.&lt;/li>
@@ -77,19 +83,19 @@
 &lt;li>The Node.js app&amp;rsquo;s sidecar forwards the request to the Node.js app. The Node.js app performs its business logic, logging the incoming message and then persist the order ID into Redis (not shown in the diagram)&lt;/li>
 &lt;li>The Node.js app sends a response to the Python app through the Node.js sidecar.&lt;/li>
 &lt;li>Dapr forwards the response to the Python Dapr sidecar&lt;/li>
-&lt;li>The Python app receives the resposne.&lt;/li>
+&lt;li>The Python app receives the response.&lt;/li>
 &lt;/ol>
-&lt;h2 id="next-steps">Next steps&lt;/h2>
+&lt;h2 id="下一步">下一步&lt;/h2>
 &lt;ul>
-&lt;li>Follow these guide on:
+&lt;li>Follow these guides on:
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/service-invocation/howto-invoke-discover-services/">How-to: Get started with HTTP service invocation&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/operations/configuration/grpc/">How-to: Get started with Dapr and gRPC&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/service-invocation/howto-invoke-discover-services/">How-to: Invoke services using HTTP&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/operations/configuration/grpc/">How-To: Configure Dapr to use gRPC&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;/li>
-&lt;li>Try out the &lt;a href="https://github.com/dapr/quickstarts/blob/master/hello-world/README.md">hello world quickstart&lt;/a> which shows how to use HTTP service invocation or visit the samples in each of the &lt;a href="https://dapr-cn.github.io/developing-applications/sdks/">Dapr SDKs&lt;/a>&lt;/li>
+&lt;li>Try out the &lt;a href="https://github.com/dapr/quickstarts/blob/master/hello-world/README.md">hello world quickstart&lt;/a> which shows how to use HTTP service invocation or try the samples in the &lt;a href="https://dapr-cn.github.io/developing-applications/sdks/">Dapr SDKs&lt;/a>&lt;/li>
 &lt;li>Read the &lt;a href="https://dapr-cn.github.io/reference/api/service_invocation_api/">service invocation API specification&lt;/a>&lt;/li>
-&lt;li>See the &lt;a href="https://dapr-cn.github.io/operations/performance-and-scalability/perf-service-invocation/">service invocation performance&lt;/a> numbers&lt;/li>
+&lt;li>Understand the &lt;a href="https://dapr-cn.github.io/operations/performance-and-scalability/perf-service-invocation/">service invocation performance&lt;/a> numbers&lt;/li>
 &lt;/ul></description></item><item><title>Developing-Applications: 入门指南：发现并调用服务</title><link>https://dapr-cn.github.io/developing-applications/building-blocks/service-invocation/howto-invoke-discover-services/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/building-blocks/service-invocation/howto-invoke-discover-services/</guid><description>
 &lt;p>本文介绍如何使用唯一的应用程序 ID 部署每个服务，以便其他服务可以使用服务调用 API 发现和调用这些终结点。&lt;/p>
 &lt;h2 id="步骤-1-为服务选择标识">步骤 1: 为服务选择标识&lt;/h2>

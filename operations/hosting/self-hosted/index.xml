@@ -1,11 +1,11 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – Run Dapr in Self Hosted Mode</title><link>https://dapr-cn.github.io/operations/hosting/self-hosted/</link><description>Recent content in Run Dapr in Self Hosted Mode on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="https://dapr-cn.github.io/operations/hosting/self-hosted/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: Overview of Dapr in self-hosted mode</title><link>https://dapr-cn.github.io/operations/hosting/self-hosted/self-hosted-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/hosting/self-hosted/self-hosted-overview/</guid><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – Run Dapr in Self Hosted Mode</title><link>https://dapr-cn.github.io/operations/hosting/self-hosted/</link><description>Recent content in Run Dapr in Self Hosted Mode on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh</language><atom:link href="https://dapr-cn.github.io/operations/hosting/self-hosted/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: Overview of Dapr in self-hosted mode</title><link>https://dapr-cn.github.io/operations/hosting/self-hosted/self-hosted-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/hosting/self-hosted/self-hosted-overview/</guid><description>
 &lt;p>Dapr can be configured to run on your local developer machine in self hosted mode. Each running service has a Dapr runtime process (or sidecar) which is configured to use state stores, pub/sub, binding components and the other building blocks.&lt;/p>
 &lt;p>In self hosted mode, Redis is running locally in a container and is configured to serve as both the default component for state store and for pub/sub. A Zipkin container is also configured for diagnostics and tracing. After running &lt;code>dapr init&lt;/code>, see the &lt;code>$HOME/.dapr/components&lt;/code> directory (Mac/Linux) or &lt;code>%USERPROFILE%\.dapr\components&lt;/code> on Windows.&lt;/p>
 &lt;p>The &lt;code>dapr-placement&lt;/code> service is responsible for managing the actor distribution scheme and key range settings. This service is only required if you are using Dapr actors. For more information on the actor &lt;code>Placement&lt;/code> service read &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/actors/actors-overview/">actor overview&lt;/a>.&lt;/p>
 &lt;img src="https://dapr-cn.github.io/images/overview_standalone.png" width=800>
 &lt;p>You can use the &lt;a href="https://github.com/dapr/cli#launch-dapr-and-your-app">Dapr CLI&lt;/a> to run a Dapr enabled application on your local machine.&lt;/p></description></item><item><title>Operations: How-To: Run Dapr in self-hosted mode with Docker</title><link>https://dapr-cn.github.io/operations/hosting/self-hosted/self-hosted-with-docker/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/hosting/self-hosted/self-hosted-with-docker/</guid><description>
 &lt;p>This article provides guidance on running Dapr with Docker outside of Kubernetes. There are a number of different configurations in which you may wish to run Dapr with Docker that are documented below.&lt;/p>
-&lt;h2 id="prerequisites">Prerequisites&lt;/h2>
+&lt;h2 id="前期准备">前期准备&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.docker.com/get-docker/">Docker&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.docker.com/compose/install/">Docker-Compose&lt;/a> (optional)&lt;/li>
@@ -112,9 +112,41 @@ CMD [&amp;quot;run&amp;quot;, &amp;quot;--app-id&amp;quot;, &amp;quot;nodeapp&am
 &lt;/blockquote>
 &lt;p>To further learn how to run Dapr with Docker Compose, see the &lt;a href="https://github.com/dapr/samples/tree/master/hello-docker-compose">Docker-Compose Sample&lt;/a>.&lt;/p>
 &lt;h2 id="run-on-kubernetes">Run on Kubernetes&lt;/h2>
-&lt;p>If your deployment target is Kubernetes then you&amp;rsquo;re probably better of running your applicaiton and Dapr sidecars directly on a Kubernetes platform. Running Dapr on Kubernetes is a first class experience and is documented separately. Please refer to the &lt;a href="https://dapr-cn.github.io/operations/hosting/kubernetes/kubernetes-overview/">Dapr on Kubernetes docs&lt;/a>&lt;/p></description></item><item><title>Operations: 入门指南: 不使用 Docker 在自托管模式下运行 Dapr</title><link>https://dapr-cn.github.io/operations/hosting/self-hosted/self-hosted-no-docker/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/hosting/self-hosted/self-hosted-no-docker/</guid><description>
+&lt;p>If your deployment target is Kubernetes then you&amp;rsquo;re probably better of running your applicaiton and Dapr sidecars directly on a Kubernetes platform. Running Dapr on Kubernetes is a first class experience and is documented separately. Please refer to the &lt;a href="https://dapr-cn.github.io/operations/hosting/kubernetes/kubernetes-overview/">Dapr on Kubernetes docs&lt;/a>&lt;/p></description></item><item><title>Operations: Uninstall Dapr in a self-hosted environment</title><link>https://dapr-cn.github.io/operations/hosting/self-hosted/self-hosted-uninstall/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/hosting/self-hosted/self-hosted-uninstall/</guid><description>
+&lt;p>The following CLI command removes the Dapr sidecar binaries and the placement container:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr uninstall
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The above command will not remove the Redis or Zipkin containers that were installed during &lt;code>dapr init&lt;/code> by default, just in case you were using them for other purposes. To remove Redis, Zipkin, Actor Placement container, as well as the default Dapr directory located at &lt;code>$HOME/.dapr&lt;/code> or &lt;code>%USERPROFILE%\.dapr\&lt;/code>, run:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr uninstall --all
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;div class="alert alert-primary" role="alert">
+&lt;h4 class="alert-heading">Note&lt;/h4>
+For Linux/MacOS users, if you run your docker cmds with sudo or the install path is &lt;code>/usr/local/bin&lt;/code>(default install path), you need to use &lt;code>sudo dapr uninstall&lt;/code> to remove dapr binaries and/or the containers.
+&lt;/div></description></item><item><title>Operations: Steps to upgrade Dapr in a self-hosted environment</title><link>https://dapr-cn.github.io/operations/hosting/self-hosted/self-hosted-upgrade/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/hosting/self-hosted/self-hosted-upgrade/</guid><description>
+&lt;ol>
+&lt;li>
+&lt;p>Uninstall the current Dapr deployment:&lt;/p>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Note&lt;/h4>
+This will remove the default &lt;code>$HOME/.dapr&lt;/code> directory, binaries and all containers (dapr_redis, dapr_placement and dapr_zipkin). Linux users need to run &lt;code>sudo&lt;/code> if docker command needs sudo.
+&lt;/div>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr uninstall --all
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Download and install the latest CLI by visiting &lt;a href="https://dapr-cn.github.io/getting-started/install-dapr-cli/">this guide&lt;/a>.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Initialize the Dapr runtime:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr init
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Ensure you are using the latest version of Dapr (1.0.0) with:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">$ dapr --version
+CLI version: 1.0.0
+Runtime version: 1.0.0
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;/ol></description></item><item><title>Operations: 入门指南: 不使用 Docker 在自托管模式下运行 Dapr</title><link>https://dapr-cn.github.io/operations/hosting/self-hosted/self-hosted-no-docker/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/hosting/self-hosted/self-hosted-no-docker/</guid><description>
 &lt;p>本文提供了在没有 Docker 的自托管模式下运行 Dapr 的指导。&lt;/p>
-&lt;h2 id="先决条件">先决条件&lt;/h2>
+&lt;h2 id="前期准备">前期准备&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://dapr-cn.github.io/getting-started/install-dapr-selfhost/#installing-dapr-cli">Dapr CLI&lt;/a>&lt;/li>
 &lt;/ul>
@@ -144,27 +176,4 @@ INFO&lt;span style="color:#f92672">[&lt;/span>0001&lt;span style="color:#f92672"
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml"> - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">actorStateStore&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="清理">清理&lt;/h2>
-&lt;p>按照卸载 &lt;a href="https://dapr-cn.github.io/getting-started/install-dapr-selfhost/#uninstall-dapr-in-a-self-hosted-mode">说明&lt;/a> 来移除二进制文件。&lt;/p></description></item><item><title>Operations: Steps to upgrade Dapr in a self-hosted environment</title><link>https://dapr-cn.github.io/operations/hosting/self-hosted/self-hosted-upgrade/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/hosting/self-hosted/self-hosted-upgrade/</guid><description>
-&lt;ol>
-&lt;li>
-&lt;p>Uninstall the current Dapr deployment:&lt;/p>
-&lt;div class="alert alert-warning" role="alert">
-&lt;h4 class="alert-heading">Note&lt;/h4>
-This will remove the default &lt;code>$HOME/.dapr&lt;/code> directory, binaries and all containers (dapr_redis, dapr_placement and dapr_zipkin). Linux users need to run &lt;code>sudo&lt;/code> if docker command needs sudo.
-&lt;/div>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr uninstall --all
-&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
-&lt;li>
-&lt;p>Download and install the latest CLI by visiting &lt;a href="https://dapr-cn.github.io/getting-started/install-dapr-cli/">this guide&lt;/a>.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>Initialize the Dapr runtime:&lt;/p>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr init --runtime-version&lt;span style="color:#f92672">=&lt;/span>1.0.0-rc.2
-&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
-&lt;li>
-&lt;p>Ensure you are using the latest version of Dapr (1.0.0-rc.2) with:&lt;/p>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">$ dapr --version
-CLI version: 1.0.0-rc.3
-Runtime version: 1.0.0-rc.2
-&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
-&lt;/ol></description></item></channel></rss>
+&lt;p>按照卸载 &lt;a href="https://dapr-cn.github.io/getting-started/install-dapr-selfhost/#uninstall-dapr-in-a-self-hosted-mode">说明&lt;/a> 来移除二进制文件。&lt;/p></description></item></channel></rss>

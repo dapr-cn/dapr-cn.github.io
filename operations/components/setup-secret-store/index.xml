@@ -1,4 +1,4 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – Secret store components</title><link>https://dapr-cn.github.io/operations/components/setup-secret-store/</link><description>Recent content in Secret store components on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="https://dapr-cn.github.io/operations/components/setup-secret-store/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: Overview</title><link>https://dapr-cn.github.io/operations/components/setup-secret-store/secret-stores-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-secret-store/secret-stores-overview/</guid><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – Secret store components</title><link>https://dapr-cn.github.io/operations/components/setup-secret-store/</link><description>Recent content in Secret store components on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh</language><atom:link href="https://dapr-cn.github.io/operations/components/setup-secret-store/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: 概述</title><link>https://dapr-cn.github.io/operations/components/setup-secret-store/secret-stores-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-secret-store/secret-stores-overview/</guid><description>
 &lt;p>Dapr integrates with secret stores to provide apps and other components with secure store and access to secrets such as access keys and passwords. Each secret store component has a name and this name is used when accessing a secret.&lt;/p>
 &lt;p>As with other building block components, secret store components are extensible and can be found in the &lt;a href="https://github.com/dapr/components-contrib">components-contrib repo&lt;/a>.&lt;/p>
 &lt;p>A secret store in Dapr is described using a &lt;code>Component&lt;/code> file with the following fields:&lt;/p>
@@ -35,7 +35,8 @@
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[aws_secret_key]&amp;#34;&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">sessionToken&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[aws_session_token]&amp;#34;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Once you have created the component&amp;rsquo;s YAML file, follow these instructions to apply it based on your hosting environment:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="apply-the-configuration">Apply the configuration&lt;/h2>
+&lt;p>Once you have created the component&amp;rsquo;s YAML file, follow these instructions to apply it based on your hosting environment:&lt;/p>
 &lt;ul class="nav nav-tabs" id="tabs-1" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
 id="tabs-1-self-hosted-tab" data-toggle="tab" href="#tabs-1-self-hosted" role="tab"
 aria-controls="tabs-1-self-hosted" aria-selected="true">
@@ -60,4 +61,116 @@ Kubernetes
 &lt;ul>
 &lt;li>&lt;a href="https://dapr-cn.github.io/operations/components/setup-secret-store/supported-secret-stores/">Supported secret store components&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/secrets/">Secrets building block&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Supported secret stores</title><link>https://dapr-cn.github.io/operations/components/setup-secret-store/supported-secret-stores/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-secret-store/supported-secret-stores/</guid><description/></item></channel></rss>
+&lt;/ul></description></item><item><title>Operations: Supported secret stores</title><link>https://dapr-cn.github.io/operations/components/setup-secret-store/supported-secret-stores/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-secret-store/supported-secret-stores/</guid><description>
+&lt;p>Table captions:&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;code>Status&lt;/code>: &lt;a href="%7B%7BX%1A28X%7D%7D">Component certification&lt;/a> status&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>&lt;a href="%7B%7BX%1A17X%7D%7D">Alpha&lt;/a>&lt;/li>
+&lt;li>&lt;a href="%7B%7BX%1A19X%7D%7D">Beta&lt;/a>&lt;/li>
+&lt;li>&lt;a href="%7B%7BX%1A21X%7D%7D">GA&lt;/a> &amp;gt; &lt;code>Since&lt;/code>: defines from which Dapr Runtime version, the component is in the current status&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>&lt;code>Component version&lt;/code>: defines the version of the component&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="generic">Generic&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th>状态 （State）&lt;/th>
+&lt;th>Component version&lt;/th>
+&lt;th>Since&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a href="https://dapr-cn.github.io/operations/components/setup-secret-store/supported-secret-stores/envvar-secret-store/">Local environment variables&lt;/a>&lt;/td>
+&lt;td>Beta&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://dapr-cn.github.io/operations/components/setup-secret-store/supported-secret-stores/file-secret-store/">Local file&lt;/a>&lt;/td>
+&lt;td>Beta&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://dapr-cn.github.io/operations/components/setup-secret-store/supported-secret-stores/hashicorp-vault/">HashiCorp Vault&lt;/a>&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://dapr-cn.github.io/operations/components/setup-secret-store/supported-secret-stores/kubernetes-secret-store/">Kubernetes secrets&lt;/a>&lt;/td>
+&lt;td>GA&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="amazon-web-services-aws">Amazon Web Services (AWS)&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th>Status&lt;/th>
+&lt;th>Component version&lt;/th>
+&lt;th>Since&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a href="https://dapr-cn.github.io/operations/components/setup-secret-store/supported-secret-stores/aws-secret-manager/">AWS Secrets Manager&lt;/a>&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="google-cloud-platform-gcp">Google Cloud Platform (GCP)&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th>Status&lt;/th>
+&lt;th>Component version&lt;/th>
+&lt;th>Since&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a href="https://dapr-cn.github.io/operations/components/setup-secret-store/supported-secret-stores/gcp-secret-manager/">GCP Secret Manager&lt;/a>&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="microsoft-azure">Microsoft Azure&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th>Status&lt;/th>
+&lt;th>Component version&lt;/th>
+&lt;th>Since&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a href="https://dapr-cn.github.io/operations/components/setup-secret-store/supported-secret-stores/azure-keyvault-managed-identity/">Azure Key Vault w/ Managed Identity&lt;/a>&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://dapr-cn.github.io/operations/components/setup-secret-store/supported-secret-stores/azure-keyvault/">Azure Key Vault&lt;/a>&lt;/td>
+&lt;td>GA&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table></description></item></channel></rss>

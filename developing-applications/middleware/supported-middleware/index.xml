@@ -1,0 +1,507 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – Supported middleware</title><link>https://dapr-cn.github.io/developing-applications/middleware/supported-middleware/</link><description>Recent content in Supported middleware on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh</language><atom:link href="https://dapr-cn.github.io/developing-applications/middleware/supported-middleware/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Rate limiting</title><link>https://dapr-cn.github.io/developing-applications/middleware/supported-middleware/middleware-rate-limit/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/middleware/supported-middleware/middleware-rate-limit/</guid><description>
+&lt;p>The rate limit &lt;a href="https://dapr-cn.github.io/concepts/middleware-concept/">HTTP middleware&lt;/a> allows restricting the maximum number of allowed HTTP requests per second. Rate limiting can protect your application from denial of service (DOS) attacks. DOS attacks can be initiated by malicious 3rd parties but also by bugs in your software (a.k.a. a &amp;ldquo;friendly fire&amp;rdquo; DOS attack).&lt;/p>
+&lt;h2 id="component-format">Component format&lt;/h2>
+&lt;p>In the following definition, the maximum requests per second are set to 10:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">ratelimit&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">middleware.http.ratelimit&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">maxRequestsPerSecond&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">10&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>字段&lt;/th>
+&lt;th>Details&lt;/th>
+&lt;th>示例&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>maxRequestsPerSecond&lt;/td>
+&lt;td>The maximum requests per second by remote IP and path. Something to consider is that &lt;strong>the limit is enforced independently in each Dapr sidecar and not cluster wide&lt;/strong>&lt;/td>
+&lt;td>&lt;code>10&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>Once the limit is reached, the request will return &lt;em>HTTP Status code 429: Too Many Requests&lt;/em>.&lt;/p>
+&lt;p>Alternatively, the &lt;a href="https://dapr-cn.github.io/operations/configuration/control-concurrency/">max concurrency setting&lt;/a> can be used to rate limit applications and applies to all traffic regardless of remote IP or path.&lt;/p>
+&lt;h2 id="dapr-configuration">Dapr configuration&lt;/h2>
+&lt;p>To be applied, the middleware must be referenced in &lt;a href="https://dapr-cn.github.io/concepts/configuration-concept/">configuration&lt;/a>. See &lt;a href="https://dapr-cn.github.io/concepts/middleware-concept/#customize-processing-pipeline">middleware pipelines&lt;/a>.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">appconfig&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">httpPipeline&lt;/span>:
+&lt;span style="color:#f92672">handlers&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">ratelimit&lt;/span>
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">middleware.http.ratelimit&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/operations/configuration/control-concurrency/">Control max concurrently&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/concepts/middleware-concept/">Middleware concept&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/concepts/configuration-concept/">Dapr configuration&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/operations/configuration/configuration-overview/">Configuration overview&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Developing-Applications: OAuth2</title><link>https://dapr-cn.github.io/developing-applications/middleware/supported-middleware/middleware-oauth2/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/middleware/supported-middleware/middleware-oauth2/</guid><description>
+&lt;p>The OAuth2 &lt;a href="https://dapr-cn.github.io/concepts/middleware-concept/">HTTP middleware&lt;/a> enables the &lt;a href="https://tools.ietf.org/html/rfc6749#section-4.1">OAuth2 Authorization Code flow&lt;/a> on a Web API without modifying the application. This design separates authentication/authorization concerns from the application, so that application operators can adopt and configure authentication/authorization providers without impacting the application code.&lt;/p>
+&lt;h2 id="component-format">Component format&lt;/h2>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">oauth2&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">middleware.http.oauth2&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">clientId&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;lt;your client ID&amp;gt;&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">clientSecret&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;lt;your client secret&amp;gt;&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">scopes&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;https://www.googleapis.com/auth/userinfo.email&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">authURL&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;https://accounts.google.com/o/oauth2/v2/auth&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">tokenURL&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;https://accounts.google.com/o/oauth2/token&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">redirectURL&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;http://dummy.com&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">authHeaderName&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;authorization&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">forceHTTPS&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;false&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>字段&lt;/th>
+&lt;th>Details&lt;/th>
+&lt;th>示例&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>clientId&lt;/td>
+&lt;td>The client ID of your application that is created as part of a credential hosted by a OAuth-enabled platform&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>clientSecret&lt;/td>
+&lt;td>The client secret of your application that is created as part of a credential hosted by a OAuth-enabled platform&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>scopes&lt;/td>
+&lt;td>A list of space-delimited, case-sensitive strings of &lt;a href="https://tools.ietf.org/html/rfc6749#section-3.3">scopes&lt;/a> which are typically used for authorization in the application&lt;/td>
+&lt;td>&lt;code>&amp;quot;https://www.googleapis.com/auth/userinfo.email&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>authURL&lt;/td>
+&lt;td>The endpoint of the OAuth2 authorization server&lt;/td>
+&lt;td>&lt;code>&amp;quot;https://accounts.google.com/o/oauth2/v2/auth&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>tokenURL&lt;/td>
+&lt;td>The endpoint is used by the client to obtain an access token by presenting its authorization grant or refresh token&lt;/td>
+&lt;td>&lt;code>&amp;quot;https://accounts.google.com/o/oauth2/token&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>redirectURL&lt;/td>
+&lt;td>The URL of your web application that the authorization server should redirect to once the user has authenticated&lt;/td>
+&lt;td>&lt;code>&amp;quot;https://myapp.com&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>authHeaderName&lt;/td>
+&lt;td>The authorization header name to forward to your application&lt;/td>
+&lt;td>&lt;code>&amp;quot;authorization&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>forceHTTPS&lt;/td>
+&lt;td>If true, enforces the use of TLS/SSL&lt;/td>
+&lt;td>&lt;code>&amp;quot;true&amp;quot;&lt;/code>,&lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="dapr-configuration">Dapr configuration&lt;/h2>
+&lt;p>To be applied, the middleware must be referenced in &lt;a href="https://dapr-cn.github.io/concepts/configuration-concept/">configuration&lt;/a>. See &lt;a href="https://dapr-cn.github.io/concepts/middleware-concept/#customize-processing-pipeline">middleware pipelines&lt;/a>.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">appconfig&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">httpPipeline&lt;/span>:
+&lt;span style="color:#f92672">handlers&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">oauth2&lt;/span>
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">middleware.http.oauth2&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/operations/security/oauth/">Configure API authorization with OAuth&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/dapr/quickstarts/tree/master/middleware">Middleware OAuth quickstart&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/concepts/middleware-concept/">Middleware concept&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/concepts/configuration-concept/">Configuration concept&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/operations/configuration/configuration-overview/">Configuration overview&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Developing-Applications: OAuth2 client credentials</title><link>https://dapr-cn.github.io/developing-applications/middleware/supported-middleware/middleware-oauth2clientcredentials/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/middleware/supported-middleware/middleware-oauth2clientcredentials/</guid><description>
+&lt;p>The OAuth2 client credentials &lt;a href="https://dapr-cn.github.io/concepts/middleware-concept/">HTTP middleware&lt;/a> enables the &lt;a href="https://tools.ietf.org/html/rfc6749#section-4.4">OAuth2 Client Credentials flow&lt;/a> on a Web API without modifying the application. This design separates authentication/authorization concerns from the application, so that application operators can adopt and configure authentication/authorization providers without impacting the application code.&lt;/p>
+&lt;h2 id="component-format">Component format&lt;/h2>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">oauth2clientcredentials&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">middleware.http.oauth2clientcredentials&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">clientId&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;lt;your client ID&amp;gt;&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">clientSecret&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;lt;your client secret&amp;gt;&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">scopes&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;https://www.googleapis.com/auth/userinfo.email&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">tokenURL&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;https://accounts.google.com/o/oauth2/token&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">headerName&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;authorization&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>字段&lt;/th>
+&lt;th>Details&lt;/th>
+&lt;th>示例&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>clientId&lt;/td>
+&lt;td>The client ID of your application that is created as part of a credential hosted by a OAuth-enabled platform&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>clientSecret&lt;/td>
+&lt;td>The client secret of your application that is created as part of a credential hosted by a OAuth-enabled platform&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>scopes&lt;/td>
+&lt;td>A list of space-delimited, case-sensitive strings of &lt;a href="https://tools.ietf.org/html/rfc6749#section-3.3">scopes&lt;/a> which are typically used for authorization in the application&lt;/td>
+&lt;td>&lt;code>&amp;quot;https://www.googleapis.com/auth/userinfo.email&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>tokenURL&lt;/td>
+&lt;td>The endpoint is used by the client to obtain an access token by presenting its authorization grant or refresh token&lt;/td>
+&lt;td>&lt;code>&amp;quot;https://accounts.google.com/o/oauth2/token&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>headerName&lt;/td>
+&lt;td>The authorization header name to forward to your application&lt;/td>
+&lt;td>&lt;code>&amp;quot;authorization&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>endpointParamsQuery&lt;/td>
+&lt;td>Specifies additional parameters for requests to the token endpoint&lt;/td>
+&lt;td>&lt;code>true&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>authStyle&lt;/td>
+&lt;td>Optionally specifies how the endpoint wants the client ID &amp;amp; client secret sent. See the table of possible values below&lt;/td>
+&lt;td>&lt;code>0&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="possible-values-for-authstyle">Possible values for &lt;code>authStyle&lt;/code>&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Value&lt;/th>
+&lt;th>Meaning&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;code>1&lt;/code>&lt;/td>
+&lt;td>Sends the &amp;ldquo;client_id&amp;rdquo; and &amp;ldquo;client_secret&amp;rdquo; in the POST body as application/x-www-form-urlencoded parameters.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>2&lt;/code>&lt;/td>
+&lt;td>Sends the &amp;ldquo;client_id&amp;rdquo; and &amp;ldquo;client_secret&amp;rdquo; using HTTP Basic Authorization. This is an optional style described in the &lt;a href="https://tools.ietf.org/html/rfc6749#section-2.3.1">OAuth2 RFC 6749 section 2.3.1&lt;/a>.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>0&lt;/code>&lt;/td>
+&lt;td>Means to auto-detect which authentication style the provider wants by trying both ways and caching the successful way for the future.&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="dapr-configuration">Dapr configuration&lt;/h2>
+&lt;p>To be applied, the middleware must be referenced in a &lt;a href="https://dapr-cn.github.io/concepts/configuration-concept/">configuration&lt;/a>. See &lt;a href="https://dapr-cn.github.io/concepts/middleware-concept/#customize-processing-pipeline">middleware pipelines&lt;/a>.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">appconfig&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">httpPipeline&lt;/span>:
+&lt;span style="color:#f92672">handlers&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">oauth2clientcredentials&lt;/span>
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">middleware.http.oauth2clientcredentials&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/concepts/middleware-concept/">Middleware concept&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/concepts/configuration-concept/">Configuration concept&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/operations/configuration/configuration-overview/">Configuration overview&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Developing-Applications: Bearer</title><link>https://dapr-cn.github.io/developing-applications/middleware/supported-middleware/middleware-bearer/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/middleware/supported-middleware/middleware-bearer/</guid><description>
+&lt;p>The bearer &lt;a href="https://dapr-cn.github.io/concepts/middleware-concept/">HTTP middleware&lt;/a> verifies a &lt;a href="https://tools.ietf.org/html/rfc6750">Bearer Token&lt;/a> using &lt;a href="https://openid.net/connect/">OpenID Connect&lt;/a> on a Web API without modifying the application. This design separates authentication/authorization concerns from the application, so that application operators can adopt and configure authentication/authorization providers without impacting the application code.&lt;/p>
+&lt;h2 id="component-format">Component format&lt;/h2>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">bearer-token&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">middleware.http.bearer&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">clientId&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;lt;your client ID&amp;gt;&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">issuerURL&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;https://accounts.google.com&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>字段&lt;/th>
+&lt;th>Details&lt;/th>
+&lt;th>示例&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>clientId&lt;/td>
+&lt;td>The client ID of your application that is created as part of a credential hosted by a OpenID Connect platform&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>issuerURL&lt;/td>
+&lt;td>URL identifier for the service.&lt;/td>
+&lt;td>&lt;code>&amp;quot;https://accounts.google.com&amp;quot;&lt;/code>, &lt;code>&amp;quot;https://login.salesforce.com&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="dapr-configuration">Dapr configuration&lt;/h2>
+&lt;p>To be applied, the middleware must be referenced in &lt;a href="https://dapr-cn.github.io/concepts/configuration-concept/">configuration&lt;/a>. See &lt;a href="https://dapr-cn.github.io/concepts/middleware-concept/#customize-processing-pipeline">middleware pipelines&lt;/a>.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">appconfig&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">httpPipeline&lt;/span>:
+&lt;span style="color:#f92672">handlers&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">bearer-token&lt;/span>
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">middleware.http.bearer&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/concepts/middleware-concept/">Middleware concept&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/concepts/configuration-concept/">Configuration concept&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/operations/configuration/configuration-overview/">Configuration overview&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Developing-Applications: Apply Open Policy Agent (OPA) policies</title><link>https://dapr-cn.github.io/developing-applications/middleware/supported-middleware/middleware-opa/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/middleware/supported-middleware/middleware-opa/</guid><description>
+&lt;p>The Open Policy Agent (OPA) &lt;a href="https://dapr-cn.github.io/concepts/middleware-concept/">HTTP middleware&lt;/a> applys &lt;a href="https://www.openpolicyagent.org/">OPA Policies&lt;/a> to incoming Dapr HTTP requests. This can be used to apply reusable authorization policies to app endpoints.&lt;/p>
+&lt;h2 id="component-format">Component format&lt;/h2>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">my-policy&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">middleware.http.opa&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#75715e"># `includedHeaders` is a comma-separated set of case-insensitive headers to include in the request input.&lt;/span>
+&lt;span style="color:#75715e"># Request headers are not passed to the policy by default. Include to receive incoming request headers in&lt;/span>
+&lt;span style="color:#75715e"># the input&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">includedHeaders&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;x-my-custom-header, x-jwt-header&amp;#34;&lt;/span>
+&lt;span style="color:#75715e"># `defaultStatus` is the status code to return for denied responses&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">defaultStatus&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">403&lt;/span>
+&lt;span style="color:#75715e"># `rego` is the open policy agent policy to evaluate. required&lt;/span>
+&lt;span style="color:#75715e"># The policy package must be http and the policy must set data.http.allow&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">rego&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: |&lt;span style="color:#e6db74">
+&lt;/span>&lt;span style="color:#e6db74"> package http
+&lt;/span>&lt;span style="color:#e6db74">
+&lt;/span>&lt;span style="color:#e6db74"> default allow = true
+&lt;/span>&lt;span style="color:#e6db74">
+&lt;/span>&lt;span style="color:#e6db74"> # Allow may also be an object and include other properties
+&lt;/span>&lt;span style="color:#e6db74">
+&lt;/span>&lt;span style="color:#e6db74"> # For example, if you wanted to redirect on a policy failure, you could set the status code to 301 and set the location header on the response:
+&lt;/span>&lt;span style="color:#e6db74"> allow = {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;status_code&amp;#34;: 301,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;additional_headers&amp;#34;: {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;location&amp;#34;: &amp;#34;https://my.site/authorize&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74"> } {
+&lt;/span>&lt;span style="color:#e6db74"> not jwt.payload[&amp;#34;my-claim&amp;#34;]
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74">
+&lt;/span>&lt;span style="color:#e6db74"> # You can also allow the request and add additional headers to it:
+&lt;/span>&lt;span style="color:#e6db74"> allow = {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;allow&amp;#34;: true,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;additional_headers&amp;#34;: {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;x-my-claim&amp;#34;: my_claim
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74"> } {
+&lt;/span>&lt;span style="color:#e6db74"> my_claim := jwt.payload[&amp;#34;my-claim&amp;#34;]
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74"> jwt = { &amp;#34;payload&amp;#34;: payload } {
+&lt;/span>&lt;span style="color:#e6db74"> auth_header := input.request.headers[&amp;#34;authorization&amp;#34;]
+&lt;/span>&lt;span style="color:#e6db74"> [_, jwt] := split(auth_header, &amp;#34; &amp;#34;)
+&lt;/span>&lt;span style="color:#e6db74"> [_, payload, _] := io.jwt.decode(jwt)
+&lt;/span>&lt;span style="color:#e6db74"> }&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>You can prototype and experiment with policies using the &lt;a href="https://play.openpolicyagent.org">official opa playground&lt;/a>. For example, &lt;a href="https://play.openpolicyagent.org/p/oRIDSo6OwE">you can find the example policy above here&lt;/a>.&lt;/p>
+&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>字段&lt;/th>
+&lt;th>Details&lt;/th>
+&lt;th>示例&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>rego&lt;/td>
+&lt;td>The Rego policy language&lt;/td>
+&lt;td>See above&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>defaultStatus&lt;/td>
+&lt;td>The status code to return for denied responses&lt;/td>
+&lt;td>&lt;code>&amp;quot;https://accounts.google.com&amp;quot;&lt;/code>, &lt;code>&amp;quot;https://login.salesforce.com&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>includedHeaders&lt;/td>
+&lt;td>A comma-separated set of case-insensitive headers to include in the request input. Request headers are not passed to the policy by default. Include to receive incoming request headers in the input&lt;/td>
+&lt;td>&lt;code>&amp;quot;x-my-custom-header, x-jwt-header&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="dapr-configuration">Dapr configuration&lt;/h2>
+&lt;p>To be applied, the middleware must be referenced in &lt;a href="https://dapr-cn.github.io/concepts/configuration-concept/">configuration&lt;/a>. See &lt;a href="https://dapr-cn.github.io/concepts/middleware-concept/#customize-processing-pipeline">middleware pipelines&lt;/a>.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">appconfig&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">httpPipeline&lt;/span>:
+&lt;span style="color:#f92672">handlers&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">my-policy&lt;/span>
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">middleware.http.opa&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="input">Input&lt;/h2>
+&lt;p>This middleware supplies a &lt;a href="#httprequest">&lt;code>HTTPRequest&lt;/code>&lt;/a> as input.&lt;/p>
+&lt;h3 id="httprequest">HTTPRequest&lt;/h3>
+&lt;p>The &lt;code>HTTPRequest&lt;/code> input contains all the revelant information about an incoming HTTP Request except it&amp;rsquo;s body.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#66d9ef">type&lt;/span> &lt;span style="color:#a6e22e">Input&lt;/span> &lt;span style="color:#66d9ef">struct&lt;/span> {
+&lt;span style="color:#a6e22e">request&lt;/span> &lt;span style="color:#a6e22e">HTTPRequest&lt;/span>
+}
+&lt;span style="color:#66d9ef">type&lt;/span> &lt;span style="color:#a6e22e">HTTPRequest&lt;/span> &lt;span style="color:#66d9ef">struct&lt;/span> {
+&lt;span style="color:#75715e">// The request method (e.g. GET,POST,etc...)
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">method&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span>
+&lt;span style="color:#75715e">// The raw request path (e.g. &amp;#34;/v2/my-path/&amp;#34;)
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">path&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span>
+&lt;span style="color:#75715e">// The path broken down into parts for easy consumption (e.g. [&amp;#34;v2&amp;#34;, &amp;#34;my-path&amp;#34;])
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">path_parts&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span>[]
+&lt;span style="color:#75715e">// The raw query string (e.g. &amp;#34;?a=1&amp;amp;b=2&amp;#34;)
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">raw_query&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span>
+&lt;span style="color:#75715e">// The query broken down into keys and their values
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">query&lt;/span> &lt;span style="color:#66d9ef">map&lt;/span>[&lt;span style="color:#66d9ef">string&lt;/span>][]&lt;span style="color:#66d9ef">string&lt;/span>
+&lt;span style="color:#75715e">// The request headers
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">// NOTE: By default, no headers are included. You must specify what headers
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">// you want to receive via `spec.metadata.includedHeaders` (see above)
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">headers&lt;/span> &lt;span style="color:#66d9ef">map&lt;/span>[&lt;span style="color:#66d9ef">string&lt;/span>]&lt;span style="color:#66d9ef">string&lt;/span>
+&lt;span style="color:#75715e">// The request scheme (e.g. http, https)
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">scheme&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="result">Result&lt;/h2>
+&lt;p>The policy must set &lt;code>data.http.allow&lt;/code> with either a &lt;code>boolean&lt;/code> value, or an &lt;code>object&lt;/code> value with an &lt;code>allow&lt;/code> boolean property. A &lt;code>true&lt;/code> &lt;code>allow&lt;/code> will allow the request, while a &lt;code>false&lt;/code> value will reject the request with the status specified by &lt;code>defaultStatus&lt;/code>. The following policy, with defaults, demonstrates a &lt;code>403 - Forbidden&lt;/code> for all requests:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#f92672">package&lt;/span> &lt;span style="color:#a6e22e">http&lt;/span>
+&lt;span style="color:#66d9ef">default&lt;/span> &lt;span style="color:#a6e22e">allow&lt;/span> = &lt;span style="color:#66d9ef">false&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>which is the same as:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#f92672">package&lt;/span> &lt;span style="color:#a6e22e">http&lt;/span>
+&lt;span style="color:#66d9ef">default&lt;/span> &lt;span style="color:#a6e22e">allow&lt;/span> = {
+&lt;span style="color:#e6db74">&amp;#34;allow&amp;#34;&lt;/span>: &lt;span style="color:#66d9ef">false&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="changing-the-rejected-response-status-code">Changing the rejected response status code&lt;/h3>
+&lt;p>When rejecting a request, you can override the status code the that gets returned. For example, if you wanted to return a &lt;code>401&lt;/code> instead of a &lt;code>403&lt;/code>, you could do the following:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#f92672">package&lt;/span> &lt;span style="color:#a6e22e">http&lt;/span>
+&lt;span style="color:#66d9ef">default&lt;/span> &lt;span style="color:#a6e22e">allow&lt;/span> = {
+&lt;span style="color:#e6db74">&amp;#34;allow&amp;#34;&lt;/span>: &lt;span style="color:#66d9ef">false&lt;/span>,
+&lt;span style="color:#e6db74">&amp;#34;status_code&amp;#34;&lt;/span>: &lt;span style="color:#ae81ff">401&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="adding-response-headers">Adding response headers&lt;/h3>
+&lt;p>To redirect, add headers and set the &lt;code>status_code&lt;/code> to the returned result:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#f92672">package&lt;/span> &lt;span style="color:#a6e22e">http&lt;/span>
+&lt;span style="color:#66d9ef">default&lt;/span> &lt;span style="color:#a6e22e">allow&lt;/span> = {
+&lt;span style="color:#e6db74">&amp;#34;allow&amp;#34;&lt;/span>: &lt;span style="color:#66d9ef">false&lt;/span>,
+&lt;span style="color:#e6db74">&amp;#34;status_code&amp;#34;&lt;/span>: &lt;span style="color:#ae81ff">301&lt;/span>,
+&lt;span style="color:#e6db74">&amp;#34;additional_headers&amp;#34;&lt;/span>: {
+&lt;span style="color:#e6db74">&amp;#34;Location&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;https://my.redirect.site&amp;#34;&lt;/span>
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="adding-request-headers">Adding request headers&lt;/h3>
+&lt;p>You can also set additional headers on the allowed request:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#f92672">package&lt;/span> &lt;span style="color:#a6e22e">http&lt;/span>
+&lt;span style="color:#66d9ef">default&lt;/span> &lt;span style="color:#a6e22e">allow&lt;/span> = &lt;span style="color:#66d9ef">false&lt;/span>
+&lt;span style="color:#a6e22e">allow&lt;/span> = { &lt;span style="color:#e6db74">&amp;#34;allow&amp;#34;&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;additional_headers&amp;#34;&lt;/span>: { &lt;span style="color:#e6db74">&amp;#34;X-JWT-Payload&amp;#34;&lt;/span>: &lt;span style="color:#a6e22e">payload&lt;/span> } } {
+&lt;span style="color:#a6e22e">not&lt;/span> &lt;span style="color:#a6e22e">input&lt;/span>.&lt;span style="color:#a6e22e">path&lt;/span>[&lt;span style="color:#ae81ff">0&lt;/span>] &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#e6db74">&amp;#34;forbidden&amp;#34;&lt;/span>
+&lt;span style="color:#75715e">// Where `jwt` is the result of another rule
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">payload&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">base64&lt;/span>.&lt;span style="color:#a6e22e">encode&lt;/span>(&lt;span style="color:#a6e22e">json&lt;/span>.&lt;span style="color:#a6e22e">marshal&lt;/span>(&lt;span style="color:#a6e22e">jwt&lt;/span>.&lt;span style="color:#a6e22e">payload&lt;/span>))
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="result-structure">Result structure&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#66d9ef">type&lt;/span> &lt;span style="color:#a6e22e">Result&lt;/span> &lt;span style="color:#66d9ef">bool&lt;/span>
+&lt;span style="color:#75715e">// or
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">type&lt;/span> &lt;span style="color:#a6e22e">Result&lt;/span> &lt;span style="color:#66d9ef">struct&lt;/span> {
+&lt;span style="color:#75715e">// Whether to allow or deny the incoming request
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">allow&lt;/span> &lt;span style="color:#66d9ef">bool&lt;/span>
+&lt;span style="color:#75715e">// Overrides denied response status code; Optional
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">status_code&lt;/span> &lt;span style="color:#66d9ef">int&lt;/span>
+&lt;span style="color:#75715e">// Sets headers on allowed request or denied response; Optional
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">additional_headers&lt;/span> &lt;span style="color:#66d9ef">map&lt;/span>[&lt;span style="color:#66d9ef">string&lt;/span>]&lt;span style="color:#66d9ef">string&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://www.openpolicyagent.org">Open Policy Agent&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.openpolicyagent.org/docs/latest/http-api-authorization/">HTTP API example&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/concepts/middleware-concept/">Middleware concept&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/concepts/configuration-concept/">Configuration concept&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/operations/configuration/configuration-overview/">Configuration overview&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Developing-Applications: Uppercase request body</title><link>https://dapr-cn.github.io/developing-applications/middleware/supported-middleware/middleware-uppercase/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/middleware/supported-middleware/middleware-uppercase/</guid><description>
+&lt;p>The uppercase &lt;a href="https://dapr-cn.github.io/concepts/middleware-concept/">HTTP middleware&lt;/a> converts the body of the request to uppercase letters and is used for testing that the pipeline is functioning. It should only be used for local development.&lt;/p>
+&lt;h2 id="component-format">Component format&lt;/h2>
+&lt;p>In the following definition, the maximum requests per second are set to 10:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">uppercase&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">middleware.http.uppercase&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>This component has no &lt;code>metadata&lt;/code> to configure.&lt;/p>
+&lt;h2 id="dapr-configuration">Dapr configuration&lt;/h2>
+&lt;p>To be applied, the middleware must be referenced in &lt;a href="https://dapr-cn.github.io/concepts/configuration-concept/">configuration&lt;/a>. See &lt;a href="https://dapr-cn.github.io/concepts/middleware-concept/#customize-processing-pipeline">middleware pipelines&lt;/a>.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">appconfig&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">httpPipeline&lt;/span>:
+&lt;span style="color:#f92672">handlers&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">uppercase&lt;/span>
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">middleware.http.uppercase&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://dapr-cn.github.io/concepts/middleware-concept/">Middleware concept&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/concepts/configuration-concept/">Configuration concept&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dapr-cn.github.io/operations/configuration/configuration-overview/">Configuration overview&lt;/a>&lt;/li>
+&lt;/ul></description></item></channel></rss>
