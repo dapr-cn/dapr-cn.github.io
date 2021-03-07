@@ -1,0 +1,282 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr Docs – Debugging and Troubleshooting</title><link>https://docs.dapr.io/en/operations/troubleshooting/</link><description>Recent content in Debugging and Troubleshooting on Dapr Docs</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/en/operations/troubleshooting/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: Common issues when running Dapr</title><link>https://docs.dapr.io/en/operations/troubleshooting/common_issues/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/operations/troubleshooting/common_issues/</guid><description>
+&lt;h2 id="i-dont-see-the-dapr-sidecar-injected-to-my-pod">I don&amp;rsquo;t see the Dapr sidecar injected to my pod&lt;/h2>
+&lt;p>There could be several reasons to why a sidecar will not be injected into a pod.
+First, check your Deployment or Pod YAML file, and check that you have the following annotations in the right place:&lt;/p>
+&lt;p>Sample deployment:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">apps/v1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Deployment&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">nodeapp&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">labels&lt;/span>:
+&lt;span style="color:#f92672">app&lt;/span>: &lt;span style="color:#ae81ff">node&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">replicas&lt;/span>: &lt;span style="color:#ae81ff">1&lt;/span>
+&lt;span style="color:#f92672">selector&lt;/span>:
+&lt;span style="color:#f92672">matchLabels&lt;/span>:
+&lt;span style="color:#f92672">app&lt;/span>: &lt;span style="color:#ae81ff">node&lt;/span>
+&lt;span style="color:#f92672">template&lt;/span>:
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">labels&lt;/span>:
+&lt;span style="color:#f92672">app&lt;/span>: &lt;span style="color:#ae81ff">node&lt;/span>
+&lt;span style="color:#f92672">annotations&lt;/span>:
+&lt;span style="color:#f92672">&amp;lt;b&amp;gt;dapr.io/enabled&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>&lt;span style="color:#ae81ff">&amp;lt;/b&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">&amp;lt;b&amp;gt;dapr.io/app-id&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;nodeapp&amp;#34;&lt;/span>&lt;span style="color:#ae81ff">&amp;lt;/b&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">&amp;lt;b&amp;gt;dapr.io/app-port&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;3000&amp;#34;&lt;/span>&lt;span style="color:#ae81ff">&amp;lt;/b&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">containers&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">node&lt;/span>
+&lt;span style="color:#f92672">image&lt;/span>: &lt;span style="color:#ae81ff">dapriosamples/hello-k8s-node&lt;/span>
+&lt;span style="color:#f92672">ports&lt;/span>:
+- &lt;span style="color:#f92672">containerPort&lt;/span>: &lt;span style="color:#ae81ff">3000&lt;/span>
+&lt;span style="color:#f92672">imagePullPolicy&lt;/span>: &lt;span style="color:#ae81ff">Always&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>If your pod spec template is annotated correctly and you still don&amp;rsquo;t see the sidecar injected, make sure Dapr was deployed to the cluster before your deployment or pod were deployed.&lt;/p>
+&lt;p>If this is the case, restarting the pods will fix the issue.&lt;/p>
+&lt;p>In order to further diagnose any issue, check the logs of the Dapr sidecar injector:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash"> kubectl logs -l app&lt;span style="color:#f92672">=&lt;/span>dapr-sidecar-injector -n dapr-system
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;em>Note: If you installed Dapr to a different namespace, replace dapr-system above with the desired namespace&lt;/em>&lt;/p>
+&lt;h2 id="my-pod-is-in-crashloopbackoff-or-another-failed-state-due-to-the-daprd-sidecar">My pod is in CrashLoopBackoff or another failed state due to the daprd sidecar&lt;/h2>
+&lt;p>If the Dapr sidecar (&lt;code>daprd&lt;/code>) is taking too long to initialize, this might be surfaced as a failing health check by Kubernetes.&lt;/p>
+&lt;p>If your pod is in a failed state you should check this:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl describe pod &amp;lt;name-of-pod&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>You might see a table like the following at the end of the command output:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-txt" data-lang="txt"> Normal Created 7m41s (x2 over 8m2s) kubelet, aks-agentpool-12499885-vmss000000 Created container daprd
+Normal Started 7m41s (x2 over 8m2s) kubelet, aks-agentpool-12499885-vmss000000 Started container daprd
+Warning Unhealthy 7m28s (x5 over 7m58s) kubelet, aks-agentpool-12499885-vmss000000 Readiness probe failed: Get http://10.244.1.10:3500/v1.0/healthz: dial tcp 10.244.1.10:3500: connect: connection refused
+Warning Unhealthy 7m25s (x6 over 7m55s) kubelet, aks-agentpool-12499885-vmss000000 Liveness probe failed: Get http://10.244.1.10:3500/v1.0/healthz: dial tcp 10.244.1.10:3500: connect: connection refused
+Normal Killing 7m25s (x2 over 7m43s) kubelet, aks-agentpool-12499885-vmss000000 Container daprd failed liveness probe, will be restarted
+Warning BackOff 3m2s (x18 over 6m48s) kubelet, aks-agentpool-12499885-vmss000000 Back-off restarting failed container
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The message &lt;code>Container daprd failed liveness probe, will be restarted&lt;/code> indicates at the Dapr sidecar has failed its health checks and will be restarted. The messages &lt;code>Readiness probe failed: Get http://10.244.1.10:3500/v1.0/healthz: dial tcp 10.244.1.10:3500: connect: connection refused&lt;/code> and &lt;code>Liveness probe failed: Get http://10.244.1.10:3500/v1.0/healthz: dial tcp 10.244.1.10:3500: connect: connection refused&lt;/code> show that the health check failed because no connection could be made to the sidecar.&lt;/p>
+&lt;p>The most common cause of this failure is that a component (such as a state store) is misconfigured and is causing initialization to take too long. When initialization takes a long time, it&amp;rsquo;s possible that the health check could terminate the sidecar before anything useful is logged by the sidecar.&lt;/p>
+&lt;p>To diagnose the root cause:&lt;/p>
+&lt;ul>
+&lt;li>Significantly increase the liveness probe delay - &lt;a href="https://docs.dapr.io/en/operations/hosting/kubernetes/kubernetes-overview/">link&lt;/a>&lt;/li>
+&lt;li>Set the log level of the sidecar to debug - &lt;a href="https://docs.dapr.io/en/operations/troubleshooting/logs-troubleshooting/#setting-the-sidecar-log-level">link&lt;/a>&lt;/li>
+&lt;li>Watch the logs for meaningful information - &lt;a href="https://docs.dapr.io/en/operations/troubleshooting/logs-troubleshooting/#viewing-logs-on-kubernetes">link&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>Remember to configure the liveness check delay and log level back to your desired values after solving the problem.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="i-am-unable-to-save-state-or-get-state">I am unable to save state or get state&lt;/h2>
+&lt;p>Have you installed an Dapr State store in your cluster?&lt;/p>
+&lt;p>To check, use kubectl get a list of components:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl get components
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>If there isn&amp;rsquo;t a state store component, it means you need to set one up.
+Visit &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/">here&lt;/a> for more details.&lt;/p>
+&lt;p>If everything&amp;rsquo;s set up correctly, make sure you got the credentials right.
+Search the Dapr runtime logs and look for any state store errors:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl logs &amp;lt;name-of-pod&amp;gt; daprd
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="i-am-unable-to-publish-and-receive-events">I am unable to publish and receive events&lt;/h2>
+&lt;p>Have you installed an Dapr Message Bus in your cluster?&lt;/p>
+&lt;p>To check, use kubectl get a list of components:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl get components
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>If there isn&amp;rsquo;t a pub/sub component, it means you need to set one up.
+Visit &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/pubsub/">here&lt;/a> for more details.&lt;/p>
+&lt;p>If everything is set up correctly, make sure you got the credentials right.
+Search the Dapr runtime logs and look for any pub/sub errors:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl logs &amp;lt;name-of-pod&amp;gt; daprd
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="the-dapr-operator-pod-keeps-crashing">The Dapr Operator pod keeps crashing&lt;/h2>
+&lt;p>Check that there&amp;rsquo;s only one installation of the Dapr Operator in your cluster.
+Find out by running&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl get pods -l app&lt;span style="color:#f92672">=&lt;/span>dapr-operator --all-namespaces
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>If two pods appear, delete the redundant Dapr installation.&lt;/p>
+&lt;h2 id="im-getting-500-error-responses-when-calling-dapr">I&amp;rsquo;m getting 500 Error responses when calling Dapr&lt;/h2>
+&lt;p>This means there are some internal issue inside the Dapr runtime.
+To diagnose, view the logs of the sidecar:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl logs &amp;lt;name-of-pod&amp;gt; daprd
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="im-getting-404-not-found-responses-when-calling-dapr">I&amp;rsquo;m getting 404 Not Found responses when calling Dapr&lt;/h2>
+&lt;p>This means you&amp;rsquo;re trying to call an Dapr API endpoint that either doesn&amp;rsquo;t exist or the URL is malformed.
+Look at the Dapr API reference &lt;a href="https://docs.dapr.io/en/reference/api/">here&lt;/a> and make sure you&amp;rsquo;re calling the right endpoint.&lt;/p>
+&lt;h2 id="i-dont-see-any-incoming-events-or-calls-from-other-services">I don&amp;rsquo;t see any incoming events or calls from other services&lt;/h2>
+&lt;p>Have you specified the port your app is listening on?
+In Kubernetes, make sure the &lt;code>dapr.io/app-port&lt;/code> annotation is specified:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">annotations&lt;/span>:
+&lt;span style="color:#f92672">dapr.io/enabled&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">dapr.io/app-id&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;nodeapp&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">dapr.io/app-port&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;3000&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>If using Dapr Standalone and the Dapr CLI, make sure you pass the &lt;code>--app-port&lt;/code> flag to the &lt;code>dapr run&lt;/code> command.&lt;/p>
+&lt;h2 id="my-dapr-enabled-app-isnt-behaving-correctly">My Dapr-enabled app isn&amp;rsquo;t behaving correctly&lt;/h2>
+&lt;p>The first thing to do is inspect the HTTP error code returned from the Dapr API, if any.
+If you still can&amp;rsquo;t find the issue, try enabling &lt;code>debug&lt;/code> log levels for the Dapr runtime. See &lt;a href="https://docs.dapr.io/en/operations/monitoring/logging/logs/">here&lt;/a> how to do so.&lt;/p>
+&lt;p>You might also want to look at error logs from your own process. If running on Kubernetes, find the pod containing your app, and execute the following:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl logs &amp;lt;pod-name&amp;gt; &amp;lt;name-of-your-container&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>If running in Standalone mode, you should see the stderr and stdout outputs from your app displayed in the main console session.&lt;/p>
+&lt;h2 id="im-getting-timeoutconnection-errors-when-running-actors-locally">I&amp;rsquo;m getting timeout/connection errors when running Actors locally&lt;/h2>
+&lt;p>Each Dapr instance reports it&amp;rsquo;s host address to the placement service. The placement service then distributes a table of nodes and their addresses to all Dapr instances. If that host address is unreachable, you are likely to encounter socket timeout errors or other variants of failing request errors.&lt;/p>
+&lt;p>Unless the host name has been specified by setting an environment variable named &lt;code>DAPR_HOST_IP&lt;/code> to a reachable, pingable address, Dapr will loop over the network interfaces and select the first non-loopback address it finds.&lt;/p>
+&lt;p>As described above, in order to tell Dapr what the host name should be used, simply set an environment variable with the name of &lt;code>DAPR_HOST_IP&lt;/code>.&lt;/p>
+&lt;p>The following example shows how to set the Host IP env var to &lt;code>127.0.0.1&lt;/code>:&lt;/p>
+&lt;p>&lt;strong>Note: for versions &amp;lt;= 0.4.0 use &lt;code>HOST_IP&lt;/code>&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">export DAPR_HOST_IP&lt;span style="color:#f92672">=&lt;/span>127.0.0.1
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="none-of-my-components-are-getting-loaded-when-my-application-starts-i-keep-getting-error-component-x-cannot-be-found">None of my components are getting loaded when my application starts. I keep getting &amp;ldquo;Error component X cannot be found&amp;rdquo;&lt;/h2>
+&lt;p>This is usually due to one of the following issues&lt;/p>
+&lt;ul>
+&lt;li>You may have defined the &lt;code>NAMESPACE&lt;/code> environment variable locally or deployed your components into a different namespace in Kubernetes. Check which namespace your app and the components are deployed to. Read &lt;a href="https://docs.dapr.io/en/operations/components/component-scopes/">scoping components to one or more applications&lt;/a> for more information.&lt;/li>
+&lt;li>You may have not provided a &lt;code>--components-path&lt;/code> with the Dapr &lt;code>run&lt;/code> commands or not placed your components into the default components folder for your OS. Read &lt;a href="https://docs.dapr.io/en/getting-started/get-started-component/">define a component&lt;/a> for more information.&lt;/li>
+&lt;li>You may have a syntax issue in component YAML file. Check your component YAML with the component &lt;a href="https://docs.dapr.io/en/operations/components/">YAML samples&lt;/a>.&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Configure and view Dapr Logs</title><link>https://docs.dapr.io/en/operations/troubleshooting/logs-troubleshooting/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/operations/troubleshooting/logs-troubleshooting/</guid><description>
+&lt;p>This section will assist you in understanding how logging works in Dapr, configuring and viewing logs.&lt;/p>
+&lt;h2 id="overview">Overview&lt;/h2>
+&lt;p>Logs have different, configurable verbosity levels.
+The levels outlined below are the same for both system components and the Dapr sidecar process/container:&lt;/p>
+&lt;ol>
+&lt;li>error&lt;/li>
+&lt;li>warning&lt;/li>
+&lt;li>info&lt;/li>
+&lt;li>debug&lt;/li>
+&lt;/ol>
+&lt;p>error produces the minimum amount of output, where debug produces the maximum amount. The default level is info, which provides a balanced amount of information for operating Dapr in normal conditions.&lt;/p>
+&lt;p>To set the output level, you can use the &lt;code>--log-level&lt;/code> command-line option. For example:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">./daprd --log-level error
+./placement --log-level debug
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>This will start the Dapr runtime binary with a log level of &lt;code>error&lt;/code> and the Dapr Actor Placement Service with a log level of &lt;code>debug&lt;/code>.&lt;/p>
+&lt;h2 id="logs-in-stand-alone-mode">Logs in stand-alone mode&lt;/h2>
+&lt;p>To set the log level when running your app with the Dapr CLI, pass the &lt;code>log-level&lt;/code> param:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr run --log-level warning node myapp.js
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>As outlined above, every Dapr binary takes a &lt;code>--log-level&lt;/code> argument. For example, to launch the placement service with a log level of warning:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">./placement --log-level warning
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="viewing-logs-on-standalone-mode">Viewing Logs on Standalone Mode&lt;/h3>
+&lt;p>When running Dapr with the Dapr CLI, both your app&amp;rsquo;s log output and the runtime&amp;rsquo;s output will be redirected to the same session, for easy debugging.
+For example, this is the output when running Dapr:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr run node myapp.js
+ℹ️ Starting Dapr with id Trackgreat-Lancer on port &lt;span style="color:#ae81ff">56730&lt;/span>
+✅ You are up and running! Both Dapr and your app logs will appear here.
+&lt;span style="color:#f92672">==&lt;/span> APP &lt;span style="color:#f92672">==&lt;/span> App listening on port 3000!
+&lt;span style="color:#f92672">==&lt;/span> DAPR &lt;span style="color:#f92672">==&lt;/span> time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-05T12:26:43-07:00&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;starting Dapr Runtime -- version 0.3.0-alpha -- commit b6f2810-dirty&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">==&lt;/span> DAPR &lt;span style="color:#f92672">==&lt;/span> time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-05T12:26:43-07:00&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;log level set to: info&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">==&lt;/span> DAPR &lt;span style="color:#f92672">==&lt;/span> time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-05T12:26:43-07:00&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;standalone mode configured&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">==&lt;/span> DAPR &lt;span style="color:#f92672">==&lt;/span> time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-05T12:26:43-07:00&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;app id: Trackgreat-Lancer&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">==&lt;/span> DAPR &lt;span style="color:#f92672">==&lt;/span> time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-05T12:26:43-07:00&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;loaded component statestore (state.redis)&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">==&lt;/span> DAPR &lt;span style="color:#f92672">==&lt;/span> time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-05T12:26:43-07:00&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;loaded component messagebus (pubsub.redis)&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">==&lt;/span> DAPR &lt;span style="color:#f92672">==&lt;/span> 2019/09/05 12:26:43 redis: connecting to localhost:6379
+&lt;span style="color:#f92672">==&lt;/span> DAPR &lt;span style="color:#f92672">==&lt;/span> 2019/09/05 12:26:43 redis: connected to localhost:6379 &lt;span style="color:#f92672">(&lt;/span>localAddr: &lt;span style="color:#f92672">[&lt;/span>::1&lt;span style="color:#f92672">]&lt;/span>:56734, remAddr: &lt;span style="color:#f92672">[&lt;/span>::1&lt;span style="color:#f92672">]&lt;/span>:6379&lt;span style="color:#f92672">)&lt;/span>
+&lt;span style="color:#f92672">==&lt;/span> DAPR &lt;span style="color:#f92672">==&lt;/span> time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-05T12:26:43-07:00&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>warning msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;failed to init input bindings: app channel not initialized&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">==&lt;/span> DAPR &lt;span style="color:#f92672">==&lt;/span> time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-05T12:26:43-07:00&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;actor runtime started. actor idle timeout: 1h0m0s. actor scan interval: 30s&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">==&lt;/span> DAPR &lt;span style="color:#f92672">==&lt;/span> time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-05T12:26:43-07:00&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;actors: starting connection attempt to placement service at localhost:50005&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">==&lt;/span> DAPR &lt;span style="color:#f92672">==&lt;/span> time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-05T12:26:43-07:00&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;http server is running on port 56730&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">==&lt;/span> DAPR &lt;span style="color:#f92672">==&lt;/span> time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-05T12:26:43-07:00&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;gRPC server is running on port 56731&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">==&lt;/span> DAPR &lt;span style="color:#f92672">==&lt;/span> time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-05T12:26:43-07:00&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;dapr initialized. Status: Running. Init Elapsed 8.772922000000001ms&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">==&lt;/span> DAPR &lt;span style="color:#f92672">==&lt;/span> time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-05T12:26:43-07:00&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;actors: established connection to placement service at localhost:50005&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="logs-in-kubernetes-mode">Logs in Kubernetes mode&lt;/h2>
+&lt;p>You can set the log level individually for every sidecar by providing the following annotation in your pod spec template:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yml" data-lang="yml">&lt;span style="color:#f92672">annotations&lt;/span>:
+&lt;span style="color:#f92672">dapr.io/log-level&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;debug&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="setting-system-pods-log-level">Setting system pods log level&lt;/h3>
+&lt;p>When deploying Dapr to your cluster using Helm 3.x, you can individually set the log level for every Dapr system component:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm install dapr dapr/dapr --namespace dapr-system --set &amp;lt;COMPONENT&amp;gt;.logLevel&lt;span style="color:#f92672">=&lt;/span>&amp;lt;LEVEL&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Components:&lt;/p>
+&lt;ul>
+&lt;li>dapr_operator&lt;/li>
+&lt;li>dapr_placement&lt;/li>
+&lt;li>dapr_sidecar_injector&lt;/li>
+&lt;/ul>
+&lt;p>Example:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm install dapr dapr/dapr --namespace dapr-system --set dapr_operator.logLevel&lt;span style="color:#f92672">=&lt;/span>error
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="viewing-logs-on-kubernetes">Viewing Logs on Kubernetes&lt;/h3>
+&lt;p>Dapr logs are written to stdout and stderr.
+This section will guide you on how to view logs for Dapr system components as well as the Dapr sidecar.&lt;/p>
+&lt;h4 id="sidecar-logs">Sidecar Logs&lt;/h4>
+&lt;p>When deployed in Kubernetes, the Dapr sidecar injector will inject an Dapr container named &lt;code>daprd&lt;/code> into your annotated pod.
+In order to view logs for the sidecar, simply find the pod in question by running &lt;code>kubectl get pods&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">NAME READY STATUS RESTARTS AGE
+addapp-74b57fb78c-67zm6 2/2 Running &lt;span style="color:#ae81ff">0&lt;/span> 40h
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Next, get the logs for the Dapr sidecar container:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl logs addapp-74b57fb78c-67zm6 -c daprd
+time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-04T02:52:27Z&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;starting Dapr Runtime -- version 0.3.0-alpha -- commit b6f2810-dirty&amp;#34;&lt;/span>
+time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-04T02:52:27Z&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;log level set to: info&amp;#34;&lt;/span>
+time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-04T02:52:27Z&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;kubernetes mode configured&amp;#34;&lt;/span>
+time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-04T02:52:27Z&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;app id: addapp&amp;#34;&lt;/span>
+time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-04T02:52:27Z&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;application protocol: http. waiting on port 6000&amp;#34;&lt;/span>
+time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-04T02:52:27Z&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;application discovered on port 6000&amp;#34;&lt;/span>
+time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-04T02:52:27Z&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;actor runtime started. actor idle timeout: 1h0m0s. actor scan interval: 30s&amp;#34;&lt;/span>
+time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-04T02:52:27Z&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;actors: starting connection attempt to placement service at dapr-placement.dapr-system.svc.cluster.local:80&amp;#34;&lt;/span>
+time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-04T02:52:27Z&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;http server is running on port 3500&amp;#34;&lt;/span>
+time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-04T02:52:27Z&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;gRPC server is running on port 50001&amp;#34;&lt;/span>
+time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-04T02:52:27Z&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;dapr initialized. Status: Running. Init Elapsed 64.234049ms&amp;#34;&lt;/span>
+time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-04T02:52:27Z&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;actors: established connection to placement service at dapr-placement.dapr-system.svc.cluster.local:80&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="system-logs">System Logs&lt;/h4>
+&lt;p>Dapr runs the following system pods:&lt;/p>
+&lt;ul>
+&lt;li>Dapr operator&lt;/li>
+&lt;li>Dapr sidecar injector&lt;/li>
+&lt;li>Dapr placement service&lt;/li>
+&lt;/ul>
+&lt;h4 id="operator-logs">Operator Logs&lt;/h4>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-Bash" data-lang="Bash">kubectl logs -l app&lt;span style="color:#f92672">=&lt;/span>dapr-operator -n dapr-system
+time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-05T19:03:43Z&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;log level set to: info&amp;#34;&lt;/span>
+time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-05T19:03:43Z&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;starting Dapr Operator -- version 0.3.0-alpha -- commit b6f2810-dirty&amp;#34;&lt;/span>
+time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-05T19:03:43Z&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;Dapr Operator is started&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;em>Note: If Dapr is installed to a different namespace than dapr-system, simply replace the namespace to the desired one in the command above&lt;/em>&lt;/p>
+&lt;h4 id="sidecar-injector-logs">Sidecar Injector Logs&lt;/h4>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-Bash" data-lang="Bash">kubectl logs -l app&lt;span style="color:#f92672">=&lt;/span>dapr-sidecar-injector -n dapr-system
+time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-03T21:01:12Z&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;log level set to: info&amp;#34;&lt;/span>
+time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-03T21:01:12Z&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;starting Dapr Sidecar Injector -- version 0.3.0-alpha -- commit b6f2810-dirty&amp;#34;&lt;/span>
+time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-03T21:01:12Z&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;Sidecar injector is listening on :4000, patching Dapr-enabled pods&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;em>Note: If Dapr is installed to a different namespace than dapr-system, simply replace the namespace to the desired one in the command above&lt;/em>&lt;/p>
+&lt;h4 id="viewing-placement-service-logs">Viewing Placement Service Logs&lt;/h4>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-Bash" data-lang="Bash">kubectl logs -l app&lt;span style="color:#f92672">=&lt;/span>dapr-placement -n dapr-system
+time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-03T21:01:12Z&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;log level set to: info&amp;#34;&lt;/span>
+time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-03T21:01:12Z&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;starting Dapr Placement Service -- version 0.3.0-alpha -- commit b6f2810-dirty&amp;#34;&lt;/span>
+time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-03T21:01:12Z&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;placement Service started on port 50005&amp;#34;&lt;/span>
+time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-04T00:21:57Z&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;host added: 10.244.1.89&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;em>Note: If Dapr is installed to a different namespace than dapr-system, simply replace the namespace to the desired one in the command above&lt;/em>&lt;/p>
+&lt;h3 id="non-kubernetes-environments">Non Kubernetes Environments&lt;/h3>
+&lt;p>The examples above are specific specific to Kubernetes, but the principal is the same for any kind of container based environment: simply grab the container ID of the Dapr sidecar and/or system component (if applicable) and view its logs.&lt;/p>
+&lt;h2 id="references">References&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/monitoring/logging/">How to setup loggings for Dapr sidecar, and your application&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Profiling &amp; Debugging</title><link>https://docs.dapr.io/en/operations/troubleshooting/profiling-debugging/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/operations/troubleshooting/profiling-debugging/</guid><description>
+&lt;p>In any real world scenario, an app might start exhibiting undesirable behavior in terms of resource spikes.
+CPU/Memory spikes are not uncommon in most cases.&lt;/p>
+&lt;p>Dapr allows users to start an on-demand profiling session using &lt;code>pprof&lt;/code> through its profiling server endpoint and start an instrumentation session to discover problems and issues such as concurrency, performance, cpu and memory usage.&lt;/p>
+&lt;h2 id="enable-profiling">Enable profiling&lt;/h2>
+&lt;p>Dapr allows you to enable profiling in both Kubernetes and stand-alone modes.&lt;/p>
+&lt;h3 id="stand-alone">Stand-alone&lt;/h3>
+&lt;p>To enable profiling in Standalone mode, pass the &lt;code>--enable-profiling&lt;/code> and the &lt;code>--profile-port&lt;/code> flags to the Dapr CLI:
+Note that &lt;code>profile-port&lt;/code> is not required, and if not provided Dapr will pick an available port.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr run --enable-profiling true --profile-port &lt;span style="color:#ae81ff">7777&lt;/span> python myapp.py
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="kubernetes">Kubernetes&lt;/h3>
+&lt;p>To enable profiling in Kubernetes, simply add the &lt;code>dapr.io/enable-profiling&lt;/code> annotation to your Dapr annotated pod:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yml" data-lang="yml"> &lt;span style="color:#f92672">annotations&lt;/span>:
+&lt;span style="color:#f92672">dapr.io/enabled&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">dapr.io/app-id&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;rust-app&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">dapr.io/enable-profiling&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="debug-a-profiling-session">Debug a profiling session&lt;/h2>
+&lt;p>After profiling is enabled, we can start a profiling session to investigate what&amp;rsquo;s going on with the Dapr runtime.&lt;/p>
+&lt;h3 id="stand-alone-1">Stand-alone&lt;/h3>
+&lt;p>For Standalone mode, locate the Dapr instance that you want to profile:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr list
+APP ID DAPR PORT APP PORT COMMAND AGE CREATED PID
+node-subscriber &lt;span style="color:#ae81ff">3500&lt;/span> &lt;span style="color:#ae81ff">3000&lt;/span> node app.js 12s 2019-09-09 15:11.24 &lt;span style="color:#ae81ff">896&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Grab the DAPR PORT, and if profiling has been enabled as described above, you can now start using &lt;code>pprof&lt;/code> to profile Dapr.
+Look at the Kubernetes examples above for some useful commands to profile Dapr.&lt;/p>
+&lt;p>More info on pprof can be found &lt;a href="https://github.com/google/pprof">here&lt;/a>.&lt;/p>
+&lt;h3 id="kubernetes-1">Kubernetes&lt;/h3>
+&lt;p>First, find the pod containing the Dapr runtime. If you don&amp;rsquo;t already know the the pod name, type &lt;code>kubectl get pods&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">NAME READY STATUS RESTARTS AGE
+divideapp-6dddf7dc74-6sq4l 2/2 Running &lt;span style="color:#ae81ff">0&lt;/span> 2d23h
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>If profiling has been enabled successfully, the runtime logs should show the following:
+&lt;code>time=&amp;quot;2019-09-09T20:56:21Z&amp;quot; level=info msg=&amp;quot;starting profiling server on port 7777&amp;quot;&lt;/code>&lt;/p>
+&lt;p>In this case, we want to start a session with the Dapr runtime inside of pod &lt;code>divideapp-6dddf7dc74-6sq4l&lt;/code>.&lt;/p>
+&lt;p>We can do so by connecting to the pod via port forwarding:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl port-forward divideapp-6dddf7dc74-6sq4 7777:7777
+Forwarding from 127.0.0.1:7777 -&amp;gt; &lt;span style="color:#ae81ff">7777&lt;/span>
+Forwarding from &lt;span style="color:#f92672">[&lt;/span>::1&lt;span style="color:#f92672">]&lt;/span>:7777 -&amp;gt; &lt;span style="color:#ae81ff">7777&lt;/span>
+Handling connection &lt;span style="color:#66d9ef">for&lt;/span> &lt;span style="color:#ae81ff">7777&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Now that the connection has been established, we can use &lt;code>pprof&lt;/code> to profile the Dapr runtime.&lt;/p>
+&lt;p>The following example will create a &lt;code>cpu.pprof&lt;/code> file containing samples from a profile session that lasts 120 seconds:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl &lt;span style="color:#e6db74">&amp;#34;http://localhost:7777/debug/pprof/profile?seconds=120&amp;#34;&lt;/span> &amp;gt; cpu.pprof
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Analyze the file with pprof:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">pprof cpu.pprof
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>You can also save the results in a visualized way inside a PDF:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">go tool pprof --pdf your-binary-file http://localhost:7777/debug/pprof/profile?seconds&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">120&lt;/span> &amp;gt; profile.pdf
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>For memory related issues, you can profile the heap:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">go tool pprof --pdf your-binary-file http://localhost:7777/debug/pprof/heap &amp;gt; heap.pdf
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="https://docs.dapr.io/images/heap.png" alt="heap">&lt;/p>
+&lt;p>Profiling allocated objects:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">go tool pprof http://localhost:7777/debug/pprof/heap
+&amp;gt; exit
+Saved profile in /Users/myusername/pprof/pprof.daprd.alloc_objects.alloc_space.inuse_objects.inuse_space.003.pb.gz
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>To analyze, grab the file path above (its a dynamic file path, so pay attention to note paste this one), and execute:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">go tool pprof -alloc_objects --pdf /Users/myusername/pprof/pprof.daprd.alloc_objects.alloc_space.inuse_objects.inuse_space.003.pb.gz &amp;gt; alloc-objects.pdf
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="https://docs.dapr.io/images/alloc.png" alt="alloc">&lt;/p></description></item></channel></rss>

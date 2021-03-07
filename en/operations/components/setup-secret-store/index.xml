@@ -1,0 +1,179 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr Docs – Secret store components</title><link>https://docs.dapr.io/en/operations/components/setup-secret-store/</link><description>Recent content in Secret store components on Dapr Docs</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/en/operations/components/setup-secret-store/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: Overview</title><link>https://docs.dapr.io/en/operations/components/setup-secret-store/secret-stores-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/operations/components/setup-secret-store/secret-stores-overview/</guid><description>
+&lt;p>Dapr integrates with secret stores to provide apps and other components with secure store and access to secrets such as access keys and passwords. Each secret store component has a name and this name is used when accessing a secret.&lt;/p>
+&lt;p>As with other building block components, secret store components are extensible and can be found in the &lt;a href="https://github.com/dapr/components-contrib">components-contrib repo&lt;/a>.&lt;/p>
+&lt;p>A secret store in Dapr is described using a &lt;code>Component&lt;/code> file with the following fields:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">secretstore&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">secretstores.&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;KEY&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;VALUE&amp;gt;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;KEY&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;VALUE&amp;gt;&lt;/span>
+...
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The type of secret store is determined by the &lt;code>type&lt;/code> field, and things like connection strings and other metadata are put in the &lt;code>.metadata&lt;/code> section.&lt;/p>
+&lt;p>Different &lt;a href="https://docs.dapr.io/en/operations/components/setup-secret-store/supported-secret-stores/">supported secret stores&lt;/a> will have different specific fields that would need to be configured. For example, when configuring a secret store which uses AWS Secrets Manager the file would look like this:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">awssecretmanager&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">secretstores.aws.secretmanager&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">region&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[aws_region]&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">accessKey&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[aws_access_key]&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">secretKey&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[aws_secret_key]&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">sessionToken&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[aws_session_token]&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="apply-the-configuration">Apply the configuration&lt;/h2>
+&lt;p>Once you have created the component&amp;rsquo;s YAML file, follow these instructions to apply it based on your hosting environment:&lt;/p>
+&lt;ul class="nav nav-tabs" id="tabs-1" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-1-self-hosted-tab" data-toggle="tab" href="#tabs-1-self-hosted" role="tab"
+aria-controls="tabs-1-self-hosted" aria-selected="true">
+Self-Hosted
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-1-kubernetes-tab" data-toggle="tab" href="#tabs-1-kubernetes" role="tab"
+aria-controls="tabs-1-kubernetes" aria-selected="false">
+Kubernetes
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-1-content">
+&lt;div class="tab-pane fade show active" id="tabs-1-self-hosted" role="tabpanel" aria-labelled-by="tabs-1-self-hosted-tab">
+&lt;br />&lt;p>To run locally, create a &lt;code>components&lt;/code> dir containing the YAML file and provide the path to the &lt;code>dapr run&lt;/code> command with the flag &lt;code>--components-path&lt;/code>.&lt;/p>
+&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-1-kubernetes" role="tabpanel" aria-labelled-by="tabs-1-kubernetes-tab">
+&lt;br />&lt;p>To deploy in Kubernetes, assuming your component file is named &lt;code>secret-store.yaml&lt;/code>, run:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl apply -f secret-store.yaml
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;/div>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/setup-secret-store/supported-secret-stores/">Supported secret store components&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/secrets/">Secrets building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Supported secret stores</title><link>https://docs.dapr.io/en/operations/components/setup-secret-store/supported-secret-stores/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/operations/components/setup-secret-store/supported-secret-stores/</guid><description>
+&lt;p>Table captions:&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;code>Status&lt;/code>: &lt;a href="https://docs.dapr.io/en/operations/components/certification-lifecycle/">Component certification&lt;/a> status&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/certification-lifecycle/#alpha">Alpha&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/certification-lifecycle/#beta">Beta&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/certification-lifecycle/#general-availability-ga">GA&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>&lt;code>Since&lt;/code>: defines from which Dapr Runtime version, the component is in the current status&lt;/p>
+&lt;/blockquote>
+&lt;blockquote>
+&lt;p>&lt;code>Component version&lt;/code>: defines the version of the component&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="generic">Generic&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th>Status&lt;/th>
+&lt;th>Component version&lt;/th>
+&lt;th>Since&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-secret-store/supported-secret-stores/envvar-secret-store/">Local environment variables&lt;/a>&lt;/td>
+&lt;td>Beta&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-secret-store/supported-secret-stores/file-secret-store/">Local file&lt;/a>&lt;/td>
+&lt;td>Beta&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-secret-store/supported-secret-stores/hashicorp-vault/">HashiCorp Vault&lt;/a>&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-secret-store/supported-secret-stores/kubernetes-secret-store/">Kubernetes secrets&lt;/a>&lt;/td>
+&lt;td>GA&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="amazon-web-services-aws">Amazon Web Services (AWS)&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th>Status&lt;/th>
+&lt;th>Component version&lt;/th>
+&lt;th>Since&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-secret-store/supported-secret-stores/aws-secret-manager/">AWS Secrets Manager&lt;/a>&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="google-cloud-platform-gcp">Google Cloud Platform (GCP)&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th>Status&lt;/th>
+&lt;th>Component version&lt;/th>
+&lt;th>Since&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-secret-store/supported-secret-stores/gcp-secret-manager/">GCP Secret Manager&lt;/a>&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="microsoft-azure">Microsoft Azure&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th>Status&lt;/th>
+&lt;th>Component version&lt;/th>
+&lt;th>Since&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-secret-store/supported-secret-stores/azure-keyvault-managed-identity/">Azure Key Vault w/ Managed Identity&lt;/a>&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-secret-store/supported-secret-stores/azure-keyvault/">Azure Key Vault&lt;/a>&lt;/td>
+&lt;td>GA&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table></description></item></channel></rss>

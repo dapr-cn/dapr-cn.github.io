@@ -1,5 +1,5 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr Docs – State stores components</title><link>https://docs.dapr.io/operations/components/setup-state-store/</link><description>Recent content in State stores components on Dapr Docs</description><generator>Hugo -- gohugo.io</generator><language>zh-hans</language><atom:link href="https://docs.dapr.io/operations/components/setup-state-store/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: Overview</title><link>https://docs.dapr.io/operations/components/setup-state-store/setup-state-store-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/setup-state-store-overview/</guid><description>
-&lt;p>Dapr integrates with existing databases to provide apps with state management capabilities for CRUD operations, transactions and more. It also supports the configuration of multiple, named, state store components &lt;em>per application&lt;/em>.&lt;/p>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – State stores components</title><link>https://docs.dapr.io/operations/components/setup-state-store/</link><description>Recent content in State stores components on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/operations/components/setup-state-store/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: 概述</title><link>https://docs.dapr.io/operations/components/setup-state-store/setup-state-store-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/setup-state-store-overview/</guid><description>
+&lt;p>Dapr integrates with existing databases to provide apps with state management capabilities for CRUD operations, transactions and more. It also supports the configuration of multiple, named, state store components &lt;em>per application&lt;/em>. It also supports the configuration of multiple, named, state store components &lt;em>per application&lt;/em>.&lt;/p>
 &lt;p>State stores are extensible and can be found in the &lt;a href="https://github.com/dapr/components-contrib">components-contrib repo&lt;/a>.&lt;/p>
 &lt;p>A state store in Dapr is described using a &lt;code>Component&lt;/code> file:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
@@ -16,8 +16,7 @@
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;KEY&amp;gt;&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;VALUE&amp;gt;&lt;/span>
 ...
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>The type of database is determined by the &lt;code>type&lt;/code> field, and things like connection strings and other metadata are put in the &lt;code>.metadata&lt;/code> section.
-Even though metadata values can contain secrets in plain text, it is recommended you use a &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">secret store&lt;/a>.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The type of database is determined by the &lt;code>type&lt;/code> field, and things like connection strings and other metadata are put in the &lt;code>.metadata&lt;/code> section. The type of database is determined by the &lt;code>type&lt;/code> field, and things like connection strings and other metadata are put in the &lt;code>.metadata&lt;/code> section. Even though metadata values can contain secrets in plain text, it is recommended you use a &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">secret store&lt;/a>.&lt;/p>
 &lt;p>Visit &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to configure a state store component.&lt;/p>
 &lt;h2 id="related-topics">Related topics&lt;/h2>
 &lt;ul>
@@ -27,16 +26,13 @@ Even though metadata values can contain secrets in plain text, it is recommended
 &lt;/ul></description></item><item><title>Operations: Supported state stores</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/</guid><description>
 &lt;p>Table captions:&lt;/p>
 &lt;blockquote>
-&lt;p>&lt;code>Status&lt;/code>: &lt;a href="https://docs.dapr.io/operations/components/certification-lifecycle/">Component certification&lt;/a> status&lt;/p>
+&lt;p>&lt;code>Status&lt;/code>: &lt;a href="%7B%7BX%1A39X%7D%7D">Component certification&lt;/a> status&lt;/p>
 &lt;/blockquote>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/certification-lifecycle/#alpha">Alpha&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/certification-lifecycle/#beta">Beta&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/certification-lifecycle/#general-availability-ga">GA&lt;/a>&lt;/li>
+&lt;li>&lt;a href="%7B%7BX%1A28X%7D%7D">Alpha&lt;/a>&lt;/li>
+&lt;li>&lt;a href="%7B%7BX%1A30X%7D%7D">Beta&lt;/a>&lt;/li>
+&lt;li>&lt;a href="%7B%7BX%1A32X%7D%7D">GA&lt;/a> &amp;gt; &lt;code>Since&lt;/code>: defines from which Dapr Runtime version, the component is in the current status&lt;/li>
 &lt;/ul>
-&lt;blockquote>
-&lt;p>&lt;code>Since&lt;/code>: defines from which Dapr Runtime version, the component is in the current status&lt;/p>
-&lt;/blockquote>
 &lt;blockquote>
 &lt;p>&lt;code>Component version&lt;/code>: defines the version of the component&lt;/p>
 &lt;/blockquote>
@@ -48,7 +44,7 @@ Even though metadata values can contain secrets in plain text, it is recommended
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>Name&lt;/th>
+&lt;th>名称&lt;/th>
 &lt;th>CRUD&lt;/th>
 &lt;th>Transactional&lt;/th>
 &lt;th>ETag&lt;/th>

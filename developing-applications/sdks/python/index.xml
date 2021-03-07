@@ -1,4 +1,4 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr Docs – Dapr Python SDK</title><link>https://docs.dapr.io/developing-applications/sdks/python/</link><description>Recent content in Dapr Python SDK on Dapr Docs</description><generator>Hugo -- gohugo.io</generator><language>zh-hans</language><atom:link href="https://docs.dapr.io/developing-applications/sdks/python/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Getting started with the Dapr client Python SDK</title><link>https://docs.dapr.io/developing-applications/sdks/python/python-client/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/python/python-client/</guid><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Dapr Python SDK</title><link>https://docs.dapr.io/developing-applications/sdks/python/</link><description>Recent content in Dapr Python SDK on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/developing-applications/sdks/python/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Getting started with the Dapr client Python SDK</title><link>https://docs.dapr.io/developing-applications/sdks/python/python-client/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/python/python-client/</guid><description>
 &lt;p>The Dapr client package allows you to interact with other Dapr applications from a Python application.&lt;/p>
 &lt;h2 id="pre-requisites">Pre-requisites&lt;/h2>
 &lt;ul>
@@ -57,7 +57,7 @@ resp &lt;span style="color:#f92672">=&lt;/span> d&lt;span style="color:#f92672">
 &lt;li>For a full guide on secrets visit &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/secrets/howto-secrets/">How-To: Retrieve secrets&lt;/a>.&lt;/li>
 &lt;li>Visit &lt;a href="https://github.com/dapr/python-sdk/tree/daprdocs-setup/examples/secret_store">Python SDK examples&lt;/a> for code samples and instructions to try out retrieving secrets&lt;/li>
 &lt;/ul>
-&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://github.com/dapr/python-sdk/tree/daprdocs-setup/examples">Python SDK examples&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Developing-Applications: Getting started with the Dapr actor Python SDK</title><link>https://docs.dapr.io/developing-applications/sdks/python/python-actor/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/python/python-actor/</guid><description>

@@ -1,0 +1,194 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr Docs – Virtual Actors</title><link>https://docs.dapr.io/en/developing-applications/sdks/php/php-actors/</link><description>Recent content in Virtual Actors on Dapr Docs</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/en/developing-applications/sdks/php/php-actors/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Production Reference: Actors</title><link>https://docs.dapr.io/en/developing-applications/sdks/php/php-actors/php-actor-reference/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/developing-applications/sdks/php/php-actors/php-actor-reference/</guid><description>
+&lt;h2 id="proxy-modes">Proxy modes&lt;/h2>
+&lt;p>There are four different modes actor proxies are handled. Each mode presents different trade-offs that you&amp;rsquo;ll need to
+weigh during development and in production.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
+&lt;span style="color:#a6e22e">\Dapr\Actors\Generators\ProxyFactory&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">GENERATED&lt;/span>;
+&lt;span style="color:#a6e22e">\Dapr\Actors\Generators\ProxyFactory&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">GENERATED_CACHED&lt;/span>;
+&lt;span style="color:#a6e22e">\Dapr\Actors\Generators\ProxyFactory&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">ONLY_EXISTING&lt;/span>;
+&lt;span style="color:#a6e22e">\Dapr\Actors\Generators\ProxyFactory&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">DYNAMIC&lt;/span>;
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>It can be set with &lt;code>dapr.actors.proxy.generation&lt;/code> configuration key.&lt;/p>
+&lt;ul class="nav nav-tabs" id="tabs-0" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-0-generated-tab" data-toggle="tab" href="#tabs-0-generated" role="tab"
+aria-controls="tabs-0-generated" aria-selected="true">
+GENERATED
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-0-generated_cached-tab" data-toggle="tab" href="#tabs-0-generated_cached" role="tab"
+aria-controls="tabs-0-generated_cached" aria-selected="false">
+GENERATED_CACHED
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-0-only_existing-tab" data-toggle="tab" href="#tabs-0-only_existing" role="tab"
+aria-controls="tabs-0-only_existing" aria-selected="false">
+ONLY_EXISTING
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-0-dynamic-tab" data-toggle="tab" href="#tabs-0-dynamic" role="tab"
+aria-controls="tabs-0-dynamic" aria-selected="false">
+DYNAMIC
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-0-content">
+&lt;div class="tab-pane fade show active" id="tabs-0-generated" role="tabpanel" aria-labelled-by="tabs-0-generated-tab">
+&lt;br />&lt;p>This is the default mode. In this mode, a class is generated and &lt;code>eval&lt;/code>&amp;rsquo;d on every request. It&amp;rsquo;s mostly for development
+and shouldn&amp;rsquo;t be used in production.&lt;/p>
+&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-0-generated_cached" role="tabpanel" aria-labelled-by="tabs-0-generated_cached-tab">
+&lt;br />&lt;p>This is the same as &lt;code>ProxyModes::GENERATED&lt;/code> except the class is stored in a tmp file so it doesn&amp;rsquo;t need to be
+regenerated on every request. It doesn&amp;rsquo;t know when to update the cached class, so using it in development is discouraged
+but is offered for when manually generating the files isn&amp;rsquo;t possible.&lt;/p>
+&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-0-only_existing" role="tabpanel" aria-labelled-by="tabs-0-only_existing-tab">
+&lt;br />&lt;p>In this mode, an exception is thrown if the proxy class doesn&amp;rsquo;t exist. This is useful for when you don&amp;rsquo;t want to
+generate code in production. You&amp;rsquo;ll have to make sure the class is generated and pre-/autoloaded.&lt;/p>
+&lt;h3 id="generating-proxies">Generating proxies&lt;/h3>
+&lt;p>You can create a composer script to generate proxies on demand to take advantage of the &lt;code>ONLY_EXISTING&lt;/code> mode.&lt;/p>
+&lt;p>Create a &lt;code>ProxyCompiler.php&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
+&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">ProxyCompiler&lt;/span> {
+&lt;span style="color:#66d9ef">private&lt;/span> &lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#66d9ef">PROXIES&lt;/span> &lt;span style="color:#f92672">=&lt;/span> [
+&lt;span style="color:#a6e22e">MyActorInterface&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">class&lt;/span>,
+&lt;span style="color:#a6e22e">MyOtherActorInterface&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">class&lt;/span>,
+];
+&lt;span style="color:#66d9ef">private&lt;/span> &lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#66d9ef">PROXY_LOCATION&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">__DIR__&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#e6db74">&amp;#39;/proxies/&amp;#39;&lt;/span>;
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">static&lt;/span> &lt;span style="color:#66d9ef">function&lt;/span> &lt;span style="color:#a6e22e">compile&lt;/span>() {
+&lt;span style="color:#66d9ef">try&lt;/span> {
+$app &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">\Dapr\App&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">create&lt;/span>();
+&lt;span style="color:#66d9ef">foreach&lt;/span>(&lt;span style="color:#a6e22e">self&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">PROXIES&lt;/span> &lt;span style="color:#66d9ef">as&lt;/span> $interface) {
+$output &lt;span style="color:#f92672">=&lt;/span> $app&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">run&lt;/span>(&lt;span style="color:#66d9ef">function&lt;/span>(&lt;span style="color:#a6e22e">\DI\FactoryInterface&lt;/span> $factory) &lt;span style="color:#66d9ef">use&lt;/span> ($interface) {
+&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#a6e22e">\Dapr\Actors\Generators\FileGenerator&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">generate&lt;/span>($interface, $factory);
+});
+$reflection &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> &lt;span style="color:#a6e22e">ReflectionClass&lt;/span>($interface);
+$dapr_type &lt;span style="color:#f92672">=&lt;/span> $reflection&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">getAttributes&lt;/span>(&lt;span style="color:#a6e22e">\Dapr\Actors\Attributes\DaprType&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">class&lt;/span>)[&lt;span style="color:#ae81ff">0&lt;/span>]&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">newInstance&lt;/span>()&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">type&lt;/span>;
+$filename &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;dapr_proxy_&amp;#39;&lt;/span>&lt;span style="color:#f92672">.&lt;/span>$dapr_type&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#e6db74">&amp;#39;.php&amp;#39;&lt;/span>;
+&lt;span style="color:#a6e22e">file_put_contents&lt;/span>(&lt;span style="color:#a6e22e">self&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">PROXY_LOCATION&lt;/span>&lt;span style="color:#f92672">.&lt;/span>$filename, $output);
+&lt;span style="color:#66d9ef">echo&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Compiled: &lt;/span>&lt;span style="color:#e6db74">$interface&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span>;
+}
+} &lt;span style="color:#66d9ef">catch&lt;/span> (&lt;span style="color:#a6e22e">Exception&lt;/span> $ex) {
+&lt;span style="color:#66d9ef">echo&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Failed to generate proxy for &lt;/span>&lt;span style="color:#e6db74">$interface\n{&lt;/span>$ex&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">getMessage&lt;/span>()&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74"> on line &lt;/span>&lt;span style="color:#e6db74">{&lt;/span>$ex&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">getLine&lt;/span>()&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74"> in &lt;/span>&lt;span style="color:#e6db74">{&lt;/span>$ex&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">getFile&lt;/span>()&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#ae81ff">\n&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span>;
+}
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Then add a psr-4 autoloader for the generated proxies and a script in &lt;code>composer.json&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;autoload&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;psr-4&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;Dapr\\Proxies\\&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;path/to/proxies&amp;#34;&lt;/span>
+}
+},
+&lt;span style="color:#f92672">&amp;#34;scripts&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;compile-proxies&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;ProxyCompiler::compile&amp;#34;&lt;/span>
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>And finally, configure dapr to only use the generated proxies:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
+&lt;span style="color:#75715e">// in config.php
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>
+&lt;span style="color:#66d9ef">return&lt;/span> [
+&lt;span style="color:#e6db74">&amp;#39;dapr.actors.proxy.generation&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> &lt;span style="color:#a6e22e">ProxyFactory&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">ONLY_EXISTING&lt;/span>,
+];
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-0-dynamic" role="tabpanel" aria-labelled-by="tabs-0-dynamic-tab">
+&lt;br />&lt;p>In this mode, the proxy satisfies the interface contract, however, it does not actually implement the interface itself
+(meaning &lt;code>instanceof&lt;/code> will be &lt;code>false&lt;/code>). This mode takes advantage of a few quirks in PHP to work and exists for cases
+where code cannot be &lt;code>eval&lt;/code>&amp;rsquo;d or generated.&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;h3 id="requests">Requests&lt;/h3>
+&lt;p>Creating an actor proxy is very inexpensive for any mode. There are no requests made when creating an actor proxy object.&lt;/p>
+&lt;p>When you call a method on a proxy object, only methods that you implemented are serviced by your actor implementation.
+&lt;code>get_id()&lt;/code> is handled locally, and &lt;code>get_reminder()&lt;/code>, &lt;code>delete_reminder()&lt;/code>, etc. are handled by the &lt;code>daprd&lt;/code>.&lt;/p>
+&lt;h2 id="actor-implementation">Actor implementation&lt;/h2>
+&lt;p>Every actor implementation in PHP must implement &lt;code>\Dapr\Actors\IActor&lt;/code> and use the &lt;code>\Dapr\Actors\ActorTrait&lt;/code> trait. This
+allows for fast reflection and some shortcuts. Using the &lt;code>\Dapr\Actors\Actor&lt;/code> abstract base class does this for you, but
+if you need to override the default behavior, you can do so by implementing the interface and using the trait.&lt;/p>
+&lt;h2 id="activation-and-deactivation">Activation and deactivation&lt;/h2>
+&lt;p>When an actor activates, a token file is written to a temporary directory (by default this is in
+&lt;code>'/tmp/dapr_' + sha256(concat(Dapr type, id))&lt;/code> in linux and &lt;code>'%temp%/dapr_' + sha256(concat(Dapr type, id))&lt;/code> on Windows).
+This is persisted until the actor deactivates, or the host shuts down. This allows for &lt;code>on_activation&lt;/code> to be called once
+and only once when Dapr activates the actor on the host.&lt;/p>
+&lt;h2 id="performance">Performance&lt;/h2>
+&lt;p>Actor method invocation is very fast on a production setup with &lt;code>php-fpm&lt;/code> and &lt;code>nginx&lt;/code>, or IIS on Windows. Even though
+the actor is constructed on every request, actor state keys are only loaded on-demand and not during each request.
+However, there is some overhead in loading each key individually. This can be mitigated by storing an array of data in
+state, trading some usability for speed. It is not recommended doing this from the start, but as an optimization when
+needed.&lt;/p>
+&lt;h2 id="versioning-state">Versioning state&lt;/h2>
+&lt;p>The names of the variables in the &lt;code>ActorState&lt;/code> object directly correspond to key names in the store. This means that if
+you change the type or name of a variable, you may run into errors. To get around this, you may need to version your state
+object. In order to do this, you&amp;rsquo;ll need to override how state is loaded and stored. There are many ways to approach this,
+one such solution might be something like this:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
+&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">VersionedState&lt;/span> &lt;span style="color:#66d9ef">extends&lt;/span> &lt;span style="color:#a6e22e">\Dapr\Actors\ActorState&lt;/span> {
+&lt;span style="color:#e6db74">/**
+&lt;/span>&lt;span style="color:#e6db74"> * @var int The current version of the state in the store. We give a default value of the current version.
+&lt;/span>&lt;span style="color:#e6db74"> * However, it may be in the store with a different value.
+&lt;/span>&lt;span style="color:#e6db74"> */&lt;/span>
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#a6e22e">int&lt;/span> $state_version &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">self&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">VERSION&lt;/span>;
+&lt;span style="color:#e6db74">/**
+&lt;/span>&lt;span style="color:#e6db74"> * @var int The current version of the data
+&lt;/span>&lt;span style="color:#e6db74"> */&lt;/span>
+&lt;span style="color:#66d9ef">private&lt;/span> &lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#66d9ef">VERSION&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">3&lt;/span>;
+&lt;span style="color:#e6db74">/**
+&lt;/span>&lt;span style="color:#e6db74"> * Call when your actor activates.
+&lt;/span>&lt;span style="color:#e6db74"> */&lt;/span>
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">function&lt;/span> &lt;span style="color:#a6e22e">upgrade&lt;/span>() {
+&lt;span style="color:#66d9ef">if&lt;/span>($this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">state_version&lt;/span> &lt;span style="color:#f92672">&amp;lt;&lt;/span> &lt;span style="color:#a6e22e">self&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">VERSION&lt;/span>) {
+$value &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">parent&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">__get&lt;/span>($this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">get_versioned_key&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;key&amp;#39;&lt;/span>, $this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">state_version&lt;/span>));
+&lt;span style="color:#75715e">// update the value after updating the data structure
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">parent&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">__set&lt;/span>($this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">get_versioned_key&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;key&amp;#39;&lt;/span>, &lt;span style="color:#a6e22e">self&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">VERSION&lt;/span>), $value);
+$this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">state_version&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">self&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">VERSION&lt;/span>;
+$this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">save_state&lt;/span>();
+}
+}
+&lt;span style="color:#75715e">// if you upgrade all keys as needed in the method above, you don&amp;#39;t need to walk the previous
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">// keys when loading/saving and you can just get the current version of the key.
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>
+&lt;span style="color:#66d9ef">private&lt;/span> &lt;span style="color:#66d9ef">function&lt;/span> &lt;span style="color:#a6e22e">get_previous_version&lt;/span>(&lt;span style="color:#a6e22e">int&lt;/span> $version)&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#a6e22e">int&lt;/span> {
+&lt;span style="color:#66d9ef">return&lt;/span> $this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">has_previous_version&lt;/span>($version) &lt;span style="color:#f92672">?&lt;/span> $version &lt;span style="color:#f92672">-&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span> &lt;span style="color:#f92672">:&lt;/span> $version;
+}
+&lt;span style="color:#66d9ef">private&lt;/span> &lt;span style="color:#66d9ef">function&lt;/span> &lt;span style="color:#a6e22e">has_previous_version&lt;/span>(&lt;span style="color:#a6e22e">int&lt;/span> $version)&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#a6e22e">bool&lt;/span> {
+&lt;span style="color:#66d9ef">return&lt;/span> $version &lt;span style="color:#f92672">&amp;gt;=&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span>;
+}
+&lt;span style="color:#66d9ef">private&lt;/span> &lt;span style="color:#66d9ef">function&lt;/span> &lt;span style="color:#a6e22e">walk_versions&lt;/span>(&lt;span style="color:#a6e22e">int&lt;/span> $version, &lt;span style="color:#a6e22e">callable&lt;/span> $callback, &lt;span style="color:#a6e22e">callable&lt;/span> $predicate)&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#a6e22e">mixed&lt;/span> {
+$value &lt;span style="color:#f92672">=&lt;/span> $callback($version);
+&lt;span style="color:#66d9ef">if&lt;/span>($predicate($value) &lt;span style="color:#f92672">||&lt;/span> &lt;span style="color:#f92672">!&lt;/span>$this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">has_previous_version&lt;/span>($version)) {
+&lt;span style="color:#66d9ef">return&lt;/span> $value;
+}
+&lt;span style="color:#66d9ef">return&lt;/span> $this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">walk_versions&lt;/span>($this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">get_previous_version&lt;/span>($version), $callback, $predicate);
+}
+&lt;span style="color:#66d9ef">private&lt;/span> &lt;span style="color:#66d9ef">function&lt;/span> &lt;span style="color:#a6e22e">get_versioned_key&lt;/span>(&lt;span style="color:#a6e22e">string&lt;/span> $key, &lt;span style="color:#a6e22e">int&lt;/span> $version) {
+&lt;span style="color:#66d9ef">return&lt;/span> $this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">has_previous_version&lt;/span>($version) &lt;span style="color:#f92672">?&lt;/span> $version&lt;span style="color:#f92672">.&lt;/span>$key &lt;span style="color:#f92672">:&lt;/span> $key;
+}
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">function&lt;/span> __get(&lt;span style="color:#a6e22e">string&lt;/span> $key)&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#a6e22e">mixed&lt;/span> {
+&lt;span style="color:#66d9ef">return&lt;/span> $this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">walk_versions&lt;/span>(
+&lt;span style="color:#a6e22e">self&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">VERSION&lt;/span>,
+&lt;span style="color:#a6e22e">fn&lt;/span>($version) &lt;span style="color:#f92672">=&amp;gt;&lt;/span> &lt;span style="color:#66d9ef">parent&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">__get&lt;/span>($this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">get_versioned_key&lt;/span>($key, $version)),
+&lt;span style="color:#a6e22e">fn&lt;/span>($value) &lt;span style="color:#f92672">=&amp;gt;&lt;/span> &lt;span style="color:#a6e22e">isset&lt;/span>($value)
+);
+}
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">function&lt;/span> __isset(&lt;span style="color:#a6e22e">string&lt;/span> $key)&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#a6e22e">bool&lt;/span> {
+&lt;span style="color:#66d9ef">return&lt;/span> $this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">walk_versions&lt;/span>(
+&lt;span style="color:#a6e22e">self&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">VERSION&lt;/span>,
+&lt;span style="color:#a6e22e">fn&lt;/span>($version) &lt;span style="color:#f92672">=&amp;gt;&lt;/span> &lt;span style="color:#66d9ef">parent&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">__isset&lt;/span>($this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">get_versioned_key&lt;/span>($key, $version)),
+&lt;span style="color:#a6e22e">fn&lt;/span>($isset) &lt;span style="color:#f92672">=&amp;gt;&lt;/span> $isset
+);
+}
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">function&lt;/span> __set(&lt;span style="color:#a6e22e">string&lt;/span> $key,&lt;span style="color:#a6e22e">mixed&lt;/span> $value)&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#a6e22e">void&lt;/span> {
+&lt;span style="color:#75715e">// optional: you can unset previous versions of the key
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">parent&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">__set&lt;/span>($this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">get_versioned_key&lt;/span>($key, &lt;span style="color:#a6e22e">self&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">VERSION&lt;/span>), $value);
+}
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">function&lt;/span> __unset(&lt;span style="color:#a6e22e">string&lt;/span> $key) &lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#a6e22e">void&lt;/span> {
+&lt;span style="color:#75715e">// unset this version and all previous versions
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> $this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">walk_versions&lt;/span>(
+&lt;span style="color:#a6e22e">self&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">VERSION&lt;/span>,
+&lt;span style="color:#a6e22e">fn&lt;/span>($version) &lt;span style="color:#f92672">=&amp;gt;&lt;/span> &lt;span style="color:#66d9ef">parent&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">__unset&lt;/span>($this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">get_versioned_key&lt;/span>($key, $version)),
+&lt;span style="color:#a6e22e">fn&lt;/span>() &lt;span style="color:#f92672">=&amp;gt;&lt;/span> &lt;span style="color:#66d9ef">false&lt;/span>
+);
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>There&amp;rsquo;s a lot to be optimized, and it wouldn&amp;rsquo;t be a good idea to use this verbatim in production, but you can get the
+gist of how it would work. A lot of it will depend on your use case which is why there&amp;rsquo;s not something like this in
+the SDK. For instance, in this example implementation, the previous value is kept for where there may be a bug during an upgrade;
+keeping the previous value allows for running the upgrade again, but you may wish to delete the previous value.&lt;/p></description></item></channel></rss>

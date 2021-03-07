@@ -1,0 +1,304 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr Docs – State stores components</title><link>https://docs.dapr.io/en/operations/components/setup-state-store/</link><description>Recent content in State stores components on Dapr Docs</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/en/operations/components/setup-state-store/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: Overview</title><link>https://docs.dapr.io/en/operations/components/setup-state-store/setup-state-store-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/operations/components/setup-state-store/setup-state-store-overview/</guid><description>
+&lt;p>Dapr integrates with existing databases to provide apps with state management capabilities for CRUD operations, transactions and more. It also supports the configuration of multiple, named, state store components &lt;em>per application&lt;/em>.&lt;/p>
+&lt;p>State stores are extensible and can be found in the &lt;a href="https://github.com/dapr/components-contrib">components-contrib repo&lt;/a>.&lt;/p>
+&lt;p>A state store in Dapr is described using a &lt;code>Component&lt;/code> file:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">statestore&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">state.&amp;lt;DATABASE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;KEY&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;VALUE&amp;gt;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;KEY&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;VALUE&amp;gt;&lt;/span>
+...
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The type of database is determined by the &lt;code>type&lt;/code> field, and things like connection strings and other metadata are put in the &lt;code>.metadata&lt;/code> section.
+Even though metadata values can contain secrets in plain text, it is recommended you use a &lt;a href="https://docs.dapr.io/en/operations/components/component-secrets/">secret store&lt;/a>.&lt;/p>
+&lt;p>Visit &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to configure a state store component.&lt;/p>
+&lt;h2 id="related-topics">Related topics&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/en/concepts/components-concept/">Component concept&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/">State management overview&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/reference/api/state_api/">State management API specification&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Supported state stores</title><link>https://docs.dapr.io/en/operations/components/setup-state-store/supported-state-stores/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/operations/components/setup-state-store/supported-state-stores/</guid><description>
+&lt;p>Table captions:&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;code>Status&lt;/code>: &lt;a href="https://docs.dapr.io/en/operations/components/certification-lifecycle/">Component certification&lt;/a> status&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/certification-lifecycle/#alpha">Alpha&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/certification-lifecycle/#beta">Beta&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/certification-lifecycle/#general-availability-ga">GA&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>&lt;code>Since&lt;/code>: defines from which Dapr Runtime version, the component is in the current status&lt;/p>
+&lt;/blockquote>
+&lt;blockquote>
+&lt;p>&lt;code>Component version&lt;/code>: defines the version of the component&lt;/p>
+&lt;/blockquote>
+&lt;p>The following stores are supported, at various levels, by the Dapr state management building block:&lt;/p>
+&lt;blockquote>
+&lt;p>State stores can be used for actors if it supports both transactional operations and etag.&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="generic">Generic&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th>CRUD&lt;/th>
+&lt;th>Transactional&lt;/th>
+&lt;th>ETag&lt;/th>
+&lt;th>Actors&lt;/th>
+&lt;th>Status&lt;/th>
+&lt;th>Component version&lt;/th>
+&lt;th>Since&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-state-store/supported-state-stores/setup-aerospike/">Aerospike&lt;/a>&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-state-store/supported-state-stores/setup-cassandra/">Apache Cassandra&lt;/a>&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-state-store/supported-state-stores/setup-cloudstate/">Cloudstate&lt;/a>&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-state-store/supported-state-stores/setup-couchbase/">Couchbase&lt;/a>&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-state-store/supported-state-stores/setup-consul/">Hashicorp Consul&lt;/a>&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-state-store/supported-state-stores/setup-hazelcast/">Hazelcast&lt;/a>&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-state-store/supported-state-stores/setup-memcached/">Memcached&lt;/a>&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-state-store/supported-state-stores/setup-mongodb/">MongoDB&lt;/a>&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>GA&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-state-store/supported-state-stores/setup-mysql/">MySQL&lt;/a>&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-state-store/supported-state-stores/setup-postgresql/">PostgreSQL&lt;/a>&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-state-store/supported-state-stores/setup-redis/">Redis&lt;/a>&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>GA&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-state-store/supported-state-stores/setup-rethinkdb/">RethinkDB&lt;/a>&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-state-store/supported-state-stores/setup-zookeeper/">Zookeeper&lt;/a>&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="amazon-web-services-aws">Amazon Web Services (AWS)&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th>CRUD&lt;/th>
+&lt;th>Transactional&lt;/th>
+&lt;th>ETag&lt;/th>
+&lt;th>Actors&lt;/th>
+&lt;th>Status&lt;/th>
+&lt;th>Component version&lt;/th>
+&lt;th>Since&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-state-store/supported-state-stores/setup-dynamodb/">AWS DynamoDB&lt;/a>&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="google-cloud-platform-gcp">Google Cloud Platform (GCP)&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th>CRUD&lt;/th>
+&lt;th>Transactional&lt;/th>
+&lt;th>ETag&lt;/th>
+&lt;th>Actors&lt;/th>
+&lt;th>Status&lt;/th>
+&lt;th>Component version&lt;/th>
+&lt;th>Since&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-state-store/supported-state-stores/setup-firestore/">GCP Firestore&lt;/a>&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="microsoft-azure">Microsoft Azure&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th>CRUD&lt;/th>
+&lt;th>Transactional&lt;/th>
+&lt;th>ETag&lt;/th>
+&lt;th>Actors&lt;/th>
+&lt;th>Status&lt;/th>
+&lt;th>Component version&lt;/th>
+&lt;th>Since&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-state-store/supported-state-stores/setup-azure-blobstorage/">Azure Blob Storage&lt;/a>&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>GA&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-state-store/supported-state-stores/setup-azure-cosmosdb/">Azure CosmosDB&lt;/a>&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>GA&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-state-store/supported-state-stores/setup-sqlserver/">Azure SQL Server&lt;/a>&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-state-store/supported-state-stores/setup-azure-tablestorage/">Azure Table Storage&lt;/a>&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table></description></item></channel></rss>

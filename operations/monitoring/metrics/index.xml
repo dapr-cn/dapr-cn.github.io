@@ -1,5 +1,5 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr Docs – Metrics</title><link>https://docs.dapr.io/operations/monitoring/metrics/</link><description>Recent content in Metrics on Dapr Docs</description><generator>Hugo -- gohugo.io</generator><language>zh-hans</language><atom:link href="https://docs.dapr.io/operations/monitoring/metrics/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: How-To: Set up Azure Monitor to search logs and collect metrics</title><link>https://docs.dapr.io/operations/monitoring/metrics/azure-monitor/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/monitoring/metrics/azure-monitor/</guid><description>
-&lt;h2 id="prerequisites">Prerequisites&lt;/h2>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – 指标</title><link>https://docs.dapr.io/operations/monitoring/metrics/</link><description>Recent content in 指标 on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/operations/monitoring/metrics/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: How-To: Set up Azure Monitor to search logs and collect metrics</title><link>https://docs.dapr.io/operations/monitoring/metrics/azure-monitor/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/monitoring/metrics/azure-monitor/</guid><description>
+&lt;h2 id="前期准备">前期准备&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.microsoft.com/en-us/azure/aks/">Azure Kubernetes Service&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-overview">Enable Azure Monitor For containers in AKS&lt;/a>&lt;/li>
@@ -13,6 +13,9 @@
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">$ kubectl get pods -n kube-system
 NAME READY STATUS RESTARTS AGE
 ...
+$ kubectl get pods -n kube-system
+NAME READY STATUS RESTARTS AGE
+...
 omsagent-75qjs 1/1 Running &lt;span style="color:#ae81ff">1&lt;/span> 44h
 omsagent-c7c4t 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 44h
 omsagent-rs-74f488997c-dshpx 1/1 Running &lt;span style="color:#ae81ff">1&lt;/span> 44h
@@ -22,8 +25,9 @@ omsagent-smtk7 1/1 Running &lt;span style="color:#ae81ff">1&lt;/span> 44h
 &lt;li>Apply config map to enable Prometheus metrics endpoint scrape.&lt;/li>
 &lt;/ol>
 &lt;p>You can use &lt;a href="https://docs.dapr.io/docs/azm-config-map.yaml">azm-config-map.yaml&lt;/a> to enable prometheus metrics endpoint scrape.&lt;/p>
-&lt;p>If you installed Dapr to the different namespace, you need to change the &lt;code>monitor_kubernetes_pod_namespaces&lt;/code> array values. For example:&lt;/p>
+&lt;p>If you installed Dapr to the different namespace, you need to change the &lt;code>monitor_kubernetes_pod_namespaces&lt;/code> array values. For example: For example:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">...
+&lt;span style="color:#ae81ff">...&lt;/span>
 &lt;span style="color:#f92672">prometheus-data-collection-settings&lt;/span>: |-&lt;span style="color:#e6db74">
 &lt;/span>&lt;span style="color:#e6db74"> [prometheus_data_collection_settings.cluster]
 &lt;/span>&lt;span style="color:#e6db74"> interval = &amp;#34;1m&amp;#34;
@@ -102,12 +106,12 @@ omsagent-smtk7 1/1 Running &lt;span style="color:#ae81ff">1&lt;/span> 44h
 &lt;li>&lt;a href="https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-prometheus-integration">Configure scraping of Prometheus metrics with Azure Monitor for containers&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-agent-config">Configure agent data collection for Azure Monitor for containers&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.microsoft.com/en-us/azure/azure-monitor/log-query/query-language">Azure Monitor Query&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Metrics</title><link>https://docs.dapr.io/operations/monitoring/metrics/metrics-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/monitoring/metrics/metrics-overview/</guid><description>
-&lt;p>Dapr exposes a &lt;a href="https://prometheus.io/">Prometheus&lt;/a> metrics endpoint that you can scrape to gain a greater understanding of how Dapr is behaving and to setup alerts for specific conditions.&lt;/p>
-&lt;h2 id="configuration">Configuration&lt;/h2>
-&lt;p>The metrics endpoint is enabled by default, you can disable it by passing the command line argument &lt;code>--enable-metrics=false&lt;/code> to Dapr system processes.&lt;/p>
-&lt;p>The default metrics port is &lt;code>9090&lt;/code>. This can be overridden by passing the command line argument &lt;code>--metrics-port&lt;/code> to Daprd.&lt;/p>
-&lt;p>To disable the metrics in the Dapr side car, you can use the &lt;code>metric&lt;/code> spec configuration and set &lt;code>enabled: false&lt;/code> to disable the metrics in the Dapr runtime.&lt;/p>
+&lt;/ul></description></item><item><title>Operations: 指标</title><link>https://docs.dapr.io/operations/monitoring/metrics/metrics-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/monitoring/metrics/metrics-overview/</guid><description>
+&lt;p>Dapr 公开了一个 &lt;a href="https://prometheus.io/">Prometheus&lt;/a> 指标终结点，您可以扫描该终结点，以更深入地了解 Dapr 的行为方式，针对特定条件设置警报。&lt;/p>
+&lt;h2 id="配置">配置&lt;/h2>
+&lt;p>默认情况下，指标终结点处于启用状态，您可以通过命令行参数 &lt;code>--enable-metrics=false&lt;/code> 传递给 Dapr 系统进程来禁用它。&lt;/p>
+&lt;p>默认指标端口为 &lt;code>9090&lt;/code>。 This can be overridden by passing the command line argument &lt;code>--metrics-port&lt;/code> to Daprd.&lt;/p>
+&lt;p>要禁用 Dapr 边车中的指标，您可以使用 &lt;code>metric&lt;/code> 规范配置并启用设置 &lt;code>enabled: false&lt;/code> 以禁用 Dapr 运行时中的指标。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -118,29 +122,36 @@ omsagent-smtk7 1/1 Running &lt;span style="color:#ae81ff">1&lt;/span> 44h
 &lt;span style="color:#f92672">samplingRate&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span>
 &lt;span style="color:#f92672">metric&lt;/span>:
 &lt;span style="color:#f92672">enabled&lt;/span>: &lt;span style="color:#66d9ef">false&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="metrics">Metrics&lt;/h2>
-&lt;p>Each Dapr system process emits Go runtime/process metrics by default and have their own metrics:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="指标">指标&lt;/h2>
+&lt;p>默认情况下，每个 Dapr 系统进程都会发出 Go 运行时/进程指标，并有自己的指标：&lt;/p>
 &lt;ul>
 &lt;li>&lt;a href="https://github.com/dapr/dapr/blob/master/docs/development/dapr-metrics.md">Dapr metric list&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;h2 id="references">References&lt;/h2>
+&lt;h2 id="参考资料">参考资料&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/monitoring/metrics/prometheus/">Howto: Run Prometheus locally&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/monitoring/metrics/grafana/">Howto: Set up Prometheus and Grafana for metrics&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/monitoring/metrics/azure-monitor/">Howto: Set up Azure monitor to search logs and collect metrics for Dapr&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/monitoring/metrics/prometheus/">如何：在本地运行Prometheus&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/monitoring/metrics/grafana/">如何：设置 Prometheus 和 Grafana 以获取指标&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/monitoring/metrics/azure-monitor/">如何: 设置 Azure 监视器以搜索日志并收集 Dapr 的指标&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: How-To: Observe metrics with Prometheus</title><link>https://docs.dapr.io/operations/monitoring/metrics/prometheus/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/monitoring/metrics/prometheus/</guid><description>
 &lt;h2 id="setup-prometheus-locally">Setup Prometheus Locally&lt;/h2>
 &lt;p>To run Prometheus on your local machine, you can either &lt;a href="#install">install and run it as a process&lt;/a> or run it as a &lt;a href="#Run-as-Container">Docker container&lt;/a>.&lt;/p>
 &lt;h3 id="install">Install&lt;/h3>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Note&lt;/h4>
-You don&amp;rsquo;t need to install Prometheus if you plan to run it as a Docker container. Please refer to the &lt;a href="#run-as-container">Container&lt;/a> instructions.
+You don&amp;rsquo;t need to install Prometheus if you plan to run it as a Docker container. Please refer to the &lt;a href="#run-as-container">Container&lt;/a> instructions. Please refer to the &lt;a href="#run-as-container">Container&lt;/a> instructions.
 &lt;/div>
 &lt;p>To install Prometheus, follow the steps outlined &lt;a href="https://prometheus.io/docs/prometheus/latest/getting_started/">here&lt;/a> for your OS.&lt;/p>
 &lt;h3 id="configure">Configure&lt;/h3>
 &lt;p>Now you&amp;rsquo;ve installed Prometheus, you need to create a configuration.&lt;/p>
 &lt;p>Below is an example Prometheus configuration, save this to a file i.e. &lt;code>/tmp/prometheus.yml&lt;/code> or &lt;code>C:\Temp\prometheus.yml&lt;/code>&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">global&lt;/span>:
+&lt;span style="color:#f92672">scrape_interval&lt;/span>: &lt;span style="color:#ae81ff">15s&lt;/span> &lt;span style="color:#75715e"># By default, scrape targets every 15 seconds.&lt;/span>
+&lt;span style="color:#75715e"># A scrape configuration containing exactly one endpoint to scrape:&lt;/span>
+&lt;span style="color:#75715e"># Here it&amp;#39;s Prometheus itself.&lt;/span>
+&lt;span style="color:#f92672">scrape_configs&lt;/span>:
+- &lt;span style="color:#f92672">job_name&lt;/span>: &lt;span style="color:#e6db74">&amp;#39;dapr&amp;#39;&lt;/span>
+&lt;span style="color:#75715e"># Override the global default and scrape targets from this job every 5 seconds.&lt;/span>
+&lt;span style="color:#f92672">global&lt;/span>:
 &lt;span style="color:#f92672">scrape_interval&lt;/span>: &lt;span style="color:#ae81ff">15s&lt;/span> &lt;span style="color:#75715e"># By default, scrape targets every 15 seconds.&lt;/span>
 &lt;span style="color:#75715e"># A scrape configuration containing exactly one endpoint to scrape:&lt;/span>
 &lt;span style="color:#75715e"># Here it&amp;#39;s Prometheus itself.&lt;/span>
@@ -156,8 +167,7 @@ You don&amp;rsquo;t need to install Prometheus if you plan to run it as a Docker
 &lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
 &lt;p>We change the port so it doesn&amp;rsquo;t conflict with Dapr&amp;rsquo;s own metrics endpoint.&lt;/p>
 &lt;/blockquote>
-&lt;p>If you are not currently running a Dapr application, the target will show as offline. In order to start
-collecting metrics you must start Dapr with the metrics port matching the one provided as the target in the configuration.&lt;/p>
+&lt;p>If you are not currently running a Dapr application, the target will show as offline. If you are not currently running a Dapr application, the target will show as offline. In order to start collecting metrics you must start Dapr with the metrics port matching the one provided as the target in the configuration.&lt;/p>
 &lt;p>Once Prometheus is running, you&amp;rsquo;ll be able to visit its dashboard by visiting &lt;code>http://localhost:8080&lt;/code>.&lt;/p>
 &lt;h3 id="run-as-container">Run as Container&lt;/h3>
 &lt;p>To run Prometheus as a Docker container on your local machine, first ensure you have &lt;a href="https://docs.docker.com/install/">Docker&lt;/a> installed and running.&lt;/p>
@@ -166,7 +176,7 @@ collecting metrics you must start Dapr with the metrics port matching the one pr
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span> --net&lt;span style="color:#f92672">=&lt;/span>host &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -v /tmp/prometheus.yml:/etc/prometheus/prometheus.yml &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span> prom/prometheus --config.file&lt;span style="color:#f92672">=&lt;/span>/etc/prometheus/prometheus.yml --web.listen-address&lt;span style="color:#f92672">=&lt;/span>:8080
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>--net=host&lt;/code> ensures that the Prometheus instance will be able to connect to any Dapr instances running on the host machine. If you plan to run your Dapr apps in containers as well, you&amp;rsquo;ll need to run them on a shared Docker network and update the configuration with the correct target address.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>--net=host&lt;/code> ensures that the Prometheus instance will be able to connect to any Dapr instances running on the host machine. &lt;code>--net=host&lt;/code> ensures that the Prometheus instance will be able to connect to any Dapr instances running on the host machine. If you plan to run your Dapr apps in containers as well, you&amp;rsquo;ll need to run them on a shared Docker network and update the configuration with the correct target address.&lt;/p>
 &lt;p>Once Prometheus is running, you&amp;rsquo;ll be able to visit its dashboard by visiting &lt;code>http://localhost:8080&lt;/code>.&lt;/p>
 &lt;h2 id="setup-prometheus-on-kubernetes">Setup Prometheus on Kubernetes&lt;/h2>
 &lt;h3 id="prerequisites">Prerequisites&lt;/h3>
@@ -202,9 +212,8 @@ dapr-prom-prometheus-node-exporter-88gbg 1/1 Running &lt;span style="color:#ae81
 dapr-prom-prometheus-node-exporter-bjp9f 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 4m58s
 dapr-prom-prometheus-pushgateway-688665d597-h4xx2 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 4m58s
 dapr-prom-prometheus-server-694fd8d7c-q5d59 2/2 Running &lt;span style="color:#ae81ff">0&lt;/span> 4m58s
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="example">Example&lt;/h2>
-&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/8W-iBDNvCUM?start=2577" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>&lt;/iframe>
-&lt;h2 id="references">References&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="example---iframe-width560-height315-srchttpswwwyoutubecomembed8w-ibdnvcumstart2577-frameborder0-allowaccelerometer-autoplay-clipboard-write-encrypted-media-gyroscope-picture-in-picture-allowfullscreen-markcrwd-markiframe">Example &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/8W-iBDNvCUM?start=2577" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark">&lt;/iframe>&lt;/h2>
+&lt;h2 id="参考文档">参考文档&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://github.com/prometheus-community/helm-charts">Prometheus Installation&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://prometheus.io/docs/prometheus/latest/querying/basics/">Prometheus Query Language&lt;/a>&lt;/li>
@@ -242,7 +251,7 @@ Actors
 &lt;/div>
 &lt;h2 id="pre-requisites">Pre-requisites&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/monitoring/metrics/prometheus/">Setup Prometheus&lt;/a>&lt;/li>
+&lt;li>&lt;a href="%7B%7BX%1A16X%7D%7D">Setup Prometheus&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h2 id="setup-on-kubernetes">Setup on Kubernetes&lt;/h2>
 &lt;h3 id="install-grafana">Install Grafana&lt;/h3>
@@ -265,7 +274,7 @@ Actors
 &lt;li>
 &lt;p>Retrieve the admin password for Grafana login:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl get secret --namespace dapr-monitoring grafana -o jsonpath&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;{.data.admin-password}&amp;#34;&lt;/span> | base64 --decode ; echo
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>You will get a password similar to &lt;code>cj3m0OfBNx8SLzUlTx91dEECgzRlYJb60D2evof1%&lt;/code>. Remove the &lt;code>%&lt;/code> character from the password to get &lt;code>cj3m0OfBNx8SLzUlTx91dEECgzRlYJb60D2evof1&lt;/code> as the admin password.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>You will get a password similar to &lt;code>cj3m0OfBNx8SLzUlTx91dEECgzRlYJb60D2evof1%&lt;/code>. You will get a password similar to &lt;code>cj3m0OfBNx8SLzUlTx91dEECgzRlYJb60D2evof1%&lt;/code>. Remove the &lt;code>%&lt;/code> character from the password to get &lt;code>cj3m0OfBNx8SLzUlTx91dEECgzRlYJb60D2evof1&lt;/code> as the admin password.&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>Validation Grafana is running in your cluster:&lt;/p>
@@ -308,7 +317,8 @@ Handling connection &lt;span style="color:#66d9ef">for&lt;/span> &lt;span style=
 &lt;/li>
 &lt;li>
 &lt;p>Add Prometheus as a data source.&lt;/p>
-&lt;img src="https://docs.dapr.io/images/grafana-add-datasources.png" alt="Screenshot of the Prometheus add Data Source" width=600>
+&lt;pre>&lt;code>&amp;lt;img src=&amp;quot;/images/grafana-add-datasources.png&amp;quot; alt=&amp;quot;Screenshot of the Prometheus add Data Source&amp;quot; width=600&amp;gt;
+&lt;/code>&lt;/pre>
 &lt;/li>
 &lt;li>
 &lt;p>Get your Prometheus HTTP URL&lt;/p>
@@ -325,7 +335,8 @@ elasticsearch-master ClusterIP 10.0.36.146 &amp;lt;none&amp;gt; 9200/TCP,9300/TC
 elasticsearch-master-headless ClusterIP None &amp;lt;none&amp;gt; 9200/TCP,9300/TCP 7d10h
 grafana ClusterIP 10.0.15.229 &amp;lt;none&amp;gt; 80/TCP 5d5h
 kibana-kibana ClusterIP 10.0.188.224 &amp;lt;none&amp;gt; 5601/TCP 7d10h
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>In this guide the server name is &lt;code>dapr-prom-prometheus-server&lt;/code> and the namespace is &lt;code>dapr-monitoring&lt;/code>, so the HTTP URL will be &lt;code>http://dapr-prom-prometheus-server.dapr-monitoring&lt;/code>.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>In this guide the server name is &lt;code>dapr-prom-prometheus-server and the namespace is dapr-monitoring, so the HTTP URL will be &lt;a href="http://dapr-prom-prometheus-server.dapr">http://dapr-prom-prometheus-server.dapr&lt;/a>-monitoring.
+&lt;/code>&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>Fill in the following settings:&lt;/p>
@@ -359,11 +370,10 @@ Hover your mouse over the &lt;code>i&lt;/code> in the corner to the description 
 &lt;/ol>
 &lt;h2 id="references">References&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/concepts/observability-concept/">Dapr Observability&lt;/a>&lt;/li>
+&lt;li>&lt;a href="%7B%7BX%1A25X%7D%7D">Dapr Observability&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://github.com/prometheus-community/helm-charts">Prometheus Installation&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://github.com/coreos/kube-prometheus">Prometheus on Kubernetes&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://prometheus.io/docs/prometheus/latest/querying/basics/">Prometheus Query Language&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://github.com/dapr/dapr/blob/master/docs/development/dapr-metrics.md">Supported Dapr metrics&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;h2 id="example">Example&lt;/h2>
-&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/8W-iBDNvCUM?start=2577" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>&lt;/iframe></description></item></channel></rss>
+&lt;h2 id="example--iframe-width560-height315-srchttpswwwyoutubecomembed8w-ibdnvcumstart2577-frameborder0-allowaccelerometer-autoplay-clipboard-write-encrypted-media-gyroscope-picture-in-picture-allowfullscreen-markcrwd-markiframe">Example &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/8W-iBDNvCUM?start=2577" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark">&lt;/iframe>&lt;/h2></description></item></channel></rss>

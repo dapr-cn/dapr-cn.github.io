@@ -1,7 +1,6 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr Docs – Virtual Actors</title><link>https://docs.dapr.io/developing-applications/sdks/php/php-actors/</link><description>Recent content in Virtual Actors on Dapr Docs</description><generator>Hugo -- gohugo.io</generator><language>zh-hans</language><atom:link href="https://docs.dapr.io/developing-applications/sdks/php/php-actors/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Production Reference: Actors</title><link>https://docs.dapr.io/developing-applications/sdks/php/php-actors/php-actor-reference/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/php/php-actors/php-actor-reference/</guid><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Virtual Actors</title><link>https://docs.dapr.io/developing-applications/sdks/php/php-actors/</link><description>Recent content in Virtual Actors on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/developing-applications/sdks/php/php-actors/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Production Reference: Actors</title><link>https://docs.dapr.io/developing-applications/sdks/php/php-actors/php-actor-reference/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/php/php-actors/php-actor-reference/</guid><description>
 &lt;h2 id="proxy-modes">Proxy modes&lt;/h2>
-&lt;p>There are four different modes actor proxies are handled. Each mode presents different trade-offs that you&amp;rsquo;ll need to
-weigh during development and in production.&lt;/p>
+&lt;p>There are four different modes actor proxies are handled. Each mode presents different trade-offs that you&amp;rsquo;ll need to weigh during development and in production.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
 &lt;span style="color:#a6e22e">\Dapr\Actors\Generators\ProxyFactory&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">GENERATED&lt;/span>;
 &lt;span style="color:#a6e22e">\Dapr\Actors\Generators\ProxyFactory&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">GENERATED_CACHED&lt;/span>;
@@ -31,17 +30,13 @@ DYNAMIC
 &lt;/li>&lt;/ul>
 &lt;div class="tab-content" id="tabs-0-content">
 &lt;div class="tab-pane fade show active" id="tabs-0-generated" role="tabpanel" aria-labelled-by="tabs-0-generated-tab">
-&lt;br />&lt;p>This is the default mode. In this mode, a class is generated and &lt;code>eval&lt;/code>&amp;rsquo;d on every request. It&amp;rsquo;s mostly for development
-and shouldn&amp;rsquo;t be used in production.&lt;/p>
+&lt;br />&lt;p>This is the default mode. In this mode, a class is generated and &lt;code>eval&lt;/code>&amp;rsquo;d on every request. It&amp;rsquo;s mostly for development and shouldn&amp;rsquo;t be used in production.&lt;/p>
 &lt;/div>
 &lt;div class="tab-pane fade" id="tabs-0-generated_cached" role="tabpanel" aria-labelled-by="tabs-0-generated_cached-tab">
-&lt;br />&lt;p>This is the same as &lt;code>ProxyModes::GENERATED&lt;/code> except the class is stored in a tmp file so it doesn&amp;rsquo;t need to be
-regenerated on every request. It doesn&amp;rsquo;t know when to update the cached class, so using it in development is discouraged
-but is offered for when manually generating the files isn&amp;rsquo;t possible.&lt;/p>
+&lt;br />&lt;p>This is the same as &lt;code>ProxyModes::GENERATED&lt;/code> except the class is stored in a tmp file so it doesn&amp;rsquo;t need to be regenerated on every request. It doesn&amp;rsquo;t know when to update the cached class, so using it in development is discouraged but is offered for when manually generating the files isn&amp;rsquo;t possible.&lt;/p>
 &lt;/div>
 &lt;div class="tab-pane fade" id="tabs-0-only_existing" role="tabpanel" aria-labelled-by="tabs-0-only_existing-tab">
-&lt;br />&lt;p>In this mode, an exception is thrown if the proxy class doesn&amp;rsquo;t exist. This is useful for when you don&amp;rsquo;t want to
-generate code in production. You&amp;rsquo;ll have to make sure the class is generated and pre-/autoloaded.&lt;/p>
+&lt;br />&lt;p>In this mode, an exception is thrown if the proxy class doesn&amp;rsquo;t exist. This is useful for when you don&amp;rsquo;t want to generate code in production. You&amp;rsquo;ll have to make sure the class is generated and pre-/autoloaded.&lt;/p>
 &lt;h3 id="generating-proxies">Generating proxies&lt;/h3>
 &lt;p>You can create a composer script to generate proxies on demand to take advantage of the &lt;code>ONLY_EXISTING&lt;/code> mode.&lt;/p>
 &lt;p>Create a &lt;code>ProxyCompiler.php&lt;/code>&lt;/p>
@@ -90,35 +85,20 @@ $filename &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db
 ];
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
 &lt;div class="tab-pane fade" id="tabs-0-dynamic" role="tabpanel" aria-labelled-by="tabs-0-dynamic-tab">
-&lt;br />&lt;p>In this mode, the proxy satisfies the interface contract, however, it does not actually implement the interface itself
-(meaning &lt;code>instanceof&lt;/code> will be &lt;code>false&lt;/code>). This mode takes advantage of a few quirks in PHP to work and exists for cases
-where code cannot be &lt;code>eval&lt;/code>&amp;rsquo;d or generated.&lt;/p>
+&lt;br />&lt;p>In this mode, the proxy satisfies the interface contract, however, it does not actually implement the interface itself (meaning &lt;code>instanceof&lt;/code> will be &lt;code>false&lt;/code>). This mode takes advantage of a few quirks in PHP to work and exists for cases where code cannot be &lt;code>eval&lt;/code>&amp;rsquo;d or generated.&lt;/p>
 &lt;/div>
 &lt;/div>
 &lt;h3 id="requests">Requests&lt;/h3>
 &lt;p>Creating an actor proxy is very inexpensive for any mode. There are no requests made when creating an actor proxy object.&lt;/p>
-&lt;p>When you call a method on a proxy object, only methods that you implemented are serviced by your actor implementation.
-&lt;code>get_id()&lt;/code> is handled locally, and &lt;code>get_reminder()&lt;/code>, &lt;code>delete_reminder()&lt;/code>, etc. are handled by the &lt;code>daprd&lt;/code>.&lt;/p>
+&lt;p>When you call a method on a proxy object, only methods that you implemented are serviced by your actor implementation. &lt;code>get_id()&lt;/code> is handled locally, and &lt;code>get_reminder()&lt;/code>, &lt;code>delete_reminder()&lt;/code>, etc. are handled by the &lt;code>daprd&lt;/code>.&lt;/p>
 &lt;h2 id="actor-implementation">Actor implementation&lt;/h2>
-&lt;p>Every actor implementation in PHP must implement &lt;code>\Dapr\Actors\IActor&lt;/code> and use the &lt;code>\Dapr\Actors\ActorTrait&lt;/code> trait. This
-allows for fast reflection and some shortcuts. Using the &lt;code>\Dapr\Actors\Actor&lt;/code> abstract base class does this for you, but
-if you need to override the default behavior, you can do so by implementing the interface and using the trait.&lt;/p>
+&lt;p>Every actor implementation in PHP must implement &lt;code>\Dapr\Actors\IActor&lt;/code> and use the &lt;code>\Dapr\Actors\ActorTrait&lt;/code> trait. This allows for fast reflection and some shortcuts. Using the &lt;code>\Dapr\Actors\Actor&lt;/code> abstract base class does this for you, but if you need to override the default behavior, you can do so by implementing the interface and using the trait.&lt;/p>
 &lt;h2 id="activation-and-deactivation">Activation and deactivation&lt;/h2>
-&lt;p>When an actor activates, a token file is written to a temporary directory (by default this is in
-&lt;code>'/tmp/dapr_' + sha256(concat(Dapr type, id))&lt;/code> in linux and &lt;code>'%temp%/dapr_' + sha256(concat(Dapr type, id))&lt;/code> on Windows).
-This is persisted until the actor deactivates, or the host shuts down. This allows for &lt;code>on_activation&lt;/code> to be called once
-and only once when Dapr activates the actor on the host.&lt;/p>
+&lt;p>When an actor activates, a token file is written to a temporary directory (by default this is in &lt;code>'/tmp/dapr_' + sha256(concat(Dapr type, id))&lt;/code> in linux and &lt;code>'%temp%/dapr_' + sha256(concat(Dapr type, id))&lt;/code> on Windows). This is persisted until the actor deactivates, or the host shuts down. This allows for &lt;code>on_activation&lt;/code> to be called once and only once when Dapr activates the actor on the host.&lt;/p>
 &lt;h2 id="performance">Performance&lt;/h2>
-&lt;p>Actor method invocation is very fast on a production setup with &lt;code>php-fpm&lt;/code> and &lt;code>nginx&lt;/code>, or IIS on Windows. Even though
-the actor is constructed on every request, actor state keys are only loaded on-demand and not during each request.
-However, there is some overhead in loading each key individually. This can be mitigated by storing an array of data in
-state, trading some usability for speed. It is not recommended doing this from the start, but as an optimization when
-needed.&lt;/p>
+&lt;p>Actor method invocation is very fast on a production setup with &lt;code>php-fpm&lt;/code> and &lt;code>nginx&lt;/code>, or IIS on Windows. Even though the actor is constructed on every request, actor state keys are only loaded on-demand and not during each request. However, there is some overhead in loading each key individually. This can be mitigated by storing an array of data in state, trading some usability for speed. It is not recommended doing this from the start, but as an optimization when needed.&lt;/p>
 &lt;h2 id="versioning-state">Versioning state&lt;/h2>
-&lt;p>The names of the variables in the &lt;code>ActorState&lt;/code> object directly correspond to key names in the store. This means that if
-you change the type or name of a variable, you may run into errors. To get around this, you may need to version your state
-object. In order to do this, you&amp;rsquo;ll need to override how state is loaded and stored. There are many ways to approach this,
-one such solution might be something like this:&lt;/p>
+&lt;p>The names of the variables in the &lt;code>ActorState&lt;/code> object directly correspond to key names in the store. This means that if you change the type or name of a variable, you may run into errors. To get around this, you may need to version your state object. In order to do this, you&amp;rsquo;ll need to override how state is loaded and stored. There are many ways to approach this, one such solution might be something like this:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
 &lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">VersionedState&lt;/span> &lt;span style="color:#66d9ef">extends&lt;/span> &lt;span style="color:#a6e22e">\Dapr\Actors\ActorState&lt;/span> {
 &lt;span style="color:#e6db74">/**
@@ -188,7 +168,4 @@ $value &lt;span style="color:#f92672">=&lt;/span> $callback($version);
 );
 }
 }
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>There&amp;rsquo;s a lot to be optimized, and it wouldn&amp;rsquo;t be a good idea to use this verbatim in production, but you can get the
-gist of how it would work. A lot of it will depend on your use case which is why there&amp;rsquo;s not something like this in
-the SDK. For instance, in this example implementation, the previous value is kept for where there may be a bug during an upgrade;
-keeping the previous value allows for running the upgrade again, but you may wish to delete the previous value.&lt;/p></description></item></channel></rss>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>There&amp;rsquo;s a lot to be optimized, and it wouldn&amp;rsquo;t be a good idea to use this verbatim in production, but you can get the gist of how it would work. A lot of it will depend on your use case which is why there&amp;rsquo;s not something like this in the SDK. For instance, in this example implementation, the previous value is kept for where there may be a bug during an upgrade; keeping the previous value allows for running the upgrade again, but you may wish to delete the previous value.&lt;/p></description></item></channel></rss>

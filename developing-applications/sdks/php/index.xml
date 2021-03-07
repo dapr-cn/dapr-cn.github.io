@@ -1,36 +1,24 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr Docs – Dapr PHP SDK</title><link>https://docs.dapr.io/developing-applications/sdks/php/</link><description>Recent content in Dapr PHP SDK on Dapr Docs</description><generator>Hugo -- gohugo.io</generator><language>zh-hans</language><atom:link href="https://docs.dapr.io/developing-applications/sdks/php/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Virtual Actors</title><link>https://docs.dapr.io/developing-applications/sdks/php/php-actors/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/php/php-actors/</guid><description>
-&lt;p>If you&amp;rsquo;re new to the actor pattern, the best place to learn about the actor pattern is in
-the &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/actors/actors-overview/">Actor Overview.&lt;/a>&lt;/p>
-&lt;p>In the PHP SDK, there are two sides to an actor, the Client, and the Actor (aka, the Runtime). As a client of an actor,
-you&amp;rsquo;ll interact with a remote actor via the &lt;code>ActorProxy&lt;/code> class. This class generates a proxy class on-the-fly using one
-of several configured strategies.&lt;/p>
-&lt;p>When writing an actor, state can be managed for you. You can hook into the actor lifecycle, and define reminders and
-timers. This gives you considerable power for handling all types of problems that the actor pattern is suited for.&lt;/p>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Dapr PHP SDK</title><link>https://docs.dapr.io/developing-applications/sdks/php/</link><description>Recent content in Dapr PHP SDK on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/developing-applications/sdks/php/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Virtual Actors</title><link>https://docs.dapr.io/developing-applications/sdks/php/php-actors/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/php/php-actors/</guid><description>
+&lt;p>If you&amp;rsquo;re new to the actor pattern, the best place to learn about the actor pattern is in the &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/actors/actors-overview/">Actor Overview.&lt;/a>&lt;/p>
+&lt;p>In the PHP SDK, there are two sides to an actor, the Client, and the Actor (aka, the Runtime). As a client of an actor, you&amp;rsquo;ll interact with a remote actor via the &lt;code>ActorProxy&lt;/code> class. This class generates a proxy class on-the-fly using one of several configured strategies.&lt;/p>
+&lt;p>When writing an actor, state can be managed for you. You can hook into the actor lifecycle, and define reminders and timers. This gives you considerable power for handling all types of problems that the actor pattern is suited for.&lt;/p>
 &lt;h2 id="the-actor-proxy">The Actor Proxy&lt;/h2>
-&lt;p>Whenever you want to communicate with an actor, you&amp;rsquo;ll need to get a proxy object to do so. The proxy is responsible for
-serializing your request, deserializing the response, and returning it to you, all while obeying the contract defined by
-the specified interface.&lt;/p>
-&lt;p>In order to create the proxy, you&amp;rsquo;ll first need an interface to define how and what you send and receive from an actor.
-For example, if you want to communicate with a counting actor that solely keeps track of counts, you might define the
-interface as follows:&lt;/p>
+&lt;p>Whenever you want to communicate with an actor, you&amp;rsquo;ll need to get a proxy object to do so. The proxy is responsible for serializing your request, deserializing the response, and returning it to you, all while obeying the contract defined by the specified interface.&lt;/p>
+&lt;p>In order to create the proxy, you&amp;rsquo;ll first need an interface to define how and what you send and receive from an actor. For example, if you want to communicate with a counting actor that solely keeps track of counts, you might define the interface as follows:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
 &lt;span style="color:#75715e">#[\Dapr\Actors\Attributes\DaprType(&amp;#39;Counter&amp;#39;)]
 &lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">interface&lt;/span> &lt;span style="color:#a6e22e">ICount&lt;/span> {
 &lt;span style="color:#66d9ef">function&lt;/span> &lt;span style="color:#a6e22e">increment&lt;/span>(&lt;span style="color:#a6e22e">int&lt;/span> $amount &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span>)&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#a6e22e">void&lt;/span>;
 &lt;span style="color:#66d9ef">function&lt;/span> &lt;span style="color:#a6e22e">get_count&lt;/span>()&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#a6e22e">int&lt;/span>;
 }
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>It&amp;rsquo;s a good idea to put this interface in a shared library that the actor and clients can both access (if both are written in PHP). The &lt;code>DaprType&lt;/code>
-attribute tells the DaprClient the name of the actor to send to. It should match the implementation&amp;rsquo;s &lt;code>DaprType&lt;/code>, though
-you can override the type if needed.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>It&amp;rsquo;s a good idea to put this interface in a shared library that the actor and clients can both access (if both are written in PHP). The &lt;code>DaprType&lt;/code> attribute tells the DaprClient the name of the actor to send to. It should match the implementation&amp;rsquo;s &lt;code>DaprType&lt;/code>, though you can override the type if needed.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
 $app&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">run&lt;/span>(&lt;span style="color:#66d9ef">function&lt;/span>(&lt;span style="color:#a6e22e">\Dapr\Actors\ActorProxy&lt;/span> $actorProxy) {
 $actor &lt;span style="color:#f92672">=&lt;/span> $actorProxy&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">get&lt;/span>(&lt;span style="color:#a6e22e">ICount&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">class&lt;/span>, &lt;span style="color:#e6db74">&amp;#39;actor-id&amp;#39;&lt;/span>);
 $actor&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">increment&lt;/span>(&lt;span style="color:#ae81ff">10&lt;/span>);
 });
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="writing-actors">Writing Actors&lt;/h2>
-&lt;p>To create an actor, you need to implement the interface you defined earlier and also add the &lt;code>DaprType&lt;/code> attribute. All
-actors &lt;em>must&lt;/em> implement &lt;code>IActor&lt;/code>, however there&amp;rsquo;s an &lt;code>Actor&lt;/code> base class that implements the boilerplate making your
-implementation much simpler.&lt;/p>
+&lt;p>To create an actor, you need to implement the interface you defined earlier and also add the &lt;code>DaprType&lt;/code> attribute. All actors &lt;em>must&lt;/em> implement &lt;code>IActor&lt;/code>, however there&amp;rsquo;s an &lt;code>Actor&lt;/code> base class that implements the boilerplate making your implementation much simpler.&lt;/p>
 &lt;p>Here&amp;rsquo;s the counter actor:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
 &lt;span style="color:#75715e">#[\Dapr\Actors\Attributes\DaprType(&amp;#39;Count&amp;#39;)]
@@ -45,22 +33,14 @@ $this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6
 &lt;span style="color:#66d9ef">return&lt;/span> $this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">state&lt;/span>&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">count&lt;/span>;
 }
 }
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>The most important bit is the constructor. It takes at least one argument with the name of &lt;code>id&lt;/code> which is the id of the
-actor. Any additional arguments are injected by the DI container, including any &lt;code>ActorState&lt;/code> you want to use.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The most important bit is the constructor. It takes at least one argument with the name of &lt;code>id&lt;/code> which is the id of the actor. Any additional arguments are injected by the DI container, including any &lt;code>ActorState&lt;/code> you want to use.&lt;/p>
 &lt;h3 id="actor-lifecycle">Actor Lifecycle&lt;/h3>
-&lt;p>An actor is instantiated via the constructor on every request targeting that actor type. You can use it to calculate
-ephemeral state or handle any kind of request-specific startup you require, such as setting up other clients or
-connections.&lt;/p>
-&lt;p>After the actor is instantiated, the &lt;code>on_activation()&lt;/code> method may be called. The &lt;code>on_activation()&lt;/code> method is called any
-time the actor &amp;ldquo;wakes up&amp;rdquo; or when it is created for the first time. It is not called on every request.&lt;/p>
-&lt;p>Next, the actor method is called. This may be from a timer, reminder, or from a client. You may perform any work that
-needs to be done and/or throw an exception.&lt;/p>
-&lt;p>Finally, the result of the work is returned to the caller. After some time (depending on how you&amp;rsquo;ve configured the
-service), the actor will be deactivated and &lt;code>on_deactivation()&lt;/code> will be called. This may not be called if the host dies,
-daprd crashes, or some other error occurs which prevents it from being called successfully.&lt;/p>
+&lt;p>An actor is instantiated via the constructor on every request targeting that actor type. You can use it to calculate ephemeral state or handle any kind of request-specific startup you require, such as setting up other clients or connections.&lt;/p>
+&lt;p>After the actor is instantiated, the &lt;code>on_activation()&lt;/code> method may be called. The &lt;code>on_activation()&lt;/code> method is called any time the actor &amp;ldquo;wakes up&amp;rdquo; or when it is created for the first time. It is not called on every request.&lt;/p>
+&lt;p>Next, the actor method is called. This may be from a timer, reminder, or from a client. You may perform any work that needs to be done and/or throw an exception.&lt;/p>
+&lt;p>Finally, the result of the work is returned to the caller. After some time (depending on how you&amp;rsquo;ve configured the service), the actor will be deactivated and &lt;code>on_deactivation()&lt;/code> will be called. This may not be called if the host dies, daprd crashes, or some other error occurs which prevents it from being called successfully.&lt;/p>
 &lt;h2 id="actor-state">Actor State&lt;/h2>
-&lt;p>Actor state is a &amp;ldquo;Plain Old PHP Object&amp;rdquo; (POPO) that extends &lt;code>ActorState&lt;/code>. The &lt;code>ActorState&lt;/code> base class provides a couple
-of useful methods. Here&amp;rsquo;s an example implementation:&lt;/p>
+&lt;p>Actor state is a &amp;ldquo;Plain Old PHP Object&amp;rdquo; (POPO) that extends &lt;code>ActorState&lt;/code>. The &lt;code>ActorState&lt;/code> base class provides a couple of useful methods. Here&amp;rsquo;s an example implementation:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
 &lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">CountState&lt;/span> &lt;span style="color:#66d9ef">extends&lt;/span> &lt;span style="color:#a6e22e">\Dapr\Actors\ActorState&lt;/span> {
 &lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#a6e22e">int&lt;/span> $count &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span>;
@@ -109,12 +89,8 @@ $app &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">\
 $app&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">start&lt;/span>();
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
 &lt;/div></description></item><item><title>Developing-Applications: The App</title><link>https://docs.dapr.io/developing-applications/sdks/php/php-app/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/php/php-app/</guid><description>
-&lt;p>In PHP, there is no default router. Thus, the &lt;code>\Dapr\App&lt;/code> class is provided. It uses
-&lt;a href="https://github.com/nikic/FastRoute">Nikic&amp;rsquo;s FastRoute&lt;/a> under the hood. However, you are free to use any router or
-framework that you&amp;rsquo;d like. Just check out the &lt;code>add_dapr_routes()&lt;/code> method in the &lt;code>App&lt;/code> class to see how actors and
-subscriptions are implemented.&lt;/p>
-&lt;p>Every app should start with &lt;code>App::create()&lt;/code> which takes two parameters, the first is an existing DI container, if you
-have one, and the second is a callback to hook into the &lt;code>ContainerBuilder&lt;/code> and add your own configuration.&lt;/p>
+&lt;p>In PHP, there is no default router. Thus, the &lt;code>\Dapr\App&lt;/code> class is provided. It uses &lt;a href="https://github.com/nikic/FastRoute">Nikic&amp;rsquo;s FastRoute&lt;/a> under the hood. However, you are free to use any router or framework that you&amp;rsquo;d like. Just check out the &lt;code>add_dapr_routes()&lt;/code> method in the &lt;code>App&lt;/code> class to see how actors and subscriptions are implemented.&lt;/p>
+&lt;p>Every app should start with &lt;code>App::create()&lt;/code> which takes two parameters, the first is an existing DI container, if you have one, and the second is a callback to hook into the &lt;code>ContainerBuilder&lt;/code> and add your own configuration.&lt;/p>
 &lt;p>From there, you should define your routes and then call &lt;code>$app-&amp;gt;start()&lt;/code> to execute the route on the current request.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
 &lt;span style="color:#75715e">// app.php
@@ -125,8 +101,7 @@ $app &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">\
 &lt;/span>&lt;span style="color:#75715e">&lt;/span>$app&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">get&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;/test/{id}&amp;#39;&lt;/span>, &lt;span style="color:#a6e22e">fn&lt;/span>(&lt;span style="color:#a6e22e">string&lt;/span> $id) &lt;span style="color:#f92672">=&amp;gt;&lt;/span> $id);
 $app&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">start&lt;/span>();
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="returning-from-a-controller">Returning from a controller&lt;/h2>
-&lt;p>You can return anything from a controller, and it will be serialized into a json object. You can also request the
-Psr Response object and return that instead, allowing you to customize headers, and have control over the entire response:&lt;/p>
+&lt;p>You can return anything from a controller, and it will be serialized into a json object. You can also request the Psr Response object and return that instead, allowing you to customize headers, and have control over the entire response:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
 $app &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">\Dapr\App&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">create&lt;/span>(&lt;span style="color:#a6e22e">configure&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#a6e22e">fn&lt;/span>(&lt;span style="color:#a6e22e">\DI\ContainerBuilder&lt;/span> $builder) &lt;span style="color:#f92672">=&amp;gt;&lt;/span> $builder&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">addDefinitions&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;config.php&amp;#39;&lt;/span>));
 &lt;span style="color:#75715e">// add a controller for GET /test/{id} that returns the id
@@ -137,8 +112,7 @@ $app &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">\
 &lt;span style="color:#a6e22e">\Nyholm\Psr7\Factory\Psr17Factory&lt;/span> $factory) &lt;span style="color:#f92672">=&amp;gt;&lt;/span> $response&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">withBody&lt;/span>($factory&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">createStream&lt;/span>($id)));
 $app&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">start&lt;/span>();
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="using-the-app-as-a-client">Using the app as a client&lt;/h2>
-&lt;p>When you just want to use Dapr as a client, such as in existing code, you can call &lt;code>$app-&amp;gt;run()&lt;/code>. In these cases, there&amp;rsquo;s
-usually no need for a custom configuration, however, you may want to use a compiled DI container, especially in production:&lt;/p>
+&lt;p>When you just want to use Dapr as a client, such as in existing code, you can call &lt;code>$app-&amp;gt;run()&lt;/code>. In these cases, there&amp;rsquo;s usually no need for a custom configuration, however, you may want to use a compiled DI container, especially in production:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
 &lt;span style="color:#75715e">// app.php
 &lt;/span>&lt;span style="color:#75715e">&lt;/span>
@@ -148,9 +122,7 @@ $result &lt;span style="color:#f92672">=&lt;/span> $app&lt;span style="color:#f9
 &lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Developing-Applications: Custom Serialization</title><link>https://docs.dapr.io/developing-applications/sdks/php/php-serialization/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/php/php-serialization/</guid><description>
 &lt;p>Dapr uses JSON serialization and thus (complex) type information is lost when sending/receiving data.&lt;/p>
 &lt;h2 id="serialization">Serialization&lt;/h2>
-&lt;p>When returning an object from a controller, passing an object to the &lt;code>DaprClient&lt;/code>, or storing an object in a state store,
-only public properties are scanned and serialized. You can customize this behavior by implementing &lt;code>\Dapr\Serialization\ISerialize&lt;/code>.
-For example, if you wanted to create an ID type that serialized to a string, you may implement it like so:&lt;/p>
+&lt;p>When returning an object from a controller, passing an object to the &lt;code>DaprClient&lt;/code>, or storing an object in a state store, only public properties are scanned and serialized. You can customize this behavior by implementing &lt;code>\Dapr\Serialization\ISerialize&lt;/code>. For example, if you wanted to create an ID type that serialized to a string, you may implement it like so:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
 &lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">MyId&lt;/span> &lt;span style="color:#66d9ef">implements&lt;/span> &lt;span style="color:#a6e22e">\Dapr\Serialization\Serializers\ISerialize&lt;/span>
 {
@@ -161,8 +133,7 @@ For example, if you wanted to create an ID type that serialized to a string, you
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">return&lt;/span> $this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">id&lt;/span>;
 }
 }
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>This works for any type that we have full ownership over, however, it doesn&amp;rsquo;t work for classes from libraries or PHP itself.
-For that, you need to register a custom serializer with the DI container:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>This works for any type that we have full ownership over, however, it doesn&amp;rsquo;t work for classes from libraries or PHP itself. For that, you need to register a custom serializer with the DI container:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
 &lt;span style="color:#75715e">// in config.php
 &lt;/span>&lt;span style="color:#75715e">&lt;/span>
@@ -178,8 +149,7 @@ For that, you need to register a custom serializer with the DI container:&lt;/p>
 ];
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="deserialization">Deserialization&lt;/h2>
 &lt;p>Deserialization works exactly the same way, except the interface is &lt;code>\Dapr\Deserialization\Deserializers\IDeserialize&lt;/code>.&lt;/p></description></item><item><title>Developing-Applications: Publish and Subscribe with PHP</title><link>https://docs.dapr.io/developing-applications/sdks/php/php-pubsub/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/php/php-pubsub/</guid><description>
-&lt;p>With Dapr, you can publish anything, including cloud events. The SDK contains a simple cloud event implementation, but
-you can also just pass an array that conforms to the cloud event spec or use another library.&lt;/p>
+&lt;p>With Dapr, you can publish anything, including cloud events. The SDK contains a simple cloud event implementation, but you can also just pass an array that conforms to the cloud event spec or use another library.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
 $app&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">post&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;/publish&amp;#39;&lt;/span>, &lt;span style="color:#66d9ef">function&lt;/span>(&lt;span style="color:#a6e22e">\DI\FactoryInterface&lt;/span> $factory) {
 &lt;span style="color:#75715e">// create a new publisher that publishes to my-pub-sub component
@@ -189,8 +159,7 @@ $app&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e
 });
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>For more information about publish/subscribe, check out &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/">the howto&lt;/a>.&lt;/p>
 &lt;h2 id="data-content-type">Data content type&lt;/h2>
-&lt;p>The PHP SDK allows setting the data content type either when constructing a custom cloud event, or when publishing raw
-data.&lt;/p>
+&lt;p>The PHP SDK allows setting the data content type either when constructing a custom cloud event, or when publishing raw data.&lt;/p>
 &lt;ul class="nav nav-tabs" id="tabs-1" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
 id="tabs-1-cloudevent-tab" data-toggle="tab" href="#tabs-1-cloudevent" role="tab"
 aria-controls="tabs-1-cloudevent" aria-selected="true">
@@ -222,14 +191,10 @@ Only &lt;code>application/octet-steam&lt;/code> is supported for binary data.
 &lt;/div>
 &lt;/div>
 &lt;h2 id="receiving-cloud-events">Receiving cloud events&lt;/h2>
-&lt;p>In your subscription handler, you can have the DI Container inject either a &lt;code>Dapr\PubSub\CloudEvent&lt;/code> or an &lt;code>array&lt;/code> into
-your controller. The former does some validation to ensure you have a proper event. If you need direct access to the
-data, or the events do not conform to the spec, use an &lt;code>array&lt;/code>.&lt;/p></description></item><item><title>Developing-Applications: State Management with PHP</title><link>https://docs.dapr.io/developing-applications/sdks/php/php-state/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/php/php-state/</guid><description>
-&lt;p>Dapr offers a great modular approach to using state in your application. The best way to learn the basics is to visit
-&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/">the howto&lt;/a>.&lt;/p>
+&lt;p>In your subscription handler, you can have the DI Container inject either a &lt;code>Dapr\PubSub\CloudEvent&lt;/code> or an &lt;code>array&lt;/code> into your controller. The former does some validation to ensure you have a proper event. If you need direct access to the data, or the events do not conform to the spec, use an &lt;code>array&lt;/code>.&lt;/p></description></item><item><title>Developing-Applications: State Management with PHP</title><link>https://docs.dapr.io/developing-applications/sdks/php/php-state/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/php/php-state/</guid><description>
+&lt;p>Dapr offers a great modular approach to using state in your application. The best way to learn the basics is to visit &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/">the howto&lt;/a>.&lt;/p>
 &lt;h2 id="metadata">Metadata&lt;/h2>
-&lt;p>Many state components allow you to pass metadata to the component to control specific aspects of the component&amp;rsquo;s
-behavior. The PHP SDK allows you to pass that metadata through:&lt;/p>
+&lt;p>Many state components allow you to pass metadata to the component to control specific aspects of the component&amp;rsquo;s behavior. The PHP SDK allows you to pass that metadata through:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
 $app&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">run&lt;/span>(
 &lt;span style="color:#a6e22e">fn&lt;/span>(&lt;span style="color:#a6e22e">\Dapr\State\StateManager&lt;/span> $stateManager) &lt;span style="color:#f92672">=&amp;gt;&lt;/span>
@@ -245,15 +210,11 @@ $stateManager&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="c
 &lt;span style="color:#a6e22e">\Dapr\consistency\EventualLastWrite&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">class&lt;/span>,
 &lt;span style="color:#a6e22e">\Dapr\consistency\EventualFirstWrite&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">class&lt;/span>,
 ]
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Passing one of them to a &lt;code>StateManager&lt;/code> method or using the &lt;code>StateStore()&lt;/code> attribute allows you to define how the state
-store should handle conflicts.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Passing one of them to a &lt;code>StateManager&lt;/code> method or using the &lt;code>StateStore()&lt;/code> attribute allows you to define how the state store should handle conflicts.&lt;/p>
 &lt;h2 id="parallelism">Parallelism&lt;/h2>
-&lt;p>When doing a bulk read or beginning a transaction, you can specify the amount of parallelism. Dapr will read &amp;ldquo;at most&amp;rdquo;
-that many keys at a time from the underlying store if it has to read one key at a time. This can be helpful to control
-the load on the state store at the expense of performance. The default is &lt;code>10&lt;/code>.&lt;/p>
+&lt;p>When doing a bulk read or beginning a transaction, you can specify the amount of parallelism. Dapr will read &amp;ldquo;at most&amp;rdquo; that many keys at a time from the underlying store if it has to read one key at a time. This can be helpful to control the load on the state store at the expense of performance. The default is &lt;code>10&lt;/code>.&lt;/p>
 &lt;h2 id="prefix">Prefix&lt;/h2>
-&lt;p>Hardcoded key names are useful, but why not make state objects more reusable? When committing a transaction or saving
-an object to state, you can pass a prefix that is applied to every key in the object.&lt;/p>
+&lt;p>Hardcoded key names are useful, but why not make state objects more reusable? When committing a transaction or saving an object to state, you can pass a prefix that is applied to every key in the object.&lt;/p>
 &lt;ul class="nav nav-tabs" id="tabs-2" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
 id="tabs-2-transaction-prefix-tab" data-toggle="tab" href="#tabs-2-transaction-prefix" role="tab"
 aria-controls="tabs-2-transaction-prefix" aria-selected="true">

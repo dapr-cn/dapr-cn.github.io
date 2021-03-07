@@ -1,5 +1,5 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr Docs – Getting started with the Dapr actors .NET SDK</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/</link><description>Recent content in Getting started with the Dapr actors .NET SDK on Dapr Docs</description><generator>Hugo -- gohugo.io</generator><language>zh-hans</language><atom:link href="https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Getting started with the Dapr actor .NET SDK</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actor-howto/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actor-howto/</guid><description>
-&lt;h2 id="prerequisites">Prerequisites&lt;/h2>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Getting started with the Dapr actors .NET SDK</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/</link><description>Recent content in Getting started with the Dapr actors .NET SDK on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Getting started with the Dapr actor .NET SDK</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actor-howto/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actor-howto/</guid><description>
+&lt;h2 id="前期准备">前期准备&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/getting-started/install-dapr-cli/">Dapr CLI&lt;/a> installed&lt;/li>
 &lt;li>Initialized &lt;a href="https://docs.dapr.io/getting-started/install-dapr-selfhost/">Dapr environment&lt;/a>&lt;/li>
@@ -297,8 +297,7 @@ Console.WriteLine(savedData);
 ...
 }
 &lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="invoke-actor-method-without-actor-service-remoting">Invoke Actor method without Actor Service Remoting&lt;/h3>
-&lt;p>You can invoke Actor methods without remoting (directly over http or using helper methods provided in ActorProxy), if Actor method accepts at-most one argument. Actor runtime will deserialize the incoming request body from client and use it as method argument to invoke the actor method.
-When making non-remoting calls Actor method arguments and return types are serialized, deserialized as JSON.&lt;/p>
+&lt;p>You can invoke Actor methods without remoting (directly over http or using helper methods provided in ActorProxy), if Actor method accepts at-most one argument. Actor runtime will deserialize the incoming request body from client and use it as method argument to invoke the actor method. When making non-remoting calls Actor method arguments and return types are serialized, deserialized as JSON.&lt;/p>
 &lt;p>&lt;code>ActorProxy.Create(actorID, actorType)&lt;/code> returns ActorProxy instance and allow to use the raw http client to invoke the method defined in &lt;code>IMyActor&lt;/code>.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#66d9ef">namespace&lt;/span> MyActorClient
 {
@@ -360,8 +359,8 @@ INFO&lt;span style="color:#f92672">[&lt;/span>0000&lt;span style="color:#f92672"
 &lt;p>MyActorClient will console out if it calls actor hosted in MyActorService successfully.&lt;/p>
 &lt;blockquote>
 &lt;p>If you specify the different Dapr runtime http port (default port: 3500), you need to set DAPR_HTTP_PORT environment variable before running the client.&lt;/p>
-&lt;/blockquote>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">Success
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash"> Success
 PropertyA: ValueA, PropertyB: ValueB
-&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/blockquote>
+&lt;/li>
 &lt;/ol></description></item></channel></rss>

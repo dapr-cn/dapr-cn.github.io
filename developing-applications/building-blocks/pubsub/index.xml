@@ -1,22 +1,22 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr Docs – Publish &amp; subscribe messaging</title><link>https://docs.dapr.io/developing-applications/building-blocks/pubsub/</link><description>Recent content in Publish &amp; subscribe messaging on Dapr Docs</description><generator>Hugo -- gohugo.io</generator><language>zh-hans</language><atom:link href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Publish and subscribe overview</title><link>https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-overview/</guid><description>
-&lt;h2 id="introduction">Introduction&lt;/h2>
-&lt;p>The &lt;a href="https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern">publish/subscribe pattern&lt;/a> allows microservices to communicate with each other using messages. The &lt;strong>producer or publisher&lt;/strong> sends messages to a &lt;strong>topic&lt;/strong> without knowledge of what application will receive them. This involves writing them to an input channel. Similarly, a &lt;strong>consumer or subscriber&lt;/strong> subscribes to the topic and receive its messages without any knowledge of what service produced these messages. This involves receiving messages from an output channel. An intermediary message broker is responsible for copying each message from an input channel to an output channels for all subscribers interested in that message. This pattern is especially useful when you need to decouple microservices from one another.&lt;/p>
-&lt;p>The publish/subscribe API in Dapr provides an at-least-once guarantee and integrates with various message brokers and queuing systems. The specific implementation used by your service is pluggable and configured as a Dapr pub/sub component at runtime. This approach removes the dependency from your service and, as a result, makes your service more portable and flexible to changes.&lt;/p>
-&lt;p>The complete list of Dapr pub/sub components is &lt;a href="https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/">here&lt;/a>.&lt;/p>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – 发布 &amp; 订阅消息</title><link>https://docs.dapr.io/developing-applications/building-blocks/pubsub/</link><description>Recent content in 发布 &amp; 订阅消息 on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: 发布和订阅概述</title><link>https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-overview/</guid><description>
+&lt;h2 id="介绍">介绍&lt;/h2>
+&lt;p>&lt;a href="https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern">发布 / 订阅模式&lt;/a> 允许微服务使用消息相互通信。 The &lt;strong>producer or publisher&lt;/strong> sends messages to a &lt;strong>topic&lt;/strong> without knowledge of what application will receive them. This involves writing them to an input channel. 同样，一个 &lt;strong>消费者&lt;/strong> 将订阅该主题并收到它的消息，并且不知道什么应用程序生产了这些消息。 This involves writing them to an input channel. 同样，一个 &lt;strong>消费者&lt;/strong> 将订阅该主题并收到它的消息，并且不知道什么应用程序生产了这些消息。 This involves receiving messages from an output channel. This involves receiving messages from an output channel. An intermediary message broker is responsible for copying each message from an input channel to an output channels for all subscribers interested in that message. 当您需要将微服务解偶时，此模式特别有用。 当您需要将微服务解偶时，此模式特别有用。&lt;/p>
+&lt;p>Dapr 中的发布/订阅 API 提供至少一次（at-least-once）的保证，并与各种消息代理和队列系统集成。 The specific implementation used by your service is pluggable and configured as a Dapr pub/sub component at runtime. This approach removes the dependency from your service and, as a result, makes your service more portable and flexible to changes. This approach removes the dependency from your service and, as a result, makes your service more portable and flexible to changes.&lt;/p>
+&lt;p>发布 / 订阅 API 位于 &lt;a href="https://docs.dapr.io/reference/api/pubsub_api/">API 引用&lt;/a>。&lt;/p>
 &lt;img src="https://docs.dapr.io/images/pubsub-overview-pattern.png" width=1000>
 &lt;p>&lt;br>&lt;/br>&lt;/p>
-&lt;p>The Dapr pub/sub building block provides a platform-agnostic API to send and receive messages. Your services publish messages to a named topic and also subscribe to a topic to consume the messages.&lt;/p>
-&lt;p>The service makes a network call to a Dapr pub/sub building block, exposed as a sidecar. This building block then makes calls into a Dapr pub/sub component that encapsulates a specific message broker product. To receive topics, Dapr subscribes to the Dapr pub/sub component on behalf of your service and delivers the messages to an endpoint when they arrive.&lt;/p>
-&lt;p>The diagram below shows an example of a &amp;ldquo;shipping&amp;rdquo; service and an &amp;ldquo;email&amp;rdquo; service that have both subscribed to topics that are published by the &amp;ldquo;cart&amp;rdquo; service. Each service loads pub/sub component configuration files that point to the same pub/sub message bus component, for example Redis Streams, NATS Streaming, Azure Service Bus, or GCP Pub/Sub.&lt;/p>
+&lt;p>The Dapr pub/sub building block provides a platform-agnostic API to send and receive messages. Your services publish messages to a named topic and also subscribe to a topic to consume the messages. Your services publish messages to a named topic and also subscribe to a topic to consume the messages.&lt;/p>
+&lt;p>The service makes a network call to a Dapr pub/sub building block, exposed as a sidecar. This building block then makes calls into a Dapr pub/sub component that encapsulates a specific message broker product. To receive topics, Dapr subscribes to the Dapr pub/sub component on behalf of your service and delivers the messages to an endpoint when they arrive. This building block then makes calls into a Dapr pub/sub component that encapsulates a specific message broker product. To receive topics, Dapr subscribes to the Dapr pub/sub component on behalf of your service and delivers the messages to an endpoint when they arrive.&lt;/p>
+&lt;p>The diagram below shows an example of a &amp;ldquo;shipping&amp;rdquo; service and an &amp;ldquo;email&amp;rdquo; service that have both subscribed to topics that are published by the &amp;ldquo;cart&amp;rdquo; service. Each service loads pub/sub component configuration files that point to the same pub/sub message bus component, for example Redis Streams, NATS Streaming, Azure Service Bus, or GCP Pub/Sub. Each service loads pub/sub component configuration files that point to the same pub/sub message bus component, for example Redis Streams, NATS Streaming, Azure Service Bus, or GCP Pub/Sub.&lt;/p>
 &lt;img src="https://docs.dapr.io/images/pubsub-overview-components.png" width=1000>
 &lt;br>&lt;/br>
 &lt;p>The diagram below has the same services, however this time showing the Dapr publish API that sends an &amp;ldquo;order&amp;rdquo; topic and order endpoints on the subscribing services that these topic messages are delivered posted to by Dapr.&lt;/p>
 &lt;img src="https://docs.dapr.io/images/pubsub-overview-publish-API.png" width=1000>
 &lt;br>&lt;/br>
-&lt;h2 id="features">Features&lt;/h2>
+&lt;h2 id="特性">特性&lt;/h2>
 &lt;p>The pub/sub building block provides several features to your application.&lt;/p>
-&lt;h3 id="cloud-events-message-format">Cloud Events message format&lt;/h3>
-&lt;p>To enable message routing and to provide additional context with each message, Dapr uses the &lt;a href="https://github.com/cloudevents/spec/tree/v1.0">CloudEvents 1.0 specification&lt;/a> as its message format. Any message sent by an application to a topic using Dapr is automatically &amp;ldquo;wrapped&amp;rdquo; in a Cloud Events envelope, using &lt;code>Content-Type&lt;/code> header value for &lt;code>datacontenttype&lt;/code> attribute.&lt;/p>
+&lt;h3 id="发布订阅-api">发布/订阅 API&lt;/h3>
+&lt;p>要启用消息路由并为每个消息提供附加上下文，Dapr 使用 &lt;a href="https://github.com/cloudevents/spec/tree/v1.0"> CloudEvents 1.0 规范&lt;/a> 作为其消息格式。 使用 Dapr 应用程序发送的任何信息都将自动包入 Cloud Events 信封中，&lt;code>datacontenttype&lt;/code> 属性使用 &lt;code>Content-Type&lt;/code> 头部值。&lt;/p>
 &lt;p>Dapr implements the following Cloud Events fields:&lt;/p>
 &lt;ul>
 &lt;li>&lt;code>id&lt;/code>&lt;/li>
@@ -36,33 +36,33 @@
 &lt;span style="color:#f92672">&amp;#34;datacontenttype&amp;#34;&lt;/span> : &lt;span style="color:#e6db74">&amp;#34;text/xml&amp;#34;&lt;/span>,
 &lt;span style="color:#f92672">&amp;#34;data&amp;#34;&lt;/span> : &lt;span style="color:#e6db74">&amp;#34;&amp;lt;note&amp;gt;&amp;lt;to&amp;gt;User1&amp;lt;/to&amp;gt;&amp;lt;from&amp;gt;user2&amp;lt;/from&amp;gt;&amp;lt;message&amp;gt;hi&amp;lt;/message&amp;gt;&amp;lt;/note&amp;gt;&amp;#34;&lt;/span>
 }
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="message-subscription">Message subscription&lt;/h3>
-&lt;p>Dapr applications can subscribe to published topics. Dapr allows two methods by which your applications can subscribe to topics:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="消息格式">消息格式&lt;/h3>
+&lt;p>Dapr applications can subscribe to published topics. Dapr applications can subscribe to published topics. Dapr allows two methods by which your applications can subscribe to topics:&lt;/p>
 &lt;ul>
-&lt;li>&lt;strong>Declarative&lt;/strong>, where a subscription is defined in an external file,&lt;/li>
+&lt;li>阅读 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/">发布和订阅&lt;/a>指南&lt;/li>
 &lt;li>&lt;strong>Programmatic&lt;/strong>, where a subscription is defined in the user code.&lt;/li>
 &lt;/ul>
-&lt;p>Both declarative and programmatic approaches support the same features. The declarative approach removes the Dapr dependency from your code and allows for existing applications to subscribe to topics, without having to change code. The programmatic approach implements the subscription in your code.&lt;/p>
+&lt;p>Both declarative and programmatic approaches support the same features. Both declarative and programmatic approaches support the same features. The declarative approach removes the Dapr dependency from your code and allows for existing applications to subscribe to topics, without having to change code. The programmatic approach implements the subscription in your code. The programmatic approach implements the subscription in your code.&lt;/p>
 &lt;p>For more information read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/">How-To: Publish a message and subscribe to a topic&lt;/a>.&lt;/p>
-&lt;h3 id="message-delivery">Message delivery&lt;/h3>
-&lt;p>In principle, Dapr considers message successfully delivered when the subscriber responds with a non-error response after processing the message. For more granular control, Dapr&amp;rsquo;s publish/subscribe API also provides explicit statuses, defined in the response payload, which the subscriber can use to indicate the specific handling instructions to Dapr (e.g. &lt;code>RETRY&lt;/code> or &lt;code>DROP&lt;/code>). For more information on message routing read &lt;a href="https://docs.dapr.io/reference/api/pubsub_api/#provide-routes-for-dapr-to-deliver-topic-events">Dapr publish/subscribe API documentation&lt;/a>&lt;/p>
-&lt;h3 id="at-least-once-guarantee">At-least-once guarantee&lt;/h3>
-&lt;p>Dapr guarantees &amp;ldquo;At-Least-Once&amp;rdquo; semantics for message delivery. That means that when an application publishes a message to a topic using the publish/subscribe API, Dapr ensures that this message will be delivered at least once to every subscriber.&lt;/p>
+&lt;h3 id="订阅消息">订阅消息&lt;/h3>
+&lt;p>In principle, Dapr considers message successfully delivered when the subscriber responds with a non-error response after processing the message. For more granular control, Dapr&amp;rsquo;s publish/subscribe API also provides explicit statuses, defined in the response payload, which the subscriber can use to indicate the specific handling instructions to Dapr (e.g. &lt;code>RETRY&lt;/code> or &lt;code>DROP&lt;/code>). In principle, Dapr considers message successfully delivered when the subscriber responds with a non-error response after processing the message. For more granular control, Dapr&amp;rsquo;s publish/subscribe API also provides explicit statuses, defined in the response payload, which the subscriber can use to indicate the specific handling instructions to Dapr (e.g. &lt;code>RETRY&lt;/code> or &lt;code>DROP&lt;/code>). For more information on message routing read &lt;a href="https://docs.dapr.io/reference/api/pubsub_api/#provide-routes-for-dapr-to-deliver-topic-events">Dapr publish/subscribe API documentation&lt;/a>&lt;/p>
+&lt;h3 id="消息传递">消息传递&lt;/h3>
+&lt;p>Dapr 保证消息传递 at-least-once 语义。 That means that when an application publishes a message to a topic using the publish/subscribe API, Dapr ensures that this message will be delivered at least once to every subscriber.&lt;/p>
 &lt;h3 id="consumer-groups-and-competing-consumers-pattern">Consumer groups and competing consumers pattern&lt;/h3>
-&lt;p>The burden of dealing with concepts like consumer groups and multiple application instances using a single consumer group is all handled automatically by Dapr. When multiple instances of the same application (running same app-IDs) subscribe to a topic, Dapr delivers each message to &lt;em>only one instance of &lt;strong>that&lt;/strong> application&lt;/em>. This is commonly known as the competing consumers pattern and is illustrated in the diagram below.&lt;/p>
+&lt;p>The burden of dealing with concepts like consumer groups and multiple application instances using a single consumer group is all handled automatically by Dapr. 当同一个应用程序的多个实例(相同的 ID) 订阅主题时，Dapr 只将每个消息传递给该应用程序的一个实例。 当同一个应用程序的多个实例(相同的 ID) 订阅主题时，Dapr 只将每个消息传递给该应用程序的一个实例。 This is commonly known as the competing consumers pattern and is illustrated in the diagram below.&lt;/p>
 &lt;img src="https://docs.dapr.io/images/pubsub-overview-pattern-competing-consumers.png" width=1000>
 &lt;br>&lt;/br>
-&lt;p>Similarly, if two different applications (different app-IDs) subscribe to the same topic, Dapr deliver each message to &lt;em>only one instance of &lt;strong>each&lt;/strong> application&lt;/em>.&lt;/p>
+&lt;p>同样，如果两个不同的应用程序 (不同的 ID) 订阅同一主题，那么 Dapr 将每个消息仅传递到每个应用程序的一个实例。&lt;/p>
 &lt;h3 id="topic-scoping">Topic scoping&lt;/h3>
-&lt;p>By default, all topics backing the Dapr pub/sub component (e.g. Kafka, Redis Stream, RabbitMQ) are available to every application configured with that component. To limit which application can publish or subscribe to topics, Dapr provides topic scoping. This enables to you say which topics an application is allowed to published and which topics an application is allowed to subscribed to. For more information read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-scopes/">publish/subscribe topic scoping&lt;/a>.&lt;/p>
+&lt;p>默认情况下，支持Dapr发布/订阅组件的所有主题 (例如，Kafka、Redis、RabbitMQ) 都可用于配置该组件的每个应用程序。 To limit which application can publish or subscribe to topics, Dapr provides topic scoping. This enables to you say which topics an application is allowed to published and which topics an application is allowed to subscribed to. 查看 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-scopes/">发布/订阅主题范围&lt;/a> 了解更多信息。 This enables to you say which topics an application is allowed to published and which topics an application is allowed to subscribed to. 查看 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-scopes/">发布/订阅主题范围&lt;/a> 了解更多信息。&lt;/p>
 &lt;h3 id="message-time-to-live-ttl">Message Time-to-Live (TTL)&lt;/h3>
-&lt;p>Dapr can set a timeout message on a per message basis, meaning that if the message is not read from the pub/sub component, then the message is discarded. This is to prevent the build up of messages that are not read. A message that has been in the queue for longer than the configured TTL is said to be dead. For more information read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-message-ttl/">publish/subscribe message time-to-live&lt;/a>.&lt;/p>
+&lt;p>Dapr can set a timeout message on a per message basis, meaning that if the message is not read from the pub/sub component, then the message is discarded. This is to prevent the build up of messages that are not read. A message that has been in the queue for longer than the configured TTL is said to be dead. For more information read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-message-ttl/">publish/subscribe message time-to-live&lt;/a>. This is to prevent the build up of messages that are not read. A message that has been in the queue for longer than the configured TTL is said to be dead. For more information read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-message-ttl/">publish/subscribe message time-to-live&lt;/a>.&lt;/p>
 &lt;ul>
-&lt;li>Note: Message TTL can also be set for a given queue at the time of component creation. Look at the specific characteristic of the component that you are using.&lt;/li>
+&lt;li>Note: Message TTL can also be set for a given queue at the time of component creation. Look at the specific characteristic of the component that you are using. Look at the specific characteristic of the component that you are using.&lt;/li>
 &lt;/ul>
 &lt;h3 id="publishsubscribe-api">Publish/Subscribe API&lt;/h3>
 &lt;p>The publish/subscribe API is located in the &lt;a href="https://docs.dapr.io/reference/api/pubsub_api/">API reference&lt;/a>.&lt;/p>
-&lt;h2 id="next-steps">Next steps&lt;/h2>
+&lt;h2 id="下一步">下一步&lt;/h2>
 &lt;ul>
 &lt;li>Follow these guides on:
 &lt;ul>
@@ -71,25 +71,21 @@
 &lt;/ul>
 &lt;/li>
 &lt;li>Try out the &lt;a href="https://github.com/dapr/quickstarts/tree/master/pub-sub">Pub/Sub quickstart sample&lt;/a>&lt;/li>
-&lt;li>Learn about &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-scopes/">topic scoping&lt;/a>&lt;/li>
+&lt;li>阅读 &lt;a href="https://docs.dapr.io/reference/api/pubsub_api/">API 引用&lt;/a>&lt;/li>
 &lt;li>Learn about &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-message-ttl/">message time-to-live (TTL)&lt;/a>&lt;/li>
-&lt;li>List of &lt;a href="https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/">pub/sub components&lt;/a>&lt;/li>
+&lt;li>可用发布/订阅实现的完整列表 &lt;a href="https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/">在这&lt;/a>。&lt;/li>
 &lt;li>Read the &lt;a href="https://docs.dapr.io/reference/api/pubsub_api/">pub/sub API reference&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Developing-Applications: How-To: Publish a message and subscribe to a topic</title><link>https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/</guid><description>
-&lt;h2 id="introduction">Introduction&lt;/h2>
-&lt;p>Pub/Sub is a common pattern in a distributed system with many services that want to utilize decoupled, asynchronous messaging.
-Using Pub/Sub, you can enable scenarios where event consumers are decoupled from event producers.&lt;/p>
-&lt;p>Dapr provides an extensible Pub/Sub system with At-Least-Once guarantees, allowing developers to publish and subscribe to topics.
-Dapr provides components for pub/sub, that enable operators to use their preferred infrastructure, for example Redis Streams, Kafka, etc.&lt;/p>
-&lt;h2 id="content-types">Content Types&lt;/h2>
-&lt;p>When publishing a message, it&amp;rsquo;s important to specify the content type of the data being sent.
-Unless specified, Dapr will assume &lt;code>text/plain&lt;/code>. When using Dapr&amp;rsquo;s HTTP API, the content type can be set in a &lt;code>Content-Type&lt;/code> header.
-gRPC clients and SDKs have a dedicated content type parameter.&lt;/p>
-&lt;h2 id="step-1-setup-the-pubsub-component">Step 1: Setup the Pub/Sub component&lt;/h2>
-&lt;p>The following example creates applications to publish and subscribe to a topic called &lt;code>deathStarStatus&lt;/code>.&lt;/p>
+&lt;/ul></description></item><item><title>Developing-Applications: 指南：发布消息并订阅主题</title><link>https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/</guid><description>
+&lt;h2 id="介绍">介绍&lt;/h2>
+&lt;p>Pub/Sub 是一个分布式系统中的常见模式，它有许多服务用于解偶、异步消息传递。 使用Pub/Sub，您可以在事件消费者与事件生产者解偶的场景中启用。&lt;/p>
+&lt;p>Dapr 提供了一个可扩展的 Pub/Sub 系统（保证消息至少传递一次），允许开发者发布和订阅主题。 Dapr provides components for pub/sub, that enable operators to use their preferred infrastructure, for example Redis Streams, Kafka, etc.&lt;/p>
+&lt;h2 id="步骤-1-设置-pubsub-组件">步骤 1: 设置 Pub/Sub 组件&lt;/h2>
+&lt;p>When publishing a message, it&amp;rsquo;s important to specify the content type of the data being sent. Unless specified, Dapr will assume &lt;code>text/plain&lt;/code>. When publishing a message, it&amp;rsquo;s important to specify the content type of the data being sent. Unless specified, Dapr will assume &lt;code>text/plain&lt;/code>. When using Dapr&amp;rsquo;s HTTP API, the content type can be set in a &lt;code>Content-Type&lt;/code> header. gRPC clients and SDKs have a dedicated content type parameter. gRPC clients and SDKs have a dedicated content type parameter.&lt;/p>
+&lt;h2 id="步骤-1-设置-pubsub-组件-1">步骤 1: 设置 Pub/Sub 组件&lt;/h2>
+&lt;p>然后发布一条消息给 &lt;code>deathStarStatus&lt;/code> 主题：&lt;/p>
 &lt;img src="https://docs.dapr.io/images/pubsub-publish-subscribe-example.png" width=1000>
 &lt;br>&lt;/br>
-&lt;p>The first step is to setup the Pub/Sub component:&lt;/p>
+&lt;p>第一步是设置 Pub/Sub 组件：&lt;/p>
 &lt;ul class="nav nav-tabs" id="tabs-0" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
 id="tabs-0-self-hosted-cli-tab" data-toggle="tab" href="#tabs-0-self-hosted-cli" role="tab"
 aria-controls="tabs-0-self-hosted-cli" aria-selected="true">
@@ -103,8 +99,8 @@ Kubernetes
 &lt;/li>&lt;/ul>
 &lt;div class="tab-content" id="tabs-0-content">
 &lt;div class="tab-pane fade show active" id="tabs-0-self-hosted-cli" role="tabpanel" aria-labelled-by="tabs-0-self-hosted-cli-tab">
-&lt;br />&lt;p>Redis Streams is installed by default on a local machine when running &lt;code>dapr init&lt;/code>.&lt;/p>
-&lt;p>Verify by opening your components file under &lt;code>%UserProfile%\.dapr\components\pubsub.yaml&lt;/code> on Windows or &lt;code>~/.dapr/components/pubsub.yaml&lt;/code> on Linux/MacOS:&lt;/p>
+&lt;br />&lt;p>运行 &lt;code>dapr init&lt;/code> 时默认在本地机器上安装 Redis 流。&lt;/p>
+&lt;p>在 Linux/MacOS 上打开 &lt;code>~/.dapr/components/pubsub.yam&lt;/code> 或在 Windows 上打开&lt;code>%UserProfile%\.dapr\components\pubsub.yaml&lt;/code> 组件文件以验证:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -117,10 +113,10 @@ Kubernetes
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">localhost:6379&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">redisPassword&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>You can override this file with another Redis instance or another &lt;a href="https://docs.dapr.io/operations/components/setup-pubsub/">pubsub component&lt;/a> by creating a &lt;code>components&lt;/code> directory containing the file and using the flag &lt;code>--components-path&lt;/code> with the &lt;code>dapr run&lt;/code> CLI command.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>您可以重写这个文件以使用另一个 Redis 实例或者另一个 &lt;a href="https://docs.dapr.io/operations/components/setup-pubsub/">pubsub component&lt;/a> ，通过创建 &lt;code>components&lt;/code> 文件夹（文件夹中包含重写的文件）并在 &lt;code>dapr run&lt;/code> 命令行界面使用 &lt;code>--components-path&lt;/code> 标志。&lt;/p>
 &lt;/div>
 &lt;div class="tab-pane fade" id="tabs-0-kubernetes" role="tabpanel" aria-labelled-by="tabs-0-kubernetes-tab">
-&lt;br />&lt;p>To deploy this into a Kubernetes cluster, fill in the &lt;code>metadata&lt;/code> connection details of your &lt;a href="https://docs.dapr.io/operations/components/setup-pubsub/">desired pubsub component&lt;/a> in the yaml below, save as &lt;code>pubsub.yaml&lt;/code>, and run &lt;code>kubectl apply -f pubsub.yaml&lt;/code>.&lt;/p>
+&lt;br />&lt;p>要将其部署到 Kubernetes 群集中，请为你想要的&lt;a href="https://docs.dapr.io/operations/components/setup-pubsub/"> pubsub 组件&lt;/a> 在下面的 yaml &lt;code>metadata&lt;/code> 中填写链接详情，保存为 &lt;code>pubsub.yaml&lt;/code>，然后运行 &lt;code>kubectl apply -f pubsub.yaml&lt;/code>。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -136,18 +132,18 @@ Kubernetes
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
 &lt;/div>
-&lt;h2 id="step-2-subscribe-to-topics">Step 2: Subscribe to topics&lt;/h2>
-&lt;p>Dapr allows two methods by which you can subscribe to topics:&lt;/p>
+&lt;h2 id="步骤-2-订阅主题">步骤 2: 订阅主题&lt;/h2>
+&lt;p>Dapr 允许两种方法订阅主题：&lt;/p>
 &lt;ul>
-&lt;li>&lt;strong>Declaratively&lt;/strong>, where subscriptions are are defined in an external file.&lt;/li>
-&lt;li>&lt;strong>Programmatically&lt;/strong>, where subscriptions are defined in user code.&lt;/li>
+&lt;li>&lt;strong>声明&lt;/strong>，其中订阅是在外部文件中定义的。&lt;/li>
+&lt;li>&lt;strong>编程方式&lt;/strong>，订阅在用户代码中定义&lt;/li>
 &lt;/ul>
 &lt;div class="alert alert-primary" role="alert">
 &lt;h4 class="alert-heading">Note&lt;/h4>
-Both declarative and programmatic approaches support the same features. The declarative approach removes the Dapr dependency from your code and allows, for example, existing applications to subscribe to topics, without having to change code. The programmatic approach implements the subscription in your code.
+声明和编程方式都支持相同的功能。 声明的方式从用户代码中移除对 Dapr 的依赖性，并允许使用现有应用程序订阅主题。 编程方法在用户代码中实现订阅。
 &lt;/div>
-&lt;h3 id="declarative-subscriptions">Declarative subscriptions&lt;/h3>
-&lt;p>You can subscribe to a topic using the following Custom Resources Definition (CRD). Create a file named &lt;code>subscription.yaml&lt;/code> and paste the following:&lt;/p>
+&lt;h3 id="声明式订阅">声明式订阅&lt;/h3>
+&lt;p>您可以使用以下自定义资源定义 （CRD） 订阅主题。 创建名为 &lt;code>subscription.yaml&lt;/code> 的文件并粘贴以下内容:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Subscription&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -159,12 +155,12 @@ Both declarative and programmatic approaches support the same features. The decl
 &lt;span style="color:#f92672">scopes&lt;/span>:
 - &lt;span style="color:#ae81ff">app1&lt;/span>
 - &lt;span style="color:#ae81ff">app2&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>The example above shows an event subscription to topic &lt;code>deathStarStatus&lt;/code>, for the pubsub component &lt;code>pubsub&lt;/code>.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>上面的示例显示了 &lt;code>deathStarStatus&lt;/code>主题的事件订阅，对于pubsub 组件 &lt;code>pubsub&lt;/code>。&lt;/p>
 &lt;ul>
-&lt;li>The &lt;code>route&lt;/code> field tells Dapr to send all topic messages to the &lt;code>/dsstatus&lt;/code> endpoint in the app.&lt;/li>
-&lt;li>The &lt;code>scopes&lt;/code> field enables this subscription for apps with IDs &lt;code>app1&lt;/code> and &lt;code>app2&lt;/code>.&lt;/li>
+&lt;li>&lt;code>route&lt;/code> 告诉 Dapr 将所有主题消息发送到应用程序中的 &lt;code>/dsstatus&lt;/code> 端点。&lt;/li>
+&lt;li>&lt;code>scopes&lt;/code> 为 &lt;code>app1&lt;/code> 和 &lt;code>app2&lt;/code> 启用订阅。&lt;/li>
 &lt;/ul>
-&lt;p>Set the component with:
+&lt;p>设置组件：
 &lt;ul class="nav nav-tabs" id="tabs-2" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
 id="tabs-2-self-hosted-cli-tab" data-toggle="tab" href="#tabs-2-self-hosted-cli" role="tab"
 aria-controls="tabs-2-self-hosted-cli" aria-selected="true">
@@ -178,18 +174,18 @@ Kubernetes
 &lt;/li>&lt;/ul>
 &lt;div class="tab-content" id="tabs-2-content">
 &lt;div class="tab-pane fade show active" id="tabs-2-self-hosted-cli" role="tabpanel" aria-labelled-by="tabs-2-self-hosted-cli-tab">
-&lt;br />&lt;p>Place the CRD in your &lt;code>./components&lt;/code> directory. When Dapr starts up, it loads subscriptions along with components.&lt;/p>
-&lt;p>Note: By default, Dapr loads components from &lt;code>$HOME/.dapr/components&lt;/code> on MacOS/Linux and &lt;code>%USERPROFILE%\.dapr\components&lt;/code> on Windows.&lt;/p>
-&lt;p>You can also override the default directory by pointing the Dapr CLI to a components path:&lt;/p>
+&lt;br />&lt;p>将 CRD 放在 &lt;code>./components&lt;/code> 目录中。 当 Dapr 启动时，它将加载组件和订阅。&lt;/p>
+&lt;p>注意：默认情况下，在 MacOS/Linux 上从 &lt;code>$HOME/.dapr/components&lt;/code> 加载组件，以及 &lt;code>%USERPROFILE%\.dapr\components&lt;/code> 在Windows上。&lt;/p>
+&lt;p>还可以通过将 Dapr CLI 指向组件路径来覆盖默认目录：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr run --app-id myapp --components-path ./myComponents -- python3 app1.py
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;em>Note: If you place the subscription in a custom components path, make sure the Pub/Sub component is present also.&lt;/em>&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;em>注意：如果你将订阅置于自定义组件路径中，请确保Pub/Sub 组件也存在。&lt;/em>&lt;/p>
 &lt;/div>
 &lt;div class="tab-pane fade" id="tabs-2-kubernetes" role="tabpanel" aria-labelled-by="tabs-2-kubernetes-tab">
-&lt;br />&lt;p>In Kubernetes, save the CRD to a file and apply it to the cluster:&lt;/p>
+&lt;br />&lt;p>在 Kubernetes 中，将 CRD 保存到文件中并将其应用于群集：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl apply -f subscription.yaml
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
 &lt;/div>&lt;/p>
-&lt;h4 id="example">Example&lt;/h4>
+&lt;h4 id="示例">示例&lt;/h4>
 &lt;ul class="nav nav-tabs" id="tabs-3" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
 id="tabs-3-python-tab" data-toggle="tab" href="#tabs-3-python" role="tab"
 aria-controls="tabs-3-python" aria-selected="true">
@@ -221,10 +217,10 @@ CORS(app)
 &lt;span style="color:#66d9ef">print&lt;/span>(request&lt;span style="color:#f92672">.&lt;/span>json, flush&lt;span style="color:#f92672">=&lt;/span>True)
 &lt;span style="color:#66d9ef">return&lt;/span> json&lt;span style="color:#f92672">.&lt;/span>dumps({&lt;span style="color:#e6db74">&amp;#39;success&amp;#39;&lt;/span>:True}), &lt;span style="color:#ae81ff">200&lt;/span>, {&lt;span style="color:#e6db74">&amp;#39;ContentType&amp;#39;&lt;/span>:&lt;span style="color:#e6db74">&amp;#39;application/json&amp;#39;&lt;/span>}
 app&lt;span style="color:#f92672">.&lt;/span>run()
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>After creating &lt;code>app1.py&lt;/code> ensure flask and flask_cors are installed:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>创建名为&amp;quot; &lt;code>app1.py&lt;/code> 的文件，并粘贴如下内容：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">pip install flask
 pip install flask_cors
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Then run:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>创建 &lt;code>app1.py&lt;/code> 后，确保 flask 和 flask_cors 已经安装了：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr --app-id app1 --app-port &lt;span style="color:#ae81ff">5000&lt;/span> run python app1.py
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
 &lt;div class="tab-pane fade" id="tabs-3-node" role="tabpanel" aria-labelled-by="tabs-3-node-tab">
@@ -239,7 +235,7 @@ pip install flask_cors
 &lt;span style="color:#a6e22e">res&lt;/span>.&lt;span style="color:#a6e22e">sendStatus&lt;/span>(&lt;span style="color:#ae81ff">200&lt;/span>);
 });
 &lt;span style="color:#a6e22e">app&lt;/span>.&lt;span style="color:#a6e22e">listen&lt;/span>(&lt;span style="color:#a6e22e">port&lt;/span>, () =&amp;gt; &lt;span style="color:#a6e22e">console&lt;/span>.&lt;span style="color:#a6e22e">log&lt;/span>(&lt;span style="color:#e6db74">`consumer app listening on port &lt;/span>&lt;span style="color:#e6db74">${&lt;/span>&lt;span style="color:#a6e22e">port&lt;/span>&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74">!`&lt;/span>))
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Run this app with:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>设置上述订阅后，将此 javascript（Node &amp;gt; 4.16）下载到 &lt;code>app2.js&lt;/code> 文件中：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr --app-id app2 --app-port &lt;span style="color:#ae81ff">3000&lt;/span> run node app2.js
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
 &lt;div class="tab-pane fade" id="tabs-3-php" role="tabpanel" aria-labelled-by="tabs-3-php-tab">
@@ -257,20 +253,18 @@ $logger&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#
 }
 );
 $app&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">start&lt;/span>();
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>After creating &lt;code>app1.php&lt;/code>, and with the &lt;a href="https://github.com/dapr/php-sdk/blob/main/docs/getting-started.md">SDK installed&lt;/a>,
-go ahead and start the app:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后运行:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr --app-id app1 --app-port &lt;span style="color:#ae81ff">3000&lt;/span> run -- php -S 0.0.0.0:3000 app1.php
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
 &lt;/div>
-&lt;h3 id="programmatic-subscriptions">Programmatic subscriptions&lt;/h3>
-&lt;p>To subscribe to topics, start a web server in the programming language of your choice and listen on the following &lt;code>GET&lt;/code> endpoint: &lt;code>/dapr/subscribe&lt;/code>.
-The Dapr instance calls into your app at startup and expect a JSON response for the topic subscriptions with:&lt;/p>
+&lt;h3 id="编程方式订阅">编程方式订阅&lt;/h3>
+&lt;p>若要订阅主题，请使用您选择的编程语言启动 Web 服务器，并监听以下 &lt;code>GET&lt;/code> 终结点： &lt;code>/dapr/subscribe&lt;/code>。 Dapr 实例将在启动时调用到您的应用，并期望对的订阅主题响应 JOSN：&lt;/p>
 &lt;ul>
-&lt;li>&lt;code>pubsubname&lt;/code>: Which pub/sub component Dapr should use.&lt;/li>
-&lt;li>&lt;code>topic&lt;/code>: Which topic to subscribe to.&lt;/li>
-&lt;li>&lt;code>route&lt;/code>: Which endpoint for Dapr to call on when a message comes to that topic.&lt;/li>
+&lt;li>&lt;code>pubsubname&lt;/code>: Dapr 用到的 pub/sub 组件&lt;/li>
+&lt;li>&lt;code>topic&lt;/code>: 订阅的主题&lt;/li>
+&lt;li>&lt;code>route&lt;/code>：当消息来到该主题时，Dapr 需要调用哪个终结点&lt;/li>
 &lt;/ul>
-&lt;h4 id="example-1">Example&lt;/h4>
+&lt;h4 id="示例-1">示例&lt;/h4>
 &lt;ul class="nav nav-tabs" id="tabs-4" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
 id="tabs-4-python-tab" data-toggle="tab" href="#tabs-4-python" role="tab"
 aria-controls="tabs-4-python" aria-selected="true">
@@ -310,7 +304,7 @@ app&lt;span style="color:#f92672">.&lt;/span>run()
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>After creating &lt;code>app1.py&lt;/code> ensure flask and flask_cors are installed:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">pip install flask
 pip install flask_cors
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Then run:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后运行:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr --app-id app1 --app-port &lt;span style="color:#ae81ff">5000&lt;/span> run python app1.py
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
 &lt;div class="tab-pane fade" id="tabs-4-node" role="tabpanel" aria-labelled-by="tabs-4-node-tab">
@@ -333,7 +327,7 @@ pip install flask_cors
 &lt;span style="color:#a6e22e">res&lt;/span>.&lt;span style="color:#a6e22e">sendStatus&lt;/span>(&lt;span style="color:#ae81ff">200&lt;/span>);
 });
 &lt;span style="color:#a6e22e">app&lt;/span>.&lt;span style="color:#a6e22e">listen&lt;/span>(&lt;span style="color:#a6e22e">port&lt;/span>, () =&amp;gt; &lt;span style="color:#a6e22e">console&lt;/span>.&lt;span style="color:#a6e22e">log&lt;/span>(&lt;span style="color:#e6db74">`consumer app listening on port &lt;/span>&lt;span style="color:#e6db74">${&lt;/span>&lt;span style="color:#a6e22e">port&lt;/span>&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74">!`&lt;/span>))
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Run this app with:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>运行此应用：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr --app-id app2 --app-port &lt;span style="color:#ae81ff">3000&lt;/span> run node app2.js
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
 &lt;div class="tab-pane fade" id="tabs-4-php" role="tabpanel" aria-labelled-by="tabs-4-php-tab">
@@ -353,13 +347,13 @@ $logger&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#
 }
 );
 $app&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">start&lt;/span>();
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Run this app with:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>运行此应用：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr --app-id app1 --app-port &lt;span style="color:#ae81ff">3000&lt;/span> run -- php -S 0.0.0.0:3000 app1.php
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
 &lt;/div>
-&lt;p>The &lt;code>/dsstatus&lt;/code> endpoint matches the &lt;code>route&lt;/code> defined in the subscriptions and this is where Dapr will send all topic messages to.&lt;/p>
-&lt;h2 id="step-3-publish-a-topic">Step 3: Publish a topic&lt;/h2>
-&lt;p>To publish a topic you need to run an instance of a Dapr sidecar to use the pubsub Redis component. You can use the default Redis component installed into your local environment.&lt;/p>
+&lt;p>&lt;code>/dsstatus&lt;/code> 终结点与订阅中定义的 &lt;code>route&lt;/code> 相匹配，这是 Dapr 将所有主题消息发送至的位置。&lt;/p>
+&lt;h2 id="步骤-3-发布主题">步骤 3: 发布主题&lt;/h2>
+&lt;p>To publish a topic you need to run an instance of a Dapr sidecar to use the pubsub Redis component. You can use the default Redis component installed into your local environment. You can use the default Redis component installed into your local environment.&lt;/p>
 &lt;p>Start an instance of Dapr with an app-id called &lt;code>testpubsub&lt;/code>:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr run --app-id testpubsub --dapr-http-port &lt;span style="color:#ae81ff">3500&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;ul class="nav nav-tabs" id="tabs-5" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
@@ -380,22 +374,22 @@ HTTP API (PowerShell)
 &lt;/li>&lt;/ul>
 &lt;div class="tab-content" id="tabs-5-content">
 &lt;div class="tab-pane fade show active" id="tabs-5-dapr-cli" role="tabpanel" aria-labelled-by="tabs-5-dapr-cli-tab">
-&lt;br />&lt;p>Then publish a message to the &lt;code>deathStarStatus&lt;/code> topic:&lt;/p>
+&lt;br />&lt;p>然后发布一条消息给 &lt;code>deathStarStatus&lt;/code> 主题：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr publish --publish-app-id testpubapp --pubsub pubsub --topic deathStarStatus --data &lt;span style="color:#e6db74">&amp;#39;{&amp;#34;status&amp;#34;: &amp;#34;completed&amp;#34;}&amp;#39;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
 &lt;div class="tab-pane fade" id="tabs-5-http-api-bash" role="tabpanel" aria-labelled-by="tabs-5-http-api-bash-tab">
-&lt;br />&lt;p>Then publish a message to the &lt;code>deathStarStatus&lt;/code> topic:&lt;/p>
+&lt;br />&lt;p>然后发布一条消息给 &lt;code>deathStarStatus&lt;/code> 主题：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl -X POST http://localhost:3500/v1.0/publish/pubsub/deathStarStatus -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span> -d &lt;span style="color:#e6db74">&amp;#39;{&amp;#34;status&amp;#34;: &amp;#34;completed&amp;#34;}&amp;#39;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
 &lt;div class="tab-pane fade" id="tabs-5-http-api-powershell" role="tabpanel" aria-labelled-by="tabs-5-http-api-powershell-tab">
-&lt;br />&lt;p>Then publish a message to the &lt;code>deathStarStatus&lt;/code> topic:&lt;/p>
+&lt;br />&lt;p>然后发布一条消息给 &lt;code>deathStarStatus&lt;/code> 主题：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-powershell" data-lang="powershell">Invoke-RestMethod -Method Post -ContentType &lt;span style="color:#e6db74">&amp;#39;application/json&amp;#39;&lt;/span> -Body &lt;span style="color:#e6db74">&amp;#39;{&amp;#34;status&amp;#34;: &amp;#34;completed&amp;#34;}&amp;#39;&lt;/span> -Uri &lt;span style="color:#e6db74">&amp;#39;http://localhost:3500/v1.0/publish/pubsub/deathStarStatus&amp;#39;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
 &lt;/div>
-&lt;p>Dapr automatically wraps the user payload in a Cloud Events v1.0 compliant envelope, using &lt;code>Content-Type&lt;/code> header value for &lt;code>datacontenttype&lt;/code> attribute.&lt;/p>
-&lt;h2 id="step-4-ack-ing-a-message">Step 4: ACK-ing a message&lt;/h2>
-&lt;p>In order to tell Dapr that a message was processed successfully, return a &lt;code>200 OK&lt;/code> response. If Dapr receives any other return status code than &lt;code>200&lt;/code>, or if your app crashes, Dapr will attempt to redeliver the message following At-Least-Once semantics.&lt;/p>
-&lt;h4 id="example-2">Example&lt;/h4>
+&lt;p>Dapr 将在符合 Cloud Events v1.0 的信封中自动包装用户有效负载，对 &lt;code>datacontenttype&lt;/code> 属性使用 &lt;code>Content-Type&lt;/code> 头值。&lt;/p>
+&lt;h2 id="步骤-4-ack-ing-消息">步骤 4: ACK-ing 消息&lt;/h2>
+&lt;p>为了告诉Dapr 消息处理成功，返回一个 &lt;code>200 OK&lt;/code> 响应。 如果 Dapr 收到超过 &lt;code>200&lt;/code> 的返回状态代码，或者你的应用崩溃，Dapr 将根据 At-Least-Once 语义尝试重新传递消息。&lt;/p>
+&lt;h4 id="示例-2">示例&lt;/h4>
 &lt;ul class="nav nav-tabs" id="tabs-6" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
 id="tabs-6-python-tab" data-toggle="tab" href="#tabs-6-python" role="tab"
 aria-controls="tabs-6-python" aria-selected="true">
@@ -468,58 +462,57 @@ $logger&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
 &lt;/div>
 &lt;h2 id="sending-a-custom-cloudevent">Sending a custom CloudEvent&lt;/h2>
-&lt;p>Dapr automatically takes the data sent on the publish request and wraps it in a CloudEvent 1.0 envelope.
-If you want to use your own custom CloudEvent, make sure to specify the content type as &lt;code>application/cloudevents+json&lt;/code>.&lt;/p>
+&lt;p>Dapr automatically takes the data sent on the publish request and wraps it in a CloudEvent 1.0 envelope. If you want to use your own custom CloudEvent, make sure to specify the content type as &lt;code>application/cloudevents+json&lt;/code>. If you want to use your own custom CloudEvent, make sure to specify the content type as &lt;code>application/cloudevents+json&lt;/code>.&lt;/p>
 &lt;p>See info about content types &lt;a href="#Content-Types">here&lt;/a>.&lt;/p>
-&lt;h2 id="next-steps">Next steps&lt;/h2>
+&lt;h2 id="下一步">下一步&lt;/h2>
 &lt;ul>
 &lt;li>Try the &lt;a href="https://github.com/dapr/quickstarts/tree/master/pub-sub">Pub/Sub quickstart sample&lt;/a>&lt;/li>
 &lt;li>Learn about &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-scopes/">topic scoping&lt;/a>&lt;/li>
 &lt;li>Learn about &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-message-ttl/">message time-to-live&lt;/a>&lt;/li>
-&lt;li>Learn &lt;a href="https://docs.dapr.io/operations/components/setup-pubsub/pubsub-namespaces/">how to configure Pub/Sub components with multiple namespaces&lt;/a>&lt;/li>
+&lt;li>您可以重写这个文件以使用另一个 Redis 实例或者另一个 &lt;a href="https://docs.dapr.io/operations/components/setup-pubsub/">pubsub component&lt;/a> ，通过创建 &lt;code>components&lt;/code> 文件夹（文件夹中包含重写的文件）并在 &lt;code>dapr run&lt;/code> 命令行界面使用 &lt;code>--components-path&lt;/code> 标志。&lt;/li>
 &lt;li>List of &lt;a href="https://docs.dapr.io/operations/components/setup-pubsub/">pub/sub components&lt;/a>&lt;/li>
 &lt;li>Read the &lt;a href="https://docs.dapr.io/reference/api/pubsub_api/">API reference&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Developing-Applications: Scope Pub/Sub topic access</title><link>https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-scopes/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-scopes/</guid><description>
-&lt;h2 id="introduction">Introduction&lt;/h2>
-&lt;p>&lt;a href="https://docs.dapr.io/operations/components/component-scopes/">Namespaces or component scopes&lt;/a> can be used to limit component access to particular applications. These application scopes added to a component limit only the applications with specific IDs to be able to use the component.&lt;/p>
-&lt;p>In addition to this general component scope, the following can be limited for pub/sub components:&lt;/p>
+&lt;/ul></description></item><item><title>Developing-Applications: 限定 Pub/Sub 主题访问权限</title><link>https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-scopes/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-scopes/</guid><description>
+&lt;h2 id="介绍">介绍&lt;/h2>
+&lt;p>&lt;a href="https://docs.dapr.io/operations/components/component-scopes/">名称空间或组件 scopes&lt;/a> 可用于限制对特定应用程序的组件访问。 添加到组件的这些应用程序作用域仅限制具有特定 ID 的应用程序才能使用该组件。&lt;/p>
+&lt;p>除了此常规组件范围外，对于 pub/sub 组件，还可以限制以下操作：&lt;/p>
 &lt;ul>
-&lt;li>Which topics which can be used (published or subscribed)&lt;/li>
-&lt;li>Which applications are allowed to publish to specific topics&lt;/li>
-&lt;li>Which applications are allowed to subscribe to specific topics&lt;/li>
+&lt;li>哪些主题可以使用(发布或订阅)&lt;/li>
+&lt;li>哪些应用程序被允许发布到特定主题&lt;/li>
+&lt;li>哪些应用程序被允许订阅特定主题&lt;/li>
 &lt;/ul>
-&lt;p>This is called &lt;strong>pub/sub topic scoping&lt;/strong>.&lt;/p>
-&lt;p>Pub/sub scopes are defined for each pub/sub component. You may have a pub/sub component named &lt;code>pubsub&lt;/code> that has one set of scopes, and another &lt;code>pubsub2&lt;/code> with a different set.&lt;/p>
-&lt;p>To use this topic scoping three metadata properties can be set for a pub/sub component:&lt;/p>
+&lt;p>这称为 &lt;strong>pub/sub 主题作用域限定&lt;/strong>。&lt;/p>
+&lt;p>为每个 pub/sub 组件定义发布/订阅范围。 您可能有一个名为 &lt;code>pubsub&lt;/code> 的 pub/sub 组件，它有一组范围设置，另一个 &lt;code>pubsub2&lt;/code> 另有一组范围设置。&lt;/p>
+&lt;p>要使用这个主题范围，可以设置一个 pub/sub 组件的三个元数据属性：&lt;/p>
 &lt;ul>
 &lt;li>&lt;code>spec.metadata.publishingScopes&lt;/code>
 &lt;ul>
-&lt;li>A semicolon-separated list of applications &amp;amp; comma-separated topic lists, allowing that app to publish to that list of topics&lt;/li>
-&lt;li>If nothing is specified in &lt;code>publishingScopes&lt;/code> (default behavior), all apps can publish to all topics&lt;/li>
-&lt;li>To deny an app the ability to publish to any topic, leave the topics list blank (&lt;code>app1=;app2=topic2&lt;/code>)&lt;/li>
-&lt;li>For example, &lt;code>app1=topic1;app2=topic2,topic3;app3=&lt;/code> will allow app1 to publish to topic1 and nothing else, app2 to publish to topic2 and topic3 only, and app3 to publish to nothing.&lt;/li>
+&lt;li>分号分隔应用程序列表&amp;amp; 逗号分隔的主题列表允许该 app 发布信息到主题列表&lt;/li>
+&lt;li>如果在 &lt;code>publishingScopes&lt;/code> (缺省行为) 中未指定任何内容，那么所有应用程序可以发布到所有主题&lt;/li>
+&lt;li>要拒绝应用程序发布信息到任何主题，请将主题列表留空 (&lt;code>app1=;app2=topic2&lt;/code>)&lt;/li>
+&lt;li>例如， &lt;code>app1=topic1;app2=topic2,topic3;app3=&lt;/code> 允许 app1 发布信息至 topic1 ，app2 允许发布信息到 topic2 和 topic3 ，app3 不允许发布信息到任何主题。&lt;/li>
 &lt;/ul>
 &lt;/li>
 &lt;li>&lt;code>spec.metadata.subscriptionScopes&lt;/code>
 &lt;ul>
-&lt;li>A semicolon-separated list of applications &amp;amp; comma-separated topic lists, allowing that app to subscribe to that list of topics&lt;/li>
-&lt;li>If nothing is specified in &lt;code>subscriptionScopes&lt;/code> (default behavior), all apps can subscribe to all topics&lt;/li>
-&lt;li>For example, &lt;code>app1=topic1;app2=topic2,topic3&lt;/code> will allow app1 to subscribe to topic1 only and app2 to subscribe to topic2 and topic3&lt;/li>
+&lt;li>分号分隔应用程序列表&amp;amp; 逗号分隔的主题列表允许该 app 订阅主题列表&lt;/li>
+&lt;li>如果在 &lt;code>subscriptionScopes&lt;/code> (缺省行为) 中未指定任何内容，那么所有应用程序都可以订阅所有主题&lt;/li>
+&lt;li>例如， &lt;code>app1=topic1;app2=topic2,topic3&lt;/code> 允许 app1 订阅 topic1 ，app2 可以订阅 topic2 和 topic3&lt;/li>
 &lt;/ul>
 &lt;/li>
 &lt;li>&lt;code>spec.metadata.allowedTopics&lt;/code>
 &lt;ul>
-&lt;li>A comma-separated list of allowed topics for all applications.&lt;/li>
-&lt;li>If &lt;code>allowedTopics&lt;/code> is not set (default behavior), all topics are valid. &lt;code>subscriptionScopes&lt;/code> and &lt;code>publishingScopes&lt;/code> still take place if present.&lt;/li>
-&lt;li>&lt;code>publishingScopes&lt;/code> or &lt;code>subscriptionScopes&lt;/code> can be used in conjuction with &lt;code>allowedTopics&lt;/code> to add granular limitations&lt;/li>
+&lt;li>一个逗号分隔的允许主题列表，对所有应用程序。&lt;/li>
+&lt;li>如果未设置 &lt;code>allowedTopics&lt;/code> (缺省行为) ，那么所有主题都有效。 &lt;code>subscriptionScopes&lt;/code> 和 &lt;code>publishingScopes&lt;/code> 如果存在则仍然生效。&lt;/li>
+&lt;li>&lt;code>publishingScopes&lt;/code> 或 &lt;code>subscriptionScopes&lt;/code> 可用于与 &lt;code>allowedTopics&lt;/code> 的 conjuction ，以添加限制粒度&lt;/li>
 &lt;/ul>
 &lt;/li>
 &lt;/ul>
-&lt;p>These metadata properties can be used for all pub/sub components. The following examples use Redis as pub/sub component.&lt;/p>
-&lt;h2 id="example-1-scope-topic-access">Example 1: Scope topic access&lt;/h2>
-&lt;p>Limiting which applications can publish/subscribe to topics can be useful if you have topics which contain sensitive information and only a subset of your applications are allowed to publish or subscribe to these.&lt;/p>
-&lt;p>It can also be used for all topics to have always a &amp;ldquo;ground truth&amp;rdquo; for which applications are using which topics as publishers/subscribers.&lt;/p>
-&lt;p>Here is an example of three applications and three topics:&lt;/p>
+&lt;p>这些元数据属性可用于所有 pub/sub 组件。 以下示例使用 Redis 作为 pub/sub 组件。&lt;/p>
+&lt;h2 id="示例-1-限制主题访问权限">示例 1: 限制主题访问权限&lt;/h2>
+&lt;p>如果主题包含敏感信息，并且只允许应用程序的某个子集发布或订阅这些主题，限制哪些应用程序可以发布/订阅主题可能很有用。&lt;/p>
+&lt;p>它还可以用于所有主题，以始终具有应用程序使用哪些主题作为发布者/订阅者的“基本事实”。&lt;/p>
+&lt;p>以下是三个应用程序和三个主题的示例:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -537,7 +530,7 @@ If you want to use your own custom CloudEvent, make sure to specify the content 
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;app1=topic1;app2=topic2,topic3;app3=&amp;#34;&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">subscriptionScopes&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;app2=;app3=topic1&amp;#34;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>The table below shows which applications are allowed to publish into the topics:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>下表显示哪些应用程序允许在主题中发布：&lt;/p>
 &lt;table>
 &lt;thead>
 &lt;tr>
@@ -568,7 +561,7 @@ If you want to use your own custom CloudEvent, make sure to specify the content 
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;p>The table below shows which applications are allowed to subscribe to the topics:&lt;/p>
+&lt;p>下表显示哪些应用程序可以订阅主题：&lt;/p>
 &lt;table>
 &lt;thead>
 &lt;tr>
@@ -600,16 +593,16 @@ If you want to use your own custom CloudEvent, make sure to specify the content 
 &lt;/tbody>
 &lt;/table>
 &lt;blockquote>
-&lt;p>Note: If an application is not listed (e.g. app1 in subscriptionScopes) it is allowed to subscribe to all topics. Because &lt;code>allowedTopics&lt;/code> is not used and app1 does not have any subscription scopes, it can also use additional topics not listed above.&lt;/p>
+&lt;p>注意: 如果应用程序未列出 ( 例如， subscriptionScopes 中的 app1) ，那么允许订阅所有主题。 因为 &lt;code>allowedTopics&lt;/code> 未使用，而 app1 任何订阅范围，因此它还可以使用上面未列出的其他主题。&lt;/p>
 &lt;/blockquote>
-&lt;h2 id="example-2-limit-allowed-topics">Example 2: Limit allowed topics&lt;/h2>
-&lt;p>A topic is created if a Dapr application sends a message to it. In some scenarios this topic creation should be governed. For example:&lt;/p>
+&lt;h2 id="示例-2-限制允许的主题">示例 2: 限制允许的主题&lt;/h2>
+&lt;p>当 Dapr 应用程序给主题发送信息时，主题将自动创建。 在某些情况下，这个主题的创建应该得到管理。 例如:&lt;/p>
 &lt;ul>
-&lt;li>A bug in a Dapr application on generating the topic name can lead to an unlimited amount of topics created&lt;/li>
-&lt;li>Streamline the topics names and total count and prevent an unlimited growth of topics&lt;/li>
+&lt;li>Dapr 应用程序中有关生成主题名称的错误可能会导致创建无限数量的主题&lt;/li>
+&lt;li>简化主题名称和总数，防止主题无限增长&lt;/li>
 &lt;/ul>
-&lt;p>In these situations &lt;code>allowedTopics&lt;/code> can be used.&lt;/p>
-&lt;p>Here is an example of three allowed topics:&lt;/p>
+&lt;p>在这些情况下，可以使用 &lt;code>allowedTopics&lt;/code>。&lt;/p>
+&lt;p>以下是三个允许的主题的示例:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -625,10 +618,10 @@ If you want to use your own custom CloudEvent, make sure to specify the content 
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">allowedTopics&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;topic1,topic2,topic3&amp;#34;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>All applications can use these topics, but only those topics, no others are allowed.&lt;/p>
-&lt;h2 id="example-3-combine-allowedtopics-and-scopes">Example 3: Combine &lt;code>allowedTopics&lt;/code> and scopes&lt;/h2>
-&lt;p>Sometimes you want to combine both scopes, thus only having a fixed set of allowed topics and specify scoping to certain applications.&lt;/p>
-&lt;p>Here is an example of three applications and two topics:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>所有应用程序都可以使用这些主题，但仅允许这些主题，不允许其他主题。&lt;/p>
+&lt;h2 id="示例-3-组合-allowedtopics-和范围">示例 3: 组合 &lt;code>allowedTopics&lt;/code> 和范围&lt;/h2>
+&lt;p>有时，您希望合并这两个作用域，从而仅具有固定的一组允许主题，并指定对某些应用程序的作用域限定。&lt;/p>
+&lt;p>以下是三个应用程序和两个主题的示例:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -649,9 +642,9 @@ If you want to use your own custom CloudEvent, make sure to specify the content 
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">subscriptionScopes&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;app1=;app2=A&amp;#34;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
-&lt;p>Note: The third application is not listed, because if an app is not specified inside the scopes, it is allowed to use all topics.&lt;/p>
+&lt;p>注意: 第三个应用程序未列出，因为如果在作用域内未指定应用程序，那么允许使用所有主题。&lt;/p>
 &lt;/blockquote>
-&lt;p>The table below shows which application is allowed to publish into the topics:&lt;/p>
+&lt;p>下表显示允许哪些应用程序发布到主题中:&lt;/p>
 &lt;table>
 &lt;thead>
 &lt;tr>
@@ -682,7 +675,7 @@ If you want to use your own custom CloudEvent, make sure to specify the content 
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;p>The table below shows which application is allowed to subscribe to the topics:&lt;/p>
+&lt;p>下表显示哪些应用程序允许订阅主题：&lt;/p>
 &lt;table>
 &lt;thead>
 &lt;tr>
@@ -713,27 +706,26 @@ If you want to use your own custom CloudEvent, make sure to specify the content 
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="demo">Demo&lt;/h2>
-&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/7VdWBBGcbHQ?start=513" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>&lt;/iframe>
-&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;h2 id="例子--iframe-width560-height315-srchttpswwwyoutubecomembed7vdwbbgcbhqstart513-frameborder0-allowaccelerometer-autoplay-clipboard-write-encrypted-media-gyroscope-picture-in-picture-allowfullscreen-markcrwd-markiframe">例子 &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/7VdWBBGcbHQ?start=513" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark">&lt;/iframe>&lt;/h2>
+&lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
 &lt;li>Learn &lt;a href="https://docs.dapr.io/operations/components/setup-pubsub/pubsub-namespaces/">how to configure Pub/Sub components with multiple namespaces&lt;/a>&lt;/li>
 &lt;li>Learn about &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-message-ttl/">message time-to-live&lt;/a>&lt;/li>
 &lt;li>List of &lt;a href="https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/">pub/sub components&lt;/a>&lt;/li>
 &lt;li>Read the &lt;a href="https://docs.dapr.io/reference/api/pubsub_api/">API reference&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Developing-Applications: Message Time-to-Live (TTL)</title><link>https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-message-ttl/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-message-ttl/</guid><description>
-&lt;h2 id="introduction">Introduction&lt;/h2>
-&lt;p>Dapr enables per-message time-to-live (TTL). This means that applications can set time-to-live per message, and subscribers do not receive those messages after expiration.&lt;/p>
-&lt;p>All Dapr &lt;a href="https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/">pub/sub components&lt;/a> are compatible with message TTL, as Dapr handles the TTL logic within the runtime. Simply set the &lt;code>ttlInSeconds&lt;/code> metadata when publishing a message.&lt;/p>
-&lt;p>In some components, such as Kafka, time-to-live can be configured in the topic via &lt;code>retention.ms&lt;/code> as per &lt;a href="https://kafka.apache.org/documentation/#topicconfigs_retention.ms">documentation&lt;/a>. With message TTL in Dapr, applications using Kafka can now set time-to-live per message in addition to per topic.&lt;/p>
+&lt;/ul></description></item><item><title>Developing-Applications: 消息生存时间</title><link>https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-message-ttl/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-message-ttl/</guid><description>
+&lt;h2 id="介绍">介绍&lt;/h2>
+&lt;p>Dapr 允许对每个消息设置生存时间(TTL)。 这意味着应用程序可以设置每条消息的生存时间，并且这些消息过期后订阅者不会收到。&lt;/p>
+&lt;p>All Dapr &lt;a href="https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/">pub/sub components&lt;/a> are compatible with message TTL, as Dapr handles the TTL logic within the runtime. Simply set the &lt;code>ttlInSeconds&lt;/code> metadata when publishing a message. Simply set the &lt;code>ttlInSeconds&lt;/code> metadata when publishing a message.&lt;/p>
+&lt;p>In some components, such as Kafka, time-to-live can be configured in the topic via &lt;code>retention.ms&lt;/code> as per &lt;a href="https://kafka.apache.org/documentation/#topicconfigs_retention.ms">documentation&lt;/a>. With message TTL in Dapr, applications using Kafka can now set time-to-live per message in addition to per topic. With message TTL in Dapr, applications using Kafka can now set time-to-live per message in addition to per topic.&lt;/p>
 &lt;h2 id="native-message-ttl-support">Native message TTL support&lt;/h2>
-&lt;p>When message time-to-live has native support in the pub/sub component, Dapr simply forwards the time-to-live configuration without adding any extra logic, keeping predictable behavior. This is helpful when the expired messages are handled differently by the component. For example, with Azure Service Bus, where expired messages are stored in the dead letter queue and are not simply deleted.&lt;/p>
+&lt;p>When message time-to-live has native support in the pub/sub component, Dapr simply forwards the time-to-live configuration without adding any extra logic, keeping predictable behavior. This is helpful when the expired messages are handled differently by the component. For example, with Azure Service Bus, where expired messages are stored in the dead letter queue and are not simply deleted. This is helpful when the expired messages are handled differently by the component. For example, with Azure Service Bus, where expired messages are stored in the dead letter queue and are not simply deleted.&lt;/p>
 &lt;h3 id="supported-components">Supported components&lt;/h3>
 &lt;h4 id="azure-service-bus">Azure Service Bus&lt;/h4>
-&lt;p>Azure Service Bus supports &lt;a href="(https://docs.microsoft.com/en-us/azure/service-bus-messaging/message-expiration)">entity level time-to-live&lt;/a>. This means that messages have a default time-to-live but can also be set with a shorter timespan at publishing time. Dapr propagates the time-to-live metadata for the message and lets Azure Service Bus handle the expiration directly.&lt;/p>
+&lt;p>Azure Service Bus supports &lt;a href="(https://docs.microsoft.com/en-us/azure/service-bus-messaging/message-expiration)">entity level time-to-live&lt;/a>. This means that messages have a default time-to-live but can also be set with a shorter timespan at publishing time. Dapr propagates the time-to-live metadata for the message and lets Azure Service Bus handle the expiration directly. This means that messages have a default time-to-live but can also be set with a shorter timespan at publishing time. Dapr propagates the time-to-live metadata for the message and lets Azure Service Bus handle the expiration directly.&lt;/p>
 &lt;h2 id="non-dapr-subscribers">Non-Dapr subscribers&lt;/h2>
-&lt;p>If messages are consumed by subscribers not using Dapr, the expired messages are not automatically dropped, as expiration is handled by the Dapr runtime when a Dapr sidecar receives a message. However, subscribers can programmatically drop expired messages by adding logic to handle the &lt;code>expiration&lt;/code> attribute in the cloud event, which follows the &lt;a href="https://tools.ietf.org/html/rfc3339">RFC3339&lt;/a> format.&lt;/p>
-&lt;p>When non-Dapr subscribers use components such as Azure Service Bus, which natively handle message TTL, they do not receive expired messages. Here, no extra logic is needed.&lt;/p>
+&lt;p>If messages are consumed by subscribers not using Dapr, the expired messages are not automatically dropped, as expiration is handled by the Dapr runtime when a Dapr sidecar receives a message. However, subscribers can programmatically drop expired messages by adding logic to handle the &lt;code>expiration&lt;/code> attribute in the cloud event, which follows the &lt;a href="https://tools.ietf.org/html/rfc3339">RFC3339&lt;/a> format. However, subscribers can programmatically drop expired messages by adding logic to handle the &lt;code>expiration&lt;/code> attribute in the cloud event, which follows the &lt;a href="https://tools.ietf.org/html/rfc3339">RFC3339&lt;/a> format.&lt;/p>
+&lt;p>When non-Dapr subscribers use components such as Azure Service Bus, which natively handle message TTL, they do not receive expired messages. Here, no extra logic is needed. Here, no extra logic is needed.&lt;/p>
 &lt;h2 id="example">Example&lt;/h2>
 &lt;p>Message TTL can be set in the metadata as part of the publishing request:&lt;/p>
 &lt;ul class="nav nav-tabs" id="tabs-1" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"

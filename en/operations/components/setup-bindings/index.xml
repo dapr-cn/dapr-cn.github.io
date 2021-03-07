@@ -1,0 +1,336 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr Docs – Bindings components</title><link>https://docs.dapr.io/en/operations/components/setup-bindings/</link><description>Recent content in Bindings components on Dapr Docs</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/en/operations/components/setup-bindings/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: Supported external bindings</title><link>https://docs.dapr.io/en/operations/components/setup-bindings/supported-bindings/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/operations/components/setup-bindings/supported-bindings/</guid><description>
+&lt;p>Every binding has its own unique set of properties. Click the name link to see the component YAML for each binding.&lt;/p>
+&lt;p>Table captions:&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;code>Status&lt;/code>: &lt;a href="https://docs.dapr.io/en/operations/components/certification-lifecycle/">Component certification&lt;/a> status&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/certification-lifecycle/#alpha">Alpha&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/certification-lifecycle/#beta">Beta&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/certification-lifecycle/#general-availability-ga">GA&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>&lt;code>Since&lt;/code>: defines from which Dapr Runtime version, the component is in the current status&lt;/p>
+&lt;/blockquote>
+&lt;blockquote>
+&lt;p>&lt;code>Component version&lt;/code>: defines the version of the component&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="generic">Generic&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th style="text-align:center">Input&lt;br>Binding&lt;/th>
+&lt;th style="text-align:center">Output&lt;br>Binding&lt;/th>
+&lt;th>Status&lt;/th>
+&lt;th>Component version&lt;/th>
+&lt;th>Since runtime version&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-bindings/supported-bindings/apns/">Apple Push Notifications (APN)&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-bindings/supported-bindings/cron/">Cron (Scheduler)&lt;/a>&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-bindings/supported-bindings/http/">HTTP&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>GA&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-bindings/supported-bindings/influxdb/">InfluxDB&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-bindings/supported-bindings/kafka/">Kafka&lt;/a>&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-bindings/supported-bindings/kubernetes-binding/">Kubernetes Events&lt;/a>&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-bindings/supported-bindings/mqtt/">MQTT&lt;/a>&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-bindings/supported-bindings/mysql/">MySQL&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-bindings/supported-bindings/postgres/">PostgreSql&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-bindings/supported-bindings/postmark/">Postmark&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-bindings/supported-bindings/rabbitmq/">RabbitMQ&lt;/a>&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-bindings/supported-bindings/redis/">Redis&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-bindings/supported-bindings/smtp/">SMTP&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-bindings/supported-bindings/twilio/">Twilio&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-bindings/supported-bindings/twitter/">Twitter&lt;/a>&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-bindings/supported-bindings/sendgrid/">SendGrid&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="alibaba-cloud">Alibaba Cloud&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th style="text-align:center">Input&lt;br>Binding&lt;/th>
+&lt;th style="text-align:center">Output&lt;br>Binding&lt;/th>
+&lt;th>Status&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-bindings/supported-bindings/alicloudoss/">Alibaba Cloud OSS&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="amazon-web-services-aws">Amazon Web Services (AWS)&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th style="text-align:center">Input&lt;br>Binding&lt;/th>
+&lt;th style="text-align:center">Output&lt;br>Binding&lt;/th>
+&lt;th>Status&lt;/th>
+&lt;th>Component version&lt;/th>
+&lt;th>Since&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-bindings/supported-bindings/dynamodb/">AWS DynamoDB&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-bindings/supported-bindings/s3/">AWS S3&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-bindings/supported-bindings/sns/">AWS SNS&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-bindings/supported-bindings/sqs/">AWS SQS&lt;/a>&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-bindings/supported-bindings/kinesis/">AWS Kinesis&lt;/a>&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="google-cloud-platform-gcp">Google Cloud Platform (GCP)&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th style="text-align:center">Input&lt;br>Binding&lt;/th>
+&lt;th style="text-align:center">Output&lt;br>Binding&lt;/th>
+&lt;th>Status&lt;/th>
+&lt;th>Component version&lt;/th>
+&lt;th>Since&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-bindings/supported-bindings/gcppubsub/">GCP Cloud Pub/Sub&lt;/a>&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-bindings/supported-bindings/gcpbucket/">GCP Storage Bucket&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="microsoft-azure">Microsoft Azure&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th style="text-align:center">Input&lt;br>Binding&lt;/th>
+&lt;th style="text-align:center">Output&lt;br>Binding&lt;/th>
+&lt;th>Status&lt;/th>
+&lt;th>Component version&lt;/th>
+&lt;th>Since&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-bindings/supported-bindings/blobstorage/">Azure Blob Storage&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-bindings/supported-bindings/cosmosdb/">Azure CosmosDB&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-bindings/supported-bindings/eventgrid/">Azure Event Grid&lt;/a>&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-bindings/supported-bindings/eventhubs/">Azure Event Hubs&lt;/a>&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-bindings/supported-bindings/servicebusqueues/">Azure Service Bus Queues&lt;/a>&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-bindings/supported-bindings/signalr/">Azure SignalR&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-bindings/supported-bindings/storagequeues/">Azure Storage Queues&lt;/a>&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>GA&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table></description></item></channel></rss>

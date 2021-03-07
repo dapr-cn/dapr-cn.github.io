@@ -1,7 +1,7 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr Docs – Pub/Sub brokers</title><link>https://docs.dapr.io/operations/components/setup-pubsub/</link><description>Recent content in Pub/Sub brokers on Dapr Docs</description><generator>Hugo -- gohugo.io</generator><language>zh-hans</language><atom:link href="https://docs.dapr.io/operations/components/setup-pubsub/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: Overview</title><link>https://docs.dapr.io/operations/components/setup-pubsub/setup-pubsub-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-pubsub/setup-pubsub-overview/</guid><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Pub/Sub brokers</title><link>https://docs.dapr.io/operations/components/setup-pubsub/</link><description>Recent content in Pub/Sub brokers on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/operations/components/setup-pubsub/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: 概述</title><link>https://docs.dapr.io/operations/components/setup-pubsub/setup-pubsub-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-pubsub/setup-pubsub-overview/</guid><description>
 &lt;p>Dapr integrates with pub/sub message buses to provide applications with the ability to create event-driven, loosely coupled architectures where producers send events to consumers via topics.&lt;/p>
-&lt;p>Dapr supports the configuration of multiple, named, pub/sub components &lt;em>per application&lt;/em>. Each pub/sub component has a name and this name is used when publishing a message topic. Read the &lt;a href="https://docs.dapr.io/reference/api/pubsub_api/">API reference&lt;/a> for details on how to publish and subscribe to topics.&lt;/p>
-&lt;p>Pub/sub components are extensible. A list of support pub/sub components is &lt;a href="https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/">here&lt;/a> and the implementations can be found in the &lt;a href="https://github.com/dapr/components-contrib">components-contrib repo&lt;/a>.&lt;/p>
+&lt;p>Dapr supports the configuration of multiple, named, pub/sub components &lt;em>per application&lt;/em>. Each pub/sub component has a name and this name is used when publishing a message topic. Read the &lt;a href="https://docs.dapr.io/reference/api/pubsub_api/">API reference&lt;/a> for details on how to publish and subscribe to topics. Each pub/sub component has a name and this name is used when publishing a message topic. Read the &lt;a href="https://docs.dapr.io/reference/api/pubsub_api/">API reference&lt;/a> for details on how to publish and subscribe to topics.&lt;/p>
+&lt;p>Pub/sub components are extensible. Pub/sub components are extensible. A list of support pub/sub components is &lt;a href="https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/">here&lt;/a> and the implementations can be found in the &lt;a href="https://github.com/dapr/components-contrib">components-contrib repo&lt;/a>.&lt;/p>
 &lt;h2 id="component-files">Component files&lt;/h2>
 &lt;p>A pub/sub is described using a &lt;code>Component&lt;/code> file:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
@@ -18,11 +18,10 @@
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;KEY&amp;gt;&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;VALUE&amp;gt;&lt;/span>
 ...
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>The type of pub/sub is determined by the &lt;code>type&lt;/code> field, and properties such as connection strings and other metadata are put in the &lt;code>.metadata&lt;/code> section.
-Even though metadata values can contain secrets in plain text, it is recommended you use a &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">secret store&lt;/a> using a &lt;code>secretKeyRef&lt;/code>.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The type of pub/sub is determined by the &lt;code>type&lt;/code> field, and properties such as connection strings and other metadata are put in the &lt;code>.metadata&lt;/code> section. The type of pub/sub is determined by the &lt;code>type&lt;/code> field, and properties such as connection strings and other metadata are put in the &lt;code>.metadata&lt;/code> section. Even though metadata values can contain secrets in plain text, it is recommended you use a &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">secret store&lt;/a> using a &lt;code>secretKeyRef&lt;/code>.&lt;/p>
 &lt;div class="alert alert-primary" role="alert">
 &lt;h4 class="alert-heading">Topic creation&lt;/h4>
-Depending on the pub/sub message bus you are using and how it is configured, topics may be created automatically. Even if the message bus supports automatic topic creation, it is a common governance practice to disable it in production environments. You may still need to use a CLI, admin console, or request form to manually create the topics required by your application.
+Depending on the pub/sub message bus you are using and how it is configured, topics may be created automatically. Even if the message bus supports automatic topic creation, it is a common governance practice to disable it in production environments. You may still need to use a CLI, admin console, or request form to manually create the topics required by your application. Even if the message bus supports automatic topic creation, it is a common governance practice to disable it in production environments. You may still need to use a CLI, admin console, or request form to manually create the topics required by your application.
 &lt;/div>
 &lt;p>Visit &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-3-publish-a-topic">this guide&lt;/a> for instructions on configuring and using pub/sub components.&lt;/p>
 &lt;h2 id="related-links">Related links&lt;/h2>
@@ -36,12 +35,12 @@ Depending on the pub/sub message bus you are using and how it is configured, top
 &lt;li>List of &lt;a href="https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/">pub/sub components&lt;/a>&lt;/li>
 &lt;li>Read the &lt;a href="https://docs.dapr.io/reference/api/pubsub_api/">API reference&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: HowTo: Configure Pub/Sub components with multiple namespaces</title><link>https://docs.dapr.io/operations/components/setup-pubsub/pubsub-namespaces/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-pubsub/pubsub-namespaces/</guid><description>
-&lt;p>In some scenarios, applications can be spread across namespaces and share a queue or topic via PubSub. In this case, the PubSub component must be provisioned on each namespace.&lt;/p>
+&lt;p>In some scenarios, applications can be spread across namespaces and share a queue or topic via PubSub. In this case, the PubSub component must be provisioned on each namespace. In this case, the PubSub component must be provisioned on each namespace.&lt;/p>
 &lt;div class="alert alert-primary" role="alert">
 &lt;h4 class="alert-heading">Note&lt;/h4>
-Namespaces are a Dapr concept used for scoping applications and components. This example uses Kubernetes namespaces, however the Dapr component namespace scoping can be used on any supported platform. Read &lt;a href="https://docs.dapr.io/operations/components/component-scopes/">How-To: Scope components to one or more applications&lt;/a> for more information on scoping components.
+Namespaces are a Dapr concept used for scoping applications and components. This example uses Kubernetes namespaces, however the Dapr component namespace scoping can be used on any supported platform. Read &lt;a href="https://docs.dapr.io/operations/components/component-scopes/">How-To: Scope components to one or more applications&lt;/a> for more information on scoping components. This example uses Kubernetes namespaces, however the Dapr component namespace scoping can be used on any supported platform. Read &lt;a href="https://docs.dapr.io/operations/components/component-scopes/">How-To: Scope components to one or more applications&lt;/a> for more information on scoping components.
 &lt;/div>
-&lt;p>This example uses the &lt;a href="https://github.com/dapr/quickstarts/tree/master/pub-sub">PubSub sample&lt;/a>. The Redis installation and the subscribers are in &lt;code>namespace-a&lt;/code> while the publisher UI is in &lt;code>namespace-b&lt;/code>. This solution will also work if Redis is installed on another namespace or if you use a managed cloud service like Azure ServiceBus, AWS SNS/SQS or GCP PubSub.&lt;/p>
+&lt;p>This example uses the &lt;a href="https://github.com/dapr/quickstarts/tree/master/pub-sub">PubSub sample&lt;/a>. The Redis installation and the subscribers are in &lt;code>namespace-a&lt;/code> while the publisher UI is in &lt;code>namespace-b&lt;/code>. This example uses the &lt;a href="https://github.com/dapr/quickstarts/tree/master/pub-sub">PubSub sample&lt;/a>. The Redis installation and the subscribers are in &lt;code>namespace-a&lt;/code> while the publisher UI is in &lt;code>namespace-b&lt;/code>. This solution will also work if Redis is installed on another namespace or if you use a managed cloud service like Azure ServiceBus, AWS SNS/SQS or GCP PubSub.&lt;/p>
 &lt;p>This is a diagram of the example using namespaces.&lt;/p>
 &lt;img src="https://docs.dapr.io/images/pubsub-multiple-namespaces.png" width=1000>
 &lt;br>&lt;/br>
@@ -131,7 +130,7 @@ kubectl apply -f deploy/react-form.yaml
 &lt;/code>&lt;/pre>&lt;p>Display logs:&lt;/p>
 &lt;pre>&lt;code>kubectl logs node-subscriber-XYZ node-subscriber
 kubectl logs python-subscriber-XYZ python-subscriber
-&lt;/code>&lt;/pre>&lt;p>The messages published on the browser should show in the corresponding subscriber&amp;rsquo;s logs. The Node.js subscriber receives messages of type &amp;ldquo;A&amp;rdquo; and &amp;ldquo;B&amp;rdquo;, while the Python subscriber receives messages of type &amp;ldquo;A&amp;rdquo; and &amp;ldquo;C&amp;rdquo;.&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>The messages published on the browser should show in the corresponding subscriber&amp;rsquo;s logs. The messages published on the browser should show in the corresponding subscriber&amp;rsquo;s logs. The Node.js subscriber receives messages of type &amp;ldquo;A&amp;rdquo; and &amp;ldquo;B&amp;rdquo;, while the Python subscriber receives messages of type &amp;ldquo;A&amp;rdquo; and &amp;ldquo;C&amp;rdquo;.&lt;/p>
 &lt;h2 id="clean-up">Clean up&lt;/h2>
 &lt;pre>&lt;code>kubectl delete -f deploy/redis.yaml --namespace namespace-a
 kubectl delete -f deploy/node-subscriber.yaml --namespace namespace-a
@@ -141,7 +140,7 @@ kubectl delete -f deploy/redis.yaml --namespace namespace-b
 kubectl config set-context --current --namespace=default
 kubectl delete namespace namespace-a
 kubectl delete namespace namespace-b
-&lt;/code>&lt;/pre>&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;/code>&lt;/pre>&lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-scopes/">Scope components to one or more applications&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/secrets/secrets-scopes/">Use secret scoping&lt;/a>&lt;/li>
@@ -149,16 +148,13 @@ kubectl delete namespace namespace-b
 &lt;/ul></description></item><item><title>Operations: Supported pub/sub brokers</title><link>https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/</guid><description>
 &lt;p>Table captions:&lt;/p>
 &lt;blockquote>
-&lt;p>&lt;code>Status&lt;/code>: &lt;a href="https://docs.dapr.io/operations/components/certification-lifecycle/">Component certification&lt;/a> status&lt;/p>
+&lt;p>&lt;code>Status&lt;/code>: &lt;a href="%7B%7BX31X%7D%7D">Component certification&lt;/a> status&lt;/p>
 &lt;/blockquote>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/certification-lifecycle/#alpha">Alpha&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/certification-lifecycle/#beta">Beta&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/certification-lifecycle/#general-availability-ga">GA&lt;/a>&lt;/li>
+&lt;li>&lt;a href="%7B%7BX%1A20X%7D%7D">Alpha&lt;/a>&lt;/li>
+&lt;li>&lt;a href="%7B%7BX%1A22X%7D%7D">Beta&lt;/a>&lt;/li>
+&lt;li>&lt;a href="%7B%7BX24X%7D%7D">GA&lt;/a> &amp;gt; &lt;code>Since&lt;/code>: defines from which Dapr Runtime version, the component is in the current status&lt;/li>
 &lt;/ul>
-&lt;blockquote>
-&lt;p>&lt;code>Since&lt;/code>: defines from which Dapr Runtime version, the component is in the current status&lt;/p>
-&lt;/blockquote>
 &lt;blockquote>
 &lt;p>&lt;code>Component version&lt;/code>: defines the version of the component&lt;/p>
 &lt;/blockquote>
@@ -166,8 +162,8 @@ kubectl delete namespace namespace-b
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>Name&lt;/th>
-&lt;th>Status&lt;/th>
+&lt;th>名称&lt;/th>
+&lt;th>状态 （State）&lt;/th>
 &lt;th>Component version&lt;/th>
 &lt;th>Since&lt;/th>
 &lt;/tr>

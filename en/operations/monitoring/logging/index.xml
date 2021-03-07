@@ -1,0 +1,268 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr Docs – Logging</title><link>https://docs.dapr.io/en/operations/monitoring/logging/</link><description>Recent content in Logging on Dapr Docs</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/en/operations/monitoring/logging/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: How-To: Set up Fluentd, Elastic search and Kibana in Kubernetes</title><link>https://docs.dapr.io/en/operations/monitoring/logging/fluentd/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/operations/monitoring/logging/fluentd/</guid><description>
+&lt;h2 id="prerequisites">Prerequisites&lt;/h2>
+&lt;ul>
+&lt;li>Kubernetes (&amp;gt; 1.14)&lt;/li>
+&lt;li>&lt;a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/">kubectl&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://helm.sh/">Helm 3&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="install-elastic-search-and-kibana">Install Elastic search and Kibana&lt;/h2>
+&lt;ol>
+&lt;li>
+&lt;p>Create namespace for monitoring tool and add Helm repo for Elastic Search&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl create namespace dapr-monitoring
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Add Elastic helm repo&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm repo add elastic https://helm.elastic.co
+helm repo update
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Install Elastic Search using Helm&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>By default the chart creates 3 replicas which must be on different nodes. If your cluster has less than 3 nodes, specify a lower number of replicas. For example, this sets it to 1:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm install elasticsearch elastic/elasticsearch -n dapr-monitoring --set replicas&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Otherwise:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm install elasticsearch elastic/elasticsearch -n dapr-monitoring
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>If you are using minikube or want to disable persistent volumes for development purposes, you can disable it by using the following command:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm install elasticsearch elastic/elasticsearch -n dapr-monitoring --set persistence.enabled&lt;span style="color:#f92672">=&lt;/span>false,replicas&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="4">
+&lt;li>
+&lt;p>Install Kibana&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm install kibana elastic/kibana -n dapr-monitoring
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Validation&lt;/p>
+&lt;p>Ensure Elastic Search and Kibana are running in your Kubernetes cluster.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl get pods -n dapr-monitoring
+NAME READY STATUS RESTARTS AGE
+elasticsearch-master-0 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 6m58s
+kibana-kibana-95bc54b89-zqdrk 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 4m21s
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;/ol>
+&lt;h2 id="install-fluentd">Install Fluentd&lt;/h2>
+&lt;ol>
+&lt;li>Install config map and Fluentd as a daemonset&lt;/li>
+&lt;/ol>
+&lt;p>Download these config files:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/docs/fluentd-config-map.yaml">fluentd-config-map.yaml&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/docs/fluentd-dapr-with-rbac.yaml">fluentd-dapr-with-rbac.yaml&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>Note: If you already have Fluentd running in your cluster, please enable the nested json parser to parse JSON formatted log from Dapr.&lt;/p>
+&lt;/blockquote>
+&lt;p>Apply the configurations to your cluster:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl apply -f ./fluentd-config-map.yaml
+kubectl apply -f ./fluentd-dapr-with-rbac.yaml
+&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
+&lt;li>Ensure that Fluentd is running as a daemonset; the number of instances should be the same as the number of cluster nodes. In the example below we only have 1 node.&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl get pods -n kube-system -w
+NAME READY STATUS RESTARTS AGE
+coredns-6955765f44-cxjxk 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 4m41s
+coredns-6955765f44-jlskv 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 4m41s
+etcd-m01 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 4m48s
+fluentd-sdrld 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 14s
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="install-dapr-with-json-formatted-logs">Install Dapr with JSON formatted logs&lt;/h2>
+&lt;ol>
+&lt;li>
+&lt;p>Install Dapr with enabling JSON-formatted logs&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm repo add dapr https://dapr.github.io/helm-charts/
+helm repo update
+helm install dapr dapr/dapr --namespace dapr-system --set global.logAsJson&lt;span style="color:#f92672">=&lt;/span>true
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Enable JSON formatted log in Dapr sidecar&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>Add &lt;code>dapr.io/log-as-json: &amp;quot;true&amp;quot;&lt;/code> annotation to your deployment yaml.&lt;/p>
+&lt;p>Example:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">apps/v1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Deployment&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">pythonapp&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">labels&lt;/span>:
+&lt;span style="color:#f92672">app&lt;/span>: &lt;span style="color:#ae81ff">python&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">replicas&lt;/span>: &lt;span style="color:#ae81ff">1&lt;/span>
+&lt;span style="color:#f92672">selector&lt;/span>:
+&lt;span style="color:#f92672">matchLabels&lt;/span>:
+&lt;span style="color:#f92672">app&lt;/span>: &lt;span style="color:#ae81ff">python&lt;/span>
+&lt;span style="color:#f92672">template&lt;/span>:
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">labels&lt;/span>:
+&lt;span style="color:#f92672">app&lt;/span>: &lt;span style="color:#ae81ff">python&lt;/span>
+&lt;span style="color:#f92672">annotations&lt;/span>:
+&lt;span style="color:#f92672">dapr.io/enabled&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">dapr.io/app-id&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;pythonapp&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">dapr.io/log-as-json&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
+...
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="search-logs">Search logs&lt;/h2>
+&lt;blockquote>
+&lt;p>Note: Elastic Search takes a time to index the logs that Fluentd sends.&lt;/p>
+&lt;/blockquote>
+&lt;ol>
+&lt;li>Port-forward to svc/kibana-kibana&lt;/li>
+&lt;/ol>
+&lt;pre>&lt;code>$ kubectl port-forward svc/kibana-kibana 5601 -n dapr-monitoring
+Forwarding from 127.0.0.1:5601 -&amp;gt; 5601
+Forwarding from [::1]:5601 -&amp;gt; 5601
+Handling connection for 5601
+Handling connection for 5601
+&lt;/code>&lt;/pre>&lt;ol start="2">
+&lt;li>
+&lt;p>Browse &lt;code>http://localhost:5601&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Click Management -&amp;gt; Index Management&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://docs.dapr.io/images/kibana-1.png" alt="kibana management">&lt;/p>
+&lt;ol start="4">
+&lt;li>Wait until dapr-* is indexed.&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://docs.dapr.io/images/kibana-2.png" alt="index log">&lt;/p>
+&lt;ol start="5">
+&lt;li>Once dapr-* indexed, click Kibana-&amp;gt;Index Patterns and Create Index Pattern&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://docs.dapr.io/images/kibana-3.png" alt="create index pattern">&lt;/p>
+&lt;ol start="6">
+&lt;li>Define index pattern - type &lt;code>dapr*&lt;/code> in index pattern&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://docs.dapr.io/images/kibana-4.png" alt="define index pattern">&lt;/p>
+&lt;ol start="7">
+&lt;li>Select time stamp filed: &lt;code>@timestamp&lt;/code>&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://docs.dapr.io/images/kibana-5.png" alt="timestamp">&lt;/p>
+&lt;ol start="8">
+&lt;li>Confirm that &lt;code>scope&lt;/code>, &lt;code>type&lt;/code>, &lt;code>app_id&lt;/code>, &lt;code>level&lt;/code>, etc are being indexed.&lt;/li>
+&lt;/ol>
+&lt;blockquote>
+&lt;p>Note: if you cannot find the indexed field, please wait. it depends on the volume of data and resource size where elastic search is running.&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="https://docs.dapr.io/images/kibana-6.png" alt="indexing">&lt;/p>
+&lt;ol start="9">
+&lt;li>Click &lt;code>discover&lt;/code> icon and search &lt;code>scope:*&lt;/code>&lt;/li>
+&lt;/ol>
+&lt;blockquote>
+&lt;p>Note: it would take some time to make log searchable based on the data volume and resource.&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="https://docs.dapr.io/images/kibana-7.png" alt="discover">&lt;/p>
+&lt;h2 id="references">References&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.fluentd.org/v/0.12/articles/kubernetes-fluentd">Fluentd for Kubernetes&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/elastic/helm-charts/tree/master/elasticsearch">Elastic search helm chart&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/elastic/helm-charts/tree/master/kibana">Kibana helm chart&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.elastic.co/guide/en/kibana/current/kuery-query.html">Kibana Query Language&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/troubleshooting/logs-troubleshooting/">Troubleshooting using Logs&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Logs</title><link>https://docs.dapr.io/en/operations/monitoring/logging/logs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/operations/monitoring/logging/logs/</guid><description>
+&lt;p>Dapr produces structured logs to stdout either as a plain text or JSON formatted. By default, all Dapr processes (runtime and system services) write to console out in plain text. To enable JSON formatted logs, you need to add the &lt;code>--log-as-json&lt;/code> command flag when running Dapr processes.&lt;/p>
+&lt;p>If you want to use a search engine such as Elastic Search or Azure Monitor to search the logs, it is recommended to use JSON-formatted logs which the log collector and search engine can parse using the built-in JSON parser.&lt;/p>
+&lt;h2 id="log-schema">Log schema&lt;/h2>
+&lt;p>Dapr produces logs based on the following schema.&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Field&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;th>Example&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>time&lt;/td>
+&lt;td>ISO8601 Timestamp&lt;/td>
+&lt;td>&lt;code>2011-10-05T14:48:00.000Z&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>level&lt;/td>
+&lt;td>Log Level (info/warn/debug/error)&lt;/td>
+&lt;td>&lt;code>info&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>type&lt;/td>
+&lt;td>Log Type&lt;/td>
+&lt;td>&lt;code>log&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>msg&lt;/td>
+&lt;td>Log Message&lt;/td>
+&lt;td>&lt;code>hello dapr!&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>scope&lt;/td>
+&lt;td>Logging Scope&lt;/td>
+&lt;td>&lt;code>dapr.runtime&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>instance&lt;/td>
+&lt;td>Container Name&lt;/td>
+&lt;td>&lt;code>dapr-pod-xxxxx&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>app_id&lt;/td>
+&lt;td>Dapr App ID&lt;/td>
+&lt;td>&lt;code>dapr-app&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ver&lt;/td>
+&lt;td>Dapr Runtime Version&lt;/td>
+&lt;td>&lt;code>0.5.0&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="plain-text-and-json-formatted-logs">Plain text and JSON formatted logs&lt;/h2>
+&lt;ul>
+&lt;li>Plain text log examples&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2020-03-11T17:08:48.303776-07:00&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;starting Dapr Runtime -- version 0.5.0-rc.3 -- commit v0.3.0-rc.0-155-g5dfcf2e&amp;#34;&lt;/span> instance&lt;span style="color:#f92672">=&lt;/span>dapr-pod-xxxx scope&lt;span style="color:#f92672">=&lt;/span>dapr.runtime type&lt;span style="color:#f92672">=&lt;/span>log ver&lt;span style="color:#f92672">=&lt;/span>0.5.0-rc.3
+time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2020-03-11T17:08:48.303913-07:00&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;log level set to: info&amp;#34;&lt;/span> instance&lt;span style="color:#f92672">=&lt;/span>dapr-pod-xxxx scope&lt;span style="color:#f92672">=&lt;/span>dapr.runtime type&lt;span style="color:#f92672">=&lt;/span>log ver&lt;span style="color:#f92672">=&lt;/span>0.5.0-rc.3
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>JSON formatted log examples&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{&lt;span style="color:#f92672">&amp;#34;instance&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;dapr-pod-xxxx&amp;#34;&lt;/span>,&lt;span style="color:#f92672">&amp;#34;level&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;info&amp;#34;&lt;/span>,&lt;span style="color:#f92672">&amp;#34;msg&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;starting Dapr Runtime -- version 0.5.0-rc.3 -- commit v0.3.0-rc.0-155-g5dfcf2e&amp;#34;&lt;/span>,&lt;span style="color:#f92672">&amp;#34;scope&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;dapr.runtime&amp;#34;&lt;/span>,&lt;span style="color:#f92672">&amp;#34;time&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;2020-03-11T17:09:45.788005Z&amp;#34;&lt;/span>,&lt;span style="color:#f92672">&amp;#34;type&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;log&amp;#34;&lt;/span>,&lt;span style="color:#f92672">&amp;#34;ver&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;0.5.0-rc.3&amp;#34;&lt;/span>}
+{&lt;span style="color:#f92672">&amp;#34;instance&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;dapr-pod-xxxx&amp;#34;&lt;/span>,&lt;span style="color:#f92672">&amp;#34;level&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;info&amp;#34;&lt;/span>,&lt;span style="color:#f92672">&amp;#34;msg&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;log level set to: info&amp;#34;&lt;/span>,&lt;span style="color:#f92672">&amp;#34;scope&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;dapr.runtime&amp;#34;&lt;/span>,&lt;span style="color:#f92672">&amp;#34;time&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;2020-03-11T17:09:45.788075Z&amp;#34;&lt;/span>,&lt;span style="color:#f92672">&amp;#34;type&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;log&amp;#34;&lt;/span>,&lt;span style="color:#f92672">&amp;#34;ver&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;0.5.0-rc.3&amp;#34;&lt;/span>}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="configurating-plain-text-or-json-formatted-logs">Configurating plain text or JSON formatted logs&lt;/h2>
+&lt;p>Dapr supports both plain text and JSON formatted logs. The default format is plain-text. If you want to use plain text with a search engine, you will not need to change any configuring options.&lt;/p>
+&lt;p>To use JSON formatted logs, you need to add additional configuration when you install Dapr and deploy your app. The recommendation is to use JSONformatted logs because most log collectors and search engines can parse JSON more easily with built-in parsers.&lt;/p>
+&lt;h2 id="configuring-log-format-in-kubernetes">Configuring log format in Kubernetes&lt;/h2>
+&lt;p>The following steps describe how to configure JSON formatted logs for Kubernetes&lt;/p>
+&lt;h3 id="install-dapr-to-your-cluster-using-the-helm-chart">Install Dapr to your cluster using the Helm chart&lt;/h3>
+&lt;p>You can enable JSON formatted logs for Dapr system services by adding &lt;code>--set global.logAsJson=true&lt;/code> option to Helm command.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm install dapr dapr/dapr --namespace dapr-system --set global.logAsJson&lt;span style="color:#f92672">=&lt;/span>true
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="enable-json-formatted-log-for-dapr-sidecars">Enable JSON formatted log for Dapr sidecars&lt;/h3>
+&lt;p>You can enable JSON-formatted logs in Dapr sidecars activated by the Dapr sidecar-injector service by adding the &lt;code>dapr.io/log-as-json: &amp;quot;true&amp;quot;&lt;/code> annotation to the deployment.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">apps/v1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Deployment&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">pythonapp&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">labels&lt;/span>:
+&lt;span style="color:#f92672">app&lt;/span>: &lt;span style="color:#ae81ff">python&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">replicas&lt;/span>: &lt;span style="color:#ae81ff">1&lt;/span>
+&lt;span style="color:#f92672">selector&lt;/span>:
+&lt;span style="color:#f92672">matchLabels&lt;/span>:
+&lt;span style="color:#f92672">app&lt;/span>: &lt;span style="color:#ae81ff">python&lt;/span>
+&lt;span style="color:#f92672">template&lt;/span>:
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">labels&lt;/span>:
+&lt;span style="color:#f92672">app&lt;/span>: &lt;span style="color:#ae81ff">python&lt;/span>
+&lt;span style="color:#f92672">annotations&lt;/span>:
+&lt;span style="color:#f92672">dapr.io/enabled&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">dapr.io/app-id&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;pythonapp&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">dapr.io/log-as-json&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
+...
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="log-collectors">Log collectors&lt;/h2>
+&lt;p>If you run Dapr in a Kubernetes cluster, &lt;a href="https://www.fluentd.org/">Fluentd&lt;/a> is a popular container log collector. You can use Fluentd with a &lt;a href="https://docs.fluentd.org/parser/json">json parser plugin&lt;/a> to parse Dapr JSON formatted logs. This &lt;a href="https://docs.dapr.io/en/operations/monitoring/logging/fluentd/">how-to&lt;/a> shows how to configure the Fleuntd in your cluster.&lt;/p>
+&lt;p>If you are using the Azure Kubernetes Service, you can use the default OMS Agent to collect logs with Azure Monitor without needing to install Fluentd.&lt;/p>
+&lt;h2 id="search-engines">Search engines&lt;/h2>
+&lt;p>If you use &lt;a href="https://www.fluentd.org/">Fluentd&lt;/a>, we recommend to using Elastic Search and Kibana. This &lt;a href="https://docs.dapr.io/en/operations/monitoring/logging/fluentd/">how-to&lt;/a> shows how to set up Elastic Search and Kibana in your Kubernetes cluster.&lt;/p>
+&lt;p>If you are using the Azure Kubernetes Service, you can use &lt;a href="https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-overview">Azure monitor for containers&lt;/a> without indstalling any additional monitoring tools. Also read &lt;a href="https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-onboard">How to enable Azure Monitor for containers&lt;/a>&lt;/p>
+&lt;h2 id="references">References&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/monitoring/logging/fluentd/">How-to : Set up Fleuntd, Elastic search, and Kibana&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/monitoring/metrics/azure-monitor/">How-to : Set up Azure Monitor in Azure Kubernetes Service&lt;/a>&lt;/li>
+&lt;/ul></description></item></channel></rss>

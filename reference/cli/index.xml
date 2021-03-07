@@ -1,5 +1,5 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr Docs – Dapr CLI reference</title><link>https://docs.dapr.io/reference/cli/</link><description>Recent content in Dapr CLI reference on Dapr Docs</description><generator>Hugo -- gohugo.io</generator><language>zh-hans</language><atom:link href="https://docs.dapr.io/reference/cli/index.xml" rel="self" type="application/rss+xml"/><item><title>Reference: Dapr command line interface (CLI) reference</title><link>https://docs.dapr.io/reference/cli/cli-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/cli/cli-overview/</guid><description>
-&lt;p>The Dapr CLI allows you to setup Dapr on your local dev machine or on a Kubernetes cluster, provides debugging support, and launches and manages Dapr instances.&lt;/p>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Dapr CLI 参考</title><link>https://docs.dapr.io/reference/cli/</link><description>Recent content in Dapr CLI 参考 on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/reference/cli/index.xml" rel="self" type="application/rss+xml"/><item><title>Reference: Dapr 命令行接口 （CLI） 参考</title><link>https://docs.dapr.io/reference/cli/cli-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/cli/cli-overview/</guid><description>
+&lt;p>Dapr CLI 允许您在本地开发机或Kubernetes集群上安装Dapr。 提供调试支持，启动和管理 Dapr 实例。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">
 __
 ____/ /___ _____ _____
@@ -32,8 +32,8 @@ Flags:
 -h, --help help &lt;span style="color:#66d9ef">for&lt;/span> dapr
 -v, --version version &lt;span style="color:#66d9ef">for&lt;/span> dapr
 Use &lt;span style="color:#e6db74">&amp;#34;dapr [command] --help&amp;#34;&lt;/span> &lt;span style="color:#66d9ef">for&lt;/span> more information about a command.
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="command-reference">Command Reference&lt;/h2>
-&lt;p>You can learn more about each Dapr command from the links below.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="命令参考">命令参考&lt;/h2>
+&lt;p>您可以通过以下链接了解有关每个 Dapr 命令的详细信息。&lt;/p>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/reference/cli/dapr-completion/">&lt;code>dapr completion&lt;/code>&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/reference/cli/dapr-components/">&lt;code>dapr components&lt;/code>&lt;/a>&lt;/li>
@@ -52,21 +52,21 @@ Use &lt;span style="color:#e6db74">&amp;#34;dapr [command] --help&amp;#34;&lt;/s
 &lt;li>&lt;a href="https://docs.dapr.io/reference/cli/dapr-uninstall/">&lt;code>dapr uninstall&lt;/code>&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/reference/cli/dapr-upgrade/">&lt;code>dapr upgrade&lt;/code>&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;h2 id="environment-variables">Environment Variables&lt;/h2>
-&lt;p>Some Dapr flags can be set via environment variables (e.g. &lt;code>DAPR_NETWORK&lt;/code> for the &lt;code>--network&lt;/code> flag of the &lt;code>dapr init&lt;/code> command). Note that specifying the flag on the command line overrides any set environment variable.&lt;/p></description></item><item><title>Reference: completion CLI command reference</title><link>https://docs.dapr.io/reference/cli/dapr-completion/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/cli/dapr-completion/</guid><description>
-&lt;h2 id="description">Description&lt;/h2>
-&lt;p>Generates shell completion scripts&lt;/p>
-&lt;h2 id="usage">Usage&lt;/h2>
+&lt;h2 id="环境变量">环境变量&lt;/h2>
+&lt;p>一些 Dapr 参数可以通过环境变量进行设置（例如 &lt;code>DAPR_NETWORK&lt;/code> 自动用在 &lt;code>dapr init&lt;/code> 命令的 &lt;code>--network&lt;/code> 参数上）。 请注意，在命令行上指定标志将覆盖环境变量。&lt;/p></description></item><item><title>Reference: completion CLI 命令参考</title><link>https://docs.dapr.io/reference/cli/dapr-completion/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/cli/dapr-completion/</guid><description>
+&lt;h2 id="说明">说明&lt;/h2>
+&lt;p>生成 shell 补全脚本&lt;/p>
+&lt;h2 id="用法">用法&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr completion &lt;span style="color:#f92672">[&lt;/span>flags&lt;span style="color:#f92672">]&lt;/span>
 dapr completion &lt;span style="color:#f92672">[&lt;/span>command&lt;span style="color:#f92672">]&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="flags">Flags&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="参数">参数&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>Name&lt;/th>
-&lt;th>Environment Variable&lt;/th>
-&lt;th>Default&lt;/th>
-&lt;th>Description&lt;/th>
+&lt;th>名称&lt;/th>
+&lt;th>环境变量&lt;/th>
+&lt;th>默认值&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -74,65 +74,65 @@ dapr completion &lt;span style="color:#f92672">[&lt;/span>command&lt;span style=
 &lt;td>&lt;code>--help&lt;/code>, &lt;code>-h&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;/td>
-&lt;td>Prints this help message&lt;/td>
+&lt;td>显示此帮助消息&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="examples">Examples&lt;/h2>
-&lt;h3 id="installing-bash-completion-on-macos-using-homebrew">Installing bash completion on macOS using Homebrew&lt;/h3>
-&lt;p>If running Bash 3.2 included with macOS:&lt;/p>
+&lt;h2 id="示例">示例&lt;/h2>
+&lt;h3 id="使用-homebrew-在-macos-上安装-bash-completion">使用 HomeBrew 在 macOS 上安装 bash completion&lt;/h3>
+&lt;p>如果运行 macOS 包含的 Bash 3.2:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">brew install bash-completion
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Or, if running Bash 4.1+:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>或者，如果运行 Bash 4.1+:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">brew install bash-completion@2
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Add the completion to your completion directory:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>将 completion 添加到您的 completion 目录：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr completion bash &amp;gt; &lt;span style="color:#66d9ef">$(&lt;/span>brew --prefix&lt;span style="color:#66d9ef">)&lt;/span>/etc/bash_completion.d/dapr
 source ~/.bash_profile
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="installing-bash-completion-on-linux">Installing bash completion on Linux&lt;/h3>
-&lt;p>If bash-completion is not installed on Linux, please install the bash-completion' package via your distribution&amp;rsquo;s package manager.&lt;/p>
-&lt;p>Load the dapr completion code for bash into the current shell:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="在-linux-上安装-bash-completion">在 Linux 上安装 bash completion&lt;/h3>
+&lt;p>如果未在 Linux 上安装 bash-completion ，请通过包管理器安装 bash-completion 包。&lt;/p>
+&lt;p>将用于 bash 的 dapr completion 加载到当前 shell 中：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">source &amp;lt;&lt;span style="color:#f92672">(&lt;/span>dapr completion bash&lt;span style="color:#f92672">)&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Write bash completion code to a file and source if from .bash_profile:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>将 bash completion 载入代码写入文件并使用 source 载入 ( 例如使用 .bash_profile) :&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr completion bash &amp;gt; ~/.dapr/completion.bash.inc
 printf &lt;span style="color:#e6db74">&amp;#34;source &amp;#39;&lt;/span>$HOME&lt;span style="color:#e6db74">/.dapr/completion.bash.inc&amp;#39;&amp;#34;&lt;/span> &amp;gt;&amp;gt; $HOME/.bash_profile
 source $HOME/.bash_profile
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="installing-zsh-completion-on-macos-using-homebrew">Installing zsh completion on macOS using homebrew&lt;/h3>
-&lt;p>If zsh-completion is not installed on macOS, please install the &amp;lsquo;zsh-completion&amp;rsquo; package:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="使用-homebrew-在-macos-上安装-zsh-completion">使用 HomeBrew 在 macOS 上安装 zsh completion&lt;/h3>
+&lt;p>如果未在 macOS 上安装 zsh-completion ，请安装&amp;quot;zsh-completion&amp;quot;包：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">brew install zsh-completions
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Set the dapr completion code for zsh[1] to autoload on startup:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>将用于 zsh 的 dapr completion 代码[1] 启动时自动加载：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr completion zsh &amp;gt; &lt;span style="color:#e6db74">&amp;#34;&lt;/span>&lt;span style="color:#e6db74">${&lt;/span>fpath[1]&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74">/_dapr&amp;#34;&lt;/span>
 source ~/.zshrc
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="installing-zsh-completion-on-linux">Installing zsh completion on Linux&lt;/h3>
-&lt;p>If zsh-completion is not installed on Linux, please install the &amp;lsquo;zsh-completion&amp;rsquo; package via your distribution&amp;rsquo;s package manager.&lt;/p>
-&lt;p>Load the dapr completion code for zsh into the current shell:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="在-linux-上安装-zsh-completion">在 Linux 上安装 zsh completion&lt;/h3>
+&lt;p>如果未在 Linux 上安装 zsh-completion ，请通过包管理器安装 zsh-completion 包。&lt;/p>
+&lt;p>将用于 zsh 的 dapr completion 加载到当前 shell 中：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">source &amp;lt;&lt;span style="color:#f92672">(&lt;/span>dapr completion zsh&lt;span style="color:#f92672">)&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Set the dapr completion code for zsh[1] to autoload on startup:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>将用于 zsh 的 dapr completion 代码[1] 启动时自动加载：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr completion zsh &amp;gt; &lt;span style="color:#e6db74">&amp;#34;&lt;/span>&lt;span style="color:#e6db74">${&lt;/span>fpath[1]&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74">/_dapr&amp;#34;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="installing-powershell-completion-on-windows">Installing Powershell completion on Windows&lt;/h3>
-&lt;p>Create $PROFILE if it not exists:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="在-windows-上安装-powershell-completion">在 Windows 上安装 Powershell completion&lt;/h3>
+&lt;p>创建 $PROFILE ，如果它不存在：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#f92672">(&lt;/span>!&lt;span style="color:#f92672">(&lt;/span>Test-Path -Path $PROFILE &lt;span style="color:#f92672">)){&lt;/span> New-Item -Type File -Path $PROFILE -Force &lt;span style="color:#f92672">}&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Add the completion to your profile:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>将 completion 添加到您的 profile：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr completion powershell &amp;gt;&amp;gt; $PROFILE
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="available-commands">Available Commands&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="可用命令">可用命令&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-txt" data-lang="txt">bash Generates bash completion scripts
 powershell Generates powershell completion scripts
 zsh Generates zsh completion scripts
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: components CLI command reference</title><link>https://docs.dapr.io/reference/cli/dapr-components/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/cli/dapr-components/</guid><description>
-&lt;h2 id="description">Description&lt;/h2>
-&lt;p>List all Dapr components.&lt;/p>
-&lt;h2 id="supported-platforms">Supported platforms&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: components CLI 命令参考</title><link>https://docs.dapr.io/reference/cli/dapr-components/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/cli/dapr-components/</guid><description>
+&lt;h2 id="说明">说明&lt;/h2>
+&lt;p>列出所有 Dapr 组件。&lt;/p>
+&lt;h2 id="支持的平台">支持的平台&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/">Kubernetes&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;h2 id="usage">Usage&lt;/h2>
+&lt;h2 id="用法">用法&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr components &lt;span style="color:#f92672">[&lt;/span>flags&lt;span style="color:#f92672">]&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="flags">Flags&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="参数">参数&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>Name&lt;/th>
-&lt;th>Environment Variable&lt;/th>
-&lt;th>Default&lt;/th>
-&lt;th>Description&lt;/th>
+&lt;th>名称&lt;/th>
+&lt;th>环境变量&lt;/th>
+&lt;th>默认值&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -140,36 +140,36 @@ zsh Generates zsh completion scripts
 &lt;td>&lt;code>--help&lt;/code>, &lt;code>-h&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;/td>
-&lt;td>Print this help message&lt;/td>
+&lt;td>显示此帮助消息&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--kubernetes&lt;/code>, &lt;code>-k&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;code>false&lt;/code>&lt;/td>
-&lt;td>List all Dapr components in a Kubernetes cluster&lt;/td>
+&lt;td>列出 Kubernetes 集群中的所有 Dapr 组件&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="examples">Examples&lt;/h2>
-&lt;h3 id="list-kubernetes-components">List Kubernetes components&lt;/h3>
+&lt;h2 id="示例">示例&lt;/h2>
+&lt;h3 id="列出-kubernetes-组件">列出 Kubernetes 组件&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr components -k
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: configurations CLI command reference</title><link>https://docs.dapr.io/reference/cli/dapr-configurations/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/cli/dapr-configurations/</guid><description>
-&lt;h2 id="description">Description&lt;/h2>
-&lt;p>List all Dapr configurations.&lt;/p>
-&lt;h2 id="supported-platforms">Supported platforms&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: configurations CLI 命令参考</title><link>https://docs.dapr.io/reference/cli/dapr-configurations/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/cli/dapr-configurations/</guid><description>
+&lt;h2 id="说明">说明&lt;/h2>
+&lt;p>列出所有 Dapr 配置。&lt;/p>
+&lt;h2 id="支持的平台">支持的平台&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/">Kubernetes&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;h2 id="usage">Usage&lt;/h2>
+&lt;h2 id="用法">用法&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr configurations &lt;span style="color:#f92672">[&lt;/span>flags&lt;span style="color:#f92672">]&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="flags">Flags&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="参数">参数&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>Name&lt;/th>
-&lt;th>Environment Variable&lt;/th>
-&lt;th>Default&lt;/th>
-&lt;th>Description&lt;/th>
+&lt;th>名称&lt;/th>
+&lt;th>环境变量&lt;/th>
+&lt;th>默认值&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -177,49 +177,49 @@ zsh Generates zsh completion scripts
 &lt;td>&lt;code>--kubernetes&lt;/code>, &lt;code>-k&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;code>false&lt;/code>&lt;/td>
-&lt;td>List all Dapr configurations in a Kubernetes cluster&lt;/td>
+&lt;td>列出 Kubernetes 群集中的所有 Dapr 配置&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--name&lt;/code>, &lt;code>-n&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;/td>
-&lt;td>The configuration name to be printed (optional)&lt;/td>
+&lt;td>要打印的配置名称（可选）&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--output&lt;/code>, &lt;code>-o&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;code>list&lt;/code>&lt;/td>
-&lt;td>Output format (options: json or yaml or list)&lt;/td>
+&lt;td>输出格式（选项：json 或 yaml 或列表）&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--help&lt;/code>, &lt;code>-h&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;/td>
-&lt;td>Print this help message&lt;/td>
+&lt;td>显示此帮助消息&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="examples">Examples&lt;/h2>
-&lt;h3 id="list-kubernetes-dapr-configurations">List Kubernetes Dapr configurations&lt;/h3>
+&lt;h2 id="示例">示例&lt;/h2>
+&lt;h3 id="列表-kubernetes-dapr-配置">列表 Kubernetes dapr 配置&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr configurations -k
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: dashboard CLI command reference</title><link>https://docs.dapr.io/reference/cli/dapr-dashboard/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/cli/dapr-dashboard/</guid><description>
-&lt;h2 id="description">Description&lt;/h2>
-&lt;p>Start &lt;a href="https://github.com/dapr/dashboard">Dapr dashboard&lt;/a>.&lt;/p>
-&lt;h2 id="supported-platforms">Supported platforms&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: dashboard CLI 命令参考</title><link>https://docs.dapr.io/reference/cli/dapr-dashboard/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/cli/dapr-dashboard/</guid><description>
+&lt;h2 id="说明">说明&lt;/h2>
+&lt;p>启动 &lt;a href="https://github.com/dapr/dashboard">Dapr 仪表板&lt;/a>。&lt;/p>
+&lt;h2 id="支持的平台">支持的平台&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/self-hosted/">Self-Hosted&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/self-hosted/">自托管&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/">Kubernetes&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;h2 id="usage">Usage&lt;/h2>
+&lt;h2 id="用法">用法&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr dashboard &lt;span style="color:#f92672">[&lt;/span>flags&lt;span style="color:#f92672">]&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="flags">Flags&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="参数">参数&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>Name&lt;/th>
-&lt;th>Environment Variable&lt;/th>
-&lt;th>Default&lt;/th>
-&lt;th>Description&lt;/th>
+&lt;th>名称&lt;/th>
+&lt;th>环境变量&lt;/th>
+&lt;th>默认值&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -227,56 +227,56 @@ zsh Generates zsh completion scripts
 &lt;td>&lt;code>--help&lt;/code>, &lt;code>-h&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;/td>
-&lt;td>Prints this help message&lt;/td>
+&lt;td>显示此帮助消息&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--kubernetes&lt;/code>, &lt;code>-k&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;code>false&lt;/code>&lt;/td>
-&lt;td>Opens Dapr dashboard in local browser via local proxy to Kubernetes cluster&lt;/td>
+&lt;td>通过本地代理连接 Kubernetes 集群，在本地浏览器打开Dapr 控制面板&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--namespace&lt;/code>, &lt;code>-n&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;code>dapr-system&lt;/code>&lt;/td>
-&lt;td>The namespace where Dapr dashboard is running&lt;/td>
+&lt;td>Dapr 仪表板正在运行的名称空间&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--port&lt;/code>, &lt;code>-p&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;code>8080&lt;/code>&lt;/td>
-&lt;td>The local port on which to serve Dapr dashboard&lt;/td>
+&lt;td>用于 Dapr 仪表板的本地端口&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--version&lt;/code>, &lt;code>-v&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;code>false&lt;/code>&lt;/td>
-&lt;td>Print the version for Dapr dashboard&lt;/td>
+&lt;td>打印 Dapr 仪表板的版本&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="examples">Examples&lt;/h2>
-&lt;h3 id="start-dashboard-locally">Start dashboard locally&lt;/h3>
+&lt;h2 id="示例">示例&lt;/h2>
+&lt;h3 id="在本地启动仪表板">在本地启动仪表板&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr dashboard
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="start-dashboard-service-locally-on-a-specified-port">Start dashboard service locally on a specified port&lt;/h3>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="在指定端口本地启动仪表板服务">在指定端口本地启动仪表板服务&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr dashboard -p &lt;span style="color:#ae81ff">9999&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="port-forward-to-dashboard-service-running-in-kubernetes">Port forward to dashboard service running in Kubernetes&lt;/h3>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="端口转发到在-kubernetes-中运行的仪表板服务">端口转发到在 Kubernetes 中运行的仪表板服务&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr dashboard -k
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="port-forward-to-dashboard-service-running-in-kubernetes-on-a-specified-port">Port forward to dashboard service running in Kubernetes on a specified port&lt;/h3>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="端口转发到在-kubernetes-指定端口中运行的仪表板服务">端口转发到在 Kubernetes 指定端口中运行的仪表板服务&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr dashboard -k -p &lt;span style="color:#ae81ff">9999&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: help CLI command reference</title><link>https://docs.dapr.io/reference/cli/dapr-help/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/cli/dapr-help/</guid><description>
-&lt;h2 id="description">Description&lt;/h2>
-&lt;p>Help provides help for any command in the application.&lt;/p>
-&lt;h2 id="usage">Usage&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: help CLI 命令参考</title><link>https://docs.dapr.io/reference/cli/dapr-help/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/cli/dapr-help/</guid><description>
+&lt;h2 id="说明">说明&lt;/h2>
+&lt;p>帮助为应用程序中的任何命令提供帮助。&lt;/p>
+&lt;h2 id="用法">用法&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr help &lt;span style="color:#f92672">[&lt;/span>command&lt;span style="color:#f92672">]&lt;/span> &lt;span style="color:#f92672">[&lt;/span>flags&lt;span style="color:#f92672">]&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="flags">Flags&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="参数">参数&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>Name&lt;/th>
-&lt;th>Environment Variable&lt;/th>
-&lt;th>Default&lt;/th>
-&lt;th>Description&lt;/th>
+&lt;th>名称&lt;/th>
+&lt;th>环境变量&lt;/th>
+&lt;th>默认值&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -284,27 +284,27 @@ zsh Generates zsh completion scripts
 &lt;td>&lt;code>--help&lt;/code>, &lt;code>-h&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;/td>
-&lt;td>Prints this help message&lt;/td>
+&lt;td>显示此帮助消息&lt;/td>
 &lt;/tr>
 &lt;/tbody>
-&lt;/table></description></item><item><title>Reference: init CLI command reference</title><link>https://docs.dapr.io/reference/cli/dapr-init/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/cli/dapr-init/</guid><description>
-&lt;h2 id="description">Description&lt;/h2>
-&lt;p>Install Dapr on supported hosting platforms.&lt;/p>
-&lt;h2 id="supported-platforms">Supported platforms&lt;/h2>
+&lt;/table></description></item><item><title>Reference: init CLI 命令参考</title><link>https://docs.dapr.io/reference/cli/dapr-init/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/cli/dapr-init/</guid><description>
+&lt;h2 id="说明">说明&lt;/h2>
+&lt;p>在受支持的托管平台上安装 Dapr 。&lt;/p>
+&lt;h2 id="支持的平台">支持的平台&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/self-hosted/">Self-Hosted&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/self-hosted/">自托管&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/">Kubernetes&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;h2 id="usage">Usage&lt;/h2>
+&lt;h2 id="用法">用法&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr init &lt;span style="color:#f92672">[&lt;/span>flags&lt;span style="color:#f92672">]&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="flags">Flags&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="参数">参数&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>Name&lt;/th>
-&lt;th>Environment Variable&lt;/th>
-&lt;th>Default&lt;/th>
-&lt;th>Description&lt;/th>
+&lt;th>名称&lt;/th>
+&lt;th>环境变量&lt;/th>
+&lt;th>默认值&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -312,80 +312,80 @@ zsh Generates zsh completion scripts
 &lt;td>&lt;code>--enable-ha&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;code>false&lt;/code>&lt;/td>
-&lt;td>Enable high availability (HA) mode&lt;/td>
+&lt;td>启用高可用性 (HA) 方式&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--enable-mtls&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;code>true&lt;/code>&lt;/td>
-&lt;td>Enable mTLS in your cluster&lt;/td>
+&lt;td>在群集中启用 mTLS&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--help&lt;/code>, &lt;code>-h&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;/td>
-&lt;td>Print this help message&lt;/td>
+&lt;td>显示此帮助消息&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--kubernetes&lt;/code>, &lt;code>-k&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;code>false&lt;/code>&lt;/td>
-&lt;td>Deploy Dapr to a Kubernetes cluster&lt;/td>
+&lt;td>将 dapr 部署到 Kubernetes 集群&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--namespace&lt;/code>, &lt;code>-n&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;code>dapr-system&lt;/code>&lt;/td>
-&lt;td>The Kubernetes namespace to install Dapr in&lt;/td>
+&lt;td>用于安装 Dapr 的 Kubernetes 名称空间&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--network&lt;/code>&lt;/td>
 &lt;td>&lt;code>DAPR_NETWORK&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
-&lt;td>The Docker network on which to deploy the Dapr runtime&lt;/td>
+&lt;td>部署 Dapr 运行时的 Docker 网络&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--runtime-version&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;code>latest&lt;/code>&lt;/td>
-&lt;td>The version of the Dapr runtime to install, for example: &lt;code>1.0.0&lt;/code>&lt;/td>
+&lt;td>要安装的 Dapr 运行时的版本，例如: &lt;code>1.0.0&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--slim&lt;/code>, &lt;code>-s&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;code>false&lt;/code>&lt;/td>
-&lt;td>Exclude placement service, Redis and Zipkin containers from self-hosted installation&lt;/td>
+&lt;td>从 Self-Hosted 安装中排除 Placement 服务、Redis 和 Zipkin 容器&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="examples">Examples&lt;/h2>
-&lt;h3 id="initialize-dapr-in-self-hosted-mode">Initialize Dapr in self-hosted mode&lt;/h3>
+&lt;h2 id="示例">示例&lt;/h2>
+&lt;h3 id="以-self-hosted-方式初始化-dapr">以 Self-Hosted 方式初始化 dapr&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr init
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="initialize-dapr-in-kubernetes">Initialize Dapr in Kubernetes&lt;/h3>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="在-kubernetes-中初始化-dapr">在 Kubernetes 中初始化 dapr&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr init -k
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="initialize-specified-version-of-dapr-runtime-in-self-hosted-mode">Initialize specified version of Dapr runtime in self-hosted mode&lt;/h3>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="以-self-hosted-初始化指定版本的-dapr-运行时">以 Self-Hosted 初始化指定版本的 Dapr 运行时&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr init --runtime-version 0.10.0
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="initialize-specified-version-of-dapr-runtime-in-kubernetes">Initialize specified version of Dapr runtime in Kubernetes&lt;/h3>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="以-kubernetes-初始化指定版本的-dapr-运行时">以 Kubernetes 初始化指定版本的 Dapr 运行时&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr init -k --runtime-version 0.10.0
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="initialize-dapr-in-slim-self-hosted-modehahahugoshortcode-s2-hbhb">Initialize Dapr in &lt;a href="https://docs.dapr.io/operations/hosting/self-hosted/self-hosted-no-docker/">slim self-hosted mode&lt;/a>&lt;/h3>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="以-精简-self-hosted-方式hahahugoshortcode-s2-hbhb初始化-dapr">以 &lt;a href="https://docs.dapr.io/operations/hosting/self-hosted/self-hosted-no-docker/">精简 Self-Hosted 方式&lt;/a>初始化 dapr&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr init -s
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: invoke CLI command reference</title><link>https://docs.dapr.io/reference/cli/dapr-invoke/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/cli/dapr-invoke/</guid><description>
-&lt;h2 id="description">Description&lt;/h2>
-&lt;p>Invoke a method on a given Dapr application.&lt;/p>
-&lt;h2 id="supported-platforms">Supported platforms&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: invoke CLI 命令参考</title><link>https://docs.dapr.io/reference/cli/dapr-invoke/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/cli/dapr-invoke/</guid><description>
+&lt;h2 id="说明">说明&lt;/h2>
+&lt;p>调用给定 Dapr 应用程序上的方法。&lt;/p>
+&lt;h2 id="支持的平台">支持的平台&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/self-hosted/">Self-Hosted&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/self-hosted/">自托管&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;h2 id="usage">Usage&lt;/h2>
+&lt;h2 id="用法">用法&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr invoke &lt;span style="color:#f92672">[&lt;/span>flags&lt;span style="color:#f92672">]&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="flags">Flags&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="参数">参数&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>Name&lt;/th>
-&lt;th>Environment Variable&lt;/th>
-&lt;th>Default&lt;/th>
-&lt;th>Description&lt;/th>
+&lt;th>名称&lt;/th>
+&lt;th>环境变量&lt;/th>
+&lt;th>默认值&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -393,57 +393,57 @@ zsh Generates zsh completion scripts
 &lt;td>&lt;code>--app-id&lt;/code>, &lt;code>-a&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;/td>
-&lt;td>The application id to invoke&lt;/td>
+&lt;td>要调用的应用程序 Id&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--help&lt;/code>, &lt;code>-h&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;/td>
-&lt;td>Print this help message&lt;/td>
+&lt;td>显示此帮助消息&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--method&lt;/code>, &lt;code>-m&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;/td>
-&lt;td>The method to invoke&lt;/td>
+&lt;td>调用的方法&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--data&lt;/code>, &lt;code>-d&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;/td>
-&lt;td>The JSON serialized data string (optional)&lt;/td>
+&lt;td>JSON 序列化数据字符串（可选）&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--verb&lt;/code>, &lt;code>-v&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;code>POST&lt;/code>&lt;/td>
-&lt;td>The HTTP verb to use&lt;/td>
+&lt;td>要使用的 HTTP 谓词&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="examples">Examples&lt;/h2>
-&lt;h3 id="invoke-a-sample-method-on-target-app-with-post-verb">Invoke a sample method on target app with POST Verb&lt;/h3>
+&lt;h2 id="示例">示例&lt;/h2>
+&lt;h3 id="使用-post-谓词在目标应用上调用示例方法">使用 POST 谓词在目标应用上调用示例方法&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr invoke --app-id target --method sample --data &lt;span style="color:#e6db74">&amp;#39;{&amp;#34;key&amp;#34;:&amp;#34;value&amp;#34;}&amp;#39;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="invoke-a-sample-method-on-target-app-with-get-verb">Invoke a sample method on target app with GET Verb&lt;/h3>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="使用-get-谓词在目标应用上调用示例方法">使用 GET 谓词在目标应用上调用示例方法&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr invoke --app-id target --method sample --verb GET
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: list CLI command reference</title><link>https://docs.dapr.io/reference/cli/dapr-list/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/cli/dapr-list/</guid><description>
-&lt;h2 id="description">Description&lt;/h2>
-&lt;p>List all Dapr instances.&lt;/p>
-&lt;h2 id="supported-platforms">Supported platforms&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: list CLI 命令参考</title><link>https://docs.dapr.io/reference/cli/dapr-list/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/cli/dapr-list/</guid><description>
+&lt;h2 id="说明">说明&lt;/h2>
+&lt;p>列出所有 Dapr 实例。&lt;/p>
+&lt;h2 id="支持的平台">支持的平台&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/self-hosted/">Self-Hosted&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/self-hosted/">自托管&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/">Kubernetes&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;h2 id="usage">Usage&lt;/h2>
+&lt;h2 id="用法">用法&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr list &lt;span style="color:#f92672">[&lt;/span>flags&lt;span style="color:#f92672">]&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="flags">Flags&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="参数">参数&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>Name&lt;/th>
-&lt;th>Environment Variable&lt;/th>
-&lt;th>Default&lt;/th>
-&lt;th>Description&lt;/th>
+&lt;th>名称&lt;/th>
+&lt;th>环境变量&lt;/th>
+&lt;th>默认值&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -451,38 +451,38 @@ zsh Generates zsh completion scripts
 &lt;td>&lt;code>--help&lt;/code>, &lt;code>-h&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;/td>
-&lt;td>Print this help message&lt;/td>
+&lt;td>显示此帮助消息&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--kubernetes&lt;/code>, &lt;code>-k&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;code>false&lt;/code>&lt;/td>
-&lt;td>List all Dapr pods in a Kubernetes cluster&lt;/td>
+&lt;td>列出 Kubernetes 集群中的所有 Dapr pods&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="examples">Examples&lt;/h2>
-&lt;h3 id="list-dapr-instances-in-self-hosted-mode">List Dapr instances in self-hosted mode&lt;/h3>
+&lt;h2 id="示例">示例&lt;/h2>
+&lt;h3 id="列出在-self-hosted-模式下-dapr-实例">列出在 Self-Hosted 模式下 Dapr 实例&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr list
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="list-dapr-instances-in-kubernetes-mode">List Dapr instances in Kubernetes mode&lt;/h3>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="列出在-kubernetes-模式下-dapr-实例">列出在 Kubernetes 模式下 Dapr 实例&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr list -k
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: logs CLI command reference</title><link>https://docs.dapr.io/reference/cli/dapr-logs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/cli/dapr-logs/</guid><description>
-&lt;h2 id="description">Description&lt;/h2>
-&lt;p>Get Dapr sidecar logs for an application.&lt;/p>
-&lt;h2 id="supported-platforms">Supported platforms&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: logs CLI 命令参考</title><link>https://docs.dapr.io/reference/cli/dapr-logs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/cli/dapr-logs/</guid><description>
+&lt;h2 id="说明">说明&lt;/h2>
+&lt;p>获取应用程序的 dapr sidecar 日志。&lt;/p>
+&lt;h2 id="支持的平台">支持的平台&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/">Kubernetes&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;h2 id="usage">Usage&lt;/h2>
+&lt;h2 id="用法">用法&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr logs &lt;span style="color:#f92672">[&lt;/span>flags&lt;span style="color:#f92672">]&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="flags">Flags&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="参数">参数&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>Name&lt;/th>
-&lt;th>Environment Variable&lt;/th>
-&lt;th>Default&lt;/th>
-&lt;th>Description&lt;/th>
+&lt;th>名称&lt;/th>
+&lt;th>环境变量&lt;/th>
+&lt;th>默认值&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -490,55 +490,55 @@ zsh Generates zsh completion scripts
 &lt;td>&lt;code>--app-id&lt;/code>, &lt;code>-a&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;/td>
-&lt;td>The application id for which logs are needed&lt;/td>
+&lt;td>需要显示日志的应用程序 Id&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--help&lt;/code>, &lt;code>-h&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;/td>
-&lt;td>Print this help message&lt;/td>
+&lt;td>显示此帮助消息&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--kubernetes&lt;/code>, &lt;code>-k&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;code>true&lt;/code>&lt;/td>
-&lt;td>Get logs from a Kubernetes cluster&lt;/td>
+&lt;td>从 Kubernetes 集群获取日志&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--namespace&lt;/code>, &lt;code>-n&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;code>default&lt;/code>&lt;/td>
-&lt;td>The Kubernetes namespace in which your application is deployed&lt;/td>
+&lt;td>部署应用程序的 Kubernetes 名称空间&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--pod-name&lt;/code>, &lt;code>-p&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;/td>
-&lt;td>The name of the pod in Kubernetes, in case your application has multiple pods (optional)&lt;/td>
+&lt;td>Kubernetes 中的 pod 的名称，以防您的应用程序具有多个 pod (可选)&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="examples">Examples&lt;/h2>
-&lt;h3 id="get-logs-of-sample-app-from-target-pod-in-custom-namespace">Get logs of sample app from target pod in custom namespace&lt;/h3>
+&lt;h2 id="示例">示例&lt;/h2>
+&lt;h3 id="从定制名称空间中的目标-pod-获取-应用程序的日志">从定制名称空间中的目标 Pod 获取 应用程序的日志&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr logs -k --app-id sample --pod-name target --namespace custom
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: mtls CLI command reference</title><link>https://docs.dapr.io/reference/cli/dapr-mtls/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/cli/dapr-mtls/</guid><description>
-&lt;h2 id="description">Description&lt;/h2>
-&lt;p>Check if mTLS is enabled.&lt;/p>
-&lt;h2 id="supported-platforms">Supported platforms&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: mtls CLI 命令参考</title><link>https://docs.dapr.io/reference/cli/dapr-mtls/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/cli/dapr-mtls/</guid><description>
+&lt;h2 id="说明">说明&lt;/h2>
+&lt;p>检查是否启用了 mTLS&lt;/p>
+&lt;h2 id="支持的平台">支持的平台&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/">Kubernetes&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;h2 id="usage">Usage&lt;/h2>
+&lt;h2 id="用法">用法&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr mtls &lt;span style="color:#f92672">[&lt;/span>flags&lt;span style="color:#f92672">]&lt;/span>
 dapr mtls &lt;span style="color:#f92672">[&lt;/span>command&lt;span style="color:#f92672">]&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="flags">Flags&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="参数">参数&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>Name&lt;/th>
-&lt;th>Environment Variable&lt;/th>
-&lt;th>Default&lt;/th>
-&lt;th>Description&lt;/th>
+&lt;th>名称&lt;/th>
+&lt;th>环境变量&lt;/th>
+&lt;th>默认值&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -546,45 +546,45 @@ dapr mtls &lt;span style="color:#f92672">[&lt;/span>command&lt;span style="color
 &lt;td>&lt;code>--help&lt;/code>, &lt;code>-h&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;/td>
-&lt;td>Print this help message&lt;/td>
+&lt;td>显示此帮助消息&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--kubernetes&lt;/code>, &lt;code>-k&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;code>false&lt;/code>&lt;/td>
-&lt;td>Check if mTLS is enabled in a Kubernetes cluster&lt;/td>
+&lt;td>检查是否在 Kubernetes 集群中启用了 mTLS&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="available-commands">Available Commands&lt;/h2>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-txt" data-lang="txt">expiry Checks the expiry of the root certificate
-export Export the root CA, issuer cert and key from Kubernetes to local files
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="command-reference">Command Reference&lt;/h2>
-&lt;p>You can learn more about each sub command from the links below.&lt;/p>
+&lt;h2 id="可用命令">可用命令&lt;/h2>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-txt" data-lang="txt">expiry 检查根证书是否过期
+export 从 Kubernetes 中导出根证书、签发密钥到本地文件
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="命令参考">命令参考&lt;/h2>
+&lt;p>您可以通过以下链接了解有关每个 子命令的详细信息。&lt;/p>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/reference/cli/dapr-mtls/dapr-mtls-expiry/">&lt;code>dapr mtls expiry&lt;/code>&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/reference/cli/dapr-mtls/dapr-mtls-export/">&lt;code>dapr mtls export&lt;/code>&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;h2 id="examples">Examples&lt;/h2>
-&lt;h3 id="check-if-mtls-is-enabled">Check if mTLS is enabled&lt;/h3>
+&lt;h2 id="示例">示例&lt;/h2>
+&lt;h3 id="检查是否启用了-mtls">检查是否启用了 mTLS&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr mtls -k
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: publish CLI command reference</title><link>https://docs.dapr.io/reference/cli/dapr-publish/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/cli/dapr-publish/</guid><description>
-&lt;h2 id="description">Description&lt;/h2>
-&lt;p>Publish a pub-sub event.&lt;/p>
-&lt;h2 id="supported-platforms">Supported platforms&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: publish CLI 命令参考</title><link>https://docs.dapr.io/reference/cli/dapr-publish/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/cli/dapr-publish/</guid><description>
+&lt;h2 id="说明">说明&lt;/h2>
+&lt;p>发布 pub-sub 事件。&lt;/p>
+&lt;h2 id="支持的平台">支持的平台&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/self-hosted/">Self-Hosted&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/self-hosted/">自托管&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;h2 id="usage">Usage&lt;/h2>
+&lt;h2 id="用法">用法&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr publish &lt;span style="color:#f92672">[&lt;/span>flags&lt;span style="color:#f92672">]&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="flags">Flags&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="参数">参数&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>Name&lt;/th>
-&lt;th>Environment Variable&lt;/th>
-&lt;th>Default&lt;/th>
-&lt;th>Description&lt;/th>
+&lt;th>名称&lt;/th>
+&lt;th>环境变量&lt;/th>
+&lt;th>默认值&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -592,54 +592,54 @@ export Export the root CA, issuer cert and key from Kubernetes to local files
 &lt;td>&lt;code>--publish-app-id&lt;/code>&lt;/td>
 &lt;td>&lt;code>-i&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
-&lt;td>The ID that represents the app from which you are publishing&lt;/td>
+&lt;td>代表您要发布的应用程序的 ID&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--pubsub&lt;/code>&lt;/td>
 &lt;td>&lt;code>-p&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
-&lt;td>The name of the pub/sub component&lt;/td>
+&lt;td>Pub/sub 组件的名称&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--topic&lt;/code>, &lt;code>-t&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;/td>
-&lt;td>The topic to be published to&lt;/td>
+&lt;td>待发布的 topic&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--data&lt;/code>, &lt;code>-d&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;/td>
-&lt;td>The JSON serialized string (optional)&lt;/td>
+&lt;td>JSON 序列化数据字符串（可选）&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--help&lt;/code>, &lt;code>-h&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;/td>
-&lt;td>Print this help message&lt;/td>
+&lt;td>显示此帮助消息&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="examples">Examples&lt;/h2>
-&lt;h3 id="publish-to-sample-topic-in-target-pubsub">Publish to sample topic in target pubsub&lt;/h3>
+&lt;h2 id="示例">示例&lt;/h2>
+&lt;h3 id="将示例-topic-发布到目标-pubsub">将示例 topic 发布到目标 pubsub&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr publish --publish-app-id appId --topic sample --pubsub target --data &lt;span style="color:#e6db74">&amp;#39;{&amp;#34;key&amp;#34;:&amp;#34;value&amp;#34;}&amp;#39;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: run CLI command reference</title><link>https://docs.dapr.io/reference/cli/dapr-run/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/cli/dapr-run/</guid><description>
-&lt;h2 id="description">Description&lt;/h2>
-&lt;p>Run Dapr and (optionally) your application side by side.&lt;/p>
-&lt;h2 id="supported-platforms">Supported platforms&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: run CLI 命令参考</title><link>https://docs.dapr.io/reference/cli/dapr-run/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/cli/dapr-run/</guid><description>
+&lt;h2 id="说明">说明&lt;/h2>
+&lt;p>并排运行 Dapr 和 (可选) 应用程序。&lt;/p>
+&lt;h2 id="支持的平台">支持的平台&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/self-hosted/">Self-Hosted&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/self-hosted/">自托管&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;h2 id="usage">Usage&lt;/h2>
+&lt;h2 id="用法">用法&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr run &lt;span style="color:#f92672">[&lt;/span>flags&lt;span style="color:#f92672">]&lt;/span> &lt;span style="color:#f92672">[&lt;/span>command&lt;span style="color:#f92672">]&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="flags">Flags&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="参数">参数&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>Name&lt;/th>
-&lt;th>Environment Variable&lt;/th>
-&lt;th>Default&lt;/th>
-&lt;th>Description&lt;/th>
+&lt;th>名称&lt;/th>
+&lt;th>环境变量&lt;/th>
+&lt;th>默认值&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -647,122 +647,122 @@ export Export the root CA, issuer cert and key from Kubernetes to local files
 &lt;td>&lt;code>--app-id&lt;/code>, &lt;code>-a&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;/td>
-&lt;td>The id for your application, used for service discovery&lt;/td>
+&lt;td>用于服务发现的应用程序 Id&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--app-max-concurrency&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;code>unlimited&lt;/code>&lt;/td>
-&lt;td>The concurrency level of the application, otherwise is unlimited&lt;/td>
+&lt;td>应用程序的并发级别，默认为无限制&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--app-port&lt;/code>, &lt;code>-p&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;/td>
-&lt;td>The port your application is listening on&lt;/td>
+&lt;td>应用程序正在侦听的端口&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--app-protocol&lt;/code>, &lt;code>-P&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;code>http&lt;/code>&lt;/td>
-&lt;td>The protocol (gRPC or HTTP) Dapr uses to talk to the application. Valid values are: &lt;code>http&lt;/code> or &lt;code>grpc&lt;/code>&lt;/td>
+&lt;td>协议（gRPC 或 HTTP） Dapr 用于与应用程序通信。 有效值为: &lt;code>http&lt;/code> 或 &lt;code>grpc&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--app-ssl&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;code>false&lt;/code>&lt;/td>
-&lt;td>Enable https when Dapr invokes the application&lt;/td>
+&lt;td>当 Dapr 调用应用程序时启用 https&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--components-path&lt;/code>, &lt;code>-d&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;code>Linux &amp;amp; Mac: $HOME/.dapr/components&lt;/code>, &lt;code>Windows: %USERPROFILE%\.dapr\components&lt;/code>&lt;/td>
-&lt;td>The path for components directory&lt;/td>
+&lt;td>Components 目录的路径&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--config&lt;/code>, &lt;code>-c&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;code>Linux &amp;amp; Mac: $HOME/.dapr/config.yaml&lt;/code>, &lt;code>Windows: %USERPROFILE%\.dapr\config.yaml&lt;/code>&lt;/td>
-&lt;td>Dapr configuration file&lt;/td>
+&lt;td>Dapr 配置文件&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--dapr-grpc-port&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;code>3500&lt;/code>&lt;/td>
-&lt;td>The gRPC port for Dapr to listen on&lt;/td>
+&lt;td>Dapr 要监听的 gRPC 端口&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--dapr-http-port&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;code>50001&lt;/code>&lt;/td>
-&lt;td>The HTTP port for Dapr to listen on&lt;/td>
+&lt;td>Dapr 要监听的 HTTP 端口&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--enable-profiling&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;code>false&lt;/code>&lt;/td>
-&lt;td>Enable &lt;code>pprof&lt;/code> profiling via an HTTP endpoint&lt;/td>
+&lt;td>通过 HTTP 端点启用 &lt;code>pproft&lt;/code> 性能检测&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--help&lt;/code>, &lt;code>-h&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;/td>
-&lt;td>Print this help message&lt;/td>
+&lt;td>显示此帮助消息&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--image&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;/td>
-&lt;td>The image to build the code in. Input is: &lt;code>repository/image&lt;/code>&lt;/td>
+&lt;td>要在中生成代码的 image。 Input is: &lt;code>repository/image&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--log-level&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;code>info&lt;/code>&lt;/td>
-&lt;td>The log verbosity. Valid values are: &lt;code>debug&lt;/code>, &lt;code>info&lt;/code>, &lt;code>warn&lt;/code>, &lt;code>error&lt;/code>, &lt;code>fatal&lt;/code>, or &lt;code>panic&lt;/code>&lt;/td>
+&lt;td>日志详细程度。 有效值因为其中之一: &lt;code>debug&lt;/code>, &lt;code>info&lt;/code>, &lt;code>warn&lt;/code>, &lt;code>error&lt;/code>, &lt;code>fatal&lt;/code>, or &lt;code>panic&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--placement-host-address&lt;/code>&lt;/td>
 &lt;td>&lt;code>DAPR_PLACEMENT_HOST&lt;/code>&lt;/td>
 &lt;td>&lt;code>localhost&lt;/code>&lt;/td>
-&lt;td>The host on which the placement service resides&lt;/td>
+&lt;td>Placement 服务所在的主机&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--profile-port&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;code>7777&lt;/code>&lt;/td>
-&lt;td>The port for the profile server to listen on&lt;/td>
+&lt;td>要侦听的性能检测服务的端口&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="examples">Examples&lt;/h2>
-&lt;h3 id="run-a-net-application">Run a .NET application&lt;/h3>
+&lt;h2 id="示例">示例&lt;/h2>
+&lt;h3 id="运行-net-应用程序">运行 .NET 应用程序&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr run --app-id myapp --app-port &lt;span style="color:#ae81ff">5000&lt;/span> -- dotnet run
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="run-a-java-application">Run a Java application&lt;/h3>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="运行-java-应用程序">运行 Java 应用程序&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr run --app-id myapp -- java -jar myapp.jar
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="run-a-nodejs-application-that-listens-to-port-3000">Run a NodeJs application that listens to port 3000&lt;/h3>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="运行侦听端口-3000-的-nodejs-应用程序">运行侦听端口 3000 的 NodeJs 应用程序&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr run --app-id myapp --app-port &lt;span style="color:#ae81ff">3000&lt;/span> -- node myapp.js
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="run-a-python-application">Run a Python application&lt;/h3>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="运行-python-应用程序">运行 Python 应用程序&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr run --app-id myapp -- python myapp.py
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="run-sidecar-only">Run sidecar only&lt;/h3>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="仅运行-sidecar">仅运行 sidecar&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr run --app-id myapp
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: status CLI command reference</title><link>https://docs.dapr.io/reference/cli/dapr-status/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/cli/dapr-status/</guid><description>
-&lt;h2 id="description">Description&lt;/h2>
-&lt;p>Show the health status of Dapr services.&lt;/p>
-&lt;h2 id="supported-platforms">Supported platforms&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: status CLI 命令参考</title><link>https://docs.dapr.io/reference/cli/dapr-status/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/cli/dapr-status/</guid><description>
+&lt;h2 id="说明">说明&lt;/h2>
+&lt;p>显示 Dapr 服务的健康状况。&lt;/p>
+&lt;h2 id="支持的平台">支持的平台&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/">Kubernetes&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;h2 id="usage">Usage&lt;/h2>
+&lt;h2 id="用法">用法&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr status -k
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="flags">Flags&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="参数">参数&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>Name&lt;/th>
-&lt;th>Environment Variable&lt;/th>
-&lt;th>Default&lt;/th>
-&lt;th>Description&lt;/th>
+&lt;th>名称&lt;/th>
+&lt;th>环境变量&lt;/th>
+&lt;th>默认值&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -770,36 +770,36 @@ export Export the root CA, issuer cert and key from Kubernetes to local files
 &lt;td>&lt;code>--help&lt;/code>, &lt;code>-h&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;/td>
-&lt;td>Print this help message&lt;/td>
+&lt;td>显示此帮助消息&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--kubernetes&lt;/code>, &lt;code>-k&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;code>false&lt;/code>&lt;/td>
-&lt;td>Show the health status of Dapr services on Kubernetes cluster&lt;/td>
+&lt;td>显示 Kubernetes 集群上 Dapr 服务的运行状况&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="examples">Examples&lt;/h2>
-&lt;h3 id="get-status-of-dapr-services-from-kubernetes">Get status of Dapr services from Kubernetes&lt;/h3>
+&lt;h2 id="示例">示例&lt;/h2>
+&lt;h3 id="获取来自-kubernetes-的-dapr-服务的状态">获取来自 Kubernetes 的 Dapr 服务的状态&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr status -k
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: stop CLI command reference</title><link>https://docs.dapr.io/reference/cli/dapr-stop/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/cli/dapr-stop/</guid><description>
-&lt;h2 id="description">Description&lt;/h2>
-&lt;p>Stop Dapr instances and their associated apps.&lt;/p>
-&lt;h2 id="supported-platforms">Supported platforms&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: stop CLI 命令参考</title><link>https://docs.dapr.io/reference/cli/dapr-stop/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/cli/dapr-stop/</guid><description>
+&lt;h2 id="说明">说明&lt;/h2>
+&lt;p>停止 dapr 实例及其关联的应用程序。&lt;/p>
+&lt;h2 id="支持的平台">支持的平台&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/self-hosted/">Self-Hosted&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/self-hosted/">自托管&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;h2 id="usage">Usage&lt;/h2>
+&lt;h2 id="用法">用法&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr stop &lt;span style="color:#f92672">[&lt;/span>flags&lt;span style="color:#f92672">]&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="flags">Flags&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="参数">参数&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>Name&lt;/th>
-&lt;th>Environment Variable&lt;/th>
-&lt;th>Default&lt;/th>
-&lt;th>Description&lt;/th>
+&lt;th>名称&lt;/th>
+&lt;th>环境变量&lt;/th>
+&lt;th>默认值&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -807,37 +807,37 @@ export Export the root CA, issuer cert and key from Kubernetes to local files
 &lt;td>&lt;code>--app-id&lt;/code>, &lt;code>-a&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;/td>
-&lt;td>The application id to be stopped&lt;/td>
+&lt;td>要停止的应用程序 Id&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--help&lt;/code>, &lt;code>-h&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;/td>
-&lt;td>Print this help message&lt;/td>
+&lt;td>显示此帮助消息&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="examples">Examples&lt;/h2>
-&lt;h3 id="stop-dapr-application">Stop Dapr application&lt;/h3>
+&lt;h2 id="示例">示例&lt;/h2>
+&lt;h3 id="停止-dapr-应用程序">停止 Dapr 应用程序&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr stop --app-id &amp;lt;ID&amp;gt;
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: uninstall CLI command reference</title><link>https://docs.dapr.io/reference/cli/dapr-uninstall/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/cli/dapr-uninstall/</guid><description>
-&lt;h2 id="description">Description&lt;/h2>
-&lt;p>Uninstall Dapr runtime.&lt;/p>
-&lt;h2 id="supported-platforms">Supported platforms&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: uninstall CLI 命令参考</title><link>https://docs.dapr.io/reference/cli/dapr-uninstall/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/cli/dapr-uninstall/</guid><description>
+&lt;h2 id="说明">说明&lt;/h2>
+&lt;p>卸载 Dapr 运行时。&lt;/p>
+&lt;h2 id="支持的平台">支持的平台&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/self-hosted/">Self-Hosted&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/self-hosted/">自托管&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/">Kubernetes&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;h2 id="usage">Usage&lt;/h2>
+&lt;h2 id="用法">用法&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr uninstall &lt;span style="color:#f92672">[&lt;/span>flags&lt;span style="color:#f92672">]&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="flags">Flags&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="参数">参数&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>Name&lt;/th>
-&lt;th>Environment Variable&lt;/th>
-&lt;th>Default&lt;/th>
-&lt;th>Description&lt;/th>
+&lt;th>名称&lt;/th>
+&lt;th>环境变量&lt;/th>
+&lt;th>默认值&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -845,58 +845,58 @@ export Export the root CA, issuer cert and key from Kubernetes to local files
 &lt;td>&lt;code>--all&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;code>false&lt;/code>&lt;/td>
-&lt;td>Remove Redis, Zipkin containers in addition to actor placement container. Remove default dapr dir located at &lt;code>$HOME/.dapr or %USERPROFILE%\.dapr\&lt;/code>.&lt;/td>
+&lt;td>除 actor Placement放置容器外，卸载 Redis， Zipkin 容器。 删除 dapr 默认文件夹，路径为 &lt;code>$HOME/.dapr or %USERPROFILE%\.dapr\&lt;/code>.&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--help&lt;/code>, &lt;code>-h&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;/td>
-&lt;td>Print this help message&lt;/td>
+&lt;td>显示此帮助消息&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--kubernetes&lt;/code>, &lt;code>-k&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;code>false&lt;/code>&lt;/td>
-&lt;td>Uninstall Dapr from a Kubernetes cluster&lt;/td>
+&lt;td>从 Kubernetes 集群卸载 dapr&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--namespace&lt;/code>, &lt;code>-n&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;code>dapr-system&lt;/code>&lt;/td>
-&lt;td>The Kubernetes namespace to uninstall Dapr from&lt;/td>
+&lt;td>要卸载 Dapr 的 Kubernetes 命名空间&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--network&lt;/code>&lt;/td>
 &lt;td>&lt;code>DAPR_NETWORK&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
-&lt;td>The Docker network from which to remove the Dapr runtime&lt;/td>
+&lt;td>要从中删除 Dapr 运行时的 Docker 网络&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="examples">Examples&lt;/h2>
-&lt;h3 id="uninstall-from-self-hosted-mode">Uninstall from self-hosted mode&lt;/h3>
+&lt;h2 id="示例">示例&lt;/h2>
+&lt;h3 id="从-self-hosted-模式卸载">从 Self-Hosted 模式卸载&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr uninstall
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="uninstall-from-self-hosted-mode-and-remove-dapr-directory-redis-placement-and-zipkin-containers">Uninstall from self-hosted mode and remove .dapr directory, Redis, Placement and Zipkin containers&lt;/h3>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="从-self-hosted-模式卸载并删除-dapr-目录redisplacement-和-zipkin-容器">从 Self-Hosted 模式卸载并删除 .dapr 目录、Redis、Placement 和 Zipkin 容器&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr uninstall --all
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="uninstall-from-kubernetes">Uninstall from Kubernetes&lt;/h3>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="从-kubernetes-卸载">从 Kubernetes 卸载&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr uninstall -k
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: upgrade CLI command reference</title><link>https://docs.dapr.io/reference/cli/dapr-upgrade/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/cli/dapr-upgrade/</guid><description>
-&lt;h2 id="description">Description&lt;/h2>
-&lt;p>Upgrade Dapr on supported hosting platforms.&lt;/p>
-&lt;h2 id="supported-platforms">Supported platforms&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: upgrade CLI 命令参考</title><link>https://docs.dapr.io/reference/cli/dapr-upgrade/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/cli/dapr-upgrade/</guid><description>
+&lt;h2 id="说明">说明&lt;/h2>
+&lt;p>在受支持的托管平台上升级 Dapr 。&lt;/p>
+&lt;h2 id="支持的平台">支持的平台&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/">Kubernetes&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;h2 id="usage">Usage&lt;/h2>
+&lt;h2 id="用法">用法&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr upgrade &lt;span style="color:#f92672">[&lt;/span>flags&lt;span style="color:#f92672">]&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="flags">Flags&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="参数">参数&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>Name&lt;/th>
-&lt;th>Environment Variable&lt;/th>
-&lt;th>Default&lt;/th>
-&lt;th>Description&lt;/th>
+&lt;th>名称&lt;/th>
+&lt;th>环境变量&lt;/th>
+&lt;th>默认值&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -904,36 +904,36 @@ export Export the root CA, issuer cert and key from Kubernetes to local files
 &lt;td>&lt;code>--help&lt;/code>, &lt;code>-h&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;/td>
-&lt;td>Print this help message&lt;/td>
+&lt;td>显示此帮助消息&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--kubernetes&lt;/code>, &lt;code>-k&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;code>false&lt;/code>&lt;/td>
-&lt;td>Upgrade Dapr in a Kubernetes cluster&lt;/td>
+&lt;td>更新 Kubernetes 集群中的 dapr&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--runtime-version&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;code>latest&lt;/code>&lt;/td>
-&lt;td>The version of the Dapr runtime to upgrade to, for example: &lt;code>1.0.0&lt;/code>&lt;/td>
+&lt;td>要升级的 Dapr 运行时的版本，例如: &lt;code>1.0.0&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--set&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;/td>
-&lt;td>Set values on the command line (can specify multiple or separate values with commas: key1=val1,key2=val2)&lt;/td>
+&lt;td>在命令行上设置值 (可以用逗号指定多个或多个值: key1=val1,key2=val2)&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="examples">Examples&lt;/h2>
-&lt;h3 id="upgrade-dapr-in-kubernetes-to-latest-version">Upgrade Dapr in Kubernetes to latest version&lt;/h3>
+&lt;h2 id="示例">示例&lt;/h2>
+&lt;h3 id="将-kubernetes-中的-dapr-升级到最新版本">将 Kubernetes 中的 dapr 升级到最新版本&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr upgrade -k
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="upgrade-specified-version-of-dapr-runtime-in-kubernetes">Upgrade specified version of Dapr runtime in Kubernetes&lt;/h3>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="在-kubernetes-中升级指定版本的-dapr-运行时">在 Kubernetes 中升级指定版本的 Dapr 运行时&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr upgrade -k --runtime-version 1.0.0
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="upgrade-specified-version-of-dapr-runtime-in-kubernetes-with-value-set">Upgrade specified version of Dapr runtime in Kubernetes with value set&lt;/h3>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="在-kubernetes-中升级指定版本的-dapr-运行时并包含一些参数">在 Kubernetes 中升级指定版本的 Dapr 运行时，并包含一些参数&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr upgrade -k --runtime-version 1.0.0 --set global.logAsJson&lt;span style="color:#f92672">=&lt;/span>true
-&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="related-links">Related links&lt;/h1>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="相关链接">相关链接&lt;/h1>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-upgrade/">Upgrade Dapr on a Kubernetes cluster&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-upgrade/">更新 Kubernetes 集群中的 dapr&lt;/a>&lt;/li>
 &lt;/ul></description></item></channel></rss>

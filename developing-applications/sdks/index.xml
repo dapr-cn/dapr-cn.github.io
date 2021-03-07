@@ -1,4 +1,4 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr Docs – Dapr Software Development Kits (SDKs)</title><link>https://docs.dapr.io/developing-applications/sdks/</link><description>Recent content in Dapr Software Development Kits (SDKs) on Dapr Docs</description><generator>Hugo -- gohugo.io</generator><language>zh-hans</language><atom:link href="https://docs.dapr.io/developing-applications/sdks/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Dapr .NET SDK</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/dotnet/</guid><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Dapr Software Development Kits (SDKs)</title><link>https://docs.dapr.io/developing-applications/sdks/</link><description>Recent content in Dapr Software Development Kits (SDKs) on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/developing-applications/sdks/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Dapr .NET SDK</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/dotnet/</guid><description>
 &lt;p>Dapr offers a variety of packages to help with the development of .NET applications. Using them you can create .NET clients, servers, and virtual actors with Dapr.&lt;/p>
 &lt;div class="card-deck">
 &lt;div class="card">
@@ -23,7 +23,7 @@
 &lt;/div>
 &lt;/div>
 &lt;/div>
-&lt;br />
+&lt;p>&lt;br />&lt;/p>
 &lt;div class="card-deck">
 &lt;div class="card">
 &lt;div class="card-body">
@@ -35,7 +35,7 @@
 &lt;div class="card">
 &lt;div class="card-body">
 &lt;h5 class="card-title">&lt;b>Troubleshooting&lt;/b>&lt;/h5>
-&lt;p class="card-text">Detailed documentation on the Dapr API, CLI, bindings and more.&lt;/p>
+&lt;p class="card-text">关于 Dapr API，CLI，资源绑定及更多内容的详细文档&lt;/p>
 &lt;a href="https://docs.dapr.io/reference/" class="stretched-link">&lt;/a>
 &lt;/div>
 &lt;/div>
@@ -60,8 +60,7 @@
 &lt;li>&lt;a href="http://xdebug.org/">xdebug&lt;/a> &amp;ndash; for debugging&lt;/li>
 &lt;/ul>
 &lt;h2 id="initialize-your-project">Initialize your project&lt;/h2>
-&lt;p>In a directory where you want to create your service, run &lt;code>composer init&lt;/code> and answer the questions.
-Install &lt;code>dapr/php-sdk&lt;/code> and any other dependencies you may wish to use.&lt;/p>
+&lt;p>In a directory where you want to create your service, run &lt;code>composer init&lt;/code> and answer the questions. Install &lt;code>dapr/php-sdk&lt;/code> and any other dependencies you may wish to use.&lt;/p>
 &lt;h2 id="configure-your-service">Configure your service&lt;/h2>
 &lt;p>Create a config.php, copying the contents below:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
@@ -108,8 +107,7 @@ $app&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e
 $app&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">start&lt;/span>();
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="try-it-out">Try it out&lt;/h2>
 &lt;p>Initialize dapr with &lt;code>dapr init&lt;/code> and then start the project with &lt;code>dapr run -a dev -p 3000 -- php -S 0.0.0.0:3000&lt;/code>.&lt;/p>
-&lt;p>You can now open a web browser and point it to &lt;a href="http://localhost:3000/hello/world">http://localhost:3000/hello/world&lt;/a>
-replacing &lt;code>world&lt;/code> with your name, a pet&amp;rsquo;s name, or whatever you want.&lt;/p>
+&lt;p>You can now open a web browser and point it to &lt;a href="http://localhost:3000/hello/world">http://localhost:3000/hello/world&lt;/a> replacing &lt;code>world&lt;/code> with your name, a pet&amp;rsquo;s name, or whatever you want.&lt;/p>
 &lt;p>Congratulations, you&amp;rsquo;ve created your first Dapr service! I&amp;rsquo;m excited to see what you&amp;rsquo;ll do with it!&lt;/p>
 &lt;h2 id="more-information">More Information&lt;/h2>
 &lt;ul>
@@ -161,7 +159,7 @@ The development package will contain features and behavior that will be compatib
 &lt;li>&lt;a href="https://pypi.org/user/dapr.io/">Python Package Index (PyPI)&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/sdk-serialization/">Dapr SDK serialization&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Developing-Applications: Serialization in Dapr's SDKs</title><link>https://docs.dapr.io/developing-applications/sdks/sdk-serialization/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/sdk-serialization/</guid><description>
-&lt;p>An SDK for Dapr should provide serialization for two use cases. First, for API objects sent through request and response payloads. Second, for objects to be persisted. For both these use cases, a default serialization is provided. In the Java SDK, it is the &lt;a href="https://dapr.github.io/java-sdk/io/dapr/serializer/DefaultObjectSerializer.html">DefaultObjectSerializer&lt;/a> class, providing JSON serialization.&lt;/p>
+&lt;p>An SDK for Dapr should provide serialization for two use cases. First, for API objects sent through request and response payloads. Second, for objects to be persisted. For both these use cases, a default serialization is provided. In the Java SDK, it is the &lt;a href="https://dapr.github.io/java-sdk/io/dapr/serializer/DefaultObjectSerializer.html">DefaultObjectSerializer&lt;/a> class, providing JSON serialization. First, for API objects sent through request and response payloads. Second, for objects to be persisted. For both these use cases, a default serialization is provided. In the Java SDK, it is the &lt;a href="https://dapr.github.io/java-sdk/io/dapr/serializer/DefaultObjectSerializer.html">DefaultObjectSerializer&lt;/a> class, providing JSON serialization.&lt;/p>
 &lt;h2 id="service-invocation">Service invocation&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java"> DaprClient client &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#66d9ef">new&lt;/span> DaprClientBuilder&lt;span style="color:#f92672">()).&lt;/span>&lt;span style="color:#a6e22e">build&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
 client&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">invokeService&lt;/span>&lt;span style="color:#f92672">(&lt;/span>Verb&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">POST&lt;/span>&lt;span style="color:#f92672">,&lt;/span> &lt;span style="color:#e6db74">&amp;#34;myappid&amp;#34;&lt;/span>&lt;span style="color:#f92672">,&lt;/span> &lt;span style="color:#e6db74">&amp;#34;saySomething&amp;#34;&lt;/span>&lt;span style="color:#f92672">,&lt;/span> &lt;span style="color:#e6db74">&amp;#34;My Message&amp;#34;&lt;/span>&lt;span style="color:#f92672">,&lt;/span> &lt;span style="color:#66d9ef">null&lt;/span>&lt;span style="color:#f92672">).&lt;/span>&lt;span style="color:#a6e22e">block&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
@@ -174,7 +172,7 @@ Content-Length: 12
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="state-management">State management&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java"> DaprClient client &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#66d9ef">new&lt;/span> DaprClientBuilder&lt;span style="color:#f92672">()).&lt;/span>&lt;span style="color:#a6e22e">build&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
 client&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">saveState&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#34;MyStateStore&amp;#34;&lt;/span>&lt;span style="color:#f92672">,&lt;/span> &lt;span style="color:#e6db74">&amp;#34;MyKey&amp;#34;&lt;/span>&lt;span style="color:#f92672">,&lt;/span> &lt;span style="color:#e6db74">&amp;#34;My Message&amp;#34;&lt;/span>&lt;span style="color:#f92672">).&lt;/span>&lt;span style="color:#a6e22e">block&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>In this example, &lt;code>My Message&lt;/code> will be saved. It is not quoted because Dapr&amp;rsquo;s API will internally parse the JSON request object before saving it.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>In this example, &lt;code>My Message&lt;/code> will be saved. In this example, &lt;code>My Message&lt;/code> will be saved. It is not quoted because Dapr&amp;rsquo;s API will internally parse the JSON request object before saving it.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-JSON" data-lang="JSON">[
 {
 &lt;span style="color:#f92672">&amp;#34;key&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;MyKey&amp;#34;&lt;/span>,
@@ -184,11 +182,13 @@ client&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">s
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="pubsub">PubSub&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java"> DaprClient client &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#66d9ef">new&lt;/span> DaprClientBuilder&lt;span style="color:#f92672">()).&lt;/span>&lt;span style="color:#a6e22e">build&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
 client&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">publishEvent&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#34;TopicName&amp;#34;&lt;/span>&lt;span style="color:#f92672">,&lt;/span> &lt;span style="color:#e6db74">&amp;#34;My Message&amp;#34;&lt;/span>&lt;span style="color:#f92672">).&lt;/span>&lt;span style="color:#a6e22e">block&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>The event is published and the content is serialized to &lt;code>byte[]&lt;/code> and sent to Dapr sidecar. The subscriber will receive it as a &lt;a href="https://github.com/cloudevents/spec">CloudEvent&lt;/a>. Cloud event defines &lt;code>data&lt;/code> as String. Dapr SDK also provides a built-in deserializer for &lt;code>CloudEvent&lt;/code> object.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The event is published and the content is serialized to &lt;code>byte[]&lt;/code> and sent to Dapr sidecar. The subscriber will receive it as a &lt;a href="https://github.com/cloudevents/spec">CloudEvent&lt;/a>. Cloud event defines &lt;code>data&lt;/code> as String. Dapr SDK also provides a built-in deserializer for &lt;code>CloudEvent&lt;/code> object. The subscriber will receive it as a &lt;a href="https://github.com/cloudevents/spec">CloudEvent&lt;/a>. Cloud event defines &lt;code>data&lt;/code> as String. Dapr SDK also provides a built-in deserializer for &lt;code>CloudEvent&lt;/code> object.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java"> &lt;span style="color:#a6e22e">@PostMapping&lt;/span>&lt;span style="color:#f92672">(&lt;/span>path &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;/TopicName&amp;#34;&lt;/span>&lt;span style="color:#f92672">)&lt;/span>
 &lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">void&lt;/span> &lt;span style="color:#a6e22e">handleMessage&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#a6e22e">@RequestBody&lt;/span>&lt;span style="color:#f92672">(&lt;/span>required &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">false&lt;/span>&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#66d9ef">byte&lt;/span>&lt;span style="color:#f92672">[]&lt;/span> body&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
 &lt;span style="color:#75715e">// Dapr&amp;#39;s event is compliant to CloudEvent.
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> CloudEvent event &lt;span style="color:#f92672">=&lt;/span> CloudEvent&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">deserialize&lt;/span>&lt;span style="color:#f92672">(&lt;/span>body&lt;span style="color:#f92672">);&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
+CloudEvent event &lt;span style="color:#f92672">=&lt;/span> CloudEvent&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">deserialize&lt;/span>&lt;span style="color:#f92672">(&lt;/span>body&lt;span style="color:#f92672">);&lt;/span>
 &lt;span style="color:#f92672">}&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="bindings">Bindings&lt;/h2>
 &lt;p>In this case, the object is serialized to &lt;code>byte[]&lt;/code> as well and the input binding receives the raw &lt;code>byte[]&lt;/code> as-is and deserializes it to the expected object type.&lt;/p>
@@ -227,19 +227,24 @@ System&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">o
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>It should print:&lt;/p>
 &lt;pre>&lt;code> My Message
 &lt;/code>&lt;/pre>&lt;h2 id="actors-state-management">Actor&amp;rsquo;s state management&lt;/h2>
-&lt;p>Actors can also have state. In this case, the state manager will serialize and deserialize the objects using the state serializer and handle it transparently to the application.&lt;/p>
+&lt;p>Actors can also have state. Actors can also have state. In this case, the state manager will serialize and deserialize the objects using the state serializer and handle it transparently to the application.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">&lt;span style="color:#66d9ef">public&lt;/span> String &lt;span style="color:#a6e22e">actorMethod&lt;/span>&lt;span style="color:#f92672">(&lt;/span>String message&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+&lt;span style="color:#75715e">// Reads a state from key and deserializes it to String.
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">public&lt;/span> String &lt;span style="color:#a6e22e">actorMethod&lt;/span>&lt;span style="color:#f92672">(&lt;/span>String message&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
 &lt;span style="color:#75715e">// Reads a state from key and deserializes it to String.
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> String previousMessage &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">super&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">getActorStateManager&lt;/span>&lt;span style="color:#f92672">().&lt;/span>&lt;span style="color:#a6e22e">get&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#34;lastmessage&amp;#34;&lt;/span>&lt;span style="color:#f92672">,&lt;/span> String&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">class&lt;/span>&lt;span style="color:#f92672">).&lt;/span>&lt;span style="color:#a6e22e">block&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
 &lt;span style="color:#75715e">// Sets the new state for the key after serializing it.
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">super&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">getActorStateManager&lt;/span>&lt;span style="color:#f92672">().&lt;/span>&lt;span style="color:#a6e22e">set&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#34;lastmessage&amp;#34;&lt;/span>&lt;span style="color:#f92672">,&lt;/span> message&lt;span style="color:#f92672">).&lt;/span>&lt;span style="color:#a6e22e">block&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
 &lt;span style="color:#66d9ef">return&lt;/span> previousMessage&lt;span style="color:#f92672">;&lt;/span>
 &lt;span style="color:#f92672">}&lt;/span>
+&lt;span style="color:#66d9ef">super&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">getActorStateManager&lt;/span>&lt;span style="color:#f92672">().&lt;/span>&lt;span style="color:#a6e22e">set&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#34;lastmessage&amp;#34;&lt;/span>&lt;span style="color:#f92672">,&lt;/span> message&lt;span style="color:#f92672">).&lt;/span>&lt;span style="color:#a6e22e">block&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
+&lt;span style="color:#66d9ef">return&lt;/span> previousMessage&lt;span style="color:#f92672">;&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="default-serializer">Default serializer&lt;/h2>
 &lt;p>The default serializer for Dapr is a JSON serializer with the following expectations:&lt;/p>
 &lt;ol>
-&lt;li>Use of basic &lt;a href="https://www.w3schools.com/js/js_json_datatypes.asp">JSON data types&lt;/a> for cross-language and cross-platform compatibility: string, number, array, boolean, null and another JSON object. Every complex property type in application&amp;rsquo;s serializable objects (DateTime, for example), should be represented as one of the JSON&amp;rsquo;s basic types.&lt;/li>
-&lt;li>Data persisted with the default serializer should be saved as JSON objects too, without extra quotes or encoding. The example below shows how a string and a JSON object would look like in a Redis store.&lt;/li>
+&lt;li>Use of basic &lt;a href="https://www.w3schools.com/js/js_json_datatypes.asp">JSON data types&lt;/a> for cross-language and cross-platform compatibility: string, number, array, boolean, null and another JSON object. Every complex property type in application&amp;rsquo;s serializable objects (DateTime, for example), should be represented as one of the JSON&amp;rsquo;s basic types. Every complex property type in application&amp;rsquo;s serializable objects (DateTime, for example), should be represented as one of the JSON&amp;rsquo;s basic types.&lt;/li>
+&lt;li>Data persisted with the default serializer should be saved as JSON objects too, without extra quotes or encoding. The example below shows how a string and a JSON object would look like in a Redis store. The example below shows how a string and a JSON object would look like in a Redis store. The example below shows how a string and a JSON object would look like in a Redis store.&lt;/li>
 &lt;/ol>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">redis-cli MGET &lt;span style="color:#e6db74">&amp;#34;ActorStateIT_StatefulActorService||StatefulActorTest||1581130928192||message
 &lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span>This is a message to be saved and retrieved.&lt;span style="color:#e6db74">&amp;#34;
@@ -248,13 +253,13 @@ System&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">o
 &lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="3">
 &lt;li>Custom serializers must serialize object to &lt;code>byte[]&lt;/code>.&lt;/li>
 &lt;li>Custom serializers must deserilize &lt;code>byte[]&lt;/code> to object.&lt;/li>
-&lt;li>When user provides a custom serializer, it should be transferred or persisted as &lt;code>byte[]&lt;/code>. When persisting, also encode as Base64 string. This is done natively by most JSON libraries.&lt;/li>
+&lt;li>When user provides a custom serializer, it should be transferred or persisted as &lt;code>byte[]&lt;/code>. When persisting, also encode as Base64 string. This is done natively by most JSON libraries. When persisting, also encode as Base64 string. This is done natively by most JSON libraries.&lt;/li>
 &lt;/ol>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">redis-cli MGET &lt;span style="color:#e6db74">&amp;#34;ActorStateIT_StatefulActorService||StatefulActorTest||1581130928192||message
 &lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span>VGhpcyBpcyBhIG1lc3NhZ2UgdG8gYmUgc2F2ZWQgYW5kIHJldHJpZXZlZC4&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;
 &lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash"> redis-cli MGET &lt;span style="color:#e6db74">&amp;#34;ActorStateIT_StatefulActorService||StatefulActorTest||1581130928192||mydata
 &lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span>eyJ2YWx1ZSI6Ik15IGRhdGEgdmFsdWUuIn0&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;
 &lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="6">
-&lt;li>When serializing a object that is a &lt;code>byte[]&lt;/code>, the serializer should just pass it through since &lt;code>byte[]&lt;/code> shoould be already handled internally in the SDK. The same happens when deserializing to &lt;code>byte[]&lt;/code>.&lt;/li>
+&lt;li>When serializing a object that is a &lt;code>byte[]&lt;/code>, the serializer should just pass it through since &lt;code>byte[]&lt;/code> shoould be already handled internally in the SDK. The same happens when deserializing to &lt;code>byte[]&lt;/code>. The same happens when deserializing to &lt;code>byte[]&lt;/code>.&lt;/li>
 &lt;/ol>
-&lt;p>&lt;em>As of now, the &lt;a href="https://github.com/dapr/java-sdk/">Java SDK&lt;/a> is the only Dapr SDK that implements this specification. In the near future, other SDKs will also implement the same.&lt;/em>&lt;/p></description></item></channel></rss>
+&lt;p>&lt;em>As of now, the &lt;a href="https://github.com/dapr/java-sdk/">Java SDK&lt;/a> is the only Dapr SDK that implements this specification. In the near future, other SDKs will also implement the same. In the near future, other SDKs will also implement the same.&lt;/em>&lt;/p></description></item></channel></rss>

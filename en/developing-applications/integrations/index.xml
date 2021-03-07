@@ -1,0 +1,260 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr Docs – Integrations</title><link>https://docs.dapr.io/en/developing-applications/integrations/</link><description>Recent content in Integrations on Dapr Docs</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/en/developing-applications/integrations/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Dapr's gRPC Interface</title><link>https://docs.dapr.io/en/developing-applications/integrations/grpc-integration/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/developing-applications/integrations/grpc-integration/</guid><description>
+&lt;h1 id="dapr-and-grpc">Dapr and gRPC&lt;/h1>
+&lt;p>Dapr implements both an HTTP and a gRPC API for local calls. gRPC is useful for low-latency, high performance scenarios and has language integration using the proto clients.&lt;/p>
+&lt;p>You can find a list of auto-generated clients &lt;a href="https://github.com/dapr/docs#sdks">here&lt;/a>.&lt;/p>
+&lt;p>The Dapr runtime implements a &lt;a href="https://github.com/dapr/dapr/blob/master/dapr/proto/runtime/v1/dapr.proto">proto service&lt;/a> that apps can communicate with via gRPC.&lt;/p>
+&lt;p>In addition to calling Dapr via gRPC, Dapr can communicate with an application via gRPC. To do that, the app needs to host a gRPC server and implements the &lt;a href="https://github.com/dapr/dapr/blob/master/dapr/proto/runtime/v1/appcallback.proto">Dapr appcallback service&lt;/a>&lt;/p>
+&lt;h2 id="configuring-dapr-to-communicate-with-an-app-via-grpc">Configuring Dapr to communicate with an app via gRPC&lt;/h2>
+&lt;h3 id="self-hosted">Self hosted&lt;/h3>
+&lt;p>When running in self hosted mode, use the &lt;code>--app-protocol&lt;/code> flag to tell Dapr to use gRPC to talk to the app:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr run --app-protocol grpc --app-port &lt;span style="color:#ae81ff">5005&lt;/span> node app.js
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>This tells Dapr to communicate with your app via gRPC over port &lt;code>5005&lt;/code>.&lt;/p>
+&lt;h3 id="kubernetes">Kubernetes&lt;/h3>
+&lt;p>On Kubernetes, set the following annotations in your deployment YAML:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">apps/v1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Deployment&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">myapp&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">labels&lt;/span>:
+&lt;span style="color:#f92672">app&lt;/span>: &lt;span style="color:#ae81ff">myapp&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">replicas&lt;/span>: &lt;span style="color:#ae81ff">1&lt;/span>
+&lt;span style="color:#f92672">selector&lt;/span>:
+&lt;span style="color:#f92672">matchLabels&lt;/span>:
+&lt;span style="color:#f92672">app&lt;/span>: &lt;span style="color:#ae81ff">myapp&lt;/span>
+&lt;span style="color:#f92672">template&lt;/span>:
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">labels&lt;/span>:
+&lt;span style="color:#f92672">app&lt;/span>: &lt;span style="color:#ae81ff">myapp&lt;/span>
+&lt;span style="color:#f92672">annotations&lt;/span>:
+&lt;span style="color:#f92672">dapr.io/enabled&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">dapr.io/app-id&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;myapp&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">dapr.io/app-protocol&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;grpc&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">dapr.io/app-port&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;5005&amp;#34;&lt;/span>
+...
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="invoking-dapr-with-grpc---go-example">Invoking Dapr with gRPC - Go example&lt;/h2>
+&lt;p>The following steps show you how to create a Dapr client and call the &lt;code>SaveStateData&lt;/code> operation on it:&lt;/p>
+&lt;ol>
+&lt;li>Import the package&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#f92672">package&lt;/span> &lt;span style="color:#a6e22e">main&lt;/span>
+&lt;span style="color:#f92672">import&lt;/span> (
+&lt;span style="color:#e6db74">&amp;#34;context&amp;#34;&lt;/span>
+&lt;span style="color:#e6db74">&amp;#34;log&amp;#34;&lt;/span>
+&lt;span style="color:#e6db74">&amp;#34;os&amp;#34;&lt;/span>
+&lt;span style="color:#a6e22e">dapr&lt;/span> &lt;span style="color:#e6db74">&amp;#34;github.com/dapr/go-sdk/client&amp;#34;&lt;/span>
+)
+&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
+&lt;li>Create the client&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#75715e">// just for this demo
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#a6e22e">ctx&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">context&lt;/span>.&lt;span style="color:#a6e22e">Background&lt;/span>()
+&lt;span style="color:#a6e22e">data&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> []byte(&lt;span style="color:#e6db74">&amp;#34;ping&amp;#34;&lt;/span>)
+&lt;span style="color:#75715e">// create the client
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#a6e22e">client&lt;/span>, &lt;span style="color:#a6e22e">err&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">dapr&lt;/span>.&lt;span style="color:#a6e22e">NewClient&lt;/span>()
+&lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#a6e22e">err&lt;/span> &lt;span style="color:#f92672">!=&lt;/span> &lt;span style="color:#66d9ef">nil&lt;/span> {
+&lt;span style="color:#a6e22e">logger&lt;/span>.&lt;span style="color:#a6e22e">Panic&lt;/span>(&lt;span style="color:#a6e22e">err&lt;/span>)
+}
+&lt;span style="color:#66d9ef">defer&lt;/span> &lt;span style="color:#a6e22e">client&lt;/span>.&lt;span style="color:#a6e22e">Close&lt;/span>()
+&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="3">
+&lt;li>Invoke the Save State method&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#75715e">// save state with the key key1
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#a6e22e">err&lt;/span> = &lt;span style="color:#a6e22e">client&lt;/span>.&lt;span style="color:#a6e22e">SaveStateData&lt;/span>(&lt;span style="color:#a6e22e">ctx&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;statestore&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;key1&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">data&lt;/span>)
+&lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#a6e22e">err&lt;/span> &lt;span style="color:#f92672">!=&lt;/span> &lt;span style="color:#66d9ef">nil&lt;/span> {
+&lt;span style="color:#a6e22e">logger&lt;/span>.&lt;span style="color:#a6e22e">Panic&lt;/span>(&lt;span style="color:#a6e22e">err&lt;/span>)
+}
+&lt;span style="color:#a6e22e">logger&lt;/span>.&lt;span style="color:#a6e22e">Println&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;data saved&amp;#34;&lt;/span>)
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Hooray!&lt;/p>
+&lt;p>Now you can explore all the different methods on the Dapr client.&lt;/p>
+&lt;h2 id="creating-a-grpc-app-with-dapr">Creating a gRPC app with Dapr&lt;/h2>
+&lt;p>The following steps will show you how to create an app that exposes a server for Dapr to communicate with.&lt;/p>
+&lt;ol>
+&lt;li>Import the package&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#f92672">package&lt;/span> &lt;span style="color:#a6e22e">main&lt;/span>
+&lt;span style="color:#f92672">import&lt;/span> (
+&lt;span style="color:#e6db74">&amp;#34;context&amp;#34;&lt;/span>
+&lt;span style="color:#e6db74">&amp;#34;fmt&amp;#34;&lt;/span>
+&lt;span style="color:#e6db74">&amp;#34;log&amp;#34;&lt;/span>
+&lt;span style="color:#e6db74">&amp;#34;net&amp;#34;&lt;/span>
+&lt;span style="color:#e6db74">&amp;#34;github.com/golang/protobuf/ptypes/any&amp;#34;&lt;/span>
+&lt;span style="color:#e6db74">&amp;#34;github.com/golang/protobuf/ptypes/empty&amp;#34;&lt;/span>
+&lt;span style="color:#a6e22e">commonv1pb&lt;/span> &lt;span style="color:#e6db74">&amp;#34;github.com/dapr/go-sdk/dapr/proto/common/v1&amp;#34;&lt;/span>
+&lt;span style="color:#a6e22e">pb&lt;/span> &lt;span style="color:#e6db74">&amp;#34;github.com/dapr/go-sdk/dapr/proto/runtime/v1&amp;#34;&lt;/span>
+&lt;span style="color:#e6db74">&amp;#34;google.golang.org/grpc&amp;#34;&lt;/span>
+)
+&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
+&lt;li>Implement the interface&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#75715e">// server is our user app
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">type&lt;/span> &lt;span style="color:#a6e22e">server&lt;/span> &lt;span style="color:#66d9ef">struct&lt;/span> {
+}
+&lt;span style="color:#75715e">// EchoMethod is a simple demo method to invoke
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">func&lt;/span> (&lt;span style="color:#a6e22e">s&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">server&lt;/span>) &lt;span style="color:#a6e22e">EchoMethod&lt;/span>() &lt;span style="color:#66d9ef">string&lt;/span> {
+&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#e6db74">&amp;#34;pong&amp;#34;&lt;/span>
+}
+&lt;span style="color:#75715e">// This method gets invoked when a remote service has called the app through Dapr
+&lt;/span>&lt;span style="color:#75715e">// The payload carries a Method to identify the method, a set of metadata properties and an optional payload
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">func&lt;/span> (&lt;span style="color:#a6e22e">s&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">server&lt;/span>) &lt;span style="color:#a6e22e">OnInvoke&lt;/span>(&lt;span style="color:#a6e22e">ctx&lt;/span> &lt;span style="color:#a6e22e">context&lt;/span>.&lt;span style="color:#a6e22e">Context&lt;/span>, &lt;span style="color:#a6e22e">in&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">commonv1pb&lt;/span>.&lt;span style="color:#a6e22e">InvokeRequest&lt;/span>) (&lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">commonv1pb&lt;/span>.&lt;span style="color:#a6e22e">InvokeResponse&lt;/span>, &lt;span style="color:#66d9ef">error&lt;/span>) {
+&lt;span style="color:#66d9ef">var&lt;/span> &lt;span style="color:#a6e22e">response&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span>
+&lt;span style="color:#66d9ef">switch&lt;/span> &lt;span style="color:#a6e22e">in&lt;/span>.&lt;span style="color:#a6e22e">Method&lt;/span> {
+&lt;span style="color:#66d9ef">case&lt;/span> &lt;span style="color:#e6db74">&amp;#34;EchoMethod&amp;#34;&lt;/span>:
+&lt;span style="color:#a6e22e">response&lt;/span> = &lt;span style="color:#a6e22e">s&lt;/span>.&lt;span style="color:#a6e22e">EchoMethod&lt;/span>()
+}
+&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#f92672">&amp;amp;&lt;/span>&lt;span style="color:#a6e22e">commonv1pb&lt;/span>.&lt;span style="color:#a6e22e">InvokeResponse&lt;/span>{
+&lt;span style="color:#a6e22e">ContentType&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;text/plain; charset=UTF-8&amp;#34;&lt;/span>,
+&lt;span style="color:#a6e22e">Data&lt;/span>: &lt;span style="color:#f92672">&amp;amp;&lt;/span>&lt;span style="color:#a6e22e">any&lt;/span>.&lt;span style="color:#a6e22e">Any&lt;/span>{&lt;span style="color:#a6e22e">Value&lt;/span>: []byte(&lt;span style="color:#a6e22e">response&lt;/span>)},
+}, &lt;span style="color:#66d9ef">nil&lt;/span>
+}
+&lt;span style="color:#75715e">// Dapr will call this method to get the list of topics the app wants to subscribe to. In this example, we are telling Dapr
+&lt;/span>&lt;span style="color:#75715e">// To subscribe to a topic named TopicA
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">func&lt;/span> (&lt;span style="color:#a6e22e">s&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">server&lt;/span>) &lt;span style="color:#a6e22e">ListTopicSubscriptions&lt;/span>(&lt;span style="color:#a6e22e">ctx&lt;/span> &lt;span style="color:#a6e22e">context&lt;/span>.&lt;span style="color:#a6e22e">Context&lt;/span>, &lt;span style="color:#a6e22e">in&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">empty&lt;/span>.&lt;span style="color:#a6e22e">Empty&lt;/span>) (&lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">pb&lt;/span>.&lt;span style="color:#a6e22e">ListTopicSubscriptionsResponse&lt;/span>, &lt;span style="color:#66d9ef">error&lt;/span>) {
+&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#f92672">&amp;amp;&lt;/span>&lt;span style="color:#a6e22e">pb&lt;/span>.&lt;span style="color:#a6e22e">ListTopicSubscriptionsResponse&lt;/span>{
+&lt;span style="color:#a6e22e">Subscriptions&lt;/span>: []&lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">pb&lt;/span>.&lt;span style="color:#a6e22e">TopicSubscription&lt;/span>{
+{&lt;span style="color:#a6e22e">Topic&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;TopicA&amp;#34;&lt;/span>},
+},
+}, &lt;span style="color:#66d9ef">nil&lt;/span>
+}
+&lt;span style="color:#75715e">// Dapr will call this method to get the list of bindings the app will get invoked by. In this example, we are telling Dapr
+&lt;/span>&lt;span style="color:#75715e">// To invoke our app with a binding named storage
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">func&lt;/span> (&lt;span style="color:#a6e22e">s&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">server&lt;/span>) &lt;span style="color:#a6e22e">ListInputBindings&lt;/span>(&lt;span style="color:#a6e22e">ctx&lt;/span> &lt;span style="color:#a6e22e">context&lt;/span>.&lt;span style="color:#a6e22e">Context&lt;/span>, &lt;span style="color:#a6e22e">in&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">empty&lt;/span>.&lt;span style="color:#a6e22e">Empty&lt;/span>) (&lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">pb&lt;/span>.&lt;span style="color:#a6e22e">ListInputBindingsResponse&lt;/span>, &lt;span style="color:#66d9ef">error&lt;/span>) {
+&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#f92672">&amp;amp;&lt;/span>&lt;span style="color:#a6e22e">pb&lt;/span>.&lt;span style="color:#a6e22e">ListInputBindingsResponse&lt;/span>{
+&lt;span style="color:#a6e22e">Bindings&lt;/span>: []&lt;span style="color:#66d9ef">string&lt;/span>{&lt;span style="color:#e6db74">&amp;#34;storage&amp;#34;&lt;/span>},
+}, &lt;span style="color:#66d9ef">nil&lt;/span>
+}
+&lt;span style="color:#75715e">// This method gets invoked every time a new event is fired from a registerd binding. The message carries the binding name, a payload and optional metadata
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">func&lt;/span> (&lt;span style="color:#a6e22e">s&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">server&lt;/span>) &lt;span style="color:#a6e22e">OnBindingEvent&lt;/span>(&lt;span style="color:#a6e22e">ctx&lt;/span> &lt;span style="color:#a6e22e">context&lt;/span>.&lt;span style="color:#a6e22e">Context&lt;/span>, &lt;span style="color:#a6e22e">in&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">pb&lt;/span>.&lt;span style="color:#a6e22e">BindingEventRequest&lt;/span>) (&lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">pb&lt;/span>.&lt;span style="color:#a6e22e">BindingEventResponse&lt;/span>, &lt;span style="color:#66d9ef">error&lt;/span>) {
+&lt;span style="color:#a6e22e">fmt&lt;/span>.&lt;span style="color:#a6e22e">Println&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;Invoked from binding&amp;#34;&lt;/span>)
+&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#f92672">&amp;amp;&lt;/span>&lt;span style="color:#a6e22e">pb&lt;/span>.&lt;span style="color:#a6e22e">BindingEventResponse&lt;/span>{}, &lt;span style="color:#66d9ef">nil&lt;/span>
+}
+&lt;span style="color:#75715e">// This method is fired whenever a message has been published to a topic that has been subscribed. Dapr sends published messages in a CloudEvents 0.3 envelope.
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">func&lt;/span> (&lt;span style="color:#a6e22e">s&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">server&lt;/span>) &lt;span style="color:#a6e22e">OnTopicEvent&lt;/span>(&lt;span style="color:#a6e22e">ctx&lt;/span> &lt;span style="color:#a6e22e">context&lt;/span>.&lt;span style="color:#a6e22e">Context&lt;/span>, &lt;span style="color:#a6e22e">in&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">pb&lt;/span>.&lt;span style="color:#a6e22e">TopicEventRequest&lt;/span>) (&lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">empty&lt;/span>.&lt;span style="color:#a6e22e">Empty&lt;/span>, &lt;span style="color:#66d9ef">error&lt;/span>) {
+&lt;span style="color:#a6e22e">fmt&lt;/span>.&lt;span style="color:#a6e22e">Println&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;Topic message arrived&amp;#34;&lt;/span>)
+&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#f92672">&amp;amp;&lt;/span>&lt;span style="color:#a6e22e">empty&lt;/span>.&lt;span style="color:#a6e22e">Empty&lt;/span>{}, &lt;span style="color:#66d9ef">nil&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="3">
+&lt;li>Create the server&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#66d9ef">func&lt;/span> &lt;span style="color:#a6e22e">main&lt;/span>() {
+&lt;span style="color:#75715e">// create listener
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">lis&lt;/span>, &lt;span style="color:#a6e22e">err&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">net&lt;/span>.&lt;span style="color:#a6e22e">Listen&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;tcp&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;:50001&amp;#34;&lt;/span>)
+&lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#a6e22e">err&lt;/span> &lt;span style="color:#f92672">!=&lt;/span> &lt;span style="color:#66d9ef">nil&lt;/span> {
+&lt;span style="color:#a6e22e">log&lt;/span>.&lt;span style="color:#a6e22e">Fatalf&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;failed to listen: %v&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">err&lt;/span>)
+}
+&lt;span style="color:#75715e">// create grpc server
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">s&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">grpc&lt;/span>.&lt;span style="color:#a6e22e">NewServer&lt;/span>()
+&lt;span style="color:#a6e22e">pb&lt;/span>.&lt;span style="color:#a6e22e">RegisterAppCallbackServer&lt;/span>(&lt;span style="color:#a6e22e">s&lt;/span>, &lt;span style="color:#f92672">&amp;amp;&lt;/span>&lt;span style="color:#a6e22e">server&lt;/span>{})
+&lt;span style="color:#a6e22e">fmt&lt;/span>.&lt;span style="color:#a6e22e">Println&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;Client starting...&amp;#34;&lt;/span>)
+&lt;span style="color:#75715e">// and start...
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#a6e22e">err&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">s&lt;/span>.&lt;span style="color:#a6e22e">Serve&lt;/span>(&lt;span style="color:#a6e22e">lis&lt;/span>); &lt;span style="color:#a6e22e">err&lt;/span> &lt;span style="color:#f92672">!=&lt;/span> &lt;span style="color:#66d9ef">nil&lt;/span> {
+&lt;span style="color:#a6e22e">log&lt;/span>.&lt;span style="color:#a6e22e">Fatalf&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;failed to serve: %v&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">err&lt;/span>)
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>This creates a gRPC server for your app on port 4000.&lt;/p>
+&lt;ol start="4">
+&lt;li>Run your app&lt;/li>
+&lt;/ol>
+&lt;p>To run locally, use the Dapr CLI:&lt;/p>
+&lt;pre>&lt;code>dapr run --app-id goapp --app-port 4000 --app-protocol grpc go run main.go
+&lt;/code>&lt;/pre>&lt;p>On Kubernetes, set the required &lt;code>dapr.io/app-protocol: &amp;quot;grpc&amp;quot;&lt;/code> and &lt;code>dapr.io/app-port: &amp;quot;4000&lt;/code> annotations in your pod spec template as mentioned above.&lt;/p>
+&lt;h2 id="other-languages">Other languages&lt;/h2>
+&lt;p>You can use Dapr with any language supported by Protobuf, and not just with the currently available generated SDKs.
+Using the &lt;a href="https://developers.google.com/protocol-buffers/docs/downloads">protoc&lt;/a> tool you can generate the Dapr clients for other languages like Ruby, C++, Rust and others.&lt;/p>
+&lt;h2 id="related-topics">Related Topics&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/service-invocation/">Service invocation building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/reference/api/service_invocation_api/">Service invocation API specification&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Developing-Applications: Autoscaling a Dapr app with KEDA</title><link>https://docs.dapr.io/en/developing-applications/integrations/autoscale-keda/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/developing-applications/integrations/autoscale-keda/</guid><description>
+&lt;p>Dapr, with its modular building-block approach, along with the 10+ different &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/pubsub/">pub/sub components&lt;/a>, make it easy to write message processing applications. Since Dapr can run in many environments (e.g. VM, bare-metal, Cloud, or Edge) the autoscaling of Dapr applications is managed by the hosting later.&lt;/p>
+&lt;p>For Kubernetes, Dapr integrates with &lt;a href="https://github.com/kedacore/keda">KEDA&lt;/a>, an event driven autoscaler for Kubernetes. Many of Dapr&amp;rsquo;s pub/sub components overlap with the scalers provided by &lt;a href="https://github.com/kedacore/keda">KEDA&lt;/a> so it&amp;rsquo;s easy to configure your Dapr deployment on Kubernetes to autoscale based on the back pressure using KEDA.&lt;/p>
+&lt;p>This how-to walks through the configuration of a scalable Dapr application along with the back pressure on Kafka topic, however you can apply this approach to &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/pubsub/">pub/sub components&lt;/a> offered by Dapr.&lt;/p>
+&lt;h2 id="install-keda">Install KEDA&lt;/h2>
+&lt;p>To install KEDA, follow the &lt;a href="https://keda.sh/docs/latest/deploy/">Deploying KEDA&lt;/a> instructions on the KEDA website.&lt;/p>
+&lt;h2 id="install-kafka-optional">Install Kafka (optional)&lt;/h2>
+&lt;p>If you don&amp;rsquo;t have access to a Kafka service, you can install it into your Kubernetes cluster for this example by using Helm:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm repo add confluentinc https://confluentinc.github.io/cp-helm-charts/
+helm repo update
+kubectl create ns kafka
+helm install kafka confluentinc/cp-helm-charts -n kafka &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> --set cp-schema-registry.enabled&lt;span style="color:#f92672">=&lt;/span>false &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> --set cp-kafka-rest.enabled&lt;span style="color:#f92672">=&lt;/span>false &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> --set cp-kafka-connect.enabled&lt;span style="color:#f92672">=&lt;/span>false
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>To check on the status of the Kafka deployment:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">kubectl rollout status deployment.apps/kafka-cp-control-center -n kafka
+kubectl rollout status deployment.apps/kafka-cp-ksql-server -n kafka
+kubectl rollout status statefulset.apps/kafka-cp-kafka -n kafka
+kubectl rollout status statefulset.apps/kafka-cp-zookeeper -n kafka
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>When done, also deploy the Kafka client and wait until it&amp;rsquo;s ready:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">kubectl apply -n kafka -f deployment/kafka-client.yaml
+kubectl wait -n kafka --for&lt;span style="color:#f92672">=&lt;/span>condition&lt;span style="color:#f92672">=&lt;/span>ready pod kafka-client --timeout&lt;span style="color:#f92672">=&lt;/span>120s
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Next, create the topic which is used in this example (for example &lt;code>demo-topic&lt;/code>):&lt;/p>
+&lt;blockquote>
+&lt;p>The number of topic partitions is related to the maximum number of replicas KEDA creates for your deployments&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">kubectl -n kafka exec -it kafka-client -- kafka-topics &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> --zookeeper kafka-cp-zookeeper-headless:2181 &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> --topic demo-topic &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> --create &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> --partitions &lt;span style="color:#ae81ff">10&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> --replication-factor &lt;span style="color:#ae81ff">3&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> --if-not-exists
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="deploy-a-dapr-pubsub-component">Deploy a Dapr Pub/Sub component&lt;/h2>
+&lt;p>Next, we&amp;rsquo;ll deploy the Dapr Kafka pub/sub component for Kubernetes. Paste the following YAML into a file named &lt;code>kafka-pubsub.yaml&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">autoscaling-pubsub&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">pubsub.kafka&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">brokers&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">kafka-cp-kafka.kafka.svc.cluster.local:9092&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">authRequired&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;false&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">consumerID&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">autoscaling-subscriber&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The above YAML defines the pub/sub component that your application subscribes to, the &lt;code>demo-topic&lt;/code> we created above. If you used the Kafka Helm install instructions above you can leave the &lt;code>brokers&lt;/code> value as is. Otherwise, change this to the connection string to your Kafka brokers.&lt;/p>
+&lt;p>Also notice the &lt;code>autoscaling-subscriber&lt;/code> value set for &lt;code>consumerID&lt;/code> which is used later to make sure that KEDA and your deployment use the same &lt;a href="http://cloudurable.com/blog/kafka-architecture-topics/index.html#:~:text=Kafka%20continually%20appended%20to%20partitions,fit%20on%20a%20single%20server.">Kafka partition offset&lt;/a>.&lt;/p>
+&lt;p>Now, deploy the component to the cluster:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl apply -f kafka-pubsub.yaml
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="deploy-keda-autoscaler-for-kafka">Deploy KEDA autoscaler for Kafka&lt;/h2>
+&lt;p>Next, we will deploy the KEDA scaling object that monitors the lag on the specified Kafka topic and configures the Kubernetes Horizontal Pod Autoscaler (HPA) to scale your Dapr deployment in and out.&lt;/p>
+&lt;p>Paste the following into a file named &lt;code>kafka_scaler.yaml&lt;/code>, and configure your Dapr deployment in the required place:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">keda.sh/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">ScaledObject&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">subscriber-scaler&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">scaleTargetRef&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-DAPR-DEPLOYMENT-NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">pollingInterval&lt;/span>: &lt;span style="color:#ae81ff">15&lt;/span>
+&lt;span style="color:#f92672">minReplicaCount&lt;/span>: &lt;span style="color:#ae81ff">0&lt;/span>
+&lt;span style="color:#f92672">maxReplicaCount&lt;/span>: &lt;span style="color:#ae81ff">10&lt;/span>
+&lt;span style="color:#f92672">triggers&lt;/span>:
+- &lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">kafka&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">topic&lt;/span>: &lt;span style="color:#ae81ff">demo-topic&lt;/span>
+&lt;span style="color:#f92672">bootstrapServers&lt;/span>: &lt;span style="color:#ae81ff">kafka-cp-kafka.kafka.svc.cluster.local:9092&lt;/span>
+&lt;span style="color:#f92672">consumerGroup&lt;/span>: &lt;span style="color:#ae81ff">autoscaling-subscriber&lt;/span>
+&lt;span style="color:#f92672">lagThreshold&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;5&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>A few things to review here in the above file:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>name&lt;/code> in the &lt;code>scaleTargetRef&lt;/code> section in the &lt;code>spec:&lt;/code> is the Dapr ID of your app defined in the Deployment (The value of the &lt;code>dapr.io/id&lt;/code> annotation)&lt;/li>
+&lt;li>&lt;code>pollingInterval&lt;/code> is the frequency in seconds with which KEDA checks Kafka for current topic partition offset&lt;/li>
+&lt;li>&lt;code>minReplicaCount&lt;/code> is the minimum number of replicas KEDA creates for your deployment. (Note, if your application takes a long time to start it may be better to set that to &lt;code>1&lt;/code> to ensure at least one replica of your deployment is always running. Otherwise, set that to &lt;code>0&lt;/code> and KEDA creates the first replica for you)&lt;/li>
+&lt;li>&lt;code>maxReplicaCount&lt;/code> is the maximum number of replicas for your deployment. Given how &lt;a href="http://cloudurable.com/blog/kafka-architecture-topics/index.html#:~:text=Kafka%20continually%20appended%20to%20partitions,fit%20on%20a%20single%20server.">Kafka partition offset&lt;/a> works, you shouldn&amp;rsquo;t set that value higher than the total number of topic partitions&lt;/li>
+&lt;li>&lt;code>topic&lt;/code> in the Kafka &lt;code>metadata&lt;/code> section which should be set to the same topic to which your Dapr deployment subscribe (In this example &lt;code>demo-topic&lt;/code>)&lt;/li>
+&lt;li>Similarly the &lt;code>bootstrapServers&lt;/code> should be set to the same broker connection string used in the &lt;code>kafka-pubsub.yaml&lt;/code> file&lt;/li>
+&lt;li>The &lt;code>consumerGroup&lt;/code> should be set to the same value as the &lt;code>consumerID&lt;/code> in the &lt;code>kafka-pubsub.yaml&lt;/code> file&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>Note: setting the connection string, topic, and consumer group to the &lt;em>same&lt;/em> values for both the Dapr service subscription and the KEDA scaler configuration is critical to ensure the autoscaling works correctly.&lt;/p>
+&lt;/blockquote>
+&lt;p>Next, deploy the KEDA scaler to Kubernetes:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl apply -f kafka_scaler.yaml
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>All done!&lt;/p>
+&lt;p>Now, that the &lt;code>ScaledObject&lt;/code> KEDA object is configured, your deployment will scale based on the lag of the Kafka topic. More information on configuring KEDA for Kafka topics is available &lt;a href="https://keda.sh/docs/2.0/scalers/apache-kafka/">here&lt;/a>.&lt;/p>
+&lt;p>You can now start publishing messages to your Kafka topic &lt;code>demo-topic&lt;/code> and watch the pods autoscale when the lag threshold is higher than &lt;code>5&lt;/code> topics, as we have defined in the KEDA scaler manifest. You can publish messages to the Kafka Dapr component by using the Dapr &lt;a href="https://github.com/dapr/CLI#publishsubscribe">Publish&lt;/a> CLI command&lt;/p></description></item><item><title>Developing-Applications: Authenticating to services</title><link>https://docs.dapr.io/en/developing-applications/integrations/authenticating/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/developing-applications/integrations/authenticating/</guid><description/></item></channel></rss>
