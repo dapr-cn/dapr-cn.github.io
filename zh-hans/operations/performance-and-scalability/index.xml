@@ -1,0 +1,149 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Performance and Scalability</title><link>https://docs.dapr.io/zh-hans/operations/performance-and-scalability/</link><description>Recent content in Performance and Scalability on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><language>zh-hans</language><atom:link href="https://docs.dapr.io/zh-hans/operations/performance-and-scalability/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: Service invocation performance</title><link>https://docs.dapr.io/zh-hans/operations/performance-and-scalability/perf-service-invocation/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/zh-hans/operations/performance-and-scalability/perf-service-invocation/</guid><description>
+&lt;p>This article provides service invocation API performance benchmarks and resource utilization for the components needed to run Dapr in different hosting environments.&lt;/p>
+&lt;h2 id="system-overview">System overview&lt;/h2>
+&lt;p>Dapr consists of a data plane, the sidecar that runs next to your app, and a control plane that configures the sidecars and provides capabilities such as cert and identity management.&lt;/p>
+&lt;h3 id="self-hosted-components">Self-hosted components&lt;/h3>
+&lt;ul>
+&lt;li>Sidecar (data plane)&lt;/li>
+&lt;li>Sentry (optional, control plane)&lt;/li>
+&lt;li>Placement (optional, control plane)&lt;/li>
+&lt;/ul>
+&lt;p>For more information see &lt;a href="https://docs.dapr.io/zh-hans/operations/hosting/self-hosted/self-hosted-overview/">overview of Dapr in self-hosted mode&lt;/a>.&lt;/p>
+&lt;h3 id="kubernetes-components">Kubernetes components&lt;/h3>
+&lt;ul>
+&lt;li>Sidecar (data plane)&lt;/li>
+&lt;li>Sentry (optional, control plane)&lt;/li>
+&lt;li>Placement (optional, control planee)&lt;/li>
+&lt;li>Operator (control plane)&lt;/li>
+&lt;li>Sidecar Injector (control plane)&lt;/li>
+&lt;/ul>
+&lt;p>For more information see &lt;a href="https://docs.dapr.io/zh-hans/operations/hosting/kubernetes/kubernetes-overview/">overview of Dapr on Kubernetes&lt;/a>.&lt;/p>
+&lt;h2 id="performance-summary-for-dapr-v10">Performance summary for Dapr v1.0&lt;/h2>
+&lt;p>The service invocation API is a reverse proxy with built-in service discovery to connect to other services. This includes tracing, metrics, mTLS for in-transit encryption of traffic, together with resiliency in the form of retries for network partitions and connection errors. This includes tracing, metrics, mTLS for in-transit encryption of traffic, together with resiliency in the form of retries for network partitions and connection errors.&lt;/p>
+&lt;p>Using service invocation you can call from HTTP to HTTP, HTTP to gRPC, gRPC to HTTP, and gRPC to gRPC. Using service invocation you can call from HTTP to HTTP, HTTP to gRPC, gRPC to HTTP, and gRPC to gRPC. Dapr does not use HTTP for the communication between sidecars, always using gRPC, while carrying over the semantics of the protocol used when called from the app. Service invocation is the underlying mechanism of communicating with Dapr Actors. Service invocation is the underlying mechanism of communicating with Dapr Actors.&lt;/p>
+&lt;p>For more information see &lt;a href="https://docs.dapr.io/zh-hans/developing-applications/building-blocks/service-invocation/service-invocation-overview/">service invocation overview&lt;/a>.&lt;/p>
+&lt;h3 id="kubernetes-performance-test-setup">Kubernetes performance test setup&lt;/h3>
+&lt;p>The test was conducted on a 3 node Kubernetes cluster, using commodity hardware running 4 cores and 8GB of RAM, without any network acceleration. The test was conducted on a 3 node Kubernetes cluster, using commodity hardware running 4 cores and 8GB of RAM, without any network acceleration. The setup included a load tester (&lt;a href="https://github.com/fortio/fortio">Fortio&lt;/a>) pod with a Dapr sidecar injected into it that called the service invocation API to reach a pod on a different node.&lt;/p>
+&lt;p>Test parameters:&lt;/p>
+&lt;ul>
+&lt;li>1000 requests per second&lt;/li>
+&lt;li>Sidecar limited to 0.5 vCPU&lt;/li>
+&lt;li>Sidecar mTLS enabled&lt;/li>
+&lt;li>Sidecar telemetry enabled (tracing with a sampling rate of 0.1)&lt;/li>
+&lt;li>Payload of 1KB&lt;/li>
+&lt;/ul>
+&lt;p>The baseline test included direct, non-encrypted traffic, without telemetry, directly from the load tester to the target app.&lt;/p>
+&lt;h3 id="control-plane-performance">Control plane performance&lt;/h3>
+&lt;p>The Dapr control plane uses a total of 0.009 vCPU and 61.6 Mb when running in non-HA mode, meaning a single replica per system compoment. When running in a highly available production setup, the Dapr control plane consumes ~0.02 vCPU and 185 Mb. When running in a highly available production setup, the Dapr control plane consumes ~0.02 vCPU and 185 Mb.&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Component&lt;/th>
+&lt;th>vCPU&lt;/th>
+&lt;th>Memory&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>Operator&lt;/td>
+&lt;td>0.001&lt;/td>
+&lt;td>12.5 Mb&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Sentry&lt;/td>
+&lt;td>0.005&lt;/td>
+&lt;td>13.6 Mb&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Sidecar Injector&lt;/td>
+&lt;td>0.002&lt;/td>
+&lt;td>14.6 Mb&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Placement&lt;/td>
+&lt;td>0.001&lt;/td>
+&lt;td>20.9 Mb&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>There are a number of variants that affect the CPU and memory consumption for each of the system components. These variants are shown in the table below. These variants are shown in the table below.&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Component&lt;/th>
+&lt;th>vCPU&lt;/th>
+&lt;th>Memory&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>Operator&lt;/td>
+&lt;td>Number of pods requesting components, configurations and subscriptions&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Sentry&lt;/td>
+&lt;td>Number of certificate requests&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Sidecar Injector&lt;/td>
+&lt;td>Number of admission requests&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Placement&lt;/td>
+&lt;td>Number of actor rebalancing operations&lt;/td>
+&lt;td>Number of connected actor hosts&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="data-plane-performance">Data plane performance&lt;/h3>
+&lt;p>The Dapr sidecar uses 0.48 vCPU and 23Mb per 1000 requests per second. End-to-end, the Dapr sidecars (client and server) add ~1.40 ms to the 90th percentile latency, and ~2.10 ms to the 99th percentile latency. End-to-end here is a call from one app to another app receiving a response. This is shown by steps 1-7 in &lt;a href="https://docs.dapr.io/zh-hans/developing-applications/building-blocks/service-invocation/service-invocation-overview/">this diagram&lt;/a>.&lt;/p>
+&lt;p>This performance is on par or better than commonly used service meshes.&lt;/p>
+&lt;h3 id="latency">Latency&lt;/h3>
+&lt;p>In the test setup, requests went through the Dapr sidecar both on the client side (serving requests from the load tester tool) and the server side (the target app). mTLS and telemetry (tracing with a sampling rate of 0.1) and metrics were enabled on the Dapr test, and disabled for the baseline test. mTLS and telemetry (tracing with a sampling rate of 0.1) and metrics were enabled on the Dapr test, and disabled for the baseline test.&lt;/p>
+&lt;p>&lt;img src="https://docs.dapr.io/images/perf_invocation_p90.png" alt="Latency for 90th percentile" />&lt;/p>
+&lt;br>
+&lt;p>&lt;img src="https://docs.dapr.io/images/perf_invocation_p99.png" alt="Latency for 99th percentile" />&lt;/p></description></item><item><title>Operations: Actors activation performance</title><link>https://docs.dapr.io/zh-hans/operations/performance-and-scalability/perf-actors-activation/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/zh-hans/operations/performance-and-scalability/perf-actors-activation/</guid><description>
+&lt;p>This article provides service invocation API performance benchmarks and resource utilization for actors in Dapr on Kubernetes.&lt;/p>
+&lt;h2 id="system-overview">System overview&lt;/h2>
+&lt;p>For applications using actors in Dapr there are two aspects to be considered. First, is the routing of actor invocations handled by Dapr sidecar. Second, is the actors runtime that is implemented and handled on the application side and depends on the SDK. For applications using actors in Dapr there are two aspects to be considered. First, is the routing of actor invocations handled by Dapr sidecar. Second, is the actors runtime that is implemented and handled on the application side and depends on the SDK. For now, the performance tests are using the Java SDK to provide an actors runtime in the application.&lt;/p>
+&lt;h3 id="kubernetes-components">Kubernetes components&lt;/h3>
+&lt;ul>
+&lt;li>Sidecar (data plane)&lt;/li>
+&lt;li>Placement (required for actors, control plane mapping actor types to hosts)&lt;/li>
+&lt;li>Operator (control plane)&lt;/li>
+&lt;li>Sidecar Injector (control plane)&lt;/li>
+&lt;li>Sentry (optional, control plane)&lt;/li>
+&lt;/ul>
+&lt;h2 id="performance-summary-for-dapr-v10">Performance summary for Dapr v1.0&lt;/h2>
+&lt;p>The actors API in Dapr sidecar will identify which hosts are registered for a given actor type and route the request to the appropriate host for a given actor ID. The host runs an instance of the application and uses the Dapr SDK (.Net, Java, Python or PHP) to handle actors requests via HTTP. The host runs an instance of the application and uses the Dapr SDK (.Net, Java, Python or PHP) to handle actors requests via HTTP.&lt;/p>
+&lt;p>This test uses invokes actors via Dapr&amp;rsquo;s HTTP API directly.&lt;/p>
+&lt;p>For more information see &lt;a href="https://docs.dapr.io/zh-hans/developing-applications/building-blocks/actors/actors-overview/">actors overview&lt;/a>.&lt;/p>
+&lt;h3 id="kubernetes-performance-test-setup">Kubernetes performance test setup&lt;/h3>
+&lt;p>The test was conducted on a 3 node Kubernetes cluster, using commodity hardware running 4 cores and 8GB of RAM, without any network acceleration. The test was conducted on a 3 node Kubernetes cluster, using commodity hardware running 4 cores and 8GB of RAM, without any network acceleration. The setup included a load tester (&lt;a href="https://github.com/fortio/fortio">Fortio&lt;/a>) pod with a Dapr sidecar injected into it that called the service invocation API to reach a pod on a different node.&lt;/p>
+&lt;p>Test parameters:&lt;/p>
+&lt;ul>
+&lt;li>500 requests per second&lt;/li>
+&lt;li>1 replica&lt;/li>
+&lt;li>1 minute duration&lt;/li>
+&lt;li>Sidecar limited to 0.5 vCPU&lt;/li>
+&lt;li>mTLS enabled&lt;/li>
+&lt;li>Sidecar telemetry enabled (tracing with a sampling rate of 0.1)&lt;/li>
+&lt;li>Payload of an empty JSON object: &lt;code>{}&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h3 id="results">Results&lt;/h3>
+&lt;ul>
+&lt;li>The actual throughput was ~500 qps.&lt;/li>
+&lt;li>The tp90 latency was ~3ms.&lt;/li>
+&lt;li>The tp99 latency was ~6.2ms.&lt;/li>
+&lt;li>Dapr app consumed ~523m CPU and ~304.7Mb of Memory&lt;/li>
+&lt;li>Dapr sidecar consumed 2m CPU and ~18.2Mb of Memory&lt;/li>
+&lt;li>No app restarts&lt;/li>
+&lt;li>No sidecar restarts&lt;/li>
+&lt;/ul>
+&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;ul>
+&lt;li>For more information see &lt;a href="https://docs.dapr.io/zh-hans/operations/hosting/kubernetes/kubernetes-overview/">overview of Dapr on Kubernetes&lt;/a>&lt;/li>
+&lt;/ul></description></item></channel></rss>

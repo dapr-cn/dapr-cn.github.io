@@ -1,5 +1,5 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – Supported middleware</title><link>https://dapr-cn.github.io/developing-applications/middleware/supported-middleware/</link><description>Recent content in Supported middleware on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh</language><atom:link href="https://dapr-cn.github.io/developing-applications/middleware/supported-middleware/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Rate limiting</title><link>https://dapr-cn.github.io/developing-applications/middleware/supported-middleware/middleware-rate-limit/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/middleware/supported-middleware/middleware-rate-limit/</guid><description>
-&lt;p>The rate limit &lt;a href="https://dapr-cn.github.io/concepts/middleware-concept/">HTTP middleware&lt;/a> allows restricting the maximum number of allowed HTTP requests per second. Rate limiting can protect your application from denial of service (DOS) attacks. DOS attacks can be initiated by malicious 3rd parties but also by bugs in your software (a.k.a. a &amp;ldquo;friendly fire&amp;rdquo; DOS attack).&lt;/p>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr Docs – Supported middleware</title><link>https://docs.dapr.io/developing-applications/middleware/supported-middleware/</link><description>Recent content in Supported middleware on Dapr Docs</description><generator>Hugo -- gohugo.io</generator><language>zh-hans</language><atom:link href="https://docs.dapr.io/developing-applications/middleware/supported-middleware/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Rate limiting</title><link>https://docs.dapr.io/developing-applications/middleware/supported-middleware/middleware-rate-limit/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/middleware/supported-middleware/middleware-rate-limit/</guid><description>
+&lt;p>The rate limit &lt;a href="https://docs.dapr.io/concepts/middleware-concept/">HTTP middleware&lt;/a> allows restricting the maximum number of allowed HTTP requests per second. Rate limiting can protect your application from denial of service (DOS) attacks. DOS attacks can be initiated by malicious 3rd parties but also by bugs in your software (a.k.a. a &amp;ldquo;friendly fire&amp;rdquo; DOS attack).&lt;/p>
 &lt;h2 id="component-format">Component format&lt;/h2>
 &lt;p>In the following definition, the maximum requests per second are set to 10:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
@@ -16,9 +16,9 @@
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>字段&lt;/th>
+&lt;th>Field&lt;/th>
 &lt;th>Details&lt;/th>
-&lt;th>示例&lt;/th>
+&lt;th>Example&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -30,9 +30,9 @@
 &lt;/tbody>
 &lt;/table>
 &lt;p>Once the limit is reached, the request will return &lt;em>HTTP Status code 429: Too Many Requests&lt;/em>.&lt;/p>
-&lt;p>Alternatively, the &lt;a href="https://dapr-cn.github.io/operations/configuration/control-concurrency/">max concurrency setting&lt;/a> can be used to rate limit applications and applies to all traffic regardless of remote IP or path.&lt;/p>
+&lt;p>Alternatively, the &lt;a href="https://docs.dapr.io/operations/configuration/control-concurrency/">max concurrency setting&lt;/a> can be used to rate limit applications and applies to all traffic regardless of remote IP or path.&lt;/p>
 &lt;h2 id="dapr-configuration">Dapr configuration&lt;/h2>
-&lt;p>To be applied, the middleware must be referenced in &lt;a href="https://dapr-cn.github.io/concepts/configuration-concept/">configuration&lt;/a>. See &lt;a href="https://dapr-cn.github.io/concepts/middleware-concept/#customize-processing-pipeline">middleware pipelines&lt;/a>.&lt;/p>
+&lt;p>To be applied, the middleware must be referenced in &lt;a href="https://docs.dapr.io/concepts/configuration-concept/">configuration&lt;/a>. See &lt;a href="https://docs.dapr.io/concepts/middleware-concept/#customize-processing-pipeline">middleware pipelines&lt;/a>.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -42,14 +42,14 @@
 &lt;span style="color:#f92672">handlers&lt;/span>:
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">ratelimit&lt;/span>
 &lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">middleware.http.ratelimit&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/operations/configuration/control-concurrency/">Control max concurrently&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/concepts/middleware-concept/">Middleware concept&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/concepts/configuration-concept/">Dapr configuration&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/operations/configuration/configuration-overview/">Configuration overview&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Developing-Applications: OAuth2</title><link>https://dapr-cn.github.io/developing-applications/middleware/supported-middleware/middleware-oauth2/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/middleware/supported-middleware/middleware-oauth2/</guid><description>
-&lt;p>The OAuth2 &lt;a href="https://dapr-cn.github.io/concepts/middleware-concept/">HTTP middleware&lt;/a> enables the &lt;a href="https://tools.ietf.org/html/rfc6749#section-4.1">OAuth2 Authorization Code flow&lt;/a> on a Web API without modifying the application. This design separates authentication/authorization concerns from the application, so that application operators can adopt and configure authentication/authorization providers without impacting the application code.&lt;/p>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/configuration/control-concurrency/">Control max concurrently&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/concepts/middleware-concept/">Middleware concept&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/concepts/configuration-concept/">Dapr configuration&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/configuration/configuration-overview/">Configuration overview&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Developing-Applications: OAuth2</title><link>https://docs.dapr.io/developing-applications/middleware/supported-middleware/middleware-oauth2/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/middleware/supported-middleware/middleware-oauth2/</guid><description>
+&lt;p>The OAuth2 &lt;a href="https://docs.dapr.io/concepts/middleware-concept/">HTTP middleware&lt;/a> enables the &lt;a href="https://tools.ietf.org/html/rfc6749#section-4.1">OAuth2 Authorization Code flow&lt;/a> on a Web API without modifying the application. This design separates authentication/authorization concerns from the application, so that application operators can adopt and configure authentication/authorization providers without impacting the application code.&lt;/p>
 &lt;h2 id="component-format">Component format&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
@@ -79,9 +79,9 @@
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>字段&lt;/th>
+&lt;th>Field&lt;/th>
 &lt;th>Details&lt;/th>
-&lt;th>示例&lt;/th>
+&lt;th>Example&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -128,7 +128,7 @@
 &lt;/tbody>
 &lt;/table>
 &lt;h2 id="dapr-configuration">Dapr configuration&lt;/h2>
-&lt;p>To be applied, the middleware must be referenced in &lt;a href="https://dapr-cn.github.io/concepts/configuration-concept/">configuration&lt;/a>. See &lt;a href="https://dapr-cn.github.io/concepts/middleware-concept/#customize-processing-pipeline">middleware pipelines&lt;/a>.&lt;/p>
+&lt;p>To be applied, the middleware must be referenced in &lt;a href="https://docs.dapr.io/concepts/configuration-concept/">configuration&lt;/a>. See &lt;a href="https://docs.dapr.io/concepts/middleware-concept/#customize-processing-pipeline">middleware pipelines&lt;/a>.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -138,15 +138,15 @@
 &lt;span style="color:#f92672">handlers&lt;/span>:
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">oauth2&lt;/span>
 &lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">middleware.http.oauth2&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/operations/security/oauth/">Configure API authorization with OAuth&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/security/oauth/">Configure API authorization with OAuth&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://github.com/dapr/quickstarts/tree/master/middleware">Middleware OAuth quickstart&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/concepts/middleware-concept/">Middleware concept&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/concepts/configuration-concept/">Configuration concept&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/operations/configuration/configuration-overview/">Configuration overview&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Developing-Applications: OAuth2 client credentials</title><link>https://dapr-cn.github.io/developing-applications/middleware/supported-middleware/middleware-oauth2clientcredentials/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/middleware/supported-middleware/middleware-oauth2clientcredentials/</guid><description>
-&lt;p>The OAuth2 client credentials &lt;a href="https://dapr-cn.github.io/concepts/middleware-concept/">HTTP middleware&lt;/a> enables the &lt;a href="https://tools.ietf.org/html/rfc6749#section-4.4">OAuth2 Client Credentials flow&lt;/a> on a Web API without modifying the application. This design separates authentication/authorization concerns from the application, so that application operators can adopt and configure authentication/authorization providers without impacting the application code.&lt;/p>
+&lt;li>&lt;a href="https://docs.dapr.io/concepts/middleware-concept/">Middleware concept&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/concepts/configuration-concept/">Configuration concept&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/configuration/configuration-overview/">Configuration overview&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Developing-Applications: OAuth2 client credentials</title><link>https://docs.dapr.io/developing-applications/middleware/supported-middleware/middleware-oauth2clientcredentials/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/middleware/supported-middleware/middleware-oauth2clientcredentials/</guid><description>
+&lt;p>The OAuth2 client credentials &lt;a href="https://docs.dapr.io/concepts/middleware-concept/">HTTP middleware&lt;/a> enables the &lt;a href="https://tools.ietf.org/html/rfc6749#section-4.4">OAuth2 Client Credentials flow&lt;/a> on a Web API without modifying the application. This design separates authentication/authorization concerns from the application, so that application operators can adopt and configure authentication/authorization providers without impacting the application code.&lt;/p>
 &lt;h2 id="component-format">Component format&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
@@ -170,9 +170,9 @@
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>字段&lt;/th>
+&lt;th>Field&lt;/th>
 &lt;th>Details&lt;/th>
-&lt;th>示例&lt;/th>
+&lt;th>Example&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -237,7 +237,7 @@
 &lt;/tbody>
 &lt;/table>
 &lt;h2 id="dapr-configuration">Dapr configuration&lt;/h2>
-&lt;p>To be applied, the middleware must be referenced in a &lt;a href="https://dapr-cn.github.io/concepts/configuration-concept/">configuration&lt;/a>. See &lt;a href="https://dapr-cn.github.io/concepts/middleware-concept/#customize-processing-pipeline">middleware pipelines&lt;/a>.&lt;/p>
+&lt;p>To be applied, the middleware must be referenced in a &lt;a href="https://docs.dapr.io/concepts/configuration-concept/">configuration&lt;/a>. See &lt;a href="https://docs.dapr.io/concepts/middleware-concept/#customize-processing-pipeline">middleware pipelines&lt;/a>.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -247,13 +247,13 @@
 &lt;span style="color:#f92672">handlers&lt;/span>:
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">oauth2clientcredentials&lt;/span>
 &lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">middleware.http.oauth2clientcredentials&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/concepts/middleware-concept/">Middleware concept&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/concepts/configuration-concept/">Configuration concept&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/operations/configuration/configuration-overview/">Configuration overview&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Developing-Applications: Bearer</title><link>https://dapr-cn.github.io/developing-applications/middleware/supported-middleware/middleware-bearer/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/middleware/supported-middleware/middleware-bearer/</guid><description>
-&lt;p>The bearer &lt;a href="https://dapr-cn.github.io/concepts/middleware-concept/">HTTP middleware&lt;/a> verifies a &lt;a href="https://tools.ietf.org/html/rfc6750">Bearer Token&lt;/a> using &lt;a href="https://openid.net/connect/">OpenID Connect&lt;/a> on a Web API without modifying the application. This design separates authentication/authorization concerns from the application, so that application operators can adopt and configure authentication/authorization providers without impacting the application code.&lt;/p>
+&lt;li>&lt;a href="https://docs.dapr.io/concepts/middleware-concept/">Middleware concept&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/concepts/configuration-concept/">Configuration concept&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/configuration/configuration-overview/">Configuration overview&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Developing-Applications: Bearer</title><link>https://docs.dapr.io/developing-applications/middleware/supported-middleware/middleware-bearer/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/middleware/supported-middleware/middleware-bearer/</guid><description>
+&lt;p>The bearer &lt;a href="https://docs.dapr.io/concepts/middleware-concept/">HTTP middleware&lt;/a> verifies a &lt;a href="https://tools.ietf.org/html/rfc6750">Bearer Token&lt;/a> using &lt;a href="https://openid.net/connect/">OpenID Connect&lt;/a> on a Web API without modifying the application. This design separates authentication/authorization concerns from the application, so that application operators can adopt and configure authentication/authorization providers without impacting the application code.&lt;/p>
 &lt;h2 id="component-format">Component format&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
@@ -271,9 +271,9 @@
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>字段&lt;/th>
+&lt;th>Field&lt;/th>
 &lt;th>Details&lt;/th>
-&lt;th>示例&lt;/th>
+&lt;th>Example&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -290,7 +290,7 @@
 &lt;/tbody>
 &lt;/table>
 &lt;h2 id="dapr-configuration">Dapr configuration&lt;/h2>
-&lt;p>To be applied, the middleware must be referenced in &lt;a href="https://dapr-cn.github.io/concepts/configuration-concept/">configuration&lt;/a>. See &lt;a href="https://dapr-cn.github.io/concepts/middleware-concept/#customize-processing-pipeline">middleware pipelines&lt;/a>.&lt;/p>
+&lt;p>To be applied, the middleware must be referenced in &lt;a href="https://docs.dapr.io/concepts/configuration-concept/">configuration&lt;/a>. See &lt;a href="https://docs.dapr.io/concepts/middleware-concept/#customize-processing-pipeline">middleware pipelines&lt;/a>.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -300,13 +300,13 @@
 &lt;span style="color:#f92672">handlers&lt;/span>:
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">bearer-token&lt;/span>
 &lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">middleware.http.bearer&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/concepts/middleware-concept/">Middleware concept&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/concepts/configuration-concept/">Configuration concept&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/operations/configuration/configuration-overview/">Configuration overview&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Developing-Applications: Apply Open Policy Agent (OPA) policies</title><link>https://dapr-cn.github.io/developing-applications/middleware/supported-middleware/middleware-opa/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/middleware/supported-middleware/middleware-opa/</guid><description>
-&lt;p>The Open Policy Agent (OPA) &lt;a href="https://dapr-cn.github.io/concepts/middleware-concept/">HTTP middleware&lt;/a> applys &lt;a href="https://www.openpolicyagent.org/">OPA Policies&lt;/a> to incoming Dapr HTTP requests. This can be used to apply reusable authorization policies to app endpoints.&lt;/p>
+&lt;li>&lt;a href="https://docs.dapr.io/concepts/middleware-concept/">Middleware concept&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/concepts/configuration-concept/">Configuration concept&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/configuration/configuration-overview/">Configuration overview&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Developing-Applications: Apply Open Policy Agent (OPA) policies</title><link>https://docs.dapr.io/developing-applications/middleware/supported-middleware/middleware-opa/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/middleware/supported-middleware/middleware-opa/</guid><description>
+&lt;p>The Open Policy Agent (OPA) &lt;a href="https://docs.dapr.io/concepts/middleware-concept/">HTTP middleware&lt;/a> applys &lt;a href="https://www.openpolicyagent.org/">OPA Policies&lt;/a> to incoming Dapr HTTP requests. This can be used to apply reusable authorization policies to app endpoints.&lt;/p>
 &lt;h2 id="component-format">Component format&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
@@ -364,9 +364,9 @@
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>字段&lt;/th>
+&lt;th>Field&lt;/th>
 &lt;th>Details&lt;/th>
-&lt;th>示例&lt;/th>
+&lt;th>Example&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -388,7 +388,7 @@
 &lt;/tbody>
 &lt;/table>
 &lt;h2 id="dapr-configuration">Dapr configuration&lt;/h2>
-&lt;p>To be applied, the middleware must be referenced in &lt;a href="https://dapr-cn.github.io/concepts/configuration-concept/">configuration&lt;/a>. See &lt;a href="https://dapr-cn.github.io/concepts/middleware-concept/#customize-processing-pipeline">middleware pipelines&lt;/a>.&lt;/p>
+&lt;p>To be applied, the middleware must be referenced in &lt;a href="https://docs.dapr.io/concepts/configuration-concept/">configuration&lt;/a>. See &lt;a href="https://docs.dapr.io/concepts/middleware-concept/#customize-processing-pipeline">middleware pipelines&lt;/a>.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -469,15 +469,15 @@
 &lt;span style="color:#75715e">// Sets headers on allowed request or denied response; Optional
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">additional_headers&lt;/span> &lt;span style="color:#66d9ef">map&lt;/span>[&lt;span style="color:#66d9ef">string&lt;/span>]&lt;span style="color:#66d9ef">string&lt;/span>
 }
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://www.openpolicyagent.org">Open Policy Agent&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://www.openpolicyagent.org/docs/latest/http-api-authorization/">HTTP API example&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/concepts/middleware-concept/">Middleware concept&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/concepts/configuration-concept/">Configuration concept&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/operations/configuration/configuration-overview/">Configuration overview&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Developing-Applications: Uppercase request body</title><link>https://dapr-cn.github.io/developing-applications/middleware/supported-middleware/middleware-uppercase/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/middleware/supported-middleware/middleware-uppercase/</guid><description>
-&lt;p>The uppercase &lt;a href="https://dapr-cn.github.io/concepts/middleware-concept/">HTTP middleware&lt;/a> converts the body of the request to uppercase letters and is used for testing that the pipeline is functioning. It should only be used for local development.&lt;/p>
+&lt;li>&lt;a href="https://docs.dapr.io/concepts/middleware-concept/">Middleware concept&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/concepts/configuration-concept/">Configuration concept&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/configuration/configuration-overview/">Configuration overview&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Developing-Applications: Uppercase request body</title><link>https://docs.dapr.io/developing-applications/middleware/supported-middleware/middleware-uppercase/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/middleware/supported-middleware/middleware-uppercase/</guid><description>
+&lt;p>The uppercase &lt;a href="https://docs.dapr.io/concepts/middleware-concept/">HTTP middleware&lt;/a> converts the body of the request to uppercase letters and is used for testing that the pipeline is functioning. It should only be used for local development.&lt;/p>
 &lt;h2 id="component-format">Component format&lt;/h2>
 &lt;p>In the following definition, the maximum requests per second are set to 10:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
@@ -489,7 +489,7 @@
 &lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>This component has no &lt;code>metadata&lt;/code> to configure.&lt;/p>
 &lt;h2 id="dapr-configuration">Dapr configuration&lt;/h2>
-&lt;p>To be applied, the middleware must be referenced in &lt;a href="https://dapr-cn.github.io/concepts/configuration-concept/">configuration&lt;/a>. See &lt;a href="https://dapr-cn.github.io/concepts/middleware-concept/#customize-processing-pipeline">middleware pipelines&lt;/a>.&lt;/p>
+&lt;p>To be applied, the middleware must be referenced in &lt;a href="https://docs.dapr.io/concepts/configuration-concept/">configuration&lt;/a>. See &lt;a href="https://docs.dapr.io/concepts/middleware-concept/#customize-processing-pipeline">middleware pipelines&lt;/a>.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -499,9 +499,9 @@
 &lt;span style="color:#f92672">handlers&lt;/span>:
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">uppercase&lt;/span>
 &lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">middleware.http.uppercase&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/concepts/middleware-concept/">Middleware concept&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/concepts/configuration-concept/">Configuration concept&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/operations/configuration/configuration-overview/">Configuration overview&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/concepts/middleware-concept/">Middleware concept&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/concepts/configuration-concept/">Configuration concept&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/configuration/configuration-overview/">Configuration overview&lt;/a>&lt;/li>
 &lt;/ul></description></item></channel></rss>

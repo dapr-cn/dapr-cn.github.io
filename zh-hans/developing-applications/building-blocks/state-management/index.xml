@@ -1,0 +1,678 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – State management</title><link>https://docs.dapr.io/zh-hans/developing-applications/building-blocks/state-management/</link><description>Recent content in State management on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><language>zh-hans</language><atom:link href="https://docs.dapr.io/zh-hans/developing-applications/building-blocks/state-management/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: State management overview</title><link>https://docs.dapr.io/zh-hans/developing-applications/building-blocks/state-management/state-management-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/zh-hans/developing-applications/building-blocks/state-management/state-management-overview/</guid><description>
+&lt;h2 id="介绍">介绍&lt;/h2>
+&lt;p>Using state management, your application can store data as key/value pairs in the &lt;a href="https://docs.dapr.io/zh-hans/operations/components/setup-state-store/supported-state-stores/">supported state stores&lt;/a>.&lt;/p>
+&lt;p>When using state management your application can leverage features that would otherwise be complicated and error-prone to build yourself such as:&lt;/p>
+&lt;ul>
+&lt;li>Distributed concurrency and data consistency&lt;/li>
+&lt;li>Bulk &lt;a href="https://en.wikipedia.org/wiki/Create,_read,_update_and_delete">CRUD&lt;/a> operations&lt;/li>
+&lt;/ul>
+&lt;p>Your application can used Dapr&amp;rsquo;s state management API to save and read key/value pairs using a state store component, as shown in the diagram below. For example, by using HTTP POST you can save key/value pairs and by using HTTP GET you can read a key and have its value returned. For example, by using HTTP POST you can save key/value pairs and by using HTTP GET you can read a key and have its value returned.&lt;/p>
+&lt;img src="https://docs.dapr.io/images/state-management-overview.png" width=900>
+&lt;h2 id="特性">特性&lt;/h2>
+&lt;h3 id="pluggable-state-stores">Pluggable state stores&lt;/h3>
+&lt;p>Dapr data stores are modeled as components, which can be swapped out without any changes to your service code. See &lt;a href="https://docs.dapr.io/zh-hans/operations/components/setup-state-store/supported-state-stores/">supported state stores&lt;/a> to see the list. See &lt;a href="https://docs.dapr.io/zh-hans/operations/components/setup-state-store/supported-state-stores/">supported state stores&lt;/a> to see the list.&lt;/p>
+&lt;h3 id="configurable-state-store-behavior">Configurable state store behavior&lt;/h3>
+&lt;p>Dapr allows developers to attach additional metadata to a state operation request that describes how the request is expected to be handled. You can attach: You can attach:&lt;/p>
+&lt;ul>
+&lt;li>Concurrency requirements&lt;/li>
+&lt;li>Consistency requirements&lt;/li>
+&lt;/ul>
+&lt;p>By default, your application should assume a data store is &lt;strong>eventually consistent&lt;/strong> and uses a &lt;strong>last-write-wins&lt;/strong> concurrency pattern.&lt;/p>
+&lt;p>&lt;a href="https://docs.dapr.io/zh-hans/operations/components/setup-state-store/supported-state-stores/">Not all stores are created equal&lt;/a>. &lt;a href="https://docs.dapr.io/zh-hans/operations/components/setup-state-store/supported-state-stores/">Not all stores are created equal&lt;/a>. To ensure portability of your application you can query the capabilities of the store and make your code adaptive to different store capabilities.&lt;/p>
+&lt;h3 id="并发concurrency">并发（Concurrency）&lt;/h3>
+&lt;p>Dapr supports optimistic concurrency control (OCC) using ETags. When a state is requested, Dapr always attaches an ETag property to the returned state. Dapr supports optimistic concurrency control (OCC) using ETags. When a state is requested, Dapr always attaches an ETag property to the returned state. When the user code tries to update or delete a state, it’s expected to attach the ETag either through the request body for updates or the &lt;code>If-Match&lt;/code> header for deletes. The write operation can succeed only when the provided ETag matches with the ETag in the state store. The write operation can succeed only when the provided ETag matches with the ETag in the state store.&lt;/p>
+&lt;p>Dapr chooses OCC because in many applications, data update conflicts are rare because clients are naturally partitioned by business contexts to operate on different data. However, if your application chooses to use ETags, a request may get rejected because of mismatched ETags. It&amp;rsquo;s recommended that you use a retry policy to compensate for such conflicts when using ETags. However, if your application chooses to use ETags, a request may get rejected because of mismatched ETags. It&amp;rsquo;s recommended that you use a retry policy to compensate for such conflicts when using ETags.&lt;/p>
+&lt;p>If your application omits ETags in writing requests, Dapr skips ETag checks while handling the requests. This essentially enables the &lt;strong>last-write-wins&lt;/strong> pattern, compared to the &lt;strong>first-write-wins&lt;/strong> pattern with ETags. This essentially enables the &lt;strong>last-write-wins&lt;/strong> pattern, compared to the &lt;strong>first-write-wins&lt;/strong> pattern with ETags.&lt;/p>
+&lt;div class="alert alert-primary" role="alert">
+&lt;h4 class="alert-heading">Note on ETags&lt;/h4>
+For stores that don&amp;rsquo;t natively support ETags, it&amp;rsquo;s expected that the corresponding Dapr state store implementation simulates ETags and follows the Dapr state management API specification when handling states. Because Dapr state store implementations are technically clients to the underlying data store, such simulation should be straightforward using the concurrency control mechanisms provided by the store. Because Dapr state store implementations are technically clients to the underlying data store, such simulation should be straightforward using the concurrency control mechanisms provided by the store.
+&lt;/div>
+&lt;p>Read the &lt;a href="https://docs.dapr.io/zh-hans/reference/api/state_api/">API reference&lt;/a> to learn how to set concurrency options.&lt;/p>
+&lt;h3 id="consistency">Consistency&lt;/h3>
+&lt;p>Dapr supports both &lt;strong>strong consistency&lt;/strong> and &lt;strong>eventual consistency&lt;/strong>, with eventual consistency as the default behavior.&lt;/p>
+&lt;p>When strong consistency is used, Dapr waits for all replicas (or designated quorums) to acknowledge before it acknowledges a write request. When strong consistency is used, Dapr waits for all replicas (or designated quorums) to acknowledge before it acknowledges a write request. When eventual consistency is used, Dapr returns as soon as the write request is accepted by the underlying data store, even if this is a single replica.&lt;/p>
+&lt;p>Read the &lt;a href="https://docs.dapr.io/zh-hans/reference/api/state_api/">API reference&lt;/a> to learn how to set consistency options.&lt;/p>
+&lt;h3 id="bulk-operations">Bulk operations&lt;/h3>
+&lt;p>Dapr supports two types of bulk operations - &lt;strong>bulk&lt;/strong> or &lt;strong>multi&lt;/strong>. You can group several requests of the same type into a bulk (or a batch). Dapr submits requests in the bulk as individual requests to the underlying data store. In other words, bulk operations are not transactional. On the other hand, you can group requests of different types into a multi-operation, which is handled as an atomic transaction. You can group several requests of the same type into a bulk (or a batch). Dapr submits requests in the bulk as individual requests to the underlying data store. In other words, bulk operations are not transactional. On the other hand, you can group requests of different types into a multi-operation, which is handled as an atomic transaction.&lt;/p>
+&lt;p>Read the &lt;a href="https://docs.dapr.io/zh-hans/reference/api/state_api/">API reference&lt;/a> to learn how use bulk and multi options.&lt;/p>
+&lt;h3 id="actor-state">Actor state&lt;/h3>
+&lt;p>Transactional state stores can be used to store actor state. To specify which state store to be used for actors, specify value of property &lt;code>actorStateStore&lt;/code> as &lt;code>true&lt;/code> in the metadata section of the state store component. Actors state is stored with a specific scheme in transactional state stores, which allows for consistent querying. Read the &lt;a href="https://docs.dapr.io/zh-hans/reference/api/state_api/">API reference&lt;/a> to learn more about state stores for actors and the &lt;a href="https://docs.dapr.io/zh-hans/reference/api/actors_api/">actors API reference&lt;/a> To specify which state store to be used for actors, specify value of property &lt;code>actorStateStore&lt;/code> as &lt;code>true&lt;/code> in the metadata section of the state store component. Actors state is stored with a specific scheme in transactional state stores, which allows for consistent querying. Read the &lt;a href="https://docs.dapr.io/zh-hans/reference/api/state_api/">API reference&lt;/a> to learn more about state stores for actors and the &lt;a href="https://docs.dapr.io/zh-hans/reference/api/actors_api/">actors API reference&lt;/a>&lt;/p>
+&lt;h3 id="query-state-store-directly">Query state store directly&lt;/h3>
+&lt;p>Dapr saves and retrieves state values without any transformation. Dapr saves and retrieves state values without any transformation. You can query and aggregate state directly from the &lt;a href="https://docs.dapr.io/zh-hans/developing-applications/building-blocks/state-management/query-state-store/">underlying state store&lt;/a>.&lt;/p>
+&lt;p>For example, to get all state keys associated with an application ID &amp;ldquo;myApp&amp;rdquo; in Redis, use:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">KEYS &lt;span style="color:#e6db74">&amp;#34;myApp*&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="querying-actor-state">Querying actor state&lt;/h4>
+&lt;p>If the data store supports SQL queries, you can query an actor&amp;rsquo;s state using SQL queries. For example use: For example use:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-sql" data-lang="sql">&lt;span style="color:#66d9ef">SELECT&lt;/span> &lt;span style="color:#f92672">*&lt;/span> &lt;span style="color:#66d9ef">FROM&lt;/span> StateTable &lt;span style="color:#66d9ef">WHERE&lt;/span> Id&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;&amp;lt;app-id&amp;gt;||&amp;lt;actor-type&amp;gt;||&amp;lt;actor-id&amp;gt;||&amp;lt;key&amp;gt;&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>You can also perform aggregate queries across actor instances, avoiding the common turn-based concurrency limitations of actor frameworks. For example, to calculate the average temperature of all thermometer actors, use: For example, to calculate the average temperature of all thermometer actors, use:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-sql" data-lang="sql">&lt;span style="color:#66d9ef">SELECT&lt;/span> &lt;span style="color:#66d9ef">AVG&lt;/span>(value) &lt;span style="color:#66d9ef">FROM&lt;/span> StateTable &lt;span style="color:#66d9ef">WHERE&lt;/span> Id &lt;span style="color:#66d9ef">LIKE&lt;/span> &lt;span style="color:#e6db74">&amp;#39;&amp;lt;app-id&amp;gt;||&amp;lt;thermometer&amp;gt;||*||temperature&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;div class="alert alert-primary" role="alert">
+&lt;h4 class="alert-heading">Note on direct queries&lt;/h4>
+Direct queries of the state store are not governed by Dapr concurrency control, since you are not calling through the Dapr runtime. What you see are snapshots of committed data which are acceptable for read-only queries across multiple actors, however writes should be done via the Dapr state management or actors APIs. What you see are snapshots of committed data which are acceptable for read-only queries across multiple actors, however writes should be done via the Dapr state management or actors APIs.
+&lt;/div>
+&lt;h3 id="state-management-api">State management API&lt;/h3>
+&lt;p>The API for state management can be found in the &lt;a href="https://docs.dapr.io/zh-hans/reference/api/state_api/">state management API reference&lt;/a> which describes how to retrieve, save and delete state values by providing keys.&lt;/p>
+&lt;h2 id="下一步">下一步&lt;/h2>
+&lt;ul>
+&lt;li>Follow these guides on:
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/zh-hans/developing-applications/building-blocks/state-management/howto-get-save-state/">How-To: Save and get state&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/zh-hans/developing-applications/building-blocks/state-management/howto-stateful-service/">How-To: Build a stateful service&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/zh-hans/developing-applications/building-blocks/state-management/howto-share-state/">How-To: Share state between applications&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Try out the &lt;a href="https://github.com/dapr/quickstarts/blob/master/hello-world/README.md">hello world quickstart&lt;/a> which shows how to use state management or try the samples in the &lt;a href="https://docs.dapr.io/zh-hans/developing-applications/sdks/">Dapr SDKs&lt;/a>&lt;/li>
+&lt;li>List of &lt;a href="https://docs.dapr.io/zh-hans/operations/components/setup-state-store/supported-state-stores/">state store components&lt;/a>&lt;/li>
+&lt;li>Read the &lt;a href="https://docs.dapr.io/zh-hans/reference/api/state_api/">state management API reference&lt;/a>&lt;/li>
+&lt;li>Read the &lt;a href="https://docs.dapr.io/zh-hans/reference/api/actors_api/">actors API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Developing-Applications: How-To: Save and get state</title><link>https://docs.dapr.io/zh-hans/developing-applications/building-blocks/state-management/howto-get-save-state/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/zh-hans/developing-applications/building-blocks/state-management/howto-get-save-state/</guid><description>
+&lt;h2 id="介绍">介绍&lt;/h2>
+&lt;p>State management is one of the most common needs of any application: new or legacy, monolith or microservice. Dealing with different databases libraries, testing them, handling retries and faults can be time consuming and hard. Dealing with different databases libraries, testing them, handling retries and faults can be time consuming and hard.&lt;/p>
+&lt;p>Dapr provides state management capabilities that include consistency and concurrency options. Dapr provides state management capabilities that include consistency and concurrency options. In this guide we&amp;rsquo;ll start of with the basics: Using the key/value state API to allow an application to save, get and delete state.&lt;/p>
+&lt;h2 id="pre-requisites">Pre-requisites&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/zh-hans/getting-started/install-dapr-cli/">Dapr CLI&lt;/a>&lt;/li>
+&lt;li>Initialized &lt;a href="https://docs.dapr.io/zh-hans/getting-started/install-dapr-selfhost/">Dapr environment&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="step-1-setup-a-state-store">Step 1: Setup a state store&lt;/h2>
+&lt;p>A state store component represents a resource that Dapr uses to communicate with a database.&lt;/p>
+&lt;p>For the purpose of this guide we&amp;rsquo;ll use a Redis state store, but any state store from the &lt;a href="https://docs.dapr.io/zh-hans/operations/components/setup-state-store/supported-state-stores/">supported list&lt;/a> will work.&lt;/p>
+&lt;ul class="nav nav-tabs" id="tabs-3" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-3-self-hosted-cli-tab" data-toggle="tab" href="#tabs-3-self-hosted-cli" role="tab"
+aria-controls="tabs-3-self-hosted-cli" aria-selected="true">
+Self-Hosted (CLI)
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-3-kubernetes-tab" data-toggle="tab" href="#tabs-3-kubernetes" role="tab"
+aria-controls="tabs-3-kubernetes" aria-selected="false">
+Kubernetes
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-3-content">
+&lt;div class="tab-pane fade show active" id="tabs-3-self-hosted-cli" role="tabpanel" aria-labelled-by="tabs-3-self-hosted-cli-tab">
+&lt;br />&lt;p>When using &lt;code>dapr init&lt;/code> in Standalone mode, the Dapr CLI automatically provisions a state store (Redis) and creates the relevant YAML in a &lt;code>components&lt;/code> directory, which for Linux/MacOS is &lt;code>$HOME/.dapr/components&lt;/code> and for Windows is &lt;code>%USERPROFILE%\.dapr\components&lt;/code>&lt;/p>
+&lt;p>To optionally change the state store being used, replace the YAML file &lt;code>statestore.yaml&lt;/code> under &lt;code>/components&lt;/code> with the file of your choice.&lt;/p>
+&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-3-kubernetes" role="tabpanel" aria-labelled-by="tabs-3-kubernetes-tab">
+&lt;br />&lt;p>To deploy this into a Kubernetes cluster, fill in the &lt;code>metadata&lt;/code> connection details of your &lt;a href="https://docs.dapr.io/zh-hans/operations/components/setup-state-store/supported-state-stores/">desired statestore component&lt;/a> in the yaml below, save as &lt;code>statestore.yaml&lt;/code>, and run &lt;code>kubectl apply -f statestore.yaml&lt;/code>.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">statestore&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">state.redis&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">redisHost&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">localhost:6379&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">redisPassword&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>See the instructions &lt;a href="https://docs.dapr.io/zh-hans/operations/components/setup-state-store/">here&lt;/a> on how to setup different state stores on Kubernetes.&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;h2 id="step-2-save-and-retrieve-a-single-state">Step 2: Save and retrieve a single state&lt;/h2>
+&lt;p>The following example shows how to a single key/value pair using the Dapr state building block.&lt;/p>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Note&lt;/h4>
+It is important to set an app-id, as the state keys are prefixed with this value. It is important to set an app-id, as the state keys are prefixed with this value. If you don&amp;rsquo;t set it one is generated for you at runtime, and the next time you run the command a new one will be generated and you will no longer be able to access previously saved state.
+&lt;/div>
+&lt;ul class="nav nav-tabs" id="tabs-5" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-5-http-api-bash-tab" data-toggle="tab" href="#tabs-5-http-api-bash" role="tab"
+aria-controls="tabs-5-http-api-bash" aria-selected="true">
+HTTP API (Bash)
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-5-http-api-powershell-tab" data-toggle="tab" href="#tabs-5-http-api-powershell" role="tab"
+aria-controls="tabs-5-http-api-powershell" aria-selected="false">
+HTTP API (PowerShell)
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-5-python-sdk-tab" data-toggle="tab" href="#tabs-5-python-sdk" role="tab"
+aria-controls="tabs-5-python-sdk" aria-selected="false">
+Python SDK
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-5-php-sdk-tab" data-toggle="tab" href="#tabs-5-php-sdk" role="tab"
+aria-controls="tabs-5-php-sdk" aria-selected="false">
+PHP SDK
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-5-content">
+&lt;div class="tab-pane fade show active" id="tabs-5-http-api-bash" role="tabpanel" aria-labelled-by="tabs-5-http-api-bash-tab">
+&lt;br />&lt;p>Begin by launching a Dapr sidecar:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr run --app-id myapp --dapr-http-port &lt;span style="color:#ae81ff">3500&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Then in a separate terminal save a key/value pair into your statestore:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl -X POST -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span> -d &lt;span style="color:#e6db74">&amp;#39;[{ &amp;#34;key&amp;#34;: &amp;#34;key1&amp;#34;, &amp;#34;value&amp;#34;: &amp;#34;value1&amp;#34;}]&amp;#39;&lt;/span> http://localhost:3500/v1.0/state/statestore
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Now get the state you just saved:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl http://localhost:3500/v1.0/state/statestore/key1
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>You can also restart your sidecar and try retrieving state again to see that state persists separate from the app.&lt;/p>
+&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-5-http-api-powershell" role="tabpanel" aria-labelled-by="tabs-5-http-api-powershell-tab">
+&lt;br />&lt;p>Begin by launching a Dapr sidecar:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr --app-id myapp --port &lt;span style="color:#ae81ff">3500&lt;/span> run
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Then in a separate terminal save a key/value pair into your statestore:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-powershell" data-lang="powershell">Invoke-RestMethod -Method Post -ContentType &lt;span style="color:#e6db74">&amp;#39;application/json&amp;#39;&lt;/span> -Body &lt;span style="color:#e6db74">&amp;#39;[{&amp;#34;key&amp;#34;: &amp;#34;key1&amp;#34;, &amp;#34;value&amp;#34;: &amp;#34;value1&amp;#34;}]&amp;#39;&lt;/span> -Uri &lt;span style="color:#e6db74">&amp;#39;http://localhost:3500/v1.0/state/statestore&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Now get the state you just saved:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-powershell" data-lang="powershell">Invoke-RestMethod -Uri &lt;span style="color:#e6db74">&amp;#39;http://localhost:3500/v1.0/state/statestore/key1&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>You can also restart your sidecar and try retrieving state again to see that state persists separate from the app.&lt;/p>
+&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-5-python-sdk" role="tabpanel" aria-labelled-by="tabs-5-python-sdk-tab">
+&lt;br />&lt;p>Save the following to a file named &lt;code>pythonState.py&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">from&lt;/span> dapr.clients &lt;span style="color:#f92672">import&lt;/span> DaprClient
+&lt;span style="color:#66d9ef">with&lt;/span> DaprClient() &lt;span style="color:#66d9ef">as&lt;/span> d:
+d&lt;span style="color:#f92672">.&lt;/span>save_state(store_name&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;statestore&amp;#34;&lt;/span>, key&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;myFirstKey&amp;#34;&lt;/span>, value&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;myFirstValue&amp;#34;&lt;/span> )
+&lt;span style="color:#66d9ef">print&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;State has been stored&amp;#34;&lt;/span>)
+data &lt;span style="color:#f92672">=&lt;/span> d&lt;span style="color:#f92672">.&lt;/span>get_state(store_name&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;statestore&amp;#34;&lt;/span>, key&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;myFirstKey&amp;#34;&lt;/span>)&lt;span style="color:#f92672">.&lt;/span>data
+&lt;span style="color:#66d9ef">print&lt;/span>(f&lt;span style="color:#e6db74">&amp;#34;Got value: {data}&amp;#34;&lt;/span>)
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Once saved run the following command to launch a Dapr sidecar and run the Python application:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr --app-id myapp run python pythonState.py
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>You should get an output similar to the following, which will show both the Dapr and app logs:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-md" data-lang="md">== DAPR == time=&amp;#34;2021-01-06T21:34:33.7970377-08:00&amp;#34; level=info msg=&amp;#34;starting Dapr Runtime -- version 0.11.3 -- commit a1a8e11&amp;#34; app_id=Braidbald-Boot scope=dapr.runtime type=log ver=0.11.3
+== DAPR == time=&amp;#34;2021-01-06T21:34:33.8040378-08:00&amp;#34; level=info msg=&amp;#34;standalone mode configured&amp;#34; app_id=Braidbald-Boot scope=dapr.runtime type=log ver=0.11.3
+== DAPR == time=&amp;#34;2021-01-06T21:34:33.8040378-08:00&amp;#34; level=info msg=&amp;#34;app id: Braidbald-Boot&amp;#34; app_id=Braidbald-Boot scope=dapr.runtime type=log ver=0.11.3
+== DAPR == time=&amp;#34;2021-01-06T21:34:33.9750400-08:00&amp;#34; level=info msg=&amp;#34;component loaded. name: statestore, type: state.redis&amp;#34; app_id=Braidbald-Boot scope=dapr.runtime type=log ver=0.11.3
+== DAPR == time=&amp;#34;2021-01-06T21:34:33.9760387-08:00&amp;#34; level=info msg=&amp;#34;API gRPC server is running on port 51656&amp;#34; app_id=Braidbald-Boot scope=dapr.runtime type=log ver=0.11.3
+== DAPR == time=&amp;#34;2021-01-06T21:34:33.9770372-08:00&amp;#34; level=info msg=&amp;#34;dapr initialized. Status: Running. Init Elapsed 172.9994ms&amp;#34; app_id=Braidbald-Boot scope=dapr.
+Checking if Dapr sidecar is listening on GRPC port 51656
+Dapr sidecar is up and running.
+Updating metadata for app command: python pythonState.py
+You are up and running! Both Dapr and your app logs will appear here.
+== APP == State has been stored
+== APP == Got value: b&amp;#39;myFirstValue&amp;#39; name: statestore, type: state.redis&amp;#34; app_id=Braidbald-Boot scope=dapr.runtime type=log ver=0.11.3
+== DAPR == time=&amp;#34;2021-01-06T21:34:33.9760387-08:00&amp;#34; level=info msg=&amp;#34;API gRPC server is running on port 51656&amp;#34; app_id=Braidbald-Boot scope=dapr.runtime type=log ver=0.11.3
+== DAPR == time=&amp;#34;2021-01-06T21:34:33.9770372-08:00&amp;#34; level=info msg=&amp;#34;dapr initialized. Status: Running. Init Elapsed 172.9994ms&amp;#34; app_id=Braidbald-Boot scope=dapr.
+Checking if Dapr sidecar is listening on GRPC port 51656
+Dapr sidecar is up and running.
+Updating metadata for app command: python pythonState.py
+You are up and running! Both Dapr and your app logs will appear here.
+== APP == State has been stored
+== APP == Got value: b&amp;#39;myFirstValue&amp;#39;
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-5-php-sdk" role="tabpanel" aria-labelled-by="tabs-5-php-sdk-tab">
+&lt;br />&lt;p>Save the following in &lt;code>state-example.php&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
+&lt;span style="color:#66d9ef">require_once&lt;/span> &lt;span style="color:#66d9ef">__DIR__&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#e6db74">&amp;#39;/vendor/autoload.php&amp;#39;&lt;/span>;
+$app &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">\Dapr\App&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">create&lt;/span>();
+$app&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">run&lt;/span>(&lt;span style="color:#66d9ef">function&lt;/span>(&lt;span style="color:#a6e22e">\Dapr\State\StateManager&lt;/span> $stateManager, &lt;span style="color:#a6e22e">\Psr\Log\LoggerInterface&lt;/span> $logger) {
+$stateManager&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">save_state&lt;/span>(&lt;span style="color:#a6e22e">store_name&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#e6db74">&amp;#39;statestore&amp;#39;&lt;/span>, &lt;span style="color:#a6e22e">item&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> &lt;span style="color:#a6e22e">\Dapr\State\StateItem&lt;/span>(
+&lt;span style="color:#a6e22e">key&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#e6db74">&amp;#39;myFirstKey&amp;#39;&lt;/span>,
+&lt;span style="color:#a6e22e">value&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#e6db74">&amp;#39;myFirstValue&amp;#39;&lt;/span>
+));
+$logger&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">alert&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;State has been stored&amp;#39;&lt;/span>);
+$data &lt;span style="color:#f92672">=&lt;/span> $stateManager&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">load_state&lt;/span>(&lt;span style="color:#a6e22e">store_name&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#e6db74">&amp;#39;statestore&amp;#39;&lt;/span>, &lt;span style="color:#a6e22e">key&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#e6db74">&amp;#39;myFirstKey&amp;#39;&lt;/span>)&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">value&lt;/span>;
+$logger&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">alert&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;Got value: {data}&amp;#34;&lt;/span>, [&lt;span style="color:#e6db74">&amp;#39;data&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> $data]);
+});
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Once saved run the following command to launch a Dapr sidecar and run the PHP application:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr --app-id myapp run -- php state-example.php
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>You should get an output similar to the following, which will show both the Dapr and app logs:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-md" data-lang="md">✅ You&amp;#39;re up and running! Both Dapr and your app logs will appear here.
+✅ You&amp;#39;re up and running! Both Dapr and your app logs will appear here.
+== APP == [2021-02-12T16:30:11.078777+01:00] APP.ALERT: State has been stored [] []
+== APP == [2021-02-12T16:30:11.082620+01:00] APP.ALERT: Got value: myFirstValue {&amp;#34;data&amp;#34;:&amp;#34;myFirstValue&amp;#34;} []
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;/div>
+&lt;h2 id="step-3-delete-state">Step 3: Delete state&lt;/h2>
+&lt;p>The following example shows how to delete an item by using a key with the state management API:&lt;/p>
+&lt;ul class="nav nav-tabs" id="tabs-6" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-6-http-api-bash-tab" data-toggle="tab" href="#tabs-6-http-api-bash" role="tab"
+aria-controls="tabs-6-http-api-bash" aria-selected="true">
+HTTP API (Bash)
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-6-http-api-powershell-tab" data-toggle="tab" href="#tabs-6-http-api-powershell" role="tab"
+aria-controls="tabs-6-http-api-powershell" aria-selected="false">
+HTTP API (PowerShell)
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-6-python-sdk-tab" data-toggle="tab" href="#tabs-6-python-sdk" role="tab"
+aria-controls="tabs-6-python-sdk" aria-selected="false">
+Python SDK
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-6-php-sdk-tab" data-toggle="tab" href="#tabs-6-php-sdk" role="tab"
+aria-controls="tabs-6-php-sdk" aria-selected="false">
+PHP SDK
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-6-content">
+&lt;div class="tab-pane fade show active" id="tabs-6-http-api-bash" role="tabpanel" aria-labelled-by="tabs-6-http-api-bash-tab">
+&lt;br />&lt;p>With the same dapr instance running from above run:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl -X DELETE &lt;span style="color:#e6db74">&amp;#39;http://localhost:3500/v1.0/state/statestore/key1&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Try getting state again and note that no value is returned.&lt;/p>
+&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-6-http-api-powershell" role="tabpanel" aria-labelled-by="tabs-6-http-api-powershell-tab">
+&lt;br />&lt;p>With the same dapr instance running from above run:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-powershell" data-lang="powershell">Invoke-RestMethod -Method Delete -Uri &lt;span style="color:#e6db74">&amp;#39;http://localhost:3500/v1.0/state/statestore/key1&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Try getting state again and note that no value is returned.&lt;/p>
+&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-6-python-sdk" role="tabpanel" aria-labelled-by="tabs-6-python-sdk-tab">
+&lt;br />&lt;p>Update &lt;code>pythonState.py&lt;/code> with:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">from&lt;/span> dapr.clients &lt;span style="color:#f92672">import&lt;/span> DaprClient
+&lt;span style="color:#66d9ef">with&lt;/span> DaprClient() &lt;span style="color:#66d9ef">as&lt;/span> d:
+d&lt;span style="color:#f92672">.&lt;/span>save_state(store_name&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;statestore&amp;#34;&lt;/span>, key&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;key1&amp;#34;&lt;/span>, value&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;value1&amp;#34;&lt;/span> )
+&lt;span style="color:#66d9ef">print&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;State has been stored&amp;#34;&lt;/span>)
+data &lt;span style="color:#f92672">=&lt;/span> d&lt;span style="color:#f92672">.&lt;/span>get_state(store_name&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;statestore&amp;#34;&lt;/span>, key&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;key1&amp;#34;&lt;/span>)&lt;span style="color:#f92672">.&lt;/span>data
+&lt;span style="color:#66d9ef">print&lt;/span>(f&lt;span style="color:#e6db74">&amp;#34;Got value: {data}&amp;#34;&lt;/span>)
+d&lt;span style="color:#f92672">.&lt;/span>delete_state(store_name&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;statestore&amp;#34;&lt;/span>, key&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;key1&amp;#34;&lt;/span>)
+data &lt;span style="color:#f92672">=&lt;/span> d&lt;span style="color:#f92672">.&lt;/span>get_state(store_name&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;statestore&amp;#34;&lt;/span>, key&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;key1&amp;#34;&lt;/span>)&lt;span style="color:#f92672">.&lt;/span>data
+&lt;span style="color:#66d9ef">print&lt;/span>(f&lt;span style="color:#e6db74">&amp;#34;Got value after delete: {data}&amp;#34;&lt;/span>)
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Now run your program with:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr --app-id myapp run python pythonState.py
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>You should see an output similar to the following:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-md" data-lang="md">Starting Dapr with id Yakchocolate-Lord. HTTP Port: 59457. Starting Dapr with id Yakchocolate-Lord. HTTP Port: 59457. gRPC Port: 59458
+== DAPR == time=&amp;#34;2021-01-06T22:55:36.5570696-08:00&amp;#34; level=info msg=&amp;#34;starting Dapr Runtime -- version 0.11.3 -- commit a1a8e11&amp;#34; app_id=Yakchocolate-Lord scope=dapr.runtime type=log ver=0.11.3
+== DAPR == time=&amp;#34;2021-01-06T22:55:36.5690367-08:00&amp;#34; level=info msg=&amp;#34;standalone mode configured&amp;#34; app_id=Yakchocolate-Lord scope=dapr.runtime type=log ver=0.11.3
+== DAPR == time=&amp;#34;2021-01-06T22:55:36.7220140-08:00&amp;#34; level=info msg=&amp;#34;component loaded. name: statestore, type: state.redis&amp;#34; app_id=Yakchocolate-Lord scope=dapr.runtime type=log ver=0.11.3
+== DAPR == time=&amp;#34;2021-01-06T22:55:36.7230148-08:00&amp;#34; level=info msg=&amp;#34;API gRPC server is running on port 59458&amp;#34; app_id=Yakchocolate-Lord scope=dapr.runtime type=log ver=0.11.3
+== DAPR == time=&amp;#34;2021-01-06T22:55:36.7240207-08:00&amp;#34; level=info msg=&amp;#34;dapr initialized. Status: Running. Init Elapsed 154.984ms&amp;#34; app_id=Yakchocolate-Lord scope=dapr.runtime type=log ver=0.11.3
+Checking if Dapr sidecar is listening on GRPC port 59458
+Dapr sidecar is up and running.
+Updating metadata for app command: python pythonState.py
+You&amp;#39;re up and running! Both Dapr and your app logs will appear here.
+== APP == State has been stored
+== APP == Got value: b&amp;#39;value1&amp;#39;
+== APP == Got value after delete: b&amp;#39;&amp;#39; name: statestore, type: state.redis&amp;#34; app_id=Yakchocolate-Lord scope=dapr.runtime type=log ver=0.11.3
+== DAPR == time=&amp;#34;2021-01-06T22:55:36.7230148-08:00&amp;#34; level=info msg=&amp;#34;API gRPC server is running on port 59458&amp;#34; app_id=Yakchocolate-Lord scope=dapr.runtime type=log ver=0.11.3
+== DAPR == time=&amp;#34;2021-01-06T22:55:36.7240207-08:00&amp;#34; level=info msg=&amp;#34;dapr initialized. Status: Running. Init Elapsed 154.984ms&amp;#34; app_id=Yakchocolate-Lord scope=dapr.runtime type=log ver=0.11.3
+Checking if Dapr sidecar is listening on GRPC port 59458
+Dapr sidecar is up and running.
+Updating metadata for app command: python pythonState.py
+You&amp;#39;re up and running! Both Dapr and your app logs will appear here.
+== APP == State has been stored
+== APP == Got value: b&amp;#39;value1&amp;#39;
+== APP == Got value after delete: b&amp;#39;&amp;#39;
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-6-php-sdk" role="tabpanel" aria-labelled-by="tabs-6-php-sdk-tab">
+&lt;br />&lt;p>Update &lt;code>state-example.php&lt;/code> with the following contents:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
+&lt;span style="color:#66d9ef">require_once&lt;/span> &lt;span style="color:#66d9ef">__DIR__&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#e6db74">&amp;#39;/vendor/autoload.php&amp;#39;&lt;/span>;
+$app &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">\Dapr\App&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">create&lt;/span>();
+$app&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">run&lt;/span>(&lt;span style="color:#66d9ef">function&lt;/span>(&lt;span style="color:#a6e22e">\Dapr\State\StateManager&lt;/span> $stateManager, &lt;span style="color:#a6e22e">\Psr\Log\LoggerInterface&lt;/span> $logger) {
+$stateManager&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">save_state&lt;/span>(&lt;span style="color:#a6e22e">store_name&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#e6db74">&amp;#39;statestore&amp;#39;&lt;/span>, &lt;span style="color:#a6e22e">item&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> &lt;span style="color:#a6e22e">\Dapr\State\StateItem&lt;/span>(
+&lt;span style="color:#a6e22e">key&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#e6db74">&amp;#39;myFirstKey&amp;#39;&lt;/span>,
+&lt;span style="color:#a6e22e">value&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#e6db74">&amp;#39;myFirstValue&amp;#39;&lt;/span>
+));
+$logger&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">alert&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;State has been stored&amp;#39;&lt;/span>);
+$data &lt;span style="color:#f92672">=&lt;/span> $stateManager&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">load_state&lt;/span>(&lt;span style="color:#a6e22e">store_name&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#e6db74">&amp;#39;statestore&amp;#39;&lt;/span>, &lt;span style="color:#a6e22e">key&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#e6db74">&amp;#39;myFirstKey&amp;#39;&lt;/span>)&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">value&lt;/span>;
+$logger&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">alert&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;Got value: {data}&amp;#34;&lt;/span>, [&lt;span style="color:#e6db74">&amp;#39;data&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> $data]);
+$stateManager&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">delete_keys&lt;/span>(&lt;span style="color:#a6e22e">store_name&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#e6db74">&amp;#39;statestore&amp;#39;&lt;/span>, &lt;span style="color:#a6e22e">keys&lt;/span>&lt;span style="color:#f92672">:&lt;/span> [&lt;span style="color:#e6db74">&amp;#39;myFirstKey&amp;#39;&lt;/span>]);
+$data &lt;span style="color:#f92672">=&lt;/span> $stateManager&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">load_state&lt;/span>(&lt;span style="color:#a6e22e">store_name&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#e6db74">&amp;#39;statestore&amp;#39;&lt;/span>, &lt;span style="color:#a6e22e">key&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#e6db74">&amp;#39;myFirstKey&amp;#39;&lt;/span>)&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">value&lt;/span>;
+$logger&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">alert&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;Got value after delete: {data}&amp;#34;&lt;/span>, [&lt;span style="color:#e6db74">&amp;#39;data&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> $data]);
+});
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Now run it with:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr --app-id myapp run -- php state-example.php
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>You should see something similar the following output:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-md" data-lang="md">✅ You&amp;#39;re up and running! Both Dapr and your app logs will appear here.
+✅ You&amp;#39;re up and running! Both Dapr and your app logs will appear here.
+== APP == [2021-02-12T16:38:00.839201+01:00] APP.ALERT: State has been stored [] []
+== APP == [2021-02-12T16:38:00.841997+01:00] APP.ALERT: Got value: myFirstValue {&amp;#34;data&amp;#34;:&amp;#34;myFirstValue&amp;#34;} []
+== APP == [2021-02-12T16:38:00.845721+01:00] APP.ALERT: Got value after delete: {&amp;#34;data&amp;#34;:null} []
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;/div>
+&lt;h2 id="step-4-save-and-retrieve-multiple-states">Step 4: Save and retrieve multiple states&lt;/h2>
+&lt;p>Dapr also allows you to save and retrieve multiple states in the same call.&lt;/p>
+&lt;ul class="nav nav-tabs" id="tabs-7" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-7-http-api-bash-tab" data-toggle="tab" href="#tabs-7-http-api-bash" role="tab"
+aria-controls="tabs-7-http-api-bash" aria-selected="true">
+HTTP API (Bash)
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-7-http-api-powershell-tab" data-toggle="tab" href="#tabs-7-http-api-powershell" role="tab"
+aria-controls="tabs-7-http-api-powershell" aria-selected="false">
+HTTP API (PowerShell)
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-7-python-sdk-tab" data-toggle="tab" href="#tabs-7-python-sdk" role="tab"
+aria-controls="tabs-7-python-sdk" aria-selected="false">
+Python SDK
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-7-content">
+&lt;div class="tab-pane fade show active" id="tabs-7-http-api-bash" role="tabpanel" aria-labelled-by="tabs-7-http-api-bash-tab">
+&lt;br />&lt;p>With the same dapr instance running from above save two key/value pairs into your statestore:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl -X POST -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span> -d &lt;span style="color:#e6db74">&amp;#39;[{ &amp;#34;key&amp;#34;: &amp;#34;key1&amp;#34;, &amp;#34;value&amp;#34;: &amp;#34;value1&amp;#34;}, { &amp;#34;key&amp;#34;: &amp;#34;key2&amp;#34;, &amp;#34;value&amp;#34;: &amp;#34;value2&amp;#34;}]&amp;#39;&lt;/span> http://localhost:3500/v1.0/state/statestore
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Now get the states you just saved:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl -X POST -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span> -d &lt;span style="color:#e6db74">&amp;#39;{&amp;#34;keys&amp;#34;:[&amp;#34;key1&amp;#34;, &amp;#34;key2&amp;#34;]}&amp;#39;&lt;/span> http://localhost:3500/v1.0/state/statestore/bulk
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-7-http-api-powershell" role="tabpanel" aria-labelled-by="tabs-7-http-api-powershell-tab">
+&lt;br />&lt;p>With the same dapr instance running from above save two key/value pairs into your statestore:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-powershell" data-lang="powershell">Invoke-RestMethod -Method Post -ContentType &lt;span style="color:#e6db74">&amp;#39;application/json&amp;#39;&lt;/span> -Body &lt;span style="color:#e6db74">&amp;#39;[{ &amp;#34;key&amp;#34;: &amp;#34;key1&amp;#34;, &amp;#34;value&amp;#34;: &amp;#34;value1&amp;#34;}, { &amp;#34;key&amp;#34;: &amp;#34;key2&amp;#34;, &amp;#34;value&amp;#34;: &amp;#34;value2&amp;#34;}]&amp;#39;&lt;/span> -Uri &lt;span style="color:#e6db74">&amp;#39;http://localhost:3500/v1.0/state/statestore&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Now get the states you just saved:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-powershell" data-lang="powershell">Invoke-RestMethod -Method Post -ContentType &lt;span style="color:#e6db74">&amp;#39;application/json&amp;#39;&lt;/span> -Body &lt;span style="color:#e6db74">&amp;#39;{&amp;#34;keys&amp;#34;:[&amp;#34;key1&amp;#34;, &amp;#34;key2&amp;#34;]}&amp;#39;&lt;/span> -Uri &lt;span style="color:#e6db74">&amp;#39;http://localhost:3500/v1.0/state/statestore/bulk&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-7-python-sdk" role="tabpanel" aria-labelled-by="tabs-7-python-sdk-tab">
+&lt;br />&lt;p>The &lt;code>StateItem&lt;/code> object can be used to store multiple Dapr states with the &lt;code>save_states&lt;/code> and &lt;code>get_states&lt;/code> methods.&lt;/p>
+&lt;p>Update your &lt;code>pythonState.py&lt;/code> file with the following code:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">from&lt;/span> dapr.clients &lt;span style="color:#f92672">import&lt;/span> DaprClient
+&lt;span style="color:#f92672">from&lt;/span> dapr.clients.grpc._state &lt;span style="color:#f92672">import&lt;/span> StateItem
+&lt;span style="color:#66d9ef">with&lt;/span> DaprClient() &lt;span style="color:#66d9ef">as&lt;/span> d:
+s1 &lt;span style="color:#f92672">=&lt;/span> StateItem(key&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;key1&amp;#34;&lt;/span>, value&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;value1&amp;#34;&lt;/span>)
+s2 &lt;span style="color:#f92672">=&lt;/span> StateItem(key&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;key2&amp;#34;&lt;/span>, value&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;value2&amp;#34;&lt;/span>)
+d&lt;span style="color:#f92672">.&lt;/span>save_bulk_state(store_name&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;statestore&amp;#34;&lt;/span>, states&lt;span style="color:#f92672">=&lt;/span>[s1,s2])
+&lt;span style="color:#66d9ef">print&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;States have been stored&amp;#34;&lt;/span>)
+items &lt;span style="color:#f92672">=&lt;/span> d&lt;span style="color:#f92672">.&lt;/span>get_bulk_state(store_name&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;statestore&amp;#34;&lt;/span>, keys&lt;span style="color:#f92672">=&lt;/span>[&lt;span style="color:#e6db74">&amp;#34;key1&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;key2&amp;#34;&lt;/span>])&lt;span style="color:#f92672">.&lt;/span>items
+&lt;span style="color:#66d9ef">print&lt;/span>(f&lt;span style="color:#e6db74">&amp;#34;Got items: {[i.data for i in items]}&amp;#34;&lt;/span>)
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Now run your program with:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr --app-id myapp run python pythonState.py
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>You should see an output similar to the following:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-md" data-lang="md">== DAPR == time=&amp;#34;2021-01-06T21:54:56.7262358-08:00&amp;#34; level=info msg=&amp;#34;starting Dapr Runtime -- version 0.11.3 -- commit a1a8e11&amp;#34; app_id=Musesequoia-Sprite scope=dapr.runtime type=log ver=0.11.3
+== DAPR == time=&amp;#34;2021-01-06T21:54:56.7401933-08:00&amp;#34; level=info msg=&amp;#34;standalone mode configured&amp;#34; app_id=Musesequoia-Sprite scope=dapr.runtime type=log ver=0.11.3
+== DAPR == time=&amp;#34;2021-01-06T21:54:56.8754240-08:00&amp;#34; level=info msg=&amp;#34;Initialized name resolution to standalone&amp;#34; app_id=Musesequoia-Sprite scope=dapr.runtime type=log ver=0.11.3
+== DAPR == time=&amp;#34;2021-01-06T21:54:56.8844248-08:00&amp;#34; level=info msg=&amp;#34;component loaded. name: statestore, type: state.redis&amp;#34; app_id=Musesequoia-Sprite scope=dapr.runtime type=log ver=0.11.3
+== DAPR == time=&amp;#34;2021-01-06T21:54:56.8854273-08:00&amp;#34; level=info msg=&amp;#34;API gRPC server is running on port 60614&amp;#34; app_id=Musesequoia-Sprite scope=dapr.runtime type=log ver=0.11.3
+== DAPR == time=&amp;#34;2021-01-06T21:54:56.8854273-08:00&amp;#34; level=info msg=&amp;#34;dapr initialized. Status: Running. Init Elapsed 145.234ms&amp;#34; app_id=Musesequoia-Sprite scope=dapr.runtime type=log ver=0.11.3
+Checking if Dapr sidecar is listening on GRPC port 60614
+Dapr sidecar is up and running.
+Updating metadata for app command: python pythonState.py
+You&amp;#39;re up and running! Both Dapr and your app logs will appear here.
+== APP == States have been stored
+== APP == Got items: [b&amp;#39;value1&amp;#39;, b&amp;#39;value2&amp;#39;] name: statestore, type: state.redis&amp;#34; app_id=Musesequoia-Sprite scope=dapr.runtime type=log ver=0.11.3
+== DAPR == time=&amp;#34;2021-01-06T21:54:56.8854273-08:00&amp;#34; level=info msg=&amp;#34;API gRPC server is running on port 60614&amp;#34; app_id=Musesequoia-Sprite scope=dapr.runtime type=log ver=0.11.3
+== DAPR == time=&amp;#34;2021-01-06T21:54:56.8854273-08:00&amp;#34; level=info msg=&amp;#34;dapr initialized. Status: Running. Init Elapsed 145.234ms&amp;#34; app_id=Musesequoia-Sprite scope=dapr.runtime type=log ver=0.11.3
+Checking if Dapr sidecar is listening on GRPC port 60614
+Dapr sidecar is up and running.
+Updating metadata for app command: python pythonState.py
+You&amp;#39;re up and running! Both Dapr and your app logs will appear here.
+== APP == States have been stored
+== APP == Got items: [b&amp;#39;value1&amp;#39;, b&amp;#39;value2&amp;#39;]
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-7-" role="tabpanel" aria-labelled-by="tabs-7--tab">
+&lt;br />&lt;p>To batch load and save state with PHP, just create a &amp;ldquo;Plain Ole' PHP Object&amp;rdquo; (POPO) and annotate it with the StateStore annotation.&lt;/p>
+&lt;p>Update the &lt;code>state-example.php&lt;/code> file:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
+&lt;span style="color:#66d9ef">require_once&lt;/span> &lt;span style="color:#66d9ef">__DIR__&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#e6db74">&amp;#39;/vendor/autoload.php&amp;#39;&lt;/span>;
+&lt;span style="color:#75715e">#[\Dapr\State\Attributes\StateStore(&amp;#39;statestore&amp;#39;, \Dapr\consistency\EventualLastWrite::class)]
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">MyState&lt;/span> {
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#a6e22e">string&lt;/span> $key1 &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;value1&amp;#39;&lt;/span>;
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#a6e22e">string&lt;/span> $key2 &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;value2&amp;#39;&lt;/span>;
+}
+$app &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">\Dapr\App&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">create&lt;/span>();
+$app&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">run&lt;/span>(&lt;span style="color:#66d9ef">function&lt;/span>(&lt;span style="color:#a6e22e">\Dapr\State\StateManager&lt;/span> $stateManager, &lt;span style="color:#a6e22e">\Psr\Log\LoggerInterface&lt;/span> $logger) {
+$obj &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> &lt;span style="color:#a6e22e">MyState&lt;/span>();
+$stateManager&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">save_object&lt;/span>(&lt;span style="color:#a6e22e">item&lt;/span>&lt;span style="color:#f92672">:&lt;/span> $obj);
+$logger&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">alert&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;States have been stored&amp;#39;&lt;/span>);
+$stateManager&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">load_object&lt;/span>(&lt;span style="color:#a6e22e">into&lt;/span>&lt;span style="color:#f92672">:&lt;/span> $obj);
+$logger&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">alert&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;Got value: {data}&amp;#34;&lt;/span>, [&lt;span style="color:#e6db74">&amp;#39;data&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> $obj]);
+});
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Run the app:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr --app-id myapp run -- php state-example.php
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>And see the following output:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-md" data-lang="md">✅ You&amp;#39;re up and running! Both Dapr and your app logs will appear here.
+✅ You&amp;#39;re up and running! Both Dapr and your app logs will appear here.
+== APP == [2021-02-12T16:55:02.913801+01:00] APP.ALERT: States have been stored [] []
+== APP == [2021-02-12T16:55:02.917850+01:00] APP.ALERT: Got value: [object MyState] {&amp;#34;data&amp;#34;:{&amp;#34;MyState&amp;#34;:{&amp;#34;key1&amp;#34;:&amp;#34;value1&amp;#34;,&amp;#34;key2&amp;#34;:&amp;#34;value2&amp;#34;}}} []
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;/div>
+&lt;h2 id="step-5-perform-state-transactions">Step 5: Perform state transactions&lt;/h2>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Note&lt;/h4>
+State transactions require a state store that supports multi-item transactions. State transactions require a state store that supports multi-item transactions. Visit the &lt;a href="https://docs.dapr.io/zh-hans/operations/components/setup-state-store/supported-state-stores/">supported state stores page&lt;/a> page for a full list. Note that the default Redis container created in a self-hosted environment supports them. Note that the default Redis container created in a self-hosted environment supports them.
+&lt;/div>
+&lt;ul class="nav nav-tabs" id="tabs-9" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-9-http-api-bash-tab" data-toggle="tab" href="#tabs-9-http-api-bash" role="tab"
+aria-controls="tabs-9-http-api-bash" aria-selected="true">
+HTTP API (Bash)
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-9-http-api-powershell-tab" data-toggle="tab" href="#tabs-9-http-api-powershell" role="tab"
+aria-controls="tabs-9-http-api-powershell" aria-selected="false">
+HTTP API (PowerShell)
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-9-python-sdk-tab" data-toggle="tab" href="#tabs-9-python-sdk" role="tab"
+aria-controls="tabs-9-python-sdk" aria-selected="false">
+Python SDK
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-9-php-sdk-tab" data-toggle="tab" href="#tabs-9-php-sdk" role="tab"
+aria-controls="tabs-9-php-sdk" aria-selected="false">
+PHP SDK
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-9-content">
+&lt;div class="tab-pane fade show active" id="tabs-9-http-api-bash" role="tabpanel" aria-labelled-by="tabs-9-http-api-bash-tab">
+&lt;br />&lt;p>With the same dapr instance running from above perform two state transactions:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl -X POST -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span> -d &lt;span style="color:#e6db74">&amp;#39;{&amp;#34;operations&amp;#34;: [{&amp;#34;operation&amp;#34;:&amp;#34;upsert&amp;#34;, &amp;#34;request&amp;#34;: {&amp;#34;key&amp;#34;: &amp;#34;key1&amp;#34;, &amp;#34;value&amp;#34;: &amp;#34;newValue1&amp;#34;}}, {&amp;#34;operation&amp;#34;:&amp;#34;delete&amp;#34;, &amp;#34;request&amp;#34;: {&amp;#34;key&amp;#34;: &amp;#34;key2&amp;#34;}}]}&amp;#39;&lt;/span> http://localhost:3500/v1.0/state/statestore/transaction
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Now see the results of your state transactions:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl -X POST -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span> -d &lt;span style="color:#e6db74">&amp;#39;{&amp;#34;keys&amp;#34;:[&amp;#34;key1&amp;#34;, &amp;#34;key2&amp;#34;]}&amp;#39;&lt;/span> http://localhost:3500/v1.0/state/statestore/bulk
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-9-http-api-powershell" role="tabpanel" aria-labelled-by="tabs-9-http-api-powershell-tab">
+&lt;br />&lt;p>With the same dapr instance running from above save two key/value pairs into your statestore:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-powershell" data-lang="powershell">Invoke-RestMethod -Method Post -ContentType &lt;span style="color:#e6db74">&amp;#39;application/json&amp;#39;&lt;/span> -Body &lt;span style="color:#e6db74">&amp;#39;{&amp;#34;operations&amp;#34;: [{&amp;#34;operation&amp;#34;:&amp;#34;upsert&amp;#34;, &amp;#34;request&amp;#34;: {&amp;#34;key&amp;#34;: &amp;#34;key1&amp;#34;, &amp;#34;value&amp;#34;: &amp;#34;newValue1&amp;#34;}}, {&amp;#34;operation&amp;#34;:&amp;#34;delete&amp;#34;, &amp;#34;request&amp;#34;: {&amp;#34;key&amp;#34;: &amp;#34;key2&amp;#34;}}]}&amp;#39;&lt;/span> -Uri &lt;span style="color:#e6db74">&amp;#39;http://localhost:3500/v1.0/state/statestore&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Now see the results of your state transactions:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-powershell" data-lang="powershell">Invoke-RestMethod -Method Post -ContentType &lt;span style="color:#e6db74">&amp;#39;application/json&amp;#39;&lt;/span> -Body &lt;span style="color:#e6db74">&amp;#39;{&amp;#34;keys&amp;#34;:[&amp;#34;key1&amp;#34;, &amp;#34;key2&amp;#34;]}&amp;#39;&lt;/span> -Uri &lt;span style="color:#e6db74">&amp;#39;http://localhost:3500/v1.0/state/statestore/bulk&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-9-python-sdk" role="tabpanel" aria-labelled-by="tabs-9-python-sdk-tab">
+&lt;br />&lt;p>The &lt;code>TransactionalStateOperation&lt;/code> can perform a state transaction if your state stores need to be transactional.&lt;/p>
+&lt;p>Update your &lt;code>pythonState.py&lt;/code> file with the following code:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">from&lt;/span> dapr.clients &lt;span style="color:#f92672">import&lt;/span> DaprClient
+&lt;span style="color:#f92672">from&lt;/span> dapr.clients.grpc._state &lt;span style="color:#f92672">import&lt;/span> StateItem
+&lt;span style="color:#f92672">from&lt;/span> dapr.clients.grpc._request &lt;span style="color:#f92672">import&lt;/span> TransactionalStateOperation, TransactionOperationType
+&lt;span style="color:#66d9ef">with&lt;/span> DaprClient() &lt;span style="color:#66d9ef">as&lt;/span> d:
+s1 &lt;span style="color:#f92672">=&lt;/span> StateItem(key&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;key1&amp;#34;&lt;/span>, value&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;value1&amp;#34;&lt;/span>)
+s2 &lt;span style="color:#f92672">=&lt;/span> StateItem(key&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;key2&amp;#34;&lt;/span>, value&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;value2&amp;#34;&lt;/span>)
+d&lt;span style="color:#f92672">.&lt;/span>save_bulk_state(store_name&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;statestore&amp;#34;&lt;/span>, states&lt;span style="color:#f92672">=&lt;/span>[s1,s2])
+&lt;span style="color:#66d9ef">print&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;States have been stored&amp;#34;&lt;/span>)
+d&lt;span style="color:#f92672">.&lt;/span>execute_state_transaction(
+store_name&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;statestore&amp;#34;&lt;/span>,
+operations&lt;span style="color:#f92672">=&lt;/span>[
+TransactionalStateOperation(key&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;key1&amp;#34;&lt;/span>, data&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;newValue1&amp;#34;&lt;/span>, operation_type&lt;span style="color:#f92672">=&lt;/span>TransactionOperationType&lt;span style="color:#f92672">.&lt;/span>upsert),
+TransactionalStateOperation(key&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;key2&amp;#34;&lt;/span>, data&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;value2&amp;#34;&lt;/span>, operation_type&lt;span style="color:#f92672">=&lt;/span>TransactionOperationType&lt;span style="color:#f92672">.&lt;/span>delete)
+]
+)
+&lt;span style="color:#66d9ef">print&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;State transactions have been completed&amp;#34;&lt;/span>)
+items &lt;span style="color:#f92672">=&lt;/span> d&lt;span style="color:#f92672">.&lt;/span>get_bulk_state(store_name&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;statestore&amp;#34;&lt;/span>, keys&lt;span style="color:#f92672">=&lt;/span>[&lt;span style="color:#e6db74">&amp;#34;key1&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;key2&amp;#34;&lt;/span>])&lt;span style="color:#f92672">.&lt;/span>items
+&lt;span style="color:#66d9ef">print&lt;/span>(f&lt;span style="color:#e6db74">&amp;#34;Got items: {[i.data for i in items]}&amp;#34;&lt;/span>)
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Now run your program with:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr run python pythonState.py
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>You should see an output similar to the following:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-md" data-lang="md">Starting Dapr with id Singerchecker-Player. HTTP Port: 59533. Starting Dapr with id Singerchecker-Player. HTTP Port: 59533. gRPC Port: 59534
+== DAPR == time=&amp;#34;2021-01-06T22:18:14.1246721-08:00&amp;#34; level=info msg=&amp;#34;starting Dapr Runtime -- version 0.11.3 -- commit a1a8e11&amp;#34; app_id=Singerchecker-Player scope=dapr.runtime type=log ver=0.11.3
+== DAPR == time=&amp;#34;2021-01-06T22:18:14.1346254-08:00&amp;#34; level=info msg=&amp;#34;standalone mode configured&amp;#34; app_id=Singerchecker-Player scope=dapr.runtime type=log ver=0.11.3
+== DAPR == time=&amp;#34;2021-01-06T22:18:14.2747063-08:00&amp;#34; level=info msg=&amp;#34;component loaded. name: statestore, type: state.redis&amp;#34; app_id=Singerchecker-Player scope=dapr.runtime type=log ver=0.11.3
+== DAPR == time=&amp;#34;2021-01-06T22:18:14.2757062-08:00&amp;#34; level=info msg=&amp;#34;API gRPC server is running on port 59534&amp;#34; app_id=Singerchecker-Player scope=dapr.runtime type=log ver=0.11.3
+== DAPR == time=&amp;#34;2021-01-06T22:18:14.2767059-08:00&amp;#34; level=info msg=&amp;#34;dapr initialized. Status: Running. Init Elapsed 142.0805ms&amp;#34; app_id=Singerchecker-Player scope=dapr.runtime type=log ver=0.11.3
+Checking if Dapr sidecar is listening on GRPC port 59534
+Dapr sidecar is up and running.
+Updating metadata for app command: python pythonState.py
+You&amp;#39;re up and running! Both Dapr and your app logs will appear here.
+== APP == State transactions have been completed
+== APP == Got items: [b&amp;#39;value1&amp;#39;, b&amp;#39;&amp;#39;] name: statestore, type: state.redis&amp;#34; app_id=Singerchecker-Player scope=dapr.runtime type=log ver=0.11.3
+== DAPR == time=&amp;#34;2021-01-06T22:18:14.2757062-08:00&amp;#34; level=info msg=&amp;#34;API gRPC server is running on port 59534&amp;#34; app_id=Singerchecker-Player scope=dapr.runtime type=log ver=0.11.3
+== DAPR == time=&amp;#34;2021-01-06T22:18:14.2767059-08:00&amp;#34; level=info msg=&amp;#34;dapr initialized. Status: Running. Init Elapsed 142.0805ms&amp;#34; app_id=Singerchecker-Player scope=dapr.runtime type=log ver=0.11.3
+Checking if Dapr sidecar is listening on GRPC port 59534
+Dapr sidecar is up and running.
+Updating metadata for app command: python pythonState.py
+You&amp;#39;re up and running! Both Dapr and your app logs will appear here.
+== APP == State transactions have been completed
+== APP == Got items: [b&amp;#39;value1&amp;#39;, b&amp;#39;&amp;#39;]
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-9-php-sdk" role="tabpanel" aria-labelled-by="tabs-9-php-sdk-tab">
+&lt;br />&lt;p>Transactional state is supported by extending &lt;code>TransactionalState&lt;/code> base object which hooks into your object via setters and getters to provide a transaction. Before you created your own transactional object, but now you&amp;rsquo;ll ask the Dependency Injection framework to build one for you. Before you created your own transactional object, but now you&amp;rsquo;ll ask the Dependency Injection framework to build one for you.&lt;/p>
+&lt;p>Modify the &lt;code>state-example.php&lt;/code> file again:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
+&lt;span style="color:#66d9ef">require_once&lt;/span> &lt;span style="color:#66d9ef">__DIR__&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#e6db74">&amp;#39;/vendor/autoload.php&amp;#39;&lt;/span>;
+&lt;span style="color:#75715e">#[\Dapr\State\Attributes\StateStore(&amp;#39;statestore&amp;#39;, \Dapr\consistency\EventualLastWrite::class)]
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">MyState&lt;/span> &lt;span style="color:#66d9ef">extends&lt;/span> &lt;span style="color:#a6e22e">\Dapr\State\TransactionalState&lt;/span> {
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#a6e22e">string&lt;/span> $key1 &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;value1&amp;#39;&lt;/span>;
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#a6e22e">string&lt;/span> $key2 &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;value2&amp;#39;&lt;/span>;
+}
+$app &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">\Dapr\App&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">create&lt;/span>();
+$app&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">run&lt;/span>(&lt;span style="color:#66d9ef">function&lt;/span>(&lt;span style="color:#a6e22e">MyState&lt;/span> $obj, &lt;span style="color:#a6e22e">\Psr\Log\LoggerInterface&lt;/span> $logger, &lt;span style="color:#a6e22e">\Dapr\State\StateManager&lt;/span> $stateManager) {
+$obj&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">begin&lt;/span>();
+$obj&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">key1&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;hello world&amp;#39;&lt;/span>;
+$obj&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">key2&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;value3&amp;#39;&lt;/span>;
+$obj&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">commit&lt;/span>();
+$logger&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">alert&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;Transaction committed!&amp;#39;&lt;/span>);
+&lt;span style="color:#75715e">// begin a new transaction which reloads from the store
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> $obj&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">begin&lt;/span>();
+$logger&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">alert&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;Got value: {key1}, {key2}&amp;#34;&lt;/span>, [&lt;span style="color:#e6db74">&amp;#39;key1&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> $obj&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">key1&lt;/span>, &lt;span style="color:#e6db74">&amp;#39;key2&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> $obj&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">key2&lt;/span>]);
+});
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Run the application:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr --app-id myapp run -- php state-example.php
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Observe the following output:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-md" data-lang="md">✅ You&amp;#39;re up and running! Both Dapr and your app logs will appear here.
+== APP == [2021-02-12T17:10:06.837110+01:00] APP.ALERT: Transaction committed! ✅ You&amp;#39;re up and running! Both Dapr and your app logs will appear here.
+== APP == [2021-02-12T17:10:06.837110+01:00] APP.ALERT: Transaction committed! [] []
+== APP == [2021-02-12T17:10:06.840857+01:00] APP.ALERT: Got value: hello world, value3 {&amp;#34;key1&amp;#34;:&amp;#34;hello world&amp;#34;,&amp;#34;key2&amp;#34;:&amp;#34;value3&amp;#34;} []
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;/div>
+&lt;h2 id="next-steps">Next steps&lt;/h2>
+&lt;ul>
+&lt;li>Read the full &lt;a href="https://docs.dapr.io/zh-hans/reference/api/state_api/">State API reference&lt;/a>&lt;/li>
+&lt;li>Try one of the &lt;a href="https://docs.dapr.io/zh-hans/developing-applications/sdks/">Dapr SDKs&lt;/a>&lt;/li>
+&lt;li>Build a &lt;a href="https://docs.dapr.io/zh-hans/developing-applications/building-blocks/state-management/howto-stateful-service/">stateful service&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Developing-Applications: How-To: Build a stateful service</title><link>https://docs.dapr.io/zh-hans/developing-applications/building-blocks/state-management/howto-stateful-service/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/zh-hans/developing-applications/building-blocks/state-management/howto-stateful-service/</guid><description>
+&lt;p>In this article you&amp;rsquo;ll learn how you can create a stateful service which can be horizontally scaled, using opt-in concurrency and consistency models.&lt;/p>
+&lt;p>This frees developers from difficult state coordination, conflict resolution and failure handling, and allows them instead to consume these capabilities as APIs from Dapr.&lt;/p>
+&lt;h2 id="setup-a-state-store">Setup a state store&lt;/h2>
+&lt;p>A state store component represents a resource that Dapr uses to communicate with a database. For the purpose of this guide, we&amp;rsquo;ll use a Redis state store. For the purpose of this guide, we&amp;rsquo;ll use a Redis state store.&lt;/p>
+&lt;p>See a list of supported state stores &lt;a href="https://docs.dapr.io/zh-hans/operations/components/setup-state-store/supported-state-stores/">here&lt;/a>&lt;/p>
+&lt;h3 id="using-the-dapr-cli">Using the Dapr CLI&lt;/h3>
+&lt;p>The Dapr CLI automatically provisions a state store (Redis) and creates the relevant YAML when running your app with &lt;code>dapr run&lt;/code>. To change the state store being used, replace the YAML under &lt;code>/components&lt;/code> with the file of your choice. To change the state store being used, replace the YAML under &lt;code>/components&lt;/code> with the file of your choice.&lt;/p>
+&lt;h3 id="kubernetes">Kubernetes&lt;/h3>
+&lt;p>See the instructions &lt;a href="%7B%7BX20X%7D%7D">here&lt;/a> on how to setup different state stores on Kubernetes.&lt;/p>
+&lt;h2 id="strong-and-eventual-consistency">Strong and Eventual consistency&lt;/h2>
+&lt;p>Using strong consistency, Dapr will make sure the underlying state store returns the response once the data has been written to all replicas or received an ack from a quorum before writing or deleting state.&lt;/p>
+&lt;p>For get requests, Dapr will make sure the store returns the most up to date data consistently among replicas. The default is eventual consistency, unless specified otherwise in the request to the state API. The default is eventual consistency, unless specified otherwise in the request to the state API.&lt;/p>
+&lt;p>The following examples illustrates using strong consistency:&lt;/p>
+&lt;h3 id="saving-state">Saving state&lt;/h3>
+&lt;p>&lt;em>The following example is written in Python, but is applicable to any programming language&lt;/em>&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">import&lt;/span> requests
+&lt;span style="color:#f92672">import&lt;/span> json
+store_name &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;redis-store&amp;#34;&lt;/span> &lt;span style="color:#75715e"># name of the state store as specified in state store component yaml file&lt;/span>
+dapr_state_url &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;http://localhost:3500/v1.0/state/{}&amp;#34;&lt;/span>&lt;span style="color:#f92672">.&lt;/span>format(store_name)
+stateReq &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[{ &amp;#34;key&amp;#34;: &amp;#34;k1&amp;#34;, &amp;#34;value&amp;#34;: &amp;#34;Some Data&amp;#34;, &amp;#34;options&amp;#34;: { &amp;#34;consistency&amp;#34;: &amp;#34;strong&amp;#34; }}]&amp;#39;&lt;/span>
+response &lt;span style="color:#f92672">=&lt;/span> requests&lt;span style="color:#f92672">.&lt;/span>post(dapr_state_url, json&lt;span style="color:#f92672">=&lt;/span>stateReq)
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="getting-state">Getting state&lt;/h3>
+&lt;p>&lt;em>The following example is written in Python, but is applicable to any programming language&lt;/em>&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">import&lt;/span> requests
+&lt;span style="color:#f92672">import&lt;/span> json
+store_name &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;redis-store&amp;#34;&lt;/span> &lt;span style="color:#75715e"># name of the state store as specified in state store component yaml file&lt;/span>
+dapr_state_url &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;http://localhost:3500/v1.0/state/{}&amp;#34;&lt;/span>&lt;span style="color:#f92672">.&lt;/span>format(store_name)
+response &lt;span style="color:#f92672">=&lt;/span> requests&lt;span style="color:#f92672">.&lt;/span>get(dapr_state_url &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#e6db74">&amp;#34;/key1&amp;#34;&lt;/span>, headers&lt;span style="color:#f92672">=&lt;/span>{&lt;span style="color:#e6db74">&amp;#34;consistency&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;strong&amp;#34;&lt;/span>})
+&lt;span style="color:#66d9ef">print&lt;/span>(response&lt;span style="color:#f92672">.&lt;/span>headers[&lt;span style="color:#e6db74">&amp;#39;ETag&amp;#39;&lt;/span>])
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="deleting-state">Deleting state&lt;/h3>
+&lt;p>&lt;em>The following example is written in Python, but is applicable to any programming language&lt;/em>&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">import&lt;/span> requests
+&lt;span style="color:#f92672">import&lt;/span> json
+store_name &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;redis-store&amp;#34;&lt;/span> &lt;span style="color:#75715e"># name of the state store as specified in state store component yaml file&lt;/span>
+dapr_state_url &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;http://localhost:3500/v1.0/state/{}&amp;#34;&lt;/span>&lt;span style="color:#f92672">.&lt;/span>format(store_name)
+response &lt;span style="color:#f92672">=&lt;/span> requests&lt;span style="color:#f92672">.&lt;/span>delete(dapr_state_url &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#e6db74">&amp;#34;/key1&amp;#34;&lt;/span>, headers&lt;span style="color:#f92672">=&lt;/span>{&lt;span style="color:#e6db74">&amp;#34;consistency&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;strong&amp;#34;&lt;/span>})
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Last-write concurrency is the default concurrency mode if the &lt;code>concurrency&lt;/code> option is not specified.&lt;/p>
+&lt;h2 id="first-write-wins-and-last-write-wins">First-write-wins and Last-write-wins&lt;/h2>
+&lt;p>Dapr allows developers to opt-in for two common concurrency patterns when working with data stores: First-write-wins and Last-write-wins. First-Write-Wins is useful in situations where you have multiple instances of an application, all writing to the same key concurrently. First-Write-Wins is useful in situations where you have multiple instances of an application, all writing to the same key concurrently.&lt;/p>
+&lt;p>The default mode for Dapr is Last-write-wins.&lt;/p>
+&lt;p>Dapr uses version numbers to determine whether a specific key has been updated. Clients retain the version number when reading the data for a key and then use the version number during updates such as writes and deletes. If the version information has changed since the client retrieved, an error is thrown, which then requires the client to perform a read again to get the latest version information and state. Clients retain the version number when reading the data for a key and then use the version number during updates such as writes and deletes. If the version information has changed since the client retrieved, an error is thrown, which then requires the client to perform a read again to get the latest version information and state.&lt;/p>
+&lt;p>Dapr utilizes ETags to determine the state&amp;rsquo;s version number. Dapr utilizes ETags to determine the state&amp;rsquo;s version number. ETags are returned from state requests in an &lt;code>ETag&lt;/code> header.&lt;/p>
+&lt;p>Using ETags, clients know that a resource has been updated since the last time they checked by erroring when there&amp;rsquo;s an ETag mismatch.&lt;/p>
+&lt;p>The following example shows how to get an ETag, and then use it to save state and then delete the state:&lt;/p>
+&lt;p>&lt;em>The following example is written in Python, but is applicable to any programming language&lt;/em>&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">import&lt;/span> requests
+&lt;span style="color:#f92672">import&lt;/span> json
+store_name &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;redis-store&amp;#34;&lt;/span> &lt;span style="color:#75715e"># name of the state store as specified in state store component yaml file&lt;/span>
+dapr_state_url &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;http://localhost:3500/v1.0/state/{}&amp;#34;&lt;/span>&lt;span style="color:#f92672">.&lt;/span>format(store_name)
+response &lt;span style="color:#f92672">=&lt;/span> requests&lt;span style="color:#f92672">.&lt;/span>get(dapr_state_url &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#e6db74">&amp;#34;/key1&amp;#34;&lt;/span>, headers&lt;span style="color:#f92672">=&lt;/span>{&lt;span style="color:#e6db74">&amp;#34;concurrency&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;first-write&amp;#34;&lt;/span>})
+etag &lt;span style="color:#f92672">=&lt;/span> response&lt;span style="color:#f92672">.&lt;/span>headers[&lt;span style="color:#e6db74">&amp;#39;ETag&amp;#39;&lt;/span>]
+newState &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[{ &amp;#34;key&amp;#34;: &amp;#34;k1&amp;#34;, &amp;#34;value&amp;#34;: &amp;#34;New Data&amp;#34;, &amp;#34;etag&amp;#34;: {}, &amp;#34;options&amp;#34;: { &amp;#34;concurrency&amp;#34;: &amp;#34;first-write&amp;#34; }}]&amp;#39;&lt;/span>&lt;span style="color:#f92672">.&lt;/span>format(etag)
+requests&lt;span style="color:#f92672">.&lt;/span>post(dapr_state_url, json&lt;span style="color:#f92672">=&lt;/span>newState)
+response &lt;span style="color:#f92672">=&lt;/span> requests&lt;span style="color:#f92672">.&lt;/span>delete(dapr_state_url &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#e6db74">&amp;#34;/key1&amp;#34;&lt;/span>, headers&lt;span style="color:#f92672">=&lt;/span>{&lt;span style="color:#e6db74">&amp;#34;If-Match&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;{}&amp;#34;&lt;/span>&lt;span style="color:#f92672">.&lt;/span>format(etag)})
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="handling-version-mismatch-failures">Handling version mismatch failures&lt;/h3>
+&lt;p>In this example, we&amp;rsquo;ll see how to retry a save state operation when the version has changed:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">import&lt;/span> requests
+&lt;span style="color:#f92672">import&lt;/span> json
+&lt;span style="color:#75715e"># This method saves the state and returns false if failed to save state&lt;/span>
+&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">save_state&lt;/span>(data):
+&lt;span style="color:#66d9ef">try&lt;/span>:
+store_name &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;redis-store&amp;#34;&lt;/span> &lt;span style="color:#75715e"># name of the state store as specified in state store component yaml file&lt;/span>
+dapr_state_url &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;http://localhost:3500/v1.0/state/{}&amp;#34;&lt;/span>&lt;span style="color:#f92672">.&lt;/span>format(store_name)
+response &lt;span style="color:#f92672">=&lt;/span> requests&lt;span style="color:#f92672">.&lt;/span>post(dapr_state_url, json&lt;span style="color:#f92672">=&lt;/span>data)
+&lt;span style="color:#66d9ef">if&lt;/span> response&lt;span style="color:#f92672">.&lt;/span>status_code &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#ae81ff">200&lt;/span>:
+&lt;span style="color:#66d9ef">return&lt;/span> True
+&lt;span style="color:#66d9ef">except&lt;/span>:
+&lt;span style="color:#66d9ef">return&lt;/span> False
+&lt;span style="color:#66d9ef">return&lt;/span> False
+&lt;span style="color:#75715e"># This method gets the state and returns the response, with the ETag in the header --&amp;gt;&lt;/span>
+&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">get_state&lt;/span>(key):
+response &lt;span style="color:#f92672">=&lt;/span> requests&lt;span style="color:#f92672">.&lt;/span>get(&lt;span style="color:#e6db74">&amp;#34;http://localhost:3500/v1.0/state/&amp;lt;state_store_name&amp;gt;/{}&amp;#34;&lt;/span>&lt;span style="color:#f92672">.&lt;/span>format(key), headers&lt;span style="color:#f92672">=&lt;/span>{&lt;span style="color:#e6db74">&amp;#34;concurrency&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;first-write&amp;#34;&lt;/span>})
+&lt;span style="color:#66d9ef">return&lt;/span> response
+&lt;span style="color:#75715e"># Exit when save state is successful. success will be False if there&amp;#39;s an ETag mismatch --&amp;gt;&lt;/span>
+success &lt;span style="color:#f92672">=&lt;/span> False
+&lt;span style="color:#66d9ef">while&lt;/span> success &lt;span style="color:#f92672">!=&lt;/span> True:
+response &lt;span style="color:#f92672">=&lt;/span> get_state(&lt;span style="color:#e6db74">&amp;#34;key1&amp;#34;&lt;/span>)
+etag &lt;span style="color:#f92672">=&lt;/span> response&lt;span style="color:#f92672">.&lt;/span>headers[&lt;span style="color:#e6db74">&amp;#39;ETag&amp;#39;&lt;/span>]
+newState &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[{ &amp;#34;key&amp;#34;: &amp;#34;key1&amp;#34;, &amp;#34;value&amp;#34;: &amp;#34;New Data&amp;#34;, &amp;#34;etag&amp;#34;: {}, &amp;#34;options&amp;#34;: { &amp;#34;concurrency&amp;#34;: &amp;#34;first-write&amp;#34; }}]&amp;#39;&lt;/span>&lt;span style="color:#f92672">.&lt;/span>format(etag)
+success &lt;span style="color:#f92672">=&lt;/span> save_state(newState) success will be False &lt;span style="color:#66d9ef">if&lt;/span> there&lt;span style="color:#e6db74">&amp;#39;s an ETag mismatch --&amp;gt;&lt;/span>
+success &lt;span style="color:#f92672">=&lt;/span> False
+&lt;span style="color:#66d9ef">while&lt;/span> success &lt;span style="color:#f92672">!=&lt;/span> True:
+response &lt;span style="color:#f92672">=&lt;/span> get_state(&lt;span style="color:#e6db74">&amp;#34;key1&amp;#34;&lt;/span>)
+etag &lt;span style="color:#f92672">=&lt;/span> response&lt;span style="color:#f92672">.&lt;/span>headers[&lt;span style="color:#e6db74">&amp;#39;ETag&amp;#39;&lt;/span>]
+newState &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[{ &amp;#34;key&amp;#34;: &amp;#34;key1&amp;#34;, &amp;#34;value&amp;#34;: &amp;#34;New Data&amp;#34;, &amp;#34;etag&amp;#34;: {}, &amp;#34;options&amp;#34;: { &amp;#34;concurrency&amp;#34;: &amp;#34;first-write&amp;#34; }}]&amp;#39;&lt;/span>&lt;span style="color:#f92672">.&lt;/span>format(etag)
+success &lt;span style="color:#f92672">=&lt;/span> save_state(newState)
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Developing-Applications: How-To: Share state between applications</title><link>https://docs.dapr.io/zh-hans/developing-applications/building-blocks/state-management/howto-share-state/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/zh-hans/developing-applications/building-blocks/state-management/howto-share-state/</guid><description>
+&lt;h2 id="介绍">介绍&lt;/h2>
+&lt;p>Dapr 为开发者提供了不同的方式来共享应用程序之间的状态。&lt;/p>
+&lt;p>在共享状态时，不同的体系结构可能有不同的需求。 例如，在一个场景中，您可能想要封装某个应用程序中的所有状态，并让 Dapr 管理您的访问权限。 在不同的场景中，您可能需要两个在相同状态下工作的应用程序能够获得和保存相同的键值(keys)。&lt;/p>
+&lt;p>要启用状态共享， Dapr 支持以下键前缀策略:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>&lt;code>Appid&lt;/code>&lt;/strong> - 这是默认策略。 the &lt;code>appid&lt;/code> prefix allows state to be managed only by the app with the specified &lt;code>appid&lt;/code>. All state keys will be prefixed with the &lt;code>appid&lt;/code>, and are scoped for the application. All state keys will be prefixed with the &lt;code>appid&lt;/code>, and are scoped for the application.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>&lt;code>name&lt;/code>&lt;/strong> - This setting uses the name of the state store component as the prefix. Multiple applications can share the same state for a given state store. Multiple applications can share the same state for a given state store.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>&lt;code>none&lt;/code>&lt;/strong> - This setting uses no prefixing. Multiple applications share state across different state stores. Multiple applications share state across different state stores.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="specifying-a-state-prefix-strategy">Specifying a state prefix strategy&lt;/h2>
+&lt;p>To specify a prefix strategy, add a metadata key named &lt;code>keyPrefix&lt;/code> on a state component:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">statestore&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">production&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">state.redis&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">keyPrefix&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;key-prefix-strategy&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="examples">Examples&lt;/h2>
+&lt;p>The following examples will show you how state retrieval looks like with each of the supported prefix strategies:&lt;/p>
+&lt;h3 id="appid-default">&lt;code>appid&lt;/code> (default)&lt;/h3>
+&lt;p>A Dapr application with app id &lt;code>myApp&lt;/code> is saving state into a state store named &lt;code>redis&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X POST http://localhost:3500/v1.0/state/redis &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span>
+-d &lt;span style="color:#e6db74">&amp;#39;[
+&lt;/span>&lt;span style="color:#e6db74"> {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;key&amp;#34;: &amp;#34;darth&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;value&amp;#34;: &amp;#34;nihilus&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74"> ]&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The key will be saved as &lt;code>myApp||darth&lt;/code>.&lt;/p>
+&lt;h3 id="name">&lt;code>name&lt;/code>&lt;/h3>
+&lt;p>A Dapr application with app id &lt;code>myApp&lt;/code> is saving state into a state store named &lt;code>redis&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X POST http://localhost:3500/v1.0/state/redis &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span>
+-d &lt;span style="color:#e6db74">&amp;#39;[
+&lt;/span>&lt;span style="color:#e6db74"> {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;key&amp;#34;: &amp;#34;darth&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;value&amp;#34;: &amp;#34;nihilus&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74"> ]&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The key will be saved as &lt;code>redis||darth&lt;/code>.&lt;/p>
+&lt;h3 id="none">&lt;code>none&lt;/code>&lt;/h3>
+&lt;p>A Dapr application with app id &lt;code>myApp&lt;/code> is saving state into a state store named &lt;code>redis&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X POST http://localhost:3500/v1.0/state/redis &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span>
+-d &lt;span style="color:#e6db74">&amp;#39;[
+&lt;/span>&lt;span style="color:#e6db74"> {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;key&amp;#34;: &amp;#34;darth&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;value&amp;#34;: &amp;#34;nihilus&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74"> ]&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The key will be saved as &lt;code>darth&lt;/code>.&lt;/p></description></item><item><title>Developing-Applications: 使用后端状态存储</title><link>https://docs.dapr.io/zh-hans/developing-applications/building-blocks/state-management/query-state-store/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/zh-hans/developing-applications/building-blocks/state-management/query-state-store/</guid><description>
+&lt;p>查看 &lt;strong>Operations&lt;/strong> 章节可以看到一系列&lt;a href="%7B%7BX1X%7D%7D">受支持的状态存储&lt;/a> 以及如何设置&lt;a href="%7B%7BX2X%7D%7D">状态存储组件&lt;/a>.&lt;/p></description></item></channel></rss>

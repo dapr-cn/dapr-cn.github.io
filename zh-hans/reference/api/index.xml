@@ -1,0 +1,2770 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Dapr API 参考</title><link>https://docs.dapr.io/zh-hans/reference/api/</link><description>Recent content in Dapr API 参考 on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><language>zh-hans</language><atom:link href="https://docs.dapr.io/zh-hans/reference/api/index.xml" rel="self" type="application/rss+xml"/><item><title>Reference: Service invocation API reference</title><link>https://docs.dapr.io/zh-hans/reference/api/service_invocation_api/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/zh-hans/reference/api/service_invocation_api/</guid><description>
+&lt;p>Dapr provides users with the ability to call other applications that have unique ids. Dapr provides users with the ability to call other applications that have unique ids. This functionality allows apps to interact with one another via named identifiers and puts the burden of service discovery on the Dapr runtime. This functionality allows apps to interact with one another via named identifiers and puts the burden of service discovery on the Dapr runtime.&lt;/p>
+&lt;h2 id="invoke-a-method-on-a-remote-dapr-app">Invoke a method on a remote dapr app&lt;/h2>
+&lt;p>This endpoint lets you invoke a method in another Dapr enabled app.&lt;/p>
+&lt;h3 id="http-request">HTTP Request&lt;/h3>
+&lt;pre>&lt;code>POST/GET/PUT/DELETE http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/invoke/&amp;lt;appId&amp;gt;/method/&amp;lt;method-name&amp;gt;
+&lt;/code>&lt;/pre>&lt;h3 id="http-response-codes">HTTP Response codes&lt;/h3>
+&lt;p>When a service invokes another service with Dapr, the status code of the called service will be returned to the caller. When a service invokes another service with Dapr, the status code of the called service will be returned to the caller. If there&amp;rsquo;s a network error or other transient error, Dapr will return a &lt;code>500&lt;/code> error with the detailed error message. If there&amp;rsquo;s a network error or other transient error, Dapr will return a &lt;code>500&lt;/code> error with the detailed error message.&lt;/p>
+&lt;p>In case a user invokes Dapr over HTTP to talk to a gRPC enabled service, an error from the called gRPC service will return as &lt;code>500&lt;/code> and a successful response will return as &lt;code>200OK&lt;/code>.&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>代码&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>XXX&lt;/td>
+&lt;td>Upstream status returned&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>400&lt;/td>
+&lt;td>Method name not given&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>403&lt;/td>
+&lt;td>Invocation forbidden by access control&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>Request failed&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="url-parameters">URL Parameters&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>参数&lt;/th>
+&lt;th>描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>daprPort&lt;/td>
+&lt;td>the Dapr port&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>appId&lt;/td>
+&lt;td>the App ID associated with the remote app&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>method-name&lt;/td>
+&lt;td>the name of the method or url to invoke on the remote app&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>注意：所有的 URL 参数都是大小写敏感的。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="request-contents">Request Contents&lt;/h3>
+&lt;p>In the request you can pass along headers:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;Content-Type&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;application/json&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Within the body of the request place the data you want to send to the service:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;arg1&amp;#34;&lt;/span>: &lt;span style="color:#ae81ff">10&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;arg2&amp;#34;&lt;/span>: &lt;span style="color:#ae81ff">23&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;operator&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;+&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="request-received-by-invoked-service">Request received by invoked service&lt;/h3>
+&lt;p>Once your service code invokes a method in another Dapr enabled app, Dapr will send the request, along with the headers and body, to the app on the &lt;code>&amp;lt;method-name&amp;gt;&lt;/code> endpoint.&lt;/p>
+&lt;p>The Dapr app being invoked will need to be listening for and responding to requests on that endpoint.&lt;/p>
+&lt;h3 id="cross-namespace-invocation">Cross namespace invocation&lt;/h3>
+&lt;p>On hosting platforms that support namespaces, Dapr app IDs conform to a valid FQDN format that includes the target namespace. For example, the following string contains the app ID (&lt;code>myApp&lt;/code>) in addition to the namespace the app runs in (&lt;code>production&lt;/code>). For example, the following string contains the app ID (&lt;code>myApp&lt;/code>) in addition to the namespace the app runs in (&lt;code>production&lt;/code>). For example, the following string contains the app ID (&lt;code>myApp&lt;/code>) in addition to the namespace the app runs in (&lt;code>production&lt;/code>).&lt;/p>
+&lt;pre>&lt;code>myApp.production
+&lt;/code>&lt;/pre>&lt;h4 id="namespace-supported-platforms">Namespace supported platforms&lt;/h4>
+&lt;ul>
+&lt;li>Kubernetes&lt;/li>
+&lt;/ul>
+&lt;h3 id="examples">Examples&lt;/h3>
+&lt;p>You can invoke the &lt;code>add&lt;/code> method on the &lt;code>mathService&lt;/code> service by sending the following:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl http://localhost:3500/v1.0/invoke/mathService/method/add &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span>
+-d &lt;span style="color:#e6db74">&amp;#39;{ &amp;#34;arg1&amp;#34;: 10, &amp;#34;arg2&amp;#34;: 23}&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The &lt;code>mathService&lt;/code> service will need to be listening on the &lt;code>/add&lt;/code> endpoint to receive and process the request.&lt;/p>
+&lt;p>For a Node app this would look like:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-js" data-lang="js">&lt;span style="color:#a6e22e">app&lt;/span>.&lt;span style="color:#a6e22e">post&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;/add&amp;#39;&lt;/span>, (&lt;span style="color:#a6e22e">req&lt;/span>, &lt;span style="color:#a6e22e">res&lt;/span>) =&amp;gt; {
+&lt;span style="color:#66d9ef">let&lt;/span> &lt;span style="color:#a6e22e">args&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">req&lt;/span>.&lt;span style="color:#a6e22e">body&lt;/span>;
+&lt;span style="color:#66d9ef">const&lt;/span> [&lt;span style="color:#a6e22e">operandOne&lt;/span>, &lt;span style="color:#a6e22e">operandTwo&lt;/span>] &lt;span style="color:#f92672">=&lt;/span> [Number(&lt;span style="color:#a6e22e">args&lt;/span>[&lt;span style="color:#e6db74">&amp;#39;arg1&amp;#39;&lt;/span>]), Number(&lt;span style="color:#a6e22e">args&lt;/span>[&lt;span style="color:#e6db74">&amp;#39;arg2&amp;#39;&lt;/span>])];
+&lt;span style="color:#66d9ef">let&lt;/span> &lt;span style="color:#a6e22e">result&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">operandOne&lt;/span> &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#a6e22e">operandTwo&lt;/span>;
+&lt;span style="color:#a6e22e">res&lt;/span>.&lt;span style="color:#a6e22e">send&lt;/span>(&lt;span style="color:#a6e22e">result&lt;/span>.&lt;span style="color:#a6e22e">toString&lt;/span>());
+});
+&lt;span style="color:#a6e22e">app&lt;/span>.&lt;span style="color:#a6e22e">listen&lt;/span>(&lt;span style="color:#a6e22e">port&lt;/span>, () =&amp;gt; &lt;span style="color:#a6e22e">console&lt;/span>.&lt;span style="color:#a6e22e">log&lt;/span>(&lt;span style="color:#e6db74">`Listening on port &lt;/span>&lt;span style="color:#e6db74">${&lt;/span>&lt;span style="color:#a6e22e">port&lt;/span>&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74">!`&lt;/span>));
+&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>The response from the remote endpoint will be returned in the response body.&lt;/p>
+&lt;/blockquote>
+&lt;p>In case when your service listens on a more nested path (e.g. &lt;code>/api/v1/add&lt;/code>), Dapr implements a full reverse proxy so you can append all the necessary path fragments to your request URL like this:&lt;/p>
+&lt;p>&lt;code>http://localhost:3500/v1.0/invoke/mathService/method/api/v1/add&lt;/code>&lt;/p>
+&lt;p>In case you are invoking &lt;code>mathService&lt;/code> on a different namespace, you can use the following URL:&lt;/p>
+&lt;p>&lt;code>http://localhost:3500/v1.0/invoke/mathService.testing/method/api/v1/add&lt;/code>&lt;/p>
+&lt;p>In this URL, &lt;code>testing&lt;/code> is the namespace that &lt;code>mathService&lt;/code> is running in.&lt;/p>
+&lt;h2 id="next-steps">Next Steps&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/zh-hans/developing-applications/building-blocks/service-invocation/howto-invoke-discover-services/">How-To: Invoke and discover services&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Reference: State management API reference</title><link>https://docs.dapr.io/zh-hans/reference/api/state_api/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/zh-hans/reference/api/state_api/</guid><description>
+&lt;h2 id="component-file">Component file&lt;/h2>
+&lt;p>A Dapr State Store component yaml file has the following structure:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">state.&amp;lt;TYPE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#ae81ff">name:&amp;lt;KEY&amp;gt;&lt;/span>
+&lt;span style="color:#ae81ff">value:&amp;lt;VALUE&amp;gt;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;KEY&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;VALUE&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The &lt;code>metadata.name&lt;/code> is the name of the state store.&lt;/p>
+&lt;p>the &lt;code>spec/metadata&lt;/code> section is an open key value pair metadata that allows a binding to define connection properties.&lt;/p>
+&lt;p>Starting with 0.4.0 release, support for multiple state stores was added. This is a breaking change from previous releases as the state APIs were changed to support this new scenario. This is a breaking change from previous releases as the state APIs were changed to support this new scenario.&lt;/p>
+&lt;p>Please refer &lt;a href="https://github.com/dapr/dapr/blob/master/docs/decision_records/api/API-008-multi-state-store-api-design.md">https://github.com/dapr/dapr/blob/master/docs/decision_records/api/API-008-multi-state-store-api-design.md&lt;/a> for more details.&lt;/p>
+&lt;h2 id="key-scheme">Key scheme&lt;/h2>
+&lt;p>Dapr state stores are key/value stores. Dapr state stores are key/value stores. To ensure data compatibility, Dapr requires these data stores follow a fixed key scheme. For general states, the key format is: For general states, the key format is:&lt;/p>
+&lt;pre>&lt;code>&amp;lt;App ID&amp;gt;||&amp;lt;state key&amp;gt;
+&lt;/code>&lt;/pre>&lt;p>For Actor states, the key format is:&lt;/p>
+&lt;pre>&lt;code>&amp;lt;App ID&amp;gt;||&amp;lt;Actor type&amp;gt;||&amp;lt;Actor id&amp;gt;||&amp;lt;state key&amp;gt;
+&lt;/code>&lt;/pre>&lt;h2 id="save-state">Save state&lt;/h2>
+&lt;p>This endpoint lets you save an array of state objects.&lt;/p>
+&lt;h3 id="http-request">HTTP Request&lt;/h3>
+&lt;pre>&lt;code>POST http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/state/&amp;lt;storename&amp;gt;
+&lt;/code>&lt;/pre>&lt;h4 id="url-parameters">URL Parameters&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>daprPort&lt;/td>
+&lt;td>the Dapr port&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>storename&lt;/td>
+&lt;td>&lt;code>metadata.name&lt;/code> field in the user configured state store component yaml. Please refer Dapr State Store configuration structure mentioned above. Please refer Dapr State Store configuration structure mentioned above.&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>注意：所有的 URL 参数都是大小写敏感的。&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="request-body">Request Body&lt;/h4>
+&lt;p>A JSON array of state objects. A JSON array of state objects. Each state object is comprised with the following fields:&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Field&lt;/th>
+&lt;th>描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>key&lt;/td>
+&lt;td>state key&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>value&lt;/td>
+&lt;td>state value, which can be any byte array&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>etag&lt;/td>
+&lt;td>(optional) state ETag&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>metadata&lt;/td>
+&lt;td>(optional) additional key-value pairs to be passed to the state store&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>options&lt;/td>
+&lt;td>(optional) state operation options, see &lt;a href="#optional-behaviors">state operation options&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>&lt;strong>ETag format&lt;/strong> Dapr runtime treats ETags as opaque strings. The exact ETag format is defined by the corresponding data store. The exact ETag format is defined by the corresponding data store.&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="http-response">HTTP Response&lt;/h3>
+&lt;h4 id="response-codes">Response Codes&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>代码&lt;/th>
+&lt;th>描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>204&lt;/td>
+&lt;td>State saved&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>400&lt;/td>
+&lt;td>State store is missing or misconfigured or malformed request&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>Failed to save state&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="response-body">Response Body&lt;/h4>
+&lt;p>None.&lt;/p>
+&lt;h3 id="example">Example&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X POST http://localhost:3500/v1.0/state/starwars &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -d &lt;span style="color:#e6db74">&amp;#39;[
+&lt;/span>&lt;span style="color:#e6db74"> {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;key&amp;#34;: &amp;#34;weapon&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;value&amp;#34;: &amp;#34;DeathStar&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> },
+&lt;/span>&lt;span style="color:#e6db74"> {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;key&amp;#34;: &amp;#34;planet&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;value&amp;#34;: {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;name&amp;#34;: &amp;#34;Tatooine&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74"> ]&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="get-state">Get state&lt;/h2>
+&lt;p>This endpoint lets you get the state for a specific key.&lt;/p>
+&lt;h3 id="http-请求">HTTP 请求&lt;/h3>
+&lt;pre>&lt;code>GET http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/state/&amp;lt;storename&amp;gt;/&amp;lt;key&amp;gt;
+&lt;/code>&lt;/pre>&lt;h4 id="url-参数">URL 参数&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>参数&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>daprPort&lt;/td>
+&lt;td>the Dapr port&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>storename&lt;/td>
+&lt;td>&lt;code>metadata.name&lt;/code> field in the user configured state store component yaml. Please refer Dapr State Store configuration structure mentioned above. Please refer Dapr State Store configuration structure mentioned above.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>key&lt;/td>
+&lt;td>the key of the desired state&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>consistency&lt;/td>
+&lt;td>(optional) read consistency mode, see &lt;a href="#optional-behaviors">state operation options&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>metadata&lt;/td>
+&lt;td>(optional) metadata as query parameters to the state store&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>注意：所有的 URL 参数都是大小写敏感的。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="http-response-1">HTTP Response&lt;/h3>
+&lt;h4 id="response-codes-1">Response Codes&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>代码&lt;/th>
+&lt;th>描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>200&lt;/td>
+&lt;td>Get state successful&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>204&lt;/td>
+&lt;td>Key is not found&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>400&lt;/td>
+&lt;td>State store is missing or misconfigured&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>Get state failed&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="response-headers">Response Headers&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Header&lt;/th>
+&lt;th>描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>ETag&lt;/td>
+&lt;td>ETag of returned value&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="response-body-1">Response Body&lt;/h4>
+&lt;p>JSON-encoded value&lt;/p>
+&lt;h3 id="example-1">Example&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl http://localhost:3500/v1.0/state/starwars/planet &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>The above command returns the state:&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;name&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;Tatooine&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>To pass metadata as query parammeter:&lt;/p>
+&lt;pre>&lt;code>GET http://localhost:3500/v1.0/state/starwars/planet?metadata.partitionKey=mypartitionKey
+&lt;/code>&lt;/pre>&lt;h2 id="get-bulk-state">Get bulk state&lt;/h2>
+&lt;p>This endpoint lets you get a list of values for a given list of keys.&lt;/p>
+&lt;h3 id="http-request-1">HTTP Request&lt;/h3>
+&lt;pre>&lt;code>POST/PUT http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/state/&amp;lt;storename&amp;gt;/bulk
+&lt;/code>&lt;/pre>&lt;h4 id="url-parameters-1">URL Parameters&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>daprPort&lt;/td>
+&lt;td>the Dapr port&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>storename&lt;/td>
+&lt;td>&lt;code>metadata.name&lt;/code> field in the user configured state store component yaml. Please refer Dapr State Store configuration structure mentioned above. Please refer Dapr State Store configuration structure mentioned above.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>metadata&lt;/td>
+&lt;td>(optional) metadata as query parameters to the state store&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>注意：所有的 URL 参数都是大小写敏感的。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="http-response-2">HTTP Response&lt;/h3>
+&lt;h4 id="response-codes-2">Response Codes&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>200&lt;/td>
+&lt;td>Get state successful&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>400&lt;/td>
+&lt;td>State store is missing or misconfigured&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>Get bulk state failed&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="response-body-2">Response Body&lt;/h4>
+&lt;p>An array of JSON-encoded values&lt;/p>
+&lt;h3 id="example-2">Example&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl http://localhost:3500/v1.0/state/myRedisStore/bulk &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -d &lt;span style="color:#e6db74">&amp;#39;{
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;keys&amp;#34;: [ &amp;#34;key1&amp;#34;, &amp;#34;key2&amp;#34; ],
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;parallelism&amp;#34;: 10
+&lt;/span>&lt;span style="color:#e6db74"> }&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>The above command returns an array of key/value objects:&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">[
+{
+&lt;span style="color:#f92672">&amp;#34;key&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;key1&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;data&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;value1&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;etag&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span>
+},
+{
+&lt;span style="color:#f92672">&amp;#34;key&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;key2&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;data&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;value2&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;etag&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span>
+}
+]
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>To pass metadata as query parammeter:&lt;/p>
+&lt;pre>&lt;code>POST http://localhost:3500/v1.0/state/myRedisStore/bulk?metadata.partitionKey=mypartitionKey
+&lt;/code>&lt;/pre>&lt;h2 id="delete-state">Delete state&lt;/h2>
+&lt;p>This endpoint lets you delete the state for a specific key.&lt;/p>
+&lt;h3 id="http-request-2">HTTP Request&lt;/h3>
+&lt;pre>&lt;code>DELETE http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/state/&amp;lt;storename&amp;gt;/&amp;lt;key&amp;gt;
+&lt;/code>&lt;/pre>&lt;h4 id="url-parameters-2">URL Parameters&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>daprPort&lt;/td>
+&lt;td>the Dapr port&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>storename&lt;/td>
+&lt;td>&lt;code>metadata.name&lt;/code> field in the user configured state store component yaml. Please refer Dapr State Store configuration structure mentioned above. Please refer Dapr State Store configuration structure mentioned above.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>key&lt;/td>
+&lt;td>the key of the desired state&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>concurrency&lt;/td>
+&lt;td>(optional) either &lt;em>first-write&lt;/em> or &lt;em>last-write&lt;/em>, see &lt;a href="#optional-behaviors">state operation options&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>consistency&lt;/td>
+&lt;td>(optional) either &lt;em>strong&lt;/em> or &lt;em>eventual&lt;/em>, see &lt;a href="#optional-behaviors">state operation options&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>注意：所有的 URL 参数都是大小写敏感的。&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="request-headers">Request Headers&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Header&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>If-Match&lt;/td>
+&lt;td>(Optional) ETag associated with the key to be deleted&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="http-response-3">HTTP Response&lt;/h3>
+&lt;h4 id="response-codes-3">Response Codes&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>204&lt;/td>
+&lt;td>Delete state successful&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>400&lt;/td>
+&lt;td>State store is missing or misconfigured&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>Delete state failed&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="response-body-3">Response Body&lt;/h4>
+&lt;p>None.&lt;/p>
+&lt;h3 id="example-3">Example&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X &lt;span style="color:#e6db74">&amp;#34;DELETE&amp;#34;&lt;/span> http://localhost:3500/v1.0/state/starwars/planet -H &lt;span style="color:#e6db74">&amp;#34;ETag: xxxxxxx&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="state-transactions">State transactions&lt;/h2>
+&lt;p>Persists the changes to the state store as a multi-item transaction.&lt;/p>
+&lt;p>&lt;em>&lt;strong>Note that this operation is dependant on a using state store component that supports multi-item transactions.&lt;/strong>&lt;/em>&lt;/p>
+&lt;p>List of state stores that support transactions:&lt;/p>
+&lt;ul>
+&lt;li>Redis&lt;/li>
+&lt;li>MongoDB&lt;/li>
+&lt;li>PostgreSQL&lt;/li>
+&lt;li>SQL Server&lt;/li>
+&lt;li>Azure CosmSDB&lt;/li>
+&lt;/ul>
+&lt;h4 id="http-request-3">HTTP Request&lt;/h4>
+&lt;pre>&lt;code>POST/PUT http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/state/&amp;lt;storename&amp;gt;/transaction
+&lt;/code>&lt;/pre>&lt;h4 id="http-response-codes">HTTP Response Codes&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>204&lt;/td>
+&lt;td>Request successful&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>400&lt;/td>
+&lt;td>State store is missing or misconfigured or malformed request&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>Request failed&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="url-parameters-3">URL Parameters&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>daprPort&lt;/td>
+&lt;td>the Dapr port&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>storename&lt;/td>
+&lt;td>&lt;code>metadata.name&lt;/code> field in the user configured state store component yaml. Please refer Dapr State Store configuration structure mentioned above. Please refer Dapr State Store configuration structure mentioned above.&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>注意：所有的 URL 参数都是大小写敏感的。&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="request-body-1">Request Body&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Field&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>operations&lt;/td>
+&lt;td>A JSON array of state operation&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>metadata&lt;/td>
+&lt;td>(optional) the metadata for transaction that applies to all operations&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>Each state operation is comprised with the following fields:&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Field&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>key&lt;/td>
+&lt;td>state key&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>value&lt;/td>
+&lt;td>state value, which can be any byte array&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>etag&lt;/td>
+&lt;td>(optional) state ETag&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>metadata&lt;/td>
+&lt;td>(optional) additional key-value pairs to be passed to the state store&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>options&lt;/td>
+&lt;td>(optional) state operation options, see &lt;a href="#optional-behaviors">state operation options&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="示例">示例&lt;/h4>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X POST http://localhost:3500/v1.0/state/starwars/transaction &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -d &lt;span style="color:#e6db74">&amp;#39;{
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;operations&amp;#34;: [
+&lt;/span>&lt;span style="color:#e6db74"> {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;operation&amp;#34;: &amp;#34;upsert&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;request&amp;#34;: {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;key&amp;#34;: &amp;#34;key1&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;value&amp;#34;: &amp;#34;myData&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74"> },
+&lt;/span>&lt;span style="color:#e6db74"> {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;operation&amp;#34;: &amp;#34;delete&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;request&amp;#34;: {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;key&amp;#34;: &amp;#34;key2&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74"> ],
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;metadata&amp;#34;: {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;partitionKey&amp;#34;: &amp;#34;planet&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74"> }&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="configuring-state-store-for-actors">Configuring state store for actors&lt;/h2>
+&lt;p>Actors don&amp;rsquo;t support multiple state stores and require a transactional state store to be used with Dapr. Currently Mongodb, Redis, PostgreSQL, SQL Server, and Azure CosmosDB implement the transactional state store interface. Currently Mongodb, Redis, PostgreSQL, SQL Server, and Azure CosmosDB implement the transactional state store interface.&lt;/p>
+&lt;p>To specify which state store to be used for actors, specify value of property &lt;code>actorStateStore&lt;/code> as true in the metadata section of the state store component yaml file. Example: Following components yaml will configure redis to be used as the state store for Actors. Example: Following components yaml will configure redis to be used as the state store for Actors.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">statestore&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">state.redis&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">redisHost&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;redis host&amp;gt;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">redisPassword&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">actorStateStore&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="optional-behaviors">Optional behaviors&lt;/h2>
+&lt;h3 id="key-scheme-1">Key scheme&lt;/h3>
+&lt;p>A Dapr-compatible state store shall use the following key scheme:&lt;/p>
+&lt;ul>
+&lt;li>&lt;em>&amp;lt;App ID&amp;gt;||&amp;lt;state key&amp;gt;&lt;/em> key format for general states&lt;/li>
+&lt;li>&lt;em>&amp;lt;App ID&amp;gt;||&amp;lt;Actor type&amp;gt;||&amp;lt;Actor id&amp;gt;||&amp;lt;state key&amp;gt;&lt;/em> key format for Actor states.&lt;/li>
+&lt;/ul>
+&lt;h3 id="concurrency">Concurrency&lt;/h3>
+&lt;p>Dapr uses Optimized Concurrency Control (OCC) with ETags. Dapr makes optional the following requirements on state stores:&lt;/p>
+&lt;ul>
+&lt;li>An Dapr-compatible state store may support optimistic concurrency control using ETags. When an ETag is associated with an &lt;em>save&lt;/em> or &lt;em>delete&lt;/em> request, the store shall allow the update only if the attached ETag matches with the latest ETag in the database.&lt;/li>
+&lt;li>When ETag is missing in the write requests, the state store shall handle the requests in a last-write-wins fashion. This is to allow optimizations for high-throughput write scenarios in which data contingency is low or has no negative effects.&lt;/li>
+&lt;li>A store shall &lt;strong>always&lt;/strong> return ETags when returning states to callers.&lt;/li>
+&lt;/ul>
+&lt;h3 id="consistency">Consistency&lt;/h3>
+&lt;p>Dapr allows clients to attach a consistency hint to &lt;em>get&lt;/em>, &lt;em>set&lt;/em> and &lt;em>delete&lt;/em> operation. Dapr support two consistency level: &lt;strong>strong&lt;/strong> and &lt;strong>eventual&lt;/strong>, which are defined as the follows:&lt;/p>
+&lt;h4 id="eventual-consistency">Eventual Consistency&lt;/h4>
+&lt;p>Dapr assumes data stores are eventually consistent by default. &amp;lt;App ID&amp;gt;||&amp;lt;state key&amp;gt;&lt;/em> key format for general states&lt;/li>&lt;/p>
+&lt;ul>
+&lt;li>&lt;em>&amp;lt;App ID&amp;gt;||&amp;lt;Actor type&amp;gt;||&amp;lt;Actor id&amp;gt;||&amp;lt;state key&amp;gt;&lt;/em> key format for Actor states.&lt;/ul>&lt;/li>
+&lt;/ul>
+&lt;h3 id="concurrency-1">Concurrency&lt;/h3>
+&lt;p>Dapr uses Optimized Concurrency Control (OCC) with ETags. Dapr makes optional the following requirements on state stores:&lt;/p>
+&lt;ul>
+&lt;li>An Dapr-compatible state store may support optimistic concurrency control using ETags. When an ETag is associated with an &lt;em>save&lt;/em> or &lt;em>delete&lt;/em> request, the store shall allow the update only if the attached ETag matches with the latest ETag in the database.&lt;/li>
+&lt;li>When ETag is missing in the write requests, the state store shall handle the requests in a last-write-wins fashion. This is to allow optimizations for high-throughput write scenarios in which data contingency is low or has no negative effects.&lt;/li>
+&lt;li>A store shall &lt;strong>always&lt;/strong> return ETags when returning states to callers.&lt;/li>
+&lt;/ul>
+&lt;h3 id="consistency-1">Consistency&lt;/h3>
+&lt;p>Dapr allows clients to attach a consistency hint to &lt;em>get&lt;/em>, &lt;em>set&lt;/em> and &lt;em>delete&lt;/em> operation. Dapr support two consistency level: &lt;strong>strong&lt;/strong> and &lt;strong>eventual&lt;/strong>, which are defined as the follows:&lt;/p>
+&lt;h4 id="eventual-consistency-1">Eventual Consistency&lt;/h4>
+&lt;p>Dapr assumes data stores are eventually consistent by default. A state should:&lt;/p>
+&lt;ul>
+&lt;li>For read requests, the state store can return data from any of the replicas&lt;/li>
+&lt;li>For write request, the state store should asynchronously replicate updates to configured quorum after acknowledging the update request.&lt;/li>
+&lt;/ul>
+&lt;h4 id="strong-consistency">Strong Consistency&lt;/h4>
+&lt;p>When a strong consistency hint is attached, a state store should:&lt;/p>
+&lt;ul>
+&lt;li>For read requests, the state store should return the most up-to-date data consistently across replicas.&lt;/li>
+&lt;li>For write/delete requests, the state store should synchronisely replicate updated data to configured quorum before completing the write request.&lt;/li>
+&lt;/ul>
+&lt;h3 id="example---complete-options-request-example">Example - Complete options request example&lt;/h3>
+&lt;p>The following is an example &lt;em>set&lt;/em> request with a complete options definition:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X POST http://localhost:3500/v1.0/state/starwars &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -d &lt;span style="color:#e6db74">&amp;#39;[
+&lt;/span>&lt;span style="color:#e6db74"> {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;key&amp;#34;: &amp;#34;weapon&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;value&amp;#34;: &amp;#34;DeathStar&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;etag&amp;#34;: &amp;#34;xxxxx&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;options&amp;#34;: {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;concurrency&amp;#34;: &amp;#34;first-write&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;consistency&amp;#34;: &amp;#34;strong&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74"> ]&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="example---working-with-etags">Example - Working with ETags&lt;/h3>
+&lt;p>The following is an example which walks through the usage of an ETag when setting/deleting an object in a compatible statestore.&lt;/p>
+&lt;p>First, store an object in a statestore (this sample uses Redis that has been defined as &amp;lsquo;statestore&amp;rsquo;):&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X POST http://localhost:3500/v1.0/state/statestore &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -d &lt;span style="color:#e6db74">&amp;#39;[
+&lt;/span>&lt;span style="color:#e6db74"> {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;key&amp;#34;: &amp;#34;sampleData&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;value&amp;#34;: &amp;#34;1&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74"> ]&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Get the object to find the ETag that was set automatically by the statestore:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl http://localhost:3500/v1.0/state/statestore/sampleData -v
+* Connected to localhost &lt;span style="color:#f92672">(&lt;/span>127.0.0.1&lt;span style="color:#f92672">)&lt;/span> port &lt;span style="color:#ae81ff">3500&lt;/span> &lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#75715e">#0)&lt;/span>
+&amp;gt; GET /v1.0/state/statestore/sampleData HTTP/1.1
+&amp;gt; Host: localhost:3500
+&amp;gt; User-Agent: curl/7.64.1
+&amp;gt; Accept: */*
+&amp;gt;
+&amp;lt; HTTP/1.1 &lt;span style="color:#ae81ff">200&lt;/span> OK
+&amp;lt; Server: fasthttp
+&amp;lt; Date: Sun, &lt;span style="color:#ae81ff">14&lt;/span> Feb &lt;span style="color:#ae81ff">2021&lt;/span> 04:51:50 GMT
+&amp;lt; Content-Type: application/json
+&amp;lt; Content-Length: &lt;span style="color:#ae81ff">3&lt;/span>
+&amp;lt; Etag: &lt;span style="color:#ae81ff">1&lt;/span>
+&amp;lt; Traceparent: 00-3452582897d134dc9793a244025256b1-b58d8d773e4d661d-01
+&amp;lt;
+* Connection &lt;span style="color:#75715e">#0 to host localhost left intact&lt;/span>
+&lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span>* Closing connection &lt;span style="color:#ae81ff">0&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The returned ETag here was 1. Sending a new request to update or delete the data with the wrong ETag will return an error (omitting the ETag will allow the request):&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">&lt;span style="color:#75715e"># Update&lt;/span>
+curl -X POST http://localhost:3500/v1.0/state/statestore &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -d &lt;span style="color:#e6db74">&amp;#39;[
+&lt;/span>&lt;span style="color:#e6db74"> {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;key&amp;#34;: &amp;#34;sampleData&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;value&amp;#34;: &amp;#34;2&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;etag&amp;#34;: &amp;#34;2&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74"> ]&amp;#39;&lt;/span>
+&lt;span style="color:#f92672">{&lt;/span>&lt;span style="color:#e6db74">&amp;#34;errorCode&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;ERR_STATE_SAVE&amp;#34;&lt;/span>,&lt;span style="color:#e6db74">&amp;#34;message&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;failed saving state in state store statestore: possible etag mismatch. error from state store: ERR Error running script (call to f_83e03ec05d6a3b6fb48483accf5e594597b6058f): @user_script:1: user_script:1: failed to set key nodeapp||sampleData&amp;#34;&lt;/span>&lt;span style="color:#f92672">}&lt;/span>
+&lt;span style="color:#75715e"># Delete&lt;/span>
+curl -X DELETE -H &lt;span style="color:#e6db74">&amp;#39;If-Match: 5&amp;#39;&lt;/span> http://localhost:3500/v1.0/state/statestore/sampleData
+&lt;span style="color:#f92672">{&lt;/span>&lt;span style="color:#e6db74">&amp;#34;errorCode&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;ERR_STATE_DELETE&amp;#34;&lt;/span>,&lt;span style="color:#e6db74">&amp;#34;message&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;failed deleting state with key sampleData: possible etag mismatch. error from state store: ERR Error running script (call to f_9b5da7354cb61e2ca9faff50f6c43b81c73c0b94): @user_script:1: user_script:1: failed to delete node
+&lt;/span>&lt;span style="color:#e6db74">app||sampleData&amp;#34;&lt;/span>&lt;span style="color:#f92672">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>In order to update or delete the object, simply match the ETag in either the request body (update) or the &lt;code>If-Match&lt;/code> header (delete). Note, when the state is updated, it receives a new ETag so further updates or deletes will need to use the new ETag.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">&lt;span style="color:#75715e"># Update&lt;/span>
+curl -X POST http://localhost:3500/v1.0/state/statestore &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -d &lt;span style="color:#e6db74">&amp;#39;[
+&lt;/span>&lt;span style="color:#e6db74"> {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;key&amp;#34;: &amp;#34;sampleData&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;value&amp;#34;: &amp;#34;2&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;etag&amp;#34;: &amp;#34;1&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74"> ]&amp;#39;&lt;/span>
+&lt;span style="color:#75715e"># Delete&lt;/span>
+curl -X DELETE -H &lt;span style="color:#e6db74">&amp;#39;If-Match: 1&amp;#39;&lt;/span> http://localhost:3500/v1.0/state/statestore/sampleData
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="next-steps">Next Steps&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/zh-hans/developing-applications/building-blocks/state-management/state-management-overview/">State management overview&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/zh-hans/developing-applications/building-blocks/state-management/howto-get-save-state/">How-To: Save &amp;amp; get state&lt;/a> Sending a new request to update or delete the data with the wrong ETag will return an error (omitting the ETag will allow the request):&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">&lt;span style="color:#75715e"># Update&lt;/span>
+curl -X POST http://localhost:3500/v1.0/state/statestore &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -d &lt;span style="color:#e6db74">&amp;#39;[
+&lt;/span>&lt;span style="color:#e6db74"> {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;key&amp;#34;: &amp;#34;sampleData&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;value&amp;#34;: &amp;#34;2&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;etag&amp;#34;: &amp;#34;2&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74"> ]&amp;#39;&lt;/span>
+&lt;span style="color:#f92672">{&lt;/span>&lt;span style="color:#e6db74">&amp;#34;errorCode&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;ERR_STATE_SAVE&amp;#34;&lt;/span>,&lt;span style="color:#e6db74">&amp;#34;message&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;failed saving state in state store statestore: possible etag mismatch. error from state store: ERR Error running script (call to f_83e03ec05d6a3b6fb48483accf5e594597b6058f): @user_script:1: user_script:1: failed to set key nodeapp||sampleData&amp;#34;&lt;/span>&lt;span style="color:#f92672">}&lt;/span>
+&lt;span style="color:#75715e"># Delete&lt;/span>
+curl -X DELETE -H &lt;span style="color:#e6db74">&amp;#39;If-Match: 5&amp;#39;&lt;/span> http://localhost:3500/v1.0/state/statestore/sampleData
+&lt;span style="color:#f92672">{&lt;/span>&lt;span style="color:#e6db74">&amp;#34;errorCode&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;ERR_STATE_DELETE&amp;#34;&lt;/span>,&lt;span style="color:#e6db74">&amp;#34;message&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;failed deleting state with key sampleData: possible etag mismatch. error from state store: ERR Error running script (call to f_9b5da7354cb61e2ca9faff50f6c43b81c73c0b94): @user_script:1: user_script:1: failed to delete node
+&lt;/span>&lt;span style="color:#e6db74">app||sampleData&amp;#34;&lt;/span>&lt;span style="color:#f92672">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>In order to update or delete the object, simply match the ETag in either the request body (update) or the &lt;code>If-Match&lt;/code> header (delete). Note, when the state is updated, it receives a new ETag so further updates or deletes will need to use the new ETag.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">&lt;span style="color:#75715e"># Update&lt;/span>
+curl -X POST http://localhost:3500/v1.0/state/statestore &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -d &lt;span style="color:#e6db74">&amp;#39;[
+&lt;/span>&lt;span style="color:#e6db74"> {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;key&amp;#34;: &amp;#34;sampleData&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;value&amp;#34;: &amp;#34;2&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;etag&amp;#34;: &amp;#34;1&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74"> ]&amp;#39;&lt;/span>
+&lt;span style="color:#75715e"># Delete&lt;/span>
+curl -X DELETE -H &lt;span style="color:#e6db74">&amp;#39;If-Match: 1&amp;#39;&lt;/span> http://localhost:3500/v1.0/state/statestore/sampleData
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="next-steps-1">Next Steps&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/zh-hans/developing-applications/building-blocks/state-management/state-management-overview/">State management overview&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/zh-hans/developing-applications/building-blocks/state-management/howto-get-save-state/">How-To: Save &amp;amp; get state&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Reference: Pub/sub API reference</title><link>https://docs.dapr.io/zh-hans/reference/api/pubsub_api/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/zh-hans/reference/api/pubsub_api/</guid><description>
+&lt;h2 id="publish-a-message-to-a-given-topic">Publish a message to a given topic&lt;/h2>
+&lt;p>This endpoint lets you publish data to multiple consumers who are listening on a &lt;code>topic&lt;/code>. Dapr guarantees at least once semantics for this endpoint. Dapr guarantees at least once semantics for this endpoint. Dapr guarantees at least once semantics for this endpoint.&lt;/p>
+&lt;h3 id="http-request">HTTP Request&lt;/h3>
+&lt;pre>&lt;code>POST http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/publish/&amp;lt;pubsubname&amp;gt;/&amp;lt;topic&amp;gt;[?&amp;lt;metadata&amp;gt;]
+&lt;/code>&lt;/pre>&lt;h3 id="http-response-codes">HTTP Response codes&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>代码&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>204&lt;/td>
+&lt;td>Message delivered&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>403&lt;/td>
+&lt;td>Message forbidden by access controls&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>404&lt;/td>
+&lt;td>No pubsub name or topic given&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>Delivery failed&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="url-parameters">URL Parameters&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>参数&lt;/th>
+&lt;th>描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>daprPort&lt;/td>
+&lt;td>the Dapr port&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>pubsubname&lt;/td>
+&lt;td>the name of pubsub component&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>topic&lt;/td>
+&lt;td>the name of the topic&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>metadata&lt;/td>
+&lt;td>query parameters for metadata as described below&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>注意：所有的 URL 参数都是大小写敏感的。&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X POST http://localhost:3500/v1.0/publish/pubsubName/deathStarStatus &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -d &lt;span style="color:#e6db74">&amp;#39;{
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;status&amp;#34;: &amp;#34;completed&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="headers">Headers&lt;/h3>
+&lt;p>The &lt;code>Content-Type&lt;/code> header tells Dapr which content type your data adheres to when constructing a CloudEvent envelope. The value of the &lt;code>Content-Type&lt;/code> header populates the &lt;code>datacontenttype&lt;/code> field in the CloudEvent. Unless specified, Dapr assumes &lt;code>text/plain&lt;/code>. If your content type is JSON, use a &lt;code>Content-Type&lt;/code> header with the value of &lt;code>application/json&lt;/code>. The value of the &lt;code>Content-Type&lt;/code> header populates the &lt;code>datacontenttype&lt;/code> field in the CloudEvent. Unless specified, Dapr assumes &lt;code>text/plain&lt;/code>. If your content type is JSON, use a &lt;code>Content-Type&lt;/code> header with the value of &lt;code>application/json&lt;/code>.&lt;/p>
+&lt;p>If you want to send your own custom CloundEvent, use the &lt;code>application/cloudevents+json&lt;/code> value for the &lt;code>Content-Type&lt;/code> header.&lt;/p>
+&lt;h4 id="metadata">Metadata&lt;/h4>
+&lt;p>Metadata can be sent via query parameters in the request&amp;rsquo;s URL. It must be prefixed with &lt;code>metadata.&lt;/code> as shown below. It must be prefixed with &lt;code>metadata.&lt;/code> as shown below.&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>metadata.ttlInSeconds&lt;/td>
+&lt;td>the number of seconds for the message to expire as &lt;a href="https://docs.dapr.io/zh-hans/developing-applications/building-blocks/pubsub/pubsub-message-ttl/">described here&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>Additional metadata parameters are available based on each pubsub component.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="optional-application-user-code-routes">Optional Application (User Code) Routes&lt;/h2>
+&lt;h3 id="provide-a-route-for-dapr-to-discover-topic-subscriptions">Provide a route for Dapr to discover topic subscriptions&lt;/h3>
+&lt;p>Dapr will invoke the following endpoint on user code to discover topic subscriptions:&lt;/p>
+&lt;h4 id="http-request-1">HTTP Request&lt;/h4>
+&lt;pre>&lt;code>GET http://localhost:&amp;lt;appPort&amp;gt;/dapr/subscribe
+&lt;/code>&lt;/pre>&lt;h4 id="url-参数">URL 参数&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>参数&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>appPort&lt;/td>
+&lt;td>应用程序端口&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="http-response-body">HTTP Response body&lt;/h4>
+&lt;p>A json encoded array of strings.&lt;/p>
+&lt;p>You can run Kafka locally using &lt;a href="https://github.com/wurstmeister/kafka-docker">this&lt;/a> Docker image. To run without Docker, see the getting started guide &lt;a href="https://kafka.apache.org/quickstart">here&lt;/a>.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">[
+{
+&lt;span style="color:#f92672">&amp;#34;pubsubname&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;pubsub&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;topic&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;newOrder&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;route&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;/orders&amp;#34;&lt;/span>
+}
+]
+&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>Note, all subscription parameters are case-sensitive.&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="provide-routes-for-dapr-to-deliver-topic-events">Provide route(s) for Dapr to deliver topic events&lt;/h3>
+&lt;p>In order to deliver topic events, a &lt;code>POST&lt;/code> call will be made to user code with the route specified in the subscription response.&lt;/p>
+&lt;p>The following example illustrates this point, considering a subscription for topic &lt;code>newOrder&lt;/code> with route &lt;code>orders&lt;/code> on port 3000: &lt;code>POST http://localhost:3000/orders&lt;/code>&lt;/p>
+&lt;h4 id="http-请求">HTTP 请求&lt;/h4>
+&lt;pre>&lt;code>POST http://localhost:&amp;lt;appPort&amp;gt;/&amp;lt;path&amp;gt;
+&lt;/code>&lt;/pre>&lt;blockquote>
+&lt;p>注意：所有的 URL 参数都是大小写敏感的。&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="url-parameters-1">URL Parameters&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>appPort&lt;/td>
+&lt;td>the application port&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>path&lt;/td>
+&lt;td>route path from the subscription configuration&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="expected-http-response">Expected HTTP Response&lt;/h4>
+&lt;p>An HTTP 2xx response denotes successful processing of message. An HTTP 2xx response denotes successful processing of message. For richer response handling, a JSON encoded payload body with the processing status can be sent:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;status&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;lt;status&amp;gt;&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Status&lt;/th>
+&lt;th>描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>SUCCESS&lt;/td>
+&lt;td>message is processed successfully&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>RETRY&lt;/td>
+&lt;td>message to be retried by Dapr&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>DROP&lt;/td>
+&lt;td>warning is logged and message is dropped&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Others&lt;/td>
+&lt;td>error, message to be retried by Dapr&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>Dapr assumes a JSON encoded payload response without &lt;code>status&lt;/code> field or an empty payload responses with HTTP 2xx, as &lt;code>SUCCESS&lt;/code>.&lt;/p>
+&lt;p>The HTTP response might be different from HTTP 2xx, the following are Dapr&amp;rsquo;s behavior in different HTTP statuses:&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>HTTP Status&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>2xx&lt;/td>
+&lt;td>message is processed as per status in payload (&lt;code>SUCCESS&lt;/code> if empty; ignored if invalid payload).&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>404&lt;/td>
+&lt;td>error is logged and message is dropped&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>other&lt;/td>
+&lt;td>warning is logged and message to be retried&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="message-envelope">Message envelope&lt;/h2>
+&lt;p>Dapr Pub/Sub adheres to version 1.0 of Cloud Events.&lt;/p>
+&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/zh-hans/developing-applications/building-blocks/pubsub/howto-publish-subscribe/">How to publish to and consume topics&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/dapr/quickstarts/tree/master/pub-sub">Sample for pub/sub&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Reference: Bindings API 引用</title><link>https://docs.dapr.io/zh-hans/reference/api/bindings_api/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/zh-hans/reference/api/bindings_api/</guid><description>
+&lt;p>Dapr provides bi-directional binding capabilities for applications and a consistent approach to interacting with different cloud/on-premise services or systems. Dapr provides bi-directional binding capabilities for applications and a consistent approach to interacting with different cloud/on-premise services or systems. Developers can invoke output bindings using the Dapr API, and have the Dapr runtime trigger an application with input bindings. 开发者可以使用 Dapr API 调用输出绑定，并让 Dapr 运行时触发具有输入绑定的应用程序。&lt;/p>
+&lt;p>绑定的示例包括 &lt;code>Kafka&lt;/code>， &lt;code>Rabbit MQ&lt;/code>， &lt;code>Azure Event Hubs&lt;/code>， &lt;code>AWS SQS&lt;/code>和 &lt;code>GCP Storage&lt;/code>。&lt;/p>
+&lt;h2 id="bindings-结构">Bindings 结构&lt;/h2>
+&lt;p>Dapr 绑定 yaml 文件具有以下结构:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">bindings.&amp;lt;TYPE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;VALUE&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>metadata.name&lt;/code> 是绑定的名称。&lt;/p>
+&lt;p>如果在本地 self hosted 运行，请将此文件放在您的 state store 和消息队列 yml 配置旁边的 &lt;code>components&lt;/code> 文件夹中。&lt;/p>
+&lt;p>如果在 kubernetes 上运行，那么应该将该组件应用于集群。&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Note:&lt;/strong> In production never place passwords or secrets within Dapr component files. For information on securely storing and retrieving secrets using secret stores refer to &lt;a href="https://docs.dapr.io/zh-hans/operations/components/setup-secret-store/">Setup Secret Store&lt;/a> 有关使用 secret stores 和检索密钥的信息，请参阅 &lt;a href="https://docs.dapr.io/zh-hans/operations/components/setup-secret-store/">设置 secret stores &lt;/a> 有关使用 secret stores 和检索密钥的信息，请参阅 &lt;a href="https://docs.dapr.io/zh-hans/operations/components/setup-secret-store/">设置 secret stores &lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="通过输入绑定调用服务代码">通过输入绑定调用服务代码&lt;/h2>
+&lt;p>想要使用输入绑定触发应用的开发人员可以在 &lt;code>POST&lt;/code> http 终结点上侦听以接收请求。 路由名称与 &lt;code>metadata.name&lt;/code>相同。&lt;/p>
+&lt;p>如果应用程序要订阅绑定，在启动 Dapr 时，将会对应用程序的所有已定义输入绑定发送 &lt;code>OPTIONS&lt;/code> 请求，并期望 &lt;code>NOT FOUND (404)&lt;/code> 以外的状态码。&lt;/p>
+&lt;p>&lt;code>metadata&lt;/code> 部分是开放式键/值元数据对，它允许绑定定义连接属性以及组件实现独有的定制属性。&lt;/p>
+&lt;h3 id="示例">示例&lt;/h3>
+&lt;p>例如，以下是 Python 应用程序如何使用 Dapr API 兼容平台从 &lt;code>Kafka&lt;/code> 预订事件。 For example, here&amp;rsquo;s how a Python application subscribes for events from &lt;code>Kafka&lt;/code> using a Dapr API compliant platform. Note how the metadata.name value &lt;code>kafkaevent&lt;/code> in the components matches the POST route name in the Python code.&lt;/p>
+&lt;h4 id="kafka-component">Kafka Component&lt;/h4>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">kafkaevent&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">bindings.kafka&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">brokers&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;http://localhost:5050&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">topics&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;someTopic&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">publishTopic&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;someTopic2&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">consumerGroup&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;group1&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="python-代码">Python 代码&lt;/h4>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">from&lt;/span> flask &lt;span style="color:#f92672">import&lt;/span> Flask
+app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
+&lt;span style="color:#a6e22e">@app.route&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;/kafkaevent&amp;#34;&lt;/span>, methods&lt;span style="color:#f92672">=&lt;/span>[&lt;span style="color:#e6db74">&amp;#39;POST&amp;#39;&lt;/span>])
+&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">incoming&lt;/span>():
+&lt;span style="color:#66d9ef">print&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;Hello from Kafka!&amp;#34;&lt;/span>, flush&lt;span style="color:#f92672">=&lt;/span>True)
+&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Kafka Event Processed!&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="binding-终结点">Binding 终结点&lt;/h3>
+&lt;p>Dapr 将从 component Yaml 文件中发现 Bindings。 Dapr calls this endpoint on startup to ensure that app can handle this call. 如果应用程序没有该终结点，那么 Dapr 将忽略。&lt;/p>
+&lt;h4 id="http-请求">HTTP 请求&lt;/h4>
+&lt;pre>&lt;code>OPTIONS http://localhost:&amp;lt;appPort&amp;gt;/&amp;lt;name&amp;gt;
+&lt;/code>&lt;/pre>&lt;h4 id="http-响应码">HTTP 响应码&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>代码&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>404&lt;/td>
+&lt;td>应用程序不希望绑定到 Bindings&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>其它&lt;/td>
+&lt;td>应用程序想要绑定到 Bindings&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="url-参数">URL 参数&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>参数&lt;/th>
+&lt;th>描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>appPort&lt;/td>
+&lt;td>应用程序端口&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>name&lt;/td>
+&lt;td>bindings 的名称&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>注意：所有的 URL 参数都是大小写敏感的。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="binding-payload">Binding payload&lt;/h3>
+&lt;p>为了提供绑定的输入，将使用 POST 调用到用户代码，并将绑定的名称作为URL路径。&lt;/p>
+&lt;h4 id="http-请求-1">HTTP 请求&lt;/h4>
+&lt;pre>&lt;code>POST http://localhost:&amp;lt;appPort&amp;gt;/&amp;lt;name&amp;gt;
+&lt;/code>&lt;/pre>&lt;h4 id="http-响应码-1">HTTP 响应码&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>代码&lt;/th>
+&lt;th>描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>200&lt;/td>
+&lt;td>应用程序已成功处理输入绑定&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="url-参数-1">URL 参数&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>参数&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>appPort&lt;/td>
+&lt;td>应用程序端口&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>name&lt;/td>
+&lt;td>bindings 的名称&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>注意：所有的 URL 参数都是大小写敏感的。&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="http-响应主体-可选">HTTP 响应主体 (可选)&lt;/h4>
+&lt;p>可选地，响应正文可用于直接绑定具有 state stores 或输出 Bindings 的输入绑定。&lt;/p>
+&lt;p>&lt;strong>Example:&lt;/strong> Dapr stores &lt;code>stateDataToStore&lt;/code> into a state store named &amp;ldquo;stateStore&amp;rdquo;. Dapr sends &lt;code>jsonObject&lt;/code> to the output bindings named &amp;ldquo;storage&amp;rdquo; and &amp;ldquo;queue&amp;rdquo; in parallel. If &lt;code>concurrency&lt;/code> is not set, it is sent out sequential (the example below shows these operations are done in parallel) Dapr 将 &lt;code>jsonObject&lt;/code> 发送到名为 &amp;ldquo;storage&amp;rdquo; 和 &amp;quot; queue&amp;quot; 的输出绑定。 Dapr 将 &lt;code>jsonObject&lt;/code> 发送到名为 &amp;ldquo;storage&amp;rdquo; 和 &amp;quot; queue&amp;quot; 的输出绑定。 如果未设置 &lt;code>concurrency&lt;/code> ，那么将顺序发出 ( 以下示例显示这些操作并行执行)&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;storeName&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;stateStore&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;state&amp;#34;&lt;/span>: &lt;span style="color:#960050;background-color:#1e0010">stateDataToStore&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;to&amp;#34;&lt;/span>: [&lt;span style="color:#960050;background-color:#1e0010">&amp;#39;storage&amp;#39;&lt;/span>, &lt;span style="color:#960050;background-color:#1e0010">&amp;#39;queue&amp;#39;&lt;/span>],
+&lt;span style="color:#f92672">&amp;#34;concurrency&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;parallel&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;data&amp;#34;&lt;/span>: &lt;span style="color:#960050;background-color:#1e0010">jsonObject&lt;/span>,
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="调用输出绑定">调用输出绑定&lt;/h2>
+&lt;p>此端点允许您调用一个 Dapr 输出绑定。 This endpoint lets you invoke a Dapr output binding. Dapr bindings support various operations, such as &lt;code>create&lt;/code>.&lt;/p>
+&lt;p>请参阅 &lt;a href="https://docs.dapr.io/zh-hans/operations/components/setup-bindings/supported-bindings/"> 每个绑定上的不同配置&lt;/a> 以查看受支持操作的列表。&lt;/p>
+&lt;h3 id="http-请求-2">HTTP 请求&lt;/h3>
+&lt;pre>&lt;code>POST/PUT http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/bindings/&amp;lt;name&amp;gt;
+&lt;/code>&lt;/pre>&lt;h3 id="http-响应码-2">HTTP 响应码&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>代码&lt;/th>
+&lt;th>描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>200&lt;/td>
+&lt;td>请求成功&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>204&lt;/td>
+&lt;td>Empty Response&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>400&lt;/td>
+&lt;td>Malformed request&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>请求失败&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="payload">Payload&lt;/h3>
+&lt;p>绑定端点接收以下JSON payload ：&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;data&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;metadata&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+},
+&lt;span style="color:#f92672">&amp;#34;operation&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>注意：所有的 URL 参数都是大小写敏感的。&lt;/p>
+&lt;/blockquote>
+&lt;p>The &lt;code>data&lt;/code> field takes any JSON serializable value and acts as the payload to be sent to the output binding. The &lt;code>metadata&lt;/code> field is an array of key/value pairs and allows you to set binding specific metadata for each call. The &lt;code>operation&lt;/code> field tells the Dapr binding which operation it should perform. &lt;code>metadata&lt;/code> 字段是键/值对的数组，允许您为每个调用设置绑定特定元数据。 &lt;code>metadata&lt;/code> 字段是键/值对的数组，允许您为每个调用设置绑定特定元数据。 &lt;code>operation&lt;/code> 字段告诉 Dapr 绑定它应该执行的操作。&lt;/p>
+&lt;h3 id="url-参数-2">URL 参数&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>参数&lt;/th>
+&lt;th>描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>daprPort&lt;/td>
+&lt;td>dapr 端口。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>name&lt;/td>
+&lt;td>要调用 output binding 的名称。&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>注意：所有的 URL 参数都是大小写敏感的。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="示例-1">示例&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X POST http://localhost:3500/v1.0/bindings/myKafka &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -d &lt;span style="color:#e6db74">&amp;#39;{
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;data&amp;#34;: {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;message&amp;#34;: &amp;#34;Hi&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> },
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;metadata&amp;#34;: {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;key&amp;#34;: &amp;#34;redis-key-1&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> },
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;operation&amp;#34;: &amp;#34;create&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="通用元数据值">通用元数据值&lt;/h3>
+&lt;p>There are common metadata properties which are support across multiple binding components. The list below illustrates them: 具体清单如下： 具体清单如下：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>属性&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;th>绑定定义&lt;/th>
+&lt;th>有效范围&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>ttlInseconds&lt;/td>
+&lt;td>定义消息的生存时间 ( 以秒为单位)&lt;/td>
+&lt;td>If set in the binding definition will cause all messages to have a default time to live. The message ttl overrides any value in the binding definition. 消息 ttl 覆盖绑定定义中的任何值。 消息 ttl 覆盖绑定定义中的任何值。&lt;/td>
+&lt;td>RabbitMQ, Azure Service Bus, Azure Storage Queue&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table></description></item><item><title>Reference: Actors API 参考</title><link>https://docs.dapr.io/zh-hans/reference/api/actors_api/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/zh-hans/reference/api/actors_api/</guid><description>
+&lt;p>Dapr 提供原生、跨平台和跨语言 virtual actors 功能。 除了特定于语言的 Dapr SDK 之外，开发人员还可以使用下面的 API 终结点调用 actor。&lt;/p>
+&lt;h2 id="调用-dapr-的服务代码">调用 dapr 的服务代码&lt;/h2>
+&lt;h3 id="调用-actor-方法">调用 actor 方法&lt;/h3>
+&lt;p>通过 Dapr 调用 actor 方法。&lt;/p>
+&lt;h4 id="http-请求">HTTP 请求&lt;/h4>
+&lt;pre>&lt;code>POST/GET/PUT/DELETE http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/actors/&amp;lt;actorType&amp;gt;/&amp;lt;actorId&amp;gt;/method/&amp;lt;method&amp;gt;
+&lt;/code>&lt;/pre>&lt;h4 id="http-响应码">HTTP 响应码&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>代码&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>200&lt;/td>
+&lt;td>请求成功&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>请求失败&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>XXX&lt;/td>
+&lt;td>来自上游调用的状态代码&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="url-参数">URL 参数&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>参数&lt;/th>
+&lt;th>描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>daprPort&lt;/td>
+&lt;td>Dapr 端口。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorType&lt;/td>
+&lt;td>Actor 类型。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorId&lt;/td>
+&lt;td>Actor ID&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>method&lt;/td>
+&lt;td>要调用的方法的名称。&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>注意：所有的 URL 参数都是大小写敏感的。&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="示例">示例&lt;/h4>
+&lt;p>对 actor 调用方法的示例:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X POST http://localhost:3500/v1.0/actors/stormtrooper/50/method/shoot &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>若 Actor 方法具备参数：您可以在请求正文中提供方法参数和值，例如使用 -d &amp;ldquo;{&amp;quot;param&amp;quot;:&amp;quot;value&amp;quot;}&amp;rdquo;&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X POST http://localhost:3500/v1.0/actors/x-wing/33/method/fly &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span>
+-d &lt;span style="color:#e6db74">&amp;#39;{
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;destination&amp;#34;: &amp;#34;Hoth&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>或者&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X POST http://localhost:3500/v1.0/actors/x-wing/33/method/fly &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span>
+-d &lt;span style="color:#e6db74">&amp;#34;{\&amp;#34;destination\&amp;#34;:\&amp;#34;Hoth\&amp;#34;}&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>被调用方法的返回值将会从响应正文中返回。&lt;/p>
+&lt;h3 id="actor-状态事务">Actor 状态事务&lt;/h3>
+&lt;p>将 Actor 状态的变成以 multi-item transaction 的方式持久化&lt;/p>
+&lt;p>&lt;em>&lt;strong>请注意，此操作取决于支持 multi-item transactions 的状态存储组件。&lt;/strong>&lt;/em>&lt;/p>
+&lt;h4 id="http-请求-1">HTTP 请求&lt;/h4>
+&lt;pre>&lt;code>POST/PUT http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/actors/&amp;lt;actorType&amp;gt;/&amp;lt;actorId&amp;gt;/state
+&lt;/code>&lt;/pre>&lt;h4 id="http-响应码-1">HTTP 响应码&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>代码&lt;/th>
+&lt;th>描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>204&lt;/td>
+&lt;td>请求成功&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>400&lt;/td>
+&lt;td>未找到 Actor&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>请求失败&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="url-参数-1">URL 参数&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>参数&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>daprPort&lt;/td>
+&lt;td>Dapr 端口。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorType&lt;/td>
+&lt;td>Actor 类型。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorId&lt;/td>
+&lt;td>Actor ID&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>注意：所有的 URL 参数都是大小写敏感的。&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="示例-1">示例&lt;/h4>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X POST http://localhost:3500/v1.0/actors/stormtrooper/50/state &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span>
+-d &lt;span style="color:#e6db74">&amp;#39;[
+&lt;/span>&lt;span style="color:#e6db74"> {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;operation&amp;#34;: &amp;#34;upsert&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;request&amp;#34;: {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;key&amp;#34;: &amp;#34;key1&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;value&amp;#34;: &amp;#34;myData&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74"> },
+&lt;/span>&lt;span style="color:#e6db74"> {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;operation&amp;#34;: &amp;#34;delete&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;request&amp;#34;: {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;key&amp;#34;: &amp;#34;key2&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74"> ]&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="获取-actor-状态">获取 actor 状态&lt;/h3>
+&lt;p>使用指定的键获取 actor 的状态。&lt;/p>
+&lt;h4 id="http-请求-2">HTTP 请求&lt;/h4>
+&lt;pre>&lt;code>GET http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/actors/&amp;lt;actorType&amp;gt;/&amp;lt;actorId&amp;gt;/state/&amp;lt;key&amp;gt;
+&lt;/code>&lt;/pre>&lt;h4 id="http-响应码-2">HTTP 响应码&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>代码&lt;/th>
+&lt;th>描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>200&lt;/td>
+&lt;td>请求成功&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>204&lt;/td>
+&lt;td>找不到键值，响应将为空&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>400&lt;/td>
+&lt;td>未找到 Actor&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>请求失败&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="url-参数-2">URL 参数&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>参数&lt;/th>
+&lt;th>描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>daprPort&lt;/td>
+&lt;td>Dapr 端口。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorType&lt;/td>
+&lt;td>Actor 类型。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorId&lt;/td>
+&lt;td>Actor ID&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>key&lt;/td>
+&lt;td>状态的 key&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>注意：所有的 URL 参数都是大小写敏感的。&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="示例-2">示例&lt;/h4>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl http://localhost:3500/v1.0/actors/stormtrooper/50/state/location &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>以上命令将返回状态:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;location&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;Alderaan&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="创建-actor-reminders">创建 actor reminders&lt;/h3>
+&lt;p>为 actor 创建一个持久化的 reminders。&lt;/p>
+&lt;h4 id="http-请求-3">HTTP 请求&lt;/h4>
+&lt;pre>&lt;code>POST/PUT http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/actors/&amp;lt;actorType&amp;gt;/&amp;lt;actorId&amp;gt;/reminders/&amp;lt;name&amp;gt;
+&lt;/code>&lt;/pre>&lt;p>Body:&lt;/p>
+&lt;p>以下指定 &lt;code>dueTime&lt;/code> 的 3 秒和 7 秒的句点。&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;dueTime&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;0h0m3s0ms&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;period&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;0h0m7s0ms&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>dueTime&lt;/code> 为0表示立即执行。 以下正文是指立即执行，然后每 9 秒钟再执行一次。&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;dueTime&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;0h0m0s0ms&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;period&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;0h0m9s0ms&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>要将 reminders 配置为仅触发一次，应将 period 设置为空字符串。 以下指定一个 &lt;code>dueTime&lt;/code> 3 秒，period 为空字符串，这意味着 reminders 将在 3 秒后立即执行，然后永远不会再次触发。&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;dueTime&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;0h0m3s0ms&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;period&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="http-响应码-3">HTTP 响应码&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>204&lt;/td>
+&lt;td>请求成功&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>请求失败&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>400&lt;/td>
+&lt;td>未找到 Actor 或格式不正确的请求&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="url-参数-3">URL 参数&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>参数&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>daprPort&lt;/td>
+&lt;td>Dapr 端口。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorType&lt;/td>
+&lt;td>Actor 类型。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorId&lt;/td>
+&lt;td>Actor ID&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>name&lt;/td>
+&lt;td>要创建 reminders 的名称。&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>注意：所有的 URL 参数都是大小写敏感的。&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="示例-3">示例&lt;/h4>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl http://localhost:3500/v1.0/actors/stormtrooper/50/reminders/checkRebels &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span>
+-d &lt;span style="color:#e6db74">&amp;#39;{
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;data&amp;#34;: &amp;#34;someData&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;dueTime&amp;#34;: &amp;#34;1m&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;period&amp;#34;: &amp;#34;20s&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="获取-actor-reminders">获取 actor reminders&lt;/h3>
+&lt;p>获取一个 actor 的 reminders。&lt;/p>
+&lt;h4 id="http-请求-4">HTTP 请求&lt;/h4>
+&lt;pre>&lt;code>GET http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/actors/&amp;lt;actorType&amp;gt;/&amp;lt;actorId&amp;gt;/reminders/&amp;lt;name&amp;gt;
+&lt;/code>&lt;/pre>&lt;h4 id="http-响应码-4">HTTP 响应码&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>200&lt;/td>
+&lt;td>请求成功&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>请求失败&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="url-参数-4">URL 参数&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>参数&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>daprPort&lt;/td>
+&lt;td>Dapr 端口。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorType&lt;/td>
+&lt;td>Actor 类型。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorId&lt;/td>
+&lt;td>The actor ID.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>name&lt;/td>
+&lt;td>要获取 reminders 的名称。&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>注意：所有的 URL 参数都是大小写敏感的。&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="示例-4">示例&lt;/h4>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl http://localhost:3500/v1.0/actors/stormtrooper/50/reminders/checkRebels &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>以上命令将返回 reminders:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;dueTime&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1s&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;period&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;5s&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;data&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;0&amp;#34;&lt;/span>,
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="删除-actor-reminders">删除 actor reminders&lt;/h3>
+&lt;p>删除一个 actor 的 reminders。&lt;/p>
+&lt;h4 id="http-请求-5">HTTP 请求&lt;/h4>
+&lt;pre>&lt;code>DELETE http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/actors/&amp;lt;actorType&amp;gt;/&amp;lt;actorId&amp;gt;/reminders/&amp;lt;name&amp;gt;
+&lt;/code>&lt;/pre>&lt;h4 id="http-响应码-5">HTTP 响应码&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>204&lt;/td>
+&lt;td>请求成功&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>请求失败&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="url-参数-5">URL 参数&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>参数&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>daprPort&lt;/td>
+&lt;td>Dapr 端口。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorType&lt;/td>
+&lt;td>Actor 类型。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorId&lt;/td>
+&lt;td>Actor ID&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>name&lt;/td>
+&lt;td>要删除 reminders 的名称。&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>注意：所有的 URL 参数都是大小写敏感的。&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="示例-5">示例&lt;/h4>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl http://localhost:3500/v1.0/actors/stormtrooper/50/reminders/checkRebels &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -X &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="创建-actor-timers">创建 Actor timers&lt;/h3>
+&lt;p>创建一个 actor 的 reminders。&lt;/p>
+&lt;h4 id="http-请求-6">HTTP 请求&lt;/h4>
+&lt;pre>&lt;code>POST/PUT http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/actors/&amp;lt;actorType&amp;gt;/&amp;lt;actorId&amp;gt;/timers/&amp;lt;name&amp;gt;
+&lt;/code>&lt;/pre>&lt;p>Body:&lt;/p>
+&lt;p>以下指定 &lt;code>dueTime&lt;/code> 的 3 秒和period 为 7 秒。&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;dueTime&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;0h0m3s0ms&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;period&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;0h0m7s0ms&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>dueTime&lt;/code> 为0表示立即执行。 以下正文是指立即执行，然后每 9 秒钟再执行一次。&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;dueTime&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;0h0m0s0ms&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;period&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;0h0m9s0ms&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="http-响应码-6">HTTP 响应码&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>204&lt;/td>
+&lt;td>请求成功&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>请求失败&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>400&lt;/td>
+&lt;td>Actor not found or malformed request&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="url-参数-6">URL 参数&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>参数&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>daprPort&lt;/td>
+&lt;td>Dapr 端口。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorType&lt;/td>
+&lt;td>Actor 类型。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorId&lt;/td>
+&lt;td>Actor ID&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>name&lt;/td>
+&lt;td>要创建 timer 的名称。&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>注意：所有的 URL 参数都是大小写敏感的。&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="示例-6">示例&lt;/h4>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl http://localhost:3500/v1.0/actors/stormtrooper/50/timers/checkRebels &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span>
+-d &lt;span style="color:#e6db74">&amp;#39;{
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;data&amp;#34;: &amp;#34;someData&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;dueTime&amp;#34;: &amp;#34;1m&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;period&amp;#34;: &amp;#34;20s&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;callback&amp;#34;: &amp;#34;myEventHandler&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="删除-actor-timers">删除 Actor timers&lt;/h3>
+&lt;p>删除一个 actor 的 timer。&lt;/p>
+&lt;h4 id="http-请求-7">HTTP 请求&lt;/h4>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-http" data-lang="http">&lt;span style="color:#960050;background-color:#1e0010">DELETE http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/actors/&amp;lt;actorType&amp;gt;/&amp;lt;actorId&amp;gt;/timers/&amp;lt;name&amp;gt;
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="http-响应码-7">HTTP 响应码&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>204&lt;/td>
+&lt;td>请求成功&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>请求失败&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="url-参数-7">URL 参数&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>参数&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>daprPort&lt;/td>
+&lt;td>Dapr 端口。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorType&lt;/td>
+&lt;td>Actor 类型。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorId&lt;/td>
+&lt;td>Actor ID&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>name&lt;/td>
+&lt;td>要删除 timer 的名称。&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>注意：所有的 URL 参数都是大小写敏感的。&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl http://localhost:3500/v1.0/actors/stormtrooper/50/timers/checkRebels &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -X &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="dapr-调用用户服务">Dapr 调用用户服务&lt;/h2>
+&lt;h3 id="获取注册的-actors">获取注册的 Actors&lt;/h3>
+&lt;p>获取此应用程序的注册的 Actors 类型和 Dapr actor 配置。&lt;/p>
+&lt;h4 id="http-请求-8">HTTP 请求&lt;/h4>
+&lt;pre>&lt;code>GET http://localhost:&amp;lt;appPort&amp;gt;/dapr/config
+&lt;/code>&lt;/pre>&lt;h4 id="http-响应码-8">HTTP 响应码&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>200&lt;/td>
+&lt;td>请求成功&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>请求失败&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="url-参数-8">URL 参数&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>参数&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>appPort&lt;/td>
+&lt;td>应用程序端口&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="示例-7">示例&lt;/h4>
+&lt;p>获取注册的 Actors 的示例:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X GET http://localhost:3000/dapr/config &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>以上命令返回配置 ( 所有字段都是可选的):&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>参数&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>entities&lt;/td>
+&lt;td>此应用程序支持的 actor 类型。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorIdleTimeout&lt;/td>
+&lt;td>指定在取消激活空闲 actor 之前要等待的时间。 如果没有 actor 方法被调用，并且没有触发任何 reminders ，那么 actor 将处于空闲状态。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorScanInterval&lt;/td>
+&lt;td>指定扫描 Actors 以停用空闲 Actors 的频率时间间隔。 Actors 时间超过 actorIdleTimeout 的 Actors 将被取消激活。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>drainOngoingCallTimeout&lt;/td>
+&lt;td>在进行 Actor 重定位时使用的时间间隔。 这指定等待当前活动 actor 方法完成多长时间。 如果没有当前 actor 方法调用，那么将忽略此时间。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>drainRebalancedActors&lt;/td>
+&lt;td>布尔值。 如果为 true ，那么 Dapr 将等待 &lt;code>drainOngoingCallTimeout&lt;/code> 以允许当前 actor 调用完成，然后再尝试停用 actor。 如果为 false ，则不会等待。&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;entities&amp;#34;&lt;/span>:[&lt;span style="color:#e6db74">&amp;#34;actorType1&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;actorType2&amp;#34;&lt;/span>],
+&lt;span style="color:#f92672">&amp;#34;actorIdleTimeout&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1h&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;actorScanInterval&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;30s&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;drainOngoingCallTimeout&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;30s&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;drainRebalancedActors&amp;#34;&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="停用-actor">停用 actor&lt;/h3>
+&lt;p>通过将 指定 actor Id 的 actor 保留到状态存储与来停用 actor&lt;/p>
+&lt;h4 id="http-请求-9">HTTP 请求&lt;/h4>
+&lt;pre>&lt;code>DELETE http://localhost:&amp;lt;appPort&amp;gt;/actors/&amp;lt;actorType&amp;gt;/&amp;lt;actorId&amp;gt;
+&lt;/code>&lt;/pre>&lt;h4 id="http-响应码-9">HTTP 响应码&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>200&lt;/td>
+&lt;td>请求成功&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>请求失败&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>404&lt;/td>
+&lt;td>未找到 Actor&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="url-参数-9">URL 参数&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>参数&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>appPort&lt;/td>
+&lt;td>应用程序端口&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorType&lt;/td>
+&lt;td>Actor 类型。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorId&lt;/td>
+&lt;td>Actor ID&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>注意：所有的 URL 参数都是大小写敏感的。&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="示例-8">示例&lt;/h4>
+&lt;p>取消激活 actor 的示例: 该示例取消激活 actorId 为 50 的 actor 类型为 stormtrooper&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X DELETE http://localhost:3000/actors/stormtrooper/50 &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="调用-actor-方法-1">调用 actor 方法&lt;/h3>
+&lt;p>调用具有指定 methodName 的 actor 的方法，其中方法的参数传递到请求消息的主体中，并在响应消息的主体中提供返回值。 如果 actor 尚未运行，那么应用程序方应先&lt;a href="#activating-an-actor">激活&lt;/a>它。&lt;/p>
+&lt;h4 id="http-请求-10">HTTP 请求&lt;/h4>
+&lt;pre>&lt;code>PUT http://localhost:&amp;lt;appPort&amp;gt;/actors/&amp;lt;actorType&amp;gt;/&amp;lt;actorId&amp;gt;/method/&amp;lt;methodName&amp;gt;
+&lt;/code>&lt;/pre>&lt;h4 id="http-响应码-10">HTTP 响应码&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>200&lt;/td>
+&lt;td>请求成功&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>请求失败&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>404&lt;/td>
+&lt;td>未找到 Actor&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="url-参数-10">URL 参数&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>参数&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>appPort&lt;/td>
+&lt;td>应用程序端口&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorType&lt;/td>
+&lt;td>Actor 类型。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorId&lt;/td>
+&lt;td>Actor ID&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>methodName&lt;/td>
+&lt;td>要调用的方法的名称。&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>注意：所有的 URL 参数都是大小写敏感的。&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="示例-9">示例&lt;/h4>
+&lt;p>对 actor 调用方法的示例: 该示例调用 actorId 为 50 的 actor 类型 stormtrooper上的 performAction 方法&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X POST http://localhost:3000/actors/stormtrooper/50/method/performAction &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="调用-reminders">调用 reminders&lt;/h3>
+&lt;p>调用具有指定的 reminderName 的 actor 的 reminders。 如果 actor 尚未运行，那么应用程序方应先&lt;a href="#activating-an-actor">激活&lt;/a>它。&lt;/p>
+&lt;h4 id="http-请求-11">HTTP 请求&lt;/h4>
+&lt;pre>&lt;code>PUT http://localhost:&amp;lt;appPort&amp;gt;/actors/&amp;lt;actorType&amp;gt;/&amp;lt;actorId&amp;gt;/method/remind/&amp;lt;reminderName&amp;gt;
+&lt;/code>&lt;/pre>&lt;h4 id="http-响应码-11">HTTP 响应码&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>200&lt;/td>
+&lt;td>请求成功&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>请求失败&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>404&lt;/td>
+&lt;td>未找到 Actor&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="url-参数-11">URL 参数&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>参数&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>appPort&lt;/td>
+&lt;td>应用程序端口&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorType&lt;/td>
+&lt;td>Actor 类型。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorId&lt;/td>
+&lt;td>Actor ID&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>reminderName&lt;/td>
+&lt;td>要调用 reminders 的名称。&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>注意：所有的 URL 参数都是大小写敏感的。&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="示例-10">示例&lt;/h4>
+&lt;p>对 actor 调用 reminders 的示例: 该示例调用 actorId 为 50 的参与者类型 stormtrooper 上的 checkRebels reminders 方法&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X POST http://localhost:3000/actors/stormtrooper/50/method/remind/checkRebels &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="调用-timer">调用 timer&lt;/h3>
+&lt;p>为具有指定 timerName 的 actor 调用 timer。 如果 actor 尚未运行，那么应用程序方应先&lt;a href="#activating-an-actor">激活&lt;/a>它。&lt;/p>
+&lt;h4 id="http-请求-12">HTTP 请求&lt;/h4>
+&lt;pre>&lt;code>PUT http://localhost:&amp;lt;appPort&amp;gt;/actors/&amp;lt;actorType&amp;gt;/&amp;lt;actorId&amp;gt;/method/timer/&amp;lt;timerName&amp;gt;
+&lt;/code>&lt;/pre>&lt;h4 id="http-响应码-12">HTTP 响应码&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>200&lt;/td>
+&lt;td>请求成功&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>请求失败&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>404&lt;/td>
+&lt;td>未找到 Actor&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="url-参数-12">URL 参数&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>参数&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>appPort&lt;/td>
+&lt;td>应用程序端口&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorType&lt;/td>
+&lt;td>Actor 类型。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorId&lt;/td>
+&lt;td>Actor ID&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>timerName&lt;/td>
+&lt;td>要调用 timer 的名称。&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>注意：所有的 URL 参数都是大小写敏感的。&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="示例-11">示例&lt;/h4>
+&lt;p>为 actor 调用 timer 的示例: 该示例调用 actorId 为 50 的 actor 类型 stormtrooper 上的 checkRebels timer 方法&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X POST http://localhost:3000/actors/stormtrooper/50/method/timer/checkRebels &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="健康检查">健康检查&lt;/h3>
+&lt;p>探测应用程序以响应向 Dapr 发送的信号，用于表征该应用程序运行正常与否。 除了 &lt;code>200&lt;/code> 以外的任何其他响应状态代码将被视为不健康的响应。&lt;/p>
+&lt;p>不需要响应主体。&lt;/p>
+&lt;h4 id="http-请求-13">HTTP 请求&lt;/h4>
+&lt;pre>&lt;code>GET http://localhost:&amp;lt;appPort&amp;gt;/healthz
+&lt;/code>&lt;/pre>&lt;h4 id="http-响应码-13">HTTP 响应码&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>200&lt;/td>
+&lt;td>应用程序是健康的&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="url-参数-13">URL 参数&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>参数&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>appPort&lt;/td>
+&lt;td>应用程序端口&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="示例-12">示例&lt;/h4>
+&lt;p>从应用程序获取健康检查响应的示例：&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X GET http://localhost:3000/healthz &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="激活-actor">激活 Actor&lt;/h2>
+&lt;p>在概念上，激活 actor 意味着创建 actor 的对象并将 actor 添加到跟踪表。 下面是一个 &lt;a href="https://github.com/dapr/dotnet-sdk/blob/6c271262231c41b21f3ca866eb0d55f7ce8b7dbc/src/Dapr.Actors/Runtime/ActorManager.cs#L199">.NET SDK&lt;/a> 的一个示例。&lt;/p>
+&lt;h2 id="外部查询-actor-状态">外部查询 actor 状态&lt;/h2>
+&lt;p>为了启用对 actor 状态的可见性并允许复杂的方案（如状态聚合），Dapr 在外部状态存储（如数据库）中保存 actor 状态。 因此，可以通过组成正确的键或查询来外部查询 actor 状态。&lt;/p>
+&lt;p>由 Dapr 为 Actors 创建的状态名称空间由以下项组成:&lt;/p>
+&lt;ul>
+&lt;li>App ID - 表示给 Dapr 应用程序的唯一 ID。&lt;/li>
+&lt;li>Actor 类型 - 表示 actor 的类型。&lt;/li>
+&lt;li>Actor ID - 代表 actor 类型的 actor 实例的唯一ID。&lt;/li>
+&lt;li>Key - 特定状态值的键。 Actor ID 标识可以保存多个状态键。&lt;/li>
+&lt;/ul>
+&lt;p>下面的示例演示如何在 &lt;code>myapp&lt;/code> 应用程序 ID 命名空间下为 actor 实例的状态构造状态名称空间： &lt;code>myapp||cat||hobbit||food&lt;/code>&lt;/p>
+&lt;p>在以上示例中，我们在 &lt;code>myapp&lt;/code> 的应用标识名称空间下，为 actor ID 为 &lt;code>hobbit&lt;/code> ( actor 类型为 &lt;code>cat&lt;/code>) 获取状态键 &lt;code>food&lt;/code>的值。&lt;/p></description></item><item><title>Reference: Secrets API reference</title><link>https://docs.dapr.io/zh-hans/reference/api/secrets_api/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/zh-hans/reference/api/secrets_api/</guid><description>
+&lt;h2 id="get-secret">Get Secret&lt;/h2>
+&lt;p>This endpoint lets you get the value of a secret for a given secret store.&lt;/p>
+&lt;h3 id="http-request">HTTP Request&lt;/h3>
+&lt;pre>&lt;code>GET http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/secrets/&amp;lt;secret-store-name&amp;gt;/&amp;lt;name&amp;gt;
+&lt;/code>&lt;/pre>&lt;h4 id="url-parameters">URL Parameters&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>daprPort&lt;/td>
+&lt;td>the Dapr port&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>secret-store-name&lt;/td>
+&lt;td>the name of the secret store to get the secret from&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>name&lt;/td>
+&lt;td>the name of the secret to get&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>注意：所有的 URL 参数都是大小写敏感的。&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="query-parameters">Query Parameters&lt;/h4>
+&lt;p>Some secret stores have &lt;strong>optional&lt;/strong> metadata properties. metadata is populated using query parameters: metadata is populated using query parameters: metadata is populated using query parameters:&lt;/p>
+&lt;pre>&lt;code>GET http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/secrets/&amp;lt;secret-store-name&amp;gt;/&amp;lt;name&amp;gt;?metadata.version_id=15
+&lt;/code>&lt;/pre>&lt;h5 id="gcp-secret-manager">GCP Secret Manager&lt;/h5>
+&lt;p>The following optional meta can be provided to the GCP Secret Manager component&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Query Parameter&lt;/th>
+&lt;th>描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>metadata.version_id&lt;/td>
+&lt;td>version for the given secret key&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h5 id="aws-secret-manager">AWS Secret Manager&lt;/h5>
+&lt;p>The following optional meta can be provided to the AWS Secret Manager component&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Query Parameter&lt;/th>
+&lt;th>描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>metadata.version_id&lt;/td>
+&lt;td>version for the given secret key&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>metadata.version_stage&lt;/td>
+&lt;td>version stage for the given secret key&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="http-response">HTTP Response&lt;/h3>
+&lt;h4 id="response-body">Response Body&lt;/h4>
+&lt;p>If a secret store has support for multiple keys in a secret, a JSON payload is returned with the key names as fields and their respective values.&lt;/p>
+&lt;p>In case of a secret store that only has name/value semantics, a JSON payload is returned with the name of the secret as the field and the value of the secret as the value.&lt;/p>
+&lt;h5 id="response-with-multiple-keys-in-a-secret-eg-kubernetes">Response with multiple keys in a secret (eg. Kubernetes):&lt;/h5>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl http://localhost:3500/v1.0/secrets/kubernetes/db-secret
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;key1&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;value1&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;key2&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;value2&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h5 id="response-with-no-keys-in-a-secret">Response with no keys in a secret:&lt;/h5>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl http://localhost:3500/v1.0/secrets/vault/db-secret
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;db-secret&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;value1&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="response-codes">Response Codes&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>200&lt;/td>
+&lt;td>OK&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>204&lt;/td>
+&lt;td>Secret not found&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>400&lt;/td>
+&lt;td>Secret store is missing or misconfigured&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>403&lt;/td>
+&lt;td>Access denied&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>Failed to get secret or no secret stores defined&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="examples">Examples&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl http://localhost:3500/v1.0/secrets/vault/db-secret &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl http://localhost:3500/v1.0/secrets/vault/db-secret?metadata.version_id&lt;span style="color:#f92672">=&lt;/span>15&amp;amp;metadata.version_stage&lt;span style="color:#f92672">=&lt;/span>AAA &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>Note, in case of deploying into namespace other than default&lt;code>, the above query will also have to include the namespace metadata (e.g.&lt;/code>production` below)&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl http://localhost:3500/v1.0/secrets/vault/db-secret?metadata.version_id&lt;span style="color:#f92672">=&lt;/span>15&amp;amp;?metadata.namespace&lt;span style="color:#f92672">=&lt;/span>production
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="get-bulk-secret">Get Bulk Secret&lt;/h2>
+&lt;p>This endpoint lets you get all the secrets in a secret store. This endpoint lets you get all the secrets in a secret store. This endpoint lets you get all the secrets in a secret store. It&amp;rsquo;s recommended to use &lt;a href="%7B%7BX47X%7D%7D">token authentication&lt;/a> for Dapr if configuring a secret store.&lt;/p>
+&lt;h3 id="http-请求">HTTP 请求&lt;/h3>
+&lt;pre>&lt;code>GET http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/secrets/&amp;lt;secret-store-name&amp;gt;/bulk
+&lt;/code>&lt;/pre>&lt;h4 id="url-参数">URL 参数&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>daprPort&lt;/td>
+&lt;td>the Dapr port&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>secret-store-name&lt;/td>
+&lt;td>the name of the secret store to get the secret from&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>注意：所有的 URL 参数都是大小写敏感的。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="http-response-1">HTTP Response&lt;/h3>
+&lt;h4 id="response-body-1">Response Body&lt;/h4>
+&lt;p>The returned response is a JSON containing the secrets. The returned response is a JSON containing the secrets. The JSON object will contain the secret names as fields and a map of secret keys and values as the field value. The JSON object will contain the secret names as fields and a map of secret keys and values as the field value.&lt;/p>
+&lt;h5 id="response-with-multiple-secrets-and-multiple-key--values-in-a-secret-eg-kubernetes">Response with multiple secrets and multiple key / values in a secret (eg. Kubernetes):&lt;/h5>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl http://localhost:3500/v1.0/secrets/kubernetes/bulk
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;secret1&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;key1&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;value1&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;key2&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;value2&amp;#34;&lt;/span>
+},
+&lt;span style="color:#f92672">&amp;#34;secret2&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;key3&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;value3&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;key4&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;value4&amp;#34;&lt;/span>
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="response-codes-1">Response Codes&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>200&lt;/td>
+&lt;td>OK&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>400&lt;/td>
+&lt;td>Secret store is missing or misconfigured&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>403&lt;/td>
+&lt;td>Access denied&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>Failed to get secret or no secret stores defined&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="examples-1">Examples&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl http://localhost:3500/v1.0/secrets/vault/bulk &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;key1&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;key1&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;value1&amp;#34;&lt;/span>
+},
+&lt;span style="color:#f92672">&amp;#34;key2&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;key2&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;value2&amp;#34;&lt;/span>
+}
+}
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: Health API reference</title><link>https://docs.dapr.io/zh-hans/reference/api/health_api/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/zh-hans/reference/api/health_api/</guid><description>
+&lt;p>Dapr provides health checking probes that can be used as readiness or liveness of Dapr.&lt;/p>
+&lt;h2 id="get-dapr-health-state">Get Dapr health state&lt;/h2>
+&lt;p>Gets the health state for Dapr.&lt;/p>
+&lt;h3 id="http-request">HTTP Request&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-http" data-lang="http">&lt;span style="color:#960050;background-color:#1e0010">GET http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/healthz
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="http-response-codes">HTTP Response Codes&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>代码&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>204&lt;/td>
+&lt;td>dapr is healthy&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>dapr is not healthy&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="url-parameters">URL Parameters&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>参数&lt;/th>
+&lt;th>描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>daprPort&lt;/td>
+&lt;td>Dapr 端口。&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="examples">Examples&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl http://localhost:3500/v1.0/healthz
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: Metadata API reference</title><link>https://docs.dapr.io/zh-hans/reference/api/metadata_api/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/zh-hans/reference/api/metadata_api/</guid><description>
+&lt;p>Dapr has a metadata API that returns information about the sidecar allowing runtime discoverability. The metadata endpoint returns among other things, a list of the components loaded and the activated actors (if present). The metadata endpoint returns among other things, a list of the components loaded and the activated actors (if present). The metadata endpoint returns among other things, a list of the components loaded and the activated actors (if present).&lt;/p>
+&lt;p>The Dapr metadata API also allows you to store additional information in the format of key-value pairs.&lt;/p>
+&lt;p>Note: The Dapr metatada endpoint is for instance being used by the Dapr CLI when running dapr in standalone mode to store the PID of the process hosting the sidecar and the command used to run the application.&lt;/p>
+&lt;h2 id="get-the-dapr-sidecar-information">Get the Dapr sidecar information&lt;/h2>
+&lt;p>Gets the Dapr sidecar information provided by the Metadata Endpoint.&lt;/p>
+&lt;h3 id="http-request">HTTP Request&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-http" data-lang="http">&lt;span style="color:#960050;background-color:#1e0010">GET http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/metadata
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="url-parameters">URL Parameters&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>daprPort&lt;/td>
+&lt;td>The Dapr port.&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="http-response-codes">HTTP Response Codes&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>200&lt;/td>
+&lt;td>Metadata information returned&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>500&lt;/td>
+&lt;td>Dapr could not return the metadata information&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="http-response-body">HTTP Response Body&lt;/h3>
+&lt;p>&lt;strong>Metadata API Response Object&lt;/strong>&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th>Type&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>id&lt;/td>
+&lt;td>string&lt;/td>
+&lt;td>Application ID&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actors&lt;/td>
+&lt;td>&lt;a href="#metadataapiresponseactor">Metadata API Response Registered Actor&lt;/a>[]&lt;/td>
+&lt;td>A json encoded array of Registered Actors metadata.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>extended.attributeName&lt;/td>
+&lt;td>string&lt;/td>
+&lt;td>List of custom attributes as key-value pairs, where key is the attribute name.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>components&lt;/td>
+&lt;td>&lt;a href="#metadataapiresponsecomponent">Metadata API Response Component&lt;/a>[]&lt;/td>
+&lt;td>A json encoded array of loaded components metadata.&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>&lt;a id="metadataapiresponseactor">&lt;/a>&lt;strong>Metadata API Response Registered Actor&lt;/strong>&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th>Type&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>type&lt;/td>
+&lt;td>string&lt;/td>
+&lt;td>The registered actor type.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>count&lt;/td>
+&lt;td>integer&lt;/td>
+&lt;td>Number of actors running.&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>&lt;a id="metadataapiresponsecomponent">&lt;/a>&lt;strong>Metadata API Response Component&lt;/strong>&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th>Type&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>name&lt;/td>
+&lt;td>string&lt;/td>
+&lt;td>Name of the component.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>type&lt;/td>
+&lt;td>string&lt;/td>
+&lt;td>Component type.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>version&lt;/td>
+&lt;td>string&lt;/td>
+&lt;td>Component version.&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="examples">Examples&lt;/h3>
+&lt;p>Note: This example is based on the Actor sample provided in the &lt;a href="https://github.com/dapr/python-sdk/tree/master/examples/demo_actor">Dapr SDK for Python&lt;/a>.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl http://localhost:3500/v1.0/metadata
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;id&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;demo-actor&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;actors&amp;#34;&lt;/span>:[
+{
+&lt;span style="color:#f92672">&amp;#34;type&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;DemoActor&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;count&amp;#34;&lt;/span>:&lt;span style="color:#ae81ff">1&lt;/span>
+}
+],
+&lt;span style="color:#f92672">&amp;#34;extended&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;cliPID&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;1031040&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;appCommand&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;uvicorn --port 3000 demo_actor_service:app&amp;#34;&lt;/span>
+},
+&lt;span style="color:#f92672">&amp;#34;components&amp;#34;&lt;/span>:[
+{
+&lt;span style="color:#f92672">&amp;#34;name&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;pubsub&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;type&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;pubsub.redis&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;version&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+},
+{
+&lt;span style="color:#f92672">&amp;#34;name&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;statestore&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;type&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;state.redis&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;version&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+}
+]
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="add-a-custom-attribute-to-the-dapr-sidecar-information">Add a custom attribute to the Dapr sidecar information&lt;/h2>
+&lt;p>Adds a custom attribute to the Dapr sidecar information stored by the Metadata Endpoint.&lt;/p>
+&lt;h3 id="http-request-1">HTTP Request&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-http" data-lang="http">&lt;span style="color:#960050;background-color:#1e0010">PUT http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/metadata/attributeName
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="url-参数">URL 参数&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>参数&lt;/th>
+&lt;th>描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>daprPort&lt;/td>
+&lt;td>Dapr 端口。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>attributeName&lt;/td>
+&lt;td>Custom attribute name. Custom attribute name. Custom attribute name. This is they key name in the key-value pair.&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="http-request-body">HTTP Request Body&lt;/h3>
+&lt;p>In the request you need to pass the custom attribute value as RAW data:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;Content-Type&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;text/plain&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Within the body of the request place the custom attribute value you want to store:&lt;/p>
+&lt;pre>&lt;code>attributeValue
+&lt;/code>&lt;/pre>&lt;h3 id="http-response-codes-1">HTTP Response Codes&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>204&lt;/td>
+&lt;td>Custom attribute added to the metadata information&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="examples-1">Examples&lt;/h3>
+&lt;p>Note: This example is based on the Actor sample provided in the &lt;a href="https://github.com/dapr/python-sdk/tree/master/examples/demo_actor">Dapr SDK for Python&lt;/a>.&lt;/p>
+&lt;p>Add a custom attribute to the metadata endpoint:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X PUT -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: text/plain&amp;#34;&lt;/span> --data &lt;span style="color:#e6db74">&amp;#34;myDemoAttributeValue&amp;#34;&lt;/span> http://localhost:3500/v1.0/metadata/myDemoAttribute
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Get the metadata information to confirm your custom attribute was added:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;id&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;demo-actor&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;actors&amp;#34;&lt;/span>:[
+{
+&lt;span style="color:#f92672">&amp;#34;type&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;DemoActor&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;count&amp;#34;&lt;/span>:&lt;span style="color:#ae81ff">1&lt;/span>
+}
+],
+&lt;span style="color:#f92672">&amp;#34;extended&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;myDemoAttribute&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;myDemoAttributeValue&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;cliPID&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;1031040&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;appCommand&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;uvicorn --port 3000 demo_actor_service:app&amp;#34;&lt;/span>
+},
+&lt;span style="color:#f92672">&amp;#34;components&amp;#34;&lt;/span>:[
+{
+&lt;span style="color:#f92672">&amp;#34;name&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;pubsub&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;type&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;pubsub.redis&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;version&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+},
+{
+&lt;span style="color:#f92672">&amp;#34;name&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;statestore&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;type&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;state.redis&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;version&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+}
+]
+}
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: API返回的错误代码</title><link>https://docs.dapr.io/zh-hans/reference/api/error_codes/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/zh-hans/reference/api/error_codes/</guid><description>
+&lt;p>For http calls made to Dapr runtime, when an error is encountered, an error json is returned in http response body. The json contains an error code and an descriptive error message, e.g. Json 包含错误代码和描述性错误消息，例如 Json 包含错误代码和描述性错误消息，例如&lt;/p>
+&lt;pre>&lt;code>{
+&amp;quot;errorCode&amp;quot;: &amp;quot;ERR_STATE_GET&amp;quot;,
+&amp;quot;message&amp;quot;: &amp;quot;Requested state key does not exist in state store.&amp;quot;
+}
+}
+}
+&lt;/code>&lt;/pre>&lt;p>下表列出了 Dapr 运行时返回的错误代码：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>错误代码&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>ERR_ACTOR_INSTANCE_MISSING&lt;/td>
+&lt;td>获取 actor 实例时出错。 Error getting an actor instance. This means that actor is now hosted in some other service replica.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_ACTOR_RUNTIME_NOT_FOUND&lt;/td>
+&lt;td>获取 actor 实例时出错。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_ACTOR_REMINDER_CREATE&lt;/td>
+&lt;td>为 actor 创建 reminders 时出错。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_ACTOR_REMINDER_DELETE&lt;/td>
+&lt;td>删除 actor 的 reminders 时出错。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_ACTOR_TIMER_CREATE&lt;/td>
+&lt;td>为 actor 创建 timer 时出错。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_ACTOR_TIMER_DELETE&lt;/td>
+&lt;td>删除 actor 的 timer 时出错。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_ACTOR_REMINDER_GET&lt;/td>
+&lt;td>获取 actor 的 reminders 时出错。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_ACTOR_INVOKE_METHOD&lt;/td>
+&lt;td>对 actor 调用方法时出错。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_ACTOR_STATE_DELETE&lt;/td>
+&lt;td>删除 actor 状态时出错。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_ACTOR_STATE_GET&lt;/td>
+&lt;td>获取 actor 的状态时出错。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_ACTOR_STATE_TRANSACTION_SAVE&lt;/td>
+&lt;td>存储 actor 状态时事务出错。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_PUBSUB_NOT_FOUND&lt;/td>
+&lt;td>引用 Dapr 运行时中的 Pub/Sub 组件时出错。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_PUBSUB_PUBLISH_MESSAGE&lt;/td>
+&lt;td>发布消息时出错。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_PUBSUB_FORBIDDEN&lt;/td>
+&lt;td>Error message forbidden by access controls.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_PUBSUB_CLOUD_EVENTS_SER&lt;/td>
+&lt;td>Error serializing Pub/Sub event envelope.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_STATE_STORE_NOT_FOUND&lt;/td>
+&lt;td>Error referencing a state store not found.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_STATE_STORES_NOT_CONFIGURED&lt;/td>
+&lt;td>Error no state stores configured.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_NOT_SUPPORTED_STATE_OPERATION&lt;/td>
+&lt;td>Error transaction requested on a state store with no transaction support.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_STATE_GET&lt;/td>
+&lt;td>Error getting a state for state store.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_STATE_DELETE&lt;/td>
+&lt;td>Error deleting a state from state store.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_STATE_SAVE&lt;/td>
+&lt;td>Error saving a state in state store.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_INVOKE_OUTPUT_BINDING&lt;/td>
+&lt;td>Error invoking an output binding.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_MALFORMED_REQUEST&lt;/td>
+&lt;td>Error with a malformed request.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_DIRECT_INVOKE&lt;/td>
+&lt;td>Error in direct invocation.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_DESERIALIZE_HTTP_BODY&lt;/td>
+&lt;td>Error deserializing an HTTP request body.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_SECRET_STORES_NOT_CONFIGURED&lt;/td>
+&lt;td>Error that no secret store is configured.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_SECRET_STORE_NOT_FOUND&lt;/td>
+&lt;td>Error that specified secret store is not found.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_HEALTH_NOT_READY&lt;/td>
+&lt;td>Error that Dapr is not ready.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ERR_METADATA_GET&lt;/td>
+&lt;td>Error parsing the Metadata information.&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table></description></item></channel></rss>

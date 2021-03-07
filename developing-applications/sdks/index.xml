@@ -1,4 +1,52 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – Dapr Software Development Kits (SDKs)</title><link>https://dapr-cn.github.io/developing-applications/sdks/</link><description>Recent content in Dapr Software Development Kits (SDKs) on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh</language><atom:link href="https://dapr-cn.github.io/developing-applications/sdks/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Dapr PHP SDK</title><link>https://dapr-cn.github.io/developing-applications/sdks/php/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/sdks/php/</guid><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr Docs – Dapr Software Development Kits (SDKs)</title><link>https://docs.dapr.io/developing-applications/sdks/</link><description>Recent content in Dapr Software Development Kits (SDKs) on Dapr Docs</description><generator>Hugo -- gohugo.io</generator><language>zh-hans</language><atom:link href="https://docs.dapr.io/developing-applications/sdks/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Dapr .NET SDK</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/dotnet/</guid><description>
+&lt;p>Dapr offers a variety of packages to help with the development of .NET applications. Using them you can create .NET clients, servers, and virtual actors with Dapr.&lt;/p>
+&lt;div class="card-deck">
+&lt;div class="card">
+&lt;div class="card-body">
+&lt;h5 class="card-title">&lt;b>Client&lt;/b>&lt;/h5>
+&lt;p class="card-text">Create .NET clients that interact with a Dapr sidecar and other Dapr applications.&lt;/p>
+&lt;a href="https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-client/" class="stretched-link">&lt;/a>
+&lt;/div>
+&lt;/div>
+&lt;div class="card">
+&lt;div class="card-body">
+&lt;h5 class="card-title">&lt;b>Server&lt;/b>&lt;/h5>
+&lt;p class="card-text">Write servers and services in .NET using the Dapr SDK. Includes support for ASP.NET.&lt;/p>
+&lt;a href="https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-server/" class="stretched-link">&lt;/a>
+&lt;/div>
+&lt;/div>
+&lt;div class="card">
+&lt;div class="card-body">
+&lt;h5 class="card-title">&lt;b>Actors&lt;/b>&lt;/h5>
+&lt;p class="card-text">Create virtual actors with state, reminders/timers, and methods in .NET.&lt;/p>
+&lt;a href="https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/" class="stretched-link">&lt;/a>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;br />
+&lt;div class="card-deck">
+&lt;div class="card">
+&lt;div class="card-body">
+&lt;h5 class="card-title">&lt;b>Examples&lt;/b>&lt;/h5>
+&lt;p class="card-text">Clone the .NET SDK repo to try out some of the examples and get started quickly.&lt;/p>
+&lt;a href="https://github.com/dapr/dotnet-sdk/tree/master/examples" class="stretched-link">&lt;/a>
+&lt;/div>
+&lt;/div>
+&lt;div class="card">
+&lt;div class="card-body">
+&lt;h5 class="card-title">&lt;b>Troubleshooting&lt;/b>&lt;/h5>
+&lt;p class="card-text">Detailed documentation on the Dapr API, CLI, bindings and more.&lt;/p>
+&lt;a href="https://docs.dapr.io/reference/" class="stretched-link">&lt;/a>
+&lt;/div>
+&lt;/div>
+&lt;div class="card">
+&lt;div class="card-body">
+&lt;h5 class="card-title">&lt;b>NuGet packages&lt;/b>&lt;/h5>
+&lt;p class="card-text">Dapr packages for adding the .NET SDKs to your .NET applications.&lt;/p>
+&lt;a href="https://www.nuget.org/profiles/dapr.io" class="stretched-link">&lt;/a>
+&lt;/div>
+&lt;/div>
+&lt;/div></description></item><item><title>Developing-Applications: Dapr PHP SDK</title><link>https://docs.dapr.io/developing-applications/sdks/php/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/php/</guid><description>
 &lt;p>Dapr offers an SDK to help with the development of PHP applications. Using it, you can create PHP clients, servers, and virtual actors with Dapr.&lt;/p>
 &lt;h2 id="setting-up">Setting up&lt;/h2>
 &lt;h3 id="prerequisites">Prerequisites&lt;/h3>
@@ -66,18 +114,18 @@ replacing &lt;code>world&lt;/code> with your name, a pet&amp;rsquo;s name, or wh
 &lt;h2 id="more-information">More Information&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://packagist.org/packages/dapr/php-sdk">Packagist&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/sdks/sdk-serialization/">Dapr SDK serialization&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Developing-Applications: Dapr Python SDK</title><link>https://dapr-cn.github.io/developing-applications/sdks/python/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/sdks/python/</guid><description>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/sdk-serialization/">Dapr SDK serialization&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Developing-Applications: Dapr Python SDK</title><link>https://docs.dapr.io/developing-applications/sdks/python/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/python/</guid><description>
 &lt;p>Dapr offers a variety of packages to help with the development of Python applications. Using them you can create Python clients, servers, and virtual actors with Dapr.&lt;/p>
 &lt;h2 id="available-packages">Available packages&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/sdks/python/python-client/">&lt;strong>Dapr client&lt;/strong>&lt;/a> for writing Python applications to interact with the Dapr sidecar and other Dapr applications&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/sdks/python/python-actor/">&lt;strong>Dapr actor&lt;/strong>&lt;/a> for creating for creating and interacting with stateful virtual actors in Python&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/sdks/python/python-sdk-extensions/">&lt;strong>Extensions&lt;/strong>&lt;/a> for adding Dapr capabilities to other Python frameworks
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/python/python-client/">&lt;strong>Dapr client&lt;/strong>&lt;/a> for writing Python applications to interact with the Dapr sidecar and other Dapr applications&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/python/python-actor/">&lt;strong>Dapr actor&lt;/strong>&lt;/a> for creating for creating and interacting with stateful virtual actors in Python&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/python/python-sdk-extensions/">&lt;strong>Extensions&lt;/strong>&lt;/a> for adding Dapr capabilities to other Python frameworks
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/sdks/python/python-sdk-extensions/python-grpc/">&lt;strong>gRPC extension&lt;/strong>&lt;/a> for creating a gRPC server with Dapr&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/sdks/python/python-sdk-extensions/python-fastapi/">&lt;strong>FastAPI extension&lt;/strong>&lt;/a> for adding Dapr actor capabilities to FastAPI applications&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/sdks/python/python-sdk-extensions/python-flask/">&lt;strong>Flask extension&lt;/strong>&lt;/a> for adding Dapr actor capabilities to Flask applications&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/python/python-sdk-extensions/python-grpc/">&lt;strong>gRPC extension&lt;/strong>&lt;/a> for creating a gRPC server with Dapr&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/python/python-sdk-extensions/python-fastapi/">&lt;strong>FastAPI extension&lt;/strong>&lt;/a> for adding Dapr actor capabilities to FastAPI applications&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/python/python-sdk-extensions/python-flask/">&lt;strong>Flask extension&lt;/strong>&lt;/a> for adding Dapr actor capabilities to Flask applications&lt;/li>
 &lt;/ul>
 &lt;/li>
 &lt;/ul>
@@ -111,8 +159,8 @@ The development package will contain features and behavior that will be compatib
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="more-information">More information&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://pypi.org/user/dapr.io/">Python Package Index (PyPI)&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/sdks/sdk-serialization/">Dapr SDK serialization&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Developing-Applications: Serialization in Dapr's SDKs</title><link>https://dapr-cn.github.io/developing-applications/sdks/sdk-serialization/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/sdks/sdk-serialization/</guid><description>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/sdk-serialization/">Dapr SDK serialization&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Developing-Applications: Serialization in Dapr's SDKs</title><link>https://docs.dapr.io/developing-applications/sdks/sdk-serialization/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/sdk-serialization/</guid><description>
 &lt;p>An SDK for Dapr should provide serialization for two use cases. First, for API objects sent through request and response payloads. Second, for objects to be persisted. For both these use cases, a default serialization is provided. In the Java SDK, it is the &lt;a href="https://dapr.github.io/java-sdk/io/dapr/serializer/DefaultObjectSerializer.html">DefaultObjectSerializer&lt;/a> class, providing JSON serialization.&lt;/p>
 &lt;h2 id="service-invocation">Service invocation&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java"> DaprClient client &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#66d9ef">new&lt;/span> DaprClientBuilder&lt;span style="color:#f92672">()).&lt;/span>&lt;span style="color:#a6e22e">build&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
@@ -191,7 +239,7 @@ System&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">o
 &lt;p>The default serializer for Dapr is a JSON serializer with the following expectations:&lt;/p>
 &lt;ol>
 &lt;li>Use of basic &lt;a href="https://www.w3schools.com/js/js_json_datatypes.asp">JSON data types&lt;/a> for cross-language and cross-platform compatibility: string, number, array, boolean, null and another JSON object. Every complex property type in application&amp;rsquo;s serializable objects (DateTime, for example), should be represented as one of the JSON&amp;rsquo;s basic types.&lt;/li>
-&lt;li>Data persisted with the default serializer should be saved as JSON objects too, without extra quotes or encoding. The example below shows how a string and a JSON object would look like in a Redis store. The example below shows how a string and a JSON object would look like in a Redis store.&lt;/li>
+&lt;li>Data persisted with the default serializer should be saved as JSON objects too, without extra quotes or encoding. The example below shows how a string and a JSON object would look like in a Redis store.&lt;/li>
 &lt;/ol>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">redis-cli MGET &lt;span style="color:#e6db74">&amp;#34;ActorStateIT_StatefulActorService||StatefulActorTest||1581130928192||message
 &lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span>This is a message to be saved and retrieved.&lt;span style="color:#e6db74">&amp;#34;

@@ -1,10 +1,13 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – Securing Dapr deployments</title><link>https://dapr-cn.github.io/operations/security/</link><description>Recent content in Securing Dapr deployments on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh</language><atom:link href="https://dapr-cn.github.io/operations/security/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: Setup &amp; configure mutual TLS</title><link>https://dapr-cn.github.io/operations/security/mtls/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/security/mtls/</guid><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr Docs – Securing Dapr deployments</title><link>https://docs.dapr.io/operations/security/</link><description>Recent content in Securing Dapr deployments on Dapr Docs</description><generator>Hugo -- gohugo.io</generator><language>zh-hans</language><atom:link href="https://docs.dapr.io/operations/security/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: Setup &amp; configure mutual TLS</title><link>https://docs.dapr.io/operations/security/mtls/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/security/mtls/</guid><description>
 &lt;p>Dapr supports in-transit encryption of communication between Dapr instances using Sentry, a central Certificate Authority.&lt;/p>
 &lt;p>Dapr allows operators and developers to bring in their own certificates, or let Dapr automatically create and persist self signed root and issuer certificates.&lt;/p>
-&lt;p>For detailed information on mTLS, go to the concepts section &lt;a href="https://dapr-cn.github.io/concepts/security-concept/">here&lt;/a>.&lt;/p>
-&lt;p>If custom certificates have not been provided, Dapr will automatically create and persist self signed certs valid for one year. In Kubernetes, the certs are persisted to a secret that resides in the namespace of the Dapr system pods, accessible only to them. In Self Hosted mode, the certs are persisted to disk. More information on that is shown below.&lt;/p>
+&lt;p>For detailed information on mTLS, go to the concepts section &lt;a href="https://docs.dapr.io/concepts/security-concept/">here&lt;/a>.&lt;/p>
+&lt;p>If custom certificates have not been provided, Dapr will automatically create and persist self signed certs valid for one year.
+In Kubernetes, the certs are persisted to a secret that resides in the namespace of the Dapr system pods, accessible only to them.
+In Self Hosted mode, the certs are persisted to disk. More information on that is shown below.&lt;/p>
 &lt;h2 id="sentry-configuration">Sentry configuration&lt;/h2>
-&lt;p>mTLS settings reside in a Dapr configuration file. The following file shows all the available settings for mTLS in a configuration resource:&lt;/p>
+&lt;p>mTLS settings reside in a Dapr configuration file.
+The following file shows all the available settings for mTLS in a configuration resource:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -18,7 +21,8 @@
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>The file here shows the default &lt;code>daprsystem&lt;/code> configuration settings. The examples below show you how to change and apply this configuration to Sentry in Kubernetes and Self hosted modes.&lt;/p>
 &lt;h2 id="kubernetes">Kubernetes&lt;/h2>
 &lt;h3 id="setting-up-mtls-with-the-configuration-resource">Setting up mTLS with the configuration resource&lt;/h3>
-&lt;p>In Kubernetes, Dapr creates a default configuration resource with mTLS enabled. Sentry, the certificate authority system pod, is installed both with Helm and with the Dapr CLI using &lt;code>dapr init --kubernetes&lt;/code>.&lt;/p>
+&lt;p>In Kubernetes, Dapr creates a default configuration resource with mTLS enabled.
+Sentry, the certificate authority system pod, is installed both with Helm and with the Dapr CLI using &lt;code>dapr init --kubernetes&lt;/code>.&lt;/p>
 &lt;p>You can view the configuration resource with the following command:&lt;/p>
 &lt;p>&lt;code>kubectl get configurations/daprsystem --namespace &amp;lt;DAPR_NAMESPACE&amp;gt; -o yaml&lt;/code>.&lt;/p>
 &lt;p>To make changes to the configuration resource, you can run the following command to edit it:&lt;/p>
@@ -60,10 +64,13 @@ helm install &lt;span style="color:#ae81ff">\
 &lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="updating-root-or-issuer-certs">Updating Root or Issuer Certs&lt;/h3>
 &lt;p>If the Root or Issuer certs are about to expire, you can update them and restart the required system services.&lt;/p>
 &lt;p>First, issue new certificates using the step above in &lt;a href="#bringing-your-own-certificates">Bringing your own certificates&lt;/a>.&lt;/p>
-&lt;p>Now that you have the new certificates, you can update the Kubernetes secret that holds them. Edit the Kubernetes secret:&lt;/p>
+&lt;p>Now that you have the new certificates, you can update the Kubernetes secret that holds them.
+Edit the Kubernetes secret:&lt;/p>
 &lt;pre>&lt;code>kubectl edit secret dapr-trust-bundle -n &amp;lt;DAPR_NAMESPACE&amp;gt;
-&lt;/code>&lt;/pre>&lt;p>Replace the &lt;code>ca.crt&lt;/code>, &lt;code>issuer.crt&lt;/code> and &lt;code>issuer.key&lt;/code> keys in the Kubernetes secret with their corresponding values from the new certificates. &lt;em>&lt;strong>Note: The values must be base64 encoded&lt;/strong>&lt;/em>&lt;/p>
-&lt;p>If you signed the new cert root with a different private key, restart all Dapr-enabled pods. The recommended way to do this is to perform a rollout restart of your deployment:&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>Replace the &lt;code>ca.crt&lt;/code>, &lt;code>issuer.crt&lt;/code> and &lt;code>issuer.key&lt;/code> keys in the Kubernetes secret with their corresponding values from the new certificates.
+&lt;em>&lt;strong>Note: The values must be base64 encoded&lt;/strong>&lt;/em>&lt;/p>
+&lt;p>If you signed the new cert root with a different private key, restart all Dapr-enabled pods.
+The recommended way to do this is to perform a rollout restart of your deployment:&lt;/p>
 &lt;pre>&lt;code>kubectl rollout restart deploy/myapp
 &lt;/code>&lt;/pre>&lt;h2 id="self-hosted">Self-hosted&lt;/h2>
 &lt;h3 id="running-sentry-system-service">Running Sentry system service&lt;/h3>
@@ -73,7 +80,8 @@ helm install &lt;span style="color:#ae81ff">\
 &lt;pre>&lt;code>mkdir -p $HOME/.dapr/certs
 &lt;/code>&lt;/pre>&lt;p>Run Sentry locally with the following command:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">./sentry --issuer-credentials $HOME/.dapr/certs --trust-domain cluster.local
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>If successful, sentry will run and create the root certs in the given directory. This command uses default configuration values as no custom config file was given. See below on how to start Sentry with a custom configuration.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>If successful, sentry will run and create the root certs in the given directory.
+This command uses default configuration values as no custom config file was given. See below on how to start Sentry with a custom configuration.&lt;/p>
 &lt;h3 id="setting-up-mtls-with-the-configuration-resource-1">Setting up mTLS with the configuration resource&lt;/h3>
 &lt;h4 id="dapr-instance-configuration">Dapr instance configuration&lt;/h4>
 &lt;p>When running Dapr in self hosted mode, mTLS is disabled by default. you can enable it by creating the following configuration file:&lt;/p>
@@ -103,21 +111,26 @@ helm install &lt;span style="color:#ae81ff">\
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>In order to start Sentry with a custom config, use the following flag:&lt;/p>
 &lt;pre>&lt;code>./sentry --issuer-credentials $HOME/.dapr/certs --trust-domain cluster.local --config=./config.yaml
 &lt;/code>&lt;/pre>&lt;h3 id="bringing-your-own-certificates-1">Bringing your own certificates&lt;/h3>
-&lt;p>In order to provide your own credentials, create ECDSA PEM encoded root and issuer certificates and place them on the file system. Tell Sentry where to load the certificates from using the &lt;code>--issuer-credentials&lt;/code> flag.&lt;/p>
+&lt;p>In order to provide your own credentials, create ECDSA PEM encoded root and issuer certificates and place them on the file system.
+Tell Sentry where to load the certificates from using the &lt;code>--issuer-credentials&lt;/code> flag.&lt;/p>
 &lt;p>The next examples creates root and issuer certs and loads them with Sentry.&lt;/p>
 &lt;p>&lt;em>Note: This example uses the step tool to create the certificates. You can install step tool from &lt;a href="https://smallstep.com/docs/getting-started/">here&lt;/a>. Windows binaries available &lt;a href="https://github.com/smallstep/cli/releases">here&lt;/a>&lt;/em>&lt;/p>
 &lt;p>Create the root certificate:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">step certificate create cluster.local ca.crt ca.key --profile root-ca --no-password --insecure
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>Create the issuer certificate:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">step certificate create cluster.local issuer.crt issuer.key --ca ca.crt --ca-key ca.key --profile intermediate-ca --not-after 8760h --no-password --insecure
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>This creates the root and issuer certs and keys. Place &lt;code>ca.crt&lt;/code>, &lt;code>issuer.crt&lt;/code> and &lt;code>issuer.key&lt;/code> in a desired path (&lt;code>$HOME/.dapr/certs&lt;/code> in the example below), and launch Sentry:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>This creates the root and issuer certs and keys.
+Place &lt;code>ca.crt&lt;/code>, &lt;code>issuer.crt&lt;/code> and &lt;code>issuer.key&lt;/code> in a desired path (&lt;code>$HOME/.dapr/certs&lt;/code> in the example below), and launch Sentry:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">./sentry --issuer-credentials $HOME/.dapr/certs --trust-domain cluster.local
 &lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="updating-root-or-issuer-certs-1">Updating Root or Issuer Certs&lt;/h3>
 &lt;p>If the Root or Issuer certs are about to expire, you can update them and restart the required system services.&lt;/p>
 &lt;p>First, issue new certificates using the step above in &lt;a href="#bringing-your-own-certificates">Bringing your own certificates&lt;/a>.&lt;/p>
-&lt;p>Copy &lt;code>ca.crt&lt;/code>, &lt;code>issuer.crt&lt;/code> and &lt;code>issuer.key&lt;/code> to the filesystem path of every configured system service, and restart the process or container. By default, system services will look for the credentials in &lt;code>/var/run/dapr/credentials&lt;/code>.&lt;/p>
-&lt;p>&lt;em>Note:If you signed the cert root with a different private key, restart the Dapr instances.&lt;/em>&lt;/p></description></item><item><title>Operations: Configure API authorization with OAuth</title><link>https://dapr-cn.github.io/operations/security/oauth/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/security/oauth/</guid><description>
-&lt;p>Dapr OAuth 2.0 &lt;a href="https://dapr-cn.github.io/concepts/middleware-concept/">middleware&lt;/a> allows you to enable &lt;a href="https://oauth.net/2/">OAuth&lt;/a> authorization on Dapr endpoints for your web APIs using the &lt;a href="https://tools.ietf.org/html/rfc6749#section-4.1">Authorization Code Grant flow&lt;/a>. You can also inject authorization tokens into your APIs which can be used for authorization towards external APIs called by your APIs using the &lt;a href="https://tools.ietf.org/html/rfc6749#section-4.4">Client Credentials Grant flow&lt;/a>. When the middleware is enabled any method invocation through Dapr needs to be authorized before getting passed to the user code.&lt;/p>
+&lt;p>Copy &lt;code>ca.crt&lt;/code>, &lt;code>issuer.crt&lt;/code> and &lt;code>issuer.key&lt;/code> to the filesystem path of every configured system service, and restart the process or container.
+By default, system services will look for the credentials in &lt;code>/var/run/dapr/credentials&lt;/code>.&lt;/p>
+&lt;p>&lt;em>Note:If you signed the cert root with a different private key, restart the Dapr instances.&lt;/em>&lt;/p></description></item><item><title>Operations: Configure API authorization with OAuth</title><link>https://docs.dapr.io/operations/security/oauth/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/security/oauth/</guid><description>
+&lt;p>Dapr OAuth 2.0 &lt;a href="https://docs.dapr.io/concepts/middleware-concept/">middleware&lt;/a> allows you to enable &lt;a href="https://oauth.net/2/">OAuth&lt;/a> authorization on Dapr endpoints for your web APIs using the &lt;a href="https://tools.ietf.org/html/rfc6749#section-4.1">Authorization Code Grant flow&lt;/a>.
+You can also inject authorization tokens into your APIs which can be used for authorization towards external APIs called by your APIs using the &lt;a href="https://tools.ietf.org/html/rfc6749#section-4.4">Client Credentials Grant flow&lt;/a>.
+When the middleware is enabled any method invocation through Dapr needs to be authorized before getting passed to the user code.&lt;/p>
 &lt;p>The main difference between the two flows is that the &lt;code>Authorization Code Grant flow&lt;/code> needs user interaction and authorizes a user where the &lt;code>Client Credentials Grant flow&lt;/code> doesn&amp;rsquo;t need a user interaction and authorizes a service/application.&lt;/p>
 &lt;h2 id="register-your-application-with-a-authorization-server">Register your application with a authorization server&lt;/h2>
 &lt;p>Different authorization servers provide different application registration experiences. Here are some samples:&lt;/p>
@@ -203,7 +216,8 @@ helm install &lt;span style="color:#ae81ff">\
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">forceHTTPS&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;lt;set to true if you invoke an API method through Dapr from https origin&amp;gt;&amp;#34;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="define-a-custom-pipeline-for-an-authorization-code-grant">Define a custom pipeline for an Authorization Code Grant&lt;/h3>
-&lt;p>To use the OAuth middleware (Authorization Code), you should create a &lt;a href="https://dapr-cn.github.io/concepts/middleware-concept/">custom pipeline&lt;/a> using &lt;a href="https://dapr-cn.github.io/operations/configuration/configuration-overview/">Dapr configuration&lt;/a>, as shown in the following sample:&lt;/p>
+&lt;p>To use the OAuth middleware (Authorization Code), you should create a &lt;a href="https://docs.dapr.io/concepts/middleware-concept/">custom pipeline&lt;/a>
+using &lt;a href="https://docs.dapr.io/operations/configuration/configuration-overview/">Dapr configuration&lt;/a>, as shown in the following sample:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -248,7 +262,8 @@ helm install &lt;span style="color:#ae81ff">\
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">authStyle&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;lt;see comment&amp;gt;&amp;#34;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="define-a-custom-pipeline-for-a-client-credentials-grant">Define a custom pipeline for a Client Credentials Grant&lt;/h3>
-&lt;p>To use the OAuth middleware (Client Credentials), you should create a &lt;a href="https://dapr-cn.github.io/concepts/middleware-concept/">custom pipeline&lt;/a> using &lt;a href="https://dapr-cn.github.io/operations/configuration/configuration-overview/">Dapr configuration&lt;/a>, as shown in the following sample:&lt;/p>
+&lt;p>To use the OAuth middleware (Client Credentials), you should create a &lt;a href="https://docs.dapr.io/concepts/middleware-concept/">custom pipeline&lt;/a>
+using &lt;a href="https://docs.dapr.io/operations/configuration/configuration-overview/">Dapr configuration&lt;/a>, as shown in the following sample:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -259,8 +274,9 @@ helm install &lt;span style="color:#ae81ff">\
 &lt;span style="color:#f92672">handlers&lt;/span>:
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">myComponent&lt;/span>
 &lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">middleware.http.oauth2clientcredentials&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="应用配置">应用配置&lt;/h2>
-&lt;p>To apply the above configuration (regardless of grant type) to your Dapr sidecar, add a &lt;code>dapr.io/config&lt;/code> annotation to your pod spec:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="apply-the-configuration">Apply the configuration&lt;/h2>
+&lt;p>To apply the above configuration (regardless of grant type)
+to your Dapr sidecar, add a &lt;code>dapr.io/config&lt;/code> annotation to your pod spec:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">apps/v1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Deployment&lt;/span>
 ...
@@ -276,9 +292,16 @@ helm install &lt;span style="color:#ae81ff">\
 ...
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="accessing-the-access-token">Accessing the access token&lt;/h2>
 &lt;h3 id="authorization-code-grant">Authorization Code Grant&lt;/h3>
-&lt;p>Once everything is in place, whenever a client tries to invoke an API method through Dapr sidecar (such as calling the &lt;em>v1.0/invoke/&lt;/em> endpoint), it will be redirected to the authorization&amp;rsquo;s consent page if an access token is not found. Otherwise, the access token is written to the &lt;strong>authHeaderName&lt;/strong> header and made available to the app code.&lt;/p>
+&lt;p>Once everything is in place, whenever a client tries to invoke an API method through Dapr sidecar
+(such as calling the &lt;em>v1.0/invoke/&lt;/em> endpoint),
+it will be redirected to the authorization&amp;rsquo;s consent page if an access token is not found.
+Otherwise, the access token is written to the &lt;strong>authHeaderName&lt;/strong> header and made available to the app code.&lt;/p>
 &lt;h3 id="client-credentials-grant">Client Credentials Grant&lt;/h3>
-&lt;p>Once everything is in place, whenever a client tries to invoke an API method through Dapr sidecar (such as calling the &lt;em>v1.0/invoke/&lt;/em> endpoint), it will retrieve a new access token if an existing valid one is not found. The access token is written to the &lt;strong>headerName&lt;/strong> header and made available to the app code. In that way the app can forward the token in the authorization header in calls towards the external API requesting that token.&lt;/p></description></item><item><title>Operations: Enable API token authentication in Dapr</title><link>https://dapr-cn.github.io/operations/security/api-token/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/security/api-token/</guid><description>
+&lt;p>Once everything is in place, whenever a client tries to invoke an API method through Dapr sidecar
+(such as calling the &lt;em>v1.0/invoke/&lt;/em> endpoint),
+it will retrieve a new access token if an existing valid one is not found.
+The access token is written to the &lt;strong>headerName&lt;/strong> header and made available to the app code.
+In that way the app can forward the token in the authorization header in calls towards the external API requesting that token.&lt;/p></description></item><item><title>Operations: Enable API token authentication in Dapr</title><link>https://docs.dapr.io/operations/security/api-token/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/security/api-token/</guid><description>
 &lt;p>By default, Dapr relies on the network boundary to limit access to its public API. If you plan on exposing the Dapr API outside of that boundary, or if your deployment demands an additional level of security, consider enabling the token authentication for Dapr APIs. This will cause Dapr to require every incoming gRPC and HTTP request for its APIs for to include authentication token, before allowing that request to pass through.&lt;/p>
 &lt;h2 id="create-a-token">Create a token&lt;/h2>
 &lt;p>Dapr uses &lt;a href="https://jwt.io/">JWT&lt;/a> tokens for API authentication.&lt;/p>
@@ -347,10 +370,11 @@ name: dapr-api-token
 &lt;pre>&lt;code>export DAPR_API_TOKEN=&amp;lt;my-dapr-token&amp;gt;
 &lt;/code>&lt;/pre>&lt;h2 id="related-links">Related Links&lt;/h2>
 &lt;ul>
-&lt;li>Learn about &lt;a href="https://dapr-cn.github.io/concepts/security-concept/">Dapr security concepts&lt;/a>&lt;/li>
-&lt;li>Learn &lt;a href="https://dapr-cn.github.io/operations/security/app-api-token/">HowTo authenticate requests from Dapr using token authentication&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Authenticate requests from Dapr using token authentication</title><link>https://dapr-cn.github.io/operations/security/app-api-token/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/security/app-api-token/</guid><description>
-&lt;p>For some building blocks such as pub/sub, service invocation and input bindings, Dapr communicates with an app over HTTP or gRPC. To enable the application to authenticate requests that are arriving from the Dapr sidecar, you can configure Dapr to send an API token as a header (in HTTP requests) or metadata (in gRPC requests).&lt;/p>
+&lt;li>Learn about &lt;a href="https://docs.dapr.io/concepts/security-concept/">Dapr security concepts&lt;/a>&lt;/li>
+&lt;li>Learn &lt;a href="https://docs.dapr.io/operations/security/app-api-token/">HowTo authenticate requests from Dapr using token authentication&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Authenticate requests from Dapr using token authentication</title><link>https://docs.dapr.io/operations/security/app-api-token/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/security/app-api-token/</guid><description>
+&lt;p>For some building blocks such as pub/sub, service invocation and input bindings, Dapr communicates with an app over HTTP or gRPC.
+To enable the application to authenticate requests that are arriving from the Dapr sidecar, you can configure Dapr to send an API token as a header (in HTTP requests) or metadata (in gRPC requests).&lt;/p>
 &lt;h2 id="create-a-token">Create a token&lt;/h2>
 &lt;p>Dapr uses &lt;a href="https://jwt.io/">JWT&lt;/a> tokens for API authentication.&lt;/p>
 &lt;blockquote>
@@ -406,7 +430,8 @@ name: dapr-api-token
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">dapr-api-token&lt;span style="color:#f92672">[&lt;/span>0&lt;span style="color:#f92672">]&lt;/span>.
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="accessing-the-token-from-the-app">Accessing the token from the app&lt;/h2>
 &lt;h3 id="kubernetes-2">Kubernetes&lt;/h3>
-&lt;p>In Kubernetes, it&amp;rsquo;s recommended to mount the secret to your pod as an environment variable. Assuming we created a secret with the name &lt;code>app-api-token&lt;/code> to hold the token:&lt;/p>
+&lt;p>In Kubernetes, it&amp;rsquo;s recommended to mount the secret to your pod as an environment variable.
+Assuming we created a secret with the name &lt;code>app-api-token&lt;/code> to hold the token:&lt;/p>
 &lt;pre>&lt;code>containers:
 - name: mycontainer
 image: myregistry/myapp
@@ -418,6 +443,6 @@ name: app-api-token
 &lt;pre>&lt;code>export APP_API_TOKEN=&amp;lt;my-app-token&amp;gt;
 &lt;/code>&lt;/pre>&lt;h2 id="related-links">Related Links&lt;/h2>
 &lt;ul>
-&lt;li>Learn about &lt;a href="https://dapr-cn.github.io/concepts/security-concept/">Dapr security concepts&lt;/a>&lt;/li>
-&lt;li>Learn &lt;a href="https://dapr-cn.github.io/operations/security/api-token/">HowTo Enable API token authentication in Dapr&lt;/a>&lt;/li>
+&lt;li>Learn about &lt;a href="https://docs.dapr.io/concepts/security-concept/">Dapr security concepts&lt;/a>&lt;/li>
+&lt;li>Learn &lt;a href="https://docs.dapr.io/operations/security/api-token/">HowTo Enable API token authentication in Dapr&lt;/a>&lt;/li>
 &lt;/ul></description></item></channel></rss>

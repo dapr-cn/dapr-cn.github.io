@@ -1,20 +1,20 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – 可观测性</title><link>https://dapr-cn.github.io/developing-applications/building-blocks/observability/</link><description>Recent content in 可观测性 on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh</language><atom:link href="https://dapr-cn.github.io/developing-applications/building-blocks/observability/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: 分布式跟踪</title><link>https://dapr-cn.github.io/developing-applications/building-blocks/observability/tracing-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/building-blocks/observability/tracing-overview/</guid><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr Docs – Observability</title><link>https://docs.dapr.io/developing-applications/building-blocks/observability/</link><description>Recent content in Observability on Dapr Docs</description><generator>Hugo -- gohugo.io</generator><language>zh-hans</language><atom:link href="https://docs.dapr.io/developing-applications/building-blocks/observability/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Distributed tracing</title><link>https://docs.dapr.io/developing-applications/building-blocks/observability/tracing-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/building-blocks/observability/tracing-overview/</guid><description>
 &lt;p>Dapr uses the Zipkin protocol for distributed traces and metrics collection. Due to the ubiquity of the Zipkin protocol, many backends are supported out of the box, for examples &lt;a href="https://cloud.google.com/stackdriver">Stackdriver&lt;/a>, &lt;a href="https://zipkin.io">Zipkin&lt;/a>, &lt;a href="https://newrelic.com">New Relic&lt;/a> and others. Combining with the OpenTelemetry Collector, Dapr can export traces to many other backends including but not limted to &lt;a href="https://azure.microsoft.com/en-us/services/monitor/">Azure Monitor&lt;/a>, &lt;a href="https://www.datadoghq.com">Datadog&lt;/a>, &lt;a href="https://www.instana.com">Instana&lt;/a>, &lt;a href="https://www.jaegertracing.io/">Jaeger&lt;/a>, and &lt;a href="https://www.signalfx.com/">SignalFX&lt;/a>.&lt;/p>
-&lt;img src="https://dapr-cn.github.io/images/tracing.png" width=600>
-&lt;h2 id="跟踪设计">跟踪设计&lt;/h2>
-&lt;p>Dapr 将 HTTP/GRPC Middleware 添加到 Dapr sidecar。 Middleware 拦截所有 Dapr 和应用程序流量，并自动注入关联ID以跟踪分布式事务。 此设计有如下优点：&lt;/p>
+&lt;img src="https://docs.dapr.io/images/tracing.png" width=600>
+&lt;h2 id="tracing-design">Tracing design&lt;/h2>
+&lt;p>Dapr adds a HTTP/gRPC middleware to the Dapr sidecar. The middleware intercepts all Dapr and application traffic and automatically injects correlation IDs to trace distributed transactions. This design has several benefits:&lt;/p>
 &lt;ul>
-&lt;li>无需代码检测。 All traffic is automatically traced with configurable tracing levels.&lt;/li>
-&lt;li>跨微服务的一致跟踪行为。 跟踪是在 Dapr sidecar 上进行配置和管理的，因此它可以在服务之间保持一致，这些服务由不同的团队提供，并可能以不同的编程语言编写。&lt;/li>
-&lt;li>可配置和可扩展。 By leveraging the Zipkin API and the OpenTelemetry Collector, Dapr tracing can be configured to work with popular tracing backends, including custom backends a customer may have.&lt;/li>
+&lt;li>No need for code instrumentation. All traffic is automatically traced with configurable tracing levels.&lt;/li>
+&lt;li>Consistent tracing behavior across microservices. Tracing is configured and managed on Dapr sidecar so that it remains consistent across services made by different teams and potentially written in different programming languages.&lt;/li>
+&lt;li>Configurable and extensible. By leveraging the Zipkin API and the OpenTelemetry Collector, Dapr tracing can be configured to work with popular tracing backends, including custom backends a customer may have.&lt;/li>
 &lt;li>You can define and enable multiple exporters at the same time.&lt;/li>
 &lt;/ul>
 &lt;h2 id="w3c-correlation-id">W3C Correlation ID&lt;/h2>
-&lt;p>Dapr 使用标准的 W3C 跟踪上下文标头。 对于 HTTP 请求，Dapr 使用 &lt;code>traceparent&lt;/code> 标头。 对于 gRPC 请求，Dapr 使用 &lt;code>grpc-trace-bin&lt;/code> 标头。 当请求到达时，如果没有跟踪 ID ，Dapr 将创建一个新的跟踪 ID。 否则，它将沿调用链传递跟踪 ID。&lt;/p>
-&lt;p>阅读 &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/observability/w3c-tracing/">W3C 分布式跟踪&lt;/a> ，了解更多关于 W3C Trace Context 的背景.&lt;/p>
-&lt;h2 id="配置">配置&lt;/h2>
-&lt;p>Dapr uses probabilistic sampling. 采样率定义跟踪 Span 采样的概率，其值可以在0和1之间（包括）。 The default sample rate is 0.0001 (i.e. 1 in 10,000 spans is sampled).&lt;/p>
-&lt;p>若要更改默认的跟踪行为，请使用配置文件（在自托管模式下）或 Kubernetes 配置对象（在 Kubernetes 模式下）。 例如，以下配置对象将采样率更改为 1（即每个Span都采样），并使用 Zipkin 协议将跟踪发送到位于 &lt;a href="http://zipkin.default.svc.cluster.local">http://zipkin.default.svc.cluster.local&lt;/a> 的 Zipkin 服务器：&lt;/p>
+&lt;p>Dapr uses the standard W3C Trace Context headers. For HTTP requests, Dapr uses &lt;code>traceparent&lt;/code> header. For gRPC requests, Dapr uses &lt;code>grpc-trace-bin&lt;/code> header. When a request arrives without a trace ID, Dapr creates a new one. Otherwise, it passes the trace ID along the call chain.&lt;/p>
+&lt;p>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/observability/w3c-tracing/">W3C distributed tracing&lt;/a> for more background on W3C Trace Context.&lt;/p>
+&lt;h2 id="configuration">Configuration&lt;/h2>
+&lt;p>Dapr uses probabilistic sampling. The sample rate defines the probability a tracing span will be sampled and can have a value between 0 and 1 (inclusive). The default sample rate is 0.0001 (i.e. 1 in 10,000 spans is sampled).&lt;/p>
+&lt;p>To change the default tracing behavior, use a configuration file (in self hosted mode) or a Kubernetes configuration object (in Kubernetes mode). For example, the following configuration object changes the sample rate to 1 (i.e. every span is sampled), and sends trace using Zipkin protocol to the Zipkin server at &lt;a href="http://zipkin.default.svc.cluster.local">http://zipkin.default.svc.cluster.local&lt;/a>&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -26,44 +26,46 @@
 &lt;span style="color:#f92672">zipkin&lt;/span>:
 &lt;span style="color:#f92672">endpointAddress&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;http://zipkin.default.svc.cluster.local:9411/api/v2/spans&amp;#34;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>Note: Changing &lt;code>samplingRate&lt;/code> to 0 disables tracing altogether.&lt;/p>
-&lt;p>关于如何在本地环境和 Kubernetes 环境中配置追踪的更多细节，请参阅 &lt;a href="#references">参考文档&lt;/a> 部分。&lt;/p>
-&lt;h2 id="参考文档">参考文档&lt;/h2>
+&lt;p>See the &lt;a href="#references">References&lt;/a> section for more details on how to configure tracing on local environment and Kubernetes environment.&lt;/p>
+&lt;h2 id="references">References&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/operations/monitoring/tracing/open-telemetry-collector/">操作方法：使用 OpenTelemetry Collector 为分布式跟踪安装应用程序洞察器&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/operations/monitoring/tracing/supported-tracing-backends/zipkin/">操作方法: 为分布式跟踪安装 Zipkin&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/observability/w3c-tracing/">W3C 分布式跟踪&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Developing-Applications: W3C 跟踪上下文</title><link>https://dapr-cn.github.io/developing-applications/building-blocks/observability/w3c-tracing/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/building-blocks/observability/w3c-tracing/</guid><description/></item><item><title>Developing-Applications: Sidecar 运行状况</title><link>https://dapr-cn.github.io/developing-applications/building-blocks/observability/sidecar-health/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/building-blocks/observability/sidecar-health/</guid><description>
-&lt;p>Dapr provides a way to determine it&amp;rsquo;s health using an HTTP /healthz endpoint. 通过此端点，对Dapr 进程或 sidecar进行探测，可以确定其运行状况，从而确定其就绪程度和活跃度。 请参阅 &lt;a href="https://dapr-cn.github.io/reference/api/health_api/">health API &lt;/a>&lt;/p>
-&lt;p>The Dapr &lt;code>/healthz&lt;/code> endpoint can be used by health probes from the application hosting platform. 本主题描述 Dapr 如何与来自不同托管平台的探测器集成。&lt;/p>
-&lt;p>As a user, when deploying Dapr to a hosting platform (for example Kubernetes), the Dapr health endpoint is automatically configured for you. 您无需配置任何内容。&lt;/p>
-&lt;p>Note: Dapr actors also have a health API endpoint where Dapr probes the application for a response to a signal from Dapr that the actor application is healthy and running. 请参阅 &lt;a href="https://dapr-cn.github.io/reference/api/actors_api/#health-check">actor health API&lt;/a>&lt;/p>
-&lt;h2 id="运行状况终结点与kubernetes集成">运行状况终结点：与Kubernetes集成&lt;/h2>
-&lt;p>Kubernetes使用 * 准备就绪 * 和 * 活跃程度 * 探测器来确定容器的运行状况。&lt;/p>
-&lt;p>The kubelet uses liveness probes to know when to restart a container. 例如，活跃探针可捕获应用程序正在运行但无法进行处理的死锁。 在这种状态下重新启动容器有助于使应用程序在具有错误的情况下更可用。&lt;/p>
-&lt;p>The kubelet uses readiness probes to know when a container is ready to start accepting traffic. 当一个 pod 的所有容器都已准备就绪时，会认为其准备就绪。 此就绪信号的一个用途是控制哪些 Pod 用作 Kubernetes 服务的后端。 当 Pod 未就绪时，将从 Kubernetes 服务负载均衡器中除去。&lt;/p>
-&lt;p>When integrating with Kubernetes, the Dapr sidecar is injected with a Kubernetes probe configuration telling it to use the Dapr healthz endpoint. 这是由 &lt;code>Sidecar Injector&lt;/code> 系统服务完成的。 下面的图中显示了与 kubelet 的集成。&lt;/p>
-&lt;img src="https://dapr-cn.github.io/images/security-mTLS-dapr-system-services.png" width=600>
-&lt;h3 id="如何在-kubernetes-中配置活跃度探测器">如何在 Kubernetes 中配置活跃度探测器&lt;/h3>
-&lt;p>在 pod 配置文件中，活跃度探测器将添加到容器规范部分中，如下所示 :&lt;/p>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/monitoring/tracing/open-telemetry-collector/">How-To: Setup Application Insights for distributed tracing with OpenTelemetry Collector&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/monitoring/tracing/supported-tracing-backends/zipkin/">How-To: Set up Zipkin for distributed tracing&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/observability/w3c-tracing/">W3C distributed tracing&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Developing-Applications: W3C trace context</title><link>https://docs.dapr.io/developing-applications/building-blocks/observability/w3c-tracing/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/building-blocks/observability/w3c-tracing/</guid><description/></item><item><title>Developing-Applications: Sidecar health</title><link>https://docs.dapr.io/developing-applications/building-blocks/observability/sidecar-health/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/building-blocks/observability/sidecar-health/</guid><description>
+&lt;p>Dapr provides a way to determine it&amp;rsquo;s health using an HTTP /healthz endpoint.
+With this endpoint, the Dapr process, or sidecar, can be probed for its health and hence determine its readiness and liveness. See &lt;a href="https://docs.dapr.io/reference/api/health_api/">health API &lt;/a>&lt;/p>
+&lt;p>The Dapr &lt;code>/healthz&lt;/code> endpoint can be used by health probes from the application hosting platform. This topic describes how Dapr integrates with probes from different hosting platforms.&lt;/p>
+&lt;p>As a user, when deploying Dapr to a hosting platform (for example Kubernetes), the Dapr health endpoint is automatically configured for you. There is nothing you need to configure.&lt;/p>
+&lt;p>Note: Dapr actors also have a health API endpoint where Dapr probes the application for a response to a signal from Dapr that the actor application is healthy and running. See &lt;a href="https://docs.dapr.io/reference/api/actors_api/#health-check">actor health API&lt;/a>&lt;/p>
+&lt;h2 id="health-endpoint-integration-with-kubernetes">Health endpoint: Integration with Kubernetes&lt;/h2>
+&lt;p>Kubernetes uses &lt;em>readiness&lt;/em> and &lt;em>liveness&lt;/em> probes to determines the health of the container.&lt;/p>
+&lt;p>The kubelet uses liveness probes to know when to restart a container.
+For example, liveness probes could catch a deadlock, where an application is running, but unable to make progress. Restarting a container in such a state can help to make the application more available despite having bugs.&lt;/p>
+&lt;p>The kubelet uses readiness probes to know when a container is ready to start accepting traffic. A pod is considered ready when all of its containers are ready. One use of this readiness signal is to control which Pods are used as backends for Kubernetes services. When a pod is not ready, it is removed from Kubernetes service load balancers.&lt;/p>
+&lt;p>When integrating with Kubernetes, the Dapr sidecar is injected with a Kubernetes probe configuration telling it to use the Dapr healthz endpoint. This is done by the &lt;code>Sidecar Injector&lt;/code> system service. The integration with the kubelet is shown in the diagram below.&lt;/p>
+&lt;img src="https://docs.dapr.io/images/security-mTLS-dapr-system-services.png" width=600>
+&lt;h3 id="how-to-configure-a-liveness-probe-in-kubernetes">How to configure a liveness probe in Kubernetes&lt;/h3>
+&lt;p>In the pod configuration file, the liveness probe is added in the containers spec section as shown below :&lt;/p>
 &lt;pre>&lt;code> livenessProbe:
 httpGet:
 path: /healthz
 port: 8080
 initialDelaySeconds: 3
 periodSeconds: 3
-&lt;/code>&lt;/pre>&lt;p>In the above &lt;em>example&lt;/em>, the &lt;code>periodSeconds&lt;/code> field specifies that the kubelet should perform a liveness probe every 3 seconds. &lt;code>initialDelaySeconds&lt;/code> 字段告诉 kubelet 在执行第一个探针前应等待 3 秒钟。 在此示例中，要执行探测器， kubelet 将 HTTP GET 请求发送到正在容器中运行并侦听端口 8080的服务器。 如果服务器的 /healthz 路径的处理程序返回成功代码，那么 kubelet 将认为容器是活动的并且是健康的。 如果处理程序返回失败代码，kubelet 将杀死容器并重新启动它。&lt;/p>
-&lt;p>Any code greater than or equal to 200 and less than 400 indicates success. 任何其他代码表示失败。&lt;/p>
-&lt;h3 id="如何在kubernetes配置准备就绪探测器">如何在Kubernetes配置准备就绪探测器&lt;/h3>
-&lt;p>准备就绪探测器与活跃度探测器配置相类似。 The only difference is that you use the &lt;code>readinessProbe&lt;/code> field instead of the &lt;code>livenessProbe&lt;/code> field.&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>In the above &lt;em>example&lt;/em>, the &lt;code>periodSeconds&lt;/code> field specifies that the kubelet should perform a liveness probe every 3 seconds. The &lt;code>initialDelaySeconds&lt;/code> field tells the kubelet that it should wait 3 seconds before performing the first probe. To perform a probe, the kubelet sends an HTTP GET request to the server that is running in the container and listening on port 8080 in this example. If the handler for the server’s /healthz path returns a success code, the kubelet considers the container to be alive and healthy. If the handler returns a failure code, the kubelet kills the container and restarts it.&lt;/p>
+&lt;p>Any code greater than or equal to 200 and less than 400 indicates success. Any other code indicates failure.&lt;/p>
+&lt;h3 id="how-to-configure-a-readiness-probe-in-kubernetes">How to configure a readiness probe in Kubernetes&lt;/h3>
+&lt;p>Readiness probes are configured similarly to liveness probes. The only difference is that you use the &lt;code>readinessProbe&lt;/code> field instead of the &lt;code>livenessProbe&lt;/code> field.&lt;/p>
 &lt;pre>&lt;code>readinessProbe:
 httpGet:
 path: /healthz
 port: 8080
 initialDelaySeconds: 3
 periodSeconds: 3
-&lt;/code>&lt;/pre>&lt;h3 id="如何使用-kubernetes-配置-dapr-sidecar-运行状况终结点">如何使用 Kubernetes 配置 Dapr sidecar 运行状况终结点&lt;/h3>
-&lt;p>As mentioned above, this configuration is done automatically by the Sidecar Injector service. 本部分描述了在活跃度和就绪探测器上设置的特定值。&lt;/p>
-&lt;p>Dapr has its HTTP health endpoint &lt;code>/v1.0/healthz&lt;/code> on port 3500, This can be used with Kubernetes for readiness and liveness probe. 当注入Dapr sidecar后，准备就绪和活跃度探测器在pod配置文件中配置的，配置的值如下。&lt;/p>
+&lt;/code>&lt;/pre>&lt;h3 id="how-the-dapr-sidecar-health-endpoint-is-configured-with-kubernetes">How the Dapr sidecar health endpoint is configured with Kubernetes&lt;/h3>
+&lt;p>As mentioned above, this configuration is done automatically by the Sidecar Injector service. This section describes the specific values that are set on the liveness and readiness probes.&lt;/p>
+&lt;p>Dapr has its HTTP health endpoint &lt;code>/v1.0/healthz&lt;/code> on port 3500, This can be used with Kubernetes for readiness and liveness probe. When the Dapr sidecar is injected , the readiness and liveness probes are configured in the pod configuration file with the following values.&lt;/p>
 &lt;pre>&lt;code>livenessProbe:
 httpGet:
 path: v1.0/healthz
@@ -80,9 +82,9 @@ initialDelaySeconds: 5
 periodSeconds: 10
 timeoutSeconds : 5
 failureThreshold: 3
-&lt;/code>&lt;/pre>&lt;p>有关更多信息;&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>For more information refer to;&lt;/p>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/reference/api/health_api/"> 终结点运行状况 API&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/reference/api/actors_api/#health-check">参与者运行状况 API&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/">Kubernetes 探测器配置参数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/reference/api/health_api/"> Endpoint health API&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/reference/api/actors_api/#health-check">Actor health API&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/">Kubernetes probe configuration parameters&lt;/a>&lt;/li>
 &lt;/ul></description></item></channel></rss>

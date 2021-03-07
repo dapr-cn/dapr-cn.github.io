@@ -1,6 +1,6 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – Supported state stores</title><link>https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/</link><description>Recent content in Supported state stores on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh</language><atom:link href="https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: Aerospike</title><link>https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-aerospike/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-aerospike/</guid><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr Docs – Supported state stores</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/</link><description>Recent content in Supported state stores on Dapr Docs</description><generator>Hugo -- gohugo.io</generator><language>zh-hans</language><atom:link href="https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: Aerospike</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-aerospike/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-aerospike/</guid><description>
 &lt;h2 id="component-format">Component format&lt;/h2>
-&lt;p>To setup Aerospike state store create a component of type &lt;code>state.Aerospike&lt;/code>. See &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;p>To setup Aerospike state store create a component of type &lt;code>state.Aerospike&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -19,13 +19,13 @@
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/%7D">here&lt;/a>。
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>字段&lt;/th>
+&lt;th>Field&lt;/th>
 &lt;th style="text-align:center">Required&lt;/th>
 &lt;th>Details&lt;/th>
 &lt;th>Example&lt;/th>
@@ -74,19 +74,20 @@ Kubernetes
 &lt;br />&lt;p>The easiest way to install Aerospike on Kubernetes is by using the &lt;a href="https://github.com/helm/charts/tree/master/stable/aerospike">Helm chart&lt;/a>:&lt;/p>
 &lt;pre>&lt;code>helm repo add incubator http://storage.googleapis.com/kubernetes-charts-incubator
 helm install --name my-aerospike --namespace aerospike stable/aerospike
-&lt;/code>&lt;/pre>&lt;p>This installs Aerospike into the &lt;code>aerospike&lt;/code> namespace. To interact with Aerospike, find the service with: &lt;code>kubectl get svc aerospike -n aerospike&lt;/code>.&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>This installs Aerospike into the &lt;code>aerospike&lt;/code> namespace.
+To interact with Aerospike, find the service with: &lt;code>kubectl get svc aerospike -n aerospike&lt;/code>.&lt;/p>
 &lt;p>For example, if installing using the example above, the Aerospike host address would be:&lt;/p>
 &lt;p>&lt;code>aerospike-my-aerospike.aerospike.svc.cluster.local:3000&lt;/code>&lt;/p>
 &lt;/div>
 &lt;/div>
-&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
-&lt;li>Read &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: AWS DynamoDB</title><link>https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-dynamodb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-dynamodb/</guid><description>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: AWS DynamoDB</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-dynamodb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-dynamodb/</guid><description>
 &lt;h2 id="component-format">Component format&lt;/h2>
-&lt;p>To setup a DynamoDB state store create a component of type &lt;code>state.dynamodb&lt;/code>. See &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;p>To setup a DynamoDB state store create a component of type &lt;code>state.dynamodb&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -111,13 +112,13 @@ helm install --name my-aerospike --namespace aerospike stable/aerospike
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/%7D">here&lt;/a>。
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>字段&lt;/th>
+&lt;th>Field&lt;/th>
 &lt;th style="text-align:center">Required&lt;/th>
 &lt;th>Details&lt;/th>
 &lt;th>Example&lt;/th>
@@ -163,16 +164,16 @@ helm install --name my-aerospike --namespace aerospike stable/aerospike
 &lt;/tbody>
 &lt;/table>
 &lt;h2 id="setup-aws-dynamodb">Setup AWS DynamoDB&lt;/h2>
-&lt;p>See &lt;a href="https://dapr-cn.github.io/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a> for information about authentication-related attributes&lt;/p>
-&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;p>See &lt;a href="https://docs.dapr.io/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a> for information about authentication-related attributes&lt;/p>
+&lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
-&lt;li>Read &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Azure Blob Storage</title><link>https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-azure-blobstorage/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-azure-blobstorage/</guid><description>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Azure Blob Storage</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-azure-blobstorage/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-azure-blobstorage/</guid><description>
 &lt;h2 id="component-format">Component format&lt;/h2>
-&lt;p>To setup Azure Blobstorage state store create a component of type &lt;code>state.azure.blobstorage&lt;/code>. See &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;p>To setup Azure Blobstorage state store create a component of type &lt;code>state.azure.blobstorage&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -191,13 +192,13 @@ helm install --name my-aerospike --namespace aerospike stable/aerospike
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/%7D">here&lt;/a>。
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>字段&lt;/th>
+&lt;th>Field&lt;/th>
 &lt;th style="text-align:center">Required&lt;/th>
 &lt;th>Details&lt;/th>
 &lt;th>Example&lt;/th>
@@ -252,14 +253,14 @@ helm install --name my-aerospike --namespace aerospike stable/aerospike
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>creates the blob file in the containter with &lt;code>key&lt;/code> as filename and &lt;code>value&lt;/code> as the contents of file.&lt;/p>
 &lt;h2 id="concurrency">Concurrency&lt;/h2>
 &lt;p>Azure Blob Storage state concurrency is achieved by using &lt;code>ETag&lt;/code>s according to &lt;a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-concurrency#managing-concurrency-in-blob-storage">the Azure Blob Storage documentation&lt;/a>.&lt;/p>
-&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
-&lt;li>Read &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Azure Cosmos DB</title><link>https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-azure-cosmosdb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-azure-cosmosdb/</guid><description>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Azure Cosmos DB</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-azure-cosmosdb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-azure-cosmosdb/</guid><description>
 &lt;h2 id="component-format">Component format&lt;/h2>
-&lt;p>To setup Azure CosmosDb state store create a component of type &lt;code>state.azure.cosmosdb&lt;/code>. See &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;p>To setup Azure CosmosDb state store create a component of type &lt;code>state.azure.cosmosdb&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -280,7 +281,7 @@ helm install --name my-aerospike --namespace aerospike stable/aerospike
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/%7D">here&lt;/a>。
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;p>If you wish to use CosmosDb as an actor store, append the following to the yaml.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml"> - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">actorStateStore&lt;/span>
@@ -289,7 +290,7 @@ helm install --name my-aerospike --namespace aerospike stable/aerospike
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>字段&lt;/th>
+&lt;th>Field&lt;/th>
 &lt;th style="text-align:center">Required&lt;/th>
 &lt;th>Details&lt;/th>
 &lt;th>Example&lt;/th>
@@ -366,14 +367,14 @@ helm install --name my-aerospike --namespace aerospike stable/aerospike
 &lt;/span>&lt;span style="color:#e6db74"> }
 &lt;/span>&lt;span style="color:#e6db74"> ]&amp;#39;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>For &lt;strong>actor&lt;/strong> state operations, the partition key is generated by Dapr using the &lt;code>appId&lt;/code>, the actor type, and the actor id, such that data for the same actor always ends up under the same partition (you do not need to specify it). This is because actor state operations must use transactions, and in CosmosDB the items in a transaction must be on the same partition.&lt;/p>
-&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
-&lt;li>Read &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Azure Table Storage</title><link>https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-azure-tablestorage/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-azure-tablestorage/</guid><description>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Azure Table Storage</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-azure-tablestorage/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-azure-tablestorage/</guid><description>
 &lt;h2 id="component-format">Component format&lt;/h2>
-&lt;p>To setup Azure Tablestorage state store create a component of type &lt;code>state.azure.tablestorage&lt;/code>. See &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;p>To setup Azure Tablestorage state store create a component of type &lt;code>state.azure.tablestorage&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -392,13 +393,13 @@ helm install --name my-aerospike --namespace aerospike stable/aerospike
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/%7D">here&lt;/a>。
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>字段&lt;/th>
+&lt;th>Field&lt;/th>
 &lt;th style="text-align:center">Required&lt;/th>
 &lt;th>Details&lt;/th>
 &lt;th>Example&lt;/th>
@@ -465,14 +466,14 @@ helm install --name my-aerospike --namespace aerospike stable/aerospike
 &lt;/table>
 &lt;h2 id="concurrency">Concurrency&lt;/h2>
 &lt;p>Azure Table Storage state concurrency is achieved by using &lt;code>ETag&lt;/code>s according to &lt;a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-concurrency#managing-concurrency-in-table-storage">the official documenation&lt;/a>.&lt;/p>
-&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
-&lt;li>Read &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Cassandra</title><link>https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-cassandra/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-cassandra/</guid><description>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Cassandra</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-cassandra/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-cassandra/</guid><description>
 &lt;h2 id="component-format">Component format&lt;/h2>
-&lt;p>To setup Cassandra state store create a component of type &lt;code>state.cassandra&lt;/code>. See &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;p>To setup Cassandra state store create a component of type &lt;code>state.cassandra&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -501,13 +502,13 @@ helm install --name my-aerospike --namespace aerospike stable/aerospike
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/%7D">here&lt;/a>。
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>字段&lt;/th>
+&lt;th>Field&lt;/th>
 &lt;th style="text-align:center">Required&lt;/th>
 &lt;th>Details&lt;/th>
 &lt;th>Example&lt;/th>
@@ -592,19 +593,20 @@ Kubernetes
 &lt;br />&lt;p>The easiest way to install Cassandra on Kubernetes is by using the &lt;a href="https://github.com/helm/charts/tree/master/incubator/cassandra">Helm chart&lt;/a>:&lt;/p>
 &lt;pre>&lt;code>kubectl create namespace cassandra
 helm install cassandra incubator/cassandra --namespace cassandra
-&lt;/code>&lt;/pre>&lt;p>This installs Cassandra into the &lt;code>cassandra&lt;/code> namespace by default. To interact with Cassandra, find the service with: &lt;code>kubectl get svc -n cassandra&lt;/code>.&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>This installs Cassandra into the &lt;code>cassandra&lt;/code> namespace by default.
+To interact with Cassandra, find the service with: &lt;code>kubectl get svc -n cassandra&lt;/code>.&lt;/p>
 &lt;p>For example, if installing using the example above, the Cassandra DNS would be:&lt;/p>
 &lt;p>&lt;code>cassandra.cassandra.svc.cluster.local&lt;/code>&lt;/p>
 &lt;/div>
 &lt;/div>
-&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
-&lt;li>Read &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Cloudstate</title><link>https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-cloudstate/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-cloudstate/</guid><description>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Cloudstate</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-cloudstate/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-cloudstate/</guid><description>
 &lt;h2 id="component-format">Component format&lt;/h2>
-&lt;p>To setup Cloudstate state store create a component of type &lt;code>state.cloudstate&lt;/code>. See &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;p>To setup Cloudstate state store create a component of type &lt;code>state.cloudstate&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -622,7 +624,7 @@ helm install cassandra incubator/cassandra --namespace cassandra
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>字段&lt;/th>
+&lt;th>Field&lt;/th>
 &lt;th style="text-align:center">Required&lt;/th>
 &lt;th>Details&lt;/th>
 &lt;th>Example&lt;/th>
@@ -756,12 +758,12 @@ kubectl apply -n cloudstate -f https://github.com/cloudstateio/cloudstate/releas
 &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
-&lt;li>Read &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Couchbase</title><link>https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-couchbase/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-couchbase/</guid><description>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Couchbase</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-couchbase/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-couchbase/</guid><description>
 &lt;h2 id="component-format">Component format&lt;/h2>
-&lt;p>To setup Couchbase state store create a component of type &lt;code>state.couchbase&lt;/code>. See &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;p>To setup Couchbase state store create a component of type &lt;code>state.couchbase&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -782,13 +784,13 @@ kubectl apply -n cloudstate -f https://github.com/cloudstateio/cloudstate/releas
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/%7D">here&lt;/a>。
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>字段&lt;/th>
+&lt;th>Field&lt;/th>
 &lt;th style="text-align:center">Required&lt;/th>
 &lt;th>Details&lt;/th>
 &lt;th>Example&lt;/th>
@@ -846,14 +848,14 @@ helm install couchbase/couchbase-operator
 helm install couchbase/couchbase-cluster
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;/div>
-&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
-&lt;li>Read &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: GCP Firestore (Datastore mode)</title><link>https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-firestore/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-firestore/</guid><description>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: GCP Firestore (Datastore mode)</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-firestore/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-firestore/</guid><description>
 &lt;h2 id="component-format">Component format&lt;/h2>
-&lt;p>To setup GCP Firestore state store create a component of type &lt;code>state.gcp.firestore&lt;/code>. See &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;p>To setup GCP Firestore state store create a component of type &lt;code>state.gcp.firestore&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -888,13 +890,13 @@ helm install couchbase/couchbase-cluster
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/%7D">here&lt;/a>。
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>字段&lt;/th>
+&lt;th>Field&lt;/th>
 &lt;th style="text-align:center">Required&lt;/th>
 &lt;th>Details&lt;/th>
 &lt;th>Example&lt;/th>
@@ -984,14 +986,14 @@ Google Cloud
 &lt;br />&lt;p>Follow the instructions &lt;a href="https://cloud.google.com/datastore/docs/quickstart">here&lt;/a> to get started with setting up Firestore in Google Cloud.&lt;/p>
 &lt;/div>
 &lt;/div>
-&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
-&lt;li>Read &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: HashiCorp Consul</title><link>https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-consul/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-consul/</guid><description>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: HashiCorp Consul</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-consul/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-consul/</guid><description>
 &lt;h2 id="component-format">Component format&lt;/h2>
-&lt;p>To setup Hashicorp Consul state store create a component of type &lt;code>state.consul&lt;/code>. See &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;p>To setup Hashicorp Consul state store create a component of type &lt;code>state.consul&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -1014,13 +1016,13 @@ Google Cloud
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/%7D">here&lt;/a>。
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>字段&lt;/th>
+&lt;th>Field&lt;/th>
 &lt;th style="text-align:center">Required&lt;/th>
 &lt;th>Details&lt;/th>
 &lt;th>Example&lt;/th>
@@ -1080,19 +1082,20 @@ Kubernetes
 &lt;div class="tab-pane fade" id="tabs-2-kubernetes" role="tabpanel" aria-labelled-by="tabs-2-kubernetes-tab">
 &lt;br />&lt;p>The easiest way to install Consul on Kubernetes is by using the &lt;a href="https://github.com/helm/charts/tree/master/stable/consul">Helm chart&lt;/a>:&lt;/p>
 &lt;pre>&lt;code>helm install consul stable/consul
-&lt;/code>&lt;/pre>&lt;p>This installs Consul into the &lt;code>default&lt;/code> namespace. To interact with Consul, find the service with: &lt;code>kubectl get svc consul&lt;/code>.&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>This installs Consul into the &lt;code>default&lt;/code> namespace.
+To interact with Consul, find the service with: &lt;code>kubectl get svc consul&lt;/code>.&lt;/p>
 &lt;p>For example, if installing using the example above, the Consul host address would be:&lt;/p>
 &lt;p>&lt;code>consul.default.svc.cluster.local:8500&lt;/code>&lt;/p>
 &lt;/div>
 &lt;/div>
-&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
-&lt;li>Read &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Hazelcast</title><link>https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-hazelcast/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-hazelcast/</guid><description>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Hazelcast</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-hazelcast/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-hazelcast/</guid><description>
 &lt;h2 id="create-a-dapr-component">Create a Dapr component&lt;/h2>
-&lt;p>To setup Hazelcast state store create a component of type &lt;code>state.hazelcast&lt;/code>. See &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;p>To setup Hazelcast state store create a component of type &lt;code>state.hazelcast&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -1109,13 +1112,13 @@ Kubernetes
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/%7D">here&lt;/a>。
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>字段&lt;/th>
+&lt;th>Field&lt;/th>
 &lt;th style="text-align:center">Required&lt;/th>
 &lt;th>Details&lt;/th>
 &lt;th>Example&lt;/th>
@@ -1158,14 +1161,14 @@ Kubernetes
 &lt;br />&lt;p>The easiest way to install Hazelcast on Kubernetes is by using the &lt;a href="https://github.com/helm/charts/tree/master/stable/hazelcast">Helm chart&lt;/a>.&lt;/p>
 &lt;/div>
 &lt;/div>
-&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
-&lt;li>Read &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Memcached</title><link>https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-memcached/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-memcached/</guid><description>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Memcached</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-memcached/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-memcached/</guid><description>
 &lt;h2 id="component-format">Component format&lt;/h2>
-&lt;p>To setup Memcached state store create a component of type &lt;code>state.memcached&lt;/code>. See &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;p>To setup Memcached state store create a component of type &lt;code>state.memcached&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -1184,13 +1187,13 @@ Kubernetes
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/%7D">here&lt;/a>。
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>字段&lt;/th>
+&lt;th>Field&lt;/th>
 &lt;th style="text-align:center">Required&lt;/th>
 &lt;th>Details&lt;/th>
 &lt;th>Example&lt;/th>
@@ -1238,19 +1241,20 @@ Kubernetes
 &lt;div class="tab-pane fade" id="tabs-2-kubernetes" role="tabpanel" aria-labelled-by="tabs-2-kubernetes-tab">
 &lt;br />&lt;p>The easiest way to install Memcached on Kubernetes is by using the &lt;a href="https://github.com/helm/charts/tree/master/stable/memcached">Helm chart&lt;/a>:&lt;/p>
 &lt;pre>&lt;code>helm install memcached stable/memcached
-&lt;/code>&lt;/pre>&lt;p>This installs Memcached into the &lt;code>default&lt;/code> namespace. To interact with Memcached, find the service with: &lt;code>kubectl get svc memcached&lt;/code>.&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>This installs Memcached into the &lt;code>default&lt;/code> namespace.
+To interact with Memcached, find the service with: &lt;code>kubectl get svc memcached&lt;/code>.&lt;/p>
 &lt;p>For example, if installing using the example above, the Memcached host address would be:&lt;/p>
 &lt;p>&lt;code>memcached.default.svc.cluster.local:11211&lt;/code>&lt;/p>
 &lt;/div>
 &lt;/div>
-&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
-&lt;li>Read &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: MongoDB</title><link>https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-mongodb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-mongodb/</guid><description>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: MongoDB</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-mongodb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-mongodb/</guid><description>
 &lt;h2 id="component-format">Component format&lt;/h2>
-&lt;p>To setup MongoDB state store create a component of type &lt;code>state.mongodb&lt;/code>. See &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;p>To setup MongoDB state store create a component of type &lt;code>state.mongodb&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -1279,7 +1283,7 @@ Kubernetes
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/%7D">here&lt;/a>。
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;p>If you wish to use MongoDB as an actor store, append the following to the yaml.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml"> - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">actorStateStore&lt;/span>
@@ -1288,7 +1292,7 @@ Kubernetes
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>字段&lt;/th>
+&lt;th>Field&lt;/th>
 &lt;th style="text-align:center">Required&lt;/th>
 &lt;th>Details&lt;/th>
 &lt;th>Example&lt;/th>
@@ -1366,20 +1370,22 @@ Kubernetes
 &lt;div class="tab-pane fade" id="tabs-2-kubernetes" role="tabpanel" aria-labelled-by="tabs-2-kubernetes-tab">
 &lt;br />&lt;p>The easiest way to install MongoDB on Kubernetes is by using the &lt;a href="https://github.com/helm/charts/tree/master/stable/mongodb">Helm chart&lt;/a>:&lt;/p>
 &lt;pre>&lt;code>helm install mongo stable/mongodb
-&lt;/code>&lt;/pre>&lt;p>This installs MongoDB into the &lt;code>default&lt;/code> namespace. To interact with MongoDB, find the service with: &lt;code>kubectl get svc mongo-mongodb&lt;/code>.&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>This installs MongoDB into the &lt;code>default&lt;/code> namespace.
+To interact with MongoDB, find the service with: &lt;code>kubectl get svc mongo-mongodb&lt;/code>.&lt;/p>
 &lt;p>For example, if installing using the example above, the MongoDB host address would be:&lt;/p>
 &lt;p>&lt;code>mongo-mongodb.default.svc.cluster.local:27017&lt;/code>&lt;/p>
-&lt;p>Follow the on-screen instructions to get the root password for MongoDB. The username is &lt;code>admin&lt;/code> by default.&lt;/p>
+&lt;p>Follow the on-screen instructions to get the root password for MongoDB.
+The username is &lt;code>admin&lt;/code> by default.&lt;/p>
 &lt;/div>
 &lt;/div>
-&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
-&lt;li>Read &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: MySQL</title><link>https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-mysql/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-mysql/</guid><description>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: MySQL</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-mysql/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-mysql/</guid><description>
 &lt;h2 id="component-format">Component format&lt;/h2>
-&lt;p>To setup MySQL state store create a component of type &lt;code>state.mysql&lt;/code>. See &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;p>To setup MySQL state store create a component of type &lt;code>state.mysql&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -1400,7 +1406,7 @@ Kubernetes
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/%7D">here&lt;/a>。
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;p>If you wish to use MySQL as an actor store, append the following to the yaml.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml"> - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">actorStateStore&lt;/span>
@@ -1409,7 +1415,7 @@ Kubernetes
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>字段&lt;/th>
+&lt;th>Field&lt;/th>
 &lt;th style="text-align:center">Required&lt;/th>
 &lt;th>Details&lt;/th>
 &lt;th>Example&lt;/th>
@@ -1475,7 +1481,7 @@ GCP
 &lt;br />&lt;!-- Self-Hosted -->
 &lt;p>Run an instance of MySQL. You can run a local instance of MySQL in Docker CE with the following command:&lt;/p>
 &lt;p>This example does not describe a production configuration because it sets the password in plain text and the user name is left as the MySQL default of &amp;ldquo;root&amp;rdquo;.&lt;/p>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">docker run --name dapr_mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD&lt;span style="color:#f92672">=&lt;/span>my-secret-pw -d mysql:latest
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">docker run --name dapr-mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD&lt;span style="color:#f92672">=&lt;/span>my-secret-pw -d mysql:latest
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
 &lt;div class="tab-pane fade" id="tabs-2-kubernetes" role="tabpanel" aria-labelled-by="tabs-2-kubernetes-tab">
 &lt;br />&lt;!-- Kubernetes -->
@@ -1484,7 +1490,7 @@ GCP
 &lt;li>
 &lt;p>Install MySQL into your cluster.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm repo add bitnami https://charts.bitnami.com/bitnami
-helm install dapr_mysql bitnami/mysql
+helm install dapr-mysql bitnami/mysql
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
 &lt;p>Run &lt;code>kubectl get pods&lt;/code> to see the MySQL containers now running in your cluster.&lt;/p>
@@ -1523,12 +1529,12 @@ helm install dapr_mysql bitnami/mysql
 &lt;p>Replace the &lt;code>&amp;lt;CONNECTION STRING&amp;gt;&lt;/code> value with your connection string. The connection string is a standard MySQL connection string. For example, &lt;code>&amp;quot;&amp;lt;user&amp;gt;:&amp;lt;password&amp;gt;@tcp(&amp;lt;server&amp;gt;:3306)/?allowNativePasswords=true&amp;quot;&lt;/code>.&lt;/p>
 &lt;h3 id="enforced-ssl-connection">Enforced SSL connection&lt;/h3>
 &lt;p>If your server requires SSL your connection string must end with &lt;code>&amp;amp;tls=custom&lt;/code> for example, &lt;code>&amp;quot;&amp;lt;user&amp;gt;:&amp;lt;password&amp;gt;@tcp(&amp;lt;server&amp;gt;:3306)/?allowNativePasswords=true&amp;amp;tls=custom&amp;quot;&lt;/code>. You must replace the &lt;code>&amp;lt;PEM PATH&amp;gt;&lt;/code> with a full path to the PEM file. The connection to MySQL will require a minimum TLS version of 1.2.&lt;/p>
-&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
-&lt;li>Read &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: PostgreSQL</title><link>https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-postgresql/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-postgresql/</guid><description>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: PostgreSQL</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-postgresql/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-postgresql/</guid><description>
 &lt;h2 id="create-a-dapr-component">Create a Dapr component&lt;/h2>
 &lt;p>Create a file called &lt;code>postgres.yaml&lt;/code>, paste the following and replace the &lt;code>&amp;lt;CONNECTION STRING&amp;gt;&lt;/code> value with your connection string. The connection string is a standard PostgreSQL connection string. For example, &lt;code>&amp;quot;host=localhost user=postgres password=example port=5432 connect_timeout=10 database=dapr_test&amp;quot;&lt;/code>. See the PostgreSQL &lt;a href="https://www.postgresql.org/docs/current/libpq-connect.html">documentation on database connections&lt;/a>, specifically Keyword/Value Connection Strings, for information on how to define a connection string.&lt;/p>
 &lt;p>If you want to also configure PostgreSQL to store actors, add the &lt;code>actorStateStore&lt;/code> configuration element shown below.&lt;/p>
@@ -1546,13 +1552,13 @@ helm install dapr_mysql bitnami/mysql
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/">here&lt;/a>.
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>字段&lt;/th>
+&lt;th>Field&lt;/th>
 &lt;th style="text-align:center">Required&lt;/th>
 &lt;th>Details&lt;/th>
 &lt;th>Example&lt;/th>
@@ -1592,21 +1598,22 @@ Self-Hosted
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">docker run -p 5432:5432 -e POSTGRES_PASSWORD&lt;span style="color:#f92672">=&lt;/span>example postgres
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
-&lt;p>Create a database for state data. Either the default &amp;ldquo;postgres&amp;rdquo; database can be used, or create a new database for storing state data.&lt;/p>
+&lt;p>Create a database for state data.
+Either the default &amp;ldquo;postgres&amp;rdquo; database can be used, or create a new database for storing state data.&lt;/p>
 &lt;p>To create a new database in PostgreSQL, run the following SQL command:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-SQL" data-lang="SQL">&lt;span style="color:#66d9ef">create&lt;/span> &lt;span style="color:#66d9ef">database&lt;/span> dapr_test
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;/ol>
 &lt;/div>
 &lt;/div>
-&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
-&lt;li>Read &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Redis</title><link>https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-redis/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-redis/</guid><description>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Redis</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-redis/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-redis/</guid><description>
 &lt;h2 id="component-format">Component format&lt;/h2>
-&lt;p>To setup Redis state store create a component of type &lt;code>state.redis&lt;/code>. See &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;p>To setup Redis state store create a component of type &lt;code>state.redis&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -1634,7 +1641,7 @@ Self-Hosted
 &lt;p>&lt;strong>Failover:&lt;/strong> When set to &lt;code>true&lt;/code> enables the failover feature. The redisHost should be the sentinel host address. See &lt;a href="https://redis.io/topics/sentinel">Redis Sentinel Documentation&lt;/a>&lt;/p>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/">here&lt;/a>.
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;p>If you wish to use Redis as an actor store, append the following to the yaml.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml"> - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">actorStateStore&lt;/span>
@@ -1643,7 +1650,7 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>字段&lt;/th>
+&lt;th>Field&lt;/th>
 &lt;th style="text-align:center">Required&lt;/th>
 &lt;th>Details&lt;/th>
 &lt;th>Example&lt;/th>
@@ -1784,7 +1791,7 @@ helm install redis bitnami/redis
 &lt;li>for your access key navigate to &amp;ldquo;Access Keys&amp;rdquo; under &amp;ldquo;Settings&amp;rdquo; and copy your key.&lt;/li>
 &lt;/ul>
 &lt;/li>
-&lt;li>Finally, we need to add our key and our host to a &lt;code>redis.yaml&lt;/code> file that Dapr can apply to our cluster. If you&amp;rsquo;re running a sample, you&amp;rsquo;ll add the host and key to the provided &lt;code>redis.yaml&lt;/code>. If you&amp;rsquo;re creating a project from the ground up, you&amp;rsquo;ll create a &lt;code>redis.yaml&lt;/code> file as specified in &lt;a href="#configuration">Configuration&lt;/a>. Set the &lt;code>redisHost&lt;/code> key to &lt;code>[HOST NAME FROM PREVIOUS STEP]:6379&lt;/code> and the &lt;code>redisPassword&lt;/code> key to the key you copied in step 4. &lt;strong>Note:&lt;/strong> In a production-grade application, follow &lt;a href="https://github.com/dapr/docs/blob/master/concepts/components/secrets.md">secret management&lt;/a> instructions to securely manage your secrets.&lt;/li>
+&lt;li>Finally, we need to add our key and our host to a &lt;code>redis.yaml&lt;/code> file that Dapr can apply to our cluster. If you&amp;rsquo;re running a sample, you&amp;rsquo;ll add the host and key to the provided &lt;code>redis.yaml&lt;/code>. If you&amp;rsquo;re creating a project from the ground up, you&amp;rsquo;ll create a &lt;code>redis.yaml&lt;/code> file as specified in &lt;a href="#configuration">Configuration&lt;/a>. Set the &lt;code>redisHost&lt;/code> key to &lt;code>[HOST NAME FROM PREVIOUS STEP]:6379&lt;/code> and the &lt;code>redisPassword&lt;/code> key to the key you copied in step 4. &lt;strong>Note:&lt;/strong> In a production-grade application, follow &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">secret management&lt;/a> instructions to securely manage your secrets.&lt;/li>
 &lt;/ol>
 &lt;blockquote>
 &lt;p>&lt;strong>NOTE:&lt;/strong> Dapr pub/sub uses &lt;a href="https://redis.io/topics/streams-intro">Redis Streams&lt;/a> that was introduced by Redis 5.0, which isn&amp;rsquo;t currently available on Azure Managed Redis Cache. Consequently, you can use Azure Managed Redis Cache only for state persistence.&lt;/p>
@@ -1801,14 +1808,14 @@ helm install redis bitnami/redis
 &lt;h4 class="alert-heading">Note&lt;/h4>
 The Dapr CLI automatically deploys a local redis instance in self hosted mode as part of the &lt;code>dapr init&lt;/code> command.
 &lt;/div>
-&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
-&lt;li>Read &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: RethinkDB</title><link>https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-rethinkdb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-rethinkdb/</guid><description>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: RethinkDB</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-rethinkdb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-rethinkdb/</guid><description>
 &lt;h2 id="component-format">Component format&lt;/h2>
-&lt;p>To setup RethinkDB state store create a component of type &lt;code>state.rethinkdb&lt;/code>. See &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;p>To setup RethinkDB state store create a component of type &lt;code>state.rethinkdb&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -1833,7 +1840,7 @@ The Dapr CLI automatically deploys a local redis instance in self hosted mode as
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/%7D">here&lt;/a>。
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;p>If you wish to use Redis as an actor store, append the following to the yaml.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml"> - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">actorStateStore&lt;/span>
@@ -1844,7 +1851,7 @@ The Dapr CLI automatically deploys a local redis instance in self hosted mode as
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>字段&lt;/th>
+&lt;th>Field&lt;/th>
 &lt;th style="text-align:center">Required&lt;/th>
 &lt;th>Details&lt;/th>
 &lt;th>Example&lt;/th>
@@ -1904,14 +1911,14 @@ Self-Hosted
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">open &lt;span style="color:#e6db74">&amp;#34;http://&lt;/span>&lt;span style="color:#66d9ef">$(&lt;/span>docker inspect --format &lt;span style="color:#e6db74">&amp;#39;{{ .NetworkSettings.IPAddress }}&amp;#39;&lt;/span> rethinkdb&lt;span style="color:#66d9ef">)&lt;/span>&lt;span style="color:#e6db74">:8080&amp;#34;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
 &lt;/div>
-&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
-&lt;li>Read &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: SQL Server</title><link>https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-sqlserver/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-sqlserver/</guid><description>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: SQL Server</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-sqlserver/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-sqlserver/</guid><description>
 &lt;h2 id="component-format">Component format&lt;/h2>
-&lt;p>To setup SQL Server state store create a component of type &lt;code>state.sqlserver&lt;/code>. See &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;p>To setup SQL Server state store create a component of type &lt;code>state.sqlserver&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -1936,7 +1943,7 @@ Self-Hosted
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/%7D">here&lt;/a>。
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;div class="alert alert-primary" role="alert">
 &lt;h4 class="alert-heading">Note&lt;/h4>
@@ -1946,7 +1953,7 @@ Currently this component does not support state management for actors
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>字段&lt;/th>
+&lt;th>Field&lt;/th>
 &lt;th style="text-align:center">Required&lt;/th>
 &lt;th>Details&lt;/th>
 &lt;th>Example&lt;/th>
@@ -2007,14 +2014,14 @@ Currently this component does not support state management for actors
 &lt;li>&lt;code>CREATE TABLE&lt;/code>&lt;/li>
 &lt;li>&lt;code>CREATE TYPE&lt;/code>&lt;/li>
 &lt;/ul>
-&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
-&lt;li>Read &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Zookeeper</title><link>https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-zookeeper/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/setup-zookeeper/</guid><description>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Zookeeper</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-zookeeper/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-zookeeper/</guid><description>
 &lt;h2 id="component-format">Component format&lt;/h2>
-&lt;p>To setup Zookeeper state store create a component of type &lt;code>state.zookeeper&lt;/code>. See &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;p>To setup Zookeeper state store create a component of type &lt;code>state.zookeeper&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -2037,13 +2044,13 @@ Currently this component does not support state management for actors
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://dapr-cn.github.io/operations/components/component-secrets/%7D">here&lt;/a>。
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>字段&lt;/th>
+&lt;th>Field&lt;/th>
 &lt;th style="text-align:center">Required&lt;/th>
 &lt;th>Details&lt;/th>
 &lt;th>Example&lt;/th>
@@ -2104,14 +2111,15 @@ Kubernetes
 &lt;br />&lt;p>The easiest way to install Zookeeper on Kubernetes is by using the &lt;a href="https://github.com/helm/charts/tree/master/incubator/zookeeper">Helm chart&lt;/a>:&lt;/p>
 &lt;pre>&lt;code>helm repo add incubator http://storage.googleapis.com/kubernetes-charts-incubator
 helm install zookeeper incubator/zookeeper
-&lt;/code>&lt;/pre>&lt;p>This installs Zookeeper into the &lt;code>default&lt;/code> namespace. To interact with Zookeeper, find the service with: &lt;code>kubectl get svc zookeeper&lt;/code>.&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>This installs Zookeeper into the &lt;code>default&lt;/code> namespace.
+To interact with Zookeeper, find the service with: &lt;code>kubectl get svc zookeeper&lt;/code>.&lt;/p>
 &lt;p>For example, if installing using the example above, the Zookeeper host address would be:&lt;/p>
 &lt;p>&lt;code>zookeeper.default.svc.cluster.local:2181&lt;/code>&lt;/p>
 &lt;/div>
 &lt;/div>
-&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://dapr-cn.github.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
-&lt;li>Read &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
-&lt;li>&lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
 &lt;/ul></description></item></channel></rss>

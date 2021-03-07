@@ -1,113 +1,113 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – Actors</title><link>https://dapr-cn.github.io/developing-applications/building-blocks/actors/</link><description>Recent content in Actors on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh</language><atom:link href="https://dapr-cn.github.io/developing-applications/building-blocks/actors/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Dapr Actors 概述</title><link>https://dapr-cn.github.io/developing-applications/building-blocks/actors/actors-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/building-blocks/actors/actors-overview/</guid><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr Docs – Actors</title><link>https://docs.dapr.io/developing-applications/building-blocks/actors/</link><description>Recent content in Actors on Dapr Docs</description><generator>Hugo -- gohugo.io</generator><language>zh-hans</language><atom:link href="https://docs.dapr.io/developing-applications/building-blocks/actors/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Actors overview</title><link>https://docs.dapr.io/developing-applications/building-blocks/actors/actors-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/building-blocks/actors/actors-overview/</guid><description>
 &lt;h2 id="introduction">Introduction&lt;/h2>
-&lt;p>The &lt;a href="https://en.wikipedia.org/wiki/Actor_model">actor pattern&lt;/a> describes actors as the lowest-level &amp;ldquo;unit of computation&amp;rdquo;. 换句话说，您将代码写入独立单元 ( 称为actor) ，该单元接收消息并一次处理消息，而不进行任何类型的并行或线程处理。&lt;/p>
+&lt;p>The &lt;a href="https://en.wikipedia.org/wiki/Actor_model">actor pattern&lt;/a> describes actors as the lowest-level &amp;ldquo;unit of computation&amp;rdquo;. In other words, you write your code in a self-contained unit (called an actor) that receives messages and processes them one at a time, without any kind of concurrency or threading.&lt;/p>
 &lt;p>While your code processes a message, it can send one or more messages to other actors, or create new actors. An underlying runtime manages how, when and where each actor runs, and also routes messages between actors.&lt;/p>
-&lt;p>大量 Actors 可以同时执行，而 Actors 可以相互独立执行。&lt;/p>
-&lt;p>Dapr includes a runtime that specifically implements the &lt;a href="https://www.microsoft.com/en-us/research/project/orleans-virtual-actors/">Virtual Actor pattern&lt;/a>. 通过 Dapr 的实现，您可以根据 Actors 模型编写 Dapr Actor，而 Dapr 利用底层平台提供的可扩展性和可靠性保证。&lt;/p>
-&lt;h3 id="何时使用-actors">何时使用 Actors？&lt;/h3>
-&lt;p>与任何其他技术决策一样，您应该根据您尝试解决的问题来决定是否使用 Actors。&lt;/p>
-&lt;p>The actor design pattern can be a good fit to a number of distributed systems problems and scenarios, but the first thing you should consider are the constraints of the pattern. 一般来说，在下列情况下，考虑 actor 模式来模拟你的问题或场景：&lt;/p>
+&lt;p>A large number of actors can execute simultaneously, and actors execute independently from each other.&lt;/p>
+&lt;p>Dapr includes a runtime that specifically implements the &lt;a href="https://www.microsoft.com/en-us/research/project/orleans-virtual-actors/">Virtual Actor pattern&lt;/a>. With Dapr&amp;rsquo;s implementation, you write your Dapr actors according to the Actor model, and Dapr leverages the scalability and reliability guarantees that the underlying platform provides.&lt;/p>
+&lt;h3 id="when-to-use-actors">When to use actors&lt;/h3>
+&lt;p>As with any other technology decision, you should decide whether to use actors based on the problem you&amp;rsquo;re trying to solve.&lt;/p>
+&lt;p>The actor design pattern can be a good fit to a number of distributed systems problems and scenarios, but the first thing you should consider are the constraints of the pattern. Generally speaking, consider the actor pattern to model your problem or scenario if:&lt;/p>
 &lt;ul>
 &lt;li>Your problem space involves a large number (thousands or more) of small, independent, and isolated units of state and logic.&lt;/li>
 &lt;li>You want to work with single-threaded objects that do not require significant interaction from external components, including querying state across a set of actors.&lt;/li>
 &lt;li>Your actor instances won&amp;rsquo;t block callers with unpredictable delays by issuing I/O operations.&lt;/li>
 &lt;/ul>
-&lt;h2 id="dapr-中的-actors">Dapr 中的 Actors&lt;/h2>
-&lt;p>Every actor is defined as an instance of an actor type, identical to the way an object is an instance of a class. 例如，可能存在实现计算器功能的 actor 类型，并且该类型的许多 Actors 分布在集群的各个节点上。 每个这样的 actor 都是由一个 actor ID 确定的。&lt;/p>
-&lt;img src="https://dapr-cn.github.io/images/actor_background_game_example.png" width=400>
-&lt;h2 id="actor-生命周期">Actor 生命周期&lt;/h2>
-&lt;p>Dapr actors are virtual, meaning that their lifetime is not tied to their in-memory representation. 因此，它们不需要显式创建或销毁。 Dapr Actors 运行时在第一次接收到该 actor ID 的请求时自动激活 actor。 如果 actor 在一段时间内未被使用，那么 Dapr Actors 运行时将回收内存对象。 如果以后需要重新启动，它还将保持对 actor 的一切原有数据。&lt;/p>
-&lt;p>Invocation of actor methods and reminders reset the idle time, e.g. reminder firing will keep the actor active. 不论 actor 是否处于活动状态或不活动状态 Actor reminders 都会触发，对不活动 actor ，那么会首先激活 actor。 Actor timers 不会重置空闲时间，因此 timer 触发不会使参与者保持活动状态。 Timer 仅在 actor 活跃时被触发。&lt;/p>
-&lt;p>The idle timeout and scan interval Dapr runtime uses to see if an actor can be garbage-collected is configurable. 当 Dapr 运行时调用 actor 服务以获取受支持的 actor 类型时，可以传递此信息。&lt;/p>
-&lt;p>Virtual actors 生命周期抽象会将一些警告作为 virtual actors 模型的结果，而事实上， Dapr Actors 实施有时会偏离此模型。&lt;/p>
-&lt;p>An actor is automatically activated (causing an actor object to be constructed) the first time a message is sent to its actor ID. 在一段时间后，actor 对象将被垃圾回收。 以后，再次使用 actor ID 访问，将构造新的 actor。 Actor 的状态比对象的生命周期更久，因为状态存储在 Dapr 运行时的配置状态提供程序中（也就是说Actor即使不在活跃状态，仍然可以读取它的状态）。&lt;/p>
-&lt;h2 id="分发和故障转移">分发和故障转移&lt;/h2>
-&lt;p>为了提供可扩展性和可靠性，Actors 实例分布在整个集群中， Dapr 会根据需要自动将对象从失败的节点迁移到健康的节点。&lt;/p>
-&lt;p>Actors are distributed across the instances of the actor service, and those instance are distributed across the nodes in a cluster. 每个服务实例都包含给定 Actors 类型的一组 Actors。&lt;/p>
-&lt;h3 id="actor-安置服务-actor-placement-service">Actor 安置服务 (Actor placement service)&lt;/h3>
-&lt;p>Dapr actor 运行时为您管理分发方案和键范围设置。 这是由 actor &lt;code>Placement&lt;/code> 服务完成的。 创建服务的新实例时，相应的 Dapr 运行时将注册它可以创建的 actor 类型， &lt;code>Placement&lt;/code> 服务将计算给定 actor 类型的所有实例之间的分区。 每个 actor 类型的分区信息表将更新并存储在环境中运行的每个 Dapr 实例中，并且可以随着新 actor 服务实例创建和销毁动态更改。 如下图所示。&lt;/p>
-&lt;img src="https://dapr-cn.github.io/images/actors_background_placement_service_registration.png" width=600>
-&lt;p>When a client calls an actor with a particular id (for example, actor id 123), the Dapr instance for the client hashes the actor type and id, and uses the information to call onto the corresponding Dapr instance that can serve the requests for that particular actor id. 因此，始终对任何给定 actor Id 始终会落在同一分区 (或服务实例) 。 如下图所示。&lt;/p>
-&lt;img src="https://dapr-cn.github.io/images/actors_background_id_hashing_calling.png" width=600>
-&lt;p>这简化了一些选择，但也带有一些考虑：&lt;/p>
+&lt;h2 id="actors-in-dapr">Actors in dapr&lt;/h2>
+&lt;p>Every actor is defined as an instance of an actor type, identical to the way an object is an instance of a class. For example, there may be an actor type that implements the functionality of a calculator and there could be many actors of that type that are distributed on various nodes across a cluster. Each such actor is uniquely identified by an actor ID.&lt;/p>
+&lt;img src="https://docs.dapr.io/images/actor_background_game_example.png" width=400>
+&lt;h2 id="actor-lifetime">Actor lifetime&lt;/h2>
+&lt;p>Dapr actors are virtual, meaning that their lifetime is not tied to their in-memory representation. As a result, they do not need to be explicitly created or destroyed. The Dapr actors runtime automatically activates an actor the first time it receives a request for that actor ID. If an actor is not used for a period of time, the Dapr Actors runtime garbage-collects the in-memory object. It will also maintain knowledge of the actor&amp;rsquo;s existence should it need to be reactivated later.&lt;/p>
+&lt;p>Invocation of actor methods and reminders reset the idle time, e.g. reminder firing will keep the actor active. Actor reminders fire whether an actor is active or inactive, if fired for inactive actor, it will activate the actor first. Actor timers do not reset the idle time, so timer firing will not keep the actor active. Timers only fire while the actor is active.&lt;/p>
+&lt;p>The idle timeout and scan interval Dapr runtime uses to see if an actor can be garbage-collected is configurable. This information can be passed when Dapr runtime calls into the actor service to get supported actor types.&lt;/p>
+&lt;p>This virtual actor lifetime abstraction carries some caveats as a result of the virtual actor model, and in fact the Dapr Actors implementation deviates at times from this model.&lt;/p>
+&lt;p>An actor is automatically activated (causing an actor object to be constructed) the first time a message is sent to its actor ID. After some period of time, the actor object is garbage collected. In the future, using the actor ID again, causes a new actor object to be constructed. An actor&amp;rsquo;s state outlives the object&amp;rsquo;s lifetime as state is stored in configured state provider for Dapr runtime.&lt;/p>
+&lt;h2 id="distribution-and-failover">Distribution and failover&lt;/h2>
+&lt;p>To provide scalability and reliability, actors instances are distributed throughout the cluster and Dapr automatically migrates them from failed nodes to healthy ones as required.&lt;/p>
+&lt;p>Actors are distributed across the instances of the actor service, and those instance are distributed across the nodes in a cluster. Each service instance contains a set of actors for a given actor type.&lt;/p>
+&lt;h3 id="actor-placement-service">Actor placement service&lt;/h3>
+&lt;p>The Dapr actor runtime manages distribution scheme and key range settings for you. This is done by the actor &lt;code>Placement&lt;/code> service. When a new instance of a service is created, the corresponding Dapr runtime registers the actor types it can create and the &lt;code>Placement&lt;/code> service calculates the partitioning across all the instances for a given actor type. This table of partition information for each actor type is updated and stored in each Dapr instance running in the environment and can change dynamically as new instance of actor services are created and destroyed. This is shown in the diagram below.&lt;/p>
+&lt;img src="https://docs.dapr.io/images/actors_background_placement_service_registration.png" width=600>
+&lt;p>When a client calls an actor with a particular id (for example, actor id 123), the Dapr instance for the client hashes the actor type and id, and uses the information to call onto the corresponding Dapr instance that can serve the requests for that particular actor id. As a result, the same partition (or service instance) is always called for any given actor id. This is shown in the diagram below.&lt;/p>
+&lt;img src="https://docs.dapr.io/images/actors_background_id_hashing_calling.png" width=600>
+&lt;p>This simplifies some choices but also carries some consideration:&lt;/p>
 &lt;ul>
 &lt;li>By default, actors are randomly placed into pods resulting in uniform distribution.&lt;/li>
 &lt;li>Because actors are randomly placed, it should be expected that actor operations always require network communication, including serialization and deserialization of method call data, incurring latency and overhead.&lt;/li>
 &lt;/ul>
-&lt;p>Note: The Dapr actor Placement service is only used for actor placement and therefore is not needed if your services are not using Dapr actors. Placement 服务可以在所有 &lt;a href="https://dapr-cn.github.io/operations/hosting/"> 托管环境中&lt;/a>&lt;/a> ，包括自托管和 Kubernetes。&lt;/p>
-&lt;h2 id="actor-通信">Actor 通信&lt;/h2>
-&lt;p>您可以通过 HTTP/gRPC 来与 Dapr 交互以调用 actor 方法.&lt;/p>
+&lt;p>Note: The Dapr actor Placement service is only used for actor placement and therefore is not needed if your services are not using Dapr actors. The Placement service can run in all &lt;a href="https://docs.dapr.io/operations/hosting/">hosting environments&lt;/a>, including self-hosted and Kubernetes.&lt;/p>
+&lt;h2 id="actor-communication">Actor communication&lt;/h2>
+&lt;p>You can interact with Dapr to invoke the actor method by calling HTTP/gRPC endpoint.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">POST/GET/PUT/DELETE http://localhost:3500/v1.0/actors/&amp;lt;actorType&amp;gt;/&amp;lt;actorId&amp;gt;/&amp;lt;method/state/timers/reminders&amp;gt;
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>您可以在请求主体中为 actor 方法提供任何数据，并且请求的响应在响应主体中，这是来自 actor 方法调用的数据。&lt;/p>
-&lt;p>请参阅 &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/actors/actors-overview/">Dapr Actor 功能部件&lt;/a> ，以获取更多详细信息。&lt;/p>
-&lt;h3 id="并发concurrency">并发（Concurrency）&lt;/h3>
-&lt;p>The Dapr Actors runtime provides a simple turn-based access model for accessing actor methods. 这意味着任何时候都不能有一个以上的线程在一个 actor 对象的代码内活动。 基于回合的访问大大简化了并发系统，因为不需要同步数据访问机制。 这也意味着系统的设计必须考虑到每个 actor 实例的单线程访问性质。&lt;/p>
-&lt;p>A single actor instance cannot process more than one request at a time. 如果 actor 实例预期要处理并发请求，可能会导致吞吐量瓶颈。&lt;/p>
-&lt;p>Actors can deadlock on each other if there is a circular request between two actors while an external request is made to one of the actors simultaneously. Dapr actor 运行时会自动分出 actor 调用，并向调用方引发异常以中断可能死锁的情况。&lt;/p>
-&lt;img src="https://dapr-cn.github.io/images/actors_background_communication.png" width=600>
-&lt;h3 id="基于回合的访问">基于回合的访问&lt;/h3>
-&lt;p>一个回合包括执行 actor 方法以响应来自其他 Actors 或客户端的请求，或执行 timer/reminders 回调。 即使这些方法和回调是异步的，但 Dapr Actors 运行时并没有将它们交错（Interleave ，即并发调用它们）。 在允许新回合之前，必须完全结束之前的回合。 换句话说，在允许对方法或回调进行新调用之前，必须完全完成当前正在执行的 actor 方法或 timer/reminders 回调。 如果执行从方法或回调返回结果，并且方法或回调返回的任务已完成，则方法或回调将被视为已完成。 值得强调的是，即使在不同方法、timer和回调中，基于回合的并发也一样起作用。&lt;/p>
-&lt;p>The Dapr actors runtime enforces turn-based concurrency by acquiring a per-actor lock at the beginning of a turn and releasing the lock at the end of the turn. 因此，基于回合的并发性是按每个 actor 执行的，而不是跨 Actors 执行的。 Actor 方法和 timer/reminders 回调可以代表不同的 Actors 同时执行。&lt;/p>
-&lt;p>下面的示例演示了上述概念。 现在有一个实现了两个异步方法（例如，方法 1 和方法 2）、timer 和 reminders 的 actor。 The diagram below shows an example of a timeline for the execution of these methods and callbacks on behalf of two actors (ActorId1 and ActorId2) that belong to this actor type.&lt;/p>
-&lt;img src="https://dapr-cn.github.io/images/actors_background_concurrency.png" width=600></description></item><item><title>Developing-Applications: How-to: Use virtual actors in Dapr</title><link>https://dapr-cn.github.io/developing-applications/building-blocks/actors/howto-actors/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/developing-applications/building-blocks/actors/howto-actors/</guid><description>
-&lt;p>The Dapr actors runtime provides support for &lt;a href="https://dapr-cn.github.io/developing-applications/building-blocks/actors/actors-overview/">virtual actors&lt;/a> through following capabilities:&lt;/p>
-&lt;h2 id="调用-actor-方法">调用 Actor 方法&lt;/h2>
-&lt;p>您可以通过 HTTP/gRPC 来与 Dapr 交互以调用 actor 方法&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>You can provide any data for the actor method in the request body, and the response for the request would be in the response body which is the data from actor call.&lt;/p>
+&lt;p>Refer to &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/actors/actors-overview/">Dapr Actor Features&lt;/a> for more details.&lt;/p>
+&lt;h3 id="concurrency">Concurrency&lt;/h3>
+&lt;p>The Dapr Actors runtime provides a simple turn-based access model for accessing actor methods. This means that no more than one thread can be active inside an actor object&amp;rsquo;s code at any time. Turn-based access greatly simplifies concurrent systems as there is no need for synchronization mechanisms for data access. It also means systems must be designed with special considerations for the single-threaded access nature of each actor instance.&lt;/p>
+&lt;p>A single actor instance cannot process more than one request at a time. An actor instance can cause a throughput bottleneck if it is expected to handle concurrent requests.&lt;/p>
+&lt;p>Actors can deadlock on each other if there is a circular request between two actors while an external request is made to one of the actors simultaneously. The Dapr actor runtime automatically times out on actor calls and throw an exception to the caller to interrupt possible deadlock situations.&lt;/p>
+&lt;img src="https://docs.dapr.io/images/actors_background_communication.png" width=600>
+&lt;h3 id="turn-based-access">Turn-based access&lt;/h3>
+&lt;p>A turn consists of the complete execution of an actor method in response to a request from other actors or clients, or the complete execution of a timer/reminder callback. Even though these methods and callbacks are asynchronous, the Dapr Actors runtime does not interleave them. A turn must be fully finished before a new turn is allowed. In other words, an actor method or timer/reminder callback that is currently executing must be fully finished before a new call to a method or callback is allowed. A method or callback is considered to have finished if the execution has returned from the method or callback and the task returned by the method or callback has finished. It is worth emphasizing that turn-based concurrency is respected even across different methods, timers, and callbacks.&lt;/p>
+&lt;p>The Dapr actors runtime enforces turn-based concurrency by acquiring a per-actor lock at the beginning of a turn and releasing the lock at the end of the turn. Thus, turn-based concurrency is enforced on a per-actor basis and not across actors. Actor methods and timer/reminder callbacks can execute simultaneously on behalf of different actors.&lt;/p>
+&lt;p>The following example illustrates the above concepts. Consider an actor type that implements two asynchronous methods (say, Method1 and Method2), a timer, and a reminder. The diagram below shows an example of a timeline for the execution of these methods and callbacks on behalf of two actors (ActorId1 and ActorId2) that belong to this actor type.&lt;/p>
+&lt;img src="https://docs.dapr.io/images/actors_background_concurrency.png" width=600></description></item><item><title>Developing-Applications: How-to: Use virtual actors in Dapr</title><link>https://docs.dapr.io/developing-applications/building-blocks/actors/howto-actors/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/building-blocks/actors/howto-actors/</guid><description>
+&lt;p>The Dapr actors runtime provides support for &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/actors/actors-overview/">virtual actors&lt;/a> through following capabilities:&lt;/p>
+&lt;h2 id="actor-method-invocation">Actor method invocation&lt;/h2>
+&lt;p>You can interact with Dapr to invoke the actor method by calling HTTP/gRPC endpoint&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-html" data-lang="html">POST/GET/PUT/DELETE http://localhost:3500/v1.0/actors/&amp;lt;&lt;span style="color:#f92672">actorType&lt;/span>&amp;gt;/&amp;lt;&lt;span style="color:#f92672">actorId&lt;/span>&amp;gt;/method/&amp;lt;&lt;span style="color:#f92672">method&lt;/span>&amp;gt;
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>您可以在请求主体中为 actor 方法提供任何数据，并且请求的响应在响应主体中，这是来自 actor 方法调用的数据。&lt;/p>
-&lt;p>参阅&lt;a href="https://dapr-cn.github.io/reference/api/actors_api/#invoke-actor-method">api spec&lt;/a> 获取更多信息。&lt;/p>
-&lt;h2 id="actor-状态管理">Actor 状态管理&lt;/h2>
-&lt;p>Actor 可以使用状态管理功能可靠地保存状态。&lt;/p>
-&lt;p>您可以通过 HTTP/GRPC 端点与 Dapr 进行状态管理。&lt;/p>
-&lt;p>要使用Actor，您的状态存储必须支持多项目事务。 This means your state store &lt;a href="https://github.com/dapr/components-contrib/tree/master/state">component&lt;/a> must implement the &lt;a href="https://github.com/dapr/components-contrib/blob/master/state/transactional_store.go">TransactionalStore&lt;/a> interface. The list of components that support transactions/actors can be found here: &lt;a href="https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/">supported state stores&lt;/a>.&lt;/p>
-&lt;h2 id="actor-timers-和-reminders">Actor timers 和 reminders&lt;/h2>
-&lt;p>Actors 可以通过 timer 或者 remider 自行注册周期性的任务.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>You can provide any data for the actor method in the request body and the response for the request is in response body which is data from actor method call.&lt;/p>
+&lt;p>Refer &lt;a href="https://docs.dapr.io/reference/api/actors_api/#invoke-actor-method">api spec&lt;/a> for more details.&lt;/p>
+&lt;h2 id="actor-state-management">Actor state management&lt;/h2>
+&lt;p>Actors can save state reliably using state management capability.&lt;/p>
+&lt;p>You can interact with Dapr through HTTP/gRPC endpoints for state management.&lt;/p>
+&lt;p>To use actors, your state store must support multi-item transactions. This means your state store &lt;a href="https://github.com/dapr/components-contrib/tree/master/state">component&lt;/a> must implement the &lt;a href="https://github.com/dapr/components-contrib/blob/master/state/transactional_store.go">TransactionalStore&lt;/a> interface. The list of components that support transactions/actors can be found here: &lt;a href="https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/">supported state stores&lt;/a>.&lt;/p>
+&lt;h2 id="actor-timers-and-reminders">Actor timers and reminders&lt;/h2>
+&lt;p>Actors can schedule periodic work on themselves by registering either timers or reminders.&lt;/p>
 &lt;h3 id="actor-timers">Actor timers&lt;/h3>
-&lt;p>你可以通过 timer 在actor中注册一个回调。&lt;/p>
-&lt;p>Dapr Actor 运行时确保回调方法被顺序调用，而非并发调用。 这意味着，在此回调完成执行之前，不会有其他Actor方法或timer/remider回调被执行。&lt;/p>
-&lt;p>Timer的下一个周期在回调完成执行后开始计算。 This implies that the timer is stopped while the callback is executing and is started when the callback finishes.&lt;/p>
-&lt;p>Dapr Actor 运行时在回调完成时保存对actor的状态所作的更改。 If an error occurs in saving the state, that actor object is deactivated and a new instance will be activated.&lt;/p>
-&lt;p>All timers are stopped when the actor is deactivated as part of garbage collection. 在此之后，将不会再调用 timer 的回调。 此外， Dapr Actors 运行时不会保留有关在失活之前运行的 timer 的任何信息。 也就是说，重新启动 actor 后将会激活的 timer 完全取决于注册时登记的 timer。&lt;/p>
-&lt;p>您可以通过将 HTTP/gRPC 请求调用 Dapr 来为 actor 创建 timer。&lt;/p>
+&lt;p>You can register a callback on actor to be executed based on a timer.&lt;/p>
+&lt;p>The Dapr actor runtime ensures that the callback methods respect the turn-based concurrency guarantees.This means that no other actor methods or timer/reminder callbacks will be in progress until this callback completes execution.&lt;/p>
+&lt;p>The next period of the timer starts after the callback completes execution. This implies that the timer is stopped while the callback is executing and is started when the callback finishes.&lt;/p>
+&lt;p>The Dapr actors runtime saves changes made to the actor&amp;rsquo;s state when the callback finishes. If an error occurs in saving the state, that actor object is deactivated and a new instance will be activated.&lt;/p>
+&lt;p>All timers are stopped when the actor is deactivated as part of garbage collection. No timer callbacks are invoked after that. Also, the Dapr actors runtime does not retain any information about the timers that were running before deactivation. It is up to the actor to register any timers that it needs when it is reactivated in the future.&lt;/p>
+&lt;p>You can create a timer for an actor by calling the HTTP/gRPC request to Dapr.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-md" data-lang="md">POST/PUT http://localhost:3500/v1.0/actors/&amp;lt;&lt;span style="color:#f92672">actorType&lt;/span>&amp;gt;/&amp;lt;&lt;span style="color:#f92672">actorId&lt;/span>&amp;gt;/timers/&amp;lt;&lt;span style="color:#f92672">name&lt;/span>&amp;gt;
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Timer 的 &lt;code>duetime&lt;/code> 和回调函数可以在请求主体中指定。 到期时间（due time）表示注册后 timer 将首次触发的事件。 The &lt;code>period&lt;/code> represents how often the timer fires after that. 到期时间为0表示立即执行。 负 due times 和负 periods 都是无效。&lt;/p>
-&lt;p>The following request body configures a timer with a &lt;code>dueTime&lt;/code> of 9 seconds and a &lt;code>period&lt;/code> of 3 seconds. 这意味着它将在9秒后首次触发，然后每3秒触发一次。&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The timer &lt;code>duetime&lt;/code> and callback are specified in the request body. The due time represents when the timer will first fire after registration. The &lt;code>period&lt;/code> represents how often the timer fires after that. A due time of 0 means to fire immediately. Negative due times and negative periods are invalid.&lt;/p>
+&lt;p>The following request body configures a timer with a &lt;code>dueTime&lt;/code> of 9 seconds and a &lt;code>period&lt;/code> of 3 seconds. This means it will first fire after 9 seconds, then every 3 seconds after that.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
 &lt;span style="color:#f92672">&amp;#34;dueTime&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;0h0m9s0ms&amp;#34;&lt;/span>,
 &lt;span style="color:#f92672">&amp;#34;period&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;0h0m3s0ms&amp;#34;&lt;/span>
 }
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>The following request body configures a timer with a &lt;code>dueTime&lt;/code> 0 seconds and a &lt;code>period&lt;/code> of 3 seconds. 这意味着它将在注册之后立即触发，然后每3秒触发一次。&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The following request body configures a timer with a &lt;code>dueTime&lt;/code> 0 seconds and a &lt;code>period&lt;/code> of 3 seconds. This means it fires immediately after registration, then every 3 seconds after that.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
 &lt;span style="color:#f92672">&amp;#34;dueTime&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;0h0m0s0ms&amp;#34;&lt;/span>,
 &lt;span style="color:#f92672">&amp;#34;period&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;0h0m3s0ms&amp;#34;&lt;/span>
 }
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>您可以通过调用来除去 Actor timers&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>You can remove the actor timer by calling&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-md" data-lang="md">DELETE http://localhost:3500/v1.0/actors/&amp;lt;&lt;span style="color:#f92672">actorType&lt;/span>&amp;gt;/&amp;lt;&lt;span style="color:#f92672">actorId&lt;/span>&amp;gt;/timers/&amp;lt;&lt;span style="color:#f92672">name&lt;/span>&amp;gt;
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>参阅&lt;a href="https://dapr-cn.github.io/reference/api/actors_api/#invoke-timer">api spec&lt;/a> 获取更多信息。&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Refer &lt;a href="https://docs.dapr.io/reference/api/actors_api/#invoke-timer">api spec&lt;/a> for more details.&lt;/p>
 &lt;h3 id="actor-reminders">Actor reminders&lt;/h3>
-&lt;p>Reminders are a mechanism to trigger &lt;em>persistent&lt;/em> callbacks on an actor at specified times. 它们的功能类似于 timer。 但与 timer 不同，在所有情况下 reminders 都会触发，直到 actor 显式取消注册 reminders 或删除 actor 。 具体而言， reminders 会在所有 actor 失活和故障时也会触发触发，因为Dapr Actors 运行时会将 reminders 信息持久化到 Dapr Actors 状态提供者中。&lt;/p>
-&lt;p>您可以通过将 HTTP/gRPC 请求调用 Dapr 来为 actor 创建 reminders。&lt;/p>
+&lt;p>Reminders are a mechanism to trigger &lt;em>persistent&lt;/em> callbacks on an actor at specified times. Their functionality is similar to timers. But unlike timers, reminders are triggered under all circumstances until the actor explicitly unregisters them or the actor is explicitly deleted. Specifically, reminders are triggered across actor deactivations and failovers because the Dapr actors runtime persists the information about the actors' reminders using Dapr actor state provider.&lt;/p>
+&lt;p>You can create a persistent reminder for an actor by calling the Http/gRPC request to Dapr.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-md" data-lang="md">POST/PUT http://localhost:3500/v1.0/actors/&amp;lt;&lt;span style="color:#f92672">actorType&lt;/span>&amp;gt;/&amp;lt;&lt;span style="color:#f92672">actorId&lt;/span>&amp;gt;/reminders/&amp;lt;&lt;span style="color:#f92672">name&lt;/span>&amp;gt;
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Reminders 的 &lt;code>duetime&lt;/code> 和回调函数可以在请求主体中指定。 到期时间（due time）表示注册后 reminders将首次触发的时间。 The &lt;code>period&lt;/code> represents how often the reminder will fire after that. 到期时间为0表示立即执行。 负 due times 和负 periods 都是无效。 若要注册仅触发一次的 reminders ，请将 period 设置为空字符串。&lt;/p>
-&lt;p>The following request body configures a reminder with a &lt;code>dueTime&lt;/code> 9 seconds and a &lt;code>period&lt;/code> of 3 seconds. 这意味着它将在9秒后首次触发，然后每3秒触发一次。&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The reminder &lt;code>duetime&lt;/code> and callback can be specified in the request body. The due time represents when the reminder first fires after registration. The &lt;code>period&lt;/code> represents how often the reminder will fire after that. A due time of 0 means to fire immediately. Negative due times and negative periods are invalid. To register a reminder that fires only once, set the period to an empty string.&lt;/p>
+&lt;p>The following request body configures a reminder with a &lt;code>dueTime&lt;/code> 9 seconds and a &lt;code>period&lt;/code> of 3 seconds. This means it will first fire after 9 seconds, then every 3 seconds after that.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
 &lt;span style="color:#f92672">&amp;#34;dueTime&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;0h0m9s0ms&amp;#34;&lt;/span>,
 &lt;span style="color:#f92672">&amp;#34;period&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;0h0m3s0ms&amp;#34;&lt;/span>
 }
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>The following request body configures a reminder with a &lt;code>dueTime&lt;/code> 0 seconds and a &lt;code>period&lt;/code> of 3 seconds. 这意味着它将在注册之后立即触发，然后每3秒触发一次。&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The following request body configures a reminder with a &lt;code>dueTime&lt;/code> 0 seconds and a &lt;code>period&lt;/code> of 3 seconds. This means it will fire immediately after registration, then every 3 seconds after that.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
 &lt;span style="color:#f92672">&amp;#34;dueTime&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;0h0m0s0ms&amp;#34;&lt;/span>,
 &lt;span style="color:#f92672">&amp;#34;period&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;0h0m3s0ms&amp;#34;&lt;/span>
 }
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>The following request body configures a reminder with a &lt;code>dueTime&lt;/code> 15 seconds and a &lt;code>period&lt;/code> of empty string. 这意味着它将在15秒后首次触发，之后就不再被触发。&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The following request body configures a reminder with a &lt;code>dueTime&lt;/code> 15 seconds and a &lt;code>period&lt;/code> of empty string. This means it will first fire after 15 seconds, then never fire again.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
 &lt;span style="color:#f92672">&amp;#34;dueTime&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;0h0m15s0ms&amp;#34;&lt;/span>,
 &lt;span style="color:#f92672">&amp;#34;period&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
 }
-&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="检索-actor-reminders">检索 actor reminders&lt;/h4>
-&lt;p>您可以通过调用来检索 actor reminders&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="retrieve-actor-reminder">Retrieve actor reminder&lt;/h4>
+&lt;p>You can retrieve the actor reminder by calling&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-md" data-lang="md">GET http://localhost:3500/v1.0/actors/&amp;lt;&lt;span style="color:#f92672">actorType&lt;/span>&amp;gt;/&amp;lt;&lt;span style="color:#f92672">actorId&lt;/span>&amp;gt;/reminders/&amp;lt;&lt;span style="color:#f92672">name&lt;/span>&amp;gt;
-&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="删除-actor-reminders">删除 actor reminders&lt;/h4>
-&lt;p>您可以通过调用来除去 Actor timers&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="remove-the-actor-reminder">Remove the actor reminder&lt;/h4>
+&lt;p>You can remove the actor reminder by calling&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-md" data-lang="md">DELETE http://localhost:3500/v1.0/actors/&amp;lt;&lt;span style="color:#f92672">actorType&lt;/span>&amp;gt;/&amp;lt;&lt;span style="color:#f92672">actorId&lt;/span>&amp;gt;/reminders/&amp;lt;&lt;span style="color:#f92672">name&lt;/span>&amp;gt;
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>请参阅 &lt;a href="https://dapr-cn.github.io/reference/api/actors_api/#invoke-reminder">Api 描述&lt;/a> 以获取更多详细信息。&lt;/p></description></item></channel></rss>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Refer &lt;a href="https://docs.dapr.io/reference/api/actors_api/#invoke-reminder">api spec&lt;/a> for more details.&lt;/p></description></item></channel></rss>

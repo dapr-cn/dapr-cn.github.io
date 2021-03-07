@@ -1,0 +1,97 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Dapr Python SDK</title><link>https://docs.dapr.io/zh-hans/developing-applications/sdks/python/</link><description>Recent content in Dapr Python SDK on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><language>zh-hans</language><atom:link href="https://docs.dapr.io/zh-hans/developing-applications/sdks/python/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Getting started with the Dapr client Python SDK</title><link>https://docs.dapr.io/zh-hans/developing-applications/sdks/python/python-client/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/zh-hans/developing-applications/sdks/python/python-client/</guid><description>
+&lt;p>The Dapr client package allows you to interact with other Dapr applications from a Python application.&lt;/p>
+&lt;h2 id="pre-requisites">Pre-requisites&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/zh-hans/getting-started/install-dapr-cli/">Dapr CLI&lt;/a> installed&lt;/li>
+&lt;li>Initialized &lt;a href="https://docs.dapr.io/zh-hans/getting-started/install-dapr-selfhost/">Dapr environment&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.python.org/downloads/">Python 3.7+&lt;/a> installed&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/zh-hans/developing-applications/sdks/python/#install-the0dapr-module">Dapr Python module&lt;/a> installed&lt;/li>
+&lt;/ul>
+&lt;h2 id="import-the-client-package">Import the client package&lt;/h2>
+&lt;p>The dapr package contains the &lt;code>DaprClient&lt;/code> which will be used to create and use a client.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">from&lt;/span> dapr.clients &lt;span style="color:#f92672">import&lt;/span> DaprClient
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="building-blocks">Building blocks&lt;/h2>
+&lt;p>The Python SDK allows you to interface with all of the &lt;a href="https://docs.dapr.io/zh-hans/developing-applications/building-blocks/">Dapr building blocks&lt;/a>.&lt;/p>
+&lt;h3 id="invoke-a-service">Invoke a service&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">from&lt;/span> dapr.clients &lt;span style="color:#f92672">import&lt;/span> DaprClient
+&lt;span style="color:#66d9ef">with&lt;/span> DaprClient() &lt;span style="color:#66d9ef">as&lt;/span> d:
+resp &lt;span style="color:#f92672">=&lt;/span> d&lt;span style="color:#f92672">.&lt;/span>invoke_service(id&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;service-to-invoke&amp;#39;&lt;/span>, method&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;method-to-invoke&amp;#39;&lt;/span>, data&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;{&amp;#34;message&amp;#34;:&amp;#34;Hello World&amp;#34;}&amp;#39;&lt;/span>)
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>For a full guide on service invocation visit &lt;a href="https://docs.dapr.io/zh-hans/developing-applications/building-blocks/service-invocation/howto-invoke-discover-services/">How-To: Invoke a service&lt;/a>.&lt;/li>
+&lt;li>Visit &lt;a href="https://github.com/dapr/python-sdk/tree/daprdocs-setup/examples/invoke-simple">Python SDK examples&lt;/a> for code samples and instructions to try out service invocation&lt;/li>
+&lt;/ul>
+&lt;h3 id="save--get-application-state">Save &amp;amp; get application state&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">from&lt;/span> dapr.clients &lt;span style="color:#f92672">import&lt;/span> DaprClient
+&lt;span style="color:#66d9ef">with&lt;/span> DaprClient() &lt;span style="color:#66d9ef">as&lt;/span> d:
+&lt;span style="color:#75715e"># Save state&lt;/span>
+d&lt;span style="color:#f92672">.&lt;/span>save_state(store_name&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;statestore&amp;#34;&lt;/span>, key&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;key1&amp;#34;&lt;/span>, value&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;value1&amp;#34;&lt;/span>)
+&lt;span style="color:#75715e"># Get state&lt;/span>
+data &lt;span style="color:#f92672">=&lt;/span> d&lt;span style="color:#f92672">.&lt;/span>get_state(store_name&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;statestore&amp;#34;&lt;/span>, key&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;key1&amp;#34;&lt;/span>)&lt;span style="color:#f92672">.&lt;/span>data
+&lt;span style="color:#75715e"># Delete state&lt;/span>
+d&lt;span style="color:#f92672">.&lt;/span>delete_state(store_name&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;statestore&amp;#34;&lt;/span>, key&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;key1&amp;#34;&lt;/span>)
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>For a full list of state operations visit &lt;a href="https://docs.dapr.io/zh-hans/developing-applications/building-blocks/state-management/howto-get-save-state/">How-To: Get &amp;amp; save state&lt;/a>.&lt;/li>
+&lt;li>Visit &lt;a href="https://github.com/dapr/python-sdk/tree/daprdocs-setup/examples/state_store">Python SDK examples&lt;/a> for code samples and instructions to try out state management&lt;/li>
+&lt;/ul>
+&lt;h3 id="publish-messages">Publish messages&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">from&lt;/span> dapr.clients &lt;span style="color:#f92672">import&lt;/span> DaprClient
+&lt;span style="color:#66d9ef">with&lt;/span> DaprClient() &lt;span style="color:#66d9ef">as&lt;/span> d:
+resp &lt;span style="color:#f92672">=&lt;/span> d&lt;span style="color:#f92672">.&lt;/span>publish_event(pubsub_name&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;pubsub&amp;#39;&lt;/span>, topic&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;TOPIC_A&amp;#39;&lt;/span>, data&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;{&amp;#34;message&amp;#34;:&amp;#34;Hello World&amp;#34;}&amp;#39;&lt;/span>)
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>For a full list of state operations visit &lt;a href="https://docs.dapr.io/zh-hans/developing-applications/building-blocks/pubsub/howto-publish-subscribe/">How-To: Publish &amp;amp; subscribe&lt;/a>.&lt;/li>
+&lt;li>Visit &lt;a href="https://github.com/dapr/python-sdk/tree/daprdocs-setup/examples/pubsub-simple">Python SDK examples&lt;/a> for code samples and instructions to try out pub/sub&lt;/li>
+&lt;/ul>
+&lt;h3 id="interact-with-output-bindings">Interact with output bindings&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">from&lt;/span> dapr.clients &lt;span style="color:#f92672">import&lt;/span> DaprClient
+&lt;span style="color:#66d9ef">with&lt;/span> DaprClient() &lt;span style="color:#66d9ef">as&lt;/span> d:
+resp &lt;span style="color:#f92672">=&lt;/span> d&lt;span style="color:#f92672">.&lt;/span>invoke_binding(name&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;kafkaBinding&amp;#39;&lt;/span>, operation&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;create&amp;#39;&lt;/span>, data&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;{&amp;#34;message&amp;#34;:&amp;#34;Hello World&amp;#34;}&amp;#39;&lt;/span>)
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>For a full guide on output bindings visit &lt;a href="https://docs.dapr.io/zh-hans/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings&lt;/a>.&lt;/li>
+&lt;li>Visit &lt;a href="https://github.com/dapr/python-sdk/tree/daprdocs-setup/examples/invoke-binding">Python SDK examples&lt;/a> for code samples and instructions to try out output bindings&lt;/li>
+&lt;/ul>
+&lt;h3 id="retrieve-secrets">Retrieve secrets&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">from&lt;/span> dapr.clients &lt;span style="color:#f92672">import&lt;/span> DaprClient
+&lt;span style="color:#66d9ef">with&lt;/span> DaprClient() &lt;span style="color:#66d9ef">as&lt;/span> d:
+resp &lt;span style="color:#f92672">=&lt;/span> d&lt;span style="color:#f92672">.&lt;/span>get_secret(store_name&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;localsecretstore&amp;#39;&lt;/span>, key&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;secretKey&amp;#39;&lt;/span>)
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>For a full guide on secrets visit &lt;a href="https://docs.dapr.io/zh-hans/developing-applications/building-blocks/secrets/howto-secrets/">How-To: Retrieve secrets&lt;/a>.&lt;/li>
+&lt;li>Visit &lt;a href="https://github.com/dapr/python-sdk/tree/daprdocs-setup/examples/secret_store">Python SDK examples&lt;/a> for code samples and instructions to try out retrieving secrets&lt;/li>
+&lt;/ul>
+&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/dapr/python-sdk/tree/daprdocs-setup/examples">Python SDK examples&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Developing-Applications: Getting started with the Dapr actor Python SDK</title><link>https://docs.dapr.io/zh-hans/developing-applications/sdks/python/python-actor/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/zh-hans/developing-applications/sdks/python/python-actor/</guid><description>
+&lt;p>The Dapr actor package allows you to interact with Dapr virtual actors from a Python application.&lt;/p>
+&lt;h2 id="pre-requisites">Pre-requisites&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/zh-hans/getting-started/install-dapr-cli/">Dapr CLI&lt;/a> installed&lt;/li>
+&lt;li>Initialized &lt;a href="https://docs.dapr.io/zh-hans/getting-started/install-dapr-selfhost/">Dapr environment&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.python.org/downloads/">Python 3.7+&lt;/a> installed&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/zh-hans/developing-applications/sdks/python/#install-the0dapr-module">Dapr Python module&lt;/a> installed&lt;/li>
+&lt;/ul>
+&lt;h2 id="actor-interface">Actor interface&lt;/h2>
+&lt;p>The interface defines the actor contract that is shared between the actor implementation and the clients calling the actor. Because a client may depend on it, it typically makes sense to define it in an assembly that is separate from the actor implementation.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">from&lt;/span> dapr.actor &lt;span style="color:#f92672">import&lt;/span> ActorInterface, actormethod
+&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">DemoActorInterface&lt;/span>(ActorInterface):
+&lt;span style="color:#a6e22e">@actormethod&lt;/span>(name&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;GetMyData&amp;#34;&lt;/span>)
+async &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">get_my_data&lt;/span>(self) &lt;span style="color:#f92672">-&amp;gt;&lt;/span> object:
+&lt;span style="color:#f92672">...&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="actor-services">Actor services&lt;/h2>
+&lt;p>An actor service hosts the virtual actor. It is implemented a class that derives from the base type &lt;code>Actor&lt;/code> and implements the interfaces defined in the actor interface.&lt;/p>
+&lt;p>Actors can be created using one of the Dapr actor extensions:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/zh-hans/developing-applications/sdks/python/python-sdk-extensions/python-flask/">FastAPI actor extension&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/zh-hans/developing-applications/sdks/python/python-sdk-extensions/python-fastapi/">Flask actor extension&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="actor-client">Actor client&lt;/h2>
+&lt;p>An actor client contains the implementation of the actor client which calls the actor methods defined in the actor interface.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">import&lt;/span> asyncio
+&lt;span style="color:#f92672">from&lt;/span> dapr.actor &lt;span style="color:#f92672">import&lt;/span> ActorProxy, ActorId
+&lt;span style="color:#f92672">from&lt;/span> demo_actor_interface &lt;span style="color:#f92672">import&lt;/span> DemoActorInterface
+async &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">main&lt;/span>():
+&lt;span style="color:#75715e"># Create proxy client&lt;/span>
+proxy &lt;span style="color:#f92672">=&lt;/span> ActorProxy&lt;span style="color:#f92672">.&lt;/span>create(&lt;span style="color:#e6db74">&amp;#39;DemoActor&amp;#39;&lt;/span>, ActorId(&lt;span style="color:#e6db74">&amp;#39;1&amp;#39;&lt;/span>), DemoActorInterface)
+&lt;span style="color:#75715e"># Call method on client&lt;/span>
+resp &lt;span style="color:#f92672">=&lt;/span> await proxy&lt;span style="color:#f92672">.&lt;/span>GetMyData()
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="sample">Sample&lt;/h2>
+&lt;p>Visit &lt;a href="https://github.com/dapr/python-sdk/tree/release-1.0/examples/demo_actor">this page&lt;/a> for a runnable actor sample.&lt;/p></description></item><item><title>Developing-Applications: Dapr Python SDK extensions</title><link>https://docs.dapr.io/zh-hans/developing-applications/sdks/python/python-sdk-extensions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/zh-hans/developing-applications/sdks/python/python-sdk-extensions/</guid><description/></item></channel></rss>

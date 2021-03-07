@@ -1,0 +1,215 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Common Tracing Backends</title><link>https://docs.dapr.io/zh-hans/operations/monitoring/tracing/supported-tracing-backends/</link><description>Recent content in Common Tracing Backends on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><language>zh-hans</language><atom:link href="https://docs.dapr.io/zh-hans/operations/monitoring/tracing/supported-tracing-backends/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: How-To: Set-up New Relic for Dapr observability</title><link>https://docs.dapr.io/zh-hans/operations/monitoring/tracing/supported-tracing-backends/newrelic/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/zh-hans/operations/monitoring/tracing/supported-tracing-backends/newrelic/</guid><description>
+&lt;h2 id="前期准备">前期准备&lt;/h2>
+&lt;ul>
+&lt;li>Perpetually &lt;a href="https://newrelic.com/signup">free New Relic account&lt;/a>, 100 GB/month of free data ingest, 1 free full access user, unlimited free basic users&lt;/li>
+&lt;/ul>
+&lt;h2 id="configure-dapr-tracing">Configure Dapr tracing&lt;/h2>
+&lt;p>Dapr natively captures metrics and traces that can be send directly to New Relic. Dapr natively captures metrics and traces that can be send directly to New Relic. The easiest way to export these is by configuring Dapr to send the traces to &lt;a href="https://docs.newrelic.com/docs/understand-dependencies/distributed-tracing/trace-api/report-zipkin-format-traces-trace-api#existing-zipkin">New Relic&amp;rsquo;s Trace API&lt;/a> using the Zipkin trace format.&lt;/p>
+&lt;p>In order for the integration to send data to New Relic &lt;a href="https://newrelic.com/platform/telemetry-data-platform">Telemetry Data Platform&lt;/a>, you need a &lt;a href="https://docs.newrelic.com/docs/apis/get-started/intro-apis/types-new-relic-api-keys#insights-insert-key">New Relic Insights Insert API key&lt;/a>.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">appconfig&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">tracing&lt;/span>:
+&lt;span style="color:#f92672">samplingRate&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">zipkin&lt;/span>:
+&lt;span style="color:#f92672">endpointAddress&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;https://trace-api.newrelic.com/trace/v1?Api-Key=&amp;lt;NR-INSIGHTS-INSERT-API-KEY&amp;gt;&amp;amp;Data-Format=zipkin&amp;amp;Data-Format-Version=2&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="viewing-traces">Viewing Traces&lt;/h3>
+&lt;p>New Relic Distributed Tracing overview &lt;img src="https://docs.dapr.io/images/nr-distributed-tracing-overview.png" alt="New Relic Kubernetes Cluster Explorer App">&lt;/p>
+&lt;p>New Relic Distributed Tracing details &lt;img src="https://docs.dapr.io/images/nr-distributed-tracing-detail.png" alt="New Relic Kubernetes Cluster Explorer App">&lt;/p>
+&lt;h2 id="optional-new-relic-instrumentation">(optional) New Relic Instrumentation&lt;/h2>
+&lt;p>In order for the integrations to send data to New Relic Telemetry Data Platform, you either need a &lt;a href="https://docs.newrelic.com/docs/accounts/accounts-billing/account-setup/new-relic-license-key">New Relic license key&lt;/a> or &lt;a href="https://docs.newrelic.com/docs/apis/get-started/intro-apis/types-new-relic-api-keys#insights-insert-key">New Relic Insights Insert API key&lt;/a>.&lt;/p>
+&lt;h3 id="opentelemetry-instrumentation">OpenTelemetry instrumentation&lt;/h3>
+&lt;p>Leverage the different language specific OpenTelemetry implementations, for example &lt;a href="https://github.com/newrelic/newrelic-telemetry-sdk-dotnet">New Relic Telemetry SDK and OpenTelemetry support for .NET&lt;/a>. In this case, use the &lt;a href="https://github.com/newrelic/newrelic-telemetry-sdk-dotnet/tree/main/src/NewRelic.OpenTelemetry">OpenTelemetry Trace Exporter&lt;/a>. See example &lt;a href="https://github.com/harrykimpel/quickstarts/blob/master/distributed-calculator/csharp-otel/Startup.cs">here&lt;/a>. In this case, use the &lt;a href="https://github.com/newrelic/newrelic-telemetry-sdk-dotnet/tree/main/src/NewRelic.OpenTelemetry">OpenTelemetry Trace Exporter&lt;/a>. See example &lt;a href="https://github.com/harrykimpel/quickstarts/blob/master/distributed-calculator/csharp-otel/Startup.cs">here&lt;/a>.&lt;/p>
+&lt;h3 id="new-relic-language-agent">New Relic Language agent&lt;/h3>
+&lt;p>Similarly to the OpenTelemetry instrumentation, you can also leverage a New Relic language agent. Similarly to the OpenTelemetry instrumentation, you can also leverage a New Relic language agent. As an example, the &lt;a href="https://docs.newrelic.com/docs/agents/net-agent/installation/install-docker-container">New Relic agent instrumentation for .NET Core&lt;/a> is part of the Dockerfile. See example &lt;a href="https://github.com/harrykimpel/quickstarts/blob/master/distributed-calculator/csharp/Dockerfile">here&lt;/a>. See example &lt;a href="https://github.com/harrykimpel/quickstarts/blob/master/distributed-calculator/csharp/Dockerfile">here&lt;/a>.&lt;/p>
+&lt;h2 id="optional-enable-new-relic-kubernetes-integration">(optional) Enable New Relic Kubernetes integration&lt;/h2>
+&lt;p>In case Dapr and your applications run in the context of a Kubernetes environment, you can enable additional metrics and logs.&lt;/p>
+&lt;p>The easiest way to install the New Relic Kubernetes integration is to use the &lt;a href="https://one.newrelic.com/launcher/nr1-core.settings?pane=eyJuZXJkbGV0SWQiOiJrOHMtY2x1c3Rlci1leHBsb3Jlci1uZXJkbGV0Lms4cy1zZXR1cCJ9">automated installer&lt;/a> to generate a manifest. It bundles not just the integration DaemonSets, but also other New Relic Kubernetes configurations, like &lt;a href="https://docs.newrelic.com/docs/integrations/kubernetes-integration/kubernetes-events/install-kubernetes-events-integration">Kubernetes events&lt;/a>, &lt;a href="https://docs.newrelic.com/docs/integrations/prometheus-integrations/get-started/new-relic-prometheus-openmetrics-integration-kubernetes">Prometheus OpenMetrics&lt;/a>, and &lt;a href="https://docs.newrelic.com/docs/logs">New Relic log monitoring&lt;/a>. It bundles not just the integration DaemonSets, but also other New Relic Kubernetes configurations, like &lt;a href="https://docs.newrelic.com/docs/integrations/kubernetes-integration/kubernetes-events/install-kubernetes-events-integration">Kubernetes events&lt;/a>, &lt;a href="https://docs.newrelic.com/docs/integrations/prometheus-integrations/get-started/new-relic-prometheus-openmetrics-integration-kubernetes">Prometheus OpenMetrics&lt;/a>, and &lt;a href="https://docs.newrelic.com/docs/logs">New Relic log monitoring&lt;/a>.&lt;/p>
+&lt;h3 id="new-relic-kubernetes-cluster-explorer">New Relic Kubernetes Cluster Explorer&lt;/h3>
+&lt;p>The &lt;a href="https://docs.newrelic.com/docs/integrations/kubernetes-integration/understand-use-data/kubernetes-cluster-explorer">New Relic Kubernetes Cluster Explorer&lt;/a> provides a unique visualization of the entire data and deployments of the data collected by the Kubernetes integration.&lt;/p>
+&lt;p>It is a good starting point to observe all your data and dig deeper into any performance issues or incidents happening inside of the application or microservices.&lt;/p>
+&lt;p>&lt;img src="https://docs.dapr.io/images/nr-k8s-cluster-explorer-app.png" alt="New Relic Kubernetes Cluster Explorer App">&lt;/p>
+&lt;p>Automated correlation is part of the visualization capabilities of New Relic.&lt;/p>
+&lt;h3 id="pod-level-details">Pod-level details&lt;/h3>
+&lt;p>&lt;img src="https://docs.dapr.io/images/nr-k8s-pod-level-details.png" alt="New Relic K8s Pod Level Details">&lt;/p>
+&lt;h3 id="logs-in-context">Logs in Context&lt;/h3>
+&lt;p>&lt;img src="https://docs.dapr.io/images/nr-k8s-logs-in-context.png" alt="New Relic K8s Logs In Context">&lt;/p>
+&lt;h2 id="new-relic-dashboards">New Relic Dashboards&lt;/h2>
+&lt;h3 id="kubernetes-overview">Kubernetes Overview&lt;/h3>
+&lt;p>&lt;img src="https://docs.dapr.io/images/nr-dashboard-k8s-overview.png" alt="New Relic Dashboard Kubernetes Overview">&lt;/p>
+&lt;h3 id="dapr-system-services">Dapr System Services&lt;/h3>
+&lt;p>&lt;img src="https://docs.dapr.io/images/nr-dashboard-dapr-system-services.png" alt="New Relic Dashboard Dapr System Services">&lt;/p>
+&lt;h3 id="dapr-metrics">Dapr Metrics&lt;/h3>
+&lt;p>&lt;img src="https://docs.dapr.io/images/nr-dashboard-dapr-metrics-1.png" alt="New Relic Dashboard Dapr Metrics 1">&lt;/p>
+&lt;h2 id="new-relic-grafana-integration">New Relic Grafana integration&lt;/h2>
+&lt;p>New Relic teamed up with &lt;a href="https://grafana.com/">Grafana Labs&lt;/a> so you can use the &lt;a href="https://newrelic.com/platform/telemetry-data-platform">Telemetry Data Platform&lt;/a> as a data source for Prometheus metrics and see them in your existing dashboards, seamlessly tapping into the reliability, scale, and security provided by New Relic.&lt;/p>
+&lt;p>&lt;a href="https://github.com/dapr/dapr/blob/227028e7b76b7256618cd3236d70c1d4a4392c9a/grafana/README.md">Grafana dashboard templates&lt;/a> to monitor Dapr system services and sidecars can easily be used without any changes. New Relic provides a &lt;a href="https://docs.newrelic.com/docs/integrations/grafana-integrations/set-configure/configure-new-relic-prometheus-data-source-grafana">native endpoint for Prometheus metrics&lt;/a> into Grafana. A datasource can easily be set-up:&lt;/p>
+&lt;p>&lt;img src="https://docs.dapr.io/images/nr-grafana-datasource.png" alt="New Relic Grafana Data Source">&lt;/p>
+&lt;p>And the exact same dashboard templates from Dapr can be imported to visualize Dapr system services and sidecars.&lt;/p>
+&lt;p>&lt;img src="https://docs.dapr.io/images/nr-grafana-dashboard.png" alt="New Relic Grafana Dashboard">&lt;/p>
+&lt;h2 id="new-relic-alerts">New Relic Alerts&lt;/h2>
+&lt;p>All the data that is collected from Dapr, Kubernetes or any services that run on top of can be used to set-up alerts and notifications into the preferred channel of your choice. See &lt;a href="https://docs.newrelic.com/docs/alerts-applied-intelligence">Alerts and Applied Intelligence&lt;/a>. See &lt;a href="https://docs.newrelic.com/docs/alerts-applied-intelligence">Alerts and Applied Intelligence&lt;/a>.&lt;/p>
+&lt;h2 id="related-linksreferences">Related Links/References&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://newrelic.com/signup">New Relic Account Signup&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://newrelic.com/platform/telemetry-data-platform">Telemetry Data Platform&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.newrelic.com/docs/understand-dependencies/distributed-tracing/get-started/introduction-distributed-tracing">Distributed Tracing&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.newrelic.com/docs/understand-dependencies/distributed-tracing/trace-api">New Relic Trace API&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.newrelic.com/docs/telemetry-data-platform/get-data/apis/introduction-metric-api">New Relic Metric API&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.newrelic.com/docs/apis/get-started/intro-apis/types-new-relic-api-keys">Types of New Relic API keys&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://blog.newrelic.com/product-news/opentelemetry-user-experience/">New Relic OpenTelemetry User Experience&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.newrelic.com/docs/alerts-applied-intelligence">Alerts and Applied Intelligence&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: How-To: Set up Jaeger for distributed tracing</title><link>https://docs.dapr.io/zh-hans/operations/monitoring/tracing/supported-tracing-backends/jaeger/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/zh-hans/operations/monitoring/tracing/supported-tracing-backends/jaeger/</guid><description>
+&lt;p>Dapr currently supports the Zipkin protocol. Dapr currently supports the Zipkin protocol. Since Jaeger is compatible with Zipkin, the Zipkin protocol can be used to talk to Jaeger.&lt;/p>
+&lt;h2 id="configure-self-hosted-mode">Configure self hosted mode&lt;/h2>
+&lt;h3 id="setup">Setup&lt;/h3>
+&lt;p>The simplest way to start Jaeger is to use the pre-built all-in-one Jaeger image published to DockerHub:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">docker run -d --name jaeger &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -e COLLECTOR_ZIPKIN_HTTP_PORT&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">9412&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -p 16686:16686 &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -p 9412:9412 &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> jaegertracing/all-in-one:1.21
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Next, create the following YAML files locally:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>config.yaml&lt;/strong>: Note that because we are using the Zipkin protocol to talk to Jaeger, we specify the &lt;code>zipkin&lt;/code> section of tracing configuration set the &lt;code>endpointAddress&lt;/code> to address of the Jaeger instance.&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">tracing&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">tracing&lt;/span>:
+&lt;span style="color:#f92672">samplingRate&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">zipkin&lt;/span>:
+&lt;span style="color:#f92672">endpointAddress&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;http://localhost:9412/api/v2/spans&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>To launch the application referring to the new YAML file, you can use &lt;code>--config&lt;/code> option:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr run --app-id mynode --app-port &lt;span style="color:#ae81ff">3000&lt;/span> node app.js --config config.yaml
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="viewing-traces">Viewing Traces&lt;/h3>
+&lt;p>To view traces, in your browser go to http://localhost:16686 and you will see the Jaeger UI.&lt;/p>
+&lt;h2 id="configure-kubernetes">Configure Kubernetes&lt;/h2>
+&lt;p>The following steps shows you how to configure Dapr to send distributed tracing data to Jaeger running as a container in your Kubernetes cluster, how to view them.&lt;/p>
+&lt;h3 id="setup-1">Setup&lt;/h3>
+&lt;p>First create the following YAML file to install Jaeger&lt;/p>
+&lt;ul>
+&lt;li>jaeger-operator.yaml&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">jaegertracing.io/v1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;Jaeger&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">jaeger&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">strategy&lt;/span>: &lt;span style="color:#ae81ff">allInOne&lt;/span>
+&lt;span style="color:#f92672">ingress&lt;/span>:
+&lt;span style="color:#f92672">enabled&lt;/span>: &lt;span style="color:#66d9ef">false&lt;/span>
+&lt;span style="color:#f92672">allInOne&lt;/span>:
+&lt;span style="color:#f92672">image&lt;/span>: &lt;span style="color:#ae81ff">jaegertracing/all-in-one:1.13&lt;/span>
+&lt;span style="color:#f92672">options&lt;/span>:
+&lt;span style="color:#f92672">query&lt;/span>:
+&lt;span style="color:#f92672">base-path&lt;/span>: &lt;span style="color:#ae81ff">/jaeger&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Now, use the above YAML file to install Jaeger&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#75715e"># Install Jaeger&lt;/span>
+helm repo add jaegertracing https://jaegertracing.github.io/helm-charts
+helm install jaeger-operator jaegertracing/jaeger-operator
+kubectl apply -f jaeger-operator.yaml
+&lt;span style="color:#75715e"># Wait for Jaeger to be up and running&lt;/span>
+kubectl wait deploy --selector app.kubernetes.io/name&lt;span style="color:#f92672">=&lt;/span>jaeger --for&lt;span style="color:#f92672">=&lt;/span>condition&lt;span style="color:#f92672">=&lt;/span>available
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Next, create the following YAML file locally:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>tracing.yaml&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">tracing&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">tracing&lt;/span>:
+&lt;span style="color:#f92672">samplingRate&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">zipkin&lt;/span>:
+&lt;span style="color:#f92672">endpointAddress&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;http://jaeger-collector.default.svc.cluster.local:9411/api/v2/spans&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Finally, deploy the the Dapr component and configuration files:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl apply -f tracing.yaml
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>In order to enable this configuration for your Dapr sidecar, add the following annotation to your pod spec template:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yml" data-lang="yml">&lt;span style="color:#f92672">annotations&lt;/span>:
+&lt;span style="color:#f92672">dapr.io/config&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;tracing&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>That&amp;rsquo;s it! That&amp;rsquo;s it! Your Dapr sidecar is now configured for use with Jaeger.&lt;/p>
+&lt;h3 id="viewing-tracing-data">Viewing Tracing Data&lt;/h3>
+&lt;p>To view traces, connect to the Jaeger Service and open the UI:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl port-forward svc/jaeger-query &lt;span style="color:#ae81ff">16686&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>In your browser, go to &lt;code>http://localhost:16686&lt;/code> and you will see the Jaeger UI.&lt;/p>
+&lt;p>&lt;img src="https://docs.dapr.io/images/jaeger_ui.png" alt="jaeger">&lt;/p>
+&lt;h2 id="参考资料">参考资料&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://www.jaegertracing.io/docs/1.21/getting-started/#all-in-one">Jaeger Getting Started&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/zh-hans/developing-applications/building-blocks/observability/w3c-tracing/">W3C distributed tracing&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: How-To: Set up Zipkin for distributed tracing</title><link>https://docs.dapr.io/zh-hans/operations/monitoring/tracing/supported-tracing-backends/zipkin/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/zh-hans/operations/monitoring/tracing/supported-tracing-backends/zipkin/</guid><description>
+&lt;h2 id="configure-self-hosted-mode">Configure self hosted mode&lt;/h2>
+&lt;p>For self hosted mode, on running &lt;code>dapr init&lt;/code>:&lt;/p>
+&lt;ol>
+&lt;li>The following YAML file is created by default in &lt;code>$HOME/.dapr/config.yaml&lt;/code> (on Linux/Mac) or &lt;code>%USERPROFILE%\.dapr\config.yaml&lt;/code> (on Windows) and it is referenced by default on &lt;code>dapr run&lt;/code> calls unless otherwise overridden `:&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>config.yaml&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">daprConfig&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">tracing&lt;/span>:
+&lt;span style="color:#f92672">samplingRate&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">zipkin&lt;/span>:
+&lt;span style="color:#f92672">endpointAddress&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;http://localhost:9411/api/v2/spans&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
+&lt;li>The &lt;a href="https://hub.docker.com/r/openzipkin/zipkin/">openzipkin/zipkin&lt;/a> docker container is launched on running &lt;code>dapr init&lt;/code> or it can be launched with the following code.&lt;/li>
+&lt;/ol>
+&lt;p>Launch Zipkin using Docker:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">docker run -d -p 9411:9411 openzipkin/zipkin
+&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="3">
+&lt;li>The applications launched with &lt;code>dapr run&lt;/code> by default reference the config file in &lt;code>$HOME/.dapr/config.yaml&lt;/code> or &lt;code>%USERPROFILE%\.dapr\config.yaml&lt;/code> and can be overridden with the Dapr CLI using the &lt;code>--config&lt;/code> param:&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr run --app-id mynode --app-port &lt;span style="color:#ae81ff">3000&lt;/span> node app.js
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="viewing-traces">Viewing Traces&lt;/h3>
+&lt;p>To view traces, in your browser go to http://localhost:9411 and you will see the Zipkin UI.&lt;/p>
+&lt;h2 id="configure-kubernetes">Configure Kubernetes&lt;/h2>
+&lt;p>The following steps shows you how to configure Dapr to send distributed tracing data to Zipkin running as a container in your Kubernetes cluster, and how to view them.&lt;/p>
+&lt;h3 id="setup">Setup&lt;/h3>
+&lt;p>First, deploy Zipkin:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl create deployment zipkin --image openzipkin/zipkin
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Create a Kubernetes service for the Zipkin pod:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl expose deployment zipkin --type ClusterIP --port &lt;span style="color:#ae81ff">9411&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Next, create the following YAML file locally:&lt;/p>
+&lt;ul>
+&lt;li>tracing.yaml configuration&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">tracing&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">tracing&lt;/span>:
+&lt;span style="color:#f92672">samplingRate&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">zipkin&lt;/span>:
+&lt;span style="color:#f92672">endpointAddress&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;http://zipkin.default.svc.cluster.local:9411/api/v2/spans&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Now, deploy the the Dapr configuration file:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl apply -f tracing.yaml
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>In order to enable this configuration for your Dapr sidecar, add the following annotation to your pod spec template:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yml" data-lang="yml">&lt;span style="color:#f92672">annotations&lt;/span>:
+&lt;span style="color:#f92672">dapr.io/config&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;tracing&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>That&amp;rsquo;s it! That&amp;rsquo;s it! Your sidecar is now configured to send traces to Zipkin.&lt;/p>
+&lt;h3 id="viewing-tracing-data">Viewing Tracing Data&lt;/h3>
+&lt;p>To view traces, connect to the Zipkin service and open the UI:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl port-forward svc/zipkin 9411:9411
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>In your browser, go to &lt;code>http://localhost:9411&lt;/code> and you will see the Zipkin UI.&lt;/p>
+&lt;p>&lt;img src="https://docs.dapr.io/images/zipkin_ui.png" alt="zipkin">&lt;/p>
+&lt;h2 id="参考资料">参考资料&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://zipkin.io/">Zipkin for distributed tracing&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/zh-hans/developing-applications/building-blocks/observability/w3c-tracing/">W3C distributed tracing&lt;/a>&lt;/li>
+&lt;/ul></description></item></channel></rss>

@@ -1,0 +1,94 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr Docs – Getting started with the Dapr client .NET SDK</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-client/</link><description>Recent content in Getting started with the Dapr client .NET SDK on Dapr Docs</description><generator>Hugo -- gohugo.io</generator><language>zh-hans</language><atom:link href="https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-client/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: DaprClient usage</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-client/dotnet-daprclient-usage/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-client/dotnet-daprclient-usage/</guid><description>
+&lt;h2 id="lifetime-management">Lifetime management&lt;/h2>
+&lt;p>A &lt;code>DaprClient&lt;/code> holds access to networking resources in the form of TCP sockets used to communicate with the Dapr sidecar. &lt;code>DaprClient&lt;/code> implements &lt;code>IDisposable&lt;/code> to support eager cleanup of resources.&lt;/p>
+&lt;p>For best performance, create a single long-lived instance of &lt;code>DaprClient&lt;/code> and provide access to that shared instance throughout your application. &lt;code>DaprClient&lt;/code> instances are thread-safe and intended to be shared.&lt;/p>
+&lt;p>Avoid creating a &lt;code>DaprClient&lt;/code> per-operation and disposing it when the operation is complete.&lt;/p>
+&lt;h2 id="configuring-daprclient">Configuring DaprClient&lt;/h2>
+&lt;p>A &lt;code>DaprClient&lt;/code> can be configured by invoking methods on &lt;code>DaprClientBuilder&lt;/code> class before calling &lt;code>.Build()&lt;/code> to create the client. The settings for each &lt;code>DaprClient&lt;/code> object are separate and cannot be changed after calling &lt;code>.Build()&lt;/code>.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-C#" data-lang="C#">&lt;span style="color:#66d9ef">var&lt;/span> daprClient = &lt;span style="color:#66d9ef">new&lt;/span> DaprClientBuilder()
+.UseJsonSerializerSettings( ... ) &lt;span style="color:#75715e">// Configure JSON serializer
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> .Build();
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The &lt;code>DaprClientBuilder&lt;/code> contains settings for:&lt;/p>
+&lt;ul>
+&lt;li>The HTTP endpoint of the Dapr sidecar&lt;/li>
+&lt;li>The gRPC endpoint of the Dapr sidecar&lt;/li>
+&lt;li>The &lt;code>JsonSerializerOptions&lt;/code> object used to configure JSON serialization&lt;/li>
+&lt;li>The &lt;code>GrpcChannelOptions&lt;/code> object used to configure gRPC&lt;/li>
+&lt;li>The API Token used to authenticate requests to the sidecar&lt;/li>
+&lt;/ul>
+&lt;p>The SDK will read the following environment variables to configure the default values:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>DAPR_HTTP_PORT&lt;/code>: used to find the HTTP endpoint of the Dapr sidecar&lt;/li>
+&lt;li>&lt;code>DAPR_GRPC_PORT&lt;/code>: used to find the gRPC endpoint of the Dapr sidecar&lt;/li>
+&lt;li>&lt;code>DAPR_API_TOKEN&lt;/code>: used to set the API Token&lt;/li>
+&lt;/ul>
+&lt;h3 id="configuring-grpc-channel-options">Configuring gRPC channel options&lt;/h3>
+&lt;p>Dapr&amp;rsquo;s use of &lt;code>CancellationToken&lt;/code> for cancellation relies on the configuration of the gRPC channel options. If you need to configure these options yourself, make sure to enable the &lt;a href="https://grpc.github.io/grpc/csharp-dotnet/api/Grpc.Net.Client.GrpcChannelOptions.html#Grpc_Net_Client_GrpcChannelOptions_ThrowOperationCanceledOnCancellation">ThrowOperationCanceledOnCancellation setting&lt;/a>.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-C#" data-lang="C#">&lt;span style="color:#66d9ef">var&lt;/span> daprClient = &lt;span style="color:#66d9ef">new&lt;/span> DaprClientBuilder()
+.UseGrpcChannelOptions(&lt;span style="color:#66d9ef">new&lt;/span> GrpcChannelOptions { ... ThrowOperationCanceledOnCancellation = &lt;span style="color:#66d9ef">true&lt;/span> })
+.Build();
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="using-cancellation-with-daprclient">Using cancellation with DaprClient&lt;/h2>
+&lt;p>The APIs on DaprClient that perform asynchronous operations accept an optional &lt;code>CancellationToken&lt;/code> parameter. This follows a standard .NET idiom for cancellable operations. Note that when cancellation occurs, there is no guarantee that the remote endpoint stops processing the request, only that the client has stopped waiting for completion.&lt;/p>
+&lt;p>When an operation is cancelled, it will throw an &lt;code>OperationCancelledException&lt;/code>.&lt;/p>
+&lt;h2 id="understanding-daprclient-json-serialization">Understanding DaprClient JSON serialization&lt;/h2>
+&lt;p>Many method on &lt;code>DaprClient&lt;/code> perform JSON serialization using the &lt;code>System.Text.Json&lt;/code> serializer. Methods that accept an application data type as an argument will JSON serialize it, unless the documentation clearly states otherwise.&lt;/p>
+&lt;p>It is worth reading the &lt;a href="https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-overview">System.Text.Json documentation&lt;/a> if you have advanced requirements. The Dapr .NET SDK provides no unique serialization behavior or customizations - it relies on the underlying serializer to convert data to and from the application&amp;rsquo;s .NET types.&lt;/p>
+&lt;p>&lt;code>DaprClient&lt;/code> is configured to use a serializer options object configured from &lt;a href="https://docs.microsoft.com/en-us/dotnet/api/system.text.json.jsonserializerdefaults?view=net-5.0">JsonSerializerDefaults.Web&lt;/a>. This means that &lt;code>DaprClient&lt;/code> will use &lt;code>camelCase&lt;/code> for property names, allow reading quoted numbers (&lt;code>&amp;quot;10.99&amp;quot;&lt;/code>), and will bind properties case-insensitively. These are the same settings used with ASP.NET Core and the &lt;code>System.Text.Json.Http&lt;/code> APIs, and are designed to follow interoperable web conventions.&lt;/p>
+&lt;p>&lt;code>System.Text.Json&lt;/code> as of .NET 5.0 does not have good support for all of F# language features built-in. If you are using F# you may want to use one of the converter packages that add support for F#&amp;rsquo;s features such as &lt;a href="https://github.com/Tarmil/FSharp.SystemTextJson">FSharp.SystemTextJson&lt;/a>.&lt;/p>
+&lt;h3 id="simple-guidance-for-json-serialization">Simple guidance for JSON serialization&lt;/h3>
+&lt;p>Your experience using JSON serialization and &lt;code>DaprClient&lt;/code> will be smooth if you use a feature set that maps to JSON&amp;rsquo;s type system. These are general guidelines that will simplify your code where they can be applied.&lt;/p>
+&lt;ul>
+&lt;li>Avoid inheritance and polymorphism&lt;/li>
+&lt;li>Do not attempt to serialize data with cyclic references&lt;/li>
+&lt;li>Do not put complex or expensive logic in constructors or property accessors&lt;/li>
+&lt;li>Use .NET types that map cleanly to JSON types (numeric types, strings, &lt;code>DateTime&lt;/code>)&lt;/li>
+&lt;li>Create your own classes for top-level messages, events, or state values so you can add properties in the future&lt;/li>
+&lt;li>Design types with &lt;code>get&lt;/code>/&lt;code>set&lt;/code> properties OR use the &lt;a href="https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-immutability?pivots=dotnet-5-0">supported pattern&lt;/a> for immutable types with JSON&lt;/li>
+&lt;/ul>
+&lt;h3 id="polymorphism-and-serialization">Polymorphism and serialization&lt;/h3>
+&lt;p>The &lt;code>System.Text.Json&lt;/code> serializer used by &lt;code>DaprClient&lt;/code> uses the declared type of values when performing serialization.&lt;/p>
+&lt;p>This section will use &lt;code>DaprClient.SaveStateAsync&amp;lt;TValue&amp;gt;(...)&lt;/code> in examples, but the advice is applicable to any Dapr building block exposed by the SDK.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-C#" data-lang="C#">&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">Widget&lt;/span>
+{
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span> Color { &lt;span style="color:#66d9ef">get&lt;/span>; &lt;span style="color:#66d9ef">set&lt;/span>; }
+}
+...
+&lt;span style="color:#75715e">// Storing a Widget value as JSON in the state store
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>widget widget = &lt;span style="color:#66d9ef">new&lt;/span> Widget() { Color = &lt;span style="color:#e6db74">&amp;#34;Green&amp;#34;&lt;/span>, };
+&lt;span style="color:#66d9ef">await&lt;/span> client.SaveStateAsync(&lt;span style="color:#e6db74">&amp;#34;mystatestore&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;mykey&amp;#34;&lt;/span>, widget);
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>In the example above, the type parameter &lt;code>TValue&lt;/code> has its type argument inferred from the type of the &lt;code>widget&lt;/code> variable. This is important because the &lt;code>System.Text.Json&lt;/code> serializer will perform serialization based on the &lt;em>declared type&lt;/em> of the value. The result is that the JSON value &lt;code>{ &amp;quot;color&amp;quot;: &amp;quot;Green&amp;quot; }&lt;/code> will be stored.&lt;/p>
+&lt;p>Consider what happens when you try to use derived type of &lt;code>Widget&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-C#" data-lang="C#">&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">Widget&lt;/span>
+{
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span> Color { &lt;span style="color:#66d9ef">get&lt;/span>; &lt;span style="color:#66d9ef">set&lt;/span>; }
+}
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">SuperWidget&lt;/span> : Widget
+{
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">bool&lt;/span> HasSelfCleaningFeature { &lt;span style="color:#66d9ef">get&lt;/span>; &lt;span style="color:#66d9ef">set&lt;/span>; }
+}
+...
+&lt;span style="color:#75715e">// Storing a SuperWidget value as JSON in the state store
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>Widget widget = &lt;span style="color:#66d9ef">new&lt;/span> SuperWidget() { Color = &lt;span style="color:#e6db74">&amp;#34;Green&amp;#34;&lt;/span>, HasSelfCleaningFeature = &lt;span style="color:#66d9ef">true&lt;/span>, };
+&lt;span style="color:#66d9ef">await&lt;/span> client.SaveStateAsync(&lt;span style="color:#e6db74">&amp;#34;mystatestore&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;mykey&amp;#34;&lt;/span>, widget);
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>In this example we&amp;rsquo;re using a &lt;code>SuperWidget&lt;/code> but the variable&amp;rsquo;s declared type is &lt;code>Widget&lt;/code>. Since the JSON serializer&amp;rsquo;s behavior is determined by the declared type, it only sees a simple &lt;code>Widget&lt;/code> and will save the value &lt;code>{ &amp;quot;color&amp;quot;: &amp;quot;Green&amp;quot; }&lt;/code> instead of &lt;code>{ &amp;quot;color&amp;quot;: &amp;quot;Green&amp;quot;, &amp;quot;hasSelfCleaningFeature&amp;quot;: true }&lt;/code>.&lt;/p>
+&lt;p>If you want the properties of &lt;code>SuperWidget&lt;/code> to be serialized, then the best option is to override the type argument with &lt;code>object&lt;/code>. This will cause the serializer to include all data as it knows nothing about the type.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-C#" data-lang="C#">Widget widget = &lt;span style="color:#66d9ef">new&lt;/span> SuperWidget() { Color = &lt;span style="color:#e6db74">&amp;#34;Green&amp;#34;&lt;/span>, HasSelfCleaningFeature = &lt;span style="color:#66d9ef">true&lt;/span>, };
+&lt;span style="color:#66d9ef">await&lt;/span> client.SaveStateAsync&amp;lt;&lt;span style="color:#66d9ef">object&lt;/span>&amp;gt;(&lt;span style="color:#e6db74">&amp;#34;mystatestore&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;mykey&amp;#34;&lt;/span>, widget);
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="error-handling">Error handling&lt;/h2>
+&lt;p>Methods on &lt;code>DaprClient&lt;/code> will throw &lt;code>DaprException&lt;/code> or a subclass when a failure is encountered.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-C#" data-lang="C#">&lt;span style="color:#66d9ef">try&lt;/span>
+{
+&lt;span style="color:#66d9ef">var&lt;/span> widget = &lt;span style="color:#66d9ef">new&lt;/span> Widget() { Color = &lt;span style="color:#e6db74">&amp;#34;Green&amp;#34;&lt;/span>, };
+&lt;span style="color:#66d9ef">await&lt;/span> client.SaveStateAsync(&lt;span style="color:#e6db74">&amp;#34;mystatestore&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;mykey&amp;#34;&lt;/span>, widget);
+}
+&lt;span style="color:#66d9ef">catch&lt;/span> (DaprException ex)
+{
+&lt;span style="color:#75715e">// handle the exception, log, retry, etc.
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The most common cases of failure will be related to:&lt;/p>
+&lt;ul>
+&lt;li>Incorrect configuration of Dapr component&lt;/li>
+&lt;li>Transient failures such as a networking problem&lt;/li>
+&lt;li>Invalid data, such as a failure to deserialize JSON&lt;/li>
+&lt;/ul>
+&lt;p>In any of these cases you can examine more exception details through the &lt;code>.InnerException&lt;/code> property.&lt;/p></description></item></channel></rss>

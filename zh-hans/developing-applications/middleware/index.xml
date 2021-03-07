@@ -1,0 +1,104 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Middleware</title><link>https://docs.dapr.io/zh-hans/developing-applications/middleware/</link><description>Recent content in Middleware on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><language>zh-hans</language><atom:link href="https://docs.dapr.io/zh-hans/developing-applications/middleware/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: 概述</title><link>https://docs.dapr.io/zh-hans/developing-applications/middleware/middleware-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/zh-hans/developing-applications/middleware/middleware-overview/</guid><description>
+&lt;p>Dapr 允许通过链接一系列中间件组件来定义自定义处理管道。 Middleware pipelines are defined in Dapr configuration files. Middleware pipelines are defined in Dapr configuration files. As with other &lt;a href="https://docs.dapr.io/zh-hans/operations/components/component-schema/">building block components&lt;/a>, middleware components are extensible and can be found in the &lt;a href="https://github.com/dapr/components-contrib/tree/master/middleware/http">components-contrib repo&lt;/a>.&lt;/p>
+&lt;p>Middleware in Dapr is described using a &lt;code>Component&lt;/code> file with the following schema:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;COMPONENT NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">middleware.http.&amp;lt;MIDDLEWARE TYPE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;KEY&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;VALUE&amp;gt;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;KEY&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;VALUE&amp;gt;&lt;/span>
+...
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The type of middleware is determined by the &lt;code>type&lt;/code> field. Component setting values such as rate limits, OAuth credentials and other settings are put in the &lt;code>metadata&lt;/code> section. The type of middleware is determined by the &lt;code>type&lt;/code> field. Component setting values such as rate limits, OAuth credentials and other settings are put in the &lt;code>metadata&lt;/code> section. Even though metadata values can contain secrets in plain text, it is recommended that you use a &lt;a href="https://docs.dapr.io/zh-hans/operations/components/component-secrets/">secret store&lt;/a>.&lt;/p>
+&lt;p>Next, a Dapr &lt;a href="https://docs.dapr.io/zh-hans/operations/configuration/configuration-overview/">configuration&lt;/a> defines the pipeline of middleware components for your application.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">appconfig&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">httpPipeline&lt;/span>:
+&lt;span style="color:#f92672">handlers&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;COMPONENT NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">middleware.http.&amp;lt;MIDDLEWARE TYPE&amp;gt;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;COMPONENT NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">middleware.http.&amp;lt;MIDDLEWARE TYPE&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="writing-a-custom-middleware">Writing a custom middleware&lt;/h2>
+&lt;p>Dapr uses &lt;a href="https://github.com/valyala/fasthttp">FastHTTP&lt;/a> to implement its HTTP server. 因此，您的 HTTP 中间件也需要编写为 FastHTTP handler。 因此，您的 HTTP 中间件也需要编写为 FastHTTP handler。 您的中间件需要实现 Middleware 接口，该接口定义 &lt;strong>GetHandler&lt;/strong> 方法，该方法返回 &lt;strong>fasthttp.RequestHandler&lt;/strong>:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#66d9ef">type&lt;/span> &lt;span style="color:#a6e22e">Middleware&lt;/span> &lt;span style="color:#66d9ef">interface&lt;/span> {
+&lt;span style="color:#a6e22e">GetHandler&lt;/span>(&lt;span style="color:#a6e22e">metadata&lt;/span> &lt;span style="color:#a6e22e">Metadata&lt;/span>) (&lt;span style="color:#66d9ef">func&lt;/span>(&lt;span style="color:#a6e22e">h&lt;/span> &lt;span style="color:#a6e22e">fasthttp&lt;/span>.&lt;span style="color:#a6e22e">RequestHandler&lt;/span>) &lt;span style="color:#a6e22e">fasthttp&lt;/span>.&lt;span style="color:#a6e22e">RequestHandler&lt;/span>, &lt;span style="color:#66d9ef">error&lt;/span>)
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>您的 handler 实现可以包含任何入站（inbound）逻辑和出站（outbound）逻辑或两者兼有：&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#66d9ef">func&lt;/span> &lt;span style="color:#a6e22e">GetHandler&lt;/span>(&lt;span style="color:#a6e22e">metadata&lt;/span> &lt;span style="color:#a6e22e">Metadata&lt;/span>) &lt;span style="color:#a6e22e">fasthttp&lt;/span>.&lt;span style="color:#a6e22e">RequestHandler&lt;/span> {
+&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#66d9ef">func&lt;/span>(&lt;span style="color:#a6e22e">h&lt;/span> &lt;span style="color:#a6e22e">fasthttp&lt;/span>.&lt;span style="color:#a6e22e">RequestHandler&lt;/span>) &lt;span style="color:#a6e22e">fasthttp&lt;/span>.&lt;span style="color:#a6e22e">RequestHandler&lt;/span> {
+&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#66d9ef">func&lt;/span>(&lt;span style="color:#a6e22e">ctx&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">fasthttp&lt;/span>.&lt;span style="color:#a6e22e">RequestCtx&lt;/span>) {
+&lt;span style="color:#75715e">// inboud logic
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">h&lt;/span>(&lt;span style="color:#a6e22e">ctx&lt;/span>) &lt;span style="color:#75715e">// call the downstream handler
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">// outbound logic
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> }
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="adding-new-middleware-components">Adding new middleware components&lt;/h2>
+&lt;p>您的中间件组件可以贡献到 &lt;a href="https://github.com/dapr/components-contrib/tree/master/middleware">components-contrib 仓库&lt;/a>。&lt;/p>
+&lt;p>After the components-contrib change has been accepted, submit another pull request against the &lt;a href="https://github.com/dapr/dapr">Dapr runtime repository&lt;/a> to register the new middleware type. You&amp;rsquo;ll need to modify &lt;strong>&lt;a href="https://github.com/dapr/dapr/blob/f4d50b1369e416a8f7b93e3e226c4360307d1313/cmd/daprd/main.go#L394-L424">runtime.WithHTTPMiddleware&lt;/a>&lt;/strong> method in &lt;a href="https://github.com/dapr/dapr/blob/master/cmd/daprd/main.go">cmd/daprd/main.go&lt;/a> to register your middleware with Dapr&amp;rsquo;s runtime. You&amp;rsquo;ll need to modify &lt;strong>&lt;a href="https://github.com/dapr/dapr/blob/f4d50b1369e416a8f7b93e3e226c4360307d1313/cmd/daprd/main.go#L394-L424">runtime.WithHTTPMiddleware&lt;/a>&lt;/strong> method in &lt;a href="https://github.com/dapr/dapr/blob/master/cmd/daprd/main.go">cmd/daprd/main.go&lt;/a> to register your middleware with Dapr&amp;rsquo;s runtime.&lt;/p>
+&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/zh-hans/concepts/middleware-concept/">Middleware pipelines concept&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/zh-hans/operations/components/component-schema/">Component schema&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/zh-hans/operations/configuration/configuration-overview/">Configuration overview&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/dapr/quickstarts/tree/master/middleware">Middleware quickstart&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Developing-Applications: Supported middleware</title><link>https://docs.dapr.io/zh-hans/developing-applications/middleware/supported-middleware/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/zh-hans/developing-applications/middleware/supported-middleware/</guid><description>
+&lt;h3 id="http">HTTP&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>名称&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;th>Status&lt;/th>
+&lt;th>Component version&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/zh-hans/developing-applications/middleware/supported-middleware/middleware-rate-limit/">Rate limit&lt;/a>&lt;/td>
+&lt;td>Restricts the maximum number of allowed HTTP requests per second&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/zh-hans/developing-applications/middleware/supported-middleware/middleware-oauth2/">OAuth2&lt;/a>&lt;/td>
+&lt;td>Enables the &lt;a href="https://tools.ietf.org/html/rfc6749#section-4.1">OAuth2 Authorization Grant flow&lt;/a> on a Web API&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/zh-hans/developing-applications/middleware/supported-middleware/middleware-oauth2clientcredentials/">OAuth2 client credentials&lt;/a>&lt;/td>
+&lt;td>Enables the &lt;a href="https://tools.ietf.org/html/rfc6749#section-4.4">OAuth2 Client Credentials Grant flow&lt;/a> on a Web API&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/zh-hans/developing-applications/middleware/supported-middleware/middleware-bearer/">Bearer&lt;/a>&lt;/td>
+&lt;td>Verifies a &lt;a href="https://tools.ietf.org/html/rfc6750">Bearer Token&lt;/a> using &lt;a href="https://openid.net/connect/">OpenID Connect&lt;/a> on a Web API&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/zh-hans/developing-applications/middleware/supported-middleware/middleware-opa/">Open Policy Agent&lt;/a>&lt;/td>
+&lt;td>Applies &lt;a href="https://www.openpolicyagent.org/">Rego/OPA Policies&lt;/a> to incoming Dapr HTTP requests&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/zh-hans/developing-applications/middleware/supported-middleware/middleware-uppercase/">Uppercase&lt;/a>&lt;/td>
+&lt;td>Converts the body of the request to uppercase letters&lt;/td>
+&lt;td>GA (For local development)&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table></description></item></channel></rss>

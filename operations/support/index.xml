@@ -1,4 +1,4 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 中文文档 – Support and versioning</title><link>https://dapr-cn.github.io/operations/support/</link><description>Recent content in Support and versioning on Dapr 中文文档</description><generator>Hugo -- gohugo.io</generator><language>zh</language><atom:link href="https://dapr-cn.github.io/operations/support/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: Supported releases</title><link>https://dapr-cn.github.io/operations/support/support-release-policy/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/support/support-release-policy/</guid><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr Docs – Support and versioning</title><link>https://docs.dapr.io/operations/support/</link><description>Recent content in Support and versioning on Dapr Docs</description><generator>Hugo -- gohugo.io</generator><language>zh-hans</language><atom:link href="https://docs.dapr.io/operations/support/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: Supported releases</title><link>https://docs.dapr.io/operations/support/support-release-policy/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/support/support-release-policy/</guid><description>
 &lt;h2 id="introduction">Introduction&lt;/h2>
 &lt;p>This topic details the supported versions of Dapr releases, the upgrade policies and how deprecations and breaking changes are communicated.&lt;/p>
 &lt;p>Dapr releases use &lt;code>MAJOR.MINOR.PATCH&lt;/code> versioning. For example 1.0.0&lt;/p>
@@ -31,7 +31,7 @@
 &lt;tbody>
 &lt;tr>
 &lt;td>Feb 17th 2021&lt;/td>
-&lt;td style="text-align:center">1.0.0&lt;/td>
+&lt;td style="text-align:center">1.0.1&lt;/br>(Mar 4th 2021)&lt;/td>
 &lt;td style="text-align:left">1.0.0&lt;/td>
 &lt;td>Java 1.0.0 &lt;/br>Go 1.0.0 &lt;/br>PHP 1.0.0 &lt;/br>Python 1.0.0 &lt;/br>.NET 1.0.0&lt;/td>
 &lt;td>0.6.0&lt;/td>
@@ -92,18 +92,18 @@
 &lt;/tbody>
 &lt;/table>
 &lt;h2 id="upgrade-on-hosting-platforms">Upgrade on Hosting platforms&lt;/h2>
-&lt;p>Dapr can support multiple hosting platforms for production. With the 1.0 release the two supported platforms are Kubernetes and physical machines. For Kubernetes upgrades see &lt;a href="https://dapr-cn.github.io/operations/hosting/kubernetes/kubernetes-production/">Production guidelines on Kubernetes&lt;/a>&lt;/p>
-&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;p>Dapr can support multiple hosting platforms for production. With the 1.0 release the two supported platforms are Kubernetes and physical machines. For Kubernetes upgrades see &lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-production/">Production guidelines on Kubernetes&lt;/a>&lt;/p>
+&lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>Read the &lt;a href="https://dapr-cn.github.io/operations/support/support-versioning/">Versioning policy&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Versioning policy</title><link>https://dapr-cn.github.io/operations/support/support-versioning/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://dapr-cn.github.io/operations/support/support-versioning/</guid><description>
+&lt;li>Read the &lt;a href="https://docs.dapr.io/operations/support/support-versioning/">Versioning policy&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Versioning policy</title><link>https://docs.dapr.io/operations/support/support-versioning/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/support/support-versioning/</guid><description>
 &lt;h2 id="introduction">Introduction&lt;/h2>
 &lt;p>Dapr is designed for future changes in the runtime, APIs and components with versioning schemes. This topic describes the versioning schemes and strategies for APIs, manifests such as components and Github repositories.&lt;/p>
 &lt;h2 id="versioning">Versioning&lt;/h2>
 &lt;p>Versioning is the process of assigning either unique version names or unique version numbers to unique states of computer software.&lt;/p>
 &lt;ul>
 &lt;li>Versioning provides compatibility, explicit change control and handling changes, in particular breaking changes.&lt;/li>
-&lt;li>Dapr strives to be backwards compatible. If a breaking change is needed it’ll be &lt;a href="https://dapr-cn.github.io/operations/support/support-release-policy/#feature-and-deprecations">announced in advance&lt;/a>.&lt;/li>
+&lt;li>Dapr strives to be backwards compatible. If a breaking change is needed it’ll be &lt;a href="https://docs.dapr.io/operations/support/support-release-policy/#feature-and-deprecations">announced in advance&lt;/a>.&lt;/li>
 &lt;li>Deprecated features are done over multiple releases with both new and deprecated features working side-by-side.&lt;/li>
 &lt;/ul>
 &lt;p>Versioning refers to the following Dapr repos: dapr, CLI, stable language SDKs, dashboard, components-contrib, quickstarts, helm-charts and documentation.&lt;/p>
@@ -122,15 +122,16 @@
 &lt;p>Based to the these guidelines;&lt;/p>
 &lt;ul>
 &lt;li>A &lt;code>MAJOR&lt;/code> version of the API is incremented when a deprecation is expected of the older version. Any such deprecation will be communicated and an upgrade path made available.&lt;/li>
-&lt;li>A &lt;code>MINOR&lt;/code> versions &lt;em>may&lt;/em> be incremented for any other changes. For example a change to the JSON schema of the message sent to the API. The definition of a breaking change to the API can be viewed &lt;a href="https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#123-definition-of-a-breaking-change">here&lt;/a>.&lt;/li>
+&lt;li>A &lt;code>MINOR&lt;/code> versions &lt;em>may&lt;/em> be incremented for any other changes. For example a change to the JSON schema of the message sent to the API.
+The definition of a breaking change to the API can be viewed &lt;a href="https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#123-definition-of-a-breaking-change">here&lt;/a>.&lt;/li>
 &lt;li>Experimental APIs include an “alpha” suffix to denote for their alpha status. For example v1.0alpha, v2.0alpha, etc.&lt;/li>
 &lt;/ul>
 &lt;h2 id="dapr-runtime">Dapr runtime&lt;/h2>
-&lt;p>Dapr releases use &lt;code>MAJOR.MINOR.PATCH&lt;/code> versioning. For example 1.0.0. Read &lt;a href="https://dapr-cn.github.io/operations/support/support-release-policy/">Supported releases&lt;/a> for more on the versioning of releases.&lt;/p>
+&lt;p>Dapr releases use &lt;code>MAJOR.MINOR.PATCH&lt;/code> versioning. For example 1.0.0. Read &lt;a href="https://docs.dapr.io/operations/support/support-release-policy/">Supported releases&lt;/a> for more on the versioning of releases.&lt;/p>
 &lt;h2 id="helm-charts">Helm Charts&lt;/h2>
-&lt;p>Helm charts in the &lt;a href="https://github.com/dapr/helm-charts">helm-charts repo&lt;/a> are versioned with the Dapr runtime. The Helm charts are used in the &lt;a href="https://dapr-cn.github.io/operations/hosting/kubernetes/kubernetes-deploy/#install-with-helm-advanced">Kubernetes deployment&lt;/a>&lt;/p>
+&lt;p>Helm charts in the &lt;a href="https://github.com/dapr/helm-charts">helm-charts repo&lt;/a> are versioned with the Dapr runtime. The Helm charts are used in the &lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-deploy/#install-with-helm-advanced">Kubernetes deployment&lt;/a>&lt;/p>
 &lt;h2 id="language-sdks-cli-and-dashboard">Language SDKs, CLI and dashboard&lt;/h2>
-&lt;p>The Dapr language SDKs, CLI and dashboard are versioned independently from the Dapr runtime and can be released at different schedules. See this &lt;a href="https://dapr-cn.github.io/operations/support/support-release-policy/#supported-versions">table&lt;/a> to show the compatibility between versions of the SDKs, CLI, dashboard and runtime. Each new release on the runtime lists the corresponding supported SDKs, CLI and Dashboard.&lt;/p>
+&lt;p>The Dapr language SDKs, CLI and dashboard are versioned independently from the Dapr runtime and can be released at different schedules. See this &lt;a href="https://docs.dapr.io/operations/support/support-release-policy/#supported-versions">table&lt;/a> to show the compatibility between versions of the SDKs, CLI, dashboard and runtime. Each new release on the runtime lists the corresponding supported SDKs, CLI and Dashboard.&lt;/p>
 &lt;p>SDKs, CLIs and Dashboard are versioning follows a &lt;code>MAJOR.MINOR.PATCH&lt;/code> format. A major version is incremented when there’s a non-backwards compatible change in an SDK (for example, changing a parameter on a client method. A minor version is updated for new features and bug fixes and the patch version is incremented in case of bug or security hot fixes.&lt;/p>
 &lt;p>Samples and examples in SDKs version with that repo.&lt;/p>
 &lt;h2 id="components">Components&lt;/h2>
@@ -138,10 +139,10 @@
 &lt;p>The &lt;a href="https://github.com/dapr/components-contrib/">components-contrib&lt;/a> repo release is a flat version across all components inside. That is, a version for the components-contrib repo release is made up of all the schemas for the components inside it. A new version of Dapr does not mean there is a new release of components-contrib if there are no component changes.&lt;/p>
 &lt;p>Note: Components have a production usage lifecycle status: Alpha, Beta and GA (stable). These statuses are not related to their versioning. The tables of supported components shows both their versions and their status.&lt;/p>
 &lt;ul>
-&lt;li>List of &lt;a href="https://dapr-cn.github.io/operations/components/setup-state-store/supported-state-stores/">state store components&lt;/a>&lt;/li>
-&lt;li>List of &lt;a href="https://dapr-cn.github.io/operations/components/setup-pubsub/supported-pubsub/">pub/sub components&lt;/a>&lt;/li>
-&lt;li>List of &lt;a href="https://dapr-cn.github.io/operations/components/setup-secret-store/supported-secret-stores/">secret store components&lt;/a>&lt;/li>
-&lt;li>List of &lt;a href="https://dapr-cn.github.io/operations/components/setup-bindings/supported-bindings/">binding components&lt;/a>&lt;/li>
+&lt;li>List of &lt;a href="https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/">state store components&lt;/a>&lt;/li>
+&lt;li>List of &lt;a href="https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/">pub/sub components&lt;/a>&lt;/li>
+&lt;li>List of &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/">secret store components&lt;/a>&lt;/li>
+&lt;li>List of &lt;a href="https://docs.dapr.io/operations/components/setup-bindings/supported-bindings/">binding components&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;p>For more information on component versioning read &lt;a href="https://github.com/dapr/components-contrib/blob/master/docs/developing-component.md#version-2-and-beyond-of-a-component">Version 2 and beyond of a component&lt;/a>&lt;/p>
 &lt;h3 id="component-schemas">Component schemas&lt;/h3>
@@ -175,5 +176,5 @@
 &lt;p>Samples in the &lt;a href="https://github.com/dapr/samples">Samples repo&lt;/a> are each versioned on a case by case basis depending on the sample maintainer. Samples that become very out of date with the runtime releases (many versions behind) or have not been maintained for more than 1 year will be removed.&lt;/p>
 &lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
-&lt;li>Read the &lt;a href="https://dapr-cn.github.io/operations/support/support-release-policy/">Supported releases&lt;/a>&lt;/li>
+&lt;li>Read the &lt;a href="https://docs.dapr.io/operations/support/support-release-policy/">Supported releases&lt;/a>&lt;/li>
 &lt;/ul></description></item></channel></rss>
