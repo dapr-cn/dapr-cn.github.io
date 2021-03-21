@@ -1,7 +1,7 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – State stores components</title><link>https://docs.dapr.io/operations/components/setup-state-store/</link><description>Recent content in State stores components on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/operations/components/setup-state-store/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: 概述</title><link>https://docs.dapr.io/operations/components/setup-state-store/setup-state-store-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/setup-state-store-overview/</guid><description>
-&lt;p>Dapr integrates with existing databases to provide apps with state management capabilities for CRUD operations, transactions and more. It also supports the configuration of multiple, named, state store components &lt;em>per application&lt;/em>. It also supports the configuration of multiple, named, state store components &lt;em>per application&lt;/em>.&lt;/p>
-&lt;p>State stores are extensible and can be found in the &lt;a href="https://github.com/dapr/components-contrib">components-contrib repo&lt;/a>.&lt;/p>
-&lt;p>A state store in Dapr is described using a &lt;code>Component&lt;/code> file:&lt;/p>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – 状态存储组件</title><link>https://docs.dapr.io/operations/components/setup-state-store/</link><description>Recent content in 状态存储组件 on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/operations/components/setup-state-store/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: 概述</title><link>https://docs.dapr.io/operations/components/setup-state-store/setup-state-store-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/setup-state-store-overview/</guid><description>
+&lt;p>Dapr 与现有数据库集成，为应用程序提供CRUD操作、事务等状态管理功能。 Dapr 支持为&lt;em>每个应用&lt;/em>配置多个命名的状态存储组件。&lt;/p>
+&lt;p>状态存储可以扩展，可以在 &lt;a href="https://github.com/dapr/components-contrib">components-contrib repo&lt;/a> 中找到。&lt;/p>
+&lt;p>Dapr 的使用 &lt;code>Component&lt;/code> 文件来描述状态存储：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -16,13 +16,13 @@
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;KEY&amp;gt;&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;VALUE&amp;gt;&lt;/span>
 ...
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>The type of database is determined by the &lt;code>type&lt;/code> field, and things like connection strings and other metadata are put in the &lt;code>.metadata&lt;/code> section. The type of database is determined by the &lt;code>type&lt;/code> field, and things like connection strings and other metadata are put in the &lt;code>.metadata&lt;/code> section. Even though metadata values can contain secrets in plain text, it is recommended you use a &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">secret store&lt;/a>.&lt;/p>
-&lt;p>Visit &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to configure a state store component.&lt;/p>
-&lt;h2 id="related-topics">Related topics&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>数据库的类型由&lt;code>type&lt;/code>字段决定，连接地址和其他元数据等放在&lt;code>.metadata&lt;/code>部分。 即使元数据值可以在纯文本中包含密钥，但建议您使用一个 &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">密钥存储&lt;/a>。&lt;/p>
+&lt;p>阅读 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">本指南&lt;/a> 以获取配置状态存储组件的说明.&lt;/p>
+&lt;h2 id="相关主题">相关主题&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/concepts/components-concept/">Component concept&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">State management overview&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/reference/api/state_api/">State management API specification&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/concepts/components-concept/">组件概念&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">状态管理概览&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/reference/api/state_api/">状态管理 API 规范&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: Supported state stores</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/</guid><description>
 &lt;p>Table captions:&lt;/p>
 &lt;blockquote>
@@ -36,9 +36,9 @@
 &lt;blockquote>
 &lt;p>&lt;code>Component version&lt;/code>: defines the version of the component&lt;/p>
 &lt;/blockquote>
-&lt;p>The following stores are supported, at various levels, by the Dapr state management building block:&lt;/p>
+&lt;p>Dapr 状态管理组件不同程度地支持以下存储:&lt;/p>
 &lt;blockquote>
-&lt;p>State stores can be used for actors if it supports both transactional operations and etag.&lt;/p>
+&lt;p>如果存储引擎同时支持事务性操作和etag，则状态存储可以用于 actors。&lt;/p>
 &lt;/blockquote>
 &lt;h3 id="generic">Generic&lt;/h3>
 &lt;table>

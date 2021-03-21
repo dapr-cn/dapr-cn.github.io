@@ -1,4 +1,4 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Dapr Software Development Kits (SDKs)</title><link>https://docs.dapr.io/developing-applications/sdks/</link><description>Recent content in Dapr Software Development Kits (SDKs) on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/developing-applications/sdks/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Dapr .NET SDK</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/dotnet/</guid><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Dapr 开发套件 (SDKs)</title><link>https://docs.dapr.io/developing-applications/sdks/</link><description>Recent content in Dapr 开发套件 (SDKs) on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/developing-applications/sdks/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Dapr .NET SDK</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/dotnet/</guid><description>
 &lt;p>Dapr offers a variety of packages to help with the development of .NET applications. Using them you can create .NET clients, servers, and virtual actors with Dapr.&lt;/p>
 &lt;div class="card-deck">
 &lt;div class="card">
@@ -114,20 +114,20 @@ $app&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e
 &lt;li>&lt;a href="https://packagist.org/packages/dapr/php-sdk">Packagist&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/sdk-serialization/">Dapr SDK serialization&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Developing-Applications: Dapr Python SDK</title><link>https://docs.dapr.io/developing-applications/sdks/python/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/python/</guid><description>
-&lt;p>Dapr offers a variety of packages to help with the development of Python applications. Using them you can create Python clients, servers, and virtual actors with Dapr.&lt;/p>
-&lt;h2 id="available-packages">Available packages&lt;/h2>
+&lt;p>Dapr提供了帮助开发Python应用程序各种包。 你可以使用他们来创建 Python 客户端、服务器和虚拟actors。&lt;/p>
+&lt;h2 id="可用软件包">可用软件包&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/python/python-client/">&lt;strong>Dapr client&lt;/strong>&lt;/a> for writing Python applications to interact with the Dapr sidecar and other Dapr applications&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/python/python-actor/">&lt;strong>Dapr actor&lt;/strong>&lt;/a> for creating for creating and interacting with stateful virtual actors in Python&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/python/python-sdk-extensions/">&lt;strong>Extensions&lt;/strong>&lt;/a> for adding Dapr capabilities to other Python frameworks
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/python/python-client/">&lt;strong>Dapr 客户端&lt;/strong>&lt;/a> 用于与 Python 应用程序交互的 Dapr 边车和其他 Dapr 应用程序&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/python/python-actor/">&lt;strong>Dapr actor&lt;/strong>&lt;/a> 用于使用 Python 创建并和有状态的虚拟 actors 交互。&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/python/python-sdk-extensions/">&lt;strong>扩展&lt;/strong>&lt;/a> 用于将Dapr与其他 Python 框架兼容
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/python/python-sdk-extensions/python-grpc/">&lt;strong>gRPC extension&lt;/strong>&lt;/a> for creating a gRPC server with Dapr&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/python/python-sdk-extensions/python-fastapi/">&lt;strong>FastAPI extension&lt;/strong>&lt;/a> for adding Dapr actor capabilities to FastAPI applications&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/python/python-sdk-extensions/python-flask/">&lt;strong>Flask extension&lt;/strong>&lt;/a> for adding Dapr actor capabilities to Flask applications&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/python/python-sdk-extensions/python-grpc/">&lt;strong>gRPC 扩展&lt;/strong>&lt;/a> 用创建 Dapr gRPC 服务器&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/python/python-sdk-extensions/python-fastapi/">&lt;strong>FastAPI 扩展&lt;/strong>&lt;/a> 向 FastAPI 应用程序中添加 Dapr actor 的功能&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/python/python-sdk-extensions/python-flask/">&lt;strong>Flask 扩展&lt;/strong>&lt;/a> 向Flask 应用程序添加 Dapr actor 的功能&lt;/li>
 &lt;/ul>
 &lt;/li>
 &lt;/ul>
-&lt;h2 id="install-the-dapr-module">Install the Dapr module&lt;/h2>
+&lt;h2 id="安装-dapr-模块">安装 Dapr 模块&lt;/h2>
 &lt;ul class="nav nav-tabs" id="tabs-6" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
 id="tabs-6-stable-tab" data-toggle="tab" href="#tabs-6-stable" role="tab"
 aria-controls="tabs-6-stable" aria-selected="true">
@@ -146,33 +146,34 @@ Development
 &lt;div class="tab-pane fade" id="tabs-6-development" role="tabpanel" aria-labelled-by="tabs-6-development-tab">
 &lt;br />&lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Note&lt;/h4>
-The development package will contain features and behavior that will be compatible with the pre-release version of the Dapr runtime. Make sure to uninstall any stable versions of the Python SDK before installing the dapr-dev package.
+开发包包含的功能和行为将兼容此前发行的 Dapr 运行时。 在安装 dapr-dev 包之前，请务必卸载以前任意稳定版本的 Python SDK 扩展包。
 &lt;/div>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">pip install dapr-dev
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
 &lt;/div>
-&lt;h2 id="try-it-out">Try it out&lt;/h2>
-&lt;p>Clone the Python SDK repo to try out some of the &lt;a href="https://github.com/dapr/python-sdk/tree/master/examples">examples&lt;/a>.&lt;/p>
+&lt;h2 id="试试吧">试试吧&lt;/h2>
+&lt;p>克隆Python SDK 仓库来尝试一些 &lt;a href="https://github.com/dapr/python-sdk/tree/master/examples">示例&lt;/a>。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">git clone https://github.com/dapr/python-sdk.git
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="more-information">More information&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="更多信息">更多信息&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://pypi.org/user/dapr.io/">Python Package Index (PyPI)&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/sdk-serialization/">Dapr SDK serialization&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Developing-Applications: Serialization in Dapr's SDKs</title><link>https://docs.dapr.io/developing-applications/sdks/sdk-serialization/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/sdk-serialization/</guid><description>
-&lt;p>An SDK for Dapr should provide serialization for two use cases. First, for API objects sent through request and response payloads. Second, for objects to be persisted. For both these use cases, a default serialization is provided. In the Java SDK, it is the &lt;a href="https://dapr.github.io/java-sdk/io/dapr/serializer/DefaultObjectSerializer.html">DefaultObjectSerializer&lt;/a> class, providing JSON serialization. First, for API objects sent through request and response payloads. Second, for objects to be persisted. For both these use cases, a default serialization is provided. In the Java SDK, it is the &lt;a href="https://dapr.github.io/java-sdk/io/dapr/serializer/DefaultObjectSerializer.html">DefaultObjectSerializer&lt;/a> class, providing JSON serialization.&lt;/p>
-&lt;h2 id="service-invocation">Service invocation&lt;/h2>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java"> DaprClient client &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#66d9ef">new&lt;/span> DaprClientBuilder&lt;span style="color:#f92672">()).&lt;/span>&lt;span style="color:#a6e22e">build&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
+&lt;li>&lt;a href="https://pypi.org/user/dapr.io/">Python 软件包索引 (PyPI)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/sdk-serialization/">Dapr SDK 序列化&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Developing-Applications: Dapr SDK中的序列化</title><link>https://docs.dapr.io/developing-applications/sdks/sdk-serialization/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/sdk-serialization/</guid><description>
+&lt;p>Dapr的SDK为下面两种情况提供序列化： 首先是对于通过请求和响应的有效载荷传递的API对象。 其次，对于要持久化的对象。 对于这两种情况，SDK都提供了默认的序列化实现。 在Java SDK中，由&lt;a href="https://dapr.github.io/java-sdk/io/dapr/serializer/DefaultObjectSerializer.html">DefaultObjectSerializer&lt;/a>这个类提供JSON序列化功能。&lt;/p>
+&lt;h2 id="服务调用">服务调用&lt;/h2>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java"> No translations matched your search
+DaprClient client &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#66d9ef">new&lt;/span> DaprClientBuilder&lt;span style="color:#f92672">()).&lt;/span>&lt;span style="color:#a6e22e">build&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
 client&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">invokeService&lt;/span>&lt;span style="color:#f92672">(&lt;/span>Verb&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">POST&lt;/span>&lt;span style="color:#f92672">,&lt;/span> &lt;span style="color:#e6db74">&amp;#34;myappid&amp;#34;&lt;/span>&lt;span style="color:#f92672">,&lt;/span> &lt;span style="color:#e6db74">&amp;#34;saySomething&amp;#34;&lt;/span>&lt;span style="color:#f92672">,&lt;/span> &lt;span style="color:#e6db74">&amp;#34;My Message&amp;#34;&lt;/span>&lt;span style="color:#f92672">,&lt;/span> &lt;span style="color:#66d9ef">null&lt;/span>&lt;span style="color:#f92672">).&lt;/span>&lt;span style="color:#a6e22e">block&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>In the example above, the app will receive a &lt;code>POST&lt;/code> request for the &lt;code>saySomething&lt;/code> method with the request payload as &lt;code>&amp;quot;My Message&amp;quot;&lt;/code> - quoted since the serializer will serialize the input String to JSON.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>在上面的示例中，应用程序将收到一个对&lt;code>saySomething&lt;/code>方法的&lt;code>POST&lt;/code>请求，请求的有效载荷为&lt;code>&amp;quot;My Message&amp;quot;&lt;/code>，这句说明中给它添加了引号是因为序列化工具会把输入的String字符串序列化为JSON。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-text" data-lang="text">POST /saySomething HTTP/1.1
 Host: localhost
 Content-Type: text/plain
 Content-Length: 12
 &amp;#34;My Message&amp;#34;
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="state-management">State management&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="状态管理">状态管理&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java"> DaprClient client &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#66d9ef">new&lt;/span> DaprClientBuilder&lt;span style="color:#f92672">()).&lt;/span>&lt;span style="color:#a6e22e">build&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
 client&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">saveState&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#34;MyStateStore&amp;#34;&lt;/span>&lt;span style="color:#f92672">,&lt;/span> &lt;span style="color:#e6db74">&amp;#34;MyKey&amp;#34;&lt;/span>&lt;span style="color:#f92672">,&lt;/span> &lt;span style="color:#e6db74">&amp;#34;My Message&amp;#34;&lt;/span>&lt;span style="color:#f92672">).&lt;/span>&lt;span style="color:#a6e22e">block&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>In this example, &lt;code>My Message&lt;/code> will be saved. In this example, &lt;code>My Message&lt;/code> will be saved. It is not quoted because Dapr&amp;rsquo;s API will internally parse the JSON request object before saving it.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>在这个例子中，&lt;code>My Message&lt;/code>将被保存下来。 在这句说明中，没有给数据加上引号是因为Dapr的API会在保存JSON请求对象之前在内部进行解析。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-JSON" data-lang="JSON">[
 {
 &lt;span style="color:#f92672">&amp;#34;key&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;MyKey&amp;#34;&lt;/span>,
@@ -182,84 +183,77 @@ client&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">s
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="pubsub">PubSub&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java"> DaprClient client &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#66d9ef">new&lt;/span> DaprClientBuilder&lt;span style="color:#f92672">()).&lt;/span>&lt;span style="color:#a6e22e">build&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
 client&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">publishEvent&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#34;TopicName&amp;#34;&lt;/span>&lt;span style="color:#f92672">,&lt;/span> &lt;span style="color:#e6db74">&amp;#34;My Message&amp;#34;&lt;/span>&lt;span style="color:#f92672">).&lt;/span>&lt;span style="color:#a6e22e">block&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>The event is published and the content is serialized to &lt;code>byte[]&lt;/code> and sent to Dapr sidecar. The subscriber will receive it as a &lt;a href="https://github.com/cloudevents/spec">CloudEvent&lt;/a>. Cloud event defines &lt;code>data&lt;/code> as String. Dapr SDK also provides a built-in deserializer for &lt;code>CloudEvent&lt;/code> object. The subscriber will receive it as a &lt;a href="https://github.com/cloudevents/spec">CloudEvent&lt;/a>. Cloud event defines &lt;code>data&lt;/code> as String. Dapr SDK also provides a built-in deserializer for &lt;code>CloudEvent&lt;/code> object.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>事件发布，内容被序列化为&lt;code>byte[]&lt;/code>类型并发送到Dapr sidecar。 订阅者将以&lt;a href="https://github.com/cloudevents/spec">CloudEvent&lt;/a>的格式收到它。 CloudEvent将&lt;code>data&lt;/code>定义为String。 Dapr SDK还为&lt;code>CloudEvent&lt;/code>对象提供了一个内置的反序列化工具。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java"> &lt;span style="color:#a6e22e">@PostMapping&lt;/span>&lt;span style="color:#f92672">(&lt;/span>path &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;/TopicName&amp;#34;&lt;/span>&lt;span style="color:#f92672">)&lt;/span>
 &lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">void&lt;/span> &lt;span style="color:#a6e22e">handleMessage&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#a6e22e">@RequestBody&lt;/span>&lt;span style="color:#f92672">(&lt;/span>required &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">false&lt;/span>&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#66d9ef">byte&lt;/span>&lt;span style="color:#f92672">[]&lt;/span> body&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
 &lt;span style="color:#75715e">// Dapr&amp;#39;s event is compliant to CloudEvent.
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> CloudEvent event &lt;span style="color:#f92672">=&lt;/span> CloudEvent&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">deserialize&lt;/span>&lt;span style="color:#f92672">(&lt;/span>body&lt;span style="color:#f92672">);&lt;/span>
 &lt;span style="color:#f92672">}&lt;/span>
-CloudEvent event &lt;span style="color:#f92672">=&lt;/span> CloudEvent&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">deserialize&lt;/span>&lt;span style="color:#f92672">(&lt;/span>body&lt;span style="color:#f92672">);&lt;/span>
-&lt;span style="color:#f92672">}&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="bindings">Bindings&lt;/h2>
-&lt;p>In this case, the object is serialized to &lt;code>byte[]&lt;/code> as well and the input binding receives the raw &lt;code>byte[]&lt;/code> as-is and deserializes it to the expected object type.&lt;/p>
+&lt;p>在这种情况下，对象也会被序列化为&lt;code>byte[]&lt;/code>类型，而输入绑定会按原样接收原始的&lt;code>byte[]&lt;/code>，并将其反序列化为预期的对象类型。&lt;/p>
 &lt;ul>
-&lt;li>Output binding:&lt;/li>
+&lt;li>输出绑定:&lt;/li>
 &lt;/ul>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java"> DaprClient client &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#66d9ef">new&lt;/span> DaprClientBuilder&lt;span style="color:#f92672">()).&lt;/span>&lt;span style="color:#a6e22e">build&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
 client&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">invokeBinding&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#34;sample&amp;#34;&lt;/span>&lt;span style="color:#f92672">,&lt;/span> &lt;span style="color:#e6db74">&amp;#34;My Message&amp;#34;&lt;/span>&lt;span style="color:#f92672">).&lt;/span>&lt;span style="color:#a6e22e">block&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;ul>
-&lt;li>Input binding:&lt;/li>
+&lt;li>输入绑定:&lt;/li>
 &lt;/ul>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java"> &lt;span style="color:#a6e22e">@PostMapping&lt;/span>&lt;span style="color:#f92672">(&lt;/span>path &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;/sample&amp;#34;&lt;/span>&lt;span style="color:#f92672">)&lt;/span>
 &lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">void&lt;/span> &lt;span style="color:#a6e22e">handleInputBinding&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#a6e22e">@RequestBody&lt;/span>&lt;span style="color:#f92672">(&lt;/span>required &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">false&lt;/span>&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#66d9ef">byte&lt;/span>&lt;span style="color:#f92672">[]&lt;/span> body&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
 String message &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#66d9ef">new&lt;/span> DefaultObjectSerializer&lt;span style="color:#f92672">()).&lt;/span>&lt;span style="color:#a6e22e">deserialize&lt;/span>&lt;span style="color:#f92672">(&lt;/span>body&lt;span style="color:#f92672">,&lt;/span> String&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">class&lt;/span>&lt;span style="color:#f92672">);&lt;/span>
 System&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">out&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">println&lt;/span>&lt;span style="color:#f92672">(&lt;/span>message&lt;span style="color:#f92672">);&lt;/span>
 &lt;span style="color:#f92672">}&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>It should print:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>应当会出现如下输出:&lt;/p>
 &lt;pre>&lt;code>My Message
-&lt;/code>&lt;/pre>&lt;h2 id="actor-method-invocation">Actor Method invocation&lt;/h2>
-&lt;p>Object serialization and deserialization for invocation of Actor&amp;rsquo;s methods are same as for the service method invocation, the only difference is that the application does not need to deserialize the request or serialize the response since it is all done transparently by the SDK.&lt;/p>
-&lt;p>For Actor&amp;rsquo;s methods, the SDK only supports methods with zero or one parameter.&lt;/p>
+&lt;/code>&lt;/pre>&lt;h2 id="调用-actor-方法">调用 Actor 方法&lt;/h2>
+&lt;p>Actor方法调用的对象序列化和反序列化与服务方法调用相同，唯一不同的是应用程序不需要反序列化请求或序列化响应，因为这一切都由SDK透明地完成。&lt;/p>
+&lt;p>对于Actor的方法，SDK只支持无参或一个参数的方法。&lt;/p>
 &lt;ul>
-&lt;li>Invoking an Actor&amp;rsquo;s method:&lt;/li>
+&lt;li>调用一个Actor的方法:&lt;/li>
 &lt;/ul>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">static&lt;/span> &lt;span style="color:#66d9ef">void&lt;/span> &lt;span style="color:#a6e22e">main&lt;/span>&lt;span style="color:#f92672">()&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
 ActorProxyBuilder builder &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> ActorProxyBuilder&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#34;DemoActor&amp;#34;&lt;/span>&lt;span style="color:#f92672">);&lt;/span>
 String result &lt;span style="color:#f92672">=&lt;/span> actor&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">invokeActorMethod&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#34;say&amp;#34;&lt;/span>&lt;span style="color:#f92672">,&lt;/span> &lt;span style="color:#e6db74">&amp;#34;My Message&amp;#34;&lt;/span>&lt;span style="color:#f92672">,&lt;/span> String&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">class&lt;/span>&lt;span style="color:#f92672">).&lt;/span>&lt;span style="color:#a6e22e">block&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
 &lt;span style="color:#f92672">}&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;ul>
-&lt;li>Implementing an Actor&amp;rsquo;s method:&lt;/li>
+&lt;li>实现一个Actor的方法:&lt;/li>
 &lt;/ul>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">&lt;span style="color:#66d9ef">public&lt;/span> String &lt;span style="color:#a6e22e">say&lt;/span>&lt;span style="color:#f92672">(&lt;/span>String something&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
 System&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">out&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">println&lt;/span>&lt;span style="color:#f92672">(&lt;/span>something&lt;span style="color:#f92672">);&lt;/span>
 &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#e6db74">&amp;#34;OK&amp;#34;&lt;/span>&lt;span style="color:#f92672">;&lt;/span>
 &lt;span style="color:#f92672">}&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>It should print:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>应当会出现如下输出:&lt;/p>
 &lt;pre>&lt;code> My Message
-&lt;/code>&lt;/pre>&lt;h2 id="actors-state-management">Actor&amp;rsquo;s state management&lt;/h2>
-&lt;p>Actors can also have state. Actors can also have state. In this case, the state manager will serialize and deserialize the objects using the state serializer and handle it transparently to the application.&lt;/p>
+&lt;/code>&lt;/pre>&lt;h2 id="actor-状态管理">Actor 状态管理&lt;/h2>
+&lt;p>Actor也可以有状态。 在这种情况下，状态管理器将使用状态序列化工具对对象进行序列化和反序列化，并对应用程序进行透明处理。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">&lt;span style="color:#66d9ef">public&lt;/span> String &lt;span style="color:#a6e22e">actorMethod&lt;/span>&lt;span style="color:#f92672">(&lt;/span>String message&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
-&lt;span style="color:#75715e">// Reads a state from key and deserializes it to String.
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">public&lt;/span> String &lt;span style="color:#a6e22e">actorMethod&lt;/span>&lt;span style="color:#f92672">(&lt;/span>String message&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
 &lt;span style="color:#75715e">// Reads a state from key and deserializes it to String.
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> String previousMessage &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">super&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">getActorStateManager&lt;/span>&lt;span style="color:#f92672">().&lt;/span>&lt;span style="color:#a6e22e">get&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#34;lastmessage&amp;#34;&lt;/span>&lt;span style="color:#f92672">,&lt;/span> String&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">class&lt;/span>&lt;span style="color:#f92672">).&lt;/span>&lt;span style="color:#a6e22e">block&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
 &lt;span style="color:#75715e">// Sets the new state for the key after serializing it.
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">super&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">getActorStateManager&lt;/span>&lt;span style="color:#f92672">().&lt;/span>&lt;span style="color:#a6e22e">set&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#34;lastmessage&amp;#34;&lt;/span>&lt;span style="color:#f92672">,&lt;/span> message&lt;span style="color:#f92672">).&lt;/span>&lt;span style="color:#a6e22e">block&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
 &lt;span style="color:#66d9ef">return&lt;/span> previousMessage&lt;span style="color:#f92672">;&lt;/span>
 &lt;span style="color:#f92672">}&lt;/span>
-&lt;span style="color:#66d9ef">super&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">getActorStateManager&lt;/span>&lt;span style="color:#f92672">().&lt;/span>&lt;span style="color:#a6e22e">set&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#34;lastmessage&amp;#34;&lt;/span>&lt;span style="color:#f92672">,&lt;/span> message&lt;span style="color:#f92672">).&lt;/span>&lt;span style="color:#a6e22e">block&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
-&lt;span style="color:#66d9ef">return&lt;/span> previousMessage&lt;span style="color:#f92672">;&lt;/span>
-&lt;span style="color:#f92672">}&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="default-serializer">Default serializer&lt;/h2>
-&lt;p>The default serializer for Dapr is a JSON serializer with the following expectations:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="默认序列化工具">默认序列化工具&lt;/h2>
+&lt;p>Dapr的默认序列化工具是JSON序列化工具，其期望如下:&lt;/p>
 &lt;ol>
-&lt;li>Use of basic &lt;a href="https://www.w3schools.com/js/js_json_datatypes.asp">JSON data types&lt;/a> for cross-language and cross-platform compatibility: string, number, array, boolean, null and another JSON object. Every complex property type in application&amp;rsquo;s serializable objects (DateTime, for example), should be represented as one of the JSON&amp;rsquo;s basic types. Every complex property type in application&amp;rsquo;s serializable objects (DateTime, for example), should be represented as one of the JSON&amp;rsquo;s basic types.&lt;/li>
-&lt;li>Data persisted with the default serializer should be saved as JSON objects too, without extra quotes or encoding. The example below shows how a string and a JSON object would look like in a Redis store. The example below shows how a string and a JSON object would look like in a Redis store. The example below shows how a string and a JSON object would look like in a Redis store.&lt;/li>
+&lt;li>使用基本的&lt;a href="https://www.w3schools.com/js/js_json_datatypes.asp">JSON数据类型&lt;/a>来实现跨语言和跨平台的兼容性：字符串、数字、数组、布尔值、空值和另一个JSON对象。 应用程序的可序列化对象中的每一个复杂的属性类型（例如DateTime），都应该被表示为JSON的基本类型之一。&lt;/li>
+&lt;li>用默认序列化工具持久化的数据也应该被保存为JSON对象，不需要额外的引号或编码。 下面的例子显示了一个字符串和一个JSON对象在Redis存储中的样子。&lt;/li>
 &lt;/ol>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">redis-cli MGET &lt;span style="color:#e6db74">&amp;#34;ActorStateIT_StatefulActorService||StatefulActorTest||1581130928192||message
 &lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span>This is a message to be saved and retrieved.&lt;span style="color:#e6db74">&amp;#34;
 &lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash"> redis-cli MGET &lt;span style="color:#e6db74">&amp;#34;ActorStateIT_StatefulActorService||StatefulActorTest||1581130928192||mydata
 &lt;/span>&lt;span style="color:#e6db74">{&amp;#34;&lt;/span>value&lt;span style="color:#e6db74">&amp;#34;:&amp;#34;&lt;/span>My data value.&lt;span style="color:#e6db74">&amp;#34;}
 &lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="3">
-&lt;li>Custom serializers must serialize object to &lt;code>byte[]&lt;/code>.&lt;/li>
-&lt;li>Custom serializers must deserilize &lt;code>byte[]&lt;/code> to object.&lt;/li>
-&lt;li>When user provides a custom serializer, it should be transferred or persisted as &lt;code>byte[]&lt;/code>. When persisting, also encode as Base64 string. This is done natively by most JSON libraries. When persisting, also encode as Base64 string. This is done natively by most JSON libraries.&lt;/li>
+&lt;li>自定义序列化工具必须将对象序列化为&lt;code>byte[]&lt;/code>类型。&lt;/li>
+&lt;li>自定义序列化工具必须将&lt;code>byte[]&lt;/code>反序列化为对象。&lt;/li>
+&lt;li>当用户提供一个自定义的序列化工具时，它应该以&lt;code>byte[]&lt;/code>的形式被传输或持久化， 持久化时，也应当编码为Base64字符串， 大多数JSON库都能够完成这个功能。&lt;/li>
 &lt;/ol>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">redis-cli MGET &lt;span style="color:#e6db74">&amp;#34;ActorStateIT_StatefulActorService||StatefulActorTest||1581130928192||message
 &lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span>VGhpcyBpcyBhIG1lc3NhZ2UgdG8gYmUgc2F2ZWQgYW5kIHJldHJpZXZlZC4&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;
 &lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash"> redis-cli MGET &lt;span style="color:#e6db74">&amp;#34;ActorStateIT_StatefulActorService||StatefulActorTest||1581130928192||mydata
 &lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span>eyJ2YWx1ZSI6Ik15IGRhdGEgdmFsdWUuIn0&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;
 &lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="6">
-&lt;li>When serializing a object that is a &lt;code>byte[]&lt;/code>, the serializer should just pass it through since &lt;code>byte[]&lt;/code> shoould be already handled internally in the SDK. The same happens when deserializing to &lt;code>byte[]&lt;/code>. The same happens when deserializing to &lt;code>byte[]&lt;/code>.&lt;/li>
+&lt;li>当序列化一个&lt;code>byte[]&lt;/code>的对象时，序列化工具应该只是将其传递过去，因为&lt;code>byte[]&lt;/code>应该已经在SDK内部处理。 当反序列化为&lt;code>byte[]&lt;/code>时，也会发生同样的情况。&lt;/li>
 &lt;/ol>
-&lt;p>&lt;em>As of now, the &lt;a href="https://github.com/dapr/java-sdk/">Java SDK&lt;/a> is the only Dapr SDK that implements this specification. In the near future, other SDKs will also implement the same. In the near future, other SDKs will also implement the same.&lt;/em>&lt;/p></description></item></channel></rss>
+&lt;p>&lt;em>目前而言，&lt;a href="https://github.com/dapr/java-sdk/">Java SDK&lt;/a>是唯一实现该规范的Dapr SDK。 在不久的将来，其他SDK也会实现同样的功能。&lt;/em>&lt;/p></description></item></channel></rss>

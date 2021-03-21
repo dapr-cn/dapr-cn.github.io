@@ -1,55 +1,55 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Run Dapr in Self Hosted Mode</title><link>https://docs.dapr.io/operations/hosting/self-hosted/</link><description>Recent content in Run Dapr in Self Hosted Mode on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/operations/hosting/self-hosted/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: Overview of Dapr in self-hosted mode</title><link>https://docs.dapr.io/operations/hosting/self-hosted/self-hosted-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/hosting/self-hosted/self-hosted-overview/</guid><description>
-&lt;p>Dapr can be configured to run on your local developer machine in self hosted mode. Dapr can be configured to run on your local developer machine in self hosted mode. Each running service has a Dapr runtime process (or sidecar) which is configured to use state stores, pub/sub, binding components and the other building blocks.&lt;/p>
-&lt;p>In self hosted mode, Redis is running locally in a container and is configured to serve as both the default component for state store and for pub/sub. A Zipkin container is also configured for diagnostics and tracing. After running &lt;code>dapr init&lt;/code>, see the &lt;code>$HOME/.dapr/components&lt;/code> directory (Mac/Linux) or &lt;code>%USERPROFILE%\.dapr\components&lt;/code> on Windows. A Zipkin container is also configured for diagnostics and tracing. After running &lt;code>dapr init&lt;/code>, see the &lt;code>$HOME/.dapr/components&lt;/code> directory (Mac/Linux) or &lt;code>%USERPROFILE%\.dapr\components&lt;/code> on Windows.&lt;/p>
-&lt;p>The &lt;code>dapr-placement&lt;/code> service is responsible for managing the actor distribution scheme and key range settings. This service is only required if you are using Dapr actors. The &lt;code>dapr-placement&lt;/code> service is responsible for managing the actor distribution scheme and key range settings. This service is only required if you are using Dapr actors. For more information on the actor &lt;code>Placement&lt;/code> service read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/actors/actors-overview/">actor overview&lt;/a>.&lt;/p>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – 在自托管模式下运行 Dapr</title><link>https://docs.dapr.io/operations/hosting/self-hosted/</link><description>Recent content in 在自托管模式下运行 Dapr on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/operations/hosting/self-hosted/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: 自我托管模式下的 Dapr 概述</title><link>https://docs.dapr.io/operations/hosting/self-hosted/self-hosted-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/hosting/self-hosted/self-hosted-overview/</guid><description>
+&lt;p>Dapr 可以配置为在开发人员本地计算机上以 自托管模式 运行。 每个运行的服务都有一个 Dapr 运行时进程 (或 sidecar) ，配置为使用状态存储，发布/订阅，绑定组件和其他构建块。&lt;/p>
+&lt;p>在自托管模式下，Redis 在本地容器中运行，并被配置为 状态存储 和 发布/订阅 的默认组件。 还配置了一个 Zipkin 容器用于诊断和跟踪。 运行 &lt;code>dapr init&lt;/code>, 见 &lt;code>$HOME/.dapr/components&lt;/code> directory (Mac/Linux) 或 &lt;code>%USERPROFILE%\.dapr\components&lt;/code> on Windows。&lt;/p>
+&lt;p>&lt;code>dapr-placement&lt;/code> 服务负责管理 actor 分布方案和关键范围设置。 此服务仅在您使用 Dapr actors 时才需要。 有关 actor &lt;code>放置&lt;/code> 服务的更多信息，请阅读 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/actors/actors-overview/">actor 概述&lt;/a>。&lt;/p>
 &lt;img src="https://docs.dapr.io/images/overview_standalone.png" width=800>
-&lt;p>You can use the &lt;a href="https://github.com/dapr/cli#launch-dapr-and-your-app">Dapr CLI&lt;/a> to run a Dapr enabled application on your local machine.&lt;/p></description></item><item><title>Operations: How-To: Run Dapr in self-hosted mode with Docker</title><link>https://docs.dapr.io/operations/hosting/self-hosted/self-hosted-with-docker/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/hosting/self-hosted/self-hosted-with-docker/</guid><description>
-&lt;p>This article provides guidance on running Dapr with Docker outside of Kubernetes. This article provides guidance on running Dapr with Docker outside of Kubernetes. There are a number of different configurations in which you may wish to run Dapr with Docker that are documented below.&lt;/p>
+&lt;p>您可以使用 &lt;a href="https://github.com/dapr/cli#launch-dapr-and-your-app">Dapr CLI&lt;/a> 在本地机器上运行启用了 Dapr 的应用程序。&lt;/p></description></item><item><title>Operations: 入门指南: 使用 Docker 在自托管模式下运行 Dapr</title><link>https://docs.dapr.io/operations/hosting/self-hosted/self-hosted-with-docker/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/hosting/self-hosted/self-hosted-with-docker/</guid><description>
+&lt;p>本文提供了关于在 Kubernetes 之外与Docker一起运行 Dapr 的指导。 有许多不同的配置，你可能希望用Docker来运行Dapr，这些配置被记录在下面。&lt;/p>
 &lt;h2 id="前期准备">前期准备&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.docker.com/get-docker/">Docker&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.docker.com/compose/install/">Docker-Compose&lt;/a> (optional)&lt;/li>
+&lt;li>&lt;a href="https://docs.docker.com/compose/install/">Docker-Compose&lt;/a> (可选)&lt;/li>
 &lt;/ul>
-&lt;h2 id="select-a-docker-image">Select a Docker image&lt;/h2>
-&lt;p>Dapr provides a number of prebuilt Docker images for different components, you should select the relevant image for your desired binary, architecture, and tag/version.&lt;/p>
-&lt;h3 id="images">Images&lt;/h3>
-&lt;p>There are published Docker images for each of the Dapr components available on &lt;a href="https://hub.docker.com/u/daprio">Docker Hub&lt;/a>.&lt;/p>
+&lt;h2 id="选择docker镜像">选择Docker镜像&lt;/h2>
+&lt;p>Dapr 为不同的组件提供了许多预构建的 Docker 镜像，您应该为所需的二进制、架构和 标签/版本 选择相关镜像。&lt;/p>
+&lt;h3 id="镜像">镜像&lt;/h3>
+&lt;p>&lt;a href="https://hub.docker.com/u/daprio">Docker Hub&lt;/a>上，每个 Dapr 组件都有已发布的 Docker 镜像。&lt;/p>
 &lt;ul>
-&lt;li>&lt;a href="https://hub.docker.com/r/daprio/dapr">daprio/dapr&lt;/a> (contains all Dapr binaries)&lt;/li>
+&lt;li>&lt;a href="https://hub.docker.com/r/daprio/dapr">daprio/dapr&lt;/a> (包含所有Dapr binaries)&lt;/li>
 &lt;li>&lt;a href="https://hub.docker.com/r/daprio/daprd">daprio/daprd&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://hub.docker.com/r/daprio/placement">daprio/placement&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://hub.docker.com/r/daprio/sentry">daprio/sentry&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://hub.docker.com/r/daprio/dapr-dev">daprio/dapr-dev&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;h3 id="tags">Tags&lt;/h3>
+&lt;h3 id="标签">标签&lt;/h3>
 &lt;h4 id="linuxamd64">Linux/amd64&lt;/h4>
 &lt;ul>
-&lt;li>&lt;code>latest&lt;/code>: The latest release version, &lt;strong>ONLY&lt;/strong> use for development purposes.&lt;/li>
-&lt;li>&lt;code>edge&lt;/code>: The latest edge build (master).&lt;/li>
-&lt;li>&lt;code>major.minor.patch&lt;/code>: A release version.&lt;/li>
-&lt;li>&lt;code>major.minor.patch-rc.iteration&lt;/code>: A release candidate.&lt;/li>
+&lt;li>&lt;code>latest&lt;/code>：最新版本，&lt;strong>仅&lt;/strong> 用于开发目的。&lt;/li>
+&lt;li>&lt;code>edge&lt;/code>: 最新的edge构建(master)。&lt;/li>
+&lt;li>&lt;code>major.minor.patch&lt;/code>: 发布版本。&lt;/li>
+&lt;li>&lt;code>major.patch-rc.iteration&lt;/code>: 候选发布。&lt;/li>
 &lt;/ul>
 &lt;h4 id="linuxarmv7">Linux/arm/v7&lt;/h4>
 &lt;ul>
-&lt;li>&lt;code>latest-arm&lt;/code>: The latest release version for ARM, &lt;strong>ONLY&lt;/strong> use for development purposes.&lt;/li>
-&lt;li>&lt;code>edge-arm&lt;/code>: The latest edge build for ARM (master).&lt;/li>
-&lt;li>&lt;code>major.minor.patch-arm&lt;/code>: A release version for ARM.&lt;/li>
-&lt;li>&lt;code>major.minor.patch-rc.iteration-arm&lt;/code>: A release candidate for ARM.&lt;/li>
+&lt;li>&lt;code>latest-arm&lt;/code>：最新的ARM版本， &lt;strong>只&lt;/strong> 用于开发目的。&lt;/li>
+&lt;li>&lt;code>edge-arm&lt;/code>: ARM的最新的edge构建(master)。&lt;/li>
+&lt;li>&lt;code>major.minor.patch-arm&lt;/code>: ARM的发布版本。&lt;/li>
+&lt;li>&lt;code>major.patch-rc.iteration&lt;/code>: ARM的候选发布。&lt;/li>
 &lt;/ul>
-&lt;h2 id="run-app-as-a-process">Run app as a process&lt;/h2>
+&lt;h2 id="以进程运行应用">以进程运行应用&lt;/h2>
 &lt;blockquote>
-&lt;p>For development purposes ONLY&lt;/p>
+&lt;p>仅用于开发目的&lt;/p>
 &lt;/blockquote>
-&lt;p>If you are running Dapr in a Docker container and your app as a process on the host machine, then you need to configure Docker to use the host network so that Dapr and the app can share a localhost network interface. Unfortunately, the host networking driver for Docker is only supported on Linux hosts. If you are running your Docker daemon on a Linux host, you should be able to run the following to launch Dapr. Unfortunately, the host networking driver for Docker is only supported on Linux hosts. If you are running your Docker daemon on a Linux host, you should be able to run the following to launch Dapr.&lt;/p>
+&lt;p>如果您在 Docker 容器中运行 Dapr，并且您的应用程序在主机上作为一个进程运行，那么您需要配置一下 Docker来使用主机网络，这样Dapr和应用程序就可以共享一个本地host网络接口。 遗憾的是，Docker的主机网络驱动只在Linux主机上支持。 如果您在Linux主机上运行Docker守护进程，您应该能够运行以下内容来启动Dapr。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">docker run --net&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;host&amp;#34;&lt;/span> --mount type&lt;span style="color:#f92672">=&lt;/span>bind,source&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span>&lt;span style="color:#66d9ef">$(&lt;/span>pwd&lt;span style="color:#66d9ef">)&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span>/components,target&lt;span style="color:#f92672">=&lt;/span>/components daprio/daprd:edge ./daprd -app-id &amp;lt;my-app-id&amp;gt; -app-port &amp;lt;my-app-port&amp;gt;
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Then you can run your app on the host and they should connect over the localhost network interface.&lt;/p>
-&lt;p>However, if you are not running your Docker daemon on a Linux host, it is recommended you follow the steps below to run both your app and the &lt;a href="#run-dapr-in-a-docker-container-using-docker-compose">Dapr runtime in Docker containers using Docker Compose&lt;/a>.&lt;/p>
-&lt;h2 id="run-app-and-dapr-in-a-single-docker-container">Run app and Dapr in a single Docker container&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后，你可以在主机上运行你的应用程序，他们应该通过localhost网络接口连接。&lt;/p>
+&lt;p>但是，如果你没有在Linux主机上运行Docker守护进程，建议你按照以下步骤运行 您的应用程序和&lt;a href="#run-dapr-in-a-docker-container-using-docker-compose">Docker容器中使用Docker Compose的Dapr运行时&lt;/a>。&lt;/p>
+&lt;h2 id="在单个docker容器中运行应用程序和dapr">在单个Docker容器中运行应用程序和Dapr。&lt;/h2>
 &lt;blockquote>
-&lt;p>For development purposes ONLY&lt;/p>
+&lt;p>仅用于开发目的&lt;/p>
 &lt;/blockquote>
-&lt;p>It is not recommended to run both the Dapr runtime and an application inside the same container. However, it is possible to do so for local development scenarios. It is not recommended to run both the Dapr runtime and an application inside the same container. However, it is possible to do so for local development scenarios. In order to do this, you&amp;rsquo;ll need to write a Dockerfile that installs the Dapr runtime, Dapr CLI and your app code. You can then invoke both the Dapr runtime and your app code using the Dapr CLI. You can then invoke both the Dapr runtime and your app code using the Dapr CLI.&lt;/p>
-&lt;p>Below is an example of a Dockerfile which achieves this:&lt;/p>
+&lt;p>不建议在同一容器内运行 Dapr 运行时和应用程序。 但是，对于本地开发的场景，可以这样做。 为了做到这一点，你需要编写一个Docker文件，安装Dapr运行时、Dapr CLI和你的应用代码。 然后，您可以使用 Dapr CLI 调用Dapr 运行时和您的应用代码。&lt;/p>
+&lt;p>下面是实现这一目标的Docker文件的例子。&lt;/p>
 &lt;pre>&lt;code>FROM python:3.7.1
 # Install dapr CLI
 RUN wget -q https://raw.githubusercontent.com/dapr/cli/master/install/install.sh -O - | /bin/bash
@@ -63,21 +63,18 @@ COPY python .
 RUN pip install requests
 ENTRYPOINT [&amp;quot;dapr&amp;quot;]
 CMD [&amp;quot;run&amp;quot;, &amp;quot;--app-id&amp;quot;, &amp;quot;nodeapp&amp;quot;, &amp;quot;--app-port&amp;quot;, &amp;quot;3000&amp;quot;, &amp;quot;node&amp;quot;, &amp;quot;app.js&amp;quot;]
-RUN pip install requests
-ENTRYPOINT [&amp;quot;dapr&amp;quot;]
-CMD [&amp;quot;run&amp;quot;, &amp;quot;--app-id&amp;quot;, &amp;quot;nodeapp&amp;quot;, &amp;quot;--app-port&amp;quot;, &amp;quot;3000&amp;quot;, &amp;quot;node&amp;quot;, &amp;quot;app.js&amp;quot;]
-&lt;/code>&lt;/pre>&lt;p>Remember that if Dapr needs to communicate with other components i.e. Redis, these also need to be made accessible to it. Redis, these also need to be made accessible to it.&lt;/p>
-&lt;h2 id="run-on-a-docker-network">Run on a Docker network&lt;/h2>
-&lt;p>If you have multiple instances of Dapr running in Docker containers and want them to be able to communicate with each other i.e. for service invocation, then you&amp;rsquo;ll need to create a shared Docker network and make sure those Dapr containers are attached to it.&lt;/p>
-&lt;p>You can create a simple Docker network using&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>请记住，如果Dapr需要与其他组件通信，即： Redis，这些也需要让它访问。&lt;/p>
+&lt;h2 id="在-docker-网络运行">在 Docker 网络运行&lt;/h2>
+&lt;p>如果您有多个Dapr实例运行在Docker容器中，并希望它们能够 互相通信，即服务调用，那么你就需要创建一个共享的Docker网络。 并确保那些Dapr容器与之相连。&lt;/p>
+&lt;p>您可以使用以下方法创建一个简单的Docker网络&lt;/p>
 &lt;pre>&lt;code>docker network create my-dapr-network
-&lt;/code>&lt;/pre>&lt;p>When running your Docker containers, you can attach them to the network using&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>当运行您的 Docker 容器时，您可以通过以下方式将其附加到网络&lt;/p>
 &lt;pre>&lt;code>docker run --net=my-dapr-network ...
-&lt;/code>&lt;/pre>&lt;p>Each container will receive a unique IP on that network and be able to communicate with other containers on that network.&lt;/p>
-&lt;h2 id="run-using-docker-compose">Run using Docker-Compose&lt;/h2>
-&lt;p>&lt;a href="https://docs.docker.com/compose/">Docker Compose&lt;/a> can be used to define multi-container application configurations. &lt;a href="https://docs.docker.com/compose/">Docker Compose&lt;/a> can be used to define multi-container application configurations. If you wish to run multiple apps with Dapr sidecars locally without Kubernetes then it is recommended to use a Docker Compose definition (&lt;code>docker-compose.yml&lt;/code>).&lt;/p>
-&lt;p>The syntax and tooling of Docker Compose is outside the scope of this article, however, it is recommended you refer to the &lt;a href="https://docs.docker.com/compose/">offical Docker documentation&lt;/a> for further details.&lt;/p>
-&lt;p>In order to run your applications using Dapr and Docker Compose you&amp;rsquo;ll need to define the sidecar pattern in your &lt;code>docker-compose.yml&lt;/code>. For example: For example:&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>每个容器将在该网络上获得一个唯一的IP，并能与该网络上的其他容器进行通信。&lt;/p>
+&lt;h2 id="使用-docker-compose-运行">使用 Docker-Compose 运行&lt;/h2>
+&lt;p>&lt;a href="https://docs.docker.com/compose/">Docker Compose&lt;/a>可以用来定义多容器应用配置。 如果您希望在没有Kubernetes的情况下，在本地使用Dapr sidecars运行多个应用程序，那么建议使用Docker Compose定义（&lt;code>docker-compose.yml&lt;/code>）。&lt;/p>
+&lt;p>Docker Compose的语法和工具超出了本文的范围，但是，建议你参考&lt;a href="https://docs.docker.com/compose/">官方Docker文档&lt;/a>了解更多细节。&lt;/p>
+&lt;p>为了使用Dapr和Docker Compose运行您的应用程序，您需要在您的&lt;code>docker-compose.yml&lt;/code>中定义sidecar模式。 例如:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#e6db74">&amp;#39;3&amp;#39;&lt;/span>
 &lt;span style="color:#f92672">services&lt;/span>:
 &lt;span style="color:#f92672">nodeapp&lt;/span>:
@@ -109,47 +106,40 @@ CMD [&amp;quot;run&amp;quot;, &amp;quot;--app-id&amp;quot;, &amp;quot;nodeapp&am
 &lt;span style="color:#f92672">ports&lt;/span>:
 - &lt;span style="color:#e6db74">&amp;#34;50006:50006&amp;#34;&lt;/span>
 &lt;span style="color:#f92672">networks&lt;/span>:
-- &lt;span style="color:#ae81ff">hello-dapr Redis)&lt;/span>
-&lt;span style="color:#f92672">placement&lt;/span>:
-&lt;span style="color:#f92672">image&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;daprio/dapr&amp;#34;&lt;/span>
-&lt;span style="color:#f92672">command&lt;/span>: [&lt;span style="color:#e6db74">&amp;#34;./placement&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;-port&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;50006&amp;#34;&lt;/span>]
-&lt;span style="color:#f92672">ports&lt;/span>:
-- &lt;span style="color:#e6db74">&amp;#34;50006:50006&amp;#34;&lt;/span>
-&lt;span style="color:#f92672">networks&lt;/span>:
-- &lt;span style="color:#ae81ff">hello-dapr&lt;/span>
+- &lt;span style="color:#ae81ff">hello-dapr &lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
-&lt;p>For those running the Docker daemon on a Linux host, you can also use &lt;code>network_mode: host&lt;/code> to leverage host networking if needed.&lt;/p>
+&lt;p>对于那些在Linux主机上运行Docker守护进程的用户，如果需要的话，还可以使用&lt;code>network_mode: host&lt;/code>来利用主机联网。&lt;/p>
 &lt;/blockquote>
-&lt;p>To further learn how to run Dapr with Docker Compose, see the &lt;a href="https://github.com/dapr/samples/tree/master/hello-docker-compose">Docker-Compose Sample&lt;/a>.&lt;/p>
-&lt;h2 id="run-on-kubernetes">Run on Kubernetes&lt;/h2>
-&lt;p>If your deployment target is Kubernetes then you&amp;rsquo;re probably better of running your applicaiton and Dapr sidecars directly on a Kubernetes platform. Running Dapr on Kubernetes is a first class experience and is documented separately. Please refer to the &lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-overview/">Dapr on Kubernetes docs&lt;/a> Running Dapr on Kubernetes is a first class experience and is documented separately. Please refer to the &lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-overview/">Dapr on Kubernetes docs&lt;/a>&lt;/p></description></item><item><title>Operations: Uninstall Dapr in a self-hosted environment</title><link>https://docs.dapr.io/operations/hosting/self-hosted/self-hosted-uninstall/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/hosting/self-hosted/self-hosted-uninstall/</guid><description>
-&lt;p>The following CLI command removes the Dapr sidecar binaries and the placement container:&lt;/p>
+&lt;p>要进一步了解如何使用 Docker Compose 运行 Dapr，请参见 &lt;a href="https://github.com/dapr/samples/tree/master/hello-docker-compose">Docker-Compose Sample&lt;/a>。&lt;/p>
+&lt;h2 id="在-kubernetes-运行">在 Kubernetes 运行&lt;/h2>
+&lt;p>如果你的部署目标是Kubernetes，那么你可能最好直接在Kubernetes平台上运行你的applicationaiton和Dapr sidecars。 在Kubernetes上运行Dapr是一等一的体验，并有单独的文档。 请参考 &lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-overview/">Kubernetes上的Dapr 文档&lt;/a>。&lt;/p></description></item><item><title>Operations: 在自托管的环境中卸载 Dapr</title><link>https://docs.dapr.io/operations/hosting/self-hosted/self-hosted-uninstall/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/hosting/self-hosted/self-hosted-uninstall/</guid><description>
+&lt;p>下面的 CLI 命令移除Dapr sidecar 二进制文件和placement 容器：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr uninstall
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>The above command will not remove the Redis or Zipkin containers that were installed during &lt;code>dapr init&lt;/code> by default, just in case you were using them for other purposes. The above command will not remove the Redis or Zipkin containers that were installed during &lt;code>dapr init&lt;/code> by default, just in case you were using them for other purposes. To remove Redis, Zipkin, Actor Placement container, as well as the default Dapr directory located at &lt;code>$HOME/.dapr&lt;/code> or &lt;code>%USERPROFILE%\.dapr\&lt;/code>, run:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>上述命令不会删除在&lt;code>dapr init&lt;/code>期间默认安装的Redis或Zipkin容器，以防你将它们用于其他目的。 要删除 Redis, Zipkin, Actor Placement 容器，以及位于 &lt;code>$HOME/.dapr&lt;/code> 或 &lt;code>%USERPROFILE%\.dapr\&lt;/code>, 运行：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr uninstall --all
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-primary" role="alert">
 &lt;h4 class="alert-heading">Note&lt;/h4>
-For Linux/MacOS users, if you run your docker cmds with sudo or the install path is &lt;code>/usr/local/bin&lt;/code>(default install path), you need to use &lt;code>sudo dapr uninstall&lt;/code> to remove dapr binaries and/or the containers.
-&lt;/div></description></item><item><title>Operations: Steps to upgrade Dapr in a self-hosted environment</title><link>https://docs.dapr.io/operations/hosting/self-hosted/self-hosted-upgrade/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/hosting/self-hosted/self-hosted-upgrade/</guid><description>
+对于Linux/MacOS 用户，如果你用sudo运行你的docker或安装路径是 &lt;code>/usr/local/bin&lt;/code>(默认安装路径)， 您需要使用 &lt;code>sudo dapr uninstall&lt;/code> 移除Dapr 二进制文件 和/或 容器。
+&lt;/div></description></item><item><title>Operations: 在自托管环境中升级 Dapr 的步骤</title><link>https://docs.dapr.io/operations/hosting/self-hosted/self-hosted-upgrade/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/hosting/self-hosted/self-hosted-upgrade/</guid><description>
 &lt;ol>
 &lt;li>
-&lt;p>Uninstall the current Dapr deployment:&lt;/p>
+&lt;p>卸载当前的Dapr部署：&lt;/p>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Note&lt;/h4>
-This will remove the default &lt;code>$HOME/.dapr&lt;/code> directory, binaries and all containers (dapr_redis, dapr_placement and dapr_zipkin). Linux users need to run &lt;code>sudo&lt;/code> if docker command needs sudo. Linux users need to run &lt;code>sudo&lt;/code> if docker command needs sudo.
+这将删除默认 &lt;code>$HOME/.dapr&lt;/code> 目录、 二进制文件和所有容器 (dapr_redis、 dapr_placement 和 dapr_zipkin)。 如果docker 命令需要sudo，Linux 用户需要运行 &lt;code>sudo&lt;/code> 。
 &lt;/div>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr uninstall --all
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
-&lt;p>Download and install the latest CLI by visiting &lt;a href="https://docs.dapr.io/getting-started/install-dapr-cli/">this guide&lt;/a>.&lt;/p>
+&lt;p>下载和安装最新的CLI访问 &lt;a href="https://docs.dapr.io/getting-started/install-dapr-cli/">这个指南&lt;/a>。&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>Initialize the Dapr runtime:&lt;/p>
+&lt;p>初始化 Dapr 运行时：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr init
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
-&lt;p>Ensure you are using the latest version of Dapr (1.0.1) with:&lt;/p>
+&lt;p>确保您使用最新版本的 Dapr (1.0.1)&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">$ dapr --version
 CLI version: 1.0.0
 Runtime version: 1.0.1
@@ -181,8 +171,8 @@ INFO&lt;span style="color:#f92672">[&lt;/span>0000&lt;span style="color:#f92672"
 INFO&lt;span style="color:#f92672">[&lt;/span>0000&lt;span style="color:#f92672">]&lt;/span> Healthz server is listening on :8080 instance&lt;span style="color:#f92672">=&lt;/span>Nicoletaz-L10.redmond.corp.microsoft.com scope&lt;span style="color:#f92672">=&lt;/span>dapr.placement type&lt;span style="color:#f92672">=&lt;/span>log ver&lt;span style="color:#f92672">=&lt;/span>1.0.0-rc.1
 INFO&lt;span style="color:#f92672">[&lt;/span>0001&lt;span style="color:#f92672">]&lt;/span> cluster leadership acquired instance&lt;span style="color:#f92672">=&lt;/span>Nicoletaz-L10.redmond.corp.microsoft.com scope&lt;span style="color:#f92672">=&lt;/span>dapr.placement type&lt;span style="color:#f92672">=&lt;/span>log ver&lt;span style="color:#f92672">=&lt;/span>1.0.0-rc.1
 INFO&lt;span style="color:#f92672">[&lt;/span>0001&lt;span style="color:#f92672">]&lt;/span> leader is established. instance&lt;span style="color:#f92672">=&lt;/span>Nicoletaz-L10.redmond.corp.microsoft.com scope&lt;span style="color:#f92672">=&lt;/span>dapr.placement type&lt;span style="color:#f92672">=&lt;/span>log ver&lt;span style="color:#f92672">=&lt;/span>1.0.0-rc.1 instance&lt;span style="color:#f92672">=&lt;/span>Nicoletaz-L10.redmond.corp.microsoft.com scope&lt;span style="color:#f92672">=&lt;/span>dapr.placement type&lt;span style="color:#f92672">=&lt;/span>log ver&lt;span style="color:#f92672">=&lt;/span>1.0.0-rc.1
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>From here on you can follow the sample example created for the &lt;a href="https://github.com/dapr/java-sdk/tree/master/examples/src/main/java/io/dapr/examples/actors">java-sdk&lt;/a>, &lt;a href="https://github.com/dapr/python-sdk/tree/master/examples/demo_actor">python-sdk&lt;/a> or &lt;a href="https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actor-howto/">dotnet-sdk&lt;/a> for running an application with Actors enabled.&lt;/p>
-&lt;p>更新状态存储配置文件使 Redis host 地址和密码和您的设置相同。 Additionally to enable it as a actor state store have the metadata piece added similar to the &lt;a href="https://github.com/dapr/java-sdk/blob/master/examples/components/state/redis.yaml">sample Java Redis component&lt;/a> definition.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>至此，您可以跟随为 &lt;a href="https://github.com/dapr/java-sdk/tree/master/examples/src/main/java/io/dapr/examples/actors">java-sdk&lt;/a>， &lt;a href="https://github.com/dapr/python-sdk/tree/master/examples/demo_actor">python-sdk&lt;/a> 或 &lt;a href="https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actor-howto/">dotne-sdk&lt;/a> 创建的样本示例，在启用了 Actors 的情况下运行应用程序。&lt;/p>
+&lt;p>更新状态存储配置文件使 Redis host 地址和密码和您的设置相同。 此外，为了使它能够作为一个actor状态存储，还添加了类似于&lt;a href="https://github.com/dapr/java-sdk/blob/master/examples/components/state/redis.yaml">示例Java Redis组件&lt;/a>定义的元数据部分。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml"> - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">actorStateStore&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="清理">清理&lt;/h2>

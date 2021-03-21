@@ -1,7 +1,7 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Supported middleware</title><link>https://docs.dapr.io/developing-applications/middleware/supported-middleware/</link><description>Recent content in Supported middleware on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/developing-applications/middleware/supported-middleware/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Rate limiting</title><link>https://docs.dapr.io/developing-applications/middleware/supported-middleware/middleware-rate-limit/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/middleware/supported-middleware/middleware-rate-limit/</guid><description>
-&lt;p>The rate limit &lt;a href="https://docs.dapr.io/concepts/middleware-concept/">HTTP middleware&lt;/a> allows restricting the maximum number of allowed HTTP requests per second. Rate limiting can protect your application from denial of service (DOS) attacks. DOS attacks can be initiated by malicious 3rd parties but also by bugs in your software (a.k.a. a &amp;ldquo;friendly fire&amp;rdquo; DOS attack). Rate limiting can protect your application from denial of service (DOS) attacks. DOS attacks can be initiated by malicious 3rd parties but also by bugs in your software (a.k.a. a &amp;ldquo;friendly fire&amp;rdquo; DOS attack).&lt;/p>
-&lt;h2 id="component-format">Component format&lt;/h2>
-&lt;p>In the following definition, the maximum requests per second are set to 10:&lt;/p>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Supported middleware</title><link>https://docs.dapr.io/developing-applications/middleware/supported-middleware/</link><description>Recent content in Supported middleware on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/developing-applications/middleware/supported-middleware/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: 速率限制</title><link>https://docs.dapr.io/developing-applications/middleware/supported-middleware/middleware-rate-limit/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/middleware/supported-middleware/middleware-rate-limit/</guid><description>
+&lt;p>速率限制 &lt;a href="https://docs.dapr.io/concepts/middleware-concept/">HTTP 中间件&lt;/a>允许限制每秒允许的 HTTP 请求的最大数量。 速率限制可以保护您的应用程序免受拒绝服务（DOS）攻击。 DOS攻击可以由恶意的第三方发起，也可以由你的软件中的错误发起（也就是 &amp;ldquo;友军 &amp;ldquo;DOS攻击）。&lt;/p>
+&lt;h2 id="组件格式">组件格式&lt;/h2>
+&lt;p>根据下述定义，每秒的最高请求数定为10：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -12,27 +12,27 @@
 &lt;span style="color:#f92672">metadata&lt;/span>:
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">maxRequestsPerSecond&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">10&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th>字段&lt;/th>
-&lt;th>Details&lt;/th>
+&lt;th>详情&lt;/th>
 &lt;th>示例&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
 &lt;td>maxRequestsPerSecond&lt;/td>
-&lt;td>The maximum requests per second by remote IP and path. The maximum requests per second by remote IP and path. Something to consider is that &lt;strong>the limit is enforced independently in each Dapr sidecar and not cluster wide&lt;/strong>&lt;/td>
+&lt;td>按远程IP和路径每秒的最大请求。 需要考虑的是， &lt;strong>限制在每个 Dapr sidecar中独立执行，而不是群集&lt;/strong>&lt;/td>
 &lt;td>&lt;code>10&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;p>Once the limit is reached, the request will return &lt;em>HTTP Status code 429: Too Many Requests&lt;/em>.&lt;/p>
-&lt;p>Alternatively, the &lt;a href="https://docs.dapr.io/operations/configuration/control-concurrency/">max concurrency setting&lt;/a> can be used to rate limit applications and applies to all traffic regardless of remote IP or path.&lt;/p>
-&lt;h2 id="dapr-configuration">Dapr configuration&lt;/h2>
-&lt;p>To be applied, the middleware must be referenced in &lt;a href="https://docs.dapr.io/concepts/configuration-concept/">configuration&lt;/a>. To be applied, the middleware must be referenced in &lt;a href="https://docs.dapr.io/concepts/configuration-concept/">configuration&lt;/a>. See &lt;a href="https://docs.dapr.io/concepts/middleware-concept/#customize-processing-pipeline">middleware pipelines&lt;/a>.&lt;/p>
+&lt;p>一旦达到上限，请求将返回 &lt;em>HTTP Status code 429: Too Many Requests&lt;/em>。&lt;/p>
+&lt;p>另外，&lt;a href="https://docs.dapr.io/operations/configuration/control-concurrency/">最大并发量设置&lt;/a>可用于限制应用程序的速率，并适用于所有流量，无论远程IP或路径如何。&lt;/p>
+&lt;h2 id="dapr-配置">Dapr 配置&lt;/h2>
+&lt;p>要应用中间件，必须在&lt;a href="https://docs.dapr.io/concepts/configuration-concept/">配置&lt;/a>中引用。 请参阅&lt;a href="https://docs.dapr.io/concepts/middleware-concept/#customize-processing-pipeline">中间件管道&lt;/a>。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -44,13 +44,13 @@
 &lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">middleware.http.ratelimit&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/configuration/control-concurrency/">Control max concurrently&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/concepts/middleware-concept/">Middleware concept&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/concepts/configuration-concept/">Dapr configuration&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/configuration/configuration-overview/">Configuration overview&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/configuration/control-concurrency/">控制最大并发量&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/concepts/middleware-concept/">中间件概念&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/concepts/configuration-concept/">Dapr 配置&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/configuration/configuration-overview/">配置概览&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Developing-Applications: OAuth2</title><link>https://docs.dapr.io/developing-applications/middleware/supported-middleware/middleware-oauth2/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/middleware/supported-middleware/middleware-oauth2/</guid><description>
-&lt;p>The OAuth2 &lt;a href="https://docs.dapr.io/concepts/middleware-concept/">HTTP middleware&lt;/a> enables the &lt;a href="https://tools.ietf.org/html/rfc6749#section-4.1">OAuth2 Authorization Code flow&lt;/a> on a Web API without modifying the application. This design separates authentication/authorization concerns from the application, so that application operators can adopt and configure authentication/authorization providers without impacting the application code. This design separates authentication/authorization concerns from the application, so that application operators can adopt and configure authentication/authorization providers without impacting the application code.&lt;/p>
-&lt;h2 id="component-format">Component format&lt;/h2>
+&lt;p>OAuth2 &lt;a href="https://docs.dapr.io/concepts/middleware-concept/">HTTP 中间件&lt;/a>可以在 Web API 上实现 &lt;a href="https://tools.ietf.org/html/rfc6749#section-4.1">OAuth2 授权代码流&lt;/a>，而无需修改应用程序。 这种设计将认证/授权的关注点从应用中分离出来，因此应用操作者可以在不影响应用代码的情况下采用和配置认证/授权提供者。&lt;/p>
+&lt;h2 id="组件格式">组件格式&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -75,60 +75,60 @@
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;authorization&amp;#34;&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">forceHTTPS&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;false&amp;#34;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="spec-元数据字段">Spec 元数据字段&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th>字段&lt;/th>
-&lt;th>Details&lt;/th>
+&lt;th>详情&lt;/th>
 &lt;th>示例&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
 &lt;td>clientId&lt;/td>
-&lt;td>The client ID of your application that is created as part of a credential hosted by a OAuth-enabled platform&lt;/td>
+&lt;td>你的应用程序的客户端ID，它是作为OAuth平台托管的凭证的一部分创建的&lt;/td>
 &lt;td>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>clientSecret&lt;/td>
-&lt;td>The client secret of your application that is created as part of a credential hosted by a OAuth-enabled platform&lt;/td>
+&lt;td>你的应用程序的客户端密钥，它是作为OAuth平台托管的凭证的一部分而创建的&lt;/td>
 &lt;td>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>scopes&lt;/td>
-&lt;td>A list of space-delimited, case-sensitive strings of &lt;a href="https://tools.ietf.org/html/rfc6749#section-3.3">scopes&lt;/a> which are typically used for authorization in the application&lt;/td>
+&lt;td>&lt;a href="https://tools.ietf.org/html/rfc6749#section-3.3">作用域&lt;/a>的列表，通常用于应用程序中的授权，注意格式为空格分隔、大小写敏感的字符串&lt;/td>
 &lt;td>&lt;code>&amp;quot;https://www.googleapis.com/auth/userinfo.email&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>authURL&lt;/td>
-&lt;td>The endpoint of the OAuth2 authorization server&lt;/td>
+&lt;td>OAuth2 授权服务器的端点&lt;/td>
 &lt;td>&lt;code>&amp;quot;https://accounts.google.com/o/oauth2/v2/auth&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>tokenURL&lt;/td>
-&lt;td>The endpoint is used by the client to obtain an access token by presenting its authorization grant or refresh token&lt;/td>
+&lt;td>客户端通过出示其访问许可或刷新令牌来获取access token的端点&lt;/td>
 &lt;td>&lt;code>&amp;quot;https://accounts.google.com/o/oauth2/token&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>redirectURL&lt;/td>
-&lt;td>The URL of your web application that the authorization server should redirect to once the user has authenticated&lt;/td>
+&lt;td>用户认证后，授权服务器应重定向到的Web应用程序的URL&lt;/td>
 &lt;td>&lt;code>&amp;quot;https://myapp.com&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>authHeaderName&lt;/td>
-&lt;td>The authorization header name to forward to your application&lt;/td>
+&lt;td>转发到您的应用程序的授权头名称&lt;/td>
 &lt;td>&lt;code>&amp;quot;authorization&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>forceHTTPS&lt;/td>
-&lt;td>If true, enforces the use of TLS/SSL&lt;/td>
+&lt;td>如果为true，强制使用TLS/SSL&lt;/td>
 &lt;td>&lt;code>&amp;quot;true&amp;quot;&lt;/code>,&lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="dapr-configuration">Dapr configuration&lt;/h2>
-&lt;p>To be applied, the middleware must be referenced in &lt;a href="https://docs.dapr.io/concepts/configuration-concept/">configuration&lt;/a>. To be applied, the middleware must be referenced in a &lt;a href="https://docs.dapr.io/concepts/configuration-concept/">configuration&lt;/a>. See &lt;a href="https://docs.dapr.io/concepts/middleware-concept/#customize-processing-pipeline">middleware pipelines&lt;/a>.&lt;/p>
+&lt;h2 id="dapr-配置">Dapr 配置&lt;/h2>
+&lt;p>要应用中间件，必须在&lt;a href="https://docs.dapr.io/concepts/configuration-concept/">配置&lt;/a>中引用。 请参阅&lt;a href="https://docs.dapr.io/concepts/middleware-concept/#customize-processing-pipeline">中间件管道&lt;/a>。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -140,14 +140,14 @@
 &lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">middleware.http.oauth2&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/security/oauth/">Configure API authorization with OAuth&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://github.com/dapr/quickstarts/tree/master/middleware">Middleware OAuth quickstart&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/concepts/middleware-concept/">Middleware concept&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/concepts/configuration-concept/">Configuration concept&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/configuration/configuration-overview/">Configuration overview&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Developing-Applications: OAuth2 client credentials</title><link>https://docs.dapr.io/developing-applications/middleware/supported-middleware/middleware-oauth2clientcredentials/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/middleware/supported-middleware/middleware-oauth2clientcredentials/</guid><description>
-&lt;p>The OAuth2 client credentials &lt;a href="https://docs.dapr.io/concepts/middleware-concept/">HTTP middleware&lt;/a> enables the &lt;a href="https://tools.ietf.org/html/rfc6749#section-4.4">OAuth2 Client Credentials flow&lt;/a> on a Web API without modifying the application. This design separates authentication/authorization concerns from the application, so that application operators can adopt and configure authentication/authorization providers without impacting the application code. This design separates authentication/authorization concerns from the application, so that application operators can adopt and configure authentication/authorization providers without impacting the application code.&lt;/p>
-&lt;h2 id="component-format">Component format&lt;/h2>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/security/oauth/">使用 OAuth 配置 API 授权&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/dapr/quickstarts/tree/master/middleware">中间件 OAuth 快速开始&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/concepts/middleware-concept/">中间件概念&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/concepts/configuration-concept/">配置概念&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/configuration/configuration-overview/">配置概览&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Developing-Applications: OAuth2 客户端凭证</title><link>https://docs.dapr.io/developing-applications/middleware/supported-middleware/middleware-oauth2clientcredentials/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/middleware/supported-middleware/middleware-oauth2clientcredentials/</guid><description>
+&lt;p>OAuth2客户端凭证 &lt;a href="https://docs.dapr.io/concepts/middleware-concept/">HTTP中间件&lt;/a> 可以在Web API上实现 &lt;a href="https://tools.ietf.org/html/rfc6749#section-4.4">OAuth2客户端凭证流&lt;/a>，而无需修改应用程序。 这种设计将认证/授权的关注点从应用中分离出来，因此应用操作者可以采用和配置认证/授权提供者，而不影响应用代码。&lt;/p>
+&lt;h2 id="组件格式">组件格式&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -166,78 +166,78 @@
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;https://accounts.google.com/o/oauth2/token&amp;#34;&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">headerName&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;authorization&amp;#34;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th>字段&lt;/th>
-&lt;th>Details&lt;/th>
+&lt;th>详情&lt;/th>
 &lt;th>示例&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
 &lt;td>clientId&lt;/td>
-&lt;td>The client ID of your application that is created as part of a credential hosted by a OAuth-enabled platform&lt;/td>
+&lt;td>您的应用程序的客户端ID，它是作为OAuth平台托管的凭证的一部分而创建的&lt;/td>
 &lt;td>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>clientSecret&lt;/td>
-&lt;td>The client secret of your application that is created as part of a credential hosted by a OAuth-enabled platform&lt;/td>
+&lt;td>您的应用程序的客户密钥，它是作为OAuth平台托管的凭证的一部分而创建的。&lt;/td>
 &lt;td>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>scopes&lt;/td>
-&lt;td>A list of space-delimited, case-sensitive strings of &lt;a href="https://tools.ietf.org/html/rfc6749#section-3.3">scopes&lt;/a> which are typically used for authorization in the application&lt;/td>
+&lt;td>&lt;a href="https://tools.ietf.org/html/rfc6749#section-3.3">scopes&lt;/a>的列表，通常用于应用程序中的授权，注意格式为空格分隔、大小写敏感的字符串&lt;/td>
 &lt;td>&lt;code>&amp;quot;https://www.googleapis.com/auth/userinfo.email&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>tokenURL&lt;/td>
-&lt;td>The endpoint is used by the client to obtain an access token by presenting its authorization grant or refresh token&lt;/td>
+&lt;td>客户端通过出示其访问许可或刷新令牌来获取access token的端点&lt;/td>
 &lt;td>&lt;code>&amp;quot;https://accounts.google.com/o/oauth2/token&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>headerName&lt;/td>
-&lt;td>The authorization header name to forward to your application&lt;/td>
+&lt;td>转发到您的应用程序的授权头名称&lt;/td>
 &lt;td>&lt;code>&amp;quot;authorization&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>endpointParamsQuery&lt;/td>
-&lt;td>Specifies additional parameters for requests to the token endpoint&lt;/td>
+&lt;td>指定令牌端点请求的额外参数&lt;/td>
 &lt;td>&lt;code>true&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>authStyle&lt;/td>
-&lt;td>Optionally specifies how the endpoint wants the client ID &amp;amp; client secret sent. See the table of possible values below See the table of possible values below&lt;/td>
+&lt;td>可选择指定端点希望 客户端ID &amp;amp; 客户端密钥 的发送方式。 请参阅下面可能的值表&lt;/td>
 &lt;td>&lt;code>0&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h3 id="possible-values-for-authstyle">Possible values for &lt;code>authStyle&lt;/code>&lt;/h3>
+&lt;h3 id="authstyle-的可能值">&lt;code>authStyle 的可能值&lt;/code>&lt;/h3>
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>Value&lt;/th>
-&lt;th>Meaning&lt;/th>
+&lt;th>值&lt;/th>
+&lt;th>含义&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
 &lt;td>&lt;code>1&lt;/code>&lt;/td>
-&lt;td>Sends the &amp;ldquo;client_id&amp;rdquo; and &amp;ldquo;client_secret&amp;rdquo; in the POST body as application/x-www-form-urlencoded parameters.&lt;/td>
+&lt;td>将POST body中的&amp;quot;client_id&amp;quot;和&amp;quot;client_secret&amp;quot;作为 application/x-www-form-urlencoded 参数发送。&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>2&lt;/code>&lt;/td>
-&lt;td>Sends the &amp;ldquo;client_id&amp;rdquo; and &amp;ldquo;client_secret&amp;rdquo; using HTTP Basic Authorization. This is an optional style described in the &lt;a href="https://tools.ietf.org/html/rfc6749#section-2.3.1">OAuth2 RFC 6749 section 2.3.1&lt;/a>. This is an optional style described in the &lt;a href="https://tools.ietf.org/html/rfc6749#section-2.3.1">OAuth2 RFC 6749 section 2.3.1&lt;/a>.&lt;/td>
+&lt;td>使用 HTTP Basic授权发送&amp;quot;client_id&amp;quot; 和 &amp;ldquo;client_secret&amp;rdquo; 这是 &lt;a href="https://tools.ietf.org/html/rfc6749#section-2.3.1">OAuth2 RFC 6749 节 2.31&lt;/a>中描述的可选风格。&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>0&lt;/code>&lt;/td>
-&lt;td>Means to auto-detect which authentication style the provider wants by trying both ways and caching the successful way for the future.&lt;/td>
+&lt;td>是指通过两种方式的尝试，自动检测提供者想要的认证方式，并将成功的方式缓存起来，以备将来使用。&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="dapr-configuration">Dapr configuration&lt;/h2>
-&lt;p>To be applied, the middleware must be referenced in a &lt;a href="https://docs.dapr.io/concepts/configuration-concept/">configuration&lt;/a>. To be applied, the middleware must be referenced in a &lt;a href="https://docs.dapr.io/concepts/configuration-concept/">configuration&lt;/a>. See &lt;a href="https://docs.dapr.io/concepts/middleware-concept/#customize-processing-pipeline">middleware pipelines&lt;/a>.&lt;/p>
+&lt;h2 id="dapr-配置">Dapr 配置&lt;/h2>
+&lt;p>要应用中间件，必须在&lt;a href="https://docs.dapr.io/concepts/configuration-concept/">配置&lt;/a>中引用。 请参阅&lt;a href="https://docs.dapr.io/concepts/middleware-concept/#customize-processing-pipeline">中间件管道&lt;/a>。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -249,12 +249,12 @@
 &lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">middleware.http.oauth2clientcredentials&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/concepts/middleware-concept/">Middleware concept&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/concepts/configuration-concept/">Configuration concept&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/configuration/configuration-overview/">Configuration overview&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/concepts/middleware-concept/">中间件概念&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/concepts/configuration-concept/">配置概念&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/configuration/configuration-overview/">配置概览&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Developing-Applications: Bearer</title><link>https://docs.dapr.io/developing-applications/middleware/supported-middleware/middleware-bearer/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/middleware/supported-middleware/middleware-bearer/</guid><description>
-&lt;p>The bearer &lt;a href="https://docs.dapr.io/concepts/middleware-concept/">HTTP middleware&lt;/a> verifies a &lt;a href="https://tools.ietf.org/html/rfc6750">Bearer Token&lt;/a> using &lt;a href="https://openid.net/connect/">OpenID Connect&lt;/a> on a Web API without modifying the application. This design separates authentication/authorization concerns from the application, so that application operators can adopt and configure authentication/authorization providers without impacting the application code. This design separates authentication/authorization concerns from the application, so that application operators can adopt and configure authentication/authorization providers without impacting the application code.&lt;/p>
-&lt;h2 id="component-format">Component format&lt;/h2>
+&lt;p>Bearer &lt;a href="https://docs.dapr.io/concepts/middleware-concept/">HTTP 中间件&lt;/a>使用 &lt;a href="https://openid.net/connect/">OpenID Connect&lt;/a>在 Web API 上验证 &lt;a href="https://tools.ietf.org/html/rfc6750">Bearer Token&lt;/a>，而无需修改应用程序。 这种设计将认证/授权的关注点从应用中分离出来，因此应用操作者可以在不影响应用代码的情况下，采用和配置认证/授权提供者。&lt;/p>
+&lt;h2 id="组件格式">组件格式&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -267,30 +267,30 @@
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;lt;your client ID&amp;gt;&amp;#34;&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">issuerURL&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;https://accounts.google.com&amp;#34;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="spec-元数据字段">Spec 元数据字段&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th>字段&lt;/th>
-&lt;th>Details&lt;/th>
+&lt;th>详情&lt;/th>
 &lt;th>示例&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
 &lt;td>clientId&lt;/td>
-&lt;td>The client ID of your application that is created as part of a credential hosted by a OpenID Connect platform&lt;/td>
+&lt;td>你的应用程序的客户端ID，它是作为OpenID Connect平台托管的凭证的一部分创建的&lt;/td>
 &lt;td>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>issuerURL&lt;/td>
-&lt;td>URL identifier for the service.&lt;/td>
+&lt;td>服务的URL标识&lt;/td>
 &lt;td>&lt;code>&amp;quot;https://accounts.google.com&amp;quot;&lt;/code>, &lt;code>&amp;quot;https://login.salesforce.com&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="dapr-configuration">Dapr configuration&lt;/h2>
-&lt;p>To be applied, the middleware must be referenced in &lt;a href="https://docs.dapr.io/concepts/configuration-concept/">configuration&lt;/a>. To be applied, the middleware must be referenced in a &lt;a href="https://docs.dapr.io/concepts/configuration-concept/">configuration&lt;/a>. See &lt;a href="https://docs.dapr.io/concepts/middleware-concept/#customize-processing-pipeline">middleware pipelines&lt;/a>.&lt;/p>
+&lt;h2 id="dapr配置">Dapr配置&lt;/h2>
+&lt;p>要应用中间件，必须在&lt;a href="https://docs.dapr.io/concepts/configuration-concept/">配置&lt;/a>中进行引用。 请参阅 &lt;a href="https://docs.dapr.io/concepts/middleware-concept/#customize-processing-pipeline">中间件管道&lt;/a>。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -302,12 +302,12 @@
 &lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">middleware.http.bearer&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/concepts/middleware-concept/">Middleware concept&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/concepts/configuration-concept/">Configuration concept&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/configuration/configuration-overview/">Configuration overview&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Developing-Applications: Apply Open Policy Agent (OPA) policies</title><link>https://docs.dapr.io/developing-applications/middleware/supported-middleware/middleware-opa/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/middleware/supported-middleware/middleware-opa/</guid><description>
-&lt;p>The Open Policy Agent (OPA) &lt;a href="https://docs.dapr.io/concepts/middleware-concept/">HTTP middleware&lt;/a> applys &lt;a href="https://www.openpolicyagent.org/">OPA Policies&lt;/a> to incoming Dapr HTTP requests. This can be used to apply reusable authorization policies to app endpoints. This can be used to apply reusable authorization policies to app endpoints.&lt;/p>
-&lt;h2 id="component-format">Component format&lt;/h2>
+&lt;li>&lt;a href="https://docs.dapr.io/concepts/middleware-concept/">中间件概念&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/concepts/configuration-concept/">配置概念&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/configuration/configuration-overview/">配置概览&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Developing-Applications: 应用开放策略代理 (OPA) 策略</title><link>https://docs.dapr.io/developing-applications/middleware/supported-middleware/middleware-opa/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/middleware/supported-middleware/middleware-opa/</guid><description>
+&lt;p>开放策略代理（OPA）&lt;a href="https://docs.dapr.io/concepts/middleware-concept/">HTTP 中间件&lt;/a>将&lt;a href="https://www.openpolicyagent.org/">OPA 策略&lt;/a>应用到传入的 Dapr HTTP 请求中。 这可以用来将可重用的授权策略应用到应用终结点。&lt;/p>
+&lt;h2 id="组件格式">组件格式&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -375,37 +375,38 @@
 &lt;/span>&lt;span style="color:#e6db74"> auth_header := input.request.headers[&amp;#34;authorization&amp;#34;]
 &lt;/span>&lt;span style="color:#e6db74"> [_, jwt] := split(auth_header, &amp;#34; &amp;#34;)
 &lt;/span>&lt;span style="color:#e6db74"> [_, payload, _] := io.jwt.decode(jwt)
-&lt;/span>&lt;span style="color:#e6db74"> }&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>You can prototype and experiment with policies using the &lt;a href="https://play.openpolicyagent.org">official opa playground&lt;/a>. For example, &lt;a href="https://play.openpolicyagent.org/p/oRIDSo6OwE">you can find the example policy above here&lt;/a>. For example, &lt;a href="https://play.openpolicyagent.org/p/oRIDSo6OwE">you can find the example policy above here&lt;/a>.&lt;/p>
-&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74"> &lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>您可以使用 &lt;a href="https://play.openpolicyagent.org">官方 opa playground&lt;/a>对策略进行原型设计和实验。 例如，&lt;a href="https://play.openpolicyagent.org/p/oRIDSo6OwE">您可以在这里找到上面的示例策略&lt;/a>。&lt;/p>
+&lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th>字段&lt;/th>
-&lt;th>Details&lt;/th>
+&lt;th>详情&lt;/th>
 &lt;th>示例&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
 &lt;td>rego&lt;/td>
-&lt;td>The Rego policy language&lt;/td>
-&lt;td>See above&lt;/td>
+&lt;td>Rego策略语言&lt;/td>
+&lt;td>见上文&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>defaultStatus&lt;/td>
-&lt;td>The status code to return for denied responses&lt;/td>
+&lt;td>状态码返回拒绝的响应&lt;/td>
 &lt;td>&lt;code>&amp;quot;https://accounts.google.com&amp;quot;&lt;/code>, &lt;code>&amp;quot;https://login.salesforce.com&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>includedHeaders&lt;/td>
-&lt;td>A comma-separated set of case-insensitive headers to include in the request input. Request headers are not passed to the policy by default. Include to receive incoming request headers in the input Request headers are not passed to the policy by default. Include to receive incoming request headers in the input&lt;/td>
+&lt;td>一组以逗号分隔的不区分大小写的头信息，包含在请求输入中。 默认情况下，请求头不会传递给策略。 在输入中包含接收传入的请求头。&lt;/td>
 &lt;td>&lt;code>&amp;quot;x-my-custom-header, x-jwt-header&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="dapr-configuration">Dapr configuration&lt;/h2>
-&lt;p>To be applied, the middleware must be referenced in &lt;a href="https://docs.dapr.io/concepts/configuration-concept/">configuration&lt;/a>. To be applied, the middleware must be referenced in &lt;a href="https://docs.dapr.io/concepts/configuration-concept/">configuration&lt;/a>. See &lt;a href="https://docs.dapr.io/concepts/middleware-concept/#customize-processing-pipeline">middleware pipelines&lt;/a>.&lt;/p>
+&lt;h2 id="dapr-配置">Dapr 配置&lt;/h2>
+&lt;p>要应用中间件，必须在&lt;a href="https://docs.dapr.io/concepts/configuration-concept/">配置&lt;/a>中引用。 请参阅&lt;a href="https://docs.dapr.io/concepts/middleware-concept/#customize-processing-pipeline">中间件管道&lt;/a>。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -415,16 +416,11 @@
 &lt;span style="color:#f92672">handlers&lt;/span>:
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">my-policy&lt;/span>
 &lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">middleware.http.opa&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="input">Input&lt;/h2>
-&lt;p>This middleware supplies a &lt;a href="#httprequest">&lt;code>HTTPRequest&lt;/code>&lt;/a> as input.&lt;/p>
-&lt;h3 id="httprequest">HTTPRequest&lt;/h3>
-&lt;p>The &lt;code>HTTPRequest&lt;/code> input contains all the revelant information about an incoming HTTP Request except it&amp;rsquo;s body.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="输入">输入&lt;/h2>
+&lt;p>这个中间件提供了一个 &lt;a href="#httprequest">&lt;code>HTTPRequest&lt;/code>&lt;/a> 作为输入。&lt;/p>
+&lt;h3 id="http请求">HTTP请求&lt;/h3>
+&lt;p>&lt;code>HTTPRequest&lt;/code> 输入包含所有关于传入HTTP请求的透彻信息，但它的正文除外。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#66d9ef">type&lt;/span> &lt;span style="color:#a6e22e">Input&lt;/span> &lt;span style="color:#66d9ef">struct&lt;/span> {
-&lt;span style="color:#a6e22e">request&lt;/span> &lt;span style="color:#a6e22e">HTTPRequest&lt;/span>
-}
-&lt;span style="color:#66d9ef">type&lt;/span> &lt;span style="color:#a6e22e">HTTPRequest&lt;/span> &lt;span style="color:#66d9ef">struct&lt;/span> {
-&lt;span style="color:#75715e">// The request method (e.g. GET,POST,etc...)
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">type&lt;/span> &lt;span style="color:#a6e22e">Input&lt;/span> &lt;span style="color:#66d9ef">struct&lt;/span> {
 &lt;span style="color:#a6e22e">request&lt;/span> &lt;span style="color:#a6e22e">HTTPRequest&lt;/span>
 }
 &lt;span style="color:#66d9ef">type&lt;/span> &lt;span style="color:#a6e22e">HTTPRequest&lt;/span> &lt;span style="color:#66d9ef">struct&lt;/span> {
@@ -444,30 +440,25 @@
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">headers&lt;/span> &lt;span style="color:#66d9ef">map&lt;/span>[&lt;span style="color:#66d9ef">string&lt;/span>]&lt;span style="color:#66d9ef">string&lt;/span>
 &lt;span style="color:#75715e">// The request scheme (e.g. http, https)
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">scheme&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span>
-} &lt;span style="color:#a6e22e">You&lt;/span> &lt;span style="color:#a6e22e">must&lt;/span> &lt;span style="color:#a6e22e">specify&lt;/span> &lt;span style="color:#a6e22e">what&lt;/span> &lt;span style="color:#a6e22e">headers&lt;/span>
-&lt;span style="color:#75715e">// you want to receive via `spec.metadata.includedHeaders` (see above)
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">headers&lt;/span> &lt;span style="color:#66d9ef">map&lt;/span>[&lt;span style="color:#66d9ef">string&lt;/span>]&lt;span style="color:#66d9ef">string&lt;/span>
-&lt;span style="color:#75715e">// The request scheme (e.g. http, https)
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">scheme&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span>
 }
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="result">Result&lt;/h2>
-&lt;p>The policy must set &lt;code>data.http.allow&lt;/code> with either a &lt;code>boolean&lt;/code> value, or an &lt;code>object&lt;/code> value with an &lt;code>allow&lt;/code> boolean property. A &lt;code>true&lt;/code> &lt;code>allow&lt;/code> will allow the request, while a &lt;code>false&lt;/code> value will reject the request with the status specified by &lt;code>defaultStatus&lt;/code>. The following policy, with defaults, demonstrates a &lt;code>403 - Forbidden&lt;/code> for all requests: A &lt;code>true&lt;/code> &lt;code>allow&lt;/code> will allow the request, while a &lt;code>false&lt;/code> value will reject the request with the status specified by &lt;code>defaultStatus&lt;/code>. The following policy, with defaults, demonstrates a &lt;code>403 - Forbidden&lt;/code> for all requests:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="结果">结果&lt;/h2>
+&lt;p>策略必须设置 &lt;code>data.http.allow&lt;/code> 带有 &lt;code>boolean&lt;/code> 值或者一个 &lt;code>object&lt;/code> 值与一个 &lt;code>allow&lt;/code> 布尔属性。 &lt;code>true&lt;/code> &lt;code>allow&lt;/code> 将允许请求 当一个 &lt;code>false&lt;/code> 值将以 &lt;code>defaultStatus&lt;/code> 指定的状态拒绝请求。 下面的策略，在默认情况下，演示了对所有请求的 &lt;code>403 - Forbidden&lt;/code>:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#f92672">package&lt;/span> &lt;span style="color:#a6e22e">http&lt;/span>
 &lt;span style="color:#66d9ef">default&lt;/span> &lt;span style="color:#a6e22e">allow&lt;/span> = &lt;span style="color:#66d9ef">false&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>which is the same as:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>等价于：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#f92672">package&lt;/span> &lt;span style="color:#a6e22e">http&lt;/span>
 &lt;span style="color:#66d9ef">default&lt;/span> &lt;span style="color:#a6e22e">allow&lt;/span> = {
 &lt;span style="color:#e6db74">&amp;#34;allow&amp;#34;&lt;/span>: &lt;span style="color:#66d9ef">false&lt;/span>
 }
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="changing-the-rejected-response-status-code">Changing the rejected response status code&lt;/h3>
-&lt;p>When rejecting a request, you can override the status code the that gets returned. For example, if you wanted to return a &lt;code>401&lt;/code> instead of a &lt;code>403&lt;/code>, you could do the following: For example, if you wanted to return a &lt;code>401&lt;/code> instead of a &lt;code>403&lt;/code>, you could do the following:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="更改拒绝的响应状态代码">更改拒绝的响应状态代码&lt;/h3>
+&lt;p>拒绝请求时，您可以覆盖返回的状态代码。 例如，如果您想退回 &lt;code>401&lt;/code> 而不是 &lt;code>403&lt;/code>，你可以这样做：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#f92672">package&lt;/span> &lt;span style="color:#a6e22e">http&lt;/span>
 &lt;span style="color:#66d9ef">default&lt;/span> &lt;span style="color:#a6e22e">allow&lt;/span> = {
 &lt;span style="color:#e6db74">&amp;#34;allow&amp;#34;&lt;/span>: &lt;span style="color:#66d9ef">false&lt;/span>,
 &lt;span style="color:#e6db74">&amp;#34;status_code&amp;#34;&lt;/span>: &lt;span style="color:#ae81ff">401&lt;/span>
 }
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="adding-response-headers">Adding response headers&lt;/h3>
-&lt;p>To redirect, add headers and set the &lt;code>status_code&lt;/code> to the returned result:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="添加响应头">添加响应头&lt;/h3>
+&lt;p>若要重定向，添加消息头并将 &lt;code>status_code&lt;/code> 设置为返回的结果：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#f92672">package&lt;/span> &lt;span style="color:#a6e22e">http&lt;/span>
 &lt;span style="color:#66d9ef">default&lt;/span> &lt;span style="color:#a6e22e">allow&lt;/span> = {
 &lt;span style="color:#e6db74">&amp;#34;allow&amp;#34;&lt;/span>: &lt;span style="color:#66d9ef">false&lt;/span>,
@@ -476,8 +467,8 @@
 &lt;span style="color:#e6db74">&amp;#34;Location&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;https://my.redirect.site&amp;#34;&lt;/span>
 }
 }
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="adding-request-headers">Adding request headers&lt;/h3>
-&lt;p>You can also set additional headers on the allowed request:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="添加请求头">添加请求头&lt;/h3>
+&lt;p>你也可以在允许的请求上设置额外的头信息：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#f92672">package&lt;/span> &lt;span style="color:#a6e22e">http&lt;/span>
 &lt;span style="color:#66d9ef">default&lt;/span> &lt;span style="color:#a6e22e">allow&lt;/span> = &lt;span style="color:#66d9ef">false&lt;/span>
 &lt;span style="color:#a6e22e">allow&lt;/span> = { &lt;span style="color:#e6db74">&amp;#34;allow&amp;#34;&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;additional_headers&amp;#34;&lt;/span>: { &lt;span style="color:#e6db74">&amp;#34;X-JWT-Payload&amp;#34;&lt;/span>: &lt;span style="color:#a6e22e">payload&lt;/span> } } {
@@ -485,7 +476,7 @@
 &lt;span style="color:#75715e">// Where `jwt` is the result of another rule
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">payload&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">base64&lt;/span>.&lt;span style="color:#a6e22e">encode&lt;/span>(&lt;span style="color:#a6e22e">json&lt;/span>.&lt;span style="color:#a6e22e">marshal&lt;/span>(&lt;span style="color:#a6e22e">jwt&lt;/span>.&lt;span style="color:#a6e22e">payload&lt;/span>))
 }
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="result-structure">Result structure&lt;/h3>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="结果结构">结果结构&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#66d9ef">type&lt;/span> &lt;span style="color:#a6e22e">Result&lt;/span> &lt;span style="color:#66d9ef">bool&lt;/span>
 &lt;span style="color:#75715e">// or
 &lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">type&lt;/span> &lt;span style="color:#a6e22e">Result&lt;/span> &lt;span style="color:#66d9ef">struct&lt;/span> {
@@ -498,15 +489,15 @@
 }
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://www.openpolicyagent.org">Open Policy Agent&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://www.openpolicyagent.org/docs/latest/http-api-authorization/">HTTP API example&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/concepts/middleware-concept/">Middleware concept&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/concepts/configuration-concept/">Configuration concept&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/configuration/configuration-overview/">Configuration overview&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Developing-Applications: Uppercase request body</title><link>https://docs.dapr.io/developing-applications/middleware/supported-middleware/middleware-uppercase/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/middleware/supported-middleware/middleware-uppercase/</guid><description>
-&lt;p>The uppercase &lt;a href="https://docs.dapr.io/concepts/middleware-concept/">HTTP middleware&lt;/a> converts the body of the request to uppercase letters and is used for testing that the pipeline is functioning. It should only be used for local development. It should only be used for local development.&lt;/p>
-&lt;h2 id="component-format">Component format&lt;/h2>
-&lt;p>In the following definition, the maximum requests per second are set to 10:&lt;/p>
+&lt;li>&lt;a href="https://www.openpolicyagent.org">开放策略代理&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.openpolicyagent.org/docs/latest/http-api-authorization/">HTTP API 示例&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/concepts/middleware-concept/">中间件概念&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/concepts/configuration-concept/">配置概念&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/configuration/configuration-overview/">配置概览&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Developing-Applications: 大写请求实体</title><link>https://docs.dapr.io/developing-applications/middleware/supported-middleware/middleware-uppercase/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/middleware/supported-middleware/middleware-uppercase/</guid><description>
+&lt;p>大写 &lt;a href="https://docs.dapr.io/concepts/middleware-concept/">HTTP midleware&lt;/a> 将请求的正文转换为大写字母，并用于测试管道正在起作用。 它只应用于本地开发。&lt;/p>
+&lt;h2 id="组件格式">组件格式&lt;/h2>
+&lt;p>根据下述定义，请求正文转换为大写字母：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -514,9 +505,9 @@
 &lt;span style="color:#f92672">spec&lt;/span>:
 &lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">middleware.http.uppercase&lt;/span>
 &lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>This component has no &lt;code>metadata&lt;/code> to configure.&lt;/p>
-&lt;h2 id="dapr-configuration">Dapr configuration&lt;/h2>
-&lt;p>To be applied, the middleware must be referenced in &lt;a href="https://docs.dapr.io/concepts/configuration-concept/">configuration&lt;/a>. To be applied, the middleware must be referenced in &lt;a href="https://docs.dapr.io/concepts/configuration-concept/">configuration&lt;/a>. See &lt;a href="https://docs.dapr.io/concepts/middleware-concept/#customize-processing-pipeline">middleware pipelines&lt;/a>.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>此组件没有要配置的 &lt;code>metadata&lt;/code>。&lt;/p>
+&lt;h2 id="dapr-配置">Dapr 配置&lt;/h2>
+&lt;p>要应用中间件，必须在&lt;a href="https://docs.dapr.io/concepts/configuration-concept/">配置&lt;/a>中引用。 请参阅&lt;a href="https://docs.dapr.io/concepts/middleware-concept/#customize-processing-pipeline">中间件管道&lt;/a>。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -528,7 +519,7 @@
 &lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">middleware.http.uppercase&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/concepts/middleware-concept/">Middleware concept&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/concepts/configuration-concept/">Configuration concept&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/configuration/configuration-overview/">Configuration overview&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/concepts/middleware-concept/">中间件概念&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/concepts/configuration-concept/">配置概念&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/configuration/configuration-overview/">配置概览&lt;/a>&lt;/li>
 &lt;/ul></description></item></channel></rss>

@@ -1,4 +1,4 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Tracing</title><link>https://docs.dapr.io/operations/monitoring/tracing/</link><description>Recent content in Tracing on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/operations/monitoring/tracing/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: Configure Dapr to send distributed tracing data</title><link>https://docs.dapr.io/operations/monitoring/tracing/setup-tracing/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/monitoring/tracing/setup-tracing/</guid><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – 调用链追踪</title><link>https://docs.dapr.io/operations/monitoring/tracing/</link><description>Recent content in 调用链追踪 on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/operations/monitoring/tracing/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: Configure Dapr to send distributed tracing data</title><link>https://docs.dapr.io/operations/monitoring/tracing/setup-tracing/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/monitoring/tracing/setup-tracing/</guid><description>
 &lt;p>It is recommended to run Dapr with tracing enabled for any production scenario. It is recommended to run Dapr with tracing enabled for any production scenario. You can configure Dapr to send tracing and telemetry data to many backends based on your environment, whether it is running in the cloud or on-premises.&lt;/p>
 &lt;h2 id="tracing-configuration">Tracing configuration&lt;/h2>
 &lt;p>The &lt;code>tracing&lt;/code> section under the &lt;code>Configuration&lt;/code> spec contains the following properties:&lt;/p>
@@ -87,44 +87,44 @@
 &lt;h2 id="参考文档">参考文档&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://zipkin.io/">Zipkin for distributed tracing&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Using OpenTelemetry Collector to collect traces</title><link>https://docs.dapr.io/operations/monitoring/tracing/open-telemetry-collector/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/monitoring/tracing/open-telemetry-collector/</guid><description>
-&lt;p>Dapr will be exporting trace in the OpenTelemetry format when OpenTelemetry is GA. In the mean time, traces can be exported using the Zipkin format. Combining with the &lt;a href="https://github.com/open-telemetry/opentelemetry-collector">OpenTelemetry Collector&lt;/a> you can still send trace to many popular tracing backends (like Azure AppInsights, AWS X-Ray, StackDriver, etc). In the mean time, traces can be exported using the Zipkin format. Combining with the &lt;a href="https://github.com/open-telemetry/opentelemetry-collector">OpenTelemetry Collector&lt;/a> you can still send trace to many popular tracing backends (like Azure AppInsights, AWS X-Ray, StackDriver, etc).&lt;/p>
-&lt;p>&lt;img src="https://docs.dapr.io/images/open-telemetry-collector.png" alt="Using OpenTelemetry Collect to integrate with many backend">&lt;/p>
-&lt;h2 id="requirements">Requirements&lt;/h2>
+&lt;/ul></description></item><item><title>Operations: 使用 OpenTelemetry Collector 来收集应用痕迹</title><link>https://docs.dapr.io/operations/monitoring/tracing/open-telemetry-collector/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/monitoring/tracing/open-telemetry-collector/</guid><description>
+&lt;p>当 OpenTelemetry 项目进入到 GA（General Availability, 正式发布的版本）阶段时，Dapr 将会以 OpenTelemetry 的格式规范导出应用的痕迹信息。 同时，可以使用 Zipkin 要求的格式导出应用痕迹信息。 与 &lt;a href="https://github.com/open-telemetry/opentelemetry-collector">OpenTelemetry Collector&lt;/a> 结合一起使用，你可以将应用的痕迹信息发送到许多流行的分布式追踪后端程序中（例如 Azure AppInsights，AWS X-Ray ，StackDriver 等）&lt;/p>
+&lt;p>&lt;img src="https://docs.dapr.io/images/open-telemetry-collector.png" alt="使用 OpenTelemetry 收集器与别的后端进行集成">&lt;/p>
+&lt;h2 id="必备条件">必备条件&lt;/h2>
 &lt;ol>
 &lt;li>
-&lt;p>A installation of Dapr on Kubernetes.&lt;/p>
+&lt;p>在 Kubernetes 上安装 Dapr&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>You are already setting up your trace backends to receive traces.&lt;/p>
+&lt;p>您已经设置好了分布式追踪后端程序用以接受应用痕迹信息&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>Check OpenTelemetry Collector exporters &lt;a href="https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/exporter">here&lt;/a> and &lt;a href="https://github.com/open-telemetry/opentelemetry-collector/tree/main/exporter">here&lt;/a> to see if your trace backend is supported by the OpenTelemetry Collector. On those linked pages, find the exporter you want to use and read its doc to find out the parameters required. On those linked pages, find the exporter you want to use and read its doc to find out the parameters required.&lt;/p>
+&lt;p>点击 &lt;a href="https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/exporter">这里&lt;/a> 和 &lt;a href="https://github.com/open-telemetry/opentelemetry-collector/tree/main/exporter">这里&lt;/a> 去查看你的分布式追踪程序是否支持 OpenTelemetry Collector。 在这些外链的页面上，找到您要使用的应用痕迹导出工具，并阅读其文档以查找所需的参数。&lt;/p>
 &lt;/li>
 &lt;/ol>
-&lt;h2 id="setting-opentelemetry-collector">Setting OpenTelemetry Collector&lt;/h2>
-&lt;h3 id="run-opentelemetry-collector-to-push-to-your-trace-backend">Run OpenTelemetry Collector to push to your trace backend&lt;/h3>
+&lt;h2 id="使用-opentelemetry-collector">使用 OpenTelemetry Collector&lt;/h2>
+&lt;h3 id="运行-opentelemetry-collector-推送到您的分布式应用跟踪后端程序">运行 OpenTelemetry Collector 推送到您的分布式应用跟踪后端程序&lt;/h3>
 &lt;ol>
 &lt;li>
-&lt;p>Check out the file &lt;a href="https://docs.dapr.io/docs/open-telemetry-collector/open-telemetry-collector-generic.yaml">open-telemetry-collector-generic.yaml&lt;/a> and replace the section marked with &lt;code>&amp;lt;your-exporter-here&amp;gt;&lt;/code> with the correct settings for your trace exporter. Again, refer to the OpenTelemetry Collector links in the Prerequisites section to determine the correct settings. Again, refer to the OpenTelemetry Collector links in the Prerequisites section to determine the correct settings.&lt;/p>
+&lt;p>签出这个文件 &lt;a href="https://docs.dapr.io/docs/open-telemetry-collector/open-telemetry-collector-generic.yaml">open-telemetry-collector-generic.yaml&lt;/a> 并将标记为 &lt;code>&amp;lt;your-exporter-here&amp;gt;&lt;/code> 的部分替换成您正在正确使用的追踪导出器的设置。 再次提醒，请参阅前提条件中的关于 OpenTelemetry Collector 的链接以确定您的设置是正确的。&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>Apply the configuration with &lt;code>kubectl apply -f open-telemetry-collector-generic.yaml&lt;/code>.&lt;/p>
+&lt;p>使用 &lt;code>kubectl apply -f open-telemetry-collector-generic.yaml&lt;/code> 来应用配置。&lt;/p>
 &lt;/li>
 &lt;/ol>
-&lt;h2 id="set-up-dapr-to-send-trace-to-opentelemetry-collector">Set up Dapr to send trace to OpenTelemetry Collector&lt;/h2>
-&lt;h3 id="turn-on-tracing-in-dapr">Turn on tracing in Dapr&lt;/h3>
-&lt;p>Next, set up both a Dapr configuration file to turn on tracing and deploy a tracing exporter component that uses the OpenTelemetry Collector.&lt;/p>
+&lt;h2 id="设置-dapr-从而将应用痕迹信息发送到-opentelemetry-collector">设置 Dapr 从而将应用痕迹信息发送到 OpenTelemetry Collector&lt;/h2>
+&lt;h3 id="在-dapr-中启用应用痕迹追踪功能">在 Dapr 中启用应用痕迹追踪功能&lt;/h3>
+&lt;p>接下来，设置 Dapr 的配置文件以启用应用痕迹跟踪并部署一个使用 OpenTelemetry Collector 的应用痕迹跟踪导出组件。&lt;/p>
 &lt;ol>
 &lt;li>
-&lt;p>Create a collector-config.yaml file with this &lt;a href="https://docs.dapr.io/docs/open-telemetry-collector/collector-config.yaml">content&lt;/a>&lt;/p>
+&lt;p>创建具有&lt;a href="https://docs.dapr.io/docs/open-telemetry-collector/collector-config.yaml">此内容的&lt;/a> collector-config.yaml 文件&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>Apply the configuration with &lt;code>kubectl apply -f collector-config.yaml&lt;/code>.&lt;/p>
+&lt;p>使用 &lt;code>kubectl apply -f collector-config.yaml&lt;/code>来应用配置&lt;/p>
 &lt;/li>
 &lt;/ol>
-&lt;h3 id="deploy-your-app-with-tracing">Deploy your app with tracing&lt;/h3>
-&lt;p>When running in Kubernetes mode, apply the &lt;code>appconfig&lt;/code> configuration by adding a &lt;code>dapr.io/config&lt;/code> annotation to the container that you want to participate in the distributed tracing, as shown in the following example:&lt;/p>
+&lt;h3 id="部署你的应用并启用应用痕迹跟踪功能">部署你的应用，并启用应用痕迹跟踪功能&lt;/h3>
+&lt;p>在 Kubernetes 模式下运行时，通过将&lt;code>dapr.io/config&lt;/code>注解添加到要参与分布式跟踪的容器中，从而来应用&lt;code>appconfig&lt;/code>配置，示例配置如下所示&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">apps/v1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Deployment&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -148,16 +148,16 @@
 &lt;span style="color:#f92672">dapr.io/app-id&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;MyApp&amp;#34;&lt;/span>
 &lt;span style="color:#f92672">dapr.io/app-port&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;8080&amp;#34;&lt;/span>
 &lt;span style="color:#f92672">dapr.io/config&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;appconfig&amp;#34;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Some of the quickstarts such as &lt;a href="https://github.com/dapr/quickstarts/tree/master/distributed-calculator">distributed calculator&lt;/a> already configure these settings, so if you are using those no additional settings are needed.&lt;/p>
-&lt;p>That&amp;rsquo;s it! There&amp;rsquo;s no need include any SDKs or instrument your application code. Dapr automatically handles the distributed tracing for you.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>一些快速入门案例，例如&lt;a href="https://github.com/dapr/quickstarts/tree/master/distributed-calculator">分布式计算器&lt;/a>已经配置了这些设置，因此，如果您在使用这些时，则不需要进行其他的设置&lt;/p>
+&lt;p>就这么简单！ 没有必要包含任何的 SDK 或分析您的应用程序代码来确定是否能够支持。 Dapr 自动为您的程序负责了分布式跟踪。&lt;/p>
 &lt;blockquote>
-&lt;p>&lt;strong>NOTE&lt;/strong>: You can register multiple tracing exporters at the same time, and the tracing logs are forwarded to all registered exporters.&lt;/p>
+&lt;p>&lt;strong>备注&lt;/strong>: 您可以同时注册多个的应用痕迹跟踪导出器，并且跟踪日志转发到所有已注册的导出器中。&lt;/p>
 &lt;/blockquote>
-&lt;p>Deploy and run some applications. Deploy and run some applications. Wait for the trace to propagate to your tracing backend and view them there.&lt;/p>
+&lt;p>部署并运行一些应用程序。 等待应用痕迹信息推送到您的分布式跟踪后端中，并在那里查看它们。&lt;/p>
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>Try out the &lt;a href="https://github.com/dapr/quickstarts/tree/master/observability/README.md">observability quickstart&lt;/a>&lt;/li>
-&lt;li>How to set &lt;a href="https://docs.dapr.io/operations/configuration/configuration-overview/#tracing">tracing configuration options&lt;/a>&lt;/li>
+&lt;li>尝试访问&lt;a href="https://github.com/dapr/quickstarts/tree/master/observability/README.md">可观察性快速入门&lt;/a>&lt;/li>
+&lt;li>如何设置&lt;a href="https://docs.dapr.io/operations/configuration/configuration-overview/#tracing">应用跟踪配置选项&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: Using OpenTelemetry Collector to collect traces to send to AppInsights</title><link>https://docs.dapr.io/operations/monitoring/tracing/open-telemetry-collector-appinsights/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/monitoring/tracing/open-telemetry-collector-appinsights/</guid><description>
 &lt;p>Dapr integrates with &lt;a href="https://github.com/open-telemetry/opentelemetry-collector">OpenTelemetry Collector&lt;/a> using the Zipkin API. This guide walks through an example using Dapr to push trace events to Azure Application Insights, using the OpenTelemetry Collector. This guide walks through an example using Dapr to push trace events to Azure Application Insights, using the OpenTelemetry Collector.&lt;/p>
 &lt;h2 id="requirements">Requirements&lt;/h2>

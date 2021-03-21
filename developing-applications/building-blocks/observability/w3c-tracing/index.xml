@@ -51,12 +51,8 @@
 &lt;p>当您从一个服务调用多个服务时，比如像这样从服务A中调用，你需要传播跟踪头。&lt;/p>
 &lt;pre>&lt;code> service A -&amp;gt; service B
 [ .. some code logic ..]
-service A -&amp;gt; service B
-[ .. some code logic ..]
 service A -&amp;gt; service C
 [ .. some code logic ..]
-service A -&amp;gt; service D
-[ .. some code logic ..] some code logic ..]
 service A -&amp;gt; service D
 [ .. some code logic ..]
 &lt;/code>&lt;/pre>
@@ -99,14 +95,14 @@ service A -&amp;gt; service D
 &lt;li>&lt;a href="https://www.w3.org/TR/trace-context/">W3C 跟踪上下文规范&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://github.com/dapr/quickstarts/tree/master/observability">可观测性示例&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Developing-Applications: How-To : 使用 Dapr 的 W3C 跟踪上下文</title><link>https://docs.dapr.io/developing-applications/building-blocks/observability/w3c-tracing/w3c-tracing-howto/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/building-blocks/observability/w3c-tracing/w3c-tracing-howto/</guid><description>
-&lt;h1 id="如何使用跟踪上下文">如何使用跟踪上下文&lt;/h1>
-&lt;p>Dapr 使用 W3C 跟踪上下文对服务调用和 pub/sub 消息传递进行分布式跟踪。 Dapr 承担生成和传播跟踪上下文信息的所有繁重工作，并且很少需要传播或创建跟踪上下文。 首先阅读 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/observability/w3c-tracing/">W3C 分布式跟踪&lt;/a> 这篇文章中的方案 ，以了解您是否需要传播或创建跟踪上下文。&lt;/p>
+&lt;h1 id="如何使用追踪上下文">如何使用追踪上下文&lt;/h1>
+&lt;p>Dapr 使用 W3C 追踪上下文对服务调用和 pub/sub 消息传递进行分布式跟踪。 Dapr 承担生成和传播跟踪上下文信息的所有繁重工作，并且很少需要传播或创建跟踪上下文。 首先阅读 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/observability/w3c-tracing/">W3C 分布式跟踪&lt;/a> 这篇文章中的方案 ，以了解您是否需要传播或创建跟踪上下文。&lt;/p>
 &lt;p>若要查看跟踪，请阅读 &lt;a href="https://docs.dapr.io/operations/monitoring/tracing/">如何诊断与跟踪&lt;/a> 文章。&lt;/p>
 &lt;h2 id="如何从响应中检索跟踪上下文">如何从响应中检索跟踪上下文&lt;/h2>
 &lt;p>&lt;code>注意: 在 Dapr SDK 中没有用于传播和检索跟踪上下文的辅助方法。 您需要使用 http/gRPC 客户端通过 http 标头和 gRPC 元数据传播和检索跟踪标头。&lt;/code>&lt;/p>
 &lt;h3 id="在-go-中检索跟踪上下文">在 Go 中检索跟踪上下文&lt;/h3>
 &lt;h4 id="对于-http-调用">对于 HTTP 调用&lt;/h4>
-&lt;p>OpenCensus Go SDK provides &lt;a href="https://pkg.go.dev/go.opencensus.io/plugin/ochttp/propagation/tracecontext?tab=doc">ochttp&lt;/a> package that provides methods to retrieve trace context from http response.&lt;/p>
+&lt;p>OpenCensus Go SDK 提供 &lt;a href="https://pkg.go.dev/go.opencensus.io/plugin/ochttp/propagation/tracecontext?tab=doc">ochttp&lt;/a> 包，提供从 http 响应中检索跟踪上下文的方法。&lt;/p>
 &lt;p>若要从 HTTP 响应检索跟踪上下文，可以使用 ：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#a6e22e">f&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">tracecontext&lt;/span>.&lt;span style="color:#a6e22e">HTTPFormat&lt;/span>{}
 &lt;span style="color:#a6e22e">sc&lt;/span>, &lt;span style="color:#a6e22e">ok&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">f&lt;/span>.&lt;span style="color:#a6e22e">SpanContextFromRequest&lt;/span>(&lt;span style="color:#a6e22e">req&lt;/span>)
@@ -167,7 +163,7 @@ tracestateValue = values2.FirstOrDefault();
 &lt;h3 id="在-c-中传递跟踪上下文">在 C 中传递跟踪上下文&lt;/h3>
 &lt;h4 id="对于-http-调用-3">对于 HTTP 调用&lt;/h4>
 &lt;p>要在 HTTP 请求中传递跟踪上下文，可以使用 &lt;a href="https://docs.microsoft.com/en-us/dotnet/api/system.net.http.headers.httprequestheaders?view=netcore-3.1">.NET API&lt;/a>:&lt;/p>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#75715e">// client is HttpClient. // client is HttpClient. req is HttpRequestMessage
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#75715e">// client is HttpClient. req is HttpRequestMessage
 &lt;/span>&lt;span style="color:#75715e">&lt;/span>req.Headers.Add(&lt;span style="color:#e6db74">&amp;#34;traceparent&amp;#34;&lt;/span>, traceparentValue);
 req.Headers.Add(&lt;span style="color:#e6db74">&amp;#34;tracestate&amp;#34;&lt;/span>, tracestateValue);
 HttpResponseMessage response = &lt;span style="color:#66d9ef">await&lt;/span> client.SendAsync(req);
@@ -277,21 +273,15 @@ headers.Add(&lt;span style="color:#e6db74">&amp;#34;grpc-trace-bin&amp;#34;&lt;/
 &lt;span style="color:#75715e">// Create the client
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">client&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">pb&lt;/span>.&lt;span style="color:#a6e22e">NewDaprClient&lt;/span>(&lt;span style="color:#a6e22e">conn&lt;/span>)
 &lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="3-3-3-使用跟踪上下文调用-invokeservice-方法">3. 3. 3. 使用跟踪上下文调用 InvokeService 方法&lt;/h3>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go"> &lt;span style="color:#75715e">// Create the Trace Context
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go"> &lt;span style="color:#75715e">// 创建Trace Context
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">ctx&lt;/span> , &lt;span style="color:#a6e22e">span&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">trace&lt;/span>.&lt;span style="color:#a6e22e">StartSpan&lt;/span>(&lt;span style="color:#a6e22e">context&lt;/span>.&lt;span style="color:#a6e22e">Background&lt;/span>(), &lt;span style="color:#e6db74">&amp;#34;InvokeService&amp;#34;&lt;/span>)
-&lt;span style="color:#75715e">// The returned context can be used to keep propagating the newly created span in the current context.
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">// In the same process, context.Context is used to propagate trace context.
+&lt;span style="color:#75715e">// 返回的上下文可以用于在当前环境中不断传播新创建的span。
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">// 在同一进程中，Context用来传播追踪上下文。
 &lt;/span>&lt;span style="color:#75715e">&lt;/span>
-&lt;span style="color:#75715e">// Across the process, use the propagation format of Trace Context to propagate trace context.
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">// Create the Trace Context
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">ctx&lt;/span> , &lt;span style="color:#a6e22e">span&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">trace&lt;/span>.&lt;span style="color:#a6e22e">StartSpan&lt;/span>(&lt;span style="color:#a6e22e">context&lt;/span>.&lt;span style="color:#a6e22e">Background&lt;/span>(), &lt;span style="color:#e6db74">&amp;#34;InvokeService&amp;#34;&lt;/span>)
-&lt;span style="color:#75715e">// The returned context can be used to keep propagating the newly created span in the current context.
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">// In the same process, context.Context is used to propagate trace context.
-&lt;/span>&lt;span style="color:#75715e">&lt;/span>
-&lt;span style="color:#75715e">// Across the process, use the propagation format of Trace Context to propagate trace context.
+&lt;span style="color:#75715e">// 跨进程中，使用Trace Context 的传播格式来传播追踪上下文。
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">traceContext&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">propagation&lt;/span>.&lt;span style="color:#a6e22e">Binary&lt;/span>(&lt;span style="color:#a6e22e">span&lt;/span>.&lt;span style="color:#a6e22e">SpanContext&lt;/span>())
 &lt;span style="color:#a6e22e">ctx&lt;/span> = &lt;span style="color:#a6e22e">metadata&lt;/span>.&lt;span style="color:#a6e22e">NewOutgoingContext&lt;/span>(&lt;span style="color:#a6e22e">ctx&lt;/span>, string(&lt;span style="color:#a6e22e">traceContext&lt;/span>))
-&lt;span style="color:#75715e">// Pass the trace context
+&lt;span style="color:#75715e">// 传递链路上下文
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">resp&lt;/span>, &lt;span style="color:#a6e22e">err&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">client&lt;/span>.&lt;span style="color:#a6e22e">InvokeService&lt;/span>(&lt;span style="color:#a6e22e">ctx&lt;/span>, &lt;span style="color:#f92672">&amp;amp;&lt;/span>&lt;span style="color:#a6e22e">pb&lt;/span>.&lt;span style="color:#a6e22e">InvokeServiceRequest&lt;/span>{
 &lt;span style="color:#a6e22e">Id&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;client&amp;#34;&lt;/span>,
 &lt;span style="color:#a6e22e">Message&lt;/span>: &lt;span style="color:#f92672">&amp;amp;&lt;/span>&lt;span style="color:#a6e22e">commonv1pb&lt;/span>.&lt;span style="color:#a6e22e">InvokeRequest&lt;/span>{

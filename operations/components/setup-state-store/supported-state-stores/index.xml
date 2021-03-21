@@ -621,8 +621,8 @@ helm install cassandra incubator/cassandra --namespace cassandra
 &lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: Cloudstate</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-cloudstate/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-cloudstate/</guid><description>
-&lt;h2 id="component-format">Component format&lt;/h2>
-&lt;p>To setup Cloudstate state store create a component of type &lt;code>state.cloudstate&lt;/code>. To setup SQL Server state store create a component of type &lt;code>state.sqlserver&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;h2 id="组件格式">组件格式&lt;/h2>
+&lt;p>要设置Cloudstate状态存储，请创建一个类型为&lt;code>state.cloudstate&lt;/code>的组件。 请参阅&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">本指南&lt;/a>，了解如何创建和应用状态存储配置。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -636,7 +636,7 @@ helm install cassandra incubator/cassandra --namespace cassandra
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-HOST&amp;gt;&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">serverPort&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-PORT&amp;gt;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="spec-元数据字段">Spec 元数据字段&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
@@ -650,35 +650,35 @@ helm install cassandra incubator/cassandra --namespace cassandra
 &lt;tr>
 &lt;td>hosts&lt;/td>
 &lt;td style="text-align:center">Y&lt;/td>
-&lt;td>Specifies the address for the Cloudstate API&lt;/td>
+&lt;td>指定Cloudstate API 地址&lt;/td>
 &lt;td>&lt;code>&amp;quot;localhost:8013&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>serverPort&lt;/td>
 &lt;td style="text-align:center">Y&lt;/td>
-&lt;td>Specifies the port to be opened in Dapr for Cloudstate to callback to. This can be any free port that is not used by either your application or Dapr This can be any free port that is not used by either your application or Dapr&lt;/td>
+&lt;td>指定要在 Dapr 中打开的 Cloudstate 回调端口。 这需要是你的应用程序或 Dapr 没有占用的端口&lt;/td>
 &lt;td>&lt;code>&amp;quot;8080&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
 &lt;blockquote>
-&lt;p>Since Cloudstate is running as an additional sidecar in the pod, you can reach it via &lt;code>localhost&lt;/code> with the default port of &lt;code>8013&lt;/code>.&lt;/p>
+&lt;p>由于 Cloudstate 在 pod 中作为额外的 边车运行，你可以通过 &lt;code>localhost&lt;/code> 以默认端口 &lt;code>8013&lt;/code> 访问它。&lt;/p>
 &lt;/blockquote>
-&lt;h2 id="introduction">Introduction&lt;/h2>
-&lt;p>The Cloudstate-Dapr integration is unique in the sense that it enables developers to achieve high-throughput, low latency scenarios by leveraging Cloudstate running as a sidecar &lt;em>next&lt;/em> to Dapr, keeping the state near the compute unit for optimal performance while providing replication between multiple instances that can be safely scaled up and down. This is due to Cloudstate forming an Akka cluster between its sidecars with replicated in-memory entities. This is due to Cloudstate forming an Akka cluster between its sidecars with replicated in-memory entities.&lt;/p>
-&lt;p>Dapr leverages Cloudstate&amp;rsquo;s CRDT capabilities with last-write-wins semantics.&lt;/p>
-&lt;h2 id="setup-cloudstate">Setup Cloudstate&lt;/h2>
-&lt;p>To install Cloudstate on your Kubernetes cluster, run the following commands:&lt;/p>
+&lt;h2 id="介绍">介绍&lt;/h2>
+&lt;p>Cloudstate-Dapr 的独特之处在于，它使开发人员能够通过让 Cloudstate 作为 &lt;em>紧邻&lt;/em> Dapr 的边车运行来实现高吞吐量、低延迟的场景，以此将状态保持在计算单元附近以获得最佳性能，同时提供可安全扩缩容的多个实例之间的复制能力。 这是由于Cloudstate在其边车之间形成了一个 Akka 集群，并在内存中复制实体。&lt;/p>
+&lt;p>Dapr 利用 Cloudstate 的 CRDT (无冲突可复制数据类型) 功能与last-write-wins的语义。&lt;/p>
+&lt;h2 id="安装-cloudstate">安装 Cloudstate&lt;/h2>
+&lt;p>要在 Kubernetes 集群上安装 Cloudstate，请执行以下命令:&lt;/p>
 &lt;pre>&lt;code>kubectl create namespace cloudstate
 kubectl apply -n cloudstate -f https://github.com/cloudstateio/cloudstate/releases/download/v0.5.0/cloudstate-0.5.0.yaml
-&lt;/code>&lt;/pre>&lt;p>This installs Cloudstate into the &lt;code>cloudstate&lt;/code> namespace with version &lt;code>0.5.0&lt;/code>.&lt;/p>
-&lt;h2 id="apply-the-configuration">Apply the configuration&lt;/h2>
-&lt;h3 id="in-kubernetes">In Kubernetes&lt;/h3>
-&lt;p>To apply the Cloudstate state store to Kubernetes, use the &lt;code>kubectl&lt;/code> CLI:&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>这会把 Cloudstate 安装到版本为 &lt;code>0.5.0&lt;/code> 的 &lt;code>cloudstate&lt;/code> 命名空间中。&lt;/p>
+&lt;h2 id="应用配置">应用配置&lt;/h2>
+&lt;h3 id="在kubernetes中">在Kubernetes中&lt;/h3>
+&lt;p>要将Cloudstate状态存储应用到Kubernetes，请使用&lt;code>kubectl&lt;/code> CLI。&lt;/p>
 &lt;pre>&lt;code>kubectl apply -f cloudstate.yaml
-&lt;/code>&lt;/pre>&lt;h2 id="running-the-cloudstate-sidecar-alongside-dapr">Running the Cloudstate sidecar alongside Dapr&lt;/h2>
-&lt;p>The next examples shows you how to manually inject a Cloudstate sidecar into a Dapr enabled deployment:&lt;/p>
-&lt;p>&lt;em>Notice the &lt;code>HTTP_PORT&lt;/code> for the &lt;code>cloudstate-sidecar&lt;/code> container is the port to be used in the Cloudstate component yaml in &lt;code>host&lt;/code>.&lt;/em>&lt;/p>
+&lt;/code>&lt;/pre>&lt;h2 id="注入-cloudstate-边车到-dapr">注入 Cloudstate 边车到 Dapr&lt;/h2>
+&lt;p>下面的例子展示了如何将 Cloudstate 边车手动注入到启用了Dapr的deployment中。&lt;/p>
+&lt;p>&lt;em>请注意，&lt;code>cloudstate-sidecar&lt;/code>容器的&lt;code>HTTP_PORT&lt;/code>是&lt;code>host&lt;/code>中Cloudstate组件yaml中要使用的端口。&lt;/em>&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">extensions/v1beta1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Deployment&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -772,7 +772,7 @@ kubectl apply -n cloudstate -f https://github.com/cloudstateio/cloudstate/releas
 &lt;span style="color:#f92672">subjects&lt;/span>:
 - &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">ServiceAccount&lt;/span>
 &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
 &lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
@@ -1144,7 +1144,7 @@ Kubernetes
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: Hazelcast</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-hazelcast/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-hazelcast/</guid><description>
 &lt;h2 id="create-a-dapr-component">Create a Dapr component&lt;/h2>
-&lt;p>To setup Hazelcast state store create a component of type &lt;code>state.hazelcast&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration. To setup SQL Server state store create a component of type &lt;code>state.sqlserver&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;p>To setup Hazelcast state store create a component of type &lt;code>state.hazelcast&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -1157,13 +1157,11 @@ Kubernetes
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">hazelcastServers&lt;/span>
 &lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-HOSTS&amp;gt; # Required. A comma delimited string of servers. Example&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;hazelcast:3000,hazelcast2:3000&amp;#34;&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">hazelcastMap&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-MAP&amp;gt; # Required. Hazelcast map configuration. A comma delimited string of servers. Example&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;hazelcast:3000,hazelcast2:3000&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">hazelcastMap&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-MAP&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Required. Hazelcast map configuration.&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 The example configuration shown above, contain a username and password as plain-text strings. 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/%7D">here&lt;/a>。
+以上示例将 Secret 明文存储。 更推荐的方式是使用 &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>描述的密钥仓库来存储密钥。
 &lt;/div>
 &lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
 &lt;table>
@@ -1191,24 +1189,24 @@ Kubernetes
 &lt;/tbody>
 &lt;/table>
 &lt;h2 id="setup-hazelcast">Setup Hazelcast&lt;/h2>
-&lt;ul class="nav nav-tabs" id="tabs-3" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
-id="tabs-3-self-hosted-tab" data-toggle="tab" href="#tabs-3-self-hosted" role="tab"
-aria-controls="tabs-3-self-hosted" aria-selected="true">
+&lt;ul class="nav nav-tabs" id="tabs-2" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-2-self-hosted-tab" data-toggle="tab" href="#tabs-2-self-hosted" role="tab"
+aria-controls="tabs-2-self-hosted" aria-selected="true">
 Self-Hosted
 &lt;/a>
 &lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
-id="tabs-3-kubernetes-tab" data-toggle="tab" href="#tabs-3-kubernetes" role="tab"
-aria-controls="tabs-3-kubernetes" aria-selected="false">
+id="tabs-2-kubernetes-tab" data-toggle="tab" href="#tabs-2-kubernetes" role="tab"
+aria-controls="tabs-2-kubernetes" aria-selected="false">
 Kubernetes
 &lt;/a>
 &lt;/li>&lt;/ul>
-&lt;div class="tab-content" id="tabs-3-content">
-&lt;div class="tab-pane fade show active" id="tabs-3-self-hosted" role="tabpanel" aria-labelled-by="tabs-3-self-hosted-tab">
+&lt;div class="tab-content" id="tabs-2-content">
+&lt;div class="tab-pane fade show active" id="tabs-2-self-hosted" role="tabpanel" aria-labelled-by="tabs-2-self-hosted-tab">
 &lt;br />&lt;p>You can run Hazelcast locally using Docker:&lt;/p>
 &lt;pre>&lt;code>docker run -e JAVA_OPTS=&amp;quot;-Dhazelcast.local.publicAddress=127.0.0.1:5701&amp;quot; -p 5701:5701 hazelcast/hazelcast
 &lt;/code>&lt;/pre>&lt;p>You can then interact with the server using the &lt;code>127.0.0.1:5701&lt;/code>.&lt;/p>
 &lt;/div>
-&lt;div class="tab-pane fade" id="tabs-3-kubernetes" role="tabpanel" aria-labelled-by="tabs-3-kubernetes-tab">
+&lt;div class="tab-pane fade" id="tabs-2-kubernetes" role="tabpanel" aria-labelled-by="tabs-2-kubernetes-tab">
 &lt;br />&lt;p>The easiest way to install Hazelcast on Kubernetes is by using the &lt;a href="https://github.com/helm/charts/tree/master/stable/hazelcast">Helm chart&lt;/a>.&lt;/p>
 &lt;/div>
 &lt;/div>
@@ -1218,8 +1216,8 @@ Kubernetes
 &lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: Memcached</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-memcached/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-memcached/</guid><description>
-&lt;h2 id="component-format">Component format&lt;/h2>
-&lt;p>To setup Memcached state store create a component of type &lt;code>state.memcached&lt;/code>. To setup SQL Server state store create a component of type &lt;code>state.sqlserver&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;h2 id="组件格式">组件格式&lt;/h2>
+&lt;p>要设置 Memcached 状态存储，请创建一个类型为 &lt;code>state.memcached&lt;/code> 的组件。 请参阅&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">本指南&lt;/a>，了解如何创建和应用状态存储配置。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -1244,38 +1242,38 @@ Kubernetes
 &lt;h4 class="alert-heading">Warning&lt;/h4>
 以上示例将 Secret 明文存储。 The example configuration shown above, contain a username and password as plain-text strings. 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/%7D">here&lt;/a>。
 &lt;/div>
-&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th>字段&lt;/th>
-&lt;th style="text-align:center">Required&lt;/th>
-&lt;th>Details&lt;/th>
-&lt;th>Example&lt;/th>
+&lt;th style="text-align:center">必填&lt;/th>
+&lt;th>详情&lt;/th>
+&lt;th>示例&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
 &lt;td>hosts&lt;/td>
 &lt;td style="text-align:center">Y&lt;/td>
-&lt;td>Comma delimited endpoints&lt;/td>
+&lt;td>逗号分隔的 endpoints&lt;/td>
 &lt;td>&lt;code>&amp;quot;memcached.default.svc.cluster.local:11211&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>maxIdleConnections&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>The max number of idle connections. Defaults to &lt;code>&amp;quot;2&amp;quot;&lt;/code> Defaults to &lt;code>&amp;quot;2&amp;quot;&lt;/code>&lt;/td>
+&lt;td>空闲连接的最大数量。 默认值为 &lt;code>&amp;quot;2&amp;quot;&lt;/code>&lt;/td>
 &lt;td>&lt;code>&amp;quot;3&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>timeout&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>The timeout for the calls. The timeout for the calls. Defaults to &lt;code>&amp;quot;1000ms&amp;quot;&lt;/code>&lt;/td>
+&lt;td>调用超时时间。 默认值为 &lt;code>&amp;quot;1000ms&amp;quot;&lt;/code>&lt;/td>
 &lt;td>&lt;code>&amp;quot;1000ms&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="setup-memcached">Setup Memcached&lt;/h2>
+&lt;h2 id="设置-memcached">设置 Memcached&lt;/h2>
 &lt;ul class="nav nav-tabs" id="tabs-2" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
 id="tabs-2-self-hosted-tab" data-toggle="tab" href="#tabs-2-self-hosted" role="tab"
 aria-controls="tabs-2-self-hosted" aria-selected="true">
@@ -1289,26 +1287,26 @@ Kubernetes
 &lt;/li>&lt;/ul>
 &lt;div class="tab-content" id="tabs-2-content">
 &lt;div class="tab-pane fade show active" id="tabs-2-self-hosted" role="tabpanel" aria-labelled-by="tabs-2-self-hosted-tab">
-&lt;br />&lt;p>You can run Memcached locally using Docker:&lt;/p>
+&lt;br />&lt;p>您可以使用 Docker 在本地运行 Memcached：&lt;/p>
 &lt;pre>&lt;code>docker run --name my-memcache -d memcached
-&lt;/code>&lt;/pre>&lt;p>You can then interact with the server using &lt;code>localhost:11211&lt;/code>.&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>然后您可以使用 &lt;code>localhost:11211&lt;/code> 与服务器交互。&lt;/p>
 &lt;/div>
 &lt;div class="tab-pane fade" id="tabs-2-kubernetes" role="tabpanel" aria-labelled-by="tabs-2-kubernetes-tab">
-&lt;br />&lt;p>The easiest way to install Memcached on Kubernetes is by using the &lt;a href="https://github.com/helm/charts/tree/master/stable/memcached">Helm chart&lt;/a>:&lt;/p>
+&lt;br />&lt;p>在 Kubernetes 上安装 Memcached 最简单的方法是使用 &lt;a href="https://github.com/helm/charts/tree/master/stable/memcached">Helm chart&lt;/a>：&lt;/p>
 &lt;pre>&lt;code>helm install memcached stable/memcached
-&lt;/code>&lt;/pre>&lt;p>This installs Memcached into the &lt;code>default&lt;/code> namespace. This installs Memcached into the &lt;code>default&lt;/code> namespace. To interact with Memcached, find the service with: &lt;code>kubectl get svc memcached&lt;/code>.&lt;/p>
-&lt;p>For example, if installing using the example above, the Memcached host address would be:&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>这将将 Memcached 安装到 &lt;code>default&lt;/code> 命名空间。 要与 Memcached 交互，请通过 &lt;code>kubectl get svc memcached&lt;/code> 找到 service。&lt;/p>
+&lt;p>例如，如果使用上面的例子安装，Memcached 主机地址将是：&lt;/p>
 &lt;p>&lt;code>memcached.default.svc.cluster.local:11211&lt;/code>&lt;/p>
 &lt;/div>
 &lt;/div>
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
-&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Dapr组件的基本格式&lt;/a>&lt;/li>
+&lt;li>阅读 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">本指南&lt;/a> 以获取配置状态存储组件的说明&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">状态管理构建块&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: MongoDB</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-mongodb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-mongodb/</guid><description>
-&lt;h2 id="component-format">Component format&lt;/h2>
-&lt;p>To setup MongoDB state store create a component of type &lt;code>state.mongodb&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration. To setup SQL Server state store create a component of type &lt;code>state.sqlserver&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;h2 id="组件格式">组件格式&lt;/h2>
+&lt;p>要设置 MongoDB 状态存储，请创建一个类型为 &lt;code>state.mongodb&lt;/code> 的组件。 请参阅&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">本指南&lt;/a>，了解如何创建和应用状态存储配置。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -1333,122 +1331,108 @@ Kubernetes
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">readconcern&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-READ-CONCERN&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional.&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">operationTimeout&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-OPERATION-TIMEOUT&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;5s&amp;#34;&lt;/span> &lt;span style="color:#f92672">Example&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;mongo-mongodb.default.svc.cluster.local:27017&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">username&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-USERNAME&amp;gt; # Optional. Example&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;admin&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">password&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-PASSWORD&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional.&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">databaseName&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-DATABASE-NAME&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;daprStore&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">collectionName&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-COLLECTION-NAME&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;daprCollection&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">writeconcern&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-WRITE-CONCERN&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional.&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">readconcern&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-READ-CONCERN&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional.&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">operationTimeout&lt;/span>
 &lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-OPERATION-TIMEOUT&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;5s&amp;#34;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 The example configuration shown above, contain a username and password as plain-text strings. 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/%7D">here&lt;/a>。
+以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
 &lt;/div>
-&lt;p>If you wish to use MongoDB as an actor store, append the following to the yaml.&lt;/p>
+&lt;p>如果您想要使用 MongoDB 作为 Actor 存储，请在 yaml 上附上以下内容。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml"> - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">actorStateStore&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th>字段&lt;/th>
-&lt;th style="text-align:center">Required&lt;/th>
-&lt;th>Details&lt;/th>
-&lt;th>Example&lt;/th>
+&lt;th style="text-align:center">必填&lt;/th>
+&lt;th>详情&lt;/th>
+&lt;th>示例&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
 &lt;td>host&lt;/td>
 &lt;td style="text-align:center">Y&lt;/td>
-&lt;td>The host to connect to&lt;/td>
+&lt;td>要连接的主机&lt;/td>
 &lt;td>&lt;code>&amp;quot;mongo-mongodb.default.svc.cluster.local:27017&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>username&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>The username of the user to connect with&lt;/td>
+&lt;td>要连接的用户名&lt;/td>
 &lt;td>&lt;code>&amp;quot;admin&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>password&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>The password of the user&lt;/td>
+&lt;td>用户密码&lt;/td>
 &lt;td>&lt;code>&amp;quot;password&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>databaseName&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>The name of the database to use. The name of the database to use. Defaults to &lt;code>&amp;quot;daprStore&amp;quot;&lt;/code>&lt;/td>
+&lt;td>要使用的数据库名称。 默认值为 &lt;code>&amp;quot;daprStore&amp;quot;&lt;/code>&lt;/td>
 &lt;td>&lt;code>&amp;quot;daprStore&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>collectionName&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>The name of the collection to use. The name of the collection to use. Defaults to &lt;code>&amp;quot;daprCollection&amp;quot;&lt;/code>&lt;/td>
+&lt;td>要使用的收藏名称 默认值为 &lt;code>&amp;quot;daprCollection&amp;quot;&lt;/code>&lt;/td>
 &lt;td>&lt;code>&amp;quot;daprCollection&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>writeconcern&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>The write concern to use&lt;/td>
+&lt;td>要使用的写入保证&lt;/td>
 &lt;td>&lt;code>&amp;quot;majority&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>readconcern&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>The read concern to use&lt;/td>
+&lt;td>要使用的读取保证&lt;/td>
 &lt;td>&lt;code>&amp;quot;majority&amp;quot;&lt;/code>, &lt;code>&amp;quot;local&amp;quot;&lt;/code>,&lt;code>&amp;quot;available&amp;quot;&lt;/code>, &lt;code>&amp;quot;linearizable&amp;quot;&lt;/code>, &lt;code>&amp;quot;snapshot&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>operationTimeout&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>The timeout for the operation. The timeout for the operation. Defautls to &lt;code>&amp;quot;5s&amp;quot;&lt;/code>&lt;/td>
+&lt;td>操作超时。 默认为 &lt;code>&amp;quot;5s&amp;quot;&lt;/code>&lt;/td>
 &lt;td>&lt;code>&amp;quot;5s&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="setup-mongodb">Setup MongoDB&lt;/h2>
-&lt;ul class="nav nav-tabs" id="tabs-3" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
-id="tabs-3-self-hosted-tab" data-toggle="tab" href="#tabs-3-self-hosted" role="tab"
-aria-controls="tabs-3-self-hosted" aria-selected="true">
+&lt;h2 id="配置-mongodb">配置 MongoDB&lt;/h2>
+&lt;ul class="nav nav-tabs" id="tabs-2" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-2-self-hosted-tab" data-toggle="tab" href="#tabs-2-self-hosted" role="tab"
+aria-controls="tabs-2-self-hosted" aria-selected="true">
 Self-Hosted
 &lt;/a>
 &lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
-id="tabs-3-kubernetes-tab" data-toggle="tab" href="#tabs-3-kubernetes" role="tab"
-aria-controls="tabs-3-kubernetes" aria-selected="false">
+id="tabs-2-kubernetes-tab" data-toggle="tab" href="#tabs-2-kubernetes" role="tab"
+aria-controls="tabs-2-kubernetes" aria-selected="false">
 Kubernetes
 &lt;/a>
 &lt;/li>&lt;/ul>
-&lt;div class="tab-content" id="tabs-3-content">
-&lt;div class="tab-pane fade show active" id="tabs-3-self-hosted" role="tabpanel" aria-labelled-by="tabs-3-self-hosted-tab">
-&lt;br />&lt;p>You can run MongoDB locally using Docker:&lt;/p>
+&lt;div class="tab-content" id="tabs-2-content">
+&lt;div class="tab-pane fade show active" id="tabs-2-self-hosted" role="tabpanel" aria-labelled-by="tabs-2-self-hosted-tab">
+&lt;br />&lt;p>您可以使用 Docker 在本地运行 MongoDB ：&lt;/p>
 &lt;pre>&lt;code>docker run --name some-mongo -d mongo
-&lt;/code>&lt;/pre>&lt;p>You can then interact with the server using &lt;code>localhost:27017&lt;/code>.&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>然后您可以使用 &lt;code>localhost:27017&lt;/code> 与服务器交互。&lt;/p>
 &lt;/div>
-&lt;div class="tab-pane fade" id="tabs-3-kubernetes" role="tabpanel" aria-labelled-by="tabs-3-kubernetes-tab">
-&lt;br />&lt;p>The easiest way to install MongoDB on Kubernetes is by using the &lt;a href="https://github.com/helm/charts/tree/master/stable/mongodb">Helm chart&lt;/a>:&lt;/p>
+&lt;div class="tab-pane fade" id="tabs-2-kubernetes" role="tabpanel" aria-labelled-by="tabs-2-kubernetes-tab">
+&lt;br />&lt;p>在 Kubernetes 上安装MongoDB 最简单的方法是使用 &lt;a href="https://github.com/helm/charts/tree/master/stable/mongodb">Helm chart&lt;/a>：&lt;/p>
 &lt;pre>&lt;code>helm install mongo stable/mongodb
-&lt;/code>&lt;/pre>&lt;p>This installs MongoDB into the &lt;code>default&lt;/code> namespace. This installs MongoDB into the &lt;code>default&lt;/code> namespace. To interact with MongoDB, find the service with: &lt;code>kubectl get svc mongo-mongodb&lt;/code>.&lt;/p>
-&lt;p>For example, if installing using the example above, the MongoDB host address would be:&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>这将MongoDB安装到 &lt;code>default&lt;/code> 命名空间。 要与 MongoDB 交互，请通过 &lt;code>kubectl get svc mongo-mongodb&lt;/code> 找到 service。&lt;/p>
+&lt;p>例如，如果使用上面的例子安装，MongoDB 主机地址将是：&lt;/p>
 &lt;p>&lt;code>mongo-mongodb.default.svc.cluster.local:27017&lt;/code>&lt;/p>
-&lt;p>Follow the on-screen instructions to get the root password for MongoDB. The username is &lt;code>admin&lt;/code> by default. The username is &lt;code>admin&lt;/code> by default.&lt;/p>
+&lt;p>按照屏幕指示获取 MongoDB 的 root 密码。 用户名默认是 &lt;code>admin&lt;/code>。&lt;/p>
 &lt;/div>
 &lt;/div>
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
-&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Dapr组件的基本格式&lt;/a>&lt;/li>
+&lt;li>阅读 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">本指南&lt;/a> 以获取配置状态存储组件的说明&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">状态管理构建块&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: MySQL</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-mysql/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-mysql/</guid><description>
 &lt;h2 id="component-format">Component format&lt;/h2>
 &lt;p>To setup MySQL state store create a component of type &lt;code>state.mysql&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration. To setup SQL Server state store create a component of type &lt;code>state.sqlserver&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
@@ -1601,9 +1585,9 @@ helm install dapr-mysql bitnami/mysql
 &lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: PostgreSQL</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-postgresql/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-postgresql/</guid><description>
-&lt;h2 id="create-a-dapr-component">Create a Dapr component&lt;/h2>
-&lt;p>Create a file called &lt;code>postgres.yaml&lt;/code>, paste the following and replace the &lt;code>&amp;lt;CONNECTION STRING&amp;gt;&lt;/code> value with your connection string. The connection string is a standard PostgreSQL connection string. For example, &lt;code>&amp;quot;host=localhost user=postgres password=example port=5432 connect_timeout=10 database=dapr_test&amp;quot;&lt;/code>. See the PostgreSQL &lt;a href="https://www.postgresql.org/docs/current/libpq-connect.html">documentation on database connections&lt;/a>, specifically Keyword/Value Connection Strings, for information on how to define a connection string. The connection string is a standard PostgreSQL connection string. For example, &lt;code>&amp;quot;host=localhost user=postgres password=example port=5432 connect_timeout=10 database=dapr_test&amp;quot;&lt;/code>. See the PostgreSQL &lt;a href="https://www.postgresql.org/docs/current/libpq-connect.html">documentation on database connections&lt;/a>, specifically Keyword/Value Connection Strings, for information on how to define a connection string.&lt;/p>
-&lt;p>If you want to also configure PostgreSQL to store actors, add the &lt;code>actorStateStore&lt;/code> configuration element shown below.&lt;/p>
+&lt;h2 id="创建-dapr-组件">创建 Dapr 组件&lt;/h2>
+&lt;p>创建一个名为 &lt;code>postgres.yaml&lt;/code>的文件，粘贴以下文件并用您的连接字符串替换 &lt;code>&amp;lt;CONNECTION STRING&amp;gt;&lt;/code> 值。 连接字符串是一个标准 PostgreSQL 连接字符串。 例如， &lt;code>&amp;quot;host=localhost user=postgres password=example port=5432 connect_timeout=10 database=dapr_test&amp;quot;&lt;/code>。 查看 PostgreSQL 的&lt;a href="https://www.postgresql.org/docs/current/libpq-connect.html">数据库连接文档&lt;/a> ，特别是关键字/值连接字符串，了解如何定义连接字符串的信息。&lt;/p>
+&lt;p>如果您也想要配置 PostgreSQL 来存储 Actor，请在下面添加 &lt;code>actorStateStore&lt;/code> 配置元素。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -1618,37 +1602,37 @@ helm install dapr-mysql bitnami/mysql
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-The above example uses secrets as plain strings. The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
+以上示例将密钥明文存储， 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">点击这里查看操作方法&lt;/a>。
 &lt;/div>
-&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th>字段&lt;/th>
-&lt;th style="text-align:center">Required&lt;/th>
-&lt;th>Details&lt;/th>
-&lt;th>Example&lt;/th>
+&lt;th style="text-align:center">必填&lt;/th>
+&lt;th>详情&lt;/th>
+&lt;th>例子&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
 &lt;td>connectionString&lt;/td>
 &lt;td style="text-align:center">Y&lt;/td>
-&lt;td>The connection string for PostgreSQL&lt;/td>
+&lt;td>PostgreSQL 的连接字符串&lt;/td>
 &lt;td>&lt;code>&amp;quot;User ID=root;Password=myPassword;Host=localhost;Port=5432&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>actorStateStore&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Consider this state store for actors. Defaults to &lt;code>&amp;quot;false&amp;quot;&lt;/code> Defaults to &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
+&lt;td>是否将此状态存储给 Actor 使用。 默认值为 &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
 &lt;td>&lt;code>&amp;quot;true&amp;quot;&lt;/code>, &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;p>If you wish to use PostgreSQL as an actor store, append the following to the yaml.&lt;/p>
+&lt;p>如果您想要使用 PostgreSQL 作为 Actor 存储，请在 yaml 上附上以下内容。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml"> - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">actorStateStore&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="create-postgresql">Create PostgreSQL&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="创建-postgresql">创建 PostgreSQL&lt;/h2>
 &lt;ul class="nav nav-tabs" id="tabs-1" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
 id="tabs-1-self-hosted-tab" data-toggle="tab" href="#tabs-1-self-hosted" role="tab"
 aria-controls="tabs-1-self-hosted" aria-selected="true">
@@ -1659,13 +1643,13 @@ Self-Hosted
 &lt;div class="tab-pane fade show active" id="tabs-1-self-hosted" role="tabpanel" aria-labelled-by="tabs-1-self-hosted-tab">
 &lt;br />&lt;ol>
 &lt;li>
-&lt;p>Run an instance of PostgreSQL. Run an instance of PostgreSQL. You can run a local instance of PostgreSQL in Docker CE with the following command:&lt;/p>
-&lt;p>This example does not describe a production configuration because it sets the password in plain text and the user name is left as the PostgreSQL default of &amp;ldquo;postgres&amp;rdquo;.&lt;/p>
+&lt;p>运行 PostgreSQL 实例。 您可以在Docker CE 中运行一个本地的 PostgreSQL 实例，并使用以下命令：&lt;/p>
+&lt;p>此示例没有描述生产配置，因为它用纯文本设置了密码，用户名保留为“postgres”默认值。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">docker run -p 5432:5432 -e POSTGRES_PASSWORD&lt;span style="color:#f92672">=&lt;/span>example postgres
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
-&lt;p>Create a database for state data. Create a database for state data. Either the default &amp;ldquo;postgres&amp;rdquo; database can be used, or create a new database for storing state data.&lt;/p>
-&lt;p>To create a new database in PostgreSQL, run the following SQL command:&lt;/p>
+&lt;p>为状态数据创建数据库。 可以使用默认的 &amp;ldquo;postgres&amp;rdquo; 数据库，或者创建一个新的数据库来存储状态数据。&lt;/p>
+&lt;p>要在 PostgreSQL 中创建一个新的数据库，请运行以下SQL 命令：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-SQL" data-lang="SQL">&lt;span style="color:#66d9ef">create&lt;/span> &lt;span style="color:#66d9ef">database&lt;/span> dapr_test
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;/ol>
@@ -1673,9 +1657,9 @@ Self-Hosted
 &lt;/div>
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
-&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Dapr组件的基本格式&lt;/a>&lt;/li>
+&lt;li>阅读 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">本指南&lt;/a> 以获取配置状态存储组件的说明&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">状态管理构建块&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: Redis</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-redis/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-redis/</guid><description>
 &lt;h2 id="component-format">Component format&lt;/h2>
 &lt;p>To setup Redis state store create a component of type &lt;code>state.redis&lt;/code>. To setup SQL Server state store create a component of type &lt;code>state.sqlserver&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>

@@ -1,9 +1,9 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Pub/Sub brokers</title><link>https://docs.dapr.io/operations/components/setup-pubsub/</link><description>Recent content in Pub/Sub brokers on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/operations/components/setup-pubsub/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: 概述</title><link>https://docs.dapr.io/operations/components/setup-pubsub/setup-pubsub-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-pubsub/setup-pubsub-overview/</guid><description>
-&lt;p>Dapr integrates with pub/sub message buses to provide applications with the ability to create event-driven, loosely coupled architectures where producers send events to consumers via topics.&lt;/p>
-&lt;p>Dapr supports the configuration of multiple, named, pub/sub components &lt;em>per application&lt;/em>. Each pub/sub component has a name and this name is used when publishing a message topic. Read the &lt;a href="https://docs.dapr.io/reference/api/pubsub_api/">API reference&lt;/a> for details on how to publish and subscribe to topics. Each pub/sub component has a name and this name is used when publishing a message topic. Read the &lt;a href="https://docs.dapr.io/reference/api/pubsub_api/">API reference&lt;/a> for details on how to publish and subscribe to topics.&lt;/p>
-&lt;p>Pub/sub components are extensible. Pub/sub components are extensible. A list of support pub/sub components is &lt;a href="https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/">here&lt;/a> and the implementations can be found in the &lt;a href="https://github.com/dapr/components-contrib">components-contrib repo&lt;/a>.&lt;/p>
-&lt;h2 id="component-files">Component files&lt;/h2>
-&lt;p>A pub/sub is described using a &lt;code>Component&lt;/code> file:&lt;/p>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Pub/Sub 代理</title><link>https://docs.dapr.io/operations/components/setup-pubsub/</link><description>Recent content in Pub/Sub 代理 on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/operations/components/setup-pubsub/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: 概述</title><link>https://docs.dapr.io/operations/components/setup-pubsub/setup-pubsub-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-pubsub/setup-pubsub-overview/</guid><description>
+&lt;p>Dapr集成了pub/sub消息总线，为应用程序提供了创建事件驱动、松散耦合架构的能力，在这种架构下，生产者通过主题向消费者发送事件。&lt;/p>
+&lt;p>Dapr支持为&lt;em>每个应用&lt;/em>配置多个命名的pub/sub组件。 每个pub/sub组件都有一个名称，这个名称在发布消息主题时使用。 阅读 &lt;a href="https://docs.dapr.io/reference/api/pubsub_api/">API 参考&lt;/a>，了解如何发布和订阅主题的详细信息。&lt;/p>
+&lt;p>Pub/sub组件是可扩展的， &lt;a href="https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/">这里&lt;/a>有支持的pub/sub组件列表，实现可以在&lt;a href="https://github.com/dapr/components-contrib">components-contrib repo&lt;/a>中找到。&lt;/p>
+&lt;h2 id="组件文件">组件文件&lt;/h2>
+&lt;p>Pub/sub使用&lt;code>Component&lt;/code>文件来描述：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -18,37 +18,37 @@
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;KEY&amp;gt;&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;VALUE&amp;gt;&lt;/span>
 ...
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>The type of pub/sub is determined by the &lt;code>type&lt;/code> field, and properties such as connection strings and other metadata are put in the &lt;code>.metadata&lt;/code> section. The type of pub/sub is determined by the &lt;code>type&lt;/code> field, and properties such as connection strings and other metadata are put in the &lt;code>.metadata&lt;/code> section. Even though metadata values can contain secrets in plain text, it is recommended you use a &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">secret store&lt;/a> using a &lt;code>secretKeyRef&lt;/code>.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Pub/sub的类型由&lt;code>type&lt;/code>字段决定，连接地址和其他元数据等属性放在&lt;code>.metadata&lt;/code>部分。 尽管元数据值可以包含纯文本的密钥，但建议你使用&lt;a href="https://docs.dapr.io/operations/components/component-secrets/">密钥仓库&lt;/a>来存储并用&lt;code>secretKeyRef&lt;/code>引用。&lt;/p>
 &lt;div class="alert alert-primary" role="alert">
 &lt;h4 class="alert-heading">Topic creation&lt;/h4>
-Depending on the pub/sub message bus you are using and how it is configured, topics may be created automatically. Even if the message bus supports automatic topic creation, it is a common governance practice to disable it in production environments. You may still need to use a CLI, admin console, or request form to manually create the topics required by your application. Even if the message bus supports automatic topic creation, it is a common governance practice to disable it in production environments. You may still need to use a CLI, admin console, or request form to manually create the topics required by your application.
+根据你使用的 pub/sub 消息总线及其配置方式，主题可能会被自动创建。 即使消息总线支持自动创建主题，在生产环境中把它禁用也是一种常见的做法。 你可能会需要使用 CLI、管理控制台或请求表单来手动创建应用所需的主题。
 &lt;/div>
-&lt;p>Visit &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-3-publish-a-topic">this guide&lt;/a> for instructions on configuring and using pub/sub components.&lt;/p>
-&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;p>请访问 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-3-publish-a-topic">本指南&lt;/a>，了解有关配置和使用 pub/sub 组件的说明。&lt;/p>
+&lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>Overview of the Dapr &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-overview/">Pub/Sub building block&lt;/a>&lt;/li>
-&lt;li>Try the &lt;a href="https://github.com/dapr/quickstarts/tree/master/pub-sub">Pub/Sub quickstart sample&lt;/a>&lt;/li>
-&lt;li>Read the &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/">guide on publishing and subscribing&lt;/a>&lt;/li>
-&lt;li>Learn about &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-scopes/">topic scoping&lt;/a>&lt;/li>
-&lt;li>Learn about &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-message-ttl/">message time-to-live&lt;/a>&lt;/li>
-&lt;li>Learn &lt;a href="https://docs.dapr.io/operations/components/setup-pubsub/pubsub-namespaces/">how to configure Pub/Sub components with multiple namespaces&lt;/a>&lt;/li>
-&lt;li>List of &lt;a href="https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/">pub/sub components&lt;/a>&lt;/li>
-&lt;li>Read the &lt;a href="https://docs.dapr.io/reference/api/pubsub_api/">API reference&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: HowTo: Configure Pub/Sub components with multiple namespaces</title><link>https://docs.dapr.io/operations/components/setup-pubsub/pubsub-namespaces/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-pubsub/pubsub-namespaces/</guid><description>
-&lt;p>In some scenarios, applications can be spread across namespaces and share a queue or topic via PubSub. In this case, the PubSub component must be provisioned on each namespace. In this case, the PubSub component must be provisioned on each namespace.&lt;/p>
+&lt;li>Dapr概述 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-overview/">Pub/Sub构件块&lt;/a>&lt;/li>
+&lt;li>试试 &lt;a href="https://github.com/dapr/quickstarts/tree/master/pub-sub">Pub/Sub 快速启动示例&lt;/a>&lt;/li>
+&lt;li>阅读&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/">发布和订阅指南&lt;/a>&lt;/li>
+&lt;li>了解 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-scopes/">Topic 作用域&lt;/a>&lt;/li>
+&lt;li>了解 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-message-ttl/">消息存活时间&lt;/a>&lt;/li>
+&lt;li>学习 &lt;a href="https://docs.dapr.io/operations/components/setup-pubsub/pubsub-namespaces/">如何配置具有多个命名空间的 Pub/Sub 组件&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/">Pub/Sub 组件列表&lt;/a>&lt;/li>
+&lt;li>阅读 &lt;a href="https://docs.dapr.io/reference/api/pubsub_api/">API 参考&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: 操作：配置具有多个命名空间的 Pub/Sub 组件</title><link>https://docs.dapr.io/operations/components/setup-pubsub/pubsub-namespaces/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-pubsub/pubsub-namespaces/</guid><description>
+&lt;p>在某些场景下，应用程序分布在不同的命名空间，并通过PubSub共享一个队列或主题。 在这种情况下，必须在每个命名空间上都提供PubSub组件。&lt;/p>
 &lt;div class="alert alert-primary" role="alert">
 &lt;h4 class="alert-heading">Note&lt;/h4>
-Namespaces are a Dapr concept used for scoping applications and components. This example uses Kubernetes namespaces, however the Dapr component namespace scoping can be used on any supported platform. Read &lt;a href="https://docs.dapr.io/operations/components/component-scopes/">How-To: Scope components to one or more applications&lt;/a> for more information on scoping components. This example uses Kubernetes namespaces, however the Dapr component namespace scoping can be used on any supported platform. Read &lt;a href="https://docs.dapr.io/operations/components/component-scopes/">How-To: Scope components to one or more applications&lt;/a> for more information on scoping components.
+命名空间是一个Dapr里的，用于确定应用程序和组件的作用范围概念。 这个例子使用的是Kubernetes的命名空间，然而Dapr组件的命名空间范围可以在任何支持的平台上使用。 请阅读[指南：将组件作用范围限定到一个或多个应用程序]({&amp;lt; ref &amp;ldquo;component-scopes.md&amp;rdquo; &amp;gt;}})，以了解更多关于组件作用范围限定的信息。
 &lt;/div>
-&lt;p>This example uses the &lt;a href="https://github.com/dapr/quickstarts/tree/master/pub-sub">PubSub sample&lt;/a>. The Redis installation and the subscribers are in &lt;code>namespace-a&lt;/code> while the publisher UI is in &lt;code>namespace-b&lt;/code>. This example uses the &lt;a href="https://github.com/dapr/quickstarts/tree/master/pub-sub">PubSub sample&lt;/a>. The Redis installation and the subscribers are in &lt;code>namespace-a&lt;/code> while the publisher UI is in &lt;code>namespace-b&lt;/code>. This solution will also work if Redis is installed on another namespace or if you use a managed cloud service like Azure ServiceBus, AWS SNS/SQS or GCP PubSub.&lt;/p>
-&lt;p>This is a diagram of the example using namespaces.&lt;/p>
+&lt;p>这个例子使用了&lt;a href="https://github.com/dapr/quickstarts/tree/master/pub-sub">PubSub示例&lt;/a>。 Redis安装和其订阅者在&lt;code>namespace-a&lt;/code>中，而发布者UI在&lt;code>namespace-b&lt;/code>中。 如果Redis安装在另一个命名空间上，或者使用Azure ServiceBus、AWS SNS/SQS或GCP PubSub等云服务，该解决方案也同样奏效。&lt;/p>
+&lt;p>这是一个使用命名空间的示例图片。&lt;/p>
 &lt;img src="https://docs.dapr.io/images/pubsub-multiple-namespaces.png" width=1000>
 &lt;br>&lt;/br>
-&lt;p>The table below shows which resources are deployed to which namespaces:&lt;/p>
+&lt;p>下表描述了部署的资源和所在命名空间的对应关系：&lt;/p>
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>Resource&lt;/th>
+&lt;th>资源&lt;/th>
 &lt;th>namespace-a&lt;/th>
 &lt;th>namespace-b&lt;/th>
 &lt;/tr>
@@ -86,17 +86,17 @@ Namespaces are a Dapr concept used for scoping applications and components. This
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="pre-requisites">Pre-requisites&lt;/h2>
+&lt;h2 id="前提">前提&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-deploy/">Dapr installed on Kubernetes&lt;/a> in any namespace since Dapr works at the cluster level.&lt;/li>
-&lt;li>Checkout and cd into the directory for &lt;a href="https://github.com/dapr/quickstarts/tree/master/pub-sub">PubSub quickstart&lt;/a>.&lt;/li>
+&lt;li>因为Dapr在集群层面工作的需要，&lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-deploy/">Dapr需要安装在任意Kubernetesr&lt;/a>命名空间上。&lt;/li>
+&lt;li>将 &lt;a href="https://github.com/dapr/quickstarts/tree/master/pub-sub">PubSub quickstart&lt;/a>示例git checkout下来并切到项目目录下。&lt;/li>
 &lt;/ul>
-&lt;h2 id="setup-namespace-a">Setup &lt;code>namespace-a&lt;/code>&lt;/h2>
-&lt;p>Create namespace and switch kubectl to use it.&lt;/p>
+&lt;h2 id="设置namespace-a">设置&lt;code>namespace-a&lt;/code>&lt;/h2>
+&lt;p>创建命名空间并用kubectl切入。&lt;/p>
 &lt;pre>&lt;code>kubectl create namespace namespace-a
 kubectl config set-context --current --namespace=namespace-a
-&lt;/code>&lt;/pre>&lt;p>Install Redis (master and slave) on &lt;code>namespace-a&lt;/code>, following &lt;a href="https://docs.dapr.io/getting-started/configure-state-pubsub/">these instructions&lt;/a>.&lt;/p>
-&lt;p>Now, configure &lt;code>deploy/redis.yaml&lt;/code>, paying attention to the hostname containing &lt;code>namespace-a&lt;/code>.&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>在&lt;code>namespace-a&lt;/code>上安装主从Redis，遵循 &lt;a href="https://docs.dapr.io/getting-started/configure-state-pubsub/">这些说明&lt;/a>。&lt;/p>
+&lt;p>现在，配置&lt;code>deploy/redis.yaml&lt;/code>，注意包含&lt;code>namespace-a&lt;/code>的主机名。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -109,29 +109,29 @@ kubectl config set-context --current --namespace=namespace-a
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;redis-master.namespace-a.svc:6379&amp;#34;&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;redisPassword&amp;#34;&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;YOUR_PASSWORD&amp;#34;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Deploy resources to &lt;code>namespace-a&lt;/code>:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>将资源部署到&lt;code>namespace-a&lt;/code>：&lt;/p>
 &lt;pre>&lt;code>kubectl apply -f deploy/redis.yaml
 kubectl apply -f deploy/node-subscriber.yaml
 kubectl apply -f deploy/python-subscriber.yaml
-&lt;/code>&lt;/pre>&lt;h2 id="setup-namespace-b">Setup &lt;code>namespace-b&lt;/code>&lt;/h2>
-&lt;p>Create namespace and switch kubectl to use it.&lt;/p>
+&lt;/code>&lt;/pre>&lt;h2 id="设置namespace-b">设置&lt;code>namespace-b&lt;/code>&lt;/h2>
+&lt;p>创建命名空间并用kubectl切入。&lt;/p>
 &lt;pre>&lt;code>kubectl create namespace namespace-b
 kubectl config set-context --current --namespace=namespace-b
-&lt;/code>&lt;/pre>&lt;p>Deploy resources to &lt;code>namespace-b&lt;/code>, including the Redis component:&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>将资源部署到&lt;code>namespace-b&lt;/code>，包括Redis组件:&lt;/p>
 &lt;pre>&lt;code>kubectl apply -f deploy/redis.yaml
 kubectl apply -f deploy/react-form.yaml
-&lt;/code>&lt;/pre>&lt;p>Now, find the IP address for react-form, open it on your browser and publish messages to each topic (A, B and C).&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>现在，找到react-form的IP地址，在浏览器上打开它，并将消息发布到每个主题（A、B、C）。&lt;/p>
 &lt;pre>&lt;code>kubectl get service -A
-&lt;/code>&lt;/pre>&lt;h2 id="confirm-subscribers-received-the-messages">Confirm subscribers received the messages.&lt;/h2>
-&lt;p>Switch back to &lt;code>namespace-a&lt;/code>:&lt;/p>
+&lt;/code>&lt;/pre>&lt;h2 id="确认订阅者收到信息">确认订阅者收到信息&lt;/h2>
+&lt;p>切换回 &lt;code>namespace-a&lt;/code>:&lt;/p>
 &lt;pre>&lt;code>kubectl config set-context --current --namespace=namespace-a
-&lt;/code>&lt;/pre>&lt;p>Find the POD names:&lt;/p>
-&lt;pre>&lt;code>kubectl get pod # Copy POD names and use in the next commands.
-&lt;/code>&lt;/pre>&lt;p>Display logs:&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>查找POD名称：&lt;/p>
+&lt;pre>&lt;code>kubectl get pod # 复制POD名称并在接下来的命令中使用。
+&lt;/code>&lt;/pre>&lt;p>显示日志：&lt;/p>
 &lt;pre>&lt;code>kubectl logs node-subscriber-XYZ node-subscriber
 kubectl logs python-subscriber-XYZ python-subscriber
-&lt;/code>&lt;/pre>&lt;p>The messages published on the browser should show in the corresponding subscriber&amp;rsquo;s logs. The messages published on the browser should show in the corresponding subscriber&amp;rsquo;s logs. The Node.js subscriber receives messages of type &amp;ldquo;A&amp;rdquo; and &amp;ldquo;B&amp;rdquo;, while the Python subscriber receives messages of type &amp;ldquo;A&amp;rdquo; and &amp;ldquo;C&amp;rdquo;.&lt;/p>
-&lt;h2 id="clean-up">Clean up&lt;/h2>
+&lt;/code>&lt;/pre>&lt;p>浏览器上发布的消息应该会显示在相应用户的日志中。 Node.js订阅者接收的消息类型为 &amp;ldquo;A &amp;ldquo;和 &amp;ldquo;B&amp;rdquo;，而Python订阅者接收的消息类型为 &amp;ldquo;A &amp;ldquo;和 &amp;ldquo;C&amp;rdquo;。&lt;/p>
+&lt;h2 id="清理">清理&lt;/h2>
 &lt;pre>&lt;code>kubectl delete -f deploy/redis.yaml --namespace namespace-a
 kubectl delete -f deploy/node-subscriber.yaml --namespace namespace-a
 kubectl delete -f deploy/python-subscriber.yaml --namespace namespace-a
@@ -142,30 +142,30 @@ kubectl delete namespace namespace-a
 kubectl delete namespace namespace-b
 &lt;/code>&lt;/pre>&lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-scopes/">Scope components to one or more applications&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/secrets/secrets-scopes/">Use secret scoping&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/configuration/secret-scope/">Limit the secrets that can be read from secret stores&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Supported pub/sub brokers</title><link>https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/</guid><description>
-&lt;p>Table captions:&lt;/p>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-scopes/">限定组件作用范围在一至多个应用&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/secrets/secrets-scopes/">使用密钥范围界定&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/configuration/secret-scope/">限制可以从密钥仓库中读取的密钥&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: 支持的 发布/订阅 消息代理</title><link>https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/</guid><description>
+&lt;p>表格标题：&lt;/p>
 &lt;blockquote>
-&lt;p>&lt;code>Status&lt;/code>: &lt;a href="%7B%7BX31X%7D%7D">Component certification&lt;/a> status&lt;/p>
+&lt;p>&lt;code>Status&lt;/code>: &lt;a href="%7B%7BX31X%7D%7D">组件认证&lt;/a> 状态&lt;/p>
 &lt;/blockquote>
 &lt;ul>
 &lt;li>&lt;a href="%7B%7BX%1A20X%7D%7D">Alpha&lt;/a>&lt;/li>
 &lt;li>&lt;a href="%7B%7BX%1A22X%7D%7D">Beta&lt;/a>&lt;/li>
-&lt;li>&lt;a href="%7B%7BX24X%7D%7D">GA&lt;/a> &amp;gt; &lt;code>Since&lt;/code>: defines from which Dapr Runtime version, the component is in the current status&lt;/li>
+&lt;li>&lt;a href="%7B%7BX%1A24X%7D%7D">GA&lt;/a> &amp;gt; &lt;code>自从&lt;/code>: 定义了当前组件从哪个Dapr Runtime版本开始支持&lt;/li>
 &lt;/ul>
 &lt;blockquote>
-&lt;p>&lt;code>Component version&lt;/code>: defines the version of the component&lt;/p>
+&lt;p>&lt;code>Component version&lt;/code>: 定义了组件的版本&lt;/p>
 &lt;/blockquote>
-&lt;h3 id="generic">Generic&lt;/h3>
+&lt;h3 id="通用">通用&lt;/h3>
 &lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th>名称&lt;/th>
 &lt;th>状态 （State）&lt;/th>
-&lt;th>Component version&lt;/th>
-&lt;th>Since&lt;/th>
+&lt;th>组件版本&lt;/th>
+&lt;th>自从&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -217,10 +217,10 @@ kubectl delete namespace namespace-b
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>Name&lt;/th>
-&lt;th>Status&lt;/th>
-&lt;th>Component version&lt;/th>
-&lt;th>Since&lt;/th>
+&lt;th>名称&lt;/th>
+&lt;th>状态&lt;/th>
+&lt;th>组件版本&lt;/th>
+&lt;th>自从&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -236,10 +236,10 @@ kubectl delete namespace namespace-b
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>Name&lt;/th>
-&lt;th>Status&lt;/th>
-&lt;th>Component version&lt;/th>
-&lt;th>Since&lt;/th>
+&lt;th>名称&lt;/th>
+&lt;th>状态&lt;/th>
+&lt;th>组件版本&lt;/th>
+&lt;th>自从&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -255,10 +255,10 @@ kubectl delete namespace namespace-b
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>Name&lt;/th>
-&lt;th>Status&lt;/th>
-&lt;th>Component version&lt;/th>
-&lt;th>Since&lt;/th>
+&lt;th>名称&lt;/th>
+&lt;th>状态&lt;/th>
+&lt;th>组件版本&lt;/th>
+&lt;th>自从&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>

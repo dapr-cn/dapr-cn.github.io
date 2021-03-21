@@ -59,10 +59,10 @@ app&lt;span style="color:#f92672">.&lt;/span>run(&lt;span style="color:#ae81ff">
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://pypi.org/project/dapr-ext-grpc/">PyPi&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Developing-Applications: Dapr Python SDK integration with FastAPI</title><link>https://docs.dapr.io/developing-applications/sdks/python/python-sdk-extensions/python-fastapi/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/python/python-sdk-extensions/python-fastapi/</guid><description>
-&lt;p>The Dapr Python SDK provides integration with FastAPI using the &lt;code>dapr-ext-fastapi&lt;/code> module&lt;/p>
-&lt;h2 id="installation">Installation&lt;/h2>
-&lt;p>You can download and install the Dapr FastAPI extension module with:&lt;/p>
+&lt;/ul></description></item><item><title>Developing-Applications: Dapr Python SDK 与 FastAPI 集成</title><link>https://docs.dapr.io/developing-applications/sdks/python/python-sdk-extensions/python-fastapi/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/python/python-sdk-extensions/python-fastapi/</guid><description>
+&lt;p>Dapr Python SDK 使用 &lt;code>dapr-ext-fastapi&lt;/code> 模块与 FastAPI 集成&lt;/p>
+&lt;h2 id="安装">安装&lt;/h2>
+&lt;p>你可以通过下面的方式下载和安装 Dapr FastAPI 扩展模块：&lt;/p>
 &lt;ul class="nav nav-tabs" id="tabs-0" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
 id="tabs-0-stable-tab" data-toggle="tab" href="#tabs-0-stable" role="tab"
 aria-controls="tabs-0-stable" aria-selected="true">
@@ -81,12 +81,12 @@ Development
 &lt;div class="tab-pane fade" id="tabs-0-development" role="tabpanel" aria-labelled-by="tabs-0-development-tab">
 &lt;br />&lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Note&lt;/h4>
-The development package will contain features and behavior that will be compatible with the pre-release version of the Dapr runtime. Make sure to uninstall any stable versions of the Python SDK extension before installing the dapr-dev package.
+开发包包含的功能和行为将兼容此前发行的 Dapr 运行时。 在安装 dapr-dev 包之前，请务必卸载以前任意稳定版本的 dapr-ext-fastapi 的 Python SDK 扩展包。
 &lt;/div>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">pip install dapr-ext-fastapi-dev
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
 &lt;/div>
-&lt;h2 id="example">Example&lt;/h2>
+&lt;h2 id="示例">示例&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">from&lt;/span> fastapi &lt;span style="color:#f92672">import&lt;/span> FastAPI
 &lt;span style="color:#f92672">from&lt;/span> dapr.ext.fastapi &lt;span style="color:#f92672">import&lt;/span> DaprActor
 &lt;span style="color:#f92672">from&lt;/span> demo_actor &lt;span style="color:#f92672">import&lt;/span> DemoActor
@@ -100,10 +100,10 @@ await actor&lt;span style="color:#f92672">.&lt;/span>register_actor(DemoActor)
 &lt;span style="color:#a6e22e">@app.get&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;/GetMyData&amp;#34;&lt;/span>)
 &lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">get_my_data&lt;/span>():
 &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#e6db74">&amp;#34;{&amp;#39;message&amp;#39;: &amp;#39;myData&amp;#39;}&amp;#34;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Developing-Applications: Dapr Python SDK integration with Flask</title><link>https://docs.dapr.io/developing-applications/sdks/python/python-sdk-extensions/python-flask/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/python/python-sdk-extensions/python-flask/</guid><description>
-&lt;p>The Dapr Python SDK provides integration with Flask using the &lt;code>flask-dapr&lt;/code> module&lt;/p>
-&lt;h2 id="installation">Installation&lt;/h2>
-&lt;p>You can download and install the Dapr Flask extension module with:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Developing-Applications: Dapr Python SDK 与 Flask 集成</title><link>https://docs.dapr.io/developing-applications/sdks/python/python-sdk-extensions/python-flask/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/python/python-sdk-extensions/python-flask/</guid><description>
+&lt;p>Dapr Python SDK 使用 &lt;code>flask-dapr&lt;/code> 模块提供与Flask 的集成&lt;/p>
+&lt;h2 id="安装">安装&lt;/h2>
+&lt;p>你可以通过下面的方式下载和安装 Dapr Flask 扩展模块：&lt;/p>
 &lt;ul class="nav nav-tabs" id="tabs-0" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
 id="tabs-0-stable-tab" data-toggle="tab" href="#tabs-0-stable" role="tab"
 aria-controls="tabs-0-stable" aria-selected="true">
@@ -127,7 +127,7 @@ The development package will contain features and behavior that will be compatib
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">pip install flask-dapr-dev
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
 &lt;/div>
-&lt;h2 id="example">Example&lt;/h2>
+&lt;h2 id="示例">示例&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">from&lt;/span> flask &lt;span style="color:#f92672">import&lt;/span> Flask
 &lt;span style="color:#f92672">from&lt;/span> flask_dapr.actor &lt;span style="color:#f92672">import&lt;/span> DaprActor
 &lt;span style="color:#f92672">from&lt;/span> dapr.conf &lt;span style="color:#f92672">import&lt;/span> settings

@@ -1,6 +1,6 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Supported pub/sub brokers</title><link>https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/</link><description>Recent content in Supported pub/sub brokers on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: Apache Kafka</title><link>https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/setup-apache-kafka/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/setup-apache-kafka/</guid><description>
-&lt;h2 id="component-format">Component format&lt;/h2>
-&lt;p>To setup Apache Kafka pubsub create a component of type &lt;code>pubsub.kafka&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-1-setup-the-pubsub-component">this guide&lt;/a> on how to create and apply a pubsub configuration. To setup Redis Streams pubsub create a component of type &lt;code>pubsub.redis&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-1-setup-the-pubsub-component">this guide&lt;/a> on how to create and apply a pubsub configuration.&lt;/p>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – 支持的 发布/订阅 消息代理</title><link>https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/</link><description>Recent content in 支持的 发布/订阅 消息代理 on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: Apache Kafka</title><link>https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/setup-apache-kafka/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/setup-apache-kafka/</guid><description>
+&lt;h2 id="组件格式">组件格式&lt;/h2>
+&lt;p>要设置Apache Kafka pubsub，请创建一个&lt;code>pubsub.kafka&lt;/code>类型的组件。 请参阅&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-1-setup-the-pubsub-component">本指南&lt;/a> ，了解如何创建和应用 pubsub 配置。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -21,61 +21,59 @@
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;KeFg23!&amp;#34;&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">maxMessageBytes&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">1024&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">maxMessageBytes&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">1024&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 The example configuration shown above, contain a username and password as plain-text strings. 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/%7D">here&lt;/a>。
+以上示例将密钥明文存储。 建议使用 &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>描述的密钥存储。
 &lt;/div>
-&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th>字段&lt;/th>
-&lt;th style="text-align:center">Required&lt;/th>
-&lt;th>Details&lt;/th>
-&lt;th>Example&lt;/th>
+&lt;th style="text-align:center">必填&lt;/th>
+&lt;th>详情&lt;/th>
+&lt;th>示例&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
 &lt;td>brokers&lt;/td>
 &lt;td style="text-align:center">Y&lt;/td>
-&lt;td>Comma separated list of kafka brokers&lt;/td>
+&lt;td>逗号分隔的kafka broker列表&lt;/td>
 &lt;td>&lt;code>localhost:9092&lt;/code>, &lt;code>dapr-kafka.myapp.svc.cluster.local:9092&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>authRequired&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Enable authentication on the Kafka broker. Defaults to &lt;code>&amp;quot;false&amp;quot;&lt;/code>. Defaults to &lt;code>&amp;quot;false&amp;quot;&lt;/code>.&lt;/td>
+&lt;td>在Kafka broker上启用验证。 默认值为 &lt;code>&amp;quot;false&amp;quot;&lt;/code>.&lt;/td>
 &lt;td>&lt;code>&amp;quot;true&amp;quot;&lt;/code>, &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>saslUsername&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Username used for authentication. Username used for authentication. Only required if authRequired is set to true.&lt;/td>
+&lt;td>用于认证的用户名。 只有当 authRequired 设置为 true 时才需要。&lt;/td>
 &lt;td>&lt;code>&amp;quot;adminuser&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>saslPassword&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Password used for authentication. Can be &lt;code>secretKeyRef&lt;/code> to use a secret reference. Only required if authRequired is set to true. Password used for authentication. Can be &lt;code>secretKeyRef&lt;/code> to use a secret reference. Only required if authRequired is set to true. Can be &lt;code>secretKeyRef&lt;/code> to use a &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">secret reference&lt;/a>&lt;/td>
+&lt;td>用于认证的密码。 可以用&lt;code>secretKeyRef&lt;/code>来引用密钥。 只有当 authRequired 设置为 true 时才需要。 可以用&lt;code>secretKeyRef&lt;/code>来&lt;a href="https://docs.dapr.io/operations/components/component-secrets/">引用密钥&lt;/a>。&lt;/td>
 &lt;td>&lt;code>&amp;quot;&amp;quot;&lt;/code>, &lt;code>&amp;quot;KeFg23!&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>maxMessageBytes&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>The maximum message size allowed for a single Kafka message. Default is 1024. Default is 1024.&lt;/td>
+&lt;td>单条Kafka消息允许的最大消息大小。 默认值为 1024。&lt;/td>
 &lt;td>&lt;code>2048&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="per-call-metadata-fields">Per-call metadata fields&lt;/h2>
-&lt;h3 id="partition-key">Partition Key&lt;/h3>
-&lt;p>When invoking the Kafka pub/sub, its possible to provide an optional partition key by using the &lt;code>metadata&lt;/code> query param in the request url.&lt;/p>
-&lt;p>The param name is &lt;code>partitionKey&lt;/code>.&lt;/p>
-&lt;p>You can run Kafka locally using &lt;a href="https://github.com/wurstmeister/kafka-docker">this&lt;/a> Docker image. To run without Docker, see the getting started guide &lt;a href="https://kafka.apache.org/quickstart">here&lt;/a>.&lt;/p>
+&lt;h2 id="每次调用的元数据字段">每次调用的元数据字段&lt;/h2>
+&lt;h3 id="分区键">分区键&lt;/h3>
+&lt;p>当调用Kafka 发布/订阅时，可以通过在请求url中使用&lt;code>metadata&lt;/code>查询参数来提供一个可选的分区键。&lt;/p>
+&lt;p>参数名是&lt;code>partitionKey&lt;/code>。&lt;/p>
+&lt;p>示例:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X POST http://localhost:3500/v1.0/publish/myKafka/myTopic?metadata.partitionKey&lt;span style="color:#f92672">=&lt;/span>key1 &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span> &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -d &lt;span style="color:#e6db74">&amp;#39;{
@@ -83,34 +81,34 @@
 &lt;/span>&lt;span style="color:#e6db74"> &amp;#34;message&amp;#34;: &amp;#34;Hi&amp;#34;
 &lt;/span>&lt;span style="color:#e6db74"> }
 &lt;/span>&lt;span style="color:#e6db74"> }&amp;#39;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="create-a-kafka-instance">Create a Kafka instance&lt;/h2>
-&lt;ul class="nav nav-tabs" id="tabs-4" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
-id="tabs-4-self-hosted-tab" data-toggle="tab" href="#tabs-4-self-hosted" role="tab"
-aria-controls="tabs-4-self-hosted" aria-selected="true">
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="创建-kafka-实例">创建 Kafka 实例&lt;/h2>
+&lt;ul class="nav nav-tabs" id="tabs-3" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-3-self-hosted-tab" data-toggle="tab" href="#tabs-3-self-hosted" role="tab"
+aria-controls="tabs-3-self-hosted" aria-selected="true">
 Self-Hosted
 &lt;/a>
 &lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
-id="tabs-4-kubernetes-tab" data-toggle="tab" href="#tabs-4-kubernetes" role="tab"
-aria-controls="tabs-4-kubernetes" aria-selected="false">
+id="tabs-3-kubernetes-tab" data-toggle="tab" href="#tabs-3-kubernetes" role="tab"
+aria-controls="tabs-3-kubernetes" aria-selected="false">
 Kubernetes
 &lt;/a>
 &lt;/li>&lt;/ul>
-&lt;div class="tab-content" id="tabs-4-content">
-&lt;div class="tab-pane fade show active" id="tabs-4-self-hosted" role="tabpanel" aria-labelled-by="tabs-4-self-hosted-tab">
-&lt;br />&lt;p>You can run Kafka locally using &lt;a href="https://github.com/wurstmeister/kafka-docker">this&lt;/a> Docker image. To run without Docker, see the getting started guide &lt;a href="https://kafka.apache.org/quickstart">here&lt;/a>. To run without Docker, see the getting started guide &lt;a href="https://kafka.apache.org/quickstart">here&lt;/a>.&lt;/p>
+&lt;div class="tab-content" id="tabs-3-content">
+&lt;div class="tab-pane fade show active" id="tabs-3-self-hosted" role="tabpanel" aria-labelled-by="tabs-3-self-hosted-tab">
+&lt;br />&lt;p>你可以使用&lt;a href="https://github.com/wurstmeister/kafka-docker">这个&lt;/a>Docker镜像在本地运行Kafka。 要在没有Docker的情况下运行，请参阅&lt;a href="https://kafka.apache.org/quickstart">入门指南&lt;/a>。&lt;/p>
 &lt;/div>
-&lt;div class="tab-pane fade" id="tabs-4-kubernetes" role="tabpanel" aria-labelled-by="tabs-4-kubernetes-tab">
-&lt;br />&lt;p>To run Kafka on Kubernetes, you can use the &lt;a href="https://github.com/helm/charts/tree/master/incubator/kafka#installing-the-chart">Helm Chart&lt;/a>.&lt;/p>
+&lt;div class="tab-pane fade" id="tabs-3-kubernetes" role="tabpanel" aria-labelled-by="tabs-3-kubernetes-tab">
+&lt;br />&lt;p>要在Kubernetes上运行Kafka，你可以使用&lt;a href="https://github.com/helm/charts/tree/master/incubator/kafka#installing-the-chart">Helm Chart&lt;/a>。&lt;/p>
 &lt;/div>
 &lt;/div>
-&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
-&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/##step-1-setup-the-pubsub-component">this guide&lt;/a> for instructions on configuring pub/sub components&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Dapr组件的基本格式&lt;/a>&lt;/li>
+&lt;li>阅读 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/##step-1-setup-the-pubsub-component">本指南&lt;/a>，了解配置 发布/订阅组件的说明&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/">发布/订阅构建块&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: AWS SNS/SQS</title><link>https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/setup-aws-snssqs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/setup-aws-snssqs/</guid><description>
-&lt;h2 id="component-format">Component format&lt;/h2>
-&lt;p>To setup AWS SNS/SQS for pub/sub, you create a component of type &lt;code>pubsub.snssqs&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-1-setup-the-pubsub-component">this guide&lt;/a> on how to create and apply a pubsub configuration. To setup Redis Streams pubsub create a component of type &lt;code>pubsub.redis&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-1-setup-the-pubsub-component">this guide&lt;/a> on how to create and apply a pubsub configuration.&lt;/p>
+&lt;h2 id="组件格式">组件格式&lt;/h2>
+&lt;p>要为 发布/订阅设置 AWS SNS/SQS，您需要创建一个类型为 &lt;code>pubsub.snssqs&lt;/code> 的组件。 请参阅&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-1-setup-the-pubsub-component">本指南&lt;/a>，了解如何创建和应用 pubsub 配置。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -139,97 +137,97 @@ Kubernetes
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 The example configuration shown above, contain a username and password as plain-text strings. 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/%7D">here&lt;/a>。
+以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
 &lt;/div>
-&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th>字段&lt;/th>
-&lt;th style="text-align:center">Required&lt;/th>
-&lt;th>Details&lt;/th>
-&lt;th>Example&lt;/th>
+&lt;th style="text-align:center">必填&lt;/th>
+&lt;th>详情&lt;/th>
+&lt;th>示例&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
 &lt;td>accessKey&lt;/td>
 &lt;td style="text-align:center">Y&lt;/td>
-&lt;td>ID of the AWS account with appropriate permissions to SNS and SQS. Can be &lt;code>secretKeyRef&lt;/code> to use a secret reference Secret for the AWS user. Can be &lt;code>secretKeyRef&lt;/code> to use a secret reference&lt;/td>
+&lt;td>具有SNS和SQS适当权限的AWS账户的ID。 可以用&lt;code>secretKeyRef&lt;/code>来引用密钥。&lt;/td>
 &lt;td>&lt;code>&amp;quot;AKIAIOSFODNN7EXAMPLE&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>secretKey&lt;/td>
 &lt;td style="text-align:center">Y&lt;/td>
-&lt;td>Secret for the AWS user. Secret for the AWS user. Can be &lt;code>secretKeyRef&lt;/code> to use a secret reference&lt;/td>
+&lt;td>AWS用户的密钥。 可以用&lt;code>secretKeyRef&lt;/code>来引用密钥。&lt;/td>
 &lt;td>&lt;code>&amp;quot;wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>region&lt;/td>
 &lt;td style="text-align:center">Y&lt;/td>
-&lt;td>The AWS region to the instance. The AWS region to the instance. See this page for valid regions: &lt;a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html">https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html&lt;/a>. Ensure that SNS and SQS are available in that region. Ensure that SNS and SQS are available in that region.&lt;/td>
+&lt;td>AWS区域到实例。 有效区域请参见本页面：https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html。 确保该地区有SNS和SQS。&lt;/td>
 &lt;td>&lt;code>&amp;quot;us-east-1&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>endpoint&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>AWS endpoint for the component to use. Only used for local development. AWS endpoint for the component to use. Only used for local development. The &lt;code>endpoint&lt;/code> is unncessary when running against production AWS&lt;/td>
+&lt;td>该组件要使用的AWS端点， 仅用于本地开发。 当对生产环境的AWS，&lt;code>endpoint&lt;/code>是不需要的。&lt;/td>
 &lt;td>&lt;code>&amp;quot;http://localhost:4566&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>sessionToken&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>AWS session token to use. A session token is only required if you are using temporary security credentials A session token is only required if you are using temporary security credentials&lt;/td>
+&lt;td>要使用的 AWS 会话令牌。 只有当您使用临时安全凭证时才需要会话令牌。&lt;/td>
 &lt;td>&lt;code>&amp;quot;TOKEN&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>messageVisibilityTimeout&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Amount of time in seconds that a message is hidden from receive requests after it is sent to a subscriber. Default: &lt;code>10&lt;/code> Default: &lt;code>10&lt;/code>&lt;/td>
+&lt;td>消息发送至订阅者后，隐藏接收请求的时间，以秒为单位。 默认值：&lt;code>10&lt;/code>&lt;/td>
 &lt;td>&lt;code>10&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>messageRetryLimit&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Number of times to resend a message after processing of that message fails before removing that message from the queue. Default: &lt;code>10&lt;/code> Default: &lt;code>10&lt;/code>&lt;/td>
+&lt;td>在处理消息失败后，从队列中删除该消息之前，重新发送消息的次数。 默认值：&lt;code>10&lt;/code>&lt;/td>
 &lt;td>&lt;code>10&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>messageWaitTimeSeconds&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>amount of time to await receipt of a message before making another request. Default: &lt;code>1&lt;/code> Default: &lt;code>1&lt;/code>&lt;/td>
+&lt;td>等待收到消息后再提出请求的时间 默认值：&lt;code>1&lt;/code>&lt;/td>
 &lt;td>&lt;code>1&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>messageMaxNumber&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>maximum number of messages to receive from the queue at a time. Default: &lt;code>10&lt;/code>, Maximum: &lt;code>10&lt;/code> Default: &lt;code>10&lt;/code>, Maximum: &lt;code>10&lt;/code>&lt;/td>
+&lt;td>每次从队列中接收消息的最大数量。 默认值：&lt;code>10&lt;/code>，最大值：&lt;code>10&lt;/code>&lt;/td>
 &lt;td>&lt;code>10&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="create-an-snssqs-instance">Create an SNS/SQS instance&lt;/h2>
-&lt;ul class="nav nav-tabs" id="tabs-3" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
-id="tabs-3-self-hosted-tab" data-toggle="tab" href="#tabs-3-self-hosted" role="tab"
-aria-controls="tabs-3-self-hosted" aria-selected="true">
+&lt;h2 id="创建snssqs实例">创建SNS/SQS实例&lt;/h2>
+&lt;ul class="nav nav-tabs" id="tabs-2" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-2-self-hosted-tab" data-toggle="tab" href="#tabs-2-self-hosted" role="tab"
+aria-controls="tabs-2-self-hosted" aria-selected="true">
 Self-Hosted
 &lt;/a>
 &lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
-id="tabs-3-kubernetes-tab" data-toggle="tab" href="#tabs-3-kubernetes" role="tab"
-aria-controls="tabs-3-kubernetes" aria-selected="false">
+id="tabs-2-kubernetes-tab" data-toggle="tab" href="#tabs-2-kubernetes" role="tab"
+aria-controls="tabs-2-kubernetes" aria-selected="false">
 Kubernetes
 &lt;/a>
 &lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
-id="tabs-3-aws-tab" data-toggle="tab" href="#tabs-3-aws" role="tab"
-aria-controls="tabs-3-aws" aria-selected="false">
+id="tabs-2-aws-tab" data-toggle="tab" href="#tabs-2-aws" role="tab"
+aria-controls="tabs-2-aws" aria-selected="false">
 AWS
 &lt;/a>
 &lt;/li>&lt;/ul>
-&lt;div class="tab-content" id="tabs-3-content">
-&lt;div class="tab-pane fade show active" id="tabs-3-self-hosted" role="tabpanel" aria-labelled-by="tabs-3-self-hosted-tab">
-&lt;br />&lt;p>For local development the &lt;a href="https://github.com/localstack/localstack">localstack project&lt;/a> is used to integrate AWS SNS/SQS. Follow the instructions &lt;a href="https://github.com/localstack/localstack#installing">here&lt;/a> to install the localstack CLI. Follow the instructions &lt;a href="https://github.com/localstack/localstack#installing">here&lt;/a> to install the localstack CLI.&lt;/p>
-&lt;p>In order to use localstack with your pubsub binding, you need to provide the &lt;code>endpoint&lt;/code> configuration in the component metadata. The &lt;code>endpoint&lt;/code> is unncessary when running against production AWS. The &lt;code>endpoint&lt;/code> is unncessary when running against production AWS.&lt;/p>
-&lt;p>See &lt;a href="https://docs.dapr.io/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a> for information about authentication-related attributes&lt;/p>
+&lt;div class="tab-content" id="tabs-2-content">
+&lt;div class="tab-pane fade show active" id="tabs-2-self-hosted" role="tabpanel" aria-labelled-by="tabs-2-self-hosted-tab">
+&lt;br />&lt;p>对于本地开发来说，可以用&lt;a href="https://github.com/localstack/localstack">localstack项目&lt;/a>集成AWS SNS/SQS。 按照&lt;a href="https://github.com/localstack/localstack#installing">这里&lt;/a>的说明安装localstack CLI。&lt;/p>
+&lt;p>为了将localstack与你的pubsub绑定在一起，你需要提供&lt;code>endpoint&lt;/code>配置。 在组件元数据中， 当在AWS生产环境上运行时，&lt;code>endpoint&lt;/code>是不需要的。&lt;/p>
+&lt;p>请参阅 &lt;a href="https://docs.dapr.io/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a>，了解有关身份验证相关属性的信息。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -244,8 +242,8 @@ AWS
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">region&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">us-east-1&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
-&lt;div class="tab-pane fade" id="tabs-3-kubernetes" role="tabpanel" aria-labelled-by="tabs-3-kubernetes-tab">
-&lt;br />&lt;p>To run localstack on Kubernetes, you can apply the configuration below. To run localstack on Kubernetes, you can apply the configuration below. Localstack is then reachable at the DNS name &lt;code>http://localstack.default.svc.cluster.local:4566&lt;/code> (assuming this was applied to the default namespace) and this should be used as the &lt;code>endpoint&lt;/code>&lt;/p>
+&lt;div class="tab-pane fade" id="tabs-2-kubernetes" role="tabpanel" aria-labelled-by="tabs-2-kubernetes-tab">
+&lt;br />&lt;p>要在Kubernetes上运行localstack，可以应用以下配置。 然后，Localstack可以通过DNS名称&lt;code>http://localstack.default.svc.cluster.local:4566&lt;/code>发现。 (假设这被应用于默认的命名空间)，这应该被用作&lt;code>端点&lt;/code>。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">apps/v1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Deployment&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -285,22 +283,22 @@ AWS
 &lt;span style="color:#f92672">targetPort&lt;/span>: &lt;span style="color:#ae81ff">4566&lt;/span>
 &lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">LoadBalancer&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
-&lt;div class="tab-pane fade" id="tabs-3-aws" role="tabpanel" aria-labelled-by="tabs-3-aws-tab">
-&lt;br />&lt;p>In order to run in AWS, you should create an IAM user with permissions to the SNS and SQS services. In order to run in AWS, you should create an IAM user with permissions to the SNS and SQS services. Use the &lt;code>AWS account ID&lt;/code> and &lt;code>AWS account secret&lt;/code> and plug them into the &lt;code>accessKey&lt;/code> and &lt;code>secretKey&lt;/code> in the component metadata using Kubernetes secrets and &lt;code>secretKeyRef&lt;/code>.&lt;/p>
+&lt;div class="tab-pane fade" id="tabs-2-aws" role="tabpanel" aria-labelled-by="tabs-2-aws-tab">
+&lt;br />&lt;p>为了在AWS中运行，你应该创建一个具有SNS和SQS服务权限的IAM用户。 使用&lt;code>AWS account ID&lt;/code>和&lt;code>AWS account secret&lt;/code>，并使用Kubernetes密钥和&lt;code>secretKeyRef&lt;/code>将它们插入组件元数据中的&lt;code>accessKey&lt;/code>和&lt;code>secretKey&lt;/code>。&lt;/p>
 &lt;/div>
 &lt;/div>
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
-&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components&lt;/li>
-&lt;li>&lt;a href="https://docs.aws.amazon.com/sns/latest/dg/sns-sqs-as-subscriber.html">AWS SQS as subscriber to SNS&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.aws.amazon.com/sns/latest/api/Welcome.html">AWS SNS API refernce&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/Welcome.html">AWS SQS API refernce&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Dapr组件的基本格式&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/">发布/订阅构建块&lt;/a>&lt;/li>
+&lt;li>请访问 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">本指南&lt;/a> ，了解如何配置 pub/sub 组件&lt;/li>
+&lt;li>&lt;a href="https://docs.aws.amazon.com/sns/latest/dg/sns-sqs-as-subscriber.html">将AWS SQS作为SNS的订阅者&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.aws.amazon.com/sns/latest/api/Welcome.html">AWS SNS API参考&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/Welcome.html">AWS SQS API参考&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/integrations/authenticating/authenticating-aws/">AWS认证&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: Azure Events Hub</title><link>https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/setup-azure-eventhubs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/setup-azure-eventhubs/</guid><description>
-&lt;h2 id="component-format">Component format&lt;/h2>
-&lt;p>To setup Azure Event Hubs pubsub create a component of type &lt;code>pubsub.azure.eventhubs&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-1-setup-the-pubsub-component">this guide&lt;/a> on how to create and apply a pubsub configuration. To setup Redis Streams pubsub create a component of type &lt;code>pubsub.redis&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-1-setup-the-pubsub-component">this guide&lt;/a> on how to create and apply a pubsub configuration.&lt;/p>
+&lt;h2 id="组件格式">组件格式&lt;/h2>
+&lt;p>要安装 Azure Event Hubs pubsub，请创建一个类型为 &lt;code>pubsub.azure.eventhubs&lt;/code> 的组件。 请参阅&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-1-setup-the-pubsub-component">本指南&lt;/a>，了解如何创建和应用 pubsub 配置。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -321,59 +319,59 @@ AWS
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 The example configuration shown above, contain a username and password as plain-text strings. 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/%7D">here&lt;/a>。
+以上示例将 Secret 明文存储。 更推荐的方式是使用 &lt;a href="https://docs.dapr.io/operations/components/component-secrets/%7D">这里&lt;/a>描述的密钥存储。
 &lt;/div>
-&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th>字段&lt;/th>
-&lt;th style="text-align:center">Required&lt;/th>
-&lt;th>Details&lt;/th>
-&lt;th>Example&lt;/th>
+&lt;th style="text-align:center">必填&lt;/th>
+&lt;th>详情&lt;/th>
+&lt;th>示例&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
 &lt;td>connectionString&lt;/td>
 &lt;td style="text-align:center">Y&lt;/td>
-&lt;td>Connection-string for the Event Hubs&lt;/td>
+&lt;td>Event Hubs的连接地址&lt;/td>
 &lt;td>&lt;code>&amp;quot;Endpoint=sb://{EventHubNamespace}.servicebus.windows.net/;SharedAccessKeyName={PolicyName};SharedAccessKey={Key};EntityPath={EventHub}&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>storageAccountName&lt;/td>
 &lt;td style="text-align:center">Y&lt;/td>
-&lt;td>Storage account name to use for the EventProcessorHost&lt;/td>
+&lt;td>用于EventProcessorHost的存储账户名称&lt;/td>
 &lt;td>&lt;code>&amp;quot;myeventhubstorage&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>storageAccountKey&lt;/td>
 &lt;td style="text-align:center">Y&lt;/td>
-&lt;td>Storage account key to use for the EventProcessorHost. Can be &lt;code>secretKeyRef&lt;/code> to use a secret reference Can be &lt;code>secretKeyRef&lt;/code> to use a secret reference&lt;/td>
+&lt;td>用于EventProcessorHost的存储账户密钥。 可以用&lt;code>secretKeyRef&lt;/code>来引用&lt;/td>
 &lt;td>&lt;code>&amp;quot;112233445566778899&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>storageContainerName&lt;/td>
 &lt;td style="text-align:center">Y&lt;/td>
-&lt;td>Storage container name for the storage account name.&lt;/td>
+&lt;td>存储账户名称的存储容器名称。&lt;/td>
 &lt;td>&lt;code>&amp;quot;myeventhubstoragecontainer&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="create-an-azure-event-hub">Create an Azure Event Hub&lt;/h2>
-&lt;p>Follow the instructions &lt;a href="https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-create">here&lt;/a> on setting up Azure Event Hubs. Follow the instructions &lt;a href="https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-create">here&lt;/a> on setting up Azure Event Hubs. Since this implementation uses the Event Processor Host, you will also need an &lt;a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-account-create?tabs=azure-portal">Azure Storage Account&lt;/a>. Follow the instructions &lt;a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-account-keys-manage">here&lt;/a> to manage the storage account access keys. Follow the instructions &lt;a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-account-keys-manage">here&lt;/a> to manage the storage account access keys.&lt;/p>
-&lt;p>See &lt;a href="https://docs.microsoft.com/en-us/azure/event-hubs/authorize-access-shared-access-signature">here&lt;/a> on how to get the Event Hubs connection string. Note this is not the Event Hubs namespace. Note this is not the Event Hubs namespace.&lt;/p>
-&lt;h3 id="create-consumer-groups-for-each-subscriber">Create consumer groups for each subscriber&lt;/h3>
-&lt;p>For every Dapr app that wants to subscribe to events, create an Event Hubs consumer group with the name of the &lt;code>dapr id&lt;/code>. For example, a Dapr app running on Kubernetes with &lt;code>dapr.io/app-id: &amp;quot;myapp&amp;quot;&lt;/code> will need an Event Hubs consumer group named &lt;code>myapp&lt;/code>. For example, a Dapr app running on Kubernetes with &lt;code>dapr.io/app-id: &amp;quot;myapp&amp;quot;&lt;/code> will need an Event Hubs consumer group named &lt;code>myapp&lt;/code>.&lt;/p>
-&lt;p>Note: Dapr passes the name of the Consumer group to the EventHub and so this is not supplied in the metadata.&lt;/p>
+&lt;h2 id="创建azure-event-hub">创建Azure Event Hub&lt;/h2>
+&lt;p>请按照&lt;a href="https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-create">此处&lt;/a>的说明设置 Azure Event Hubs。 由于本实施例使用Event Processor Host，你还需要一个&lt;a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-account-create?tabs=azure-portal">Azure Storage Account&lt;/a>。 请遵循&lt;a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-account-keys-manage">此处&lt;/a>的说明来管理存储帐户访问密钥。&lt;/p>
+&lt;p>请参阅&lt;a href="https://docs.microsoft.com/en-us/azure/event-hubs/authorize-access-shared-access-signature">这里&lt;/a>，了解如何获取 Event Hubs 连接地址。 注意这不是Event Hubs命名空间。&lt;/p>
+&lt;h3 id="为每个订阅者创建消费组">为每个订阅者创建消费组&lt;/h3>
+&lt;p>对于每个要订阅事件的Dapr应用，创建一个名称为&lt;code>dapr id&lt;/code>的Event Hubs消费组。 例如，在 Kubernetes 上运行的 Dapr 应用程序的 &lt;code>dapr.io/app-id: &amp;quot;myapp&amp;quot;&lt;/code>将需要一个名为&lt;code>myapp&lt;/code>的Event Hubs消费组。&lt;/p>
+&lt;p>注意：Dapr将消费组的名称传递给EventHub，因此没有在元数据中提供。&lt;/p>
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
-&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Dapr组件的基本格式&lt;/a>&lt;/li>
+&lt;li>请访问 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">本指南&lt;/a> ，了解如何配置 pub/sub 组件&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/">发布/订阅构建块&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: Azure Service Bus</title><link>https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/setup-azure-servicebus/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/setup-azure-servicebus/</guid><description>
-&lt;h2 id="component-format">Component format&lt;/h2>
-&lt;p>To setup Azure Event Hubs pubsub create a component of type &lt;code>pubsub.azure.servicebus&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-1-setup-the-pubsub-component">this guide&lt;/a> on how to create and apply a pubsub configuration. To setup Redis Streams pubsub create a component of type &lt;code>pubsub.redis&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-1-setup-the-pubsub-component">this guide&lt;/a> on how to create and apply a pubsub configuration.&lt;/p>
+&lt;h2 id="组件格式">组件格式&lt;/h2>
+&lt;p>要安装 Azure Event Hubs pubsub ，请创建一个类型为 &lt;code>pubsub.azure.servicebus&lt;/code> 的组件。 请参阅 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-1-setup-the-pubsub-component">本指南&lt;/a>，了解如何创建和应用 pubsub 配置。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -410,113 +408,113 @@ AWS
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">autoDeleteOnIdleInSec&lt;/span> &lt;span style="color:#75715e"># Optional&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">10&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
-&lt;p>&lt;strong>NOTE:&lt;/strong> The above settings are shared across all topics that use this component.&lt;/p>
+&lt;p>__注意：__上述设置在使用该组件的所有主题中是通用的。&lt;/p>
 &lt;/blockquote>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 The example configuration shown above, contain a username and password as plain-text strings. 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/%7D">here&lt;/a>。
+以上示例将 Secret 明文存储。 更推荐的方式是使用 &lt;a href="https://docs.dapr.io/operations/components/component-secrets/%7D">这里&lt;/a>描述的密钥存储。
 &lt;/div>
-&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th>字段&lt;/th>
-&lt;th style="text-align:center">Required&lt;/th>
-&lt;th>Details&lt;/th>
-&lt;th>Example&lt;/th>
+&lt;th style="text-align:center">必填&lt;/th>
+&lt;th>详情&lt;/th>
+&lt;th>示例&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
 &lt;td>connectionString&lt;/td>
 &lt;td style="text-align:center">Y&lt;/td>
-&lt;td>Connection-string for the Event Hubs&lt;/td>
+&lt;td>Event Hubs的连接地址&lt;/td>
 &lt;td>&amp;ldquo;&lt;code>Endpoint=sb://{ServiceBusNamespace}.servicebus.windows.net/;SharedAccessKeyName={PolicyName};SharedAccessKey={Key};EntityPath={ServiceBus}&lt;/code>&amp;rdquo;&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>timeoutInSec&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Timeout for sending messages and management operations. Default: &lt;code>60&lt;/code> Default: &lt;code>60&lt;/code>&lt;/td>
+&lt;td>发送消息和其他管理操作的超时时间。 默认值：&lt;code>60&lt;/code>&lt;/td>
 &lt;td>&lt;code>30&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>handlerTimeoutInSec&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Timeout for invoking app handler. # Optional. Default: &lt;code>60&lt;/code> # Optional. Default: &lt;code>60&lt;/code>&lt;/td>
+&lt;td>调用应用handler的超时。 # 可选的。 默认值：&lt;code>60&lt;/code>&lt;/td>
 &lt;td>&lt;code>30&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>disableEntityManagement&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>When set to true, topics and subscriptions do not get created automatically. Default: &lt;code>&amp;quot;false&amp;quot;&lt;/code> Default: &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
+&lt;td>设置为 &amp;ldquo;true &amp;ldquo;时，主题和订阅不会自动创建。 默认值为 &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
 &lt;td>&lt;code>&amp;quot;true&amp;quot;&lt;/code>, &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>maxDeliveryCount&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Defines the number of attempts the server will make to deliver a message. Default set by server Default set by server&lt;/td>
+&lt;td>定义服务器发送消息的尝试次数。 由服务端默认设置&lt;/td>
 &lt;td>&lt;code>10&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>lockDurationInSec&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Defines the length in seconds that a message will be locked for before expiring. Default set by server Default set by server&lt;/td>
+&lt;td>定义消息过期前被锁定的时长，以秒为单位。 由服务端默认设置&lt;/td>
 &lt;td>&lt;code>30&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>lockRenewalInSec&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Defines the frequency at which buffered message locks will be renewed. Default: &lt;code>20&lt;/code>. Default: &lt;code>20&lt;/code>.&lt;/td>
+&lt;td>定义缓冲消息锁的更新频率。 默认值：&lt;code>20&lt;/code>.&lt;/td>
 &lt;td>&lt;code>20&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>maxActiveMessages&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Defines the maximum number of messages to be buffered or processing at once. Default: &lt;code>10000&lt;/code> Default: &lt;code>10000&lt;/code>&lt;/td>
+&lt;td>定义一次要缓冲或处理的消息的最大数量。 默认值：&lt;code>10000&lt;/code>&lt;/td>
 &lt;td>&lt;code>2000&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>maxActiveMessagesRecoveryInSec&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Defines the number of seconds to wait once the maximum active message limit is reached. Default: &lt;code>2&lt;/code> Default: &lt;code>2&lt;/code>&lt;/td>
+&lt;td>定义达到最大活跃消息限制后等待的时长(秒) 默认值：&lt;code>2&lt;/code>&lt;/td>
 &lt;td>&lt;code>10&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>maxConcurrentHandlers&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Defines the maximum number of concurrent message handlers&lt;/td>
+&lt;td>定义并发消息处理器的最大数量&lt;/td>
 &lt;td>&lt;code>10&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>prefetchCount&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Defines the number of prefetched messages (use for high throughput / low latency scenarios)&lt;/td>
+&lt;td>定义预取消息的数量(用于高吞吐量/低延迟场景)&lt;/td>
 &lt;td>&lt;code>5&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>defaultMessageTimeToLiveInSec&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Default message time to live.&lt;/td>
+&lt;td>默认消息存活时间&lt;/td>
 &lt;td>&lt;code>10&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>autoDeleteOnIdleInSec&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Time in seconds to wait before auto deleting messages.&lt;/td>
+&lt;td>自动删除消息前等待的时间(秒)&lt;/td>
 &lt;td>&lt;code>10&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="create-an-azure-service-bus">Create an Azure Service Bus&lt;/h2>
-&lt;p>Follow the instructions &lt;a href="https://docs.microsoft.com/en-us/azure/service-bus-messaging/service-bus-quickstart-topics-subscriptions-portal">here&lt;/a> on setting up Azure Service Bus Topics.&lt;/p>
+&lt;h2 id="创建azure-service-bus">创建Azure Service Bus&lt;/h2>
+&lt;p>请按照&lt;a href="https://docs.microsoft.com/en-us/azure/service-bus-messaging/service-bus-quickstart-topics-subscriptions-portal">此处&lt;/a>的说明设置Azure Service Bus Topics。&lt;/p>
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
-&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Dapr组件的基本格式&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/">发布/订阅构建块&lt;/a>&lt;/li>
+&lt;li>请访问 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">本指南&lt;/a> ，了解如何配置 pub/sub 组件&lt;/li>
 &lt;/ul></description></item><item><title>Operations: GCP Pub/Sub</title><link>https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/setup-gcp-pubsub/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/setup-gcp-pubsub/</guid><description>
-&lt;h2 id="create-a-dapr-component">Create a Dapr component&lt;/h2>
-&lt;p>To setup GCP pubsub create a component of type &lt;code>pubsub.gcp.pubsub&lt;/code>. To setup MQTT pubsub create a component of type &lt;code>pubsub.mqtt&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-1-setup-the-pubsub-component">this guide&lt;/a> on how to create and apply a pubsub configuration&lt;/p>
+&lt;h2 id="创建-dapr-组件">创建 Dapr 组件&lt;/h2>
+&lt;p>要安装GCP pubsub，请创建一个类型为&lt;code>pubsub.gcp.pubsub&lt;/code>的组件。 请参阅 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-1-setup-the-pubsub-component">本指南&lt;/a>，了解如何创建和应用 pubsub 配置。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -551,97 +549,97 @@ AWS
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 The example configuration shown above, contain a username and password as plain-text strings. 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/%7D">here&lt;/a>。
+以上示例将 Secret 明文存储。 更推荐的方式是使用 &lt;a href="https://docs.dapr.io/operations/components/component-secrets/%7D">这里&lt;/a>描述的密钥存储。
 &lt;/div>
-&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th>字段&lt;/th>
-&lt;th style="text-align:center">Required&lt;/th>
-&lt;th>Details&lt;/th>
-&lt;th>Example&lt;/th>
+&lt;th style="text-align:center">必填&lt;/th>
+&lt;th>详情&lt;/th>
+&lt;th>示例&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
 &lt;td>type&lt;/td>
 &lt;td style="text-align:center">Y&lt;/td>
-&lt;td>GCP credentials type&lt;/td>
+&lt;td>GCP 凭证类型&lt;/td>
 &lt;td>&lt;code>service_account&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>project_id&lt;/td>
 &lt;td style="text-align:center">Y&lt;/td>
-&lt;td>GCP project id&lt;/td>
+&lt;td>GCP 项目 id&lt;/td>
 &lt;td>&lt;code>projectId&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>private_key_id&lt;/td>
 &lt;td style="text-align:center">Y&lt;/td>
-&lt;td>GCP private key id&lt;/td>
+&lt;td>GCP 私钥 id&lt;/td>
 &lt;td>&lt;code>&amp;quot;privateKeyId&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>private_key&lt;/td>
 &lt;td style="text-align:center">Y&lt;/td>
-&lt;td>GCP credentials private key. Replace with x509 cert Replace with x509 cert&lt;/td>
+&lt;td>GCP凭证私钥 替换为x509证书&lt;/td>
 &lt;td>&lt;code>12345-12345&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>client_email&lt;/td>
 &lt;td style="text-align:center">Y&lt;/td>
-&lt;td>GCP client email&lt;/td>
+&lt;td>GCP 客户端邮箱地址&lt;/td>
 &lt;td>&lt;code>&amp;quot;client@email.com&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>client_id&lt;/td>
 &lt;td style="text-align:center">Y&lt;/td>
-&lt;td>GCP client id&lt;/td>
+&lt;td>GCP 客户端 id&lt;/td>
 &lt;td>&lt;code>0123456789-0123456789&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>auth_uri&lt;/td>
 &lt;td style="text-align:center">Y&lt;/td>
-&lt;td>Google account OAuth endpoint&lt;/td>
+&lt;td>Google帐户 OAuth 端点&lt;/td>
 &lt;td>&lt;code>https://accounts.google.com/o/oauth2/auth&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>token_uri&lt;/td>
 &lt;td style="text-align:center">Y&lt;/td>
-&lt;td>Google account token uri&lt;/td>
+&lt;td>Google帐户token地址&lt;/td>
 &lt;td>&lt;code>https://oauth2.googleapis.com/token&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>auth_provider_x509_cert_url&lt;/td>
 &lt;td style="text-align:center">Y&lt;/td>
-&lt;td>GCP credentials cert url&lt;/td>
+&lt;td>GCP凭证证书地址&lt;/td>
 &lt;td>&lt;code>https://www.googleapis.com/oauth2/v1/certs&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>client_x509_cert_url&lt;/td>
 &lt;td style="text-align:center">Y&lt;/td>
-&lt;td>GCP credentials project x509 cert url&lt;/td>
+&lt;td>GCP凭证项目x509证书地址&lt;/td>
 &lt;td>&lt;code>https://www.googleapis.com/robot/v1/metadata/x509/&amp;lt;PROJECT_NAME&amp;gt;.iam.gserviceaccount.com&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>disableEntityManagement&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>When set to &lt;code>&amp;quot;true&amp;quot;&lt;/code>, topics and subscriptions do not get created automatically. Default: &lt;code>&amp;quot;false&amp;quot;&lt;/code> Default: &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
+&lt;td>当设置为&lt;code>&amp;quot;true&amp;quot;&lt;/code>时，主题和订阅不会自动创建。 默认值为 &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
 &lt;td>&lt;code>&amp;quot;true&amp;quot;&lt;/code>, &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="create-a-gcp-pubsub">Create a GCP Pub/Sub&lt;/h2>
-&lt;p>Follow the instructions &lt;a href="https://cloud.google.com/pubsub/docs/quickstart-console">here&lt;/a> on setting up Google Cloud Pub/Sub system.&lt;/p>
+&lt;h2 id="创建-gcp-pubsub">创建 GCP Pub/Sub&lt;/h2>
+&lt;p>按照&lt;a href="https://cloud.google.com/pubsub/docs/quickstart-console">这里&lt;/a>的说明设置Google Cloud Pub/Sub系统。&lt;/p>
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
-&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Dapr组件的基本格式&lt;/a>&lt;/li>
+&lt;li>请访问 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">本指南&lt;/a> ，了解如何配置 pub/sub 组件&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/">发布/订阅构建块&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: Hazelcast</title><link>https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/setup-hazelcast/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/setup-hazelcast/</guid><description>
-&lt;h2 id="component-format">Component format&lt;/h2>
-&lt;p>To setup hazelcast pubsub create a component of type &lt;code>pubsub.hazelcast&lt;/code>. To setup Redis Streams pubsub create a component of type &lt;code>pubsub.redis&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-1-setup-the-pubsub-component">this guide&lt;/a> on how to create and apply a pubsub configuration.&lt;/p>
+&lt;h2 id="组件格式">组件格式&lt;/h2>
+&lt;p>要安装 hazelcast pubsub ，请创建一个类型为 &lt;code>pubsub.hazelcast&lt;/code> 的组件。 请参阅 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-1-setup-the-pubsub-component">本指南&lt;/a>，了解如何创建和应用 pubsub 配置。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -656,28 +654,28 @@ AWS
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 The example configuration shown above, contain a username and password as plain-text strings. 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/%7D">here&lt;/a>。
+以上示例将密钥明文存储。 更推荐的方式是使用 &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>描述的密钥仓库来存储密钥。
 &lt;/div>
-&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th>字段&lt;/th>
-&lt;th style="text-align:center">Required&lt;/th>
-&lt;th>Details&lt;/th>
-&lt;th>Example&lt;/th>
+&lt;th style="text-align:center">必填&lt;/th>
+&lt;th>详情&lt;/th>
+&lt;th>示例&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
 &lt;td>connectionString&lt;/td>
 &lt;td style="text-align:center">Y&lt;/td>
-&lt;td>A comma delimited string of servers. Example: &amp;ldquo;hazelcast:3000,hazelcast2:3000&amp;rdquo; Example: &amp;ldquo;hazelcast:3000,hazelcast2:3000&amp;rdquo;&lt;/td>
+&lt;td>逗号分隔的服务器地址 示例：“hazelcast:3000,hazelcast2:3000”&lt;/td>
 &lt;td>&lt;code>&amp;quot;hazelcast:3000,hazelcast2:3000&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="create-a-hazelcast-instance">Create a Hazelcast instance&lt;/h2>
+&lt;h2 id="创建hazelcast-实例">创建Hazelcast 实例&lt;/h2>
 &lt;ul class="nav nav-tabs" id="tabs-2" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
 id="tabs-2-self-hosted-tab" data-toggle="tab" href="#tabs-2-self-hosted" role="tab"
 aria-controls="tabs-2-self-hosted" aria-selected="true">
@@ -691,22 +689,22 @@ Kubernetes
 &lt;/li>&lt;/ul>
 &lt;div class="tab-content" id="tabs-2-content">
 &lt;div class="tab-pane fade show active" id="tabs-2-self-hosted" role="tabpanel" aria-labelled-by="tabs-2-self-hosted-tab">
-&lt;br />&lt;p>You can run Hazelcast locally using Docker:&lt;/p>
+&lt;br />&lt;p>你可以使用Docker在本地运行Hazelcast：&lt;/p>
 &lt;pre>&lt;code>docker run -e JAVA_OPTS=&amp;quot;-Dhazelcast.local.publicAddress=127.0.0.1:5701&amp;quot; -p 5701:5701 hazelcast/hazelcast
-&lt;/code>&lt;/pre>&lt;p>You can then interact with the server using the &lt;code>127.0.0.1:5701&lt;/code>.&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>然后你可以通过&lt;code>127.0.0.1:5701&lt;/code>与服务器交互。&lt;/p>
 &lt;/div>
 &lt;div class="tab-pane fade" id="tabs-2-kubernetes" role="tabpanel" aria-labelled-by="tabs-2-kubernetes-tab">
-&lt;br />&lt;p>The easiest way to install Hazelcast on Kubernetes is by using the &lt;a href="https://github.com/helm/charts/tree/master/stable/hazelcast">Helm chart&lt;/a>.&lt;/p>
+&lt;br />&lt;p>在Kubernetes上安装Hazelcast的最简单方法是使用&lt;a href="https://github.com/helm/charts/tree/master/stable/hazelcast">Helm chart&lt;/a>。&lt;/p>
 &lt;/div>
 &lt;/div>
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
-&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Dapr组件的基本格式&lt;/a>&lt;/li>
+&lt;li>请访问 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">本指南&lt;/a> ，了解如何配置 pub/sub 组件&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/">发布/订阅构建块&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: MQTT</title><link>https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/setup-mqtt/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/setup-mqtt/</guid><description>
-&lt;h2 id="component-format">Component format&lt;/h2>
-&lt;p>To setup MQTT pubsub create a component of type &lt;code>pubsub.mqtt&lt;/code>. To setup MQTT pubsub create a component of type &lt;code>pubsub.mqtt&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-1-setup-the-pubsub-component">this guide&lt;/a> on how to create and apply a pubsub configuration&lt;/p>
+&lt;h2 id="组件格式">组件格式&lt;/h2>
+&lt;p>要安装MQTT pubsub，请创建一个类型为&lt;code>pubsub.mqtt&lt;/code>的组件。 请参阅 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-1-setup-the-pubsub-component">本指南&lt;/a>，了解如何创建和应用 pubsub 配置。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -724,63 +722,63 @@ Kubernetes
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;false&amp;#34;&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">cleanSession&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;false&amp;#34;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th>字段&lt;/th>
-&lt;th style="text-align:center">Required&lt;/th>
-&lt;th>Details&lt;/th>
-&lt;th>Example&lt;/th>
+&lt;th style="text-align:center">必填&lt;/th>
+&lt;th>详情&lt;/th>
+&lt;th>示例&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
 &lt;td>url&lt;/td>
 &lt;td style="text-align:center">Y&lt;/td>
-&lt;td>Address of the MQTT broker&lt;/td>
-&lt;td>Use &lt;code>**tcp://**&lt;/code> scheme for non-TLS communication. Use&lt;code>**tcps://**&lt;/code> scheme for TLS communication. &lt;br> &amp;ldquo;tcp://[username][:password]@host.domain[:port]&amp;rdquo; Use&lt;code>**tcps://**&lt;/code> scheme for TLS communication. &lt;br> &amp;ldquo;tcp://[username][:password]@host.domain[:port]&amp;rdquo;&lt;/td>
+&lt;td>MQTT broker地址&lt;/td>
+&lt;td>非TLS通信： &lt;code>**tcp://**&lt;/code>， TLS通信：&lt;code>**tcps://**&lt;/code>。 &lt;br> &amp;ldquo;tcp://[username][:password]@host.domain[:port]&amp;rdquo;&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>qos&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Indicates the Quality of Service Level (QoS) of the message. Default 0 Default 0&lt;/td>
+&lt;td>表示消息的服务质量等级（QoS）， 默认值 0&lt;/td>
 &lt;td>&lt;code>1&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>retain&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Defines whether the message is saved by the broker as the last known good value for a specified topic. Default &lt;code>&amp;quot;false&amp;quot;&lt;/code> Default &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
+&lt;td>定义消息是否被broker保存为指定主题的最后已知有效值 默认值为 &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
 &lt;td>&lt;code>&amp;quot;true&amp;quot;&lt;/code>, &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>cleanSession&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>will set the &amp;ldquo;clean session&amp;rdquo; in the connect message when client connects to an MQTT broker. Default &lt;code>&amp;quot;true&amp;quot;&lt;/code> Default &lt;code>&amp;quot;true&amp;quot;&lt;/code>&lt;/td>
+&lt;td>将在客户端连接到MQTT broker时，在连接消息中设置 &amp;ldquo;clean session&amp;rdquo; 默认: &lt;code>&amp;quot;true&amp;quot;&lt;/code>&lt;/td>
 &lt;td>&lt;code>&amp;quot;true&amp;quot;&lt;/code>, &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>caCert&lt;/td>
-&lt;td style="text-align:center">Required for using TLS&lt;/td>
-&lt;td>Certificate authority certificate. Client key. Can be &lt;code>secretKeyRef&lt;/code> to use a secret reference&lt;/td>
+&lt;td style="text-align:center">使用TLS时需要&lt;/td>
+&lt;td>授权， 可以用&lt;code>secretKeyRef&lt;/code>来引用&lt;/td>
 &lt;td>&lt;code>0123456789-0123456789&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>clientCert&lt;/td>
-&lt;td style="text-align:center">Required for using TLS&lt;/td>
-&lt;td>Client certificate. Can be &lt;code>secretKeyRef&lt;/code> to use a secret reference&lt;/td>
+&lt;td style="text-align:center">使用TLS时需要&lt;/td>
+&lt;td>客户端证书， 可以用&lt;code>secretKeyRef&lt;/code>来引用&lt;/td>
 &lt;td>&lt;code>0123456789-0123456789&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>clientKey&lt;/td>
-&lt;td style="text-align:center">Required for using TLS&lt;/td>
-&lt;td>Client key. Can be &lt;code>secretKeyRef&lt;/code> to use a secret reference&lt;/td>
+&lt;td style="text-align:center">使用TLS时需要&lt;/td>
+&lt;td>客户端键， 可以用&lt;code>secretKeyRef&lt;/code>来引用&lt;/td>
 &lt;td>&lt;code>012345&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h3 id="communication-using-tls">Communication using TLS&lt;/h3>
-&lt;p>To configure communication using TLS, ensure mosquitto broker is configured to support certificates. Pre-requisite includes &lt;code>certficate authority certificate&lt;/code>, &lt;code>ca issued client certificate&lt;/code>, &lt;code>client private key&lt;/code>. Here is an example. Pre-requisite includes &lt;code>certficate authority certificate&lt;/code>, &lt;code>ca issued client certificate&lt;/code>, &lt;code>client private key&lt;/code>. Here is an example.&lt;/p>
+&lt;h3 id="使用-tls-通信">使用 TLS 通信&lt;/h3>
+&lt;p>要配置使用 TLS 通信，需配置并确保mosquitto broker支持凭证。 前提条件包括&lt;code>certficate authority certificate&lt;/code>、&lt;code>ca issued client certificate&lt;/code>、&lt;code>client private key&lt;/code>。 参见下面的示例。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -804,8 +802,8 @@ Kubernetes
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#39;&amp;#39;&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">clientKey&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#39;&amp;#39;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="consuming-a-shared-topic">Consuming a shared topic&lt;/h3>
-&lt;p>When consuming a shared topic, each consumer must have a unique identifier. By default, the application Id is used to uniquely identify each consumer and publisher. In self-hosted mode, running each Dapr run with a different application Id is sufficient to have them consume from the same shared topic. However on Kubernetes, a pod with multiple application instances shares the same application Id, prohibiting all instances from consuming the same topic. To overcome this, configure the component&amp;rsquo;s &lt;code>ConsumerID&lt;/code> metadata with a &lt;code>{uuid}&lt;/code> tag, making each instance to have a randomly generated &lt;code>ConsumerID&lt;/code> value on start up. For example:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="消费共享主题">消费共享主题&lt;/h3>
+&lt;p>当消费一个共享主题时，每个消费者必须有一个唯一的标识符。 默认情况下，应用ID用于唯一标识每个消费者和发布者。 在自托管模式下，用不同的应用程序Id运行每个Dapr运行就足以让它们从同一个共享主题消费。 然而在Kubernetes上，一个有多个应用实例的pod共享同一个应用Id，这阻碍了所有实例消费同一个主题。 为了克服这个问题，请用&lt;code>{uuid}&lt;/code>标签配置组件的&lt;code>ConsumerID&lt;/code>元数据，使每个实例在启动时有一个随机生成的&lt;code>ConsumerID&lt;/code>值。 例如:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -828,9 +826,9 @@ Kubernetes
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-The above example uses secrets as plain strings. The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
+以上示例将密钥明文存储。 更推荐的方式是使用 &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>描述的密钥仓库来存储密钥。
 &lt;/div>
-&lt;h2 id="create-a-mqtt-broker">Create a MQTT broker&lt;/h2>
+&lt;h2 id="创建一个-mqtt-broker">创建一个 MQTT broker&lt;/h2>
 &lt;ul class="nav nav-tabs" id="tabs-2" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
 id="tabs-2-self-hosted-tab" data-toggle="tab" href="#tabs-2-self-hosted" role="tab"
 aria-controls="tabs-2-self-hosted" aria-selected="true">
@@ -844,12 +842,12 @@ Kubernetes
 &lt;/li>&lt;/ul>
 &lt;div class="tab-content" id="tabs-2-content">
 &lt;div class="tab-pane fade show active" id="tabs-2-self-hosted" role="tabpanel" aria-labelled-by="tabs-2-self-hosted-tab">
-&lt;br />&lt;p>You can run a MQTT broker &lt;a href="https://hub.docker.com/_/eclipse-mosquitto">locally using Docker&lt;/a>:&lt;/p>
+&lt;br />&lt;p>你可以使用Docker&lt;a href="https://hub.docker.com/_/eclipse-mosquitto">本地运行MQTT broker&lt;/a>:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">docker run -d -p 1883:1883 -p 9001:9001 --name mqtt eclipse-mosquitto:1.6.9
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>You can then interact with the server using the client port: &lt;code>mqtt://localhost:1883&lt;/code>&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后你可以通过&lt;code>mqtt://localhost:1883&lt;/code>与服务器交互&lt;/p>
 &lt;/div>
 &lt;div class="tab-pane fade" id="tabs-2-kubernetes" role="tabpanel" aria-labelled-by="tabs-2-kubernetes-tab">
-&lt;br />&lt;p>You can run a MQTT broker in kubernetes using following yaml:&lt;/p>
+&lt;br />&lt;p>你可以使用下面的yaml在kubernetes中运行一个MQTT broker:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">apps/v1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Deployment&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -897,17 +895,17 @@ Kubernetes
 &lt;span style="color:#f92672">targetPort&lt;/span>: &lt;span style="color:#ae81ff">websocket&lt;/span>
 &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">websocket&lt;/span>
 &lt;span style="color:#f92672">protocol&lt;/span>: &lt;span style="color:#ae81ff">TCP&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>You can then interact with the server using the client port: &lt;code>tcp://mqtt-broker.default.svc.cluster.local:1883&lt;/code>&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后你可以通过&lt;code>tcp://mqtt-broker.default.svc.cluster.local:1883&lt;/code>与服务器交互。&lt;/p>
 &lt;/div>
 &lt;/div>
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
-&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Dapr组件的基本格式&lt;/a>&lt;/li>
+&lt;li>请访问 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">本指南&lt;/a> ，了解如何配置 pub/sub 组件&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/">发布/订阅构建块&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: NATS Streaming</title><link>https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/setup-nats-streaming/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/setup-nats-streaming/</guid><description>
-&lt;h2 id="component-format">Component format&lt;/h2>
-&lt;p>要设置NATS Streaming pubsub，请创建类型为 &lt;code>pubsub.natsstreaming&lt;/code> 的组件。 To setup Redis Streams pubsub create a component of type &lt;code>pubsub.redis&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-1-setup-the-pubsub-component">this guide&lt;/a> on how to create and apply a pubsub configuration.&lt;/p>
+&lt;h2 id="组件格式">组件格式&lt;/h2>
+&lt;p>要设置NATS Streaming pubsub，请创建类型为 &lt;code>pubsub.natsstreaming&lt;/code> 的组件。 请参阅 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-1-setup-the-pubsub-component">本指南&lt;/a>，了解如何创建和应用 pubsub 配置。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -945,49 +943,26 @@ Kubernetes
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">startAtTimeFormat&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">subscriptionType&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-SUBSCRIPTION-TYPE&amp;gt; # Required. Allowed values&lt;/span>: &lt;span style="color:#ae81ff">topic, queue.&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">ackWaitTime&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span> &lt;span style="color:#75715e"># Optional. &lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">maxInFlight&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span> &lt;span style="color:#75715e"># Optional.&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">durableSubscriptionName&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span> &lt;span style="color:#75715e"># Optional.&lt;/span>
-&lt;span style="color:#75715e"># following subscription options - only one can be used&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">deliverNew&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;bool&amp;gt;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">startAtSequence&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">1&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">startWithLastReceived&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#66d9ef">false&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">deliverAll&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#66d9ef">false&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">startAtTimeDelta&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">startAtTime&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">startAtTimeFormat&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 The example configuration shown above, contain a username and password as plain-text strings. 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/%7D">here&lt;/a>。
+以上示例将密钥明文存储。 更推荐的方式是使用 &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>描述的密钥仓库来存储密钥。
 &lt;/div>
-&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th>字段&lt;/th>
-&lt;th style="text-align:center">Required&lt;/th>
-&lt;th>Details&lt;/th>
-&lt;th>Example&lt;/th>
+&lt;th style="text-align:center">必填&lt;/th>
+&lt;th>详情&lt;/th>
+&lt;th>示例&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
 &lt;td>natsURL&lt;/td>
 &lt;td style="text-align:center">Y&lt;/td>
-&lt;td>NATS server address URL&lt;/td>
+&lt;td>NATS 服务器地址 URL&lt;/td>
 &lt;td>&amp;ldquo;&lt;code>nats://localhost:4222&lt;/code>&amp;rdquo;&lt;/td>
 &lt;/tr>
 &lt;tr>
@@ -999,72 +974,72 @@ Kubernetes
 &lt;tr>
 &lt;td>subscriptionType&lt;/td>
 &lt;td style="text-align:center">Y&lt;/td>
-&lt;td>Subscription type. Subscription type. Allowed values &lt;code>&amp;quot;topic&amp;quot;&lt;/code>, &lt;code>&amp;quot;queue&amp;quot;&lt;/code>&lt;/td>
+&lt;td>订阅类型， 允许的值&lt;code>&amp;quot;topic&amp;quot;&lt;/code>，&lt;code>&amp;quot;queue&amp;quot;&lt;/code>&lt;/td>
 &lt;td>&lt;code>&amp;quot;topic&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>ackWaitTime&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>See &lt;a href="https://docs.nats.io/developing-with-nats-streaming/acks#acknowledgements">here&lt;/a>&lt;/td>
+&lt;td>见&lt;a href="https://docs.nats.io/developing-with-nats-streaming/acks#acknowledgements">这里&lt;/a>&lt;/td>
 &lt;td>&lt;code>&amp;quot;300ms&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>maxInFlight&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>See &lt;a href="https://docs.nats.io/developing-with-nats-streaming/acks#acknowledgements">here&lt;/a>&lt;/td>
+&lt;td>见&lt;a href="https://docs.nats.io/developing-with-nats-streaming/acks#acknowledgements">这里&lt;/a>&lt;/td>
 &lt;td>&lt;code>&amp;quot;25&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>durableSubscriptionName&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>&lt;a href="https://docs.nats.io/developing-with-nats-streaming/durables">Durable subscriptions&lt;/a> identification name.&lt;/td>
+&lt;td>&lt;a href="https://docs.nats.io/developing-with-nats-streaming/durables">持久订阅&lt;/a>识别名称&lt;/td>
 &lt;td>&lt;code>&amp;quot;my-durable&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>deliverNew&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Subscription Options. Only one can be used. Subscription Options. Only one can be used. Deliver new messages only&lt;/td>
+&lt;td>订阅策略： 只能使用一个， 只发送新消息&lt;/td>
 &lt;td>&lt;code>&amp;quot;true&amp;quot;&lt;/code>, &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>startAtSequence&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Subscription Options. Only one can be used. Subscription Options. Only one can be used. Sets the desired start sequence position and state&lt;/td>
+&lt;td>订阅策略： 只能使用一个， 设置期望的起始序列位置和状态&lt;/td>
 &lt;td>&lt;code>&amp;quot;100000&amp;quot;&lt;/code>, &lt;code>&amp;quot;230420&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>startWithLastReceived&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Subscription Options. Only one can be used. Subscription Options. Only one can be used. Sets the start position to last received.&lt;/td>
+&lt;td>订阅策略： 只能使用一个， 将起始位置设置为最后接收的位置&lt;/td>
 &lt;td>&lt;code>&amp;quot;true&amp;quot;&lt;/code>, &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>deliverAll&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Subscription Options. Only one can be used. Subscription Options. Only one can be used. Deliver all available messages&lt;/td>
+&lt;td>订阅策略： 只能使用一个， 传递所有可用消息&lt;/td>
 &lt;td>&lt;code>&amp;quot;true&amp;quot;&lt;/code>, &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>startAtTimeDelta&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Subscription Options. Only one can be used. Subscription Options. Only one can be used. Sets the desired start time position and state using the delta&lt;/td>
+&lt;td>订阅策略： 只能使用一个， 使用增量设置所需的起始时间位置和状态&lt;/td>
 &lt;td>&lt;code>&amp;quot;10m&amp;quot;&lt;/code>, &lt;code>&amp;quot;23s&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>startAtTime&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Subscription Options. Only one can be used. Subscription Options. Only one can be used. Sets the desired start time position and state&lt;/td>
+&lt;td>订阅策略： 只能使用一个， 设置所需的起始时间位置和状态&lt;/td>
 &lt;td>&lt;code>&amp;quot;Feb 3, 2013 at 7:54pm (PST)&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>startAtTimeDelta&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Must be used with &lt;code>startAtTime&lt;/code>. Sets the format for the time Sets the format for the time&lt;/td>
+&lt;td>必须与&lt;code>startAtTime&lt;/code>一起使用， 设置时间的格式&lt;/td>
 &lt;td>&lt;code>&amp;quot;Jan 2, 2006 at 3:04pm (MST)&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="create-a-nats-server">Create a NATS server&lt;/h2>
+&lt;h2 id="创建nats服务器">创建NATS服务器&lt;/h2>
 &lt;ul class="nav nav-tabs" id="tabs-2" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
 id="tabs-2-self-hosted-tab" data-toggle="tab" href="#tabs-2-self-hosted" role="tab"
 aria-controls="tabs-2-self-hosted" aria-selected="true">
@@ -1078,28 +1053,28 @@ Kubernetes
 &lt;/li>&lt;/ul>
 &lt;div class="tab-content" id="tabs-2-content">
 &lt;div class="tab-pane fade show active" id="tabs-2-self-hosted" role="tabpanel" aria-labelled-by="tabs-2-self-hosted-tab">
-&lt;br />&lt;p>You can run a NATS server locally using Docker:&lt;/p>
+&lt;br />&lt;p>您可以在本地使用 Docker运行NATS 服务器：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">docker run -d --name nats-streaming -p 4222:4222 -p 8222:8222 nats-streaming
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>You can then interact with the server using the client port: &lt;code>localhost:4222&lt;/code>.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后，您可以使用 &lt;code>localhost:4222&lt;/code> 与服务器进行交互。&lt;/p>
 &lt;/div>
 &lt;div class="tab-pane fade" id="tabs-2-kubernetes" role="tabpanel" aria-labelled-by="tabs-2-kubernetes-tab">
-&lt;br />&lt;p>Install NATS on Kubernetes by using the &lt;a href="https://docs.nats.io/nats-on-kubernetes/minimal-setup">kubectl&lt;/a>:&lt;/p>
+&lt;br />&lt;p>使用 &lt;a href="https://docs.nats.io/nats-on-kubernetes/minimal-setup">kubectl&lt;/a> 在 Kubernetes 上安装 NATS:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#75715e"># Single server NATS&lt;/span>
 kubectl apply -f https://raw.githubusercontent.com/nats-io/k8s/master/nats-server/single-server-nats.yml
 kubectl apply -f https://raw.githubusercontent.com/nats-io/k8s/master/nats-streaming-server/single-server-stan.yml
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>This installs a single NATS-Streaming and Nats into the &lt;code>default&lt;/code> namespace. To interact with NATS, find the service with: &lt;code>kubectl get svc stan&lt;/code>. To interact with NATS, find the service with: &lt;code>kubectl get svc stan&lt;/code>.&lt;/p>
-&lt;p>For example, if installing using the example above, the NATS Streaming address would be:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这将单个NATS-Streaming和Nats安装到&lt;code>default&lt;/code>命名空间。 要与NATS进行交互，请使用以下方法找到服务：&lt;code>kubectl get svc stan&lt;/code>.&lt;/p>
+&lt;p>例如，如果使用上面的例子安装， NATS Streaming地址是：&lt;/p>
 &lt;p>&lt;code>&amp;lt;YOUR-HOST&amp;gt;:4222&lt;/code>&lt;/p>
 &lt;/div>
 &lt;/div>
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
-&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Dapr组件的基本格式&lt;/a>&lt;/li>
+&lt;li>请访问 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">本指南&lt;/a> ，了解如何配置 pub/sub 组件&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/">发布/订阅构建块&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: Pulsar</title><link>https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/setup-pulsar/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/setup-pulsar/</guid><description>
-&lt;h2 id="component-format">Component format&lt;/h2>
-&lt;p>To setup Pulsar pubsub create a component of type &lt;code>pubsub.pulsar&lt;/code>. To setup Redis Streams pubsub create a component of type &lt;code>pubsub.redis&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-1-setup-the-pubsub-component">this guide&lt;/a> on how to create and apply a pubsub configuration.&lt;/p>
+&lt;h2 id="组件格式">组件格式&lt;/h2>
+&lt;p>要设置Pulsar pubsub，请创建一个&lt;code>pubsub.pulsar&lt;/code>类型的组件。 请参阅 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-1-setup-the-pubsub-component">本指南&lt;/a>，了解如何创建和应用 pubsub 配置。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -1113,32 +1088,32 @@ kubectl apply -f https://raw.githubusercontent.com/nats-io/k8s/master/nats-strea
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;localhost:6650&amp;#34;&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">enableTLS&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;false&amp;#34;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th>字段&lt;/th>
-&lt;th style="text-align:center">Required&lt;/th>
-&lt;th>Details&lt;/th>
-&lt;th>Example&lt;/th>
+&lt;th style="text-align:center">必填&lt;/th>
+&lt;th>详情&lt;/th>
+&lt;th>示例&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
 &lt;td>host&lt;/td>
 &lt;td style="text-align:center">Y&lt;/td>
-&lt;td>Address of the Pulsar broker. Address of the Pulsar broker. Default is &lt;code>&amp;quot;localhost:6650&amp;quot;&lt;/code>&lt;/td>
+&lt;td>Pulsar broker. 地址， 默认值是 &lt;code>&amp;quot;localhost:6650&amp;quot;&lt;/code>&lt;/td>
 &lt;td>&lt;code>&amp;quot;localhost:6650&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>enableTLS&lt;/td>
 &lt;td style="text-align:center">Y&lt;/td>
-&lt;td>Enable TLS. Enable TLS. Default: &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
+&lt;td>启用TLS 默认值为 &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
 &lt;td>&lt;code>&amp;quot;true&amp;quot;&lt;/code>, &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="create-a-pulsar-instance">Create a Pulsar instance&lt;/h2>
+&lt;h2 id="创建-pulsar-实例">创建 Pulsar 实例&lt;/h2>
 &lt;ul class="nav nav-tabs" id="tabs-1" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
 id="tabs-1-self-hosted-tab" data-toggle="tab" href="#tabs-1-self-hosted" role="tab"
 aria-controls="tabs-1-self-hosted" aria-selected="true">
@@ -1161,16 +1136,16 @@ apachepulsar/pulsar:2.5.1 \
 bin/pulsar standalone
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="tab-pane fade" id="tabs-1-kubernetes" role="tabpanel" aria-labelled-by="tabs-1-kubernetes-tab">
-&lt;br />&lt;p>Refer to the following &lt;a href="https://pulsar.apache.org/docs/en/kubernetes-helm/">Helm chart&lt;/a> Documentation.&lt;/p>
+&lt;br />&lt;p>请参考以下&lt;a href="https://pulsar.apache.org/docs/en/kubernetes-helm/">Helm chart&lt;/a>文档。&lt;/p>
 &lt;/div>
 &lt;/div>
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
-&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Dapr组件的基本格式&lt;/a>&lt;/li>
+&lt;li>请访问 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">本指南&lt;/a> ，了解如何配置 pub/sub 组件&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/">发布/订阅构建块&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: RabbitMQ</title><link>https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/setup-rabbitmq/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/setup-rabbitmq/</guid><description>
-&lt;h2 id="component-format">Component format&lt;/h2>
+&lt;h2 id="组件格式">组件格式&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -1201,76 +1176,76 @@ bin/pulsar standalone
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/%7D">here&lt;/a>。
+以上示例将密钥明文存储。 更推荐的方式是使用 &lt;a href="https://docs.dapr.io/operations/components/component-secrets/%7D">这里&lt;/a>描述的密钥仓库来存储密钥。
 &lt;/div>
-&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th>字段&lt;/th>
-&lt;th style="text-align:center">Required&lt;/th>
-&lt;th>Details&lt;/th>
-&lt;th>Example&lt;/th>
+&lt;th style="text-align:center">必填&lt;/th>
+&lt;th>详情&lt;/th>
+&lt;th>示例&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
 &lt;td>host&lt;/td>
 &lt;td style="text-align:center">Y&lt;/td>
-&lt;td>Connection-string for the rabbitmq host&lt;/td>
+&lt;td>Rabbitmq 的连接地址&lt;/td>
 &lt;td>&lt;code>amqp://user:pass@localhost:5672&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>durable&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Whether or not to use &lt;a href="https://www.rabbitmq.com/queues.html#durability">durable&lt;/a> queues. Defaults to &lt;code>&amp;quot;false&amp;quot;&lt;/code> Defaults to &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
+&lt;td>是否使用&lt;a href="https://www.rabbitmq.com/queues.html#durability">durable&lt;/a>队列， 默认值为 &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
 &lt;td>&lt;code>&amp;quot;true&amp;quot;&lt;/code>, &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>deletedWhenUnused&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Whether or not the queue sohuld be configured to &lt;a href="https://www.rabbitmq.com/queues.html">auto-delete&lt;/a> Defaults to &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
+&lt;td>是否将队列配置为&lt;a href="https://www.rabbitmq.com/queues.html">auto-delete&lt;/a> 默认为&lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
 &lt;td>&lt;code>&amp;quot;true&amp;quot;&lt;/code>, &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>autoAck&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Whether or not the queue consumer should &lt;a href="https://www.rabbitmq.com/confirms.html">auto-ack&lt;/a> messages. Defaults to &lt;code>&amp;quot;false&amp;quot;&lt;/code> Defaults to &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
+&lt;td>队列的消费者是否应该&lt;a href="https://www.rabbitmq.com/confirms.html">auto-ack&lt;/a>消息 默认值为 &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
 &lt;td>&lt;code>&amp;quot;true&amp;quot;&lt;/code>, &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>deliveryMode&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Persistence mode when publishing messages. Defaults to &lt;code>&amp;quot;0&amp;quot;&lt;/code>. Persistence mode when publishing messages. Defaults to &lt;code>&amp;quot;0&amp;quot;&lt;/code>. RabbitMQ treats &lt;code>&amp;quot;2&amp;quot;&lt;/code> as persistent, all other numbers as non-persistent&lt;/td>
+&lt;td>发布消息时的持久化模式， 默认值为 &lt;code>&amp;quot;0&amp;quot;&lt;/code>. 值为&lt;code>&amp;quot;2&amp;quot;&lt;/code>时RabbitMQ会进行持久化，其他值反之&lt;/td>
 &lt;td>&lt;code>&amp;quot;0&amp;quot;&lt;/code>, &lt;code>&amp;quot;2&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>requeueInFailure&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Whether or not to requeue when sending a &lt;a href="https://www.rabbitmq.com/nack.html">negative acknolwedgement&lt;/a> in case of a failure. Defaults to &lt;code>&amp;quot;false&amp;quot;&lt;/code> Defaults to &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
+&lt;td>在发送&lt;a href="https://www.rabbitmq.com/nack.html">否定应答&lt;/a>失败的情况下，是否进行重排， 默认值为 &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
 &lt;td>&lt;code>&amp;quot;true&amp;quot;&lt;/code>, &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>prefetchCount&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Number of messages to &lt;a href="https://www.rabbitmq.com/consumer-prefetch.html">prefecth&lt;/a>. Consider changing this to a non-zero value for production environments. Number of messages to &lt;a href="https://www.rabbitmq.com/consumer-prefetch.html">prefecth&lt;/a>. Consider changing this to a non-zero value for production environments. Defaults to &lt;code>&amp;quot;0&amp;quot;&lt;/code>, which means that all available messages will be pre-fetched.&lt;/td>
+&lt;td>&lt;a href="https://www.rabbitmq.com/consumer-prefetch.html">prefecth&lt;/a>的消息数量， 生产环境中需要考虑设置一个非零值。 该值默认为&lt;code>&amp;quot;0&amp;quot;&lt;/code>，这意味着所有可用消息都将被预先提取&lt;/td>
 &lt;td>&lt;code>&amp;quot;2&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>reconnectWait&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>How long to wait (in seconds) before reconnecting if a connection failure occurs&lt;/td>
+&lt;td>如果发生连接失败，在重新连接之前需要等待多长时间（秒）&lt;/td>
 &lt;td>&lt;code>&amp;quot;0&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>concurrencyMode&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>&lt;code>parallel&lt;/code> is the default, and allows processing multiple messages in parallel (limited by the &lt;code>app-max-concurrency&lt;/code> annotation, if configured). Set to &lt;code>single&lt;/code> to disable parallel processing. In most situations there&amp;rsquo;s no reason to change this.&lt;/td>
+&lt;td>默认值是&lt;code>parallel&lt;/code>，表示允许并行处理多个消息（如果配置了&lt;code>app-max-concurrency&lt;/code>，最大并行数会受到该值限制）, 设置为&lt;code>single&lt;/code>可禁用并行处理， 大多数情况下没必要去这么做&lt;/td>
 &lt;td>&lt;code>parallel&lt;/code>, &lt;code>single&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="create-a-rabbitmq-server">Create a RabbitMQ server&lt;/h2>
+&lt;h2 id="创建rabbitmq服务">创建RabbitMQ服务&lt;/h2>
 &lt;ul class="nav nav-tabs" id="tabs-1" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
 id="tabs-1-self-hosted-tab" data-toggle="tab" href="#tabs-1-self-hosted" role="tab"
 aria-controls="tabs-1-self-hosted" aria-selected="true">
@@ -1284,27 +1259,27 @@ Kubernetes
 &lt;/li>&lt;/ul>
 &lt;div class="tab-content" id="tabs-1-content">
 &lt;div class="tab-pane fade show active" id="tabs-1-self-hosted" role="tabpanel" aria-labelled-by="tabs-1-self-hosted-tab">
-&lt;br />&lt;p>You can run a RabbitMQ server locally using Docker:&lt;/p>
+&lt;br />&lt;p>你可以使用Docker在本地运行RabbitMQ ：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">docker run -d --hostname my-rabbit --name some-rabbit rabbitmq:3
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>You can then interact with the server using the client port: &lt;code>localhost:5672&lt;/code>.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后你可以通过&lt;code>localhost:5672&lt;/code>与服务器交互。&lt;/p>
 &lt;/div>
 &lt;div class="tab-pane fade" id="tabs-1-kubernetes" role="tabpanel" aria-labelled-by="tabs-1-kubernetes-tab">
-&lt;br />&lt;p>The easiest way to install RabbitMQ on Kubernetes is by using the &lt;a href="https://github.com/helm/charts/tree/master/stable/rabbitmq">Helm chart&lt;/a>:&lt;/p>
+&lt;br />&lt;p>在 Kubernetes 上安装 RabbitMQ 最简单的方法是使用 &lt;a href="https://github.com/helm/charts/tree/master/stable/rabbitmq">Helm chart&lt;/a>。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm install rabbitmq stable/rabbitmq
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Look at the chart output and get the username and password.&lt;/p>
-&lt;p>This will install RabbitMQ into the &lt;code>default&lt;/code> namespace. This will install RabbitMQ into the &lt;code>default&lt;/code> namespace. To interact with RabbitMQ, find the service with: &lt;code>kubectl get svc rabbitmq&lt;/code>.&lt;/p>
-&lt;p>For example, if installing using the example above, the RabbitMQ server client address would be:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>根据Helm图表的输出，得到用户名和密码。&lt;/p>
+&lt;p>这会把 RabbitMQ 安装到 &lt;code>default&lt;/code> 命名空间中， 要与RabbitMQ进行交互，请使用以下方法找到服务：&lt;code>kubectl get svc rabbitmq&lt;/code>。&lt;/p>
+&lt;p>如果使用上面的示例进行安装，RabbitMQ服务器的客户端地址是：&lt;/p>
 &lt;p>&lt;code>rabbitmq.default.svc.cluster.local:5672&lt;/code>&lt;/p>
 &lt;/div>
 &lt;/div>
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a> in the Related links section&lt;/li>
-&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
+&lt;li>相关链接部分中的&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Dapr组件的基本格式&lt;/a>&lt;/li>
+&lt;li>请访问 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">本指南&lt;/a> ，了解如何配置 pub/sub 组件&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/">发布/订阅构建块&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: Redis Streams</title><link>https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/setup-redis-pubsub/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/setup-redis-pubsub/</guid><description>
-&lt;h2 id="component-format">Component format&lt;/h2>
-&lt;p>To setup Redis Streams pubsub create a component of type &lt;code>pubsub.redis&lt;/code>. To setup Redis Streams pubsub create a component of type &lt;code>pubsub.redis&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-1-setup-the-pubsub-component">this guide&lt;/a> on how to create and apply a pubsub configuration.&lt;/p>
+&lt;h2 id="组件格式">组件格式&lt;/h2>
+&lt;p>要设置Redis Streams pubsub，请创建一个类型为&lt;code>pubsub.redis&lt;/code>的组件。 请参阅 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-1-setup-the-pubsub-component">本指南&lt;/a>，了解如何创建和应用 pubsub 配置。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -1322,54 +1297,50 @@ Kubernetes
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;myGroup&amp;#34;&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">enableTLS&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;false&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">consumerID&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;myGroup&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">enableTLS&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;false&amp;#34;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 The example configuration shown above, contain a username and password as plain-text strings. 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/%7D">here&lt;/a>。
+以上示例将密钥明文存储。 更推荐的方式是使用 &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>描述的密钥仓库来存储密钥。
 &lt;/div>
-&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th>字段&lt;/th>
-&lt;th style="text-align:center">Required&lt;/th>
-&lt;th>Details&lt;/th>
-&lt;th>Example&lt;/th>
+&lt;th style="text-align:center">必填&lt;/th>
+&lt;th>详情&lt;/th>
+&lt;th>示例&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
 &lt;td>redisHost&lt;/td>
 &lt;td style="text-align:center">Y&lt;/td>
-&lt;td>Connection-string for the redis host&lt;/td>
+&lt;td>Redis的连接地址&lt;/td>
 &lt;td>&lt;code>localhost:6379&lt;/code>, &lt;code>redis-master.default.svc.cluster.local:6379&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>redisPassword&lt;/td>
 &lt;td style="text-align:center">Y&lt;/td>
-&lt;td>Password for Redis host. No Default. Can be &lt;code>secretKeyRef&lt;/code> to use a secret reference No Default. Secret for the AWS user. Can be &lt;code>secretKeyRef&lt;/code> to use a secret reference&lt;/td>
+&lt;td>Redis的密码 无默认值 可以用&lt;code>secretKeyRef&lt;/code>来引用&lt;/td>
 &lt;td>&lt;code>&amp;quot;&amp;quot;&lt;/code>, &lt;code>&amp;quot;KeFg23!&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>consumerID&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>The consumer group ID&lt;/td>
-&lt;td>&lt;code>&amp;quot;myGroup&amp;quot;&lt;/code>&lt;/td>
+&lt;td>消费组 ID&lt;/td>
+&lt;td>&lt;code>&amp;quot;mygroup&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>enableTLS&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>If the Redis instance supports TLS with public certificates, can be configured to be enabled or disabled. Defaults to &lt;code>&amp;quot;false&amp;quot;&lt;/code> Defaults to &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
+&lt;td>如果Redis实例支持使用公共证书的TLS，可以配置为启用或禁用。 默认值为 &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
 &lt;td>&lt;code>&amp;quot;true&amp;quot;&lt;/code>, &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="create-a-redis-instance">Create a Redis instance&lt;/h2>
-&lt;p>Dapr can use any Redis instance - containerized, running on your local dev machine, or a managed cloud service, provided the version of Redis is 5.0.0 or later.&lt;/p>
+&lt;h2 id="创建redis实例">创建Redis实例&lt;/h2>
+&lt;p>Dapr可以使用任何Redis实例，无论是容器化的，运行在本地开发机器上的，或者是托管的云服务，前提是Redis的版本是5.0.0或更高。&lt;/p>
 &lt;ul class="nav nav-tabs" id="tabs-2" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
 id="tabs-2-self-hosted-tab" data-toggle="tab" href="#tabs-2-self-hosted" role="tab"
 aria-controls="tabs-2-self-hosted" aria-selected="true">
@@ -1398,36 +1369,36 @@ Azure
 &lt;/li>&lt;/ul>
 &lt;div class="tab-content" id="tabs-2-content">
 &lt;div class="tab-pane fade show active" id="tabs-2-self-hosted" role="tabpanel" aria-labelled-by="tabs-2-self-hosted-tab">
-&lt;br />&lt;p>The Dapr CLI will automatically create and setup a Redis Streams instance for you. The Dapr CLI will automatically create and setup a Redis Streams instance for you. The Redis instance will be installed via Docker when you run &lt;code>dapr init&lt;/code>, and the component file will be created in default directory. (&lt;code>$HOME/.dapr/components&lt;/code> directory (Mac/Linux) or &lt;code>%USERPROFILE%\.dapr\components&lt;/code> on Windows). (&lt;code>$HOME/.dapr/components&lt;/code> directory (Mac/Linux) or &lt;code>%USERPROFILE%\.dapr\components&lt;/code> on Windows).&lt;/p>
+&lt;br />&lt;p>Dapr CLI将自动为你创建和设置一个Redis Streams实例。 当你执行&lt;code>dapr init&lt;/code>时，Redis实例将通过Docker安装，组件文件将在默认目录下创建。 (默认目录位于&lt;code>$HOME/.dapr/components&lt;/code> (Mac/Linux) ，&lt;code>%USERPROFILE%\.dapr\components&lt;/code> (Windows)).&lt;/p>
 &lt;/div>
 &lt;div class="tab-pane fade" id="tabs-2-kubernetes" role="tabpanel" aria-labelled-by="tabs-2-kubernetes-tab">
-&lt;br />&lt;p>You can use &lt;a href="https://helm.sh/">Helm&lt;/a> to quickly create a Redis instance in our Kubernetes cluster. This approach requires &lt;a href="https://github.com/helm/helm#install">Installing Helm&lt;/a>. This approach requires &lt;a href="https://github.com/helm/helm#install">Installing Helm&lt;/a>.&lt;/p>
+&lt;br />&lt;p>你可以使用&lt;a href="https://helm.sh/">Helm&lt;/a>在我们的Kubernetes集群中快速创建一个Redis实例， 这种方法需要&lt;a href="https://github.com/helm/helm#install">安装Helm&lt;/a>。&lt;/p>
 &lt;ol>
 &lt;li>
-&lt;p>Install Redis into your cluster.&lt;/p>
+&lt;p>安装 Redis 到你的集群：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm repo add bitnami https://charts.bitnami.com/bitnami
 helm install redis bitnami/redis
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
-&lt;p>Run &lt;code>kubectl get pods&lt;/code> to see the Redis containers now running in your cluster.&lt;/p>
+&lt;p>执行&lt;code>kubectl get pods&lt;/code>来查看现在正在集群中运行的Redis容器。&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>Add &lt;code>redis-master:6379&lt;/code> as the &lt;code>redisHost&lt;/code> in your redis.yaml file. For example: For example:&lt;/p>
+&lt;p>在您的redis.yaml文件中添加&lt;code>redis-master:6379&lt;/code>作为&lt;code>redisHost&lt;/code>。 例如:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml"> &lt;span style="color:#f92672">metadata&lt;/span>:
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">redisHost&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">redis-master:6379&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
-&lt;p>Next, we&amp;rsquo;ll get our Redis password, which is slightly different depending on the OS we&amp;rsquo;re using:&lt;/p>
+&lt;p>接下来，我们会获取到我们的Redis密码，根据我们使用的操作系统不同，密码也会略有不同：&lt;/p>
 &lt;ul>
 &lt;li>
-&lt;p>&lt;strong>Windows&lt;/strong>: Run &lt;code>kubectl get secret --namespace default redis -o jsonpath=&amp;quot;{.data.redis-password}&amp;quot; &amp;gt; encoded.b64&lt;/code>, which will create a file with your encoded password. Next, run &lt;code>certutil -decode encoded.b64 password.txt&lt;/code>, which will put your redis password in a text file called &lt;code>password.txt&lt;/code>. Copy the password and delete the two files. Next, run &lt;code>certutil -decode encoded.b64 password.txt&lt;/code>, which will put your redis password in a text file called &lt;code>password.txt&lt;/code>. Copy the password and delete the two files.&lt;/p>
+&lt;p>&lt;strong>Windows&lt;/strong>：执行&lt;code>kubectl get secret --namespace default redis -o jsonpath=&amp;quot;{.data.redis-password}&amp;quot; &amp;gt; encoded.b64&lt;/code>，这将创建一个有你的加密后密码的文件。 接下来，执行&lt;code>certutil -decode encoded.b64 password.txt&lt;/code>，它将把你的redis密码放在一个名为&lt;code>password.txt&lt;/code>的文本文件中。 复制密码，删除这两个文件。&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>&lt;strong>Linux/MacOS&lt;/strong>: Run &lt;code>kubectl get secret --namespace default redis -o jsonpath=&amp;quot;{.data.redis-password}&amp;quot; | base64 --decode&lt;/code> and copy the outputted password.&lt;/p>
+&lt;p>&lt;strong>Linux/MacOS&lt;/strong>：执行 &lt;code>kubectl get secret --namespace default redis -o jsonpath=&amp;quot;{.data.redis-password}&amp;quot; | base64 --decode&lt;/code>并复制输出的密码。&lt;/p>
 &lt;/li>
 &lt;/ul>
-&lt;p>Add this password as the &lt;code>redisPassword&lt;/code> value in your redis.yaml file. For example: For example:&lt;/p>
+&lt;p>将此密码设置为redis.yaml文件的&lt;code>redisPassword&lt;/code>的值。 例如:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml"> - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">redisPassword&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;lhDOkwTlp0&amp;#34;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
@@ -1445,11 +1416,11 @@ helm install redis bitnami/redis
 &lt;/div>
 &lt;div class="alert alert-primary" role="alert">
 &lt;h4 class="alert-heading">Note&lt;/h4>
-The Dapr CLI automatically deploys a local redis instance in self hosted mode as part of the &lt;code>dapr init&lt;/code> command.
+作为&lt;code>dapr init&lt;/code>命令的一部分，Dapr CLI会在自托管模式下自动部署本地redis实例。
 &lt;/div>
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
-&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/">Pub/Sub building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Dapr组件的基本格式&lt;/a>&lt;/li>
+&lt;li>请访问 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">本指南&lt;/a> ，了解如何配置 pub/sub 组件&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/">发布/订阅构建块&lt;/a>&lt;/li>
 &lt;/ul></description></item></channel></rss>

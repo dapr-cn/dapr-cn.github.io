@@ -1,7 +1,7 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Supported secret stores</title><link>https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/</link><description>Recent content in Supported secret stores on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: AWS Secrets Manager</title><link>https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/aws-secret-manager/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/aws-secret-manager/</guid><description>
-&lt;h2 id="component-format">Component format&lt;/h2>
-&lt;p>To setup AWS Secrets Manager secret store create a component of type &lt;code>secretstores.aws.secretmanager&lt;/code>. To setup HashiCorp Vault secret store create a component of type &lt;code>secretstores.hashicorp.vault&lt;/code>. See &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/secret-stores-overview/#apply-the-configuration">this guide&lt;/a> on how to create and apply a secretstore configuration. See this guide on &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">referencing secrets&lt;/a> to retrieve and use the secret with Dapr components. See this guide on &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">referencing secrets&lt;/a> to retrieve and use the secret with Dapr components.&lt;/p>
-&lt;p>See &lt;a href="https://docs.dapr.io/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a> for information about authentication-related attributes.&lt;/p>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – 支持的密钥仓库</title><link>https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/</link><description>Recent content in 支持的密钥仓库 on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: AWS Secrets Manager</title><link>https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/aws-secret-manager/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/aws-secret-manager/</guid><description>
+&lt;h2 id="组件格式">组件格式&lt;/h2>
+&lt;p>要设置AWS Secrets Manager密钥仓库，请创建一个类型为&lt;code>secretstores.aws.secretmanager&lt;/code>的组件。 请参阅 &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/secret-stores-overview/#apply-the-configuration">本指南&lt;/a>，了解如何创建和应用 secretstore 配置。 请参阅本指南 &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">引用密钥&lt;/a> 来检索和使用Dapr组件的密钥。&lt;/p>
+&lt;p>请参阅 &lt;a href="https://docs.dapr.io/developing-applications/integrations/authenticating/authenticating-aws/">AWS认证&lt;/a>，了解有关身份验证相关属性的信息。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -22,62 +22,62 @@
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-The above example uses secrets as plain strings. The above example uses secrets as plain strings. It is recommended to use a local secret store such as &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/kubernetes-secret-store/">Kubernetes secret store&lt;/a> or a &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/file-secret-store/">local file&lt;/a> to bootstrap secure key storage.
+以上示例将密钥明文存储， 建议将密钥存储在本地，如 &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/kubernetes-secret-store/">Kubernetes密钥仓库&lt;/a>或 &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/file-secret-store/">本地文件&lt;/a>来安全地存储密钥。
 &lt;/div>
-&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th>字段&lt;/th>
-&lt;th style="text-align:center">Required&lt;/th>
-&lt;th>Details&lt;/th>
-&lt;th>Example&lt;/th>
+&lt;th style="text-align:center">必填&lt;/th>
+&lt;th>详情&lt;/th>
+&lt;th>示例&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
 &lt;td>region&lt;/td>
 &lt;td style="text-align:center">Y&lt;/td>
-&lt;td>The specific AWS region the AWS Secrets Manager instance is deployed in&lt;/td>
+&lt;td>AWS Secrets Manager 实例所部署的特定AWS 区域&lt;/td>
 &lt;td>&lt;code>&amp;quot;us-east-1&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>accessKey&lt;/td>
 &lt;td style="text-align:center">Y&lt;/td>
-&lt;td>The AWS Access Key to access this resource&lt;/td>
+&lt;td>要访问此资源的 AWS 访问密钥&lt;/td>
 &lt;td>&lt;code>&amp;quot;key&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>secretKey&lt;/td>
 &lt;td style="text-align:center">Y&lt;/td>
-&lt;td>The AWS Secret Access Key to access this resource&lt;/td>
+&lt;td>要访问此资源的 AWS 密钥访问 Key&lt;/td>
 &lt;td>&lt;code>&amp;quot;secretAccessKey&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>sessionToken&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>The AWS session token to use&lt;/td>
+&lt;td>要使用的 AWS 会话令牌&lt;/td>
 &lt;td>&lt;code>&amp;quot;sessionToken&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="create-an-aws-secrets-manager-instance">Create an AWS Secrets Manager instance&lt;/h2>
-&lt;p>Setup AWS Secrets Manager using the AWS documentation: &lt;a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/tutorials_basic.html">https://docs.aws.amazon.com/secretsmanager/latest/userguide/tutorials_basic.html&lt;/a>.&lt;/p>
+&lt;h2 id="创建一个aws-secrets-manager实例">创建一个AWS Secrets Manager实例&lt;/h2>
+&lt;p>参考AWS文档设置AWS Secrets Manager：https://docs.aws.amazon.com/secretsmanager/latest/userguide/tutorials_basic.html。&lt;/p>
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/secrets/">Secrets building block&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/secrets/howto-secrets/">How-To: Retrieve a secret&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-secrets/">How-To: Reference secrets in Dapr components&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/reference/api/secrets_api/">Secrets API reference&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Azure Key Vault secret store</title><link>https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/azure-keyvault/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/azure-keyvault/</guid><description>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/secrets/">密钥构建块&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/secrets/howto-secrets/">指南：获取密钥&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-secrets/">指南：在Dapr组件中引用密钥&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/reference/api/secrets_api/">密钥 API 参考&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/integrations/authenticating/authenticating-aws/">AWS认证&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Azure Key Vault 密钥仓库</title><link>https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/azure-keyvault/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/azure-keyvault/</guid><description>
 &lt;div class="alert alert-primary" role="alert">
 &lt;h4 class="alert-heading">Note&lt;/h4>
-Azure Managed Identity can be used for Azure Key Vault access on Kubernetes. Instructions &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/azure-keyvault-managed-identity/">here&lt;/a>. Instructions &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/azure-keyvault-managed-identity/">here&lt;/a>.
+Azure Managed Identity 可用于 Kubernetes 上的 Azure Key Vault 访问， 在 &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/azure-keyvault-managed-identity/">这里&lt;/a>查看说明。
 &lt;/div>
-&lt;h2 id="component-format">Component format&lt;/h2>
-&lt;p>To setup Azure Key Vault secret store create a component of type &lt;code>secretstores.azure.keyvault&lt;/code>. See &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/secret-stores-overview/#apply-the-configuration">this guide&lt;/a> on how to create and apply a secretstore configuration. See this guide on &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">referencing secrets&lt;/a> to retrieve and use the secret with Dapr components. See &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/secret-stores-overview/#apply-the-configuration">this guide&lt;/a> on how to create and apply a secretstore configuration. See this guide on &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">referencing secrets&lt;/a> to retrieve and use the secret with Dapr components.&lt;/p>
-&lt;p>See also &lt;a href="#configure-the-component">configure the component&lt;/a> guide in this page.&lt;/p>
+&lt;h2 id="组件格式">组件格式&lt;/h2>
+&lt;p>要设置Azure Key Vault密钥仓库，请创建一个类型为&lt;code>secretstores.azure.keyvault&lt;/code>的组件。 请参阅 &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/secret-stores-overview/#apply-the-configuration">本指南&lt;/a>，了解如何创建和应用 secretstore 配置。 请参阅本指南 &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">引用密钥&lt;/a> 来检索和使用Dapr组件的密钥。&lt;/p>
+&lt;p>也请参见本页面中的&lt;a href="#configure-the-component">配置组件&lt;/a>指南。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -98,23 +98,23 @@ Azure Managed Identity can be used for Azure Key Vault access on Kubernetes. Ins
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-The above example uses secrets as plain strings. The above example uses secrets as plain strings. It is recommended to use a local secret store such as &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/kubernetes-secret-store/">Kubernetes secret store&lt;/a> or a &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/file-secret-store/">local file&lt;/a> to bootstrap secure key storage.
+以上示例将密钥明文存储， 建议将密钥存储在本地，如 &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/kubernetes-secret-store/">Kubernetes密钥仓库&lt;/a>或 &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/file-secret-store/">本地文件&lt;/a>来安全地存储密钥。
 &lt;/div>
-&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th>字段&lt;/th>
-&lt;th style="text-align:center">Required&lt;/th>
-&lt;th>Details&lt;/th>
-&lt;th>Example&lt;/th>
+&lt;th style="text-align:center">必填&lt;/th>
+&lt;th>详情&lt;/th>
+&lt;th>示例&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
 &lt;td>vaultName&lt;/td>
 &lt;td style="text-align:center">Y&lt;/td>
-&lt;td>The name of the Azure Key Vault&lt;/td>
+&lt;td>Azure Key Vault名称&lt;/td>
 &lt;td>&lt;code>&amp;quot;mykeyvault&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
@@ -132,33 +132,33 @@ The above example uses secrets as plain strings. The above example uses secrets 
 &lt;tr>
 &lt;td>spnCertificateFile&lt;/td>
 &lt;td style="text-align:center">Y&lt;/td>
-&lt;td>PFX certificate file path. PFX certificate file path. &lt;br>&lt;/br> For Windows the &lt;code>[pfx_certificate_file_fully_qualified_local_path]&lt;/code> value must use escaped backslashes, i.e. double backslashes. For example &lt;code>&amp;quot;C:\\folder1\\folder2\\certfile.pfx&amp;quot;&lt;/code>. &lt;br>&lt;/br> For Linux you can use single slashes. For example &lt;code>&amp;quot;/folder1/folder2/certfile.pfx&amp;quot;&lt;/code>. &lt;br>&lt;/br> See &lt;a href="#configure-the-component">configure the component&lt;/a> for more details For example &lt;code>&amp;quot;C:\\folder1\\folder2\\certfile.pfx&amp;quot;&lt;/code>. &lt;br>&lt;/br> For Linux you can use single slashes. For example &lt;code>&amp;quot;/folder1/folder2/certfile.pfx&amp;quot;&lt;/code>. &lt;br>&lt;/br> See &lt;a href="#configure-the-component">configure the component&lt;/a> for more details&lt;/td>
+&lt;td>PFX证书文件路径， &lt;br>&lt;/br> 对于Windows， &lt;code>[pfx_certificate_file_fully_qualified_local_path]&lt;/code> 值必须使用转义的反斜杠，即双反斜杠。 例如 &lt;code>&amp;quot;C:\\folder1\\folder2\\certfile.pfx&amp;quot;&lt;/code> &lt;br>&lt;/br> 对于Linux，你可以使用单斜杠。 例如 &lt;code>&amp;quot;/folder1/folder2/certfile.pfx&amp;quot;&lt;/code> &lt;br>&lt;/br> 请参阅&lt;a href="#configure-the-component">配置组件&lt;/a>了解更多详情&lt;/td>
 &lt;td>&lt;code>&amp;quot;C:\\folder1\\folder2\\certfile.pfx&amp;quot;&lt;/code>, &lt;code>&amp;quot;/folder1/folder2/certfile.pfx&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="setup-key-vault-and-service-principal">Setup Key Vault and service principal&lt;/h2>
-&lt;h3 id="prerequisites">Prerequisites&lt;/h3>
+&lt;h2 id="设置key-vault和服务主体">设置Key Vault和服务主体&lt;/h2>
+&lt;h3 id="前期准备">前期准备&lt;/h3>
 &lt;ul>
 &lt;li>&lt;a href="https://azure.microsoft.com/en-us/free/">Azure Subscription&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest">Azure CLI&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;h3 id="steps">Steps&lt;/h3>
+&lt;h3 id="步骤">步骤&lt;/h3>
 &lt;ol>
 &lt;li>
-&lt;p>Login to Azure and set the default subscription&lt;/p>
+&lt;p>登录到 Azure 并设置默认订阅&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#75715e"># Log in Azure&lt;/span>
 az login
 &lt;span style="color:#75715e"># Set your subscription to the default subscription&lt;/span>
 az account set -s &lt;span style="color:#f92672">[&lt;/span>your subscription id&lt;span style="color:#f92672">]&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
-&lt;p>Create an Azure Key Vault in a region&lt;/p>
+&lt;p>在一个区域中创建 Azure Key Vault&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">az keyvault create --location &lt;span style="color:#f92672">[&lt;/span>region&lt;span style="color:#f92672">]&lt;/span> --name &lt;span style="color:#f92672">[&lt;/span>your_keyvault&lt;span style="color:#f92672">]&lt;/span> --resource-group &lt;span style="color:#f92672">[&lt;/span>your resource group&lt;span style="color:#f92672">]&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
-&lt;p>Create a service principal&lt;/p>
-&lt;p>Create a service principal with a new certificate and store the 1-year certificate inside your keyvault&amp;rsquo;s certificate vault. Create a service principal with a new certificate and store the 1-year certificate inside your keyvault&amp;rsquo;s certificate vault. You can skip this step if you want to use an existing service principal for keyvault instead of creating new one&lt;/p>
+&lt;p>创建一个服务主体&lt;/p>
+&lt;p>使用新的证书创建一个服务主体，并将为期1年的证书存储在keyvault的证书库中。 如果你想为keyvault使用现有的服务主体，而不是创建新的服务主体，你可以跳过这一步。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">az ad sp create-for-rbac --name &lt;span style="color:#f92672">[&lt;/span>your_service_principal_name&lt;span style="color:#f92672">]&lt;/span> --create-cert --cert &lt;span style="color:#f92672">[&lt;/span>certificate_name&lt;span style="color:#f92672">]&lt;/span> --keyvault &lt;span style="color:#f92672">[&lt;/span>your_keyvault&lt;span style="color:#f92672">]&lt;/span> --skip-assignment --years &lt;span style="color:#ae81ff">1&lt;/span>
 &lt;span style="color:#f92672">{&lt;/span>
 &lt;span style="color:#e6db74">&amp;#34;appId&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;a4f90000-0000-0000-0000-00000011d000&amp;#34;&lt;/span>,
@@ -167,10 +167,10 @@ az account set -s &lt;span style="color:#f92672">[&lt;/span>your subscription id
 &lt;span style="color:#e6db74">&amp;#34;password&amp;#34;&lt;/span>: null,
 &lt;span style="color:#e6db74">&amp;#34;tenant&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;34f90000-0000-0000-0000-00000011d000&amp;#34;&lt;/span>
 &lt;span style="color:#f92672">}&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Save the both the appId and tenant from the output which will be used in the next step&lt;/strong>&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>从输出中保存appId和租户，这将在下一步中使用&lt;/strong>&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>Get the Object Id for [your_service_principal_name]&lt;/p>
+&lt;p>获取 [your_service_principal_name] 的对象ID&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">az ad sp show --id &lt;span style="color:#f92672">[&lt;/span>service_principal_app_id&lt;span style="color:#f92672">]&lt;/span>
 &lt;span style="color:#f92672">{&lt;/span>
 ...
@@ -178,51 +178,47 @@ az account set -s &lt;span style="color:#f92672">[&lt;/span>your subscription id
 &lt;span style="color:#e6db74">&amp;#34;objectType&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;ServicePrincipal&amp;#34;&lt;/span>,
 ...
 &lt;span style="color:#f92672">}&lt;/span>
-&lt;span style="color:#e6db74">&amp;#34;objectId&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[your_service_principal_object_id]&amp;#34;&lt;/span>,
-&lt;span style="color:#e6db74">&amp;#34;objectType&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;ServicePrincipal&amp;#34;&lt;/span>,
-...
-&lt;span style="color:#f92672">}&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
-&lt;p>Grant the service principal the GET permission to your Azure Key Vault&lt;/p>
+&lt;p>授予服务主体对你的 Azure Key Vault 的 GET 权限&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">az keyvault set-policy --name &lt;span style="color:#f92672">[&lt;/span>your_keyvault&lt;span style="color:#f92672">]&lt;/span> --object-id &lt;span style="color:#f92672">[&lt;/span>your_service_principal_object_id&lt;span style="color:#f92672">]&lt;/span> --secret-permissions get
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Now that your service principal has access to your keyvault you are ready to configure the secret store component to use secrets stored in your keyvault to access other components securely.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>现在，你的服务主体已经可以访问你的keyvault，你可以配置密钥仓库组件，以使用存储在keyvault中的密钥来安全地访问其他组件。&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>Download the certificate in PFX format from your Azure Key Vault either using the Azure portal or the Azure CLI:&lt;/p>
+&lt;p>使用 Azure 门户或 Azure CLI 从 Azure Key Vault 下载 PFX 格式的证书：&lt;/p>
 &lt;/li>
 &lt;/ol>
 &lt;ul>
 &lt;li>
-&lt;p>&lt;strong>Using the Azure portal:&lt;/strong>&lt;/p>
-&lt;p>Go to your key vault on the Azure portal and navigate to the &lt;em>Certificates&lt;/em> tab under &lt;em>Settings&lt;/em>. Find the certificate that was created during the service principal creation, named [certificate_name] and click on it. Find the certificate that was created during the service principal creation, named [certificate_name] and click on it.&lt;/p>
-&lt;p>Click &lt;em>Download in PFX/PEM format&lt;/em> to download the certificate.&lt;/p>
+&lt;p>&lt;strong>使用 Azure 门户：&lt;/strong>&lt;/p>
+&lt;p>转到 Azure 门户上的密钥库，然后导航到 &lt;em>Certificates&lt;/em>标签下的 &lt;em>Settings&lt;/em>。 找到服务主体创建时创建的证书，命名为[certificate_name]，点击它。&lt;/p>
+&lt;p>点击&lt;em>以PFX/PEM格式下载&lt;/em>下载证书。&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>&lt;strong>Using the Azure CLI:&lt;/strong>&lt;/p>
+&lt;p>&lt;strong>使用 Azure CLI:&lt;/strong>&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">az keyvault secret download --vault-name &lt;span style="color:#f92672">[&lt;/span>your_keyvault&lt;span style="color:#f92672">]&lt;/span> --name &lt;span style="color:#f92672">[&lt;/span>certificate_name&lt;span style="color:#f92672">]&lt;/span> --encoding base64 --file &lt;span style="color:#f92672">[&lt;/span>certificate_name&lt;span style="color:#f92672">]&lt;/span>.pfx
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;/ul>
-&lt;h2 id="configure-the-component">Configure the component&lt;/h2>
-&lt;ul class="nav nav-tabs" id="tabs-6" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
-id="tabs-6-self-hosted-tab" data-toggle="tab" href="#tabs-6-self-hosted" role="tab"
-aria-controls="tabs-6-self-hosted" aria-selected="true">
+&lt;h2 id="配置组件">配置组件&lt;/h2>
+&lt;ul class="nav nav-tabs" id="tabs-4" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-4-self-hosted-tab" data-toggle="tab" href="#tabs-4-self-hosted" role="tab"
+aria-controls="tabs-4-self-hosted" aria-selected="true">
 Self-Hosted
 &lt;/a>
 &lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
-id="tabs-6-kubernetes-tab" data-toggle="tab" href="#tabs-6-kubernetes" role="tab"
-aria-controls="tabs-6-kubernetes" aria-selected="false">
+id="tabs-4-kubernetes-tab" data-toggle="tab" href="#tabs-4-kubernetes" role="tab"
+aria-controls="tabs-4-kubernetes" aria-selected="false">
 Kubernetes
 &lt;/a>
 &lt;/li>&lt;/ul>
-&lt;div class="tab-content" id="tabs-6-content">
-&lt;div class="tab-pane fade show active" id="tabs-6-self-hosted" role="tabpanel" aria-labelled-by="tabs-6-self-hosted-tab">
+&lt;div class="tab-content" id="tabs-4-content">
+&lt;div class="tab-pane fade show active" id="tabs-4-self-hosted" role="tabpanel" aria-labelled-by="tabs-4-self-hosted-tab">
 &lt;br />&lt;ol>
 &lt;li>
-&lt;p>Copy downloaded PFX cert from your Azure Keyvault into your components directory or a secure location on your local disk&lt;/p>
+&lt;p>将下载的 PFX 证书从 Azure Keyvault 复制到你的组件目录或本地磁盘上的安全位置。&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>Create a file called &lt;code>azurekeyvault.yaml&lt;/code> in the components directory&lt;/p>
+&lt;p>在组件目录下创建一个名为&lt;code>azurekeyvault.yaml&lt;/code>的文件&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -242,24 +238,24 @@ Kubernetes
 &lt;span style="color:#f92672">value &lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[pfx_certificate_file_fully_qualified_local_path]&amp;#34;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;/ol>
-&lt;p>Fill in the metadata fields with your Key Vault details from the above setup process.&lt;/p>
+&lt;p>在元数据字段中填写上述设置过程中密钥库的详细信息。&lt;/p>
 &lt;/div>
-&lt;div class="tab-pane fade" id="tabs-6-kubernetes" role="tabpanel" aria-labelled-by="tabs-6-kubernetes-tab">
-&lt;br />&lt;p>In Kubernetes, you store the certificate for the service principal into the Kubernetes Secret Store and then enable Azure Key Vault secret store with this certificate in Kubernetes secretstore.&lt;/p>
+&lt;div class="tab-pane fade" id="tabs-4-kubernetes" role="tabpanel" aria-labelled-by="tabs-4-kubernetes-tab">
+&lt;br />&lt;p>在Kubernetes中，将服务主体的证书存储到Kubernetes Secret Store中，然后用Kubernetes secretstore中的这个证书启用Azure Key Vault密钥仓库。&lt;/p>
 &lt;ol>
 &lt;li>
-&lt;p>Create a kubernetes secret using the following command:&lt;/p>
+&lt;p>使用以下命令创建一个kubernetes密钥:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl create secret generic &lt;span style="color:#f92672">[&lt;/span>your_k8s_spn_secret_name&lt;span style="color:#f92672">]&lt;/span> --from-file&lt;span style="color:#f92672">=[&lt;/span>pfx_certificate_file_fully_qualified_local_path&lt;span style="color:#f92672">]&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;/ol>
 &lt;ul>
-&lt;li>&lt;code>[pfx_certificate_file_fully_qualified_local_path]&lt;/code> is the path of PFX cert file you downloaded above&lt;/li>
-&lt;li>&lt;code>[your_k8s_spn_secret_name]&lt;/code> is secret name in Kubernetes secret store&lt;/li>
+&lt;li>&lt;code>[pfx_certificate_file_fully_qualified_local_path]&lt;/code>是你在上面下载的PFX证书文件的路径&lt;/li>
+&lt;li>&lt;code>[your_k8s_spn_secret_name]&lt;/code>是Kubernetes密钥仓库中的密钥名称&lt;/li>
 &lt;/ul>
 &lt;ol start="2">
-&lt;li>Create a &lt;code>azurekeyvault.yaml&lt;/code> component file&lt;/li>
+&lt;li>创建一个&lt;code>azurekeyvault.yaml&lt;/code>组件文件&lt;/li>
 &lt;/ol>
-&lt;p>The component yaml refers to the Kubernetes secretstore using &lt;code>auth&lt;/code> property and &lt;code>secretKeyRef&lt;/code> refers to the certificate stored in Kubernetes secret store.&lt;/p>
+&lt;p>组件yaml使用&lt;code>auth&lt;/code>属性引用Kubernetes secretstore，&lt;code>secretKeyRef&lt;/code>引用存储在Kubernetes secret store中的证书。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -282,19 +278,19 @@ Kubernetes
 &lt;span style="color:#f92672">auth&lt;/span>:
 &lt;span style="color:#f92672">secretStore&lt;/span>: &lt;span style="color:#ae81ff">kubernetes&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;ol start="3">
-&lt;li>Apply &lt;code>azurekeyvault.yaml&lt;/code> component&lt;/li>
+&lt;li>应用&lt;code>azurekeyvault.yaml&lt;/code>组件&lt;/li>
 &lt;/ol>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl apply -f azurekeyvault.yaml
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
 &lt;/div>
-&lt;h2 id="references">References&lt;/h2>
+&lt;h2 id="参考文档">参考文档&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.microsoft.com/en-us/cli/azure/keyvault?view=azure-cli-latest#az-keyvault-create">Azure CLI Keyvault CLI&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli?view=azure-cli-latest">Create an Azure service principal with Azure CLI&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/secrets/">Secrets building block&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/secrets/howto-secrets/">How-To: Retrieve a secret&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-secrets/">How-To: Reference secrets in Dapr components&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/reference/api/secrets_api/">Secrets API reference&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli?view=azure-cli-latest">使用 Azure CLI 创建 Azure 服务主体&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/secrets/">密钥构建块&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/secrets/howto-secrets/">指南：获取密钥&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-secrets/">指南：在Dapr组件中引用密钥&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/reference/api/secrets_api/">密钥 API 参考&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: Azure Key Vault with Managed Identities on Kubernetes</title><link>https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/azure-keyvault-managed-identity/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/azure-keyvault-managed-identity/</guid><description>
 &lt;h2 id="component-format">Component format&lt;/h2>
 &lt;p>To setup Azure Key Vault secret store with Managed Identies create a component of type &lt;code>secretstores.azure.keyvault&lt;/code>. See &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/secret-stores-overview/#apply-the-configuration">this guide&lt;/a> on how to create and apply a secretstore configuration. See this guide on &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">referencing secrets&lt;/a> to retrieve and use the secret with Dapr components. To setup HashiCorp Vault secret store create a component of type &lt;code>secretstores.hashicorp.vault&lt;/code>. See &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/secret-stores-overview/#apply-the-configuration">this guide&lt;/a> on how to create and apply a secretstore configuration. See this guide on &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">referencing secrets&lt;/a> to retrieve and use the secret with Dapr components. See this guide on &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">referencing secrets&lt;/a> to retrieve and use the secret with Dapr components.&lt;/p>

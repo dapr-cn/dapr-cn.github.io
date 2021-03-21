@@ -1,16 +1,16 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Integrations</title><link>https://docs.dapr.io/developing-applications/integrations/</link><description>Recent content in Integrations on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/developing-applications/integrations/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Dapr的 gRPC 接口</title><link>https://docs.dapr.io/developing-applications/integrations/grpc-integration/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/integrations/grpc-integration/</guid><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – 集成</title><link>https://docs.dapr.io/developing-applications/integrations/</link><description>Recent content in 集成 on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/developing-applications/integrations/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Dapr的 gRPC 接口</title><link>https://docs.dapr.io/developing-applications/integrations/grpc-integration/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/integrations/grpc-integration/</guid><description>
 &lt;h1 id="dapr-和-grpc">Dapr 和 gRPC&lt;/h1>
-&lt;p>Dapr 为本地调用实现 HTTP 和 gRPC API 。 gRPC is useful for low-latency, high performance scenarios and has language integration using the proto clients.&lt;/p>
+&lt;p>Dapr 为本地调用实现 HTTP 和 gRPC API 。 gRPC适用于低延迟、高性能的场景，并且使用原生客户端进行语言集成。&lt;/p>
 &lt;p>您可以在这里找到 &lt;a href="https://github.com/dapr/docs#sdks">&lt;/a> 自动生成的客户端 的列表。&lt;/p>
 &lt;p>Dapr 运行时实现 &lt;a href="https://github.com/dapr/dapr/blob/master/dapr/proto/runtime/v1/dapr.proto">服务&lt;/a> ，应用程序可以通过 gRPC 进行通信。&lt;/p>
-&lt;p>除了通过 gRPC 调用 Dapr ， Dapr 还可以通过 gRPC 与应用程序通信。 To do that, the app needs to host a gRPC server and implements the &lt;a href="https://github.com/dapr/dapr/blob/master/dapr/proto/runtime/v1/appcallback.proto">Dapr appcallback service&lt;/a>&lt;/p>
+&lt;p>除了通过 gRPC 调用 Dapr ， Dapr 还可以通过 gRPC 与应用程序通信。 要做到这一点，应用程序需要托管一个gRPC服务器，并实现&lt;a href="https://github.com/dapr/dapr/blob/master/dapr/proto/runtime/v1/appcallback.proto">Dapr appcallback服务&lt;/a>。&lt;/p>
 &lt;h2 id="配置-dapr-以通过-grpc-与应用程序通信">配置 dapr 以通过 gRPC 与应用程序通信&lt;/h2>
 &lt;h3 id="自托管">自托管&lt;/h3>
 &lt;p>当在自己托管模式下运行时，使用 &lt;code>--app-protocol&lt;/code> 标志告诉Dapr 使用 gRPC 来与应用程序对话：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr run --app-protocol grpc --app-port &lt;span style="color:#ae81ff">5005&lt;/span> node app.js
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>This tells Dapr to communicate with your app via gRPC over port &lt;code>5005&lt;/code>.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这将告诉Dapr通过gRPC与您的应用程序通过&lt;code>5005&lt;/code>端口进行通信。&lt;/p>
 &lt;h3 id="kubernetes">Kubernetes&lt;/h3>
-&lt;p>On Kubernetes, set the following annotations in your deployment YAML:&lt;/p>
+&lt;p>在Kubernetes上，在你的deployment YAML中设置以下注解:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">apps/v1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Deployment&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -66,7 +66,7 @@
 &lt;span style="color:#a6e22e">logger&lt;/span>.&lt;span style="color:#a6e22e">Panic&lt;/span>(&lt;span style="color:#a6e22e">err&lt;/span>)
 }
 &lt;span style="color:#a6e22e">logger&lt;/span>.&lt;span style="color:#a6e22e">Println&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;data saved&amp;#34;&lt;/span>)
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Hooray!&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>好耶!&lt;/p>
 &lt;p>现在你可以探索Dapr客户端上的所有不同方法。&lt;/p>
 &lt;h2 id="使用-dapr-创建-grpc-应用程序">使用 Dapr 创建 gRPC 应用程序&lt;/h2>
 &lt;p>以下步骤将向您显示如何创建一个让Dapr服务器与之通信的应用程序。&lt;/p>
@@ -129,32 +129,7 @@
 &lt;span style="color:#a6e22e">fmt&lt;/span>.&lt;span style="color:#a6e22e">Println&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;Invoked from binding&amp;#34;&lt;/span>)
 &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#f92672">&amp;amp;&lt;/span>&lt;span style="color:#a6e22e">pb&lt;/span>.&lt;span style="color:#a6e22e">BindingEventResponse&lt;/span>{}, &lt;span style="color:#66d9ef">nil&lt;/span>
 }
-&lt;span style="color:#75715e">// This method is fired whenever a message has been published to a topic that has been subscribed. Dapr sends published messages in a CloudEvents 0.3 envelope.
-&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">func&lt;/span> (&lt;span style="color:#a6e22e">s&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">server&lt;/span>) &lt;span style="color:#a6e22e">OnTopicEvent&lt;/span>(&lt;span style="color:#a6e22e">ctx&lt;/span> &lt;span style="color:#a6e22e">context&lt;/span>.&lt;span style="color:#a6e22e">Context&lt;/span>, &lt;span style="color:#a6e22e">in&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">pb&lt;/span>.&lt;span style="color:#a6e22e">TopicEventRequest&lt;/span>) (&lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">empty&lt;/span>.&lt;span style="color:#a6e22e">Empty&lt;/span>, &lt;span style="color:#66d9ef">error&lt;/span>) {
-&lt;span style="color:#a6e22e">fmt&lt;/span>.&lt;span style="color:#a6e22e">Println&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;Topic message arrived&amp;#34;&lt;/span>)
-&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#f92672">&amp;amp;&lt;/span>&lt;span style="color:#a6e22e">empty&lt;/span>.&lt;span style="color:#a6e22e">Empty&lt;/span>{}, &lt;span style="color:#66d9ef">nil&lt;/span>
-} &lt;span style="color:#a6e22e">In&lt;/span> &lt;span style="color:#a6e22e">this&lt;/span> &lt;span style="color:#a6e22e">example&lt;/span>, &lt;span style="color:#a6e22e">we&lt;/span> &lt;span style="color:#a6e22e">are&lt;/span> &lt;span style="color:#a6e22e">telling&lt;/span> &lt;span style="color:#a6e22e">Dapr&lt;/span>
-&lt;span style="color:#75715e">// To subscribe to a topic named TopicA
-&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">func&lt;/span> (&lt;span style="color:#a6e22e">s&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">server&lt;/span>) &lt;span style="color:#a6e22e">ListTopicSubscriptions&lt;/span>(&lt;span style="color:#a6e22e">ctx&lt;/span> &lt;span style="color:#a6e22e">context&lt;/span>.&lt;span style="color:#a6e22e">Context&lt;/span>, &lt;span style="color:#a6e22e">in&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">empty&lt;/span>.&lt;span style="color:#a6e22e">Empty&lt;/span>) (&lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">pb&lt;/span>.&lt;span style="color:#a6e22e">ListTopicSubscriptionsResponse&lt;/span>, &lt;span style="color:#66d9ef">error&lt;/span>) {
-&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#f92672">&amp;amp;&lt;/span>&lt;span style="color:#a6e22e">pb&lt;/span>.&lt;span style="color:#a6e22e">ListTopicSubscriptionsResponse&lt;/span>{
-&lt;span style="color:#a6e22e">Subscriptions&lt;/span>: []&lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">pb&lt;/span>.&lt;span style="color:#a6e22e">TopicSubscription&lt;/span>{
-{&lt;span style="color:#a6e22e">Topic&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;TopicA&amp;#34;&lt;/span>},
-},
-}, &lt;span style="color:#66d9ef">nil&lt;/span>
-}
-&lt;span style="color:#75715e">// Dapr will call this method to get the list of bindings the app will get invoked by. In this example, we are telling Dapr
-&lt;/span>&lt;span style="color:#75715e">// To invoke our app with a binding named storage
-&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">func&lt;/span> (&lt;span style="color:#a6e22e">s&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">server&lt;/span>) &lt;span style="color:#a6e22e">ListInputBindings&lt;/span>(&lt;span style="color:#a6e22e">ctx&lt;/span> &lt;span style="color:#a6e22e">context&lt;/span>.&lt;span style="color:#a6e22e">Context&lt;/span>, &lt;span style="color:#a6e22e">in&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">empty&lt;/span>.&lt;span style="color:#a6e22e">Empty&lt;/span>) (&lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">pb&lt;/span>.&lt;span style="color:#a6e22e">ListInputBindingsResponse&lt;/span>, &lt;span style="color:#66d9ef">error&lt;/span>) {
-&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#f92672">&amp;amp;&lt;/span>&lt;span style="color:#a6e22e">pb&lt;/span>.&lt;span style="color:#a6e22e">ListInputBindingsResponse&lt;/span>{
-&lt;span style="color:#a6e22e">Bindings&lt;/span>: []&lt;span style="color:#66d9ef">string&lt;/span>{&lt;span style="color:#e6db74">&amp;#34;storage&amp;#34;&lt;/span>},
-}, &lt;span style="color:#66d9ef">nil&lt;/span>
-}
-&lt;span style="color:#75715e">// This method gets invoked every time a new event is fired from a registerd binding. The message carries the binding name, a payload and optional metadata
-&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">func&lt;/span> (&lt;span style="color:#a6e22e">s&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">server&lt;/span>) &lt;span style="color:#a6e22e">OnBindingEvent&lt;/span>(&lt;span style="color:#a6e22e">ctx&lt;/span> &lt;span style="color:#a6e22e">context&lt;/span>.&lt;span style="color:#a6e22e">Context&lt;/span>, &lt;span style="color:#a6e22e">in&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">pb&lt;/span>.&lt;span style="color:#a6e22e">BindingEventRequest&lt;/span>) (&lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">pb&lt;/span>.&lt;span style="color:#a6e22e">BindingEventResponse&lt;/span>, &lt;span style="color:#66d9ef">error&lt;/span>) {
-&lt;span style="color:#a6e22e">fmt&lt;/span>.&lt;span style="color:#a6e22e">Println&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;Invoked from binding&amp;#34;&lt;/span>)
-&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#f92672">&amp;amp;&lt;/span>&lt;span style="color:#a6e22e">pb&lt;/span>.&lt;span style="color:#a6e22e">BindingEventResponse&lt;/span>{}, &lt;span style="color:#66d9ef">nil&lt;/span>
-}
-&lt;span style="color:#75715e">// This method is fired whenever a message has been published to a topic that has been subscribed. Dapr sends published messages in a CloudEvents 0.3 envelope.
+&lt;span style="color:#75715e">// This method is fired whenever a message has been published to a topic that has been subscribed. Dapr用CloudEvents 0.3规范发送发布的消息。
 &lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">func&lt;/span> (&lt;span style="color:#a6e22e">s&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">server&lt;/span>) &lt;span style="color:#a6e22e">OnTopicEvent&lt;/span>(&lt;span style="color:#a6e22e">ctx&lt;/span> &lt;span style="color:#a6e22e">context&lt;/span>.&lt;span style="color:#a6e22e">Context&lt;/span>, &lt;span style="color:#a6e22e">in&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">pb&lt;/span>.&lt;span style="color:#a6e22e">TopicEventRequest&lt;/span>) (&lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">empty&lt;/span>.&lt;span style="color:#a6e22e">Empty&lt;/span>, &lt;span style="color:#66d9ef">error&lt;/span>) {
 &lt;span style="color:#a6e22e">fmt&lt;/span>.&lt;span style="color:#a6e22e">Println&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;Topic message arrived&amp;#34;&lt;/span>)
 &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#f92672">&amp;amp;&lt;/span>&lt;span style="color:#a6e22e">empty&lt;/span>.&lt;span style="color:#a6e22e">Empty&lt;/span>{}, &lt;span style="color:#66d9ef">nil&lt;/span>
@@ -186,23 +161,23 @@
 &lt;ol start="4">
 &lt;li>运行你的应用&lt;/li>
 &lt;/ol>
-&lt;p>To run locally, use the Dapr CLI:&lt;/p>
+&lt;p>使用 Dapr CLI在本地运行：&lt;/p>
 &lt;pre>&lt;code>dapr run --app-id goapp --app-port 4000 --app-protocol grpc go run main.go
 &lt;/code>&lt;/pre>&lt;p>在 Kubernetes 上，设置所需的 &lt;code>dapr.io/app-protocol: &amp;quot;grpc&amp;quot;&lt;/code> 和 &lt;code>dapr.io/app-port: &amp;quot; 4000&lt;/code> 注释在您的 Pod 规范模板中如上所述。&lt;/p>
-&lt;h2 id="other-languages">Other languages&lt;/h2>
+&lt;h2 id="其他语言">其他语言&lt;/h2>
 &lt;p>您可以将 Dapr 与 Protobuf 支持的任何语言一起使用，而不只是使用当前可用的生成 SDK。 使用 &lt;a href="https://developers.google.com/protocol-buffers/docs/downloads">原型&lt;/a> 工具，您可以为 Ruby， C++， Rust 等其他语言生成 Dapr 客户机。&lt;/p>
 &lt;p>相关主题&lt;/p>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/service-invocation/">Service invocation building block&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/reference/api/service_invocation_api/">服务调用 API 规范&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Developing-Applications: Autoscaling a Dapr app with KEDA</title><link>https://docs.dapr.io/developing-applications/integrations/autoscale-keda/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/integrations/autoscale-keda/</guid><description>
-&lt;p>Dapr, with its modular building-block approach, along with the 10+ different &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/">pub/sub components&lt;/a>, make it easy to write message processing applications. Since Dapr can run in many environments (e.g. VM, bare-metal, Cloud, or Edge) the autoscaling of Dapr applications is managed by the hosting later. Since Dapr can run in many environments (e.g. VM, bare-metal, Cloud, or Edge) the autoscaling of Dapr applications is managed by the hosting later.&lt;/p>
-&lt;p>For Kubernetes, Dapr integrates with &lt;a href="https://github.com/kedacore/keda">KEDA&lt;/a>, an event driven autoscaler for Kubernetes. Many of Dapr&amp;rsquo;s pub/sub components overlap with the scalers provided by &lt;a href="https://github.com/kedacore/keda">KEDA&lt;/a> so it&amp;rsquo;s easy to configure your Dapr deployment on Kubernetes to autoscale based on the back pressure using KEDA. Many of Dapr&amp;rsquo;s pub/sub components overlap with the scalers provided by &lt;a href="https://github.com/kedacore/keda">KEDA&lt;/a> so it&amp;rsquo;s easy to configure your Dapr deployment on Kubernetes to autoscale based on the back pressure using KEDA.&lt;/p>
-&lt;p>This how-to walks through the configuration of a scalable Dapr application along with the back pressure on Kafka topic, however you can apply this approach to &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/">pub/sub components&lt;/a> offered by Dapr.&lt;/p>
-&lt;h2 id="install-keda">Install KEDA&lt;/h2>
-&lt;p>To install KEDA, follow the &lt;a href="https://keda.sh/docs/latest/deploy/">Deploying KEDA&lt;/a> instructions on the KEDA website.&lt;/p>
-&lt;h2 id="install-kafka-optional">Install Kafka (optional)&lt;/h2>
-&lt;p>If you don&amp;rsquo;t have access to a Kafka service, you can install it into your Kubernetes cluster for this example by using Helm:&lt;/p>
+&lt;/ul></description></item><item><title>Developing-Applications: 使用KEDA对Dapr应用进行自动缩放</title><link>https://docs.dapr.io/developing-applications/integrations/autoscale-keda/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/integrations/autoscale-keda/</guid><description>
+&lt;p>Dapr采用模块化的构件方法，加上10多个不同的&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/">pub/sub组件&lt;/a>，简化了消息处理程序的编写工作。 由于Dapr可以在许多环境中运行（如虚拟机、裸机、云或边缘），因此Dapr应用的自动伸缩是由宿主管理的。&lt;/p>
+&lt;p>对于Kubernetes，Dapr集成了&lt;a href="https://github.com/kedacore/keda">KEDA&lt;/a>，这是一个用于Kubernetes的事件驱动的自动伸缩组件。 Dapr的许多pub/sub组件与&lt;a href="https://github.com/kedacore/keda">KEDA&lt;/a>提供的扩展器重叠，因此很容易在Kubernetes上配置Dapr的deployment，以使用KEDA根据背压自动扩展。&lt;/p>
+&lt;p>这篇文章中配置了一个可扩展的Dapr应用以及背压的Kafka主题，然而你也可以将这种方法应用到Dapr提供的&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/">pub/sub组件&lt;/a>中。&lt;/p>
+&lt;h2 id="安装keda">安装KEDA&lt;/h2>
+&lt;p>要安装KEDA，请遵循KEDA网站上的&lt;a href="https://keda.sh/docs/latest/deploy/">部署KEDA&lt;/a>说明。&lt;/p>
+&lt;h2 id="安装kafka可选">安装Kafka(可选)&lt;/h2>
+&lt;p>如果你没有Kafka，你可以通过使用Helm将其安装到你的Kubernetes集群中，见下面的示例:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm repo add confluentinc https://confluentinc.github.io/cp-helm-charts/
 helm repo update
 kubectl create ns kafka
@@ -210,17 +185,17 @@ helm install kafka confluentinc/cp-helm-charts -n kafka &lt;span style="color:#a
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span> --set cp-schema-registry.enabled&lt;span style="color:#f92672">=&lt;/span>false &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span> --set cp-kafka-rest.enabled&lt;span style="color:#f92672">=&lt;/span>false &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span> --set cp-kafka-connect.enabled&lt;span style="color:#f92672">=&lt;/span>false
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>To check on the status of the Kafka deployment:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>检查Kafka部署的状态:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">kubectl rollout status deployment.apps/kafka-cp-control-center -n kafka
 kubectl rollout status deployment.apps/kafka-cp-ksql-server -n kafka
 kubectl rollout status statefulset.apps/kafka-cp-kafka -n kafka
 kubectl rollout status statefulset.apps/kafka-cp-zookeeper -n kafka
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>When done, also deploy the Kafka client and wait until it&amp;rsquo;s ready:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>完成后，还要部署Kafka客户端，并等待就绪:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">kubectl apply -n kafka -f deployment/kafka-client.yaml
 kubectl wait -n kafka --for&lt;span style="color:#f92672">=&lt;/span>condition&lt;span style="color:#f92672">=&lt;/span>ready pod kafka-client --timeout&lt;span style="color:#f92672">=&lt;/span>120s
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Next, create the topic which is used in this example (for example &lt;code>demo-topic&lt;/code>):&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>接下来，创建本例中使用的主题(这里用&lt;code>demo-topic&lt;/code>为例):&lt;/p>
 &lt;blockquote>
-&lt;p>The number of topic partitions is related to the maximum number of replicas KEDA creates for your deployments&lt;/p>
+&lt;p>主题分区的数量与KEDA为你的deployment创建的最大副本数量有关。&lt;/p>
 &lt;/blockquote>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">kubectl -n kafka exec -it kafka-client -- kafka-topics &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span> --zookeeper kafka-cp-zookeeper-headless:2181 &lt;span style="color:#ae81ff">\
@@ -229,8 +204,8 @@ kubectl wait -n kafka --for&lt;span style="color:#f92672">=&lt;/span>condition&l
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span> --partitions &lt;span style="color:#ae81ff">10&lt;/span> &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span> --replication-factor &lt;span style="color:#ae81ff">3&lt;/span> &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span> --if-not-exists
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="deploy-a-dapr-pubsub-component">Deploy a Dapr Pub/Sub component&lt;/h2>
-&lt;p>Next, we&amp;rsquo;ll deploy the Dapr Kafka pub/sub component for Kubernetes. Next, we&amp;rsquo;ll deploy the Dapr Kafka pub/sub component for Kubernetes. Paste the following YAML into a file named &lt;code>kafka-pubsub.yaml&lt;/code>:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="部署-dapr-pubsub-组件">部署 Dapr Pub/Sub 组件&lt;/h2>
+&lt;p>接下来，我们将为Kubernetes部署Dapr Kafka pub/sub组件。 将以下YAML粘贴到一个名为&lt;code>kafka-pubsub.yaml&lt;/code>的文件中:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -245,13 +220,13 @@ kubectl wait -n kafka --for&lt;span style="color:#f92672">=&lt;/span>condition&l
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;false&amp;#34;&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">consumerID&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">autoscaling-subscriber&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>The above YAML defines the pub/sub component that your application subscribes to, the &lt;code>demo-topic&lt;/code> we created above. If you used the Kafka Helm install instructions above you can leave the &lt;code>brokers&lt;/code> value as is. Otherwise, change this to the connection string to your Kafka brokers.&lt;/p>
-&lt;p>Also notice the &lt;code>autoscaling-subscriber&lt;/code> value set for &lt;code>consumerID&lt;/code> which is used later to make sure that KEDA and your deployment use the same &lt;a href="http://cloudurable.com/blog/kafka-architecture-topics/index.html#:~:text=Kafka%20continually%20appended%20to%20partitions,fit%20on%20a%20single%20server.">Kafka partition offset&lt;/a>.&lt;/p>
-&lt;p>Now, deploy the component to the cluster:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>上面的YAML定义了你的应用程序所订阅的pub/sub组件，也就是我们在上面创建的&lt;code>demo-topic&lt;/code>。 如果你使用了上面的Kafka Helm安装说明，你可以将&lt;code>brokers&lt;/code>值保持不变。 否则，将其改为你的Kafka broker的连接地址字符串。&lt;/p>
+&lt;p>另外，请注意&lt;code>consumerID&lt;/code>的&lt;code>autoscaling-subscriber&lt;/code>值设置，该值稍后用于确保KEDA和你的deployment使用相同的 &lt;a href="http://cloudurable.com/blog/kafka-architecture-topics/index.html#:~:text=Kafka%20continually%20appended%20to%20partitions,fit%20on%20a%20single%20server.">Kafka分区偏移量&lt;/a>。&lt;/p>
+&lt;p>现在，将该组件部署到集群中:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl apply -f kafka-pubsub.yaml
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="deploy-keda-autoscaler-for-kafka">Deploy KEDA autoscaler for Kafka&lt;/h2>
-&lt;p>Next, we will deploy the KEDA scaling object that monitors the lag on the specified Kafka topic and configures the Kubernetes Horizontal Pod Autoscaler (HPA) to scale your Dapr deployment in and out.&lt;/p>
-&lt;p>Paste the following into a file named &lt;code>kafka_scaler.yaml&lt;/code>, and configure your Dapr deployment in the required place:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="为kafka部署keda自动伸缩">为Kafka部署KEDA自动伸缩&lt;/h2>
+&lt;p>接下来，我们将部署KEDA缩放对象，该对象可以监控指定Kafka主题上的延迟情况，并配置Kubernetes Horizontal Pod Autoscaler (HPA) 来缩放你的Dapr deployment。&lt;/p>
+&lt;p>将以下内容粘贴到名为&lt;code>kafka_scaler.yaml&lt;/code>的文件中，并在需要的地方配置你的Dapr deployment。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">keda.sh/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">ScaledObject&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -269,21 +244,21 @@ kubectl wait -n kafka --for&lt;span style="color:#f92672">=&lt;/span>condition&l
 &lt;span style="color:#f92672">bootstrapServers&lt;/span>: &lt;span style="color:#ae81ff">kafka-cp-kafka.kafka.svc.cluster.local:9092&lt;/span>
 &lt;span style="color:#f92672">consumerGroup&lt;/span>: &lt;span style="color:#ae81ff">autoscaling-subscriber&lt;/span>
 &lt;span style="color:#f92672">lagThreshold&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;5&amp;#34;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>A few things to review here in the above file:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>在上面的文件中，这里有几点需要审视:&lt;/p>
 &lt;ul>
-&lt;li>&lt;code>name&lt;/code> in the &lt;code>scaleTargetRef&lt;/code> section in the &lt;code>spec:&lt;/code> is the Dapr ID of your app defined in the Deployment (The value of the &lt;code>dapr.io/id&lt;/code> annotation)&lt;/li>
-&lt;li>&lt;code>pollingInterval&lt;/code> is the frequency in seconds with which KEDA checks Kafka for current topic partition offset&lt;/li>
-&lt;li>&lt;code>minReplicaCount&lt;/code> is the minimum number of replicas KEDA creates for your deployment. (Note, if your application takes a long time to start it may be better to set that to &lt;code>1&lt;/code> to ensure at least one replica of your deployment is always running. Otherwise, set that to &lt;code>0&lt;/code> and KEDA creates the first replica for you) (Note, if your application takes a long time to start it may be better to set that to &lt;code>1&lt;/code> to ensure at least one replica of your deployment is always running. Otherwise, set that to &lt;code>0&lt;/code> and KEDA creates the first replica for you)&lt;/li>
-&lt;li>&lt;code>maxReplicaCount&lt;/code> is the maximum number of replicas for your deployment. &lt;code>maxReplicaCount&lt;/code> is the maximum number of replicas for your deployment. Given how &lt;a href="http://cloudurable.com/blog/kafka-architecture-topics/index.html#:~:text=Kafka%20continually%20appended%20to%20partitions,fit%20on%20a%20single%20server.">Kafka partition offset&lt;/a> works, you shouldn&amp;rsquo;t set that value higher than the total number of topic partitions&lt;/li>
-&lt;li>&lt;code>topic&lt;/code> in the Kafka &lt;code>metadata&lt;/code> section which should be set to the same topic to which your Dapr deployment subscribe (In this example &lt;code>demo-topic&lt;/code>)&lt;/li>
-&lt;li>Similarly the &lt;code>bootstrapServers&lt;/code> should be set to the same broker connection string used in the &lt;code>kafka-pubsub.yaml&lt;/code> file&lt;/li>
-&lt;li>The &lt;code>consumerGroup&lt;/code> should be set to the same value as the &lt;code>consumerID&lt;/code> in the &lt;code>kafka-pubsub.yaml&lt;/code> file&lt;/li>
+&lt;li>&lt;code>spec:&lt;/code>中&lt;code>scaleTargetRef&lt;/code>部分的&lt;code>name&lt;/code>是您的应用程序在Deployment中定义的Dapr ID（&lt;code>dapr.io/id&lt;/code>注释的值）&lt;/li>
+&lt;li>&lt;code>pollingInterval&lt;/code>是KEDA检查Kafka当前主题分区偏移量的以秒为单位的频率&lt;/li>
+&lt;li>&lt;code>minReplicaCount&lt;/code>是KEDA为你的deployment创建的最小副本数量。 (注意，如果您的应用程序需要很长时间才能启动，最好将其设置为&lt;code>1&lt;/code>，以确保部署的至少一个副本始终在运行。 否则，设置为&lt;code>0&lt;/code>，KEDA就会为你创建第一个副本)&lt;/li>
+&lt;li>&lt;code>maxReplicaCount&lt;/code>是你的deployment的最大副本数量。 考虑到 &lt;a href="http://cloudurable.com/blog/kafka-architecture-topics/index.html#:~:text=Kafka%20continually%20appended%20to%20partitions,fit%20on%20a%20single%20server.">Kafka分区偏移量&lt;/a>的工作方式，你不应该将该值设置得高于主题分区的总数量。&lt;/li>
+&lt;li>Kafka &lt;code>metadata&lt;/code>部分的&lt;code>topic&lt;/code>应该设置为你的Dapr deployment所订阅的同一主题（在本例中&lt;code>demo-topic&lt;/code>）&lt;/li>
+&lt;li>类似地，&lt;code>bootstrapServers&lt;/code>应该设置为&lt;code>kafka-pubsub.yaml&lt;/code>文件中使用的同一个broker的连接地址字符串&lt;/li>
+&lt;li>&lt;code>consumerGroup&lt;/code>应该设置为与&lt;code>kafka-pubsub.yaml&lt;/code>文件中的&lt;code>consumerID&lt;/code>相同的值&lt;/li>
 &lt;/ul>
 &lt;blockquote>
-&lt;p>Note: setting the connection string, topic, and consumer group to the &lt;em>same&lt;/em> values for both the Dapr service subscription and the KEDA scaler configuration is critical to ensure the autoscaling works correctly.&lt;/p>
+&lt;p>注意：将 Dapr 服务订阅和 KEDA 缩放器配置的连接字符串、主题和消费者组设置为 &lt;em>相同的&lt;/em>值，对于确保自动缩放正常工作至关重要。&lt;/p>
 &lt;/blockquote>
-&lt;p>Next, deploy the KEDA scaler to Kubernetes:&lt;/p>
+&lt;p>接下来，将KEDA扩展器部署到Kubernetes:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl apply -f kafka_scaler.yaml
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>All done!&lt;/p>
-&lt;p>Now, that the &lt;code>ScaledObject&lt;/code> KEDA object is configured, your deployment will scale based on the lag of the Kafka topic. More information on configuring KEDA for Kafka topics is available &lt;a href="https://keda.sh/docs/2.0/scalers/apache-kafka/">here&lt;/a>. More information on configuring KEDA for Kafka topics is available &lt;a href="https://keda.sh/docs/2.0/scalers/apache-kafka/">here&lt;/a>.&lt;/p>
-&lt;p>You can now start publishing messages to your Kafka topic &lt;code>demo-topic&lt;/code> and watch the pods autoscale when the lag threshold is higher than &lt;code>5&lt;/code> topics, as we have defined in the KEDA scaler manifest. You can publish messages to the Kafka Dapr component by using the Dapr &lt;a href="https://github.com/dapr/CLI#publishsubscribe">Publish&lt;/a> CLI command You can publish messages to the Kafka Dapr component by using the Dapr &lt;a href="https://github.com/dapr/CLI#publishsubscribe">Publish&lt;/a> CLI command&lt;/p></description></item><item><title>Developing-Applications: Authenticating to services</title><link>https://docs.dapr.io/developing-applications/integrations/authenticating/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/integrations/authenticating/</guid><description/></item></channel></rss>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>全部完成！&lt;/p>
+&lt;p>现在，&lt;code>ScaledObject&lt;/code> KEDA对象已经配置好了，你的deployment将根据Kafka主题的延迟进行扩展。 更多关于为Kafka主题配置KEDA的信息可以在&lt;a href="https://keda.sh/docs/2.0/scalers/apache-kafka/">这里&lt;/a>获得。&lt;/p>
+&lt;p>现在你可以开始将消息发布到您的Kafka主题&lt;code>demo-topic&lt;/code>，当延迟阈值高于&lt;code>5&lt;/code>主题时，你可以看到pods开始自动缩放，正如我们在KEDA缩放器清单中定义的那样。 您可以通过使用Dapr &lt;a href="https://github.com/dapr/CLI#publishsubscribe">Publish&lt;/a> CLI命令将消息发布到Kafka Dapr组件。&lt;/p></description></item><item><title>Developing-Applications: 对服务进行身份验证</title><link>https://docs.dapr.io/developing-applications/integrations/authenticating/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/integrations/authenticating/</guid><description/></item></channel></rss>
