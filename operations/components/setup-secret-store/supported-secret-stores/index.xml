@@ -1,5 +1,5 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – 支持的密钥仓库</title><link>https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/</link><description>Recent content in 支持的密钥仓库 on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: AWS Secrets Manager</title><link>https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/aws-secret-manager/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/aws-secret-manager/</guid><description>
-&lt;h2 id="组件格式">组件格式&lt;/h2>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Supported secret stores</title><link>https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/</link><description>Recent content in Supported secret stores on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: AWS Secrets Manager</title><link>https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/aws-secret-manager/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/aws-secret-manager/</guid><description>
+&lt;h2 id="配置">配置&lt;/h2>
 &lt;p>要设置AWS Secrets Manager密钥仓库，请创建一个类型为&lt;code>secretstores.aws.secretmanager&lt;/code>的组件。 请参阅 &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/secret-stores-overview/#apply-the-configuration">本指南&lt;/a>，了解如何创建和应用 secretstore 配置。 请参阅本指南 &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">引用密钥&lt;/a> 来检索和使用Dapr组件的密钥。&lt;/p>
 &lt;p>请参阅 &lt;a href="https://docs.dapr.io/developing-applications/integrations/authenticating/authenticating-aws/">AWS认证&lt;/a>，了解有关身份验证相关属性的信息。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
@@ -22,7 +22,7 @@
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将密钥明文存储， 建议将密钥存储在本地，如 &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/kubernetes-secret-store/">Kubernetes密钥仓库&lt;/a>或 &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/file-secret-store/">本地文件&lt;/a>来安全地存储密钥。
+以上示例将密钥明文存储。 建议将密钥存储在本地，如 &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/kubernetes-secret-store/">Kubernetes密钥仓库&lt;/a>或 &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/file-secret-store/">本地文件&lt;/a>来安全地存储密钥。
 &lt;/div>
 &lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
@@ -37,19 +37,19 @@
 &lt;tbody>
 &lt;tr>
 &lt;td>region&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>AWS Secrets Manager 实例所部署的特定AWS 区域&lt;/td>
 &lt;td>&lt;code>&amp;quot;us-east-1&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>accessKey&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>要访问此资源的 AWS 访问密钥&lt;/td>
 &lt;td>&lt;code>&amp;quot;key&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>secretKey&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>要访问此资源的 AWS 密钥访问 Key&lt;/td>
 &lt;td>&lt;code>&amp;quot;secretAccessKey&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
@@ -70,12 +70,84 @@
 &lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-secrets/">指南：在Dapr组件中引用密钥&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/reference/api/secrets_api/">密钥 API 参考&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/integrations/authenticating/authenticating-aws/">AWS认证&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: AWS SSM Parameter Store</title><link>https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/aws-parameter-store/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/aws-parameter-store/</guid><description>
+&lt;h2 id="配置">配置&lt;/h2>
+&lt;p>To setup AWS SSM Parameter Store secret store create a component of type &lt;code>secretstores.aws.parameterstore&lt;/code>. 请参阅 &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/secret-stores-overview/#apply-the-configuration">本指南&lt;/a>，了解如何创建和应用 secretstore 配置。 请参阅本指南 &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">引用密钥&lt;/a> 来检索和使用Dapr组件的密钥。&lt;/p>
+&lt;p>请参阅 &lt;a href="https://docs.dapr.io/developing-applications/integrations/authenticating/authenticating-aws/">AWS认证&lt;/a>，了解有关身份验证相关属性的信息。&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">awsparameterstore&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">secretstores.aws.parameterstore&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">region&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[aws_region]&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">accessKey&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[aws_access_key]&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">secretKey&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[aws_secret_key]&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">sessionToken&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[aws_session_token]&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+以上示例将密钥明文存储。 建议将密钥存储在本地，如 &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/kubernetes-secret-store/">Kubernetes密钥仓库&lt;/a>或 &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/file-secret-store/">本地文件&lt;/a>来安全地存储密钥。
+&lt;/div>
+&lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>字段&lt;/th>
+&lt;th style="text-align:center">必填&lt;/th>
+&lt;th>详情&lt;/th>
+&lt;th>示例&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>region&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
+&lt;td>The specific AWS region the AWS SSM Parameter Store instance is deployed in&lt;/td>
+&lt;td>&lt;code>&amp;quot;us-east-1&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>accessKey&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
+&lt;td>要访问此资源的 AWS 访问密钥&lt;/td>
+&lt;td>&lt;code>&amp;quot;key&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>secretKey&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
+&lt;td>要访问此资源的 AWS 密钥访问 Key&lt;/td>
+&lt;td>&lt;code>&amp;quot;secretAccessKey&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>sessionToken&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>要使用的 AWS 会话令牌&lt;/td>
+&lt;td>&lt;code>&amp;quot;sessionToken&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="create-an-aws-ssm-parameter-store-instance">Create an AWS SSM Parameter Store instance&lt;/h2>
+&lt;p>Setup AWS SSM Parameter Store using the AWS documentation: &lt;a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html">https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html&lt;/a>.&lt;/p>
+&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/secrets/">密钥构建块&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/secrets/howto-secrets/">指南：获取密钥&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-secrets/">指南：在Dapr组件中引用密钥&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/reference/api/secrets_api/">密钥 API 参考&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/integrations/authenticating/authenticating-aws/">AWS认证&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: Azure Key Vault 密钥仓库</title><link>https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/azure-keyvault/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/azure-keyvault/</guid><description>
 &lt;div class="alert alert-primary" role="alert">
 &lt;h4 class="alert-heading">Note&lt;/h4>
-Azure Managed Identity 可用于 Kubernetes 上的 Azure Key Vault 访问， 在 &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/azure-keyvault-managed-identity/">这里&lt;/a>查看说明。
+Azure Managed Identity 可用于 Kubernetes 上的 Azure Key Vault 访问， 在 &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/azure-keyvault-managed-identity/">这里&lt;/a>查看说明。 在 &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/azure-keyvault-managed-identity/">这里&lt;/a>查看说明。
 &lt;/div>
-&lt;h2 id="组件格式">组件格式&lt;/h2>
+&lt;h2 id="配置">配置&lt;/h2>
 &lt;p>要设置Azure Key Vault密钥仓库，请创建一个类型为&lt;code>secretstores.azure.keyvault&lt;/code>的组件。 请参阅 &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/secret-stores-overview/#apply-the-configuration">本指南&lt;/a>，了解如何创建和应用 secretstore 配置。 请参阅本指南 &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">引用密钥&lt;/a> 来检索和使用Dapr组件的密钥。&lt;/p>
 &lt;p>也请参见本页面中的&lt;a href="#configure-the-component">配置组件&lt;/a>指南。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
@@ -98,7 +170,7 @@ Azure Managed Identity 可用于 Kubernetes 上的 Azure Key Vault 访问， 在
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将密钥明文存储， 建议将密钥存储在本地，如 &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/kubernetes-secret-store/">Kubernetes密钥仓库&lt;/a>或 &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/file-secret-store/">本地文件&lt;/a>来安全地存储密钥。
+以上示例将密钥明文存储。 建议将密钥存储在本地，如 &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/kubernetes-secret-store/">Kubernetes密钥仓库&lt;/a>或 &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/file-secret-store/">本地文件&lt;/a>来安全地存储密钥。
 &lt;/div>
 &lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
@@ -113,26 +185,26 @@ Azure Managed Identity 可用于 Kubernetes 上的 Azure Key Vault 访问， 在
 &lt;tbody>
 &lt;tr>
 &lt;td>vaultName&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>Azure Key Vault名称&lt;/td>
 &lt;td>&lt;code>&amp;quot;mykeyvault&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>spnTenantId&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>Service Principal Tenant Id&lt;/td>
 &lt;td>&lt;code>&amp;quot;spnTenantId&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>spnClientId&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>Service Principal App Id&lt;/td>
 &lt;td>&lt;code>&amp;quot;spnAppId&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>spnCertificateFile&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
-&lt;td>PFX证书文件路径， &lt;br>&lt;/br> 对于Windows， &lt;code>[pfx_certificate_file_fully_qualified_local_path]&lt;/code> 值必须使用转义的反斜杠，即双反斜杠。 例如 &lt;code>&amp;quot;C:\\folder1\\folder2\\certfile.pfx&amp;quot;&lt;/code> &lt;br>&lt;/br> 对于Linux，你可以使用单斜杠。 例如 &lt;code>&amp;quot;/folder1/folder2/certfile.pfx&amp;quot;&lt;/code> &lt;br>&lt;/br> 请参阅&lt;a href="#configure-the-component">配置组件&lt;/a>了解更多详情&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
+&lt;td>PFX证书文件路径， PFX证书文件路径， &lt;br>&lt;/br> 对于Windows， &lt;code>[pfx_certificate_file_fully_qualified_local_path]&lt;/code> 值必须使用转义的反斜杠，即双反斜杠。 例如 &lt;code>&amp;quot;C:\\folder1\\folder2\\certfile.pfx&amp;quot;&lt;/code> &lt;br>&lt;/br> 对于Linux，你可以使用单斜杠。 &lt;br>&lt;/br> 对于Linux，你可以使用单斜杠。 例如 &lt;code>&amp;quot;/folder1/folder2/certfile.pfx&amp;quot;&lt;/code> 例如 &lt;code>&amp;quot;/folder1/folder2/certfile.pfx&amp;quot;&lt;/code> &lt;br>&lt;/br> 请参阅&lt;a href="#configure-the-component">配置组件&lt;/a>了解更多详情&lt;/td>
 &lt;td>&lt;code>&amp;quot;C:\\folder1\\folder2\\certfile.pfx&amp;quot;&lt;/code>, &lt;code>&amp;quot;/folder1/folder2/certfile.pfx&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;/tbody>
@@ -283,7 +355,7 @@ Kubernetes
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl apply -f azurekeyvault.yaml
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
 &lt;/div>
-&lt;h2 id="参考文档">参考文档&lt;/h2>
+&lt;h2 id="参考资料">参考资料&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.microsoft.com/en-us/cli/azure/keyvault?view=azure-cli-latest#az-keyvault-create">Azure CLI Keyvault CLI&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli?view=azure-cli-latest">使用 Azure CLI 创建 Azure 服务主体&lt;/a>&lt;/li>
@@ -321,19 +393,19 @@ Kubernetes
 &lt;th>字段&lt;/th>
 &lt;th style="text-align:center">必填&lt;/th>
 &lt;th>详情&lt;/th>
-&lt;th>例子&lt;/th>
+&lt;th>示例&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
 &lt;td>vaultName&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>Azure Key Vault名称&lt;/td>
 &lt;td>&lt;code>&amp;quot;mykeyvault&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>spnClientId&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>你的托管标识客户端ID&lt;/td>
 &lt;td>&lt;code>&amp;quot;yourId&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
@@ -423,7 +495,7 @@ kubectl apply -f https://raw.githubusercontent.com/Azure/aad-pod-identity/master
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#ae81ff">kubectl apply -f azure-identity-config.yaml&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;/ol>
-&lt;h2 id="参考文档">参考文档&lt;/h2>
+&lt;h2 id="参考资料">参考资料&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.microsoft.com/en-us/cli/azure/keyvault?view=azure-cli-latest#az-keyvault-create">Azure CLI Keyvault CLI&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli?view=azure-cli-latest">使用 Azure CLI 创建 Azure 服务主体&lt;/a>&lt;/li>
@@ -467,7 +539,7 @@ kubectl apply -f https://raw.githubusercontent.com/Azure/aad-pod-identity/master
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 建议将密钥存储在本地，如 &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/kubernetes-secret-store/">Kubernetes密钥仓库&lt;/a>或 &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/file-secret-store/">本地文件&lt;/a>来安全地存储密钥。
+以上示例将密钥明文存储。 建议将密钥存储在本地，如 &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/kubernetes-secret-store/">Kubernetes密钥仓库&lt;/a>或 &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/file-secret-store/">本地文件&lt;/a>来安全地存储密钥。
 &lt;/div>
 &lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
@@ -482,13 +554,13 @@ kubectl apply -f https://raw.githubusercontent.com/Azure/aad-pod-identity/master
 &lt;tbody>
 &lt;tr>
 &lt;td>type&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>账户类型&lt;/td>
 &lt;td>&lt;code>&amp;quot;serviceAccount&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>project_id&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>与此组件相关联的项目 ID。&lt;/td>
 &lt;td>&lt;code>&amp;quot;project_id&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
@@ -500,7 +572,7 @@ kubectl apply -f https://raw.githubusercontent.com/Azure/aad-pod-identity/master
 &lt;/tr>
 &lt;tr>
 &lt;td>client_email&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>客户端电子邮件地址&lt;/td>
 &lt;td>&lt;code>&amp;quot;client@example.com&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
@@ -536,7 +608,7 @@ kubectl apply -f https://raw.githubusercontent.com/Azure/aad-pod-identity/master
 &lt;/tr>
 &lt;tr>
 &lt;td>private_key&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>认证用的私钥&lt;/td>
 &lt;td>&lt;code>&amp;quot;privateKey&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
@@ -581,7 +653,7 @@ kubectl apply -f https://raw.githubusercontent.com/Azure/aad-pod-identity/master
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 建议将密钥存储在本地，如 &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/kubernetes-secret-store/">Kubernetes密钥仓库&lt;/a>或 &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/file-secret-store/">本地文件&lt;/a>来安全地存储密钥。
+以上示例将密钥明文存储。 建议将密钥存储在本地，如 &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/kubernetes-secret-store/">Kubernetes密钥仓库&lt;/a>或 &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/file-secret-store/">本地文件&lt;/a>来安全地存储密钥。
 &lt;/div>
 &lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
@@ -632,7 +704,7 @@ kubectl apply -f https://raw.githubusercontent.com/Azure/aad-pod-identity/master
 &lt;/tr>
 &lt;tr>
 &lt;td>vaultTokenMountPath&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>包含token的文件路径&lt;/td>
 &lt;td>&lt;code>&amp;quot;path/to/file&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
@@ -670,10 +742,33 @@ Kubernetes
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/secrets/howto-secrets/">指南：获取密钥&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-secrets/">指南：在Dapr组件中引用密钥&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/reference/api/secrets_api/">密钥 API 参考&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Kubernetes 密钥</title><link>https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/kubernetes-secret-store/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/kubernetes-secret-store/</guid><description>
+&lt;/ul></description></item><item><title>Operations: Kubernetes secrets</title><link>https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/kubernetes-secret-store/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/kubernetes-secret-store/</guid><description>
 &lt;h2 id="开篇摘要">开篇摘要&lt;/h2>
 &lt;p>Kubernetes有一个内置的密钥仓库，Dapr组件可以使用它来检索密钥。 设置Kubernetes密钥仓库不需要特殊的配置，你能够从&lt;code>http://localhost:3500/v1.0/secrets/kubernetes/[my-secret]&lt;/code>这个 URL中检索密钥。 请参阅本指南 &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">引用密钥&lt;/a> 来检索和使用Dapr组件的密钥。&lt;/p>
 &lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/secrets/">密钥构建块&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/secrets/howto-secrets/">指南：获取密钥&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-secrets/">指南：在Dapr组件中引用密钥&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/reference/api/secrets_api/">密钥 API 参考&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: 本地环境变量（用于开发）</title><link>https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/envvar-secret-store/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/envvar-secret-store/</guid><description>
+&lt;p>这个Dapr密钥仓库组件不使用身份认证，而是使用本地定义的环境变量。&lt;/p>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+这种密钥管理的方法不建议用于生产环境。
+&lt;/div>
+&lt;h2 id="配置">配置&lt;/h2>
+&lt;p>要设置本地环境变量密钥存储，请创建一个类型为&lt;code>secretstores.local.env&lt;/code>的组件。 在你的&lt;code>./components&lt;/code>目录下创建一个包含以下内容的文件:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">envvar-secret-store&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">secretstores.local.env&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/secrets/">密钥构建块&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/secrets/howto-secrets/">指南：获取密钥&lt;/a>&lt;/li>
@@ -713,14 +808,14 @@ Kubernetes
 &lt;tbody>
 &lt;tr>
 &lt;td>secretsFile&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>存储密钥的文件路径&lt;/td>
 &lt;td>&lt;code>&amp;quot;path/to/file.json&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>nestedSeparator&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>在将JSON层次结构扁平化为map时，被仓库使用 默认值为 &lt;code>&amp;quot;:&amp;quot;&lt;/code>&lt;/td>
+&lt;td>在将JSON层次结构扁平化为map时，被仓库使用 默认值为 &lt;code>&amp;quot;:&amp;quot;&lt;/code> 默认值为 &lt;code>&amp;quot;:&amp;quot;&lt;/code>&lt;/td>
 &lt;td>&lt;code>&amp;quot;:&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;/tbody>
@@ -759,29 +854,6 @@ Kubernetes
 &lt;/table>
 &lt;p>使用扁平键 (&lt;code>connectionStrings:sql&lt;/code>)来访问密钥。&lt;/p>
 &lt;h2 id="相关链接">相关链接&lt;/h2>
-&lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/secrets/">密钥构建块&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/secrets/howto-secrets/">指南：获取密钥&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-secrets/">指南：在Dapr组件中引用密钥&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/reference/api/secrets_api/">密钥 API 参考&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: 本地环境变量（用于开发）</title><link>https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/envvar-secret-store/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/envvar-secret-store/</guid><description>
-&lt;p>这个Dapr密钥仓库组件不使用身份认证，而是使用本地定义的环境变量。&lt;/p>
-&lt;div class="alert alert-warning" role="alert">
-&lt;h4 class="alert-heading">Warning&lt;/h4>
-这种密钥管理的方法不建议用于生产环境。
-&lt;/div>
-&lt;h2 id="配置">配置&lt;/h2>
-&lt;p>要设置本地环境变量密钥存储，请创建一个类型为&lt;code>secretstores.local.env&lt;/code>的组件。 在你的&lt;code>./components&lt;/code>目录下创建一个包含以下内容的文件:&lt;/p>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
-&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
-&lt;span style="color:#f92672">metadata&lt;/span>:
-&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">envvar-secret-store&lt;/span>
-&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
-&lt;span style="color:#f92672">spec&lt;/span>:
-&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">secretstores.local.env&lt;/span>
-&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
-&lt;span style="color:#f92672">metadata&lt;/span>:
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/secrets/">密钥构建块&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/secrets/howto-secrets/">指南：获取密钥&lt;/a>&lt;/li>

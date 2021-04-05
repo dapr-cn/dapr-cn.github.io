@@ -9,7 +9,7 @@
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl apply -f myappconfig.yaml
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>您也可以使用 Dapr CLI 工具列举查看当前的配置 CRD 列表：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr configurations -k
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>也可以使用 &lt;code>dapr.io/config&lt;/code> 注解对指定的 Dapr sidecar 应用特定的配置。 例如：&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>也可以使用 &lt;code>dapr.io/config&lt;/code> 注解对指定的 Dapr sidecar 应用特定的配置。 例如:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yml" data-lang="yml"> &lt;span style="color:#f92672">annotations&lt;/span>:
 &lt;span style="color:#f92672">dapr.io/enabled&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
 &lt;span style="color:#f92672">dapr.io/app-id&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;nodeapp&amp;#34;&lt;/span>
@@ -20,8 +20,8 @@
 &lt;p>Dapr 应用 sidecar 提供以下配置选项；&lt;/p>
 &lt;ul>
 &lt;li>&lt;a href="#tracing">Tracing（调用链追踪）&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#metrics">Metrics（度量）&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#middleware">Middleware（中间件）&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#metrics">指标&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#middleware">中间件&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#scoping-secrets-for-secret-stores">限定范围的密钥储存&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#access-control-allow-lists-for-service-invocation">服务间调用的访问控制&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#example-application-sidecar-configuration">Sidecar 配置示例&lt;/a>&lt;/li>
@@ -57,7 +57,7 @@
 &lt;/table>
 &lt;p>&lt;code>samplingRate&lt;/code> 用来控制调用链追踪是否启用。 要禁用采样率 , 可以在配置文件中设置 &lt;code>samplingRate : &amp;quot;0&amp;quot;&lt;/code> 。 SamplingRate 的有效值在0到1之间。 系统将根据采样率配置的数值决定一条 trace span 是否要被采样。 如果设置 &lt;code>samplingRate : &amp;quot;1&amp;quot;&lt;/code> ，将会对所有的调用链进行采样。 默认情况下，采样率配置为 (0.0001)，即每10,000条请求中会有一条被采样。&lt;/p>
 &lt;p>请参阅 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/observability/tracing-overview/">分布式可观测性追踪&lt;/a> 了解更多信息。&lt;/p>
-&lt;h4 id="metrics度量">Metrics（度量）&lt;/h4>
+&lt;h4 id="指标">指标&lt;/h4>
 &lt;p>配置中的 metrics 部分用来为应用开启或禁用度量功能。&lt;/p>
 &lt;p>&lt;code>Configuration&lt;/code> sepc下的 &lt;code>metrics&lt;/code> 部分包含以下属性：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yml" data-lang="yml">&lt;span style="color:#f92672">metrics&lt;/span>:
@@ -68,7 +68,7 @@
 &lt;tr>
 &lt;th>属性&lt;/th>
 &lt;th>数据类型&lt;/th>
-&lt;th>说明&lt;/th>
+&lt;th>描述&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -80,7 +80,7 @@
 &lt;/tbody>
 &lt;/table>
 &lt;p>请参阅 &lt;a href="https://docs.dapr.io/operations/monitoring/metrics/metrics-overview/">度量文档&lt;/a> 了解更多信息。&lt;/p>
-&lt;h4 id="middleware中间件">Middleware（中间件）&lt;/h4>
+&lt;h4 id="中间件">中间件&lt;/h4>
 &lt;p>中间件配置用于配置一系列可命名的HTTP管道处理器。&lt;code>Configuration&lt;/code> spec 下的&lt;code>httpPipeline&lt;/code> 部分包含以下的配置属性：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yml" data-lang="yml">&lt;span style="color:#f92672">httpPipeline&lt;/span>:
 &lt;span style="color:#f92672">handlers&lt;/span>:
@@ -94,7 +94,7 @@
 &lt;tr>
 &lt;th>属性&lt;/th>
 &lt;th>数据类型&lt;/th>
-&lt;th>说明&lt;/th>
+&lt;th>描述&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -192,12 +192,12 @@
 &lt;span style="color:#f92672">allowedClockSkew&lt;/span>: &lt;span style="color:#ae81ff">15m&lt;/span>
 &lt;span style="color:#f92672">workloadCertTTL&lt;/span>: &lt;span style="color:#ae81ff">24h&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Operations: How-To: Control concurrency and rate limit applications</title><link>https://docs.dapr.io/operations/configuration/control-concurrency/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/configuration/control-concurrency/</guid><description>
-&lt;p>A common scenario in distributed computing is to only allow for a given number of requests to execute concurrently. A common scenario in distributed computing is to only allow for a given number of requests to execute concurrently. Using Dapr, you can control how many requests and events will invoke your application simultaneously.&lt;/p>
-&lt;p>&lt;em>Note that this rate limiing is guaranteed for every event that&amp;rsquo;s coming from Dapr, meaning Pub/Sub events, direct invocation from other services, bindings events etc. Dapr can&amp;rsquo;t enforce the concurrency policy on requests that are coming to your app externally. Dapr can&amp;rsquo;t enforce the concurrency policy on requests that are coming to your app externally.&lt;/em>&lt;/p>
+&lt;p>A common scenario in distributed computing is to only allow for a given number of requests to execute concurrently. Using Dapr, you can control how many requests and events will invoke your application simultaneously.&lt;/p>
+&lt;p>&lt;em>Note that this rate limiing is guaranteed for every event that&amp;rsquo;s coming from Dapr, meaning Pub/Sub events, direct invocation from other services, bindings events etc. Dapr can&amp;rsquo;t enforce the concurrency policy on requests that are coming to your app externally.&lt;/em>&lt;/p>
 &lt;p>*Note that rate limiting per second can be achieved by using the &lt;strong>middleware.http.ratelimit&lt;/strong> middleware. However, there is an imporant difference between the two approaches. The rate limit middlware is time bound and limits the number of requests per second, while the &lt;code>app-max-concurrency&lt;/code> flag specifies the number of concurrent requests (and events) at any point of time. See &lt;a href="https://docs.dapr.io/developing-applications/middleware/supported-middleware/middleware-rate-limit/">Rate limit middleware&lt;/a>. * However, there is an imporant difference between the two approaches. The rate limit middlware is time bound and limits the number of requests per second, while the &lt;code>app-max-concurrency&lt;/code> flag specifies the number of concurrent requests (and events) at any point of time. See &lt;a href="https://docs.dapr.io/developing-applications/middleware/supported-middleware/middleware-rate-limit/">Rate limit middleware&lt;/a>. *&lt;/p>
-&lt;p>Without using Dapr, a developer would need to create some sort of a semaphore in the application and take care of acquiring and releasing it. Using Dapr, there are no code changes needed to an app. &lt;iframe width="764" height="430" src="https://www.youtube.com/embed/yRI5g6o_jp8?t=1710" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark">&lt;/iframe>&lt;/p>
+&lt;p>Watch this &lt;a href="https://youtu.be/yRI5g6o_jp8?t=1710">video&lt;/a> on how to control concurrency and rate limiting &amp;ldquo;. &lt;iframe width="764" height="430" src="https://www.youtube.com/embed/yRI5g6o_jp8?t=1710" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark">&lt;/iframe>&lt;/p>
 &lt;h2 id="setting-app-max-concurrency">Setting app-max-concurrency&lt;/h2>
-&lt;p>Without using Dapr, a developer would need to create some sort of a semaphore in the application and take care of acquiring and releasing it. Using Dapr, there are no code changes needed to an app. Using Dapr, there are no code changes needed to an app.&lt;/p>
+&lt;p>Without using Dapr, a developer would need to create some sort of a semaphore in the application and take care of acquiring and releasing it. Using Dapr, there are no code changes needed to an app.&lt;/p>
 &lt;h3 id="setting-app-max-concurrency-in-kubernetes">Setting app-max-concurrency in Kubernetes&lt;/h3>
 &lt;p>To set app-max-concurrency in Kubernetes, add the following annotation to your pod:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">apps/v1&lt;/span>
@@ -226,7 +226,7 @@
 &lt;p>To set app-max-concurrency with the Dapr CLI for running on your local dev machine, add the &lt;code>app-max-concurrency&lt;/code> flag:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr run --app-max-concurrency &lt;span style="color:#ae81ff">1&lt;/span> --app-port &lt;span style="color:#ae81ff">5000&lt;/span> python ./app.py
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>The above examples will effectively turn your app into a single concurrent service.&lt;/p></description></item><item><title>Operations: How-To: Limit the secrets that can be read from secret stores</title><link>https://docs.dapr.io/operations/configuration/secret-scope/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/configuration/secret-scope/</guid><description>
-&lt;p>In addition to scoping which applications can access a given component, for example a secret store component (see &lt;a href="https://docs.dapr.io/operations/components/component-scopes/">Scoping components&lt;/a>), a named secret store component itself can be scoped to one or more secrets for an application. By defining &lt;code>allowedSecrets&lt;/code> and/or &lt;code>deniedSecrets&lt;/code> list, applications can be restricted to access only specific secrets. By defining &lt;code>allowedSecrets&lt;/code> and/or &lt;code>deniedSecrets&lt;/code> list, applications can be restricted to access only specific secrets.&lt;/p>
+&lt;p>In addition to scoping which applications can access a given component, for example a secret store component (see &lt;a href="https://docs.dapr.io/operations/components/component-scopes/">Scoping components&lt;/a>), a named secret store component itself can be scoped to one or more secrets for an application. By defining &lt;code>allowedSecrets&lt;/code> and/or &lt;code>deniedSecrets&lt;/code> list, applications can be restricted to access only specific secrets.&lt;/p>
 &lt;p>Follow &lt;a href="https://docs.dapr.io/operations/configuration/configuration-overview/">these instructions&lt;/a> to define a configuration CRD.&lt;/p>
 &lt;h2 id="configure-secrets-access">Configure secrets access&lt;/h2>
 &lt;p>The &lt;code>secrets&lt;/code> section under the &lt;code>Configuration&lt;/code> spec contains the following properties:&lt;/p>
@@ -242,8 +242,8 @@
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>Property&lt;/th>
-&lt;th>Type&lt;/th>
+&lt;th>属性&lt;/th>
+&lt;th>数据类型&lt;/th>
 &lt;th>描述&lt;/th>
 &lt;/tr>
 &lt;/thead>
@@ -254,83 +254,83 @@
 &lt;td>Name of the secret store component. Name of the secret store component. storeName must be unique within the list&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>defaultAccess&lt;/td>
+&lt;td>默认权限&lt;/td>
 &lt;td>string&lt;/td>
-&lt;td>Access modifier. Access modifier. Accepted values &amp;ldquo;allow&amp;rdquo; (default) or &amp;ldquo;deny&amp;rdquo;&lt;/td>
+&lt;td>Access modifier. Accepted values &amp;ldquo;allow&amp;rdquo; (default) or &amp;ldquo;deny&amp;rdquo;&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>allowedSecrets&lt;/td>
+&lt;td>允许的密钥&lt;/td>
 &lt;td>list&lt;/td>
 &lt;td>List of secret keys that can be accessed&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>deniedSecrets&lt;/td>
+&lt;td>被拒绝的密钥&lt;/td>
 &lt;td>list&lt;/td>
 &lt;td>List of secret keys that cannot be accessed&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
 &lt;p>When an &lt;code>allowedSecrets&lt;/code> list is present with at least one element, only those secrets defined in the list can be accessed by the application.&lt;/p>
-&lt;h2 id="permission-priority">Permission priority&lt;/h2>
+&lt;h2 id="权限优先级">权限优先级&lt;/h2>
 &lt;p>The &lt;code>allowedSecrets&lt;/code> and &lt;code>deniedSecrets&lt;/code> list values take priorty over the &lt;code>defaultAccess&lt;/code>.&lt;/p>
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>Scenarios&lt;/th>
-&lt;th>defaultAccess&lt;/th>
-&lt;th>allowedSecrets&lt;/th>
-&lt;th>deniedSecrets&lt;/th>
-&lt;th>permission&lt;/th>
+&lt;th>场景&lt;/th>
+&lt;th>默认权限&lt;/th>
+&lt;th>允许的密钥&lt;/th>
+&lt;th>被拒绝的密钥&lt;/th>
+&lt;th>权限&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
-&lt;td>1 - Only default access&lt;/td>
-&lt;td>deny/allow&lt;/td>
-&lt;td>empty&lt;/td>
-&lt;td>empty&lt;/td>
-&lt;td>deny/allow&lt;/td>
+&lt;td>1 - 仅默认访问&lt;/td>
+&lt;td>拒绝/允许&lt;/td>
+&lt;td>为空&lt;/td>
+&lt;td>为空&lt;/td>
+&lt;td>拒绝/允许&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>2 - Default deny with allowed list&lt;/td>
-&lt;td>deny&lt;/td>
+&lt;td>2 - 默认拒绝允许列表&lt;/td>
+&lt;td>拒绝&lt;/td>
 &lt;td>[&amp;ldquo;s1&amp;rdquo;]&lt;/td>
-&lt;td>empty&lt;/td>
-&lt;td>only &amp;ldquo;s1&amp;rdquo; can be accessed&lt;/td>
+&lt;td>为空&lt;/td>
+&lt;td>只能访问&amp;quot;s1&amp;quot;&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>3 - Default allow with deneied list&lt;/td>
-&lt;td>allow&lt;/td>
-&lt;td>empty&lt;/td>
+&lt;td>3 - 默认允许拒绝列表&lt;/td>
+&lt;td>允许&lt;/td>
+&lt;td>为空&lt;/td>
 &lt;td>[&amp;ldquo;s1&amp;rdquo;]&lt;/td>
-&lt;td>only &amp;ldquo;s1&amp;rdquo; cannot be accessed&lt;/td>
+&lt;td>仅限&amp;quot;s1&amp;quot;无法访问&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>4 - Default allow with allowed list&lt;/td>
-&lt;td>allow&lt;/td>
+&lt;td>4 - 默认允许允许列表&lt;/td>
+&lt;td>允许&lt;/td>
 &lt;td>[&amp;ldquo;s1&amp;rdquo;]&lt;/td>
-&lt;td>empty&lt;/td>
-&lt;td>only &amp;ldquo;s1&amp;rdquo; can be accessed&lt;/td>
+&lt;td>为空&lt;/td>
+&lt;td>只能访问&amp;quot;s1&amp;quot;&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>5 - Default deny with denied list&lt;/td>
-&lt;td>deny&lt;/td>
-&lt;td>empty&lt;/td>
+&lt;td>5 - 默认拒绝拒绝列表&lt;/td>
+&lt;td>拒绝&lt;/td>
+&lt;td>为空&lt;/td>
 &lt;td>[&amp;ldquo;s1&amp;rdquo;]&lt;/td>
-&lt;td>deny&lt;/td>
+&lt;td>拒绝&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>6 - Default deny/allow with both lists&lt;/td>
-&lt;td>deny/allow&lt;/td>
+&lt;td>6 - 两个列表的默认拒绝/允许&lt;/td>
+&lt;td>拒绝/允许&lt;/td>
 &lt;td>[&amp;ldquo;s1&amp;rdquo;]&lt;/td>
 &lt;td>[&amp;ldquo;s2&amp;rdquo;]&lt;/td>
-&lt;td>only &amp;ldquo;s1&amp;rdquo; can be accessed&lt;/td>
+&lt;td>只能访问&amp;quot;s1&amp;quot;&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="examples">Examples&lt;/h2>
-&lt;h3 id="scenario-1--deny-access-to-all-secrets-for-a-secret-store">Scenario 1 : Deny access to all secrets for a secret store&lt;/h3>
-&lt;p>In Kubernetes cluster, the native Kubernetes secret store is added to Dapr application by default. In some scenarios it may be necessary to deny access to Dapr secrets for a given application. To add this configuration follow the steps below: In some scenarios it may be necessary to deny access to Dapr secrets for a given application. To add this configuration follow the steps below:&lt;/p>
+&lt;h2 id="示例">示例&lt;/h2>
+&lt;h3 id="场景1拒绝访问所有密钥仓库">场景1：拒绝访问所有密钥仓库&lt;/h3>
+&lt;p>In Kubernetes cluster, the native Kubernetes secret store is added to Dapr application by default. 在某些情况下，可能有必要拒绝某个应用程序访问 Dapr 密钥。 要添加此配置，请按照下面的步骤：&lt;/p>
 &lt;p>Define the following &lt;code>appconfig.yaml&lt;/code> and apply it to the Kubernetes cluster using the command &lt;code>kubectl apply -f appconfig.yaml&lt;/code>.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
@@ -344,7 +344,7 @@
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>For applications that need to be deined access to the Kubernetes secret store, follow &lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-overview/">these instructions&lt;/a>, and add the following annotation to the application pod.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">dapr.io/config&lt;/span>: &lt;span style="color:#ae81ff">appconfig&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>With this defined, the application no longer has access to Kubernetes secret store.&lt;/p>
-&lt;h3 id="scenario-2--allow-access-to-only-certain-secrets-in-a-secret-store">Scenario 2 : Allow access to only certain secrets in a secret store&lt;/h3>
+&lt;h3 id="场景2只允许访问密钥仓库中的某些密钥">场景2：只允许访问密钥仓库中的某些密钥&lt;/h3>
 &lt;p>To allow a Dapr application to have access to only certain secrets, define the following &lt;code>config.yaml&lt;/code>:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
@@ -356,9 +356,9 @@
 - &lt;span style="color:#f92672">storeName&lt;/span>: &lt;span style="color:#ae81ff">vault&lt;/span>
 &lt;span style="color:#f92672">defaultAccess&lt;/span>: &lt;span style="color:#ae81ff">deny&lt;/span>
 &lt;span style="color:#f92672">allowedSecrets&lt;/span>: [&lt;span style="color:#e6db74">&amp;#34;secret1&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;secret2&amp;#34;&lt;/span>]
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>This example defines configuration for secret store named vault. This example defines configuration for secret store named vault. The default access to the secret store is &lt;code>deny&lt;/code>, whereas some secrets are accessible by the application based on the &lt;code>allowedSecrets&lt;/code> list. Follow &lt;a href="https://docs.dapr.io/operations/configuration/configuration-overview/">these instructions&lt;/a> to apply configuration to the sidecar. Follow &lt;a href="https://docs.dapr.io/operations/configuration/configuration-overview/">these instructions&lt;/a> to apply configuration to the sidecar.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>This example defines configuration for secret store named vault. 密钥仓库的默认访问权限是&lt;code>deny&lt;/code>，而有些密钥可以通过应用程序基于&lt;code>allowedSecrets&lt;/code>列表访问。 Follow &lt;a href="https://docs.dapr.io/operations/configuration/configuration-overview/">these instructions&lt;/a> to apply configuration to the sidecar.&lt;/p>
 &lt;h3 id="scenario-3-deny-access-to-certain-senstive-secrets-in-a-secret-store">Scenario 3: Deny access to certain senstive secrets in a secret store&lt;/h3>
-&lt;p>Define the following &lt;code>config.yaml&lt;/code>:&lt;/p>
+&lt;p>定义以下 &lt;code>config.yaml&lt;/code>:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -369,21 +369,21 @@
 - &lt;span style="color:#f92672">storeName&lt;/span>: &lt;span style="color:#ae81ff">vault&lt;/span>
 &lt;span style="color:#f92672">defaultAccess&lt;/span>: &lt;span style="color:#ae81ff">allow&lt;/span> &lt;span style="color:#75715e"># this is the default value, line can be omitted&lt;/span>
 &lt;span style="color:#f92672">deniedSecrets&lt;/span>: [&lt;span style="color:#e6db74">&amp;#34;secret1&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;secret2&amp;#34;&lt;/span>]
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>The above configuration explicitly denies access to &lt;code>secret1&lt;/code> and &lt;code>secret2&lt;/code> from the secret store named vault while allowing access to all other secrets. Follow &lt;a href="https://docs.dapr.io/operations/configuration/configuration-overview/">these instructions&lt;/a> to apply configuration to the sidecar. Follow &lt;a href="https://docs.dapr.io/operations/configuration/configuration-overview/">these instructions&lt;/a> to apply configuration to the sidecar.&lt;/p></description></item><item><title>Operations: How-To: Apply access control list configuration for service invocation</title><link>https://docs.dapr.io/operations/configuration/invoke-allowlist/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/configuration/invoke-allowlist/</guid><description>
-&lt;p>Access control enables the configuration of policies that restrict what operations &lt;em>calling&lt;/em> applications can perform, via service invocation, on the &lt;em>called&lt;/em> application. To limit access to a called applications from specific operations and HTTP verbs from the calling applications, you can define an access control policy specification in configuration. To limit access to a called applications from specific operations and HTTP verbs from the calling applications, you can define an access control policy specification in configuration.&lt;/p>
-&lt;p>An access control policy is specified in configuration and be applied to Dapr sidecar for the &lt;em>called&lt;/em> application. Example access policies are shown below and access to the called app is based on the matched policy action. You can provide a default global action for all calling applications and if no access control policy is specified, the default behavior is to allow all calling applicatons to access to the called app. Example access policies are shown below and access to the called app is based on the matched policy action. You can provide a default global action for all calling applications and if no access control policy is specified, the default behavior is to allow all calling applicatons to access to the called app.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>上面的配置明确禁止从名为 vault 的密钥仓库访问 &lt;code>secret1&lt;/code> 和 &lt;code>secret2&lt;/code> ，但允许访问所有其他密钥。 Follow &lt;a href="https://docs.dapr.io/operations/configuration/configuration-overview/">these instructions&lt;/a> to apply configuration to the sidecar.&lt;/p></description></item><item><title>Operations: How-To: Apply access control list configuration for service invocation</title><link>https://docs.dapr.io/operations/configuration/invoke-allowlist/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/configuration/invoke-allowlist/</guid><description>
+&lt;p>Access control enables the configuration of policies that restrict what operations &lt;em>calling&lt;/em> applications can perform, via service invocation, on the &lt;em>called&lt;/em> application. To limit access to a called applications from specific operations and HTTP verbs from the calling applications, you can define an access control policy specification in configuration.&lt;/p>
+&lt;p>An access control policy is specified in configuration and be applied to Dapr sidecar for the &lt;em>called&lt;/em> application. Example access policies are shown below and access to the called app is based on the matched policy action. You can provide a default global action for all calling applications and if no access control policy is specified, the default behavior is to allow all calling applicatons to access to the called app.&lt;/p>
 &lt;p>Watch this &lt;a href="https://youtu.be/j99RN_nxExA?t=1108">video&lt;/a> on how to apply access control list for service invocation. &lt;iframe width="688" height="430" src="https://www.youtube.com/embed/j99RN_nxExA?start=1108" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark">&lt;/iframe>&lt;/p>
-&lt;h2 id="concepts">Concepts&lt;/h2>
-&lt;p>&lt;strong>TrustDomain&lt;/strong> - A &amp;ldquo;trust domain&amp;rdquo; is a logical group to manage trust relationships. Every application is assigned a trust domain which can be specified in the access control list policy spec. If no policy spec is defined or an empty trust domain is specified, then a default value &amp;ldquo;public&amp;rdquo; is used. This trust domain is used to generate the identity of the application in the TLS cert. Every application is assigned a trust domain which can be specified in the access control list policy spec. If no policy spec is defined or an empty trust domain is specified, then a default value &amp;ldquo;public&amp;rdquo; is used. This trust domain is used to generate the identity of the application in the TLS cert.&lt;/p>
-&lt;p>&lt;strong>App Identity&lt;/strong> - Dapr requests the sentry service to generate a &lt;a href="https://spiffe.io/">SPIFFE&lt;/a> id for all applications and this id is attached in the TLS cert. The SPIFFE id is of the format: &lt;code>**spiffe://\&amp;lt;trustdomain&amp;gt;/ns/\&amp;lt;namespace\&amp;gt;/\&amp;lt;appid\&amp;gt;**&lt;/code>. For matching policies, the trust domain, namespace and app ID values of the calling app are extracted from the SPIFFE id in the TLS cert of the calling app. These values are matched against the trust domain, namespace and app ID values specified in the policy spec. If all three of these match, then more specific policies are further matched. The SPIFFE id is of the format: &lt;code>**spiffe://\&amp;lt;trustdomain&amp;gt;/ns/\&amp;lt;namespace\&amp;gt;/\&amp;lt;appid\&amp;gt;**&lt;/code>. For matching policies, the trust domain, namespace and app ID values of the calling app are extracted from the SPIFFE id in the TLS cert of the calling app. These values are matched against the trust domain, namespace and app ID values specified in the policy spec. If all three of these match, then more specific policies are further matched.&lt;/p>
+&lt;h2 id="基础概念">基础概念&lt;/h2>
+&lt;p>&lt;strong>TrustDomain&lt;/strong> - A &amp;ldquo;trust domain&amp;rdquo; is a logical group to manage trust relationships. Every application is assigned a trust domain which can be specified in the access control list policy spec. If no policy spec is defined or an empty trust domain is specified, then a default value &amp;ldquo;public&amp;rdquo; is used. This trust domain is used to generate the identity of the application in the TLS cert.&lt;/p>
+&lt;p>&lt;strong>App Identity&lt;/strong> - Dapr requests the sentry service to generate a &lt;a href="https://spiffe.io/">SPIFFE&lt;/a> id for all applications and this id is attached in the TLS cert. The SPIFFE id is of the format: &lt;code>**spiffe://\&amp;lt;trustdomain&amp;gt;/ns/\&amp;lt;namespace\&amp;gt;/\&amp;lt;appid\&amp;gt;**&lt;/code>. For matching policies, the trust domain, namespace and app ID values of the calling app are extracted from the SPIFFE id in the TLS cert of the calling app. These values are matched against the trust domain, namespace and app ID values specified in the policy spec. If all three of these match, then more specific policies are further matched. The SPIFFE id is of the format: &lt;code>**spiffe://\&amp;lt;trustdomain&amp;gt;/ns/\&amp;lt;namespace\&amp;gt;/\&amp;lt;appid\&amp;gt;**&lt;/code>. For matching policies, the trust domain, namespace and app ID values of the calling app are extracted from the SPIFFE id in the TLS cert of the calling app. These values are matched against the trust domain, namespace and app ID values specified in the policy spec. If all three of these match, then more specific policies are further matched. The SPIFFE id is of the format: &lt;code>**spiffe://\&amp;lt;trustdomain&amp;gt;/ns/\&amp;lt;namespace\&amp;gt;/\&amp;lt;appid\&amp;gt;**&lt;/code>. For matching policies, the trust domain, namespace and app ID values of the calling app are extracted from the SPIFFE id in the TLS cert of the calling app. These values are matched against the trust domain, namespace and app ID values specified in the policy spec. If all three of these match, then more specific policies are further matched.&lt;/p>
 &lt;h2 id="configuration-properties">Configuration properties&lt;/h2>
 &lt;p>The following tables lists the different properties for access control, policies and operations:&lt;/p>
 &lt;h3 id="access-control">Access Control&lt;/h3>
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>Property&lt;/th>
-&lt;th>Type&lt;/th>
+&lt;th>属性&lt;/th>
+&lt;th>数据类型&lt;/th>
 &lt;th>描述&lt;/th>
 &lt;/tr>
 &lt;/thead>
@@ -396,7 +396,7 @@
 &lt;tr>
 &lt;td>trustDomain&lt;/td>
 &lt;td>string&lt;/td>
-&lt;td>Trust domain assigned to the application. Default is &amp;ldquo;public&amp;rdquo;. Default is &amp;ldquo;public&amp;rdquo;.&lt;/td>
+&lt;td>Trust domain assigned to the application. Default is &amp;ldquo;public&amp;rdquo;.&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>policies&lt;/td>
@@ -409,9 +409,9 @@
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>Property&lt;/th>
-&lt;th>Type&lt;/th>
-&lt;th>Description&lt;/th>
+&lt;th>属性&lt;/th>
+&lt;th>数据类型&lt;/th>
+&lt;th>描述&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -428,7 +428,7 @@
 &lt;tr>
 &lt;td>trustDomain&lt;/td>
 &lt;td>string&lt;/td>
-&lt;td>Trust domain that needs to be matched with the trust domain of the calling app. Default is &amp;ldquo;public&amp;rdquo; Default is &amp;ldquo;public&amp;rdquo;&lt;/td>
+&lt;td>Trust domain that needs to be matched with the trust domain of the calling app. Default is &amp;ldquo;public&amp;rdquo;&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>defaultAction&lt;/td>
@@ -442,30 +442,30 @@
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h3 id="operations">Operations&lt;/h3>
+&lt;h3 id="功能操作">功能操作&lt;/h3>
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>Property&lt;/th>
-&lt;th>Type&lt;/th>
-&lt;th>Description&lt;/th>
+&lt;th>属性&lt;/th>
+&lt;th>数据类型&lt;/th>
+&lt;th>描述&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
 &lt;td>name&lt;/td>
 &lt;td>string&lt;/td>
-&lt;td>Path name of the operations allowed on the called app. Path name of the operations allowed on the called app. Wildcard &amp;ldquo;*&amp;rdquo; can be used to under a path to match&lt;/td>
+&lt;td>Path name of the operations allowed on the called app. Wildcard &amp;ldquo;*&amp;rdquo; can be used to under a path to match&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>httpVerb&lt;/td>
 &lt;td>list&lt;/td>
-&lt;td>List specific http verbs that can be used by the calling app. Wildcard &amp;ldquo;*&amp;rdquo; can be used to match any http verb. Unused for grpc invocation Wildcard &amp;ldquo;*&amp;rdquo; can be used to match any http verb. Unused for grpc invocation&lt;/td>
+&lt;td>List specific http verbs that can be used by the calling app. Wildcard &amp;ldquo;*&amp;rdquo; can be used to match any http verb. Unused for grpc invocation&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>action&lt;/td>
 &lt;td>string&lt;/td>
-&lt;td>Access modifier. Access modifier. Accepted values &amp;ldquo;allow&amp;rdquo; (default) or &amp;ldquo;deny&amp;rdquo;&lt;/td>
+&lt;td>Access modifier. Accepted values &amp;ldquo;allow&amp;rdquo; (default) or &amp;ldquo;deny&amp;rdquo;&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
@@ -486,8 +486,7 @@
 &lt;/ol>
 &lt;h2 id="example-scenarios">Example scenarios&lt;/h2>
 &lt;p>Below are some example scenarios for using access control list for service invocation. See &lt;a href="https://docs.dapr.io/concepts/configuration-concept/">configuration guidance&lt;/a> to understand the available configuration settings for an application sidecar.&lt;/p>
-&lt;p>&lt;font size=5>Below are some example scenarios for using access control list for service invocation. See&lt;/p>
-&lt;p>&lt;a href="https://docs.dapr.io/concepts/configuration-concept/">configuration guidance&lt;/a> to understand the available configuration settings for an application sidecar.&lt;font size=5>Scenario 1: Deny access to all apps except where trustDomain = public, namespace = default, appId = app1&lt;/font>&lt;/font>&lt;/p>
+&lt;p>&lt;font size=5>Scenario 1: Deny access to all apps except where trustDomain = public, namespace = default, appId = app1&lt;/font>&lt;/p>
 &lt;p>With this configuration, all calling methods with appId = app1 are allowed and all other invocation requests from other applications are denied&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
@@ -589,8 +588,8 @@
 &lt;span style="color:#f92672">trustDomain&lt;/span>: &lt;span style="color:#e6db74">&amp;#39;public&amp;#39;&lt;/span>
 &lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;ns2&amp;#34;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="hello-world-examples">Hello world examples&lt;/h2>
-&lt;p>These examples show how to apply access control to the &lt;a href="https://github.com/dapr/quickstarts#quickstarts">hello world&lt;/a> quickstart samples where a python app invokes a node.js app. Access control lists rely on the Dapr &lt;a href="https://docs.dapr.io/concepts/security-concept/">Sentry service&lt;/a> to generate the TLS certificates with a SPIFFE id for authentication, which means the Sentry service either has to be running locally or deployed to your hosting enviroment such as a Kubernetes cluster. Access control lists rely on the Dapr &lt;a href="https://docs.dapr.io/concepts/security-concept/">Sentry service&lt;/a> to generate the TLS certificates with a SPIFFE id for authentication, which means the Sentry service either has to be running locally or deployed to your hosting enviroment such as a Kubernetes cluster.&lt;/p>
-&lt;p>The nodeappconfig example below shows how to &lt;strong>deny&lt;/strong> access to the &lt;code>neworder&lt;/code> method from the &lt;code>pythonapp&lt;/code>, where the python app is in the &lt;code>myDomain&lt;/code> trust domain and &lt;code>default&lt;/code> namespace. The nodeapp is in the &lt;code>public&lt;/code> trust domain. The nodeapp is in the &lt;code>public&lt;/code> trust domain.&lt;/p>
+&lt;p>These examples show how to apply access control to the &lt;a href="https://github.com/dapr/quickstarts#quickstarts">hello world&lt;/a> quickstart samples where a python app invokes a node.js app. Access control lists rely on the Dapr &lt;a href="https://docs.dapr.io/concepts/security-concept/">Sentry service&lt;/a> to generate the TLS certificates with a SPIFFE id for authentication, which means the Sentry service either has to be running locally or deployed to your hosting enviroment such as a Kubernetes cluster.&lt;/p>
+&lt;p>The nodeappconfig example below shows how to &lt;strong>deny&lt;/strong> access to the &lt;code>neworder&lt;/code> method from the &lt;code>pythonapp&lt;/code>, where the python app is in the &lt;code>myDomain&lt;/code> trust domain and &lt;code>default&lt;/code> namespace. The nodeapp is in the &lt;code>public&lt;/code> trust domain.&lt;/p>
 &lt;p>&lt;strong>nodeappconfig.yaml&lt;/strong>&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
@@ -631,25 +630,25 @@
 &lt;/li>
 &lt;li>
 &lt;p>In a command prompt, set these environment variables:&lt;/p>
-&lt;ul class="nav nav-tabs" id="tabs-5" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
-id="tabs-5-linuxmacos-tab" data-toggle="tab" href="#tabs-5-linuxmacos" role="tab"
-aria-controls="tabs-5-linuxmacos" aria-selected="true">
+&lt;ul class="nav nav-tabs" id="tabs-3" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-3-linuxmacos-tab" data-toggle="tab" href="#tabs-3-linuxmacos" role="tab"
+aria-controls="tabs-3-linuxmacos" aria-selected="true">
 Linux/MacOS
 &lt;/a>
 &lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
-id="tabs-5-windows-tab" data-toggle="tab" href="#tabs-5-windows" role="tab"
-aria-controls="tabs-5-windows" aria-selected="false">
+id="tabs-3-windows-tab" data-toggle="tab" href="#tabs-3-windows" role="tab"
+aria-controls="tabs-3-windows" aria-selected="false">
 Windows
 &lt;/a>
 &lt;/li>&lt;/ul>
-&lt;div class="tab-content" id="tabs-5-content">
-&lt;div class="tab-pane fade show active" id="tabs-5-linuxmacos" role="tabpanel" aria-labelled-by="tabs-5-linuxmacos-tab">
+&lt;div class="tab-content" id="tabs-3-content">
+&lt;div class="tab-pane fade show active" id="tabs-3-linuxmacos" role="tabpanel" aria-labelled-by="tabs-3-linuxmacos-tab">
 &lt;br />&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">export DAPR_TRUST_ANCHORS&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">`&lt;/span>cat $HOME/.dapr/certs/ca.crt&lt;span style="color:#e6db74">`&lt;/span>
 export DAPR_CERT_CHAIN&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">`&lt;/span>cat $HOME/.dapr/certs/issuer.crt&lt;span style="color:#e6db74">`&lt;/span>
 export DAPR_CERT_KEY&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">`&lt;/span>cat $HOME/.dapr/certs/issuer.key&lt;span style="color:#e6db74">`&lt;/span>
 export NAMESPACE&lt;span style="color:#f92672">=&lt;/span>default
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
-&lt;div class="tab-pane fade" id="tabs-5-windows" role="tabpanel" aria-labelled-by="tabs-5-windows-tab">
+&lt;div class="tab-pane fade" id="tabs-3-windows" role="tabpanel" aria-labelled-by="tabs-3-windows-tab">
 &lt;br />&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-powershell" data-lang="powershell">$env:DAPR_TRUST_ANCHORS=$(Get-Content $env:USERPROFILE\.dapr\certs\ca.crt)
 $env:DAPR_CERT_CHAIN=$(Get-Content $env:USERPROFILE\.dapr\certs\issuer.crt)
 $env:DAPR_CERT_KEY=$(Get-Content $env:USERPROFILE\.dapr\certs\issuer.key)
@@ -667,25 +666,25 @@ $env:NAMESPACE=&lt;span style="color:#e6db74">&amp;#34;default&amp;#34;&lt;/span
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
 &lt;p>In another command prompt, set these environment variables:&lt;/p>
-&lt;ul class="nav nav-tabs" id="tabs-6" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
-id="tabs-6-linuxmacos-tab" data-toggle="tab" href="#tabs-6-linuxmacos" role="tab"
-aria-controls="tabs-6-linuxmacos" aria-selected="true">
+&lt;ul class="nav nav-tabs" id="tabs-4" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-4-linuxmacos-tab" data-toggle="tab" href="#tabs-4-linuxmacos" role="tab"
+aria-controls="tabs-4-linuxmacos" aria-selected="true">
 Linux/MacOS
 &lt;/a>
 &lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
-id="tabs-6-windows-tab" data-toggle="tab" href="#tabs-6-windows" role="tab"
-aria-controls="tabs-6-windows" aria-selected="false">
+id="tabs-4-windows-tab" data-toggle="tab" href="#tabs-4-windows" role="tab"
+aria-controls="tabs-4-windows" aria-selected="false">
 Windows
 &lt;/a>
 &lt;/li>&lt;/ul>
-&lt;div class="tab-content" id="tabs-6-content">
-&lt;div class="tab-pane fade show active" id="tabs-6-linuxmacos" role="tabpanel" aria-labelled-by="tabs-6-linuxmacos-tab">
+&lt;div class="tab-content" id="tabs-4-content">
+&lt;div class="tab-pane fade show active" id="tabs-4-linuxmacos" role="tabpanel" aria-labelled-by="tabs-4-linuxmacos-tab">
 &lt;br />&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">export DAPR_TRUST_ANCHORS&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">`&lt;/span>cat $HOME/.dapr/certs/ca.crt&lt;span style="color:#e6db74">`&lt;/span>
 export DAPR_CERT_CHAIN&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">`&lt;/span>cat $HOME/.dapr/certs/issuer.crt&lt;span style="color:#e6db74">`&lt;/span>
 export DAPR_CERT_KEY&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">`&lt;/span>cat $HOME/.dapr/certs/issuer.key&lt;span style="color:#e6db74">`&lt;/span>
 export NAMESPACE&lt;span style="color:#f92672">=&lt;/span>default
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
-&lt;div class="tab-pane fade" id="tabs-6-windows" role="tabpanel" aria-labelled-by="tabs-6-windows-tab">
+&lt;div class="tab-pane fade" id="tabs-4-windows" role="tabpanel" aria-labelled-by="tabs-4-windows-tab">
 &lt;br />&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-powershell" data-lang="powershell">$env:DAPR_TRUST_ANCHORS=$(Get-Content $env:USERPROFILE\.dapr\certs\ca.crt)
 $env:DAPR_CERT_CHAIN=$(Get-Content $env:USERPROFILE\.dapr\certs\issuer.crt)
 $env:DAPR_CERT_KEY=$(Get-Content $env:USERPROFILE\.dapr\certs\issuer.key)
@@ -702,13 +701,13 @@ $env:NAMESPACE=&lt;span style="color:#e6db74">&amp;#34;default&amp;#34;&lt;/span
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">python app.py
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
-&lt;p>You should see the calls to the node app fail in the python app command prompt based due to the &lt;strong>deny&lt;/strong> operation action in the nodeappconfig file. Change this action to &lt;strong>allow&lt;/strong> and re-run the apps and you should then see this call succeed. Change this action to &lt;strong>allow&lt;/strong> and re-run the apps and you should then see this call succeed.&lt;/p>
+&lt;p>You should see the calls to the node app fail in the python app command prompt based due to the &lt;strong>deny&lt;/strong> operation action in the nodeappconfig file. Change this action to &lt;strong>allow&lt;/strong> and re-run the apps and you should then see this call succeed.&lt;/p>
 &lt;/li>
 &lt;/ol>
 &lt;h3 id="kubernetes-mode">Kubernetes mode&lt;/h3>
 &lt;p>This example uses the &lt;a href="https://github.com/dapr/quickstarts/tree/master/hello-kubernetes/README.md">hello kubernetes&lt;/a> quickstart.&lt;/p>
 &lt;p>You can create and apply the above configuration files &lt;code>nodeappconfig.yaml&lt;/code> and &lt;code>pythonappconfig.yaml&lt;/code> as described in the &lt;a href="https://docs.dapr.io/concepts/configuration-concept/">configuration&lt;/a> to the Kubernetes deployments.&lt;/p>
-&lt;p>For example, below is how the pythonapp is deployed to Kubernetes in the default namespace with this pythonappconfig configuration file. Do the same for the nodeapp deployment and then look at the logs for the pythonapp to see the calls fail due to the &lt;strong>deny&lt;/strong> operation action set in the nodeappconfig file. Change this action to &lt;strong>allow&lt;/strong> and re-deploy the apps and you should then see this call succeed. Do the same for the nodeapp deployment and then look at the logs for the pythonapp to see the calls fail due to the &lt;strong>deny&lt;/strong> operation action set in the nodeappconfig file. Change this action to &lt;strong>allow&lt;/strong> and re-deploy the apps and you should then see this call succeed.&lt;/p>
+&lt;p>For example, below is how the pythonapp is deployed to Kubernetes in the default namespace with this pythonappconfig configuration file. Do the same for the nodeapp deployment and then look at the logs for the pythonapp to see the calls fail due to the &lt;strong>deny&lt;/strong> operation action set in the nodeappconfig file. Change this action to &lt;strong>allow&lt;/strong> and re-deploy the apps and you should then see this call succeed.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">apps/v1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Deployment&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -733,18 +732,18 @@ $env:NAMESPACE=&lt;span style="color:#e6db74">&amp;#34;default&amp;#34;&lt;/span
 &lt;span style="color:#f92672">containers&lt;/span>:
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">python&lt;/span>
 &lt;span style="color:#f92672">image&lt;/span>: &lt;span style="color:#ae81ff">dapriosamples/hello-k8s-python:edge&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Operations: How-To: Configure Dapr to use gRPC</title><link>https://docs.dapr.io/operations/configuration/grpc/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/configuration/grpc/</guid><description>
-&lt;p>Dapr 为本地调用实现 HTTP 和 gRPC API 。 gRPC is useful for low-latency, high performance scenarios and has language integration using the proto clients.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Operations: 指南：配置 Dapr 来使用 gRPC</title><link>https://docs.dapr.io/operations/configuration/grpc/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/configuration/grpc/</guid><description>
+&lt;p>Dapr 为本地调用实现 HTTP 和 gRPC API 。 gRPC适用于低延迟、高性能的场景，并且使用原生客户端进行语言集成。&lt;/p>
 &lt;p>You can find a list of auto-generated clients &lt;a href="https://docs.dapr.io/developing-applications/sdks/">here&lt;/a>.&lt;/p>
 &lt;p>Dapr 运行时实现 &lt;a href="https://github.com/dapr/dapr/blob/master/dapr/proto/runtime/v1/dapr.proto">服务&lt;/a> ，应用程序可以通过 gRPC 进行通信。&lt;/p>
-&lt;p>除了通过 gRPC 调用 Dapr ， Dapr 还可以通过 gRPC 与应用程序通信。 To do that, the app needs to host a gRPC server and implements the &lt;a href="https://github.com/dapr/dapr/blob/master/dapr/proto/runtime/v1/appcallback.proto">Dapr appcallback service&lt;/a>&lt;/p>
+&lt;p>除了通过 gRPC 调用 Dapr ， Dapr 还可以通过 gRPC 与应用程序通信。 要做到这一点，应用程序需要托管一个gRPC服务器，并实现&lt;a href="https://github.com/dapr/dapr/blob/master/dapr/proto/runtime/v1/appcallback.proto">Dapr appcallback服务&lt;/a>。&lt;/p>
 &lt;h2 id="配置-dapr-以通过-grpc-与应用程序通信">配置 dapr 以通过 gRPC 与应用程序通信&lt;/h2>
 &lt;h3 id="自托管">自托管&lt;/h3>
 &lt;p>当在自己托管模式下运行时，使用 &lt;code>--app-protocol&lt;/code> 标志告诉Dapr 使用 gRPC 来与应用程序对话：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr run --app-protocol grpc --app-port &lt;span style="color:#ae81ff">5005&lt;/span> node app.js
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>This tells Dapr to communicate with your app via gRPC over port &lt;code>5005&lt;/code>.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这将告诉Dapr通过gRPC与您的应用程序通过&lt;code>5005&lt;/code>端口进行通信。&lt;/p>
 &lt;h3 id="kubernetes">Kubernetes&lt;/h3>
-&lt;p>On Kubernetes, set the following annotations in your deployment YAML:&lt;/p>
+&lt;p>在Kubernetes上，在你的deployment YAML中设置以下注解:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">apps/v1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Deployment&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -787,7 +786,7 @@ Kubernetes
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>This tells Dapr to set maximum request body size to &lt;code>16&lt;/code> MB.&lt;/p>
 &lt;/div>
 &lt;div class="tab-pane fade" id="tabs-0-kubernetes" role="tabpanel" aria-labelled-by="tabs-0-kubernetes-tab">
-&lt;br />&lt;p>On Kubernetes, set the following annotations in your deployment YAML:&lt;/p>
+&lt;br />&lt;p>在Kubernetes上，在你的deployment YAML中设置以下注解:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">apps/v1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Deployment&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -812,7 +811,7 @@ Kubernetes
 ...
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
 &lt;/div>
-&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-annotations/">Dapr Kubernetes pod annotations spec&lt;/a>&lt;/li>
 &lt;/ul></description></item></channel></rss>

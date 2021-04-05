@@ -1,5 +1,5 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr Docs – Secret store components</title><link>https://docs.dapr.io/en/operations/components/setup-secret-store/</link><description>Recent content in Secret store components on Dapr Docs</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/en/operations/components/setup-secret-store/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: Overview</title><link>https://docs.dapr.io/en/operations/components/setup-secret-store/secret-stores-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/operations/components/setup-secret-store/secret-stores-overview/</guid><description>
-&lt;p>Dapr integrates with secret stores to provide apps and other components with secure store and access to secrets such as access keys and passwords. Each secret store component has a name and this name is used when accessing a secret.&lt;/p>
+&lt;p>Dapr integrates with secret stores to provide apps and other components with secure storage and access to secrets such as access keys and passwords. Each secret store component has a name and this name is used when accessing a secret.&lt;/p>
 &lt;p>As with other building block components, secret store components are extensible and can be found in the &lt;a href="https://github.com/dapr/components-contrib">components-contrib repo&lt;/a>.&lt;/p>
 &lt;p>A secret store in Dapr is described using a &lt;code>Component&lt;/code> file with the following fields:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
@@ -130,6 +130,12 @@ Kubernetes
 &lt;td>Alpha&lt;/td>
 &lt;td>v1&lt;/td>
 &lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-secret-store/supported-secret-stores/aws-parameter-store/">AWS SSM Parameter Store&lt;/a>&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.1&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>

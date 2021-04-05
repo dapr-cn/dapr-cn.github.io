@@ -3,7 +3,7 @@
 &lt;p>Dapr 可以配置为在任何 Kubernetes 集群上运行。 为了实现这一目标，Dapr首先部署了&lt;code>dapr-sidecar-injector&lt;/code>、&lt;code>dapr-operator&lt;/code>、&lt;code>dapr-placement&lt;/code>和&lt;code>dapr-sentry&lt;/code>Kubernetes服务。 这些都提供了一流的集成，使Dapr的应用运行变得简单。&lt;/p>
 &lt;ul>
 &lt;li>&lt;strong>dapr-operator:&lt;/strong> 管理 &lt;a href="https://docs.dapr.io/operations/components/">组件&lt;/a> 更新和 Dapr 的 Kubernetes 服务终结点(状态存储、发布/订阅 等)。&lt;/li>
-&lt;li>&lt;strong>dapr-sidecar-injector:&lt;/strong> 将 Dapr 注入 &lt;a href="#adding-dapr-to-a-kubernetes-cluster">annotated&lt;/a> deployment pods，并添加环境变量 &lt;code>DAPR_HTTP_PORT&lt;/code> 和 &lt;code>DAPR_GRPC_PORT&lt;/code>，以使用户定义的应用程序能够轻松地与 Dapr 通信，而无需硬编码 Dapr 端口值。&lt;/li>
+&lt;li>&lt;strong>dapr-sidecar-injector:&lt;/strong> Injects Dapr into &lt;a href="#adding-dapr-to-a-kubernetes-deployment">annotated&lt;/a> deployment pods and adds the environment variables &lt;code>DAPR_HTTP_PORT&lt;/code> and &lt;code>DAPR_GRPC_PORT&lt;/code> to enable user-defined applications to easily communicate with Dapr without hard-coding Dapr port values.&lt;/li>
 &lt;li>&lt;strong>dapr-placement:&lt;/strong> 仅用于 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/actors/">Actors&lt;/a>。 创建映射表，将 actor 实例映射到 pods。&lt;/li>
 &lt;li>&lt;strong>dapr-sentry:&lt;/strong> 管理服务之间的mTLS并作为证书颁发机构。 有关详细信息，请阅读&lt;a href="https://docs.dapr.io/concepts/security-concept/">安全概述&lt;/a>。&lt;/li>
 &lt;/ul>
@@ -11,13 +11,13 @@
 &lt;h2 id="在-kubernetes-集群上部署-dapr">在 Kubernetes 集群上部署 Dapr&lt;/h2>
 &lt;p>阅读 &lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-deploy/">本指南&lt;/a> 来学习如何将 Dapr 部署到您的 Kubernetes 集群。&lt;/p>
 &lt;h2 id="将-dapr-添加到-kubernetes-deployment">将 Dapr 添加到 Kubernetes deployment&lt;/h2>
-&lt;p>在你的 Kubernetes 集群中部署和运行一个启用了 Dapr 的应用程序很简单，只需在部署方案中添加一些注释即可。 要给您的服务提供一个 &lt;code>id&lt;/code> 和 &lt;code>port&lt;/code> 已知的 Dapr, 通过配置进行追踪并启动 Dapr sidecar 容器, 你要像这样注释你的 Kubernetes deployment。&lt;/p>
+&lt;p>在 Kubernetes 集群中部署和运行启用 Dapr 的应用程序非常简单，只需向 deployment 方案添加一些注解。 要给您的服务提供一个 &lt;code>id&lt;/code> 和 &lt;code>port&lt;/code> 已知的 Dapr, 通过配置进行追踪并启动 Dapr sidecar 容器, 你要像这样注释你的 Kubernetes deployment。 For more information check &lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-annotations/">dapr annotations&lt;/a>&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yml" data-lang="yml"> &lt;span style="color:#f92672">annotations&lt;/span>:
 &lt;span style="color:#f92672">dapr.io/enabled&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
 &lt;span style="color:#f92672">dapr.io/app-id&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;nodeapp&amp;#34;&lt;/span>
 &lt;span style="color:#f92672">dapr.io/app-port&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;3000&amp;#34;&lt;/span>
 &lt;span style="color:#f92672">dapr.io/config&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;tracing&amp;#34;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="快速入门">快速入门&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="快速启动">快速启动&lt;/h2>
 &lt;p>您可以 &lt;a href="https://github.com/dapr/quickstarts/tree/master/hello-kubernetes">在这里&lt;/a> 看到一些例子，在 Kubernetes 的入门示例中。&lt;/p>
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
@@ -35,7 +35,7 @@
 &lt;li>Kubernetes 集群 (如有需要可参考下文)&lt;/li>
 &lt;/ul>
 &lt;h3 id="创建集群">创建集群&lt;/h3>
-&lt;p>你可以在任何 Kubernetes 集群上安装 Dapr. 下面的链接可以提供帮助:&lt;/p>
+&lt;p>你可以在任何 Kubernetes 集群上安装 Dapr. 下面的链接可以提供帮助: 下面的链接可以提供帮助:&lt;/p>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/cluster/setup-minikube/">Setup Minikube Cluster&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/cluster/setup-aks/">Setup Azure Kubernetes Service Cluster&lt;/a>&lt;/li>
@@ -44,7 +44,7 @@
 &lt;/ul>
 &lt;div class="alert alert-primary" role="alert">
 &lt;h4 class="alert-heading">Hybrid clusters&lt;/h4>
-Dapr CLI 和 Dapr Helm 图表都会自动关联地部署到带有标签&lt;code>kubernetes.io/os=linux&lt;/code>的节点上。 如果你的应用程序有需要，你也可以将 Dapr 部署到 Windows 节点。 更多信息参见 &lt;a href="%7B%7BX%1A49X%7D%7D">部署到Linux/Windows混合型Kubernetes集群&lt;/a>.
+Dapr CLI 和 Dapr Helm 图表都会自动关联地部署到带有标签&lt;code>kubernetes.io/os=linux&lt;/code>的节点上。 如果你的应用程序有需要，你也可以将 Dapr 部署到 Windows 节点。 For more information see &lt;a href="%7B%7BX%1A51X%7D%7D">Deploying to a hybrid Linux/Windows Kubernetes cluster&lt;/a>.
 &lt;/div>
 &lt;h2 id="使用-dapr-cli-安装">使用 Dapr CLI 安装&lt;/h2>
 &lt;p>你可以使用 &lt;a href="https://docs.dapr.io/getting-started/install-dapr-cli/">Dapr CLI&lt;/a> 来把 Dapr 安装到 Kubernetes 集群上。&lt;/p>
@@ -68,6 +68,10 @@ Dapr CLI 和 Dapr Helm 图表都会自动关联地部署到带有标签&lt;code>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="关闭-mtls">关闭 mTLS&lt;/h3>
 &lt;p>Dapr初始化默认开启[mTLS]({&amp;lt; ref &amp;ldquo;security-concept.md#sidecar-to-sidecar-communication&amp;rdquo; &amp;gt;}})。 你可以用下面的命令关闭:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr init -k --enable-mtls&lt;span style="color:#f92672">=&lt;/span>false
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="wait-for-the-installation-to-complete">Wait for the installation to complete&lt;/h3>
+&lt;p>You can wait for the installation to complete its deployment with the &lt;code>--wait&lt;/code> flag.&lt;/p>
+&lt;p>The default timeout is 300s (5 min), but can be customized with the &lt;code>--timeout&lt;/code> flag.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr init -k --wait --timeout &lt;span style="color:#ae81ff">600&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="使用-cli-卸载-kubernetes-上的-dapr">使用 CLI 卸载 Kubernetes 上的 Dapr&lt;/h3>
 &lt;p>在您的本地机器上运行以下命令，以卸载你的集群上的 Dapr:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr uninstall -k
@@ -92,18 +96,18 @@ helm search repo dapr --devel --versions
 &lt;li>
 &lt;p>将 Dapr 图表安装在你的集群的 &lt;code>dapr-system&lt;/code>命名空间中。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm upgrade --install dapr dapr/dapr &lt;span style="color:#ae81ff">\
-&lt;/span>&lt;span style="color:#ae81ff">&lt;/span>--version&lt;span style="color:#f92672">=&lt;/span>1.0.1 &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span>--version&lt;span style="color:#f92672">=&lt;/span>1.1.0 &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span>--namespace dapr-system &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span>--create-namespace &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span>--wait
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>以高可用的方式安装:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm upgrade --install dapr dapr/dapr &lt;span style="color:#ae81ff">\
-&lt;/span>&lt;span style="color:#ae81ff">&lt;/span>--version&lt;span style="color:#f92672">=&lt;/span>1.0.1 &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span>--version&lt;span style="color:#f92672">=&lt;/span>1.1.0 &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span>--namespace dapr-system &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span>--create-namespace &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span>--set global.ha.enabled&lt;span style="color:#f92672">=&lt;/span>true &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span>--wait
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>有关使用 Helm 安装和升级 Dapr 的更多信息，请参阅 &lt;a href="%7B%7BX%1A69X%7D%7D">Kubernetes上的生产环境部署指南&lt;/a>。&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>See &lt;a href="%7B%7BX%1A45X%7D%7D">Guidelines for production ready deployments on Kubernetes&lt;/a> for more information on installing and upgrading Dapr using Helm.&lt;/p>
 &lt;/li>
 &lt;/ol>
 &lt;h3 id="卸载-kubernetes-上的-dapr">卸载 Kubernetes 上的 Dapr&lt;/h3>
@@ -128,7 +132,7 @@ dapr-sentry-9435776c7f-8f7yd 1/1 Running &lt;span style="color:#ae81ff">0&lt;/sp
 &lt;/ul></description></item><item><title>Operations: 部署到 Linux/Windows Kubernetes 的混合集群</title><link>https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-hybrid-clusters/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-hybrid-clusters/</guid><description>
 &lt;p>Dapr 支持在带有 windows 节点的 kubernetes 集群上运行。 您可以只在 Windows 上运行您的 Dapr 微服务，或只在 Linux 上运行，或者两者兼而有之。 这对那些可能会将遗留应用零散迁移到 Dapr Kubernetes 集群的用户很有帮助。&lt;/p>
 &lt;p>Kubernetes 使用了一个叫做节点亲和性的概念，这样你就可以表示你的应用是想在 Linux 节点还是 Windows 节点上启动。 当部署到一个同时拥有 Windows 和 Linux 节点的集群时，你必须为你的应用提供亲和性规则，否则 Kubernetes 调度器可能会在错误的节点类型上启动你的应用。&lt;/p>
-&lt;h2 id="先决条件">先决条件&lt;/h2>
+&lt;h2 id="前提">前提&lt;/h2>
 &lt;p>您需要一个带有Windows节点的 Kubernetes 集群。 许多 Kubernetes 提供商支持自动配置启用 Windows 的 Kubernetes 集群。&lt;/p>
 &lt;ol>
 &lt;li>按照您的首选提供商的说明来设置一个带有Windows功能的集群。&lt;/li>
@@ -267,13 +271,13 @@ helm uninstall dapr
 &lt;li>&lt;a href="https://docs.microsoft.com/en-us/azure/aks/windows-container-cli">在 Azure AKS 上设置一个启用了 Windows Kubernetes 的集群&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.aws.amazon.com/eks/latest/userguide/windows-support.html">在 AWS EKS 上设置一个启用了 Windows Kubernetes 的集群&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://cloud.google.com/kubernetes-engine/docs/how-to/creating-a-cluster-windows">在 Google Cloud GKE 上设置 Windows&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Dapr Kubernetes pod annotations规范</title><link>https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-annotations/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-annotations/</guid><description>
+&lt;/ul></description></item><item><title>Operations: Dapr Kubernetes pod annotations spec</title><link>https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-annotations/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-annotations/</guid><description>
 &lt;p>下表显示了所有Dapr支持的pod规范annotations。&lt;/p>
 &lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th>Annotation&lt;/th>
-&lt;th>说明&lt;/th>
+&lt;th>描述&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -319,7 +323,7 @@ helm uninstall dapr
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>dapr.io/app-ssl&lt;/code>&lt;/td>
-&lt;td>告诉Dapr通过不安全的SSL连接调用应用程序。 同时适用于HTTP和gRPC。 默认值为 &lt;code>false&lt;/code>.&lt;/td>
+&lt;td>告诉Dapr通过不安全的SSL连接调用应用程序。 同时适用于HTTP和gRPC。 Traffic between your app and the Dapr sidecar is encrypted with a certificate issued by a non-trusted certificate authority, which is considered insecure. 默认值为 &lt;code>false&lt;/code>.&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>dapr.io/metrics-port&lt;/code>&lt;/td>
@@ -377,6 +381,10 @@ helm uninstall dapr
 &lt;td>&lt;code>dapr.io/http-max-request-size&lt;/code>&lt;/td>
 &lt;td>增加http和grpc服务器请求正文参数的最大大小，单位为MB，以处理大文件的上传。 默认值为 &lt;code>4&lt;/code> MB&lt;/td>
 &lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>dapr.io/env&lt;/code>&lt;/td>
+&lt;td>List of environment variable to be injected into the sidecar. Strings consisting of key=value pairs separated by a comma.&lt;/td>
+&lt;/tr>
 &lt;/tbody>
 &lt;/table></description></item><item><title>Operations: Kubernetes生产环境配置指南</title><link>https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-production/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-production/</guid><description>
 &lt;h2 id="集群能力要求">集群能力要求&lt;/h2>
@@ -407,7 +415,7 @@ helm uninstall dapr
 &lt;td>Limit: 200Mi, Request: 30Mi&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>&lt;strong>Placement&lt;/strong>&lt;/td>
+&lt;td>&lt;strong>放置&lt;/strong>&lt;/td>
 &lt;td>Limit: 1, Request: 250m&lt;/td>
 &lt;td>Limit: 150Mi, Request: 75Mi&lt;/td>
 &lt;/tr>
@@ -428,7 +436,7 @@ helm uninstall dapr
 &lt;li>&lt;strong>Dashboard&lt;/strong> - 用于集群的操作视图&lt;/li>
 &lt;/ul>
 &lt;h2 id="sidecar-资源设置">Sidecar 资源设置&lt;/h2>
-&lt;p>请参见 &lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-annotations/">这里&lt;/a>来为 Dapr sidecar设置资源分配， 与资源约束相关的具体注解如下:&lt;/p>
+&lt;p>请参见 &lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-annotations/">这里&lt;/a>来为 Dapr sidecar设置资源分配， 与资源约束相关的具体注解如下: 与资源约束相关的具体注解如下:&lt;/p>
 &lt;ul>
 &lt;li>&lt;code>dapr.io/sidecar-cpu-limit&lt;/code>&lt;/li>
 &lt;li>&lt;code>dapr.io/sidecar-memory-limit&lt;/code>&lt;/li>
@@ -485,7 +493,7 @@ kubectl get pods --namespace dapr-system
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>该命令将为dapr-system命名空间中每个控制平面service创建3个副本。&lt;/p>
 &lt;p>&lt;em>Dapr Cli 和 Dapr Helm 图表都会自动关联地部署到带有标签&lt;code>kubernetes.io/os=linux&lt;/code>的节点上。 你可以将Dapr控制平面部署到Windows节点，但大多数用户应该不需要。 更多信息参见&lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-hybrid-clusters/">部署到Linux/Windows混合型Kubernetes集群&lt;/a>&lt;/em>&lt;/p>
 &lt;h2 id="用-helm-升级-dapr">用 Helm 升级 Dapr&lt;/h2>
-&lt;p>Dapr支持零停机升级， 升级包括以下步骤：&lt;/p>
+&lt;p>Dapr支持零停机升级， 升级包括以下步骤： 升级包括以下步骤：&lt;/p>
 &lt;ol>
 &lt;li>升级CLI版本(可选但推荐)&lt;/li>
 &lt;li>更新Dapr control plane&lt;/li>
@@ -503,17 +511,17 @@ kubectl get pods --namespace dapr-system
 APP ID APP PORT AGE CREATED
 nodeapp &lt;span style="color:#ae81ff">3000&lt;/span> 16h 2020-07-29 17:16.22
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="建议的安全配置">建议的安全配置&lt;/h2>
-&lt;p>当正确配置时，Dapr可确保安全通信， 它还可以通过一些内置的功能使你的应用更加安全。&lt;/p>
+&lt;p>当正确配置时，Dapr可确保安全通信， 它还可以通过一些内置的功能使你的应用更加安全。 它还可以通过一些内置的功能使你的应用更加安全。&lt;/p>
 &lt;p>建议生产环境的部署涵盖以下设置：&lt;/p>
 &lt;ol>
 &lt;li>
 &lt;p>&lt;strong>启用相互验证 (mTLS)&lt;/strong>。 请注意，Dapr默认开启了mTLS。 有关如何携带自定义证书的详细信息，请参见 &lt;a href="https://docs.dapr.io/operations/security/mtls/#bringing-your-own-certificates">这里&lt;/a>。&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>&lt;strong>启用App to Dapr API认证&lt;/strong>。 这是你的应用程序和Dapr边车之间的通信。 为了防止未经授权的应用程序访问Dapr API，建议启用Dapr的基于令牌的认证。 请参阅&lt;a href="https://docs.dapr.io/operations/security/api-token/">在 Dapr 中启用 API 令牌认证。&lt;/a> 以了解详情&lt;/p>
+&lt;p>&lt;strong>启用Dapr to App API验证&lt;/strong>。 这是你的应用程序和Dapr边车之间的通信。 这能确保Dapr知道它正在与授权的应用程序通信。 请参阅&lt;a href="https://docs.dapr.io/operations/security/app-api-token/">使用令牌认证对来自Dapr的请求进行认证&lt;/a> 了解详情&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>&lt;strong>启用Dapr to App API验证&lt;/strong>。 这是Dapr和你的应用程序之间的通信。 这能确保Dapr知道它正在与授权的应用程序通信。 请参阅&lt;a href="https://docs.dapr.io/operations/security/app-api-token/">使用令牌认证对来自Dapr的请求进行认证&lt;/a> 了解详情&lt;/p>
+&lt;p>&lt;strong>启用Dapr to App API验证&lt;/strong>。 这是你的应用程序和Dapr边车之间的通信。 这能确保Dapr知道它正在与授权的应用程序通信。 请参阅&lt;a href="https://docs.dapr.io/operations/security/app-api-token/">使用令牌认证对来自Dapr的请求进行认证&lt;/a> 了解详情&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>所有的组件YAML都应该把&lt;strong>密钥数据配置在密钥存储中&lt;/strong>，而不是硬编码在YAML文件中。 请参阅 &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>，了解如何在Dapr组件中使用秘密。&lt;/p>
@@ -528,22 +536,30 @@ nodeapp &lt;span style="color:#ae81ff">3000&lt;/span> 16h 2020-07-29 17:16.22
 &lt;h2 id="追踪和度量配置">追踪和度量配置&lt;/h2>
 &lt;p>Dapr 默认启用追踪和度量。 &lt;em>建议&lt;/em>在生产环境中为您的应用程序和Dapr控制平面设置分布式追踪和度量。&lt;/p>
 &lt;p>如果你已经有了自己的可观察测性支持组件，你可以禁用Dapr的追踪和度量。&lt;/p>
-&lt;h3 id="追踪">追踪&lt;/h3>
+&lt;h3 id="tracing调用链追踪">Tracing（调用链追踪）&lt;/h3>
 &lt;p>要为 Dapr 配置后台追踪，请访问&lt;a href="https://docs.dapr.io/operations/monitoring/tracing/setup-tracing/">这个&lt;/a>链接。&lt;/p>
-&lt;h3 id="度量">度量&lt;/h3>
+&lt;h3 id="指标">指标&lt;/h3>
 &lt;p>对于度量，Dapr在9090端口上暴露了一个Prometheus端点，可以被Prometheus收集。&lt;/p>
-&lt;p>要为 Dapr 配置Prometheus、Grafana 和其他监控工具，请访问 &lt;a href="https://docs.dapr.io/operations/monitoring/">这个&lt;/a>链接。&lt;/p></description></item><item><title>Operations: 更新 Kubernetes 集群中的 dapr</title><link>https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-upgrade/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-upgrade/</guid><description>
+&lt;p>要为 Dapr 配置Prometheus、Grafana 和其他监控工具，请访问 &lt;a href="https://docs.dapr.io/operations/monitoring/">这个&lt;/a>链接。&lt;/p></description></item><item><title>Operations: 更新 Kubernetes 集群中的 Dapr</title><link>https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-upgrade/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-upgrade/</guid><description>
 &lt;h2 id="前期准备">前期准备&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/getting-started/install-dapr-cli/">Dapr CLI&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://github.com/helm/helm/releases">Helm 3&lt;/a> (如果使用 Helm)&lt;/li>
 &lt;/ul>
-&lt;h2 id="将现有集群升级为101">将现有集群升级为1.0.1&lt;/h2>
+&lt;h2 id="upgrade-existing-cluster-to-110">Upgrade existing cluster to 1.1.0&lt;/h2>
 &lt;p>有两种方法可以使用Dapr CLI或Helm升级Kubernetes集群上的Dapr control plane。&lt;/p>
 &lt;h3 id="dapr-cli">Dapr CLI&lt;/h3>
-&lt;p>下面的例子显示了如何升级到1.0.1版本：&lt;/p>
+&lt;p>The example below shows how to upgrade to version 1.1.0:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr upgrade -k --runtime-version&lt;span style="color:#f92672">=&lt;/span>1.0.1
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>您可以使用Dapr CLI提供所有可用的Helm chart配置。 请参阅 &lt;a href="https://github.com/dapr/cli#supplying-helm-values">这里&lt;/a> 以获取更多信息。&lt;/p>
+&lt;h4 id="troubleshooting-upgrade-using-the-cli">Troubleshooting upgrade using the CLI&lt;/h4>
+&lt;p>There is a known issue running upgrades on clusters that may have previously had a version prior to 1.0.0-rc.2 installed on a cluster.&lt;/p>
+&lt;p>Most users should not encounter this issue, but there are a few upgrade path edge cases that may leave an incompatible CustomResourceDefinition installed on your cluster. The error message for this case looks like this:&lt;/p>
+&lt;pre>&lt;code>❌ Failed to upgrade Dapr: Warning: kubectl apply should be used on resource created by either kubectl create --save-config or kubectl apply
+The CustomResourceDefinition &amp;quot;configurations.dapr.io&amp;quot; is invalid: spec.preserveUnknownFields: Invalid value: true: must be false in order to use defaults in the schema
+&lt;/code>&lt;/pre>&lt;p>To resolve this issue please run the follow command to upgrade the CustomResourceDefinition to a compatible version:&lt;/p>
+&lt;pre>&lt;code>kubectl replace -f https://raw.githubusercontent.com/dapr/dapr/5a15b3e0f093d2d0938b12f144c7047474a290fe/charts/dapr/crds/configuration.yaml
+&lt;/code>&lt;/pre>&lt;p>Then proceed with the &lt;code>dapr upgrade --runtime-version 1.1.0 -k&lt;/code> command as above.&lt;/p>
 &lt;h3 id="helm">Helm&lt;/h3>
 &lt;p>从1.0.0版本开始，使用Helm升级Dapr不再是一个破坏性的动作，因为现有的证书值将自动被重新使用。&lt;/p>
 &lt;ol>
@@ -575,4 +591,42 @@ dapr-sidecar-injector-68f868668f-6xnbt 1/1 Running &lt;span style="color:#ae81ff
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-overview/">Kubernetes上的 Dapr&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-production/">Dapr生产环境指南&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Kubernetes 集群配置</title><link>https://docs.dapr.io/operations/hosting/kubernetes/cluster/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/hosting/kubernetes/cluster/</guid><description/></item></channel></rss>
+&lt;/ul></description></item><item><title>Operations: Running Dapr with a Kubernetes Job</title><link>https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-job/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-job/</guid><description>
+&lt;h1 id="kubernetes-job">Kubernetes Job&lt;/h1>
+&lt;p>The Dapr sidecar is designed to be a long running process, in the context of a &lt;a href="https://kubernetes.io/docs/concepts/workloads/controllers/job/">Kubernetes Job&lt;/a> this behaviour can block your job completion. To address this issue the Dapr sidecar has an endpoint to &lt;code>Shutdown&lt;/code> the sidecar.&lt;/p>
+&lt;p>When running a basic &lt;a href="https://kubernetes.io/docs/concepts/workloads/controllers/job/">Kubernetes Job&lt;/a> you will need to call the &lt;code>/shutdown&lt;/code> endpoint for the sidecar to gracefully stop and the job will be considered &lt;code>Completed&lt;/code>.&lt;/p>
+&lt;p>When a job is finish without calling &lt;code>Shutdown&lt;/code> your job will be in a &lt;code>NotReady&lt;/code> state with only the &lt;code>daprd&lt;/code> container running endlessly.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">batch/v1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Job&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">job-with-shutdown&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">template&lt;/span>:
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">annotations&lt;/span>:
+&lt;span style="color:#f92672">dapr.io/enabled&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">dapr.io/app-id&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;with-shutdown&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">containers&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">job&lt;/span>
+&lt;span style="color:#f92672">image&lt;/span>: &lt;span style="color:#ae81ff">busybox&lt;/span>
+&lt;span style="color:#f92672">command&lt;/span>: [&lt;span style="color:#e6db74">&amp;#34;/bin/sh&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;-c&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;sleep 20 &amp;amp;&amp;amp; wget localhost:3500/v1.0/shutdown&amp;#34;&lt;/span>]
+&lt;span style="color:#f92672">restartPolicy&lt;/span>: &lt;span style="color:#ae81ff">Never&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>You can also call the &lt;code>Shutdown&lt;/code> from any of the Dapr SDK&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#f92672">package&lt;/span> &lt;span style="color:#a6e22e">main&lt;/span>
+&lt;span style="color:#f92672">import&lt;/span> (
+&lt;span style="color:#e6db74">&amp;#34;context&amp;#34;&lt;/span>
+&lt;span style="color:#e6db74">&amp;#34;log&amp;#34;&lt;/span>
+&lt;span style="color:#e6db74">&amp;#34;os&amp;#34;&lt;/span>
+&lt;span style="color:#a6e22e">dapr&lt;/span> &lt;span style="color:#e6db74">&amp;#34;github.com/dapr/go-sdk/client&amp;#34;&lt;/span>
+)
+&lt;span style="color:#66d9ef">func&lt;/span> &lt;span style="color:#a6e22e">main&lt;/span>() {
+&lt;span style="color:#a6e22e">client&lt;/span>, &lt;span style="color:#a6e22e">err&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">dapr&lt;/span>.&lt;span style="color:#a6e22e">NewClient&lt;/span>()
+&lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#a6e22e">err&lt;/span> &lt;span style="color:#f92672">!=&lt;/span> &lt;span style="color:#66d9ef">nil&lt;/span> {
+&lt;span style="color:#a6e22e">log&lt;/span>.&lt;span style="color:#a6e22e">Panic&lt;/span>(&lt;span style="color:#a6e22e">err&lt;/span>)
+}
+&lt;span style="color:#66d9ef">defer&lt;/span> &lt;span style="color:#a6e22e">client&lt;/span>.&lt;span style="color:#a6e22e">Close&lt;/span>()
+&lt;span style="color:#66d9ef">defer&lt;/span> &lt;span style="color:#a6e22e">client&lt;/span>.&lt;span style="color:#a6e22e">Shutdown&lt;/span>()
+&lt;span style="color:#75715e">// Job
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>}
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Operations: Kubernetes 集群配置</title><link>https://docs.dapr.io/operations/hosting/kubernetes/cluster/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/hosting/kubernetes/cluster/</guid><description/></item></channel></rss>

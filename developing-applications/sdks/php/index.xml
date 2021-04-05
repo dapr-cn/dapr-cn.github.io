@@ -121,7 +121,7 @@ $app &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">\
 $result &lt;span style="color:#f92672">=&lt;/span> $app&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">run&lt;/span>(&lt;span style="color:#a6e22e">fn&lt;/span>(&lt;span style="color:#a6e22e">\Dapr\DaprClient&lt;/span> $client) &lt;span style="color:#f92672">=&amp;gt;&lt;/span> $client&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">get&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;/invoke/other-app/method/my-method&amp;#39;&lt;/span>));
 &lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Developing-Applications: Custom Serialization</title><link>https://docs.dapr.io/developing-applications/sdks/php/php-serialization/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/php/php-serialization/</guid><description>
 &lt;p>Dapr uses JSON serialization and thus (complex) type information is lost when sending/receiving data.&lt;/p>
-&lt;h2 id="serialization">Serialization&lt;/h2>
+&lt;h2 id="序列化serialization">序列化（Serialization）&lt;/h2>
 &lt;p>When returning an object from a controller, passing an object to the &lt;code>DaprClient&lt;/code>, or storing an object in a state store, only public properties are scanned and serialized. You can customize this behavior by implementing &lt;code>\Dapr\Serialization\ISerialize&lt;/code>. For example, if you wanted to create an ID type that serialized to a string, you may implement it like so:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
 &lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">MyId&lt;/span> &lt;span style="color:#66d9ef">implements&lt;/span> &lt;span style="color:#a6e22e">\Dapr\Serialization\Serializers\ISerialize&lt;/span>
@@ -149,7 +149,7 @@ $result &lt;span style="color:#f92672">=&lt;/span> $app&lt;span style="color:#f9
 ];
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="deserialization">Deserialization&lt;/h2>
 &lt;p>Deserialization works exactly the same way, except the interface is &lt;code>\Dapr\Deserialization\Deserializers\IDeserialize&lt;/code>.&lt;/p></description></item><item><title>Developing-Applications: 使用 PHP 发布和订阅</title><link>https://docs.dapr.io/developing-applications/sdks/php/php-pubsub/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/php/php-pubsub/</guid><description>
-&lt;p>有了 Dapr，您可以发布包括云事件的任何内容， SDK包含一个简单的云事件实现，但是 您也可以只传递一个符合云事件规范的数组，或者使用另一个库。&lt;/p>
+&lt;p>有了 Dapr，您可以发布包括云事件的任何内容， 有了 Dapr，您可以发布包括云事件的任何内容， SDK包含一个简单的云事件实现，但是 您也可以只传递一个符合云事件规范的数组，或者使用另一个库。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
 $app&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">post&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;/publish&amp;#39;&lt;/span>, &lt;span style="color:#66d9ef">function&lt;/span>(&lt;span style="color:#a6e22e">\DI\FactoryInterface&lt;/span> $factory) {
 &lt;span style="color:#75715e">// create a new publisher that publishes to my-pub-sub component
@@ -193,7 +193,7 @@ Only &lt;code>application/octet-steam&lt;/code> is supported for binary data.
 &lt;h2 id="接收云事件">接收云事件&lt;/h2>
 &lt;p>在订阅处理器中，您可以通过 DI 容器将 dapr\PubSub\Cloud Event&lt;/code> &lt;code>或 &amp;lt;code&amp;gt;array&lt;/code> 注入到控制器中。 之前进行了一些验证以确保您有一个适当的事件。 如果您需要直接访问数据或者事件，请使用 array &amp;lt;/ code&amp;gt;。&lt;/p>&lt;/p></description></item><item><title>Developing-Applications: 使用PHP的状态管理</title><link>https://docs.dapr.io/developing-applications/sdks/php/php-state/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/php/php-state/</guid><description>
 &lt;p>Dapr 提供了一个很好的模块化方法来管理您的应用程序中的状态。 新手入门可以参考 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/">如何帮助&lt;/a>&lt;/p>
-&lt;h2 id="元数据metadata">元数据（Metadata）&lt;/h2>
+&lt;h2 id="metadata">Metadata&lt;/h2>
 &lt;p>许多状态组件允许您将元数据传递给组件，以控制组件的特定行为。 PHP SDK 允许您通过以下方式传递该元数据：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
 $app&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">run&lt;/span>(
@@ -212,7 +212,7 @@ $stateManager&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="c
 ]
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>将其中之一传递给 &lt;code>StateManager&lt;/code> 方法或使用 &lt;code>StateStore()&lt;/code> 属性允许您定义state store来处理冲突。&lt;/p>
 &lt;h2 id="并行">并行&lt;/h2>
-&lt;p>进行批量读取或开始事务时，可以指定并行的数量。 Dapr 一次可以从store中读取更多的key 这是以牺牲性能为代价控制状态存储的负载。 该属性的默认值是 &lt;code>10&lt;/code>。&lt;/p>
+&lt;p>进行批量读取或开始事务时，可以指定并行的数量。 Dapr 一次可以从store中读取更多的key 这是以牺牲性能为代价控制状态存储的负载。 这是以牺牲性能为代价控制状态存储的负载。 该属性的默认值是 &lt;code>10&lt;/code>。&lt;/p>
 &lt;h2 id="前缀">前缀&lt;/h2>
 &lt;p>硬编码的键名很有用，但是为什么不让状态对象可复用性更高呢？ 当提交交易或保存 对象状态时，您可以传递一个应用于对象中每个键的前缀。&lt;/p>
 &lt;ul class="nav nav-tabs" id="tabs-2" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"

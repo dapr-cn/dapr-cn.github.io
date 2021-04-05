@@ -157,6 +157,70 @@ Handling connection for 5601
 &lt;li>&lt;a href="https://github.com/elastic/helm-charts/tree/master/kibana">Kibana helm chart&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://www.elastic.co/guide/en/kibana/current/kuery-query.html">Kibana Query Language&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/en/operations/troubleshooting/logs-troubleshooting/">Troubleshooting using Logs&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: How-To: Set-up New Relic for Dapr logging</title><link>https://docs.dapr.io/en/operations/monitoring/logging/newrelic/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/operations/monitoring/logging/newrelic/</guid><description>
+&lt;h2 id="prerequisites">Prerequisites&lt;/h2>
+&lt;ul>
+&lt;li>Perpetually &lt;a href="https://newrelic.com/signup?ref=dapr">free New Relic account&lt;/a>, 100 GB/month of free data ingest, 1 free full access user, unlimited free basic users&lt;/li>
+&lt;/ul>
+&lt;h2 id="background">Background&lt;/h2>
+&lt;p>New Relic offers a &lt;a href="https://fluentbit.io/">Fluent Bit&lt;/a> output &lt;a href="https://github.com/newrelic/newrelic-fluent-bit-output">plugin&lt;/a> to easily forward your logs to &lt;a href="https://github.com/newrelic/newrelic-fluent-bit-output">New Relic Logs&lt;/a>. This plugin is also provided in a standalone Docker image that can be installed in a Kubernetes cluster in the form of a DaemonSet, which we refer as the Kubernetes plugin.&lt;/p>
+&lt;p>This document explains how to install it in your cluster, either using a Helm chart (recommended), or manually by applying Kubernetes manifests.&lt;/p>
+&lt;h2 id="installation">Installation&lt;/h2>
+&lt;h3 id="install-using-the-helm-chart-recommended">Install using the Helm chart (recommended)&lt;/h3>
+&lt;ol>
+&lt;li>
+&lt;p>Install Helm following the official instructions.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Add the New Relic official Helm chart repository following these instructions&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Run the following command to install the New Relic Logging Kubernetes plugin via Helm, replacing the placeholder value YOUR_LICENSE_KEY with your &lt;a href="https://docs.newrelic.com/docs/accounts/install-new-relic/account-setup/license-key">New Relic license key&lt;/a>:&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>
+&lt;p>Helm 3&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm install newrelic-logging newrelic/newrelic-logging --set licenseKey&lt;span style="color:#f92672">=&lt;/span>YOUR_LICENSE_KEY
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Helm 2&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm install newrelic/newrelic-logging --name newrelic-logging --set licenseKey&lt;span style="color:#f92672">=&lt;/span>YOUR_LICENSE_KEY
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;/ul>
+&lt;p>For EU users, add `&amp;ndash;set endpoint=https://log-api.eu.newrelic.com/log/v1 to any of the helm install commands above.&lt;/p>
+&lt;p>By default, tailing is set to /var/log/containers/*.log. To change this setting, provide your preferred path by adding &amp;ndash;set fluentBit.path=DESIRED_PATH to any of the helm install commands above.&lt;/p>
+&lt;h3 id="install-the-kubernetes-manifest">Install the Kubernetes manifest&lt;/h3>
+&lt;ol>
+&lt;li>
+&lt;p>Download the following 3 manifest files into your current working directory:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl https://raw.githubusercontent.com/newrelic/helm-charts/master/charts/newrelic-logging/k8s/fluent-conf.yml &amp;gt; fluent-conf.yml
+curl https://raw.githubusercontent.com/newrelic/helm-charts/master/charts/newrelic-logging/k8s/new-relic-fluent-plugin.yml &amp;gt; new-relic-fluent-plugin.yml
+curl https://raw.githubusercontent.com/newrelic/helm-charts/master/charts/newrelic-logging/k8s/rbac.yml &amp;gt; rbac.yml
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>In the downloaded new-relic-fluent-plugin.yml file, replace the placeholder value LICENSE_KEY with your New Relic license key.&lt;/p>
+&lt;p>For EU users, replace the ENDPOINT environment variable to &lt;a href="https://log-api.eu.newrelic.com/log/v1">https://log-api.eu.newrelic.com/log/v1&lt;/a>.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Once the License key has been added, run the following command in your terminal or command-line interface:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl apply -f .
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>[OPTIONAL] You can configure how the plugin parses the data by editing the parsers.conf section in the fluent-conf.yml file. For more information, see Fluent Bit&amp;rsquo;s documentation on Parsers configuration.&lt;/p>
+&lt;p>By default, tailing is set to /var/log/containers/*.log. To change this setting, replace the default path with your preferred path in the new-relic-fluent-plugin.yml file.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="view-logs">View Logs&lt;/h2>
+&lt;p>&lt;img src="https://docs.dapr.io/images/nr-logging-1.png" alt="Dapr Annotations">&lt;/p>
+&lt;p>&lt;img src="https://docs.dapr.io/images/nr-logging-2.png" alt="Search">&lt;/p>
+&lt;h2 id="related-linksreferences">Related Links/References&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://newrelic.com/signup">New Relic Account Signup&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://newrelic.com/platform/telemetry-data-platform">Telemetry Data Platform&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/newrelic/helm-charts/tree/master/charts/newrelic-logging">New Relic Logging&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.newrelic.com/docs/apis/get-started/intro-apis/types-new-relic-api-keys">Types of New Relic API keys&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.newrelic.com/docs/alerts-applied-intelligence">Alerts and Applied Intelligence&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: Logs</title><link>https://docs.dapr.io/en/operations/monitoring/logging/logs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/operations/monitoring/logging/logs/</guid><description>
 &lt;p>Dapr produces structured logs to stdout either as a plain text or JSON formatted. By default, all Dapr processes (runtime and system services) write to console out in plain text. To enable JSON formatted logs, you need to add the &lt;code>--log-as-json&lt;/code> command flag when running Dapr processes.&lt;/p>
 &lt;p>If you want to use a search engine such as Elastic Search or Azure Monitor to search the logs, it is recommended to use JSON-formatted logs which the log collector and search engine can parse using the built-in JSON parser.&lt;/p>
@@ -256,7 +320,7 @@ time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&am
 &lt;span style="color:#f92672">dapr.io/log-as-json&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
 ...
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="log-collectors">Log collectors&lt;/h2>
-&lt;p>If you run Dapr in a Kubernetes cluster, &lt;a href="https://www.fluentd.org/">Fluentd&lt;/a> is a popular container log collector. You can use Fluentd with a &lt;a href="https://docs.fluentd.org/parser/json">json parser plugin&lt;/a> to parse Dapr JSON formatted logs. This &lt;a href="https://docs.dapr.io/en/operations/monitoring/logging/fluentd/">how-to&lt;/a> shows how to configure the Fleuntd in your cluster.&lt;/p>
+&lt;p>If you run Dapr in a Kubernetes cluster, &lt;a href="https://www.fluentd.org/">Fluentd&lt;/a> is a popular container log collector. You can use Fluentd with a &lt;a href="https://docs.fluentd.org/parser/json">json parser plugin&lt;/a> to parse Dapr JSON formatted logs. This &lt;a href="https://docs.dapr.io/en/operations/monitoring/logging/fluentd/">how-to&lt;/a> shows how to configure the Fluentd in your cluster.&lt;/p>
 &lt;p>If you are using the Azure Kubernetes Service, you can use the default OMS Agent to collect logs with Azure Monitor without needing to install Fluentd.&lt;/p>
 &lt;h2 id="search-engines">Search engines&lt;/h2>
 &lt;p>If you use &lt;a href="https://www.fluentd.org/">Fluentd&lt;/a>, we recommend to using Elastic Search and Kibana. This &lt;a href="https://docs.dapr.io/en/operations/monitoring/logging/fluentd/">how-to&lt;/a> shows how to set up Elastic Search and Kibana in your Kubernetes cluster.&lt;/p>

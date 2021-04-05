@@ -15,11 +15,15 @@
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">namespace&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-NAMESPACE&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Required. The aerospike namespace.&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">set&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-SET&amp;gt; # Optional 逗号分隔的服务器地址 Example&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;aerospike:3000,aerospike2:3000&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">namespace&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-NAMESPACE&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Required. The aerospike namespace.&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">set&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-SET&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">点击这里查看操作方法&lt;/a>。
+以上示例将密钥明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
 &lt;/div>
 &lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
@@ -28,19 +32,19 @@
 &lt;th>字段&lt;/th>
 &lt;th style="text-align:center">必填&lt;/th>
 &lt;th>详情&lt;/th>
-&lt;th>例子&lt;/th>
+&lt;th>示例&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
 &lt;td>hosts&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>数据库服务器主机名/端口&lt;/td>
 &lt;td>&lt;code>&amp;quot;localhost:3000&amp;quot;&lt;/code>, &lt;code>&amp;quot;aerospike:3000,aerospike2:3000&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>namespace&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>Aerospike 命名空间。&lt;/td>
 &lt;td>&lt;code>&amp;quot;namespace&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
@@ -85,15 +89,15 @@ helm install --name my-aerospike --namespace aerospike stable/aerospike
 &lt;li>阅读 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">本指南&lt;/a> 以获取配置状态存储组件的说明&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">状态管理构建块&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: AWS DynamoDB</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-dynamodb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-dynamodb/</guid><description>
-&lt;h2 id="component-format">Component format&lt;/h2>
-&lt;p>To setup a DynamoDB state store create a component of type &lt;code>state.dynamodb&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration. To setup SQL Server state store create a component of type &lt;code>state.sqlserver&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;h2 id="配置">配置&lt;/h2>
+&lt;p>To setup a DynamoDB state store create a component of type &lt;code>state.aws.dynamodb&lt;/code>. 请参阅&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">本指南&lt;/a>，了解如何创建和应用状态存储配置。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
 &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
 &lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
 &lt;span style="color:#f92672">spec&lt;/span>:
-&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">state.dynamodb&lt;/span>
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">state.aws.dynamodb&lt;/span>
 &lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">table&lt;/span>
@@ -111,65 +115,65 @@ helm install --name my-aerospike --namespace aerospike stable/aerospike
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 The example configuration shown above, contain a username and password as plain-text strings. 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/%7D">here&lt;/a>。
+以上示例将密钥明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
 &lt;/div>
-&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th>字段&lt;/th>
-&lt;th style="text-align:center">Required&lt;/th>
-&lt;th>Details&lt;/th>
-&lt;th>Example&lt;/th>
+&lt;th style="text-align:center">必填&lt;/th>
+&lt;th>详情&lt;/th>
+&lt;th>示例&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
 &lt;td>table&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>name of the DynamoDB table to use&lt;/td>
 &lt;td>&lt;code>&amp;quot;mytable&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>accessKey&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>ID of the AWS account with appropriate permissions to SNS and SQS. Can be &lt;code>secretKeyRef&lt;/code> to use a secret reference Secret for the AWS user. Can be &lt;code>secretKeyRef&lt;/code> to use a secret reference&lt;/td>
+&lt;td>具有SNS和SQS适当权限的AWS账户的ID。 可以用&lt;code>secretKeyRef&lt;/code>来引用密钥。&lt;/td>
 &lt;td>&lt;code>&amp;quot;AKIAIOSFODNN7EXAMPLE&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>secretKey&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Secret for the AWS user. Can be &lt;code>secretKeyRef&lt;/code> to use a secret reference&lt;/td>
+&lt;td>AWS用户的密钥。 可以用&lt;code>secretKeyRef&lt;/code>来引用密钥。&lt;/td>
 &lt;td>&lt;code>&amp;quot;wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>region&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>The AWS region to the instance. The AWS region to the instance. See this page for valid regions: &lt;a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html">https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html&lt;/a>. Ensure that DynamoDB are available in that region. Ensure that DynamoDB are available in that region.&lt;/td>
+&lt;td>AWS区域到实例。 有效区域请参见本页面：https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html。 Ensure that DynamoDB are available in that region.&lt;/td>
 &lt;td>&lt;code>&amp;quot;us-east-1&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>endpoint&lt;/td>
+&lt;td>终结点&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>AWS endpoint for the component to use. Only used for local development. AWS endpoint for the component to use. Only used for local development. The &lt;code>endpoint&lt;/code> is unncessary when running against production AWS&lt;/td>
+&lt;td>该组件要使用的AWS端点， 仅用于本地开发。 仅用于本地开发。 当对生产环境的AWS，&lt;code>endpoint&lt;/code>是不需要的。&lt;/td>
 &lt;td>&lt;code>&amp;quot;http://localhost:4566&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>sessionToken&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>AWS session token to use. AWS session token to use. A session token is only required if you are using temporary security credentials.&lt;/td>
+&lt;td>要使用的 AWS 会话令牌。 A session token is only required if you are using temporary security credentials.&lt;/td>
 &lt;td>&lt;code>&amp;quot;TOKEN&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
 &lt;h2 id="setup-aws-dynamodb">Setup AWS DynamoDB&lt;/h2>
-&lt;p>See &lt;a href="https://docs.dapr.io/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a> for information about authentication-related attributes&lt;/p>
+&lt;p>关于身份验证相关属性的信息，请参阅 &lt;a href="https://docs.dapr.io/developing-applications/integrations/authenticating/authenticating-aws/">认证到 AWS&lt;/a>&lt;/p>
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
-&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Dapr组件的基本格式&lt;/a>&lt;/li>
+&lt;li>阅读 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">本指南&lt;/a> 以获取配置状态存储组件的说明&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">状态管理构建块&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/integrations/authenticating/authenticating-aws/">AWS认证&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: Azure Blob Storage</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-azure-blobstorage/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-azure-blobstorage/</guid><description>
 &lt;h2 id="配置">配置&lt;/h2>
 &lt;p>要设置 Azure Blobstorage状态存储，请创建一个类型为&lt;code>state.azure.blobstorage&lt;/code>的组件。 请参阅&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">本指南&lt;/a>，了解如何创建和应用状态存储配置。&lt;/p>
@@ -191,7 +195,7 @@ helm install --name my-aerospike --namespace aerospike stable/aerospike
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">点击这里查看操作方法&lt;/a>。
+以上示例将密钥明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
 &lt;/div>
 &lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
@@ -200,26 +204,26 @@ helm install --name my-aerospike --namespace aerospike stable/aerospike
 &lt;th>字段&lt;/th>
 &lt;th style="text-align:center">必填&lt;/th>
 &lt;th>详情&lt;/th>
-&lt;th>例子&lt;/th>
+&lt;th>示例&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
 &lt;td>accountName&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>存储帐户名称&lt;/td>
 &lt;td>&lt;code>&amp;quot;mystorageaccount&amp;quot;&lt;/code>.&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>accountKey&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>主要或次要存储密钥&lt;/td>
 &lt;td>&lt;code>&amp;quot;key&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>containerName&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
-&lt;td>Dapr 状态的容器名称， 如果容器不存在，将会自动创建&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
+&lt;td>Dapr 状态的容器名称， 如果容器不存在，将会自动创建.&lt;/td>
 &lt;td>&lt;code>&amp;quot;container&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;/tbody>
@@ -229,7 +233,7 @@ helm install --name my-aerospike --namespace aerospike stable/aerospike
 &lt;p>如果你想创建一个容器供Dapr使用，你可以事先这样做。 但是，当 Blob Storage状态提供者会在其不存在时为你自动创建。&lt;/p>
 &lt;p>要将 Azure Blob Storage配置为状态存储，你需要如下属性：&lt;/p>
 &lt;ul>
-&lt;li>&lt;strong>AccountName&lt;/strong>：存储账户名称 举例：&lt;strong>mystorageaccount&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>AccountName&lt;/strong>：存储账户名称 举例：&lt;strong>mystorageaccount&lt;/strong> 举例：&lt;strong>mystorageaccount&lt;/strong>&lt;/li>
 &lt;li>&lt;strong>AccountKey&lt;/strong>：主要或次要存储密钥。&lt;/li>
 &lt;li>&lt;strong>ContainerName&lt;/strong>：用于Dapr状态的容器名称。 如果容器不存在，将会自动创建.&lt;/li>
 &lt;/ul>
@@ -259,7 +263,7 @@ helm install --name my-aerospike --namespace aerospike stable/aerospike
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">状态管理构建块&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: Azure Cosmos DB</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-azure-cosmosdb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-azure-cosmosdb/</guid><description>
 &lt;h2 id="配置">配置&lt;/h2>
-&lt;p>要设置 Azure CosmosDb 状态存储，请创建一个类型为 &lt;code>state.azure.cosmosdb&lt;/code> 的组件。 请参阅 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">本指南&lt;/a>，了解如何创建和应用状态存储配置。&lt;/p>
+&lt;p>要设置 Azure CosmosDb 状态存储，请创建一个类型为 &lt;code>state.azure.cosmosdb&lt;/code> 的组件。 请参阅&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">本指南&lt;/a>，了解如何创建和应用状态存储配置。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -280,7 +284,7 @@ helm install --name my-aerospike --namespace aerospike stable/aerospike
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>描述的密钥仓库来存储密钥。
+以上示例将密钥明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
 &lt;/div>
 &lt;p>如果您想要使用 CosmosDb 作为 Actor 存储，请在 yaml 上附上以下内容。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml"> - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">actorStateStore&lt;/span>
@@ -298,25 +302,25 @@ helm install --name my-aerospike --namespace aerospike stable/aerospike
 &lt;tbody>
 &lt;tr>
 &lt;td>url&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>CosmosDB 地址&lt;/td>
 &lt;td>&lt;code>&amp;quot;https://******.documents.azure.com:443/&amp;quot;&lt;/code>.&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>masterKey&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>认证到CosmosDB 账户的密钥&lt;/td>
 &lt;td>&lt;code>&amp;quot;key&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>database&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>数据库名称&lt;/td>
 &lt;td>&lt;code>&amp;quot;db&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>collection&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>要使用的集合名称&lt;/td>
 &lt;td>&lt;code>&amp;quot;collection&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
@@ -333,7 +337,7 @@ helm install --name my-aerospike --namespace aerospike stable/aerospike
 &lt;p>&lt;strong>注意：集合的分区键必须命名为&amp;quot;/partitionKey&amp;quot;。 注意：这是区分大小写的。&lt;/strong>&lt;/p>
 &lt;p>为了配置CosmosDB作为状态存储，你需要以下属性：&lt;/p>
 &lt;ul>
-&lt;li>&lt;strong>URL&lt;/strong>: CosmosDB的 url. 示例: https://******.documents.azure.com:443/&lt;/li>
+&lt;li>&lt;strong>URL&lt;/strong>: CosmosDB的 url. 示例: https://&lt;strong>&lt;strong>&lt;strong>.documents.azure.com:443/ 示例: https://&lt;/strong>&lt;/strong>&lt;/strong>.documents.azure.com:443/&lt;/li>
 &lt;li>&lt;strong>Master Key&lt;/strong>: 用于验证 CosmosDB 账户的密钥&lt;/li>
 &lt;li>&lt;strong>Database&lt;/strong>: 数据库的名称&lt;/li>
 &lt;li>&lt;strong>Collection&lt;/strong>: 集合的名称&lt;/li>
@@ -373,7 +377,7 @@ helm install --name my-aerospike --namespace aerospike stable/aerospike
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">状态管理构建块&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: Azure Table Storage</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-azure-tablestorage/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-azure-tablestorage/</guid><description>
 &lt;h2 id="配置">配置&lt;/h2>
-&lt;p>要设置 Azure Tablestorage 状态存储，请创建一个类型为&lt;code>state.azure.tablestorage&lt;/code>的组件。 请参阅 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">本指南&lt;/a>，了解如何创建和应用状态存储配置。&lt;/p>
+&lt;p>要设置 Azure Tablestorage 状态存储，请创建一个类型为&lt;code>state.azure.tablestorage&lt;/code>的组件。 请参阅&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">本指南&lt;/a>，了解如何创建和应用状态存储配置。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -392,7 +396,7 @@ helm install --name my-aerospike --namespace aerospike stable/aerospike
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>描述的密钥仓库来存储密钥。
+以上示例将密钥明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
 &lt;/div>
 &lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
@@ -407,20 +411,20 @@ helm install --name my-aerospike --namespace aerospike stable/aerospike
 &lt;tbody>
 &lt;tr>
 &lt;td>accountName&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>存储帐户名称&lt;/td>
 &lt;td>&lt;code>&amp;quot;mystorageaccount&amp;quot;&lt;/code>.&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>accountKey&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>主要或次要存储密钥&lt;/td>
 &lt;td>&lt;code>&amp;quot;key&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>tableName&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
-&lt;td>The name of the table to be used for Dapr state. The table will be created for you if it doesn&amp;rsquo;t exist 如果表不存在，将会自动创建&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
+&lt;td>The name of the table to be used for Dapr state. 如果表不存在，将会自动创建.&lt;/td>
 &lt;td>&lt;code>&amp;quot;table&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;/tbody>
@@ -430,7 +434,7 @@ helm install --name my-aerospike --namespace aerospike stable/aerospike
 &lt;p>如果你想创建一张表供Dapr使用，你可以事先这样做。 但是，当 Table Storage状态提供者会在其不存在时为你自动创建。&lt;/p>
 &lt;p>要将 Azure Table Storage配置为状态存储，你需要如下属性：&lt;/p>
 &lt;ul>
-&lt;li>&lt;strong>AccountName&lt;/strong>：存储账户名称 举例：&lt;strong>mystorageaccount&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>AccountName&lt;/strong>：存储账户名称 举例：&lt;strong>mystorageaccount&lt;/strong> 举例：&lt;strong>mystorageaccount&lt;/strong>&lt;/li>
 &lt;li>&lt;strong>AccountKey&lt;/strong>：主要或次要存储密钥。&lt;/li>
 &lt;li>&lt;strong>TableName&lt;/strong>：用于Dapr状态的表名称。 如果表不存在，将会自动创建.&lt;/li>
 &lt;/ul>
@@ -471,8 +475,8 @@ helm install --name my-aerospike --namespace aerospike stable/aerospike
 &lt;li>阅读 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">本指南&lt;/a> 以获取配置状态存储组件的说明&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">状态管理构建块&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: Cassandra</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-cassandra/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-cassandra/</guid><description>
-&lt;h2 id="component-format">Component format&lt;/h2>
-&lt;p>To setup Cassandra state store create a component of type &lt;code>state.cassandra&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration. To setup SQL Server state store create a component of type &lt;code>state.sqlserver&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;h2 id="配置">配置&lt;/h2>
+&lt;p>To setup Cassandra state store create a component of type &lt;code>state.cassandra&lt;/code>. 请参阅&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">本指南&lt;/a>，了解如何创建和应用状态存储配置。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -511,44 +515,58 @@ helm install --name my-aerospike --namespace aerospike stable/aerospike
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">protoVersion&lt;/span>
 &lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-PROTO-VERSION&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;4&amp;#34;&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">replicationFactor&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-REPLICATION-FACTOR&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span> &lt;span style="color:#f92672">Example&lt;/span>: &lt;span style="color:#ae81ff">cassandra.cassandra.svc.cluster.local&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">username&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-PASSWORD&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">password&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-PASSWORD&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">consistency&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-CONSISTENCY&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;All&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">table&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-TABLE&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;items&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">keyspace&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-KEYSPACE&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;dapr&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">protoVersion&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-PROTO-VERSION&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;4&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">replicationFactor&lt;/span>
 &lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-REPLICATION-FACTOR&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 The example configuration shown above, contain a username and password as plain-text strings. 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/%7D">here&lt;/a>。
+以上示例将密钥明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
 &lt;/div>
-&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th>字段&lt;/th>
-&lt;th style="text-align:center">Required&lt;/th>
-&lt;th>Details&lt;/th>
-&lt;th>Example&lt;/th>
+&lt;th style="text-align:center">必填&lt;/th>
+&lt;th>详情&lt;/th>
+&lt;th>示例&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
 &lt;td>hosts&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>Comma separated value of the hosts&lt;/td>
 &lt;td>&lt;code>&amp;quot;cassandra.cassandra.svc.cluster.local&amp;quot;&lt;/code>.&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>port&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Port for communication. Port for communication. Default &lt;code>&amp;quot;9042&amp;quot;&lt;/code>&lt;/td>
+&lt;td>Port for communication. Default &lt;code>&amp;quot;9042&amp;quot;&lt;/code>&lt;/td>
 &lt;td>&lt;code>&amp;quot;9042&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>username&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
-&lt;td>The username of database user. No default No default&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
+&lt;td>The username of database user. No default&lt;/td>
 &lt;td>&lt;code>&amp;quot;user&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>password&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>The password for the user&lt;/td>
 &lt;td>&lt;code>&amp;quot;password&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
@@ -561,63 +579,63 @@ helm install --name my-aerospike --namespace aerospike stable/aerospike
 &lt;tr>
 &lt;td>table&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Table name. Table name. Defaults to &lt;code>&amp;quot;items&amp;quot;&lt;/code>&lt;/td>
+&lt;td>Table name. Defaults to &lt;code>&amp;quot;items&amp;quot;&lt;/code>&lt;/td>
 &lt;td>&lt;code>&amp;quot;items&amp;quot;&lt;/code>, &lt;code>&amp;quot;tab&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>keyspace&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>The cassandra keyspace to use. The cassandra keyspace to use. Defaults to &lt;code>&amp;quot;dapr&amp;quot;&lt;/code>&lt;/td>
+&lt;td>The cassandra keyspace to use. Defaults to &lt;code>&amp;quot;dapr&amp;quot;&lt;/code>&lt;/td>
 &lt;td>&lt;code>&amp;quot;dapr&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>protoVersion&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>The proto version for the client. The proto version for the client. Defaults to &lt;code>&amp;quot;4&amp;quot;&lt;/code>&lt;/td>
+&lt;td>The proto version for the client. Defaults to &lt;code>&amp;quot;4&amp;quot;&lt;/code>&lt;/td>
 &lt;td>&lt;code>&amp;quot;3&amp;quot;&lt;/code>, &lt;code>&amp;quot;4&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>replicationFactor&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>The replication factor for the calls. The replication factor for the calls. Defaults to &lt;code>&amp;quot;1&amp;quot;&lt;/code>&lt;/td>
+&lt;td>The replication factor for the calls. Defaults to &lt;code>&amp;quot;1&amp;quot;&lt;/code>&lt;/td>
 &lt;td>&lt;code>&amp;quot;3&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
 &lt;h2 id="setup-cassandra">Setup Cassandra&lt;/h2>
-&lt;ul class="nav nav-tabs" id="tabs-3" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
-id="tabs-3-self-hosted-tab" data-toggle="tab" href="#tabs-3-self-hosted" role="tab"
-aria-controls="tabs-3-self-hosted" aria-selected="true">
+&lt;ul class="nav nav-tabs" id="tabs-2" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-2-self-hosted-tab" data-toggle="tab" href="#tabs-2-self-hosted" role="tab"
+aria-controls="tabs-2-self-hosted" aria-selected="true">
 Self-Hosted
 &lt;/a>
 &lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
-id="tabs-3-kubernetes-tab" data-toggle="tab" href="#tabs-3-kubernetes" role="tab"
-aria-controls="tabs-3-kubernetes" aria-selected="false">
+id="tabs-2-kubernetes-tab" data-toggle="tab" href="#tabs-2-kubernetes" role="tab"
+aria-controls="tabs-2-kubernetes" aria-selected="false">
 Kubernetes
 &lt;/a>
 &lt;/li>&lt;/ul>
-&lt;div class="tab-content" id="tabs-3-content">
-&lt;div class="tab-pane fade show active" id="tabs-3-self-hosted" role="tabpanel" aria-labelled-by="tabs-3-self-hosted-tab">
+&lt;div class="tab-content" id="tabs-2-content">
+&lt;div class="tab-pane fade show active" id="tabs-2-self-hosted" role="tabpanel" aria-labelled-by="tabs-2-self-hosted-tab">
 &lt;br />&lt;p>You can run Cassandra locally with the Datastax Docker image:&lt;/p>
 &lt;pre>&lt;code>docker run -e DS_LICENSE=accept --memory 4g --name my-dse -d datastax/dse-server -g -s -k
 &lt;/code>&lt;/pre>&lt;p>You can then interact with the server using &lt;code>localhost:9042&lt;/code>.&lt;/p>
 &lt;/div>
-&lt;div class="tab-pane fade" id="tabs-3-kubernetes" role="tabpanel" aria-labelled-by="tabs-3-kubernetes-tab">
+&lt;div class="tab-pane fade" id="tabs-2-kubernetes" role="tabpanel" aria-labelled-by="tabs-2-kubernetes-tab">
 &lt;br />&lt;p>The easiest way to install Cassandra on Kubernetes is by using the &lt;a href="https://github.com/helm/charts/tree/master/incubator/cassandra">Helm chart&lt;/a>:&lt;/p>
 &lt;pre>&lt;code>kubectl create namespace cassandra
 helm install cassandra incubator/cassandra --namespace cassandra
-&lt;/code>&lt;/pre>&lt;p>This installs Cassandra into the &lt;code>cassandra&lt;/code> namespace by default. This installs Cassandra into the &lt;code>cassandra&lt;/code> namespace by default. To interact with Cassandra, find the service with: &lt;code>kubectl get svc -n cassandra&lt;/code>.&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>This installs Cassandra into the &lt;code>cassandra&lt;/code> namespace by default. To interact with Cassandra, find the service with: &lt;code>kubectl get svc -n cassandra&lt;/code>.&lt;/p>
 &lt;p>For example, if installing using the example above, the Cassandra DNS would be:&lt;/p>
 &lt;p>&lt;code>cassandra.cassandra.svc.cluster.local&lt;/code>&lt;/p>
 &lt;/div>
 &lt;/div>
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
-&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Dapr组件的基本格式&lt;/a>&lt;/li>
+&lt;li>阅读 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">本指南&lt;/a> 以获取配置状态存储组件的说明&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">状态管理构建块&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: Cloudstate</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-cloudstate/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-cloudstate/</guid><description>
-&lt;h2 id="组件格式">组件格式&lt;/h2>
+&lt;h2 id="配置">配置&lt;/h2>
 &lt;p>要设置Cloudstate状态存储，请创建一个类型为&lt;code>state.cloudstate&lt;/code>的组件。 请参阅&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">本指南&lt;/a>，了解如何创建和应用状态存储配置。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
@@ -632,12 +650,12 @@ helm install cassandra incubator/cassandra --namespace cassandra
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-HOST&amp;gt;&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">serverPort&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-PORT&amp;gt;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="spec-元数据字段">Spec 元数据字段&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th>字段&lt;/th>
-&lt;th style="text-align:center">Required&lt;/th>
+&lt;th style="text-align:center">必填&lt;/th>
 &lt;th>详情&lt;/th>
 &lt;th>示例&lt;/th>
 &lt;/tr>
@@ -645,13 +663,13 @@ helm install cassandra incubator/cassandra --namespace cassandra
 &lt;tbody>
 &lt;tr>
 &lt;td>hosts&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>指定Cloudstate API 地址&lt;/td>
 &lt;td>&lt;code>&amp;quot;localhost:8013&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>serverPort&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>指定要在 Dapr 中打开的 Cloudstate 回调端口。 这需要是你的应用程序或 Dapr 没有占用的端口&lt;/td>
 &lt;td>&lt;code>&amp;quot;8080&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
@@ -774,8 +792,8 @@ kubectl apply -n cloudstate -f https://github.com/cloudstateio/cloudstate/releas
 &lt;li>阅读 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">本指南&lt;/a> 以获取配置状态存储组件的说明&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">状态管理构建块&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: Couchbase</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-couchbase/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-couchbase/</guid><description>
-&lt;h2 id="component-format">Component format&lt;/h2>
-&lt;p>To setup Couchbase state store create a component of type &lt;code>state.couchbase&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration. To setup SQL Server state store create a component of type &lt;code>state.sqlserver&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;h2 id="配置">配置&lt;/h2>
+&lt;p>To setup Couchbase state store create a component of type &lt;code>state.couchbase&lt;/code>. 请参阅&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">本指南&lt;/a>，了解如何创建和应用状态存储配置。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -798,68 +816,74 @@ kubectl apply -n cloudstate -f https://github.com/cloudstateio/cloudstate/releas
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">password&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-PASSWORD&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Required.&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">bucketName&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-BUCKET&amp;gt; # Required. Example&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;http://localhost:8091&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">username&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-USERNAME&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Required.&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">password&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-PASSWORD&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Required.&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">bucketName&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-BUCKET&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Required.&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 The example configuration shown above, contain a username and password as plain-text strings. 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/%7D">here&lt;/a>。
+以上示例将密钥明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
 &lt;/div>
-&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th>字段&lt;/th>
-&lt;th style="text-align:center">Required&lt;/th>
-&lt;th>Details&lt;/th>
-&lt;th>Example&lt;/th>
+&lt;th style="text-align:center">必填&lt;/th>
+&lt;th>详情&lt;/th>
+&lt;th>示例&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
 &lt;td>couchbaseURL&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>The URL of the Couchbase server&lt;/td>
 &lt;td>&lt;code>&amp;quot;http://localhost:8091&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>username&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>The username for the database&lt;/td>
 &lt;td>&lt;code>&amp;quot;user&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>password&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>The password for access&lt;/td>
 &lt;td>&lt;code>&amp;quot;password&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>bucketName&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>The bucket name to write to&lt;/td>
 &lt;td>&lt;code>&amp;quot;bucket&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
 &lt;h2 id="setup-couchbase">Setup Couchbase&lt;/h2>
-&lt;ul class="nav nav-tabs" id="tabs-3" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
-id="tabs-3-self-hosted-tab" data-toggle="tab" href="#tabs-3-self-hosted" role="tab"
-aria-controls="tabs-3-self-hosted" aria-selected="true">
+&lt;ul class="nav nav-tabs" id="tabs-2" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-2-self-hosted-tab" data-toggle="tab" href="#tabs-2-self-hosted" role="tab"
+aria-controls="tabs-2-self-hosted" aria-selected="true">
 Self-Hosted
 &lt;/a>
 &lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
-id="tabs-3-kubernetes-tab" data-toggle="tab" href="#tabs-3-kubernetes" role="tab"
-aria-controls="tabs-3-kubernetes" aria-selected="false">
+id="tabs-2-kubernetes-tab" data-toggle="tab" href="#tabs-2-kubernetes" role="tab"
+aria-controls="tabs-2-kubernetes" aria-selected="false">
 Kubernetes
 &lt;/a>
 &lt;/li>&lt;/ul>
-&lt;div class="tab-content" id="tabs-3-content">
-&lt;div class="tab-pane fade show active" id="tabs-3-self-hosted" role="tabpanel" aria-labelled-by="tabs-3-self-hosted-tab">
+&lt;div class="tab-content" id="tabs-2-content">
+&lt;div class="tab-pane fade show active" id="tabs-2-self-hosted" role="tabpanel" aria-labelled-by="tabs-2-self-hosted-tab">
 &lt;br />&lt;p>You can run Couchbase locally using Docker:&lt;/p>
 &lt;pre>&lt;code>docker run -d --name db -p 8091-8094:8091-8094 -p 11210:11210 couchbase
 &lt;/code>&lt;/pre>&lt;p>You can then interact with the server using &lt;code>localhost:8091&lt;/code> and start the server setup.&lt;/p>
 &lt;/div>
-&lt;div class="tab-pane fade" id="tabs-3-kubernetes" role="tabpanel" aria-labelled-by="tabs-3-kubernetes-tab">
+&lt;div class="tab-pane fade" id="tabs-2-kubernetes" role="tabpanel" aria-labelled-by="tabs-2-kubernetes-tab">
 &lt;br />&lt;p>The easiest way to install Couchbase on Kubernetes is by using the &lt;a href="https://github.com/couchbase-partners/helm-charts#deploying-for-development-quick-start">Helm chart&lt;/a>:&lt;/p>
 &lt;pre>&lt;code>helm repo add couchbase https://couchbase-partners.github.io/helm-charts/
 helm install couchbase/couchbase-operator
@@ -868,12 +892,12 @@ helm install couchbase/couchbase-cluster
 &lt;/div>
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
-&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Dapr组件的基本格式&lt;/a>&lt;/li>
+&lt;li>阅读 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">本指南&lt;/a> 以获取配置状态存储组件的说明&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">状态管理构建块&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: GCP Firestore (Datastore mode)</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-firestore/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-firestore/</guid><description>
-&lt;h2 id="component-format">Component format&lt;/h2>
-&lt;p>To setup GCP Firestore state store create a component of type &lt;code>state.gcp.firestore&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration. To setup SQL Server state store create a component of type &lt;code>state.sqlserver&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;h2 id="配置">配置&lt;/h2>
+&lt;p>To setup GCP Firestore state store create a component of type &lt;code>state.gcp.firestore&lt;/code>. 请参阅&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">本指南&lt;/a>，了解如何创建和应用状态存储配置。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -928,110 +952,110 @@ helm install couchbase/couchbase-cluster
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 The example configuration shown above, contain a username and password as plain-text strings. 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/%7D">here&lt;/a>。
+以上示例将密钥明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
 &lt;/div>
-&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th>字段&lt;/th>
-&lt;th style="text-align:center">Required&lt;/th>
-&lt;th>Details&lt;/th>
-&lt;th>Example&lt;/th>
+&lt;th style="text-align:center">必填&lt;/th>
+&lt;th>详情&lt;/th>
+&lt;th>示例&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
 &lt;td>type&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>The credentials type&lt;/td>
 &lt;td>&lt;code>&amp;quot;serviceaccount&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>project_id&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>The ID of the GCP project to use&lt;/td>
 &lt;td>&lt;code>&amp;quot;project-id&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>private_key_id&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>The ID of the prvate key to use&lt;/td>
 &lt;td>&lt;code>&amp;quot;private-key-id&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>client_email&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>The email address for the client&lt;/td>
 &lt;td>&lt;code>&amp;quot;eample@example.com&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>client_id&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>The client id value to use for authentication&lt;/td>
 &lt;td>&lt;code>&amp;quot;client-id&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>auth_uri&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>The authentication URI to use&lt;/td>
 &lt;td>&lt;code>&amp;quot;https://accounts.google.com/o/oauth2/auth&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>token_uri&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>The token URI to query for Auth token&lt;/td>
 &lt;td>&lt;code>&amp;quot;https://oauth2.googleapis.com/token&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>auth_provider_x509_cert_url&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>The auth provider certificate URL&lt;/td>
 &lt;td>&lt;code>&amp;quot;https://www.googleapis.com/oauth2/v1/certs&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>client_x509_cert_url&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>The client certificate URL&lt;/td>
 &lt;td>&lt;code>&amp;quot;https://www.googleapis.com/robot/v1/metadata/x509/x&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>entity_kind&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>The entity name in Filestore. Defaults to &lt;code>&amp;quot;DaprState&amp;quot;&lt;/code> Defaults to &lt;code>&amp;quot;DaprState&amp;quot;&lt;/code>&lt;/td>
+&lt;td>The entity name in Filestore. Defaults to &lt;code>&amp;quot;DaprState&amp;quot;&lt;/code>&lt;/td>
 &lt;td>&lt;code>&amp;quot;DaprState&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
 &lt;h2 id="setup-gcp-firestone">Setup GCP Firestone&lt;/h2>
-&lt;ul class="nav nav-tabs" id="tabs-3" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
-id="tabs-3-self-hosted-tab" data-toggle="tab" href="#tabs-3-self-hosted" role="tab"
-aria-controls="tabs-3-self-hosted" aria-selected="true">
+&lt;ul class="nav nav-tabs" id="tabs-2" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-2-self-hosted-tab" data-toggle="tab" href="#tabs-2-self-hosted" role="tab"
+aria-controls="tabs-2-self-hosted" aria-selected="true">
 Self-Hosted
 &lt;/a>
 &lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
-id="tabs-3-google-cloud-tab" data-toggle="tab" href="#tabs-3-google-cloud" role="tab"
-aria-controls="tabs-3-google-cloud" aria-selected="false">
+id="tabs-2-google-cloud-tab" data-toggle="tab" href="#tabs-2-google-cloud" role="tab"
+aria-controls="tabs-2-google-cloud" aria-selected="false">
 Google Cloud
 &lt;/a>
 &lt;/li>&lt;/ul>
-&lt;div class="tab-content" id="tabs-3-content">
-&lt;div class="tab-pane fade show active" id="tabs-3-self-hosted" role="tabpanel" aria-labelled-by="tabs-3-self-hosted-tab">
+&lt;div class="tab-content" id="tabs-2-content">
+&lt;div class="tab-pane fade show active" id="tabs-2-self-hosted" role="tabpanel" aria-labelled-by="tabs-2-self-hosted-tab">
 &lt;br />&lt;p>You can use the GCP Datastore emulator to run locally using the instructions &lt;a href="https://cloud.google.com/datastore/docs/tools/datastore-emulator">here&lt;/a>.&lt;/p>
 &lt;p>You can then interact with the server using &lt;code>localhost:8081&lt;/code>.&lt;/p>
 &lt;/div>
-&lt;div class="tab-pane fade" id="tabs-3-google-cloud" role="tabpanel" aria-labelled-by="tabs-3-google-cloud-tab">
+&lt;div class="tab-pane fade" id="tabs-2-google-cloud" role="tabpanel" aria-labelled-by="tabs-2-google-cloud-tab">
 &lt;br />&lt;p>Follow the instructions &lt;a href="https://cloud.google.com/datastore/docs/quickstart">here&lt;/a> to get started with setting up Firestore in Google Cloud.&lt;/p>
 &lt;/div>
 &lt;/div>
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
-&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Dapr组件的基本格式&lt;/a>&lt;/li>
+&lt;li>阅读 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">本指南&lt;/a> 以获取配置状态存储组件的说明&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">状态管理构建块&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: HashiCorp Consul</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-consul/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-consul/</guid><description>
-&lt;h2 id="component-format">Component format&lt;/h2>
-&lt;p>To setup Hashicorp Consul state store create a component of type &lt;code>state.consul&lt;/code>. To setup SQL Server state store create a component of type &lt;code>state.sqlserver&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;h2 id="配置">配置&lt;/h2>
+&lt;p>To setup Hashicorp Consul state store create a component of type &lt;code>state.consul&lt;/code>. 请参阅&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">本指南&lt;/a>，了解如何创建和应用状态存储配置。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -1058,51 +1082,59 @@ Google Cloud
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">scheme&lt;/span>
 &lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-SCHEME&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;http&amp;#34;&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">keyPrefixPath&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-TABLE&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span> &lt;span style="color:#f92672">Example&lt;/span>: &lt;span style="color:#ae81ff">dc1&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">httpAddr&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-CONSUL-HTTP-ADDRESS&amp;gt; # Required. Example&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;consul.default.svc.cluster.local:8500&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">aclToken&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-ACL-TOKEN&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">scheme&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-SCHEME&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;http&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">keyPrefixPath&lt;/span>
 &lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-TABLE&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 The example configuration shown above, contain a username and password as plain-text strings. 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/%7D">here&lt;/a>。
+以上示例将密钥明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
 &lt;/div>
-&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th>字段&lt;/th>
-&lt;th style="text-align:center">Required&lt;/th>
-&lt;th>Details&lt;/th>
-&lt;th>Example&lt;/th>
+&lt;th style="text-align:center">必填&lt;/th>
+&lt;th>详情&lt;/th>
+&lt;th>示例&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
 &lt;td>datacenter&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>Datacenter to use&lt;/td>
 &lt;td>&lt;code>&amp;quot;dc1&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>httpAddr&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>Address of the Consul server&lt;/td>
 &lt;td>&lt;code>&amp;quot;consul.default.svc.cluster.local:8500&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>aclToken&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Per Request ACL Token. Default is &lt;code>&amp;quot;&amp;quot;&lt;/code> Default is &lt;code>&amp;quot;&amp;quot;&lt;/code>&lt;/td>
+&lt;td>Per Request ACL Token. Default is &lt;code>&amp;quot;&amp;quot;&lt;/code>&lt;/td>
 &lt;td>&lt;code>&amp;quot;token&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>scheme&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Scheme is the URI scheme for the Consul server. Default is &lt;code>&amp;quot;http&amp;quot;&lt;/code> Default is &lt;code>&amp;quot;http&amp;quot;&lt;/code>&lt;/td>
+&lt;td>Scheme is the URI scheme for the Consul server. Default is &lt;code>&amp;quot;http&amp;quot;&lt;/code>&lt;/td>
 &lt;td>&lt;code>&amp;quot;http&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>keyPrefixPath&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Key prefix path in Consul. Default is &lt;code>&amp;quot;&amp;quot;&lt;/code> Default is &lt;code>&amp;quot;&amp;quot;&lt;/code>&lt;/td>
+&lt;td>Key prefix path in Consul. Default is &lt;code>&amp;quot;&amp;quot;&lt;/code>&lt;/td>
 &lt;td>&lt;code>&amp;quot;dapr&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;/tbody>
@@ -1128,19 +1160,19 @@ Kubernetes
 &lt;div class="tab-pane fade" id="tabs-2-kubernetes" role="tabpanel" aria-labelled-by="tabs-2-kubernetes-tab">
 &lt;br />&lt;p>The easiest way to install Consul on Kubernetes is by using the &lt;a href="https://github.com/helm/charts/tree/master/stable/consul">Helm chart&lt;/a>:&lt;/p>
 &lt;pre>&lt;code>helm install consul stable/consul
-&lt;/code>&lt;/pre>&lt;p>This installs Consul into the &lt;code>default&lt;/code> namespace. This installs Consul into the &lt;code>default&lt;/code> namespace. To interact with Consul, find the service with: &lt;code>kubectl get svc consul&lt;/code>.&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>This installs Consul into the &lt;code>default&lt;/code> namespace. To interact with Consul, find the service with: &lt;code>kubectl get svc consul&lt;/code>.&lt;/p>
 &lt;p>For example, if installing using the example above, the Consul host address would be:&lt;/p>
 &lt;p>&lt;code>consul.default.svc.cluster.local:8500&lt;/code>&lt;/p>
 &lt;/div>
 &lt;/div>
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
-&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Dapr组件的基本格式&lt;/a>&lt;/li>
+&lt;li>阅读 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">本指南&lt;/a> 以获取配置状态存储组件的说明&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">状态管理构建块&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: Hazelcast</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-hazelcast/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-hazelcast/</guid><description>
-&lt;h2 id="create-a-dapr-component">Create a Dapr component&lt;/h2>
-&lt;p>To setup Hazelcast state store create a component of type &lt;code>state.hazelcast&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;h2 id="创建-dapr-组件">创建 Dapr 组件&lt;/h2>
+&lt;p>To setup Hazelcast state store create a component of type &lt;code>state.hazelcast&lt;/code>. 请参阅&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">本指南&lt;/a>，了解如何创建和应用状态存储配置。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -1151,34 +1183,34 @@ Kubernetes
 &lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">hazelcastServers&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-HOSTS&amp;gt; # Required. A comma delimited string of servers. Example&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;hazelcast:3000,hazelcast2:3000&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-HOSTS&amp;gt; # Required. 逗号分隔的服务器地址 Example&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;hazelcast:3000,hazelcast2:3000&amp;#34;&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">hazelcastMap&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-MAP&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Required. Hazelcast map configuration.&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>描述的密钥仓库来存储密钥。
+以上示例将密钥明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
 &lt;/div>
-&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th>字段&lt;/th>
-&lt;th style="text-align:center">Required&lt;/th>
-&lt;th>Details&lt;/th>
-&lt;th>Example&lt;/th>
+&lt;th style="text-align:center">必填&lt;/th>
+&lt;th>详情&lt;/th>
+&lt;th>示例&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
 &lt;td>hazelcastServers&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>A comma delimited string of servers&lt;/td>
 &lt;td>&lt;code>&amp;quot;hazelcast:3000,hazelcast2:3000&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>hazelcastMap&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>Hazelcast Map configuration&lt;/td>
 &lt;td>&lt;code>&amp;quot;foo-map&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
@@ -1198,21 +1230,21 @@ Kubernetes
 &lt;/li>&lt;/ul>
 &lt;div class="tab-content" id="tabs-2-content">
 &lt;div class="tab-pane fade show active" id="tabs-2-self-hosted" role="tabpanel" aria-labelled-by="tabs-2-self-hosted-tab">
-&lt;br />&lt;p>You can run Hazelcast locally using Docker:&lt;/p>
+&lt;br />&lt;p>你可以使用Docker在本地运行Hazelcast：&lt;/p>
 &lt;pre>&lt;code>docker run -e JAVA_OPTS=&amp;quot;-Dhazelcast.local.publicAddress=127.0.0.1:5701&amp;quot; -p 5701:5701 hazelcast/hazelcast
-&lt;/code>&lt;/pre>&lt;p>You can then interact with the server using the &lt;code>127.0.0.1:5701&lt;/code>.&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>然后你可以通过&lt;code>127.0.0.1:5701&lt;/code>与服务器交互。&lt;/p>
 &lt;/div>
 &lt;div class="tab-pane fade" id="tabs-2-kubernetes" role="tabpanel" aria-labelled-by="tabs-2-kubernetes-tab">
-&lt;br />&lt;p>The easiest way to install Hazelcast on Kubernetes is by using the &lt;a href="https://github.com/helm/charts/tree/master/stable/hazelcast">Helm chart&lt;/a>.&lt;/p>
+&lt;br />&lt;p>在Kubernetes上安装Hazelcast的最简单方法是使用&lt;a href="https://github.com/helm/charts/tree/master/stable/hazelcast">Helm chart&lt;/a>。&lt;/p>
 &lt;/div>
 &lt;/div>
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
-&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Dapr组件的基本格式&lt;/a>&lt;/li>
+&lt;li>阅读 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">本指南&lt;/a> 以获取配置状态存储组件的说明&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">状态管理构建块&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: Memcached</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-memcached/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-memcached/</guid><description>
-&lt;h2 id="组件格式">组件格式&lt;/h2>
+&lt;h2 id="配置">配置&lt;/h2>
 &lt;p>要设置 Memcached 状态存储，请创建一个类型为 &lt;code>state.memcached&lt;/code> 的组件。 请参阅&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">本指南&lt;/a>，了解如何创建和应用状态存储配置。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
@@ -1232,11 +1264,15 @@ Kubernetes
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">maxIdleConnections&lt;/span>
 &lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-MAX-IDLE-CONNECTIONS&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;2&amp;#34;&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">timeout&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-TIMEOUT&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1000ms&amp;#34;&lt;/span> &lt;span style="color:#f92672">Example&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;memcached.default.svc.cluster.local:11211&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">maxIdleConnections&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-MAX-IDLE-CONNECTIONS&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;2&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">timeout&lt;/span>
 &lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-TIMEOUT&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1000ms&amp;#34;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 The example configuration shown above, contain a username and password as plain-text strings. 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/%7D">here&lt;/a>。
+以上示例将密钥明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
 &lt;/div>
 &lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
@@ -1251,7 +1287,7 @@ Kubernetes
 &lt;tbody>
 &lt;tr>
 &lt;td>hosts&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>逗号分隔的 endpoints&lt;/td>
 &lt;td>&lt;code>&amp;quot;memcached.default.svc.cluster.local:11211&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
@@ -1301,7 +1337,7 @@ Kubernetes
 &lt;li>阅读 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">本指南&lt;/a> 以获取配置状态存储组件的说明&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">状态管理构建块&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: MongoDB</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-mongodb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-mongodb/</guid><description>
-&lt;h2 id="组件格式">组件格式&lt;/h2>
+&lt;h2 id="配置">配置&lt;/h2>
 &lt;p>要设置 MongoDB 状态存储，请创建一个类型为 &lt;code>state.mongodb&lt;/code> 的组件。 请参阅&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">本指南&lt;/a>，了解如何创建和应用状态存储配置。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
@@ -1331,7 +1367,7 @@ Kubernetes
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
+以上示例将密钥明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
 &lt;/div>
 &lt;p>如果您想要使用 MongoDB 作为 Actor 存储，请在 yaml 上附上以下内容。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml"> - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">actorStateStore&lt;/span>
@@ -1349,7 +1385,7 @@ Kubernetes
 &lt;tbody>
 &lt;tr>
 &lt;td>host&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>要连接的主机&lt;/td>
 &lt;td>&lt;code>&amp;quot;mongo-mongodb.default.svc.cluster.local:27017&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
@@ -1362,7 +1398,7 @@ Kubernetes
 &lt;tr>
 &lt;td>password&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>用户密码&lt;/td>
+&lt;td>The password of the user&lt;/td>
 &lt;td>&lt;code>&amp;quot;password&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
@@ -1452,7 +1488,7 @@ Kubernetes
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>描述的密钥仓库来存储密钥。
+以上示例将密钥明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
 &lt;/div>
 &lt;p>如果您想要使用 MySQL 作为 Actor 存储，请在 yaml 上附上以下内容。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml"> - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">actorStateStore&lt;/span>
@@ -1476,19 +1512,19 @@ Kubernetes
 &lt;/tr>
 &lt;tr>
 &lt;td>schemaName&lt;/td>
-&lt;td style="text-align:center">否&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
 &lt;td>要使用的schema名称。 如果指定的schema不存在，将会自动创建。 默认值为 &lt;code>&amp;quot;dapr_state_store&amp;quot;&lt;/code>&lt;/td>
 &lt;td>&lt;code>&amp;quot;custom_schema&amp;quot;&lt;/code>, &lt;code>&amp;quot;dapr_schema&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>tableName&lt;/td>
-&lt;td style="text-align:center">否&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
 &lt;td>要使用的表名。 如果对应的表不存在，将被自动创建。 默认值为 &lt;code>&amp;quot;state&amp;quot;&lt;/code>&lt;/td>
 &lt;td>&lt;code>&amp;quot;table_name&amp;quot;&lt;/code>, &lt;code>&amp;quot;dapr_state&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>pemPath&lt;/td>
-&lt;td style="text-align:center">否&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
 &lt;td>使用 &lt;a href="#enforced-ssl-connection">enforced SSL 连接&lt;/a> 时，指定要使用的 PEM 文件完整路径。&lt;/td>
 &lt;td>&lt;code>&amp;quot;/path/to/file.pem&amp;quot;&lt;/code>, &lt;code>&amp;quot;C:\path\to\file.pem&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
@@ -1531,7 +1567,7 @@ GCP
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
 &lt;div class="tab-pane fade" id="tabs-2-kubernetes" role="tabpanel" aria-labelled-by="tabs-2-kubernetes-tab">
 &lt;br />&lt;!-- Kubernetes -->
-&lt;p>我们可以使用 &lt;a href="https://helm.sh/">Helm&lt;/a> 在 Kubernetes 集群中快速创建一个 MySQL 实例。 这种方法需要 &lt;a href="https://github.com/helm/helm#install">安装 Helm&lt;/a>。&lt;/p>
+&lt;p>我们可以使用 &lt;a href="https://helm.sh/">Helm&lt;/a> 在 Kubernetes 集群中快速创建一个 MySQL 实例。 This approach requires &lt;a href="https://github.com/helm/helm#install">Installing Helm&lt;/a>.&lt;/p>
 &lt;ol>
 &lt;li>
 &lt;p>安装 MySQL 到您的集群。&lt;/p>
@@ -1560,7 +1596,7 @@ helm install dapr-mysql bitnami/mysql
 &lt;div class="tab-pane fade" id="tabs-2-azure" role="tabpanel" aria-labelled-by="tabs-2-azure-tab">
 &lt;br />&lt;!-- Azure -->
 &lt;p>&lt;a href="http://bit.ly/AzureMySQL">Azure MySQL&lt;/a>&lt;/p>
-&lt;p>如果你使用 &lt;a href="http://bit.ly/AzureMySQLSSL">运行在 Azure 上的 MySQL&lt;/a> 请查阅 Azure &lt;a href="http://bit.ly/MySQLSSL">关于SSL数据库连接的文档&lt;/a>，来了解有关如何下载必要凭证的信息。&lt;/p>
+&lt;p>If you are using &lt;a href="http://bit.ly/AzureMySQLSSL">MySQL on Azure&lt;/a> see the Azure &lt;a href="http://bit.ly/MySQLSSL">documentation on SSL database connections&lt;/a>, for information on how to download the required certificate.&lt;/p>
 &lt;/div>
 &lt;div class="tab-pane fade" id="tabs-2-aws" role="tabpanel" aria-labelled-by="tabs-2-aws-tab">
 &lt;br />&lt;!-- AWS -->
@@ -1574,13 +1610,13 @@ helm install dapr-mysql bitnami/mysql
 &lt;h3 id="非-ssl-连接">非 SSL 连接&lt;/h3>
 &lt;p>用你的连接字符串替换 &lt;code>&amp;lt;CONNECTION STRING&amp;gt;&lt;/code> 的值。 连接字符串是一个标准 MySQL 连接字符串。 例如, &lt;code>&amp;quot;&amp;lt;user&amp;gt;:&amp;lt;password&amp;gt;@tcp(&amp;lt;server&amp;gt;:3306)/?allowNativePasswords=true&amp;quot;&lt;/code>。&lt;/p>
 &lt;h3 id="enforced-ssl-连接">Enforced SSL 连接&lt;/h3>
-&lt;p>如果你的服务器需要 SSL 加密，那么连接字符串必须以 &lt;code>&amp;amp;tls=custom&lt;/code> 结尾。例如, &lt;code>&amp;quot;&amp;lt;user&amp;gt;:&amp;lt;password&amp;gt;@tcp(&amp;lt;server&amp;gt;:3306)/?allowNativePasswords=true&amp;amp;tls=custom&amp;quot;&lt;/code>。 您必须使用完整的PEM文件路径替换 &lt;code>&amp;lt;PEM PATH&amp;gt;&lt;/code> 。 与 MySQL 的连接至少需要1.2版本及以上的 TLS。&lt;/p>
+&lt;p>如果你的服务器需要 SSL 加密，那么连接字符串必须以 &lt;code>&amp;amp;tls=custom&lt;/code> 结尾。例如, &lt;code>&amp;quot;&amp;lt;user&amp;gt;:&amp;lt;password&amp;gt;@tcp(&amp;lt;server&amp;gt;:3306)/?allowNativePasswords=true&amp;amp;tls=custom&amp;quot;&lt;/code>。 You must replace the &lt;code>&amp;lt;PEM PATH&amp;gt;&lt;/code> with a full path to the PEM file. The connection to MySQL will require a minimum TLS version of 1.2.&lt;/p>
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Dapr组件的基本格式&lt;/a>&lt;/li>
 &lt;li>阅读 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">本指南&lt;/a> 以获取配置状态存储组件的说明&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">状态管理构建块&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: PostgreSQL</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-postgresql/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-postgresql/</guid><description>
+&lt;/ul></description></item><item><title>Operations: PostgrSQL</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-postgresql/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-postgresql/</guid><description>
 &lt;h2 id="创建-dapr-组件">创建 Dapr 组件&lt;/h2>
 &lt;p>创建一个名为 &lt;code>postgres.yaml&lt;/code>的文件，粘贴以下文件并用您的连接字符串替换 &lt;code>&amp;lt;CONNECTION STRING&amp;gt;&lt;/code> 值。 连接字符串是一个标准 PostgreSQL 连接字符串。 例如， &lt;code>&amp;quot;host=localhost user=postgres password=example port=5432 connect_timeout=10 database=dapr_test&amp;quot;&lt;/code>。 查看 PostgreSQL 的&lt;a href="https://www.postgresql.org/docs/current/libpq-connect.html">数据库连接文档&lt;/a> ，特别是关键字/值连接字符串，了解如何定义连接字符串的信息。&lt;/p>
 &lt;p>如果您也想要配置 PostgreSQL 来存储 Actor，请在下面添加 &lt;code>actorStateStore&lt;/code> 配置元素。&lt;/p>
@@ -1598,7 +1634,7 @@ helm install dapr-mysql bitnami/mysql
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将密钥明文存储， 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">点击这里查看操作方法&lt;/a>。
+以上示例将密钥明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
 &lt;/div>
 &lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
@@ -1607,13 +1643,13 @@ helm install dapr-mysql bitnami/mysql
 &lt;th>字段&lt;/th>
 &lt;th style="text-align:center">必填&lt;/th>
 &lt;th>详情&lt;/th>
-&lt;th>例子&lt;/th>
+&lt;th>示例&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
 &lt;td>connectionString&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>PostgreSQL 的连接字符串&lt;/td>
 &lt;td>&lt;code>&amp;quot;User ID=root;Password=myPassword;Host=localhost;Port=5432&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
@@ -1657,8 +1693,8 @@ Self-Hosted
 &lt;li>阅读 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">本指南&lt;/a> 以获取配置状态存储组件的说明&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">状态管理构建块&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: Redis</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-redis/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-redis/</guid><description>
-&lt;h2 id="component-format">Component format&lt;/h2>
-&lt;p>To setup Redis state store create a component of type &lt;code>state.redis&lt;/code>. To setup SQL Server state store create a component of type &lt;code>state.sqlserver&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;h2 id="配置">配置&lt;/h2>
+&lt;p>To setup Redis state store create a component of type &lt;code>state.redis&lt;/code>. 请参阅&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">本指南&lt;/a>，了解如何创建和应用状态存储配置。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -1689,85 +1725,93 @@ Self-Hosted
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">maxRetries&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#75715e"># Optional&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">maxRetryBackoff&lt;/span>
+&lt;span style="color:#f92672">value: # Optional Allowed&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>, &lt;span style="color:#66d9ef">false&lt;/span>&lt;span style="color:#ae81ff">.&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">failover&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;bool&amp;gt; # Optional. Allowed&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>, &lt;span style="color:#66d9ef">false&lt;/span>&lt;span style="color:#ae81ff">.&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">sentinelMasterName&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;string&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">maxRetries&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#75715e"># Optional&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">maxRetryBackoff&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#75715e"># Optional&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>TLS:&lt;/strong> If the Redis instance supports TLS with public certificates it can be configured to enable or disable TLS &lt;code>true&lt;/code> or &lt;code>false&lt;/code>.&lt;/p>
-&lt;p>&lt;strong>Failover:&lt;/strong> When set to &lt;code>true&lt;/code> enables the failover feature. The redisHost should be the sentinel host address. See &lt;a href="https://redis.io/topics/sentinel">Redis Sentinel Documentation&lt;/a> The redisHost should be the sentinel host address. See &lt;a href="https://redis.io/topics/sentinel">Redis Sentinel Documentation&lt;/a>&lt;/p>
+&lt;p>&lt;strong>Failover:&lt;/strong> When set to &lt;code>true&lt;/code> enables the failover feature. The redisHost should be the sentinel host address. See &lt;a href="https://redis.io/topics/sentinel">Redis Sentinel Documentation&lt;/a>&lt;/p>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-The above example uses secrets as plain strings. The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
+以上示例将密钥明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
 &lt;/div>
 &lt;p>If you wish to use Redis as an actor store, append the following to the yaml.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml"> - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">actorStateStore&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th>字段&lt;/th>
-&lt;th style="text-align:center">Required&lt;/th>
-&lt;th>Details&lt;/th>
-&lt;th>Example&lt;/th>
+&lt;th style="text-align:center">必填&lt;/th>
+&lt;th>详情&lt;/th>
+&lt;th>示例&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
 &lt;td>redisHost&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
-&lt;td>Connection-string for the redis host&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
+&lt;td>Redis的连接地址&lt;/td>
 &lt;td>&lt;code>localhost:6379&lt;/code>, &lt;code>redis-master.default.svc.cluster.local:6379&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>redisPassword&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
-&lt;td>Password for Redis host. No Default. Can be &lt;code>secretKeyRef&lt;/code> to use a secret reference No Default. Secret for the AWS user. Can be &lt;code>secretKeyRef&lt;/code> to use a secret reference&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
+&lt;td>Redis的密码 无默认值 可以用&lt;code>secretKeyRef&lt;/code>来引用密钥。&lt;/td>
 &lt;td>&lt;code>&amp;quot;&amp;quot;&lt;/code>, &lt;code>&amp;quot;KeFg23!&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>consumerID&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>The consumer group ID&lt;/td>
-&lt;td>&lt;code>&amp;quot;myGroup&amp;quot;&lt;/code>&lt;/td>
+&lt;td>消费组 ID&lt;/td>
+&lt;td>&lt;code>&amp;quot;mygroup&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>enableTLS&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>If the Redis instance supports TLS with public certificates, can be configured to be enabled or disabled. Defaults to &lt;code>&amp;quot;false&amp;quot;&lt;/code> Defaults to &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
+&lt;td>如果Redis实例支持使用公共证书的TLS，可以配置为启用或禁用。 默认值为 &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
 &lt;td>&lt;code>&amp;quot;true&amp;quot;&lt;/code>, &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>maxRetries&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Maximum number of retries before giving up. Defaults to &lt;code>3&lt;/code> Defaults to &lt;code>3&lt;/code>&lt;/td>
+&lt;td>Maximum number of retries before giving up. Defaults to &lt;code>3&lt;/code>&lt;/td>
 &lt;td>&lt;code>5&lt;/code>, &lt;code>10&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>maxRetryBackoff&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Minimum backoff between each retry. Minimum backoff between each retry. Defaults to &lt;code>2&lt;/code> seconds&lt;/td>
+&lt;td>Minimum backoff between each retry. Defaults to &lt;code>2&lt;/code> seconds&lt;/td>
 &lt;td>&lt;code>3000000000&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>failover&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Property to enabled failover configuration. Needs sentinalMasterName to be set. Defaults to &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
+&lt;td>Property to enabled failover configuration. Needs sentinalMasterName to be set. 默认值为 &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
 &lt;td>&lt;code>&amp;quot;true&amp;quot;&lt;/code>, &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>sentinelMasterName&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>The sentinel master name. The sentinel master name. See &lt;a href="https://redis.io/topics/sentinel">Redis Sentinel Documentation&lt;/a>&lt;/td>
+&lt;td>The sentinel master name. See &lt;a href="https://redis.io/topics/sentinel">Redis Sentinel Documentation&lt;/a>&lt;/td>
 &lt;td>&lt;code>&amp;quot;&amp;quot;&lt;/code>, &lt;code>&amp;quot;127.0.0.1:6379&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>actorStateStore&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Consider this state store for actors. Defaults to &lt;code>&amp;quot;false&amp;quot;&lt;/code> Defaults to &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
+&lt;td>是否将此状态存储给 Actor 使用。 默认值为 &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
 &lt;td>&lt;code>&amp;quot;true&amp;quot;&lt;/code>, &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
 &lt;h2 id="setup-redis">Setup Redis&lt;/h2>
-&lt;p>Dapr can use any Redis instance - containerized, running on your local dev machine, or a managed cloud service. If you already have a Redis store, move on to the &lt;a href="#configuration">Configuration&lt;/a> section. If you already have a Redis store, move on to the &lt;a href="#configuration">Configuration&lt;/a> section.&lt;/p>
+&lt;p>Dapr can use any Redis instance - containerized, running on your local dev machine, or a managed cloud service. If you already have a Redis store, move on to the &lt;a href="#configuration">Configuration&lt;/a> section.&lt;/p>
 &lt;ul class="nav nav-tabs" id="tabs-2" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
 id="tabs-2-self-hosted-tab" data-toggle="tab" href="#tabs-2-self-hosted" role="tab"
 aria-controls="tabs-2-self-hosted" aria-selected="true">
@@ -1799,18 +1843,18 @@ GCP
 &lt;br />&lt;p>A Redis instance is automatically created as a Docker container when you run &lt;code>dapr init&lt;/code>&lt;/p>
 &lt;/div>
 &lt;div class="tab-pane fade" id="tabs-2-kubernetes" role="tabpanel" aria-labelled-by="tabs-2-kubernetes-tab">
-&lt;br />&lt;p>We can use &lt;a href="https://helm.sh/">Helm&lt;/a> to quickly create a Redis instance in our Kubernetes cluster. This approach requires &lt;a href="https://github.com/helm/helm#install">Installing Helm&lt;/a>. This approach requires &lt;a href="https://github.com/helm/helm#install">Installing Helm&lt;/a>.&lt;/p>
+&lt;br />&lt;p>We can use &lt;a href="https://helm.sh/">Helm&lt;/a> to quickly create a Redis instance in our Kubernetes cluster. This approach requires &lt;a href="https://github.com/helm/helm#install">Installing Helm&lt;/a>.&lt;/p>
 &lt;ol>
 &lt;li>
-&lt;p>Install Redis into your cluster. Note that we&amp;rsquo;re explicitly setting an image tag to get a version greater than 5, which is what Dapr' pub/sub functionality requires. Install Redis into your cluster. Note that we&amp;rsquo;re explicitly setting an image tag to get a version greater than 5, which is what Dapr' pub/sub functionality requires. If you&amp;rsquo;re intending on using Redis as just a state store (and not for pub/sub), you do not have to set the image version.&lt;/p>
+&lt;p>安装 Redis 到你的集群： Note that we&amp;rsquo;re explicitly setting an image tag to get a version greater than 5, which is what Dapr' pub/sub functionality requires. If you&amp;rsquo;re intending on using Redis as just a state store (and not for pub/sub), you do not have to set the image version.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm repo add bitnami https://charts.bitnami.com/bitnami
 helm install redis bitnami/redis
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
-&lt;p>Run &lt;code>kubectl get pods&lt;/code> to see the Redis containers now running in your cluster.&lt;/p>
+&lt;p>执行&lt;code>kubectl get pods&lt;/code>来查看现在正在集群中运行的Redis容器。&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>Add &lt;code>redis-master:6379&lt;/code> as the &lt;code>redisHost&lt;/code> in your &lt;a href="#configuration">redis.yaml&lt;/a> file. For example: For example:&lt;/p>
+&lt;p>Add &lt;code>redis-master:6379&lt;/code> as the &lt;code>redisHost&lt;/code> in your &lt;a href="#configuration">redis.yaml&lt;/a> file. 例如:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml"> &lt;span style="color:#f92672">metadata&lt;/span>:
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">redisHost&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">redis-master:6379&lt;/span>
@@ -1819,13 +1863,13 @@ helm install redis bitnami/redis
 &lt;p>Next, we&amp;rsquo;ll get the Redis password, which is slightly different depending on the OS we&amp;rsquo;re using:&lt;/p>
 &lt;ul>
 &lt;li>
-&lt;p>&lt;strong>Windows&lt;/strong>: Run &lt;code>kubectl get secret --namespace default redis -o jsonpath=&amp;quot;{.data.redis-password}&amp;quot; &amp;gt; encoded.b64&lt;/code>, which will create a file with your encoded password. Next, run &lt;code>certutil -decode encoded.b64 password.txt&lt;/code>, which will put your redis password in a text file called &lt;code>password.txt&lt;/code>. Copy the password and delete the two files. Next, run &lt;code>certutil -decode encoded.b64 password.txt&lt;/code>, which will put your redis password in a text file called &lt;code>password.txt&lt;/code>. Copy the password and delete the two files.&lt;/p>
+&lt;p>&lt;strong>Windows&lt;/strong>：执行&lt;code>kubectl get secret --namespace default redis -o jsonpath=&amp;quot;{.data.redis-password}&amp;quot; &amp;gt; encoded.b64&lt;/code>，这将创建一个有你的加密后密码的文件。 接下来，执行&lt;code>certutil -decode encoded.b64 password.txt&lt;/code>，它将把你的redis密码放在一个名为&lt;code>password.txt&lt;/code>的文本文件中。 复制密码，删除这两个文件。&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>&lt;strong>Linux/MacOS&lt;/strong>: Run &lt;code>kubectl get secret --namespace default redis -o jsonpath=&amp;quot;{.data.redis-password}&amp;quot; | base64 --decode&lt;/code> and copy the outputted password.&lt;/p>
 &lt;/li>
 &lt;/ul>
-&lt;p>Add this password as the &lt;code>redisPassword&lt;/code> value in your &lt;a href="#configuration">redis.yaml&lt;/a> file. For example: For example:&lt;/p>
+&lt;p>Add this password as the &lt;code>redisPassword&lt;/code> value in your &lt;a href="#configuration">redis.yaml&lt;/a> file. 例如:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml"> &lt;span style="color:#f92672">metadata&lt;/span>:
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">redisPassword&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">lhDOkwTlp0&lt;/span>
@@ -1835,19 +1879,19 @@ helm install redis bitnami/redis
 &lt;div class="tab-pane fade" id="tabs-2-azure" role="tabpanel" aria-labelled-by="tabs-2-azure-tab">
 &lt;br />&lt;p>&lt;strong>Note&lt;/strong>: this approach requires having an Azure Subscription.&lt;/p>
 &lt;ol>
-&lt;li>Open &lt;a href="https://ms.portal.azure.com/#create/Microsoft.Cache">this link&lt;/a> to start the Azure Cache for Redis creation flow. Log in if necessary. Log in if necessary.&lt;/li>
+&lt;li>Open &lt;a href="https://ms.portal.azure.com/#create/Microsoft.Cache">this link&lt;/a> to start the Azure Cache for Redis creation flow. 如有必要，请登录。&lt;/li>
 &lt;li>Fill out necessary information and &lt;strong>check the &amp;ldquo;Unblock port 6379&amp;rdquo; box&lt;/strong>, which will allow us to persist state without SSL.&lt;/li>
-&lt;li>Click &amp;ldquo;Create&amp;rdquo; to kickoff deployment of your Redis instance.&lt;/li>
+&lt;li>点击“创建”来启动您的 Redis 实例的部署。&lt;/li>
 &lt;li>Once your instance is created, you&amp;rsquo;ll need to grab the Host name (FQDN) and your access key.
 &lt;ul>
 &lt;li>for the Host name navigate to the resources &amp;ldquo;Overview&amp;rdquo; and copy &amp;ldquo;Host name&amp;rdquo;&lt;/li>
 &lt;li>for your access key navigate to &amp;ldquo;Access Keys&amp;rdquo; under &amp;ldquo;Settings&amp;rdquo; and copy your key.&lt;/li>
 &lt;/ul>
 &lt;/li>
-&lt;li>Finally, we need to add our key and our host to a &lt;code>redis.yaml&lt;/code> file that Dapr can apply to our cluster. If you&amp;rsquo;re running a sample, you&amp;rsquo;ll add the host and key to the provided &lt;code>redis.yaml&lt;/code>. If you&amp;rsquo;re creating a project from the ground up, you&amp;rsquo;ll create a &lt;code>redis.yaml&lt;/code> file as specified in &lt;a href="#configuration">Configuration&lt;/a>. Set the &lt;code>redisHost&lt;/code> key to &lt;code>[HOST NAME FROM PREVIOUS STEP]:6379&lt;/code> and the &lt;code>redisPassword&lt;/code> key to the key you copied in step 4. &lt;strong>Note:&lt;/strong> In a production-grade application, follow &lt;a href="https://github.com/dapr/docs/blob/master/concepts/components/secrets.md">secret management&lt;/a> instructions to securely manage your secrets. If you&amp;rsquo;re running a sample, you&amp;rsquo;ll add the host and key to the provided &lt;code>redis.yaml&lt;/code>. If you&amp;rsquo;re creating a project from the ground up, you&amp;rsquo;ll create a &lt;code>redis.yaml&lt;/code> file as specified in &lt;a href="#configuration">Configuration&lt;/a>. Set the &lt;code>redisHost&lt;/code> key to &lt;code>[HOST NAME FROM PREVIOUS STEP]:6379&lt;/code> and the &lt;code>redisPassword&lt;/code> key to the key you copied in step 4. &lt;strong>Note:&lt;/strong> In a production-grade application, follow &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">secret management&lt;/a> instructions to securely manage your secrets.&lt;/li>
+&lt;li>Finally, we need to add our key and our host to a &lt;code>redis.yaml&lt;/code> file that Dapr can apply to our cluster. If you&amp;rsquo;re running a sample, you&amp;rsquo;ll add the host and key to the provided &lt;code>redis.yaml&lt;/code>. If you&amp;rsquo;re creating a project from the ground up, you&amp;rsquo;ll create a &lt;code>redis.yaml&lt;/code> file as specified in &lt;a href="#configuration">Configuration&lt;/a>. Set the &lt;code>redisHost&lt;/code> key to &lt;code>[HOST NAME FROM PREVIOUS STEP]:6379&lt;/code> and the &lt;code>redisPassword&lt;/code> key to the key you copied in step 4. &lt;strong>Note:&lt;/strong> In a production-grade application, follow &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">secret management&lt;/a> instructions to securely manage your secrets.&lt;/li>
 &lt;/ol>
 &lt;blockquote>
-&lt;p>&lt;strong>NOTE:&lt;/strong> Dapr pub/sub uses &lt;a href="https://redis.io/topics/streams-intro">Redis Streams&lt;/a> that was introduced by Redis 5.0, which isn&amp;rsquo;t currently available on Azure Managed Redis Cache. Consequently, you can use Azure Managed Redis Cache only for state persistence. Consequently, you can use Azure Managed Redis Cache only for state persistence.&lt;/p>
+&lt;p>&lt;strong>NOTE:&lt;/strong> Dapr pub/sub uses &lt;a href="https://redis.io/topics/streams-intro">Redis Streams&lt;/a> that was introduced by Redis 5.0, which isn&amp;rsquo;t currently available on Azure Managed Redis Cache. Consequently, you can use Azure Managed Redis Cache only for state persistence.&lt;/p>
 &lt;/blockquote>
 &lt;/div>
 &lt;div class="tab-pane fade" id="tabs-2-aws" role="tabpanel" aria-labelled-by="tabs-2-aws-tab">
@@ -1863,12 +1907,12 @@ The Dapr CLI automatically deploys a local redis instance in self hosted mode as
 &lt;/div>
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
-&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Dapr组件的基本格式&lt;/a>&lt;/li>
+&lt;li>阅读 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">本指南&lt;/a> 以获取配置状态存储组件的说明&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">状态管理构建块&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: RethinkDB</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-rethinkdb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-rethinkdb/</guid><description>
-&lt;h2 id="component-format">Component format&lt;/h2>
-&lt;p>To setup RethinkDB state store create a component of type &lt;code>state.rethinkdb&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration. To setup SQL Server state store create a component of type &lt;code>state.sqlserver&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;h2 id="配置">配置&lt;/h2>
+&lt;p>To setup RethinkDB state store create a component of type &lt;code>state.rethinkdb&lt;/code>. 请参阅&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">本指南&lt;/a>，了解如何创建和应用状态存储配置。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -1900,37 +1944,47 @@ The Dapr CLI automatically deploys a local redis instance in self hosted mode as
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;PASSWORD&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">archive&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">bool&lt;/span> &lt;span style="color:#75715e"># Optional (whether or not store should keep archive table of all the state changes)&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">database&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-RETHINKDB-DB-NAME&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Required, e.g. dapr (alpha-numerics only)&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">table&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#75715e"># Optional&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">username&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;USERNAME&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">password&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;PASSWORD&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">archive&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">bool&lt;/span> &lt;span style="color:#75715e"># Optional (whether or not store should keep archive table of all the state changes)&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 The example configuration shown above, contain a username and password as plain-text strings. 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/%7D">here&lt;/a>。
+以上示例将密钥明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
 &lt;/div>
 &lt;p>If you wish to use Redis as an actor store, append the following to the yaml.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml"> - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">actorStateStore&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>RethinkDB state store supports transactions so it can be used to persist Dapr Actor state. By default, the state will be stored in table name &lt;code>daprstate&lt;/code> in the specified database. By default, the state will be stored in table name &lt;code>daprstate&lt;/code> in the specified database.&lt;/p>
-&lt;p>Additionally, if the optional &lt;code>archive&lt;/code> metadata is set to &lt;code>true&lt;/code>, on each state change, the RethinkDB state store will also log state changes with timestamp in the &lt;code>daprstate_archive&lt;/code> table. This allows for time series analyses of the state managed by Dapr. This allows for time series analyses of the state managed by Dapr.&lt;/p>
-&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>RethinkDB state store supports transactions so it can be used to persist Dapr Actor state. By default, the state will be stored in table name &lt;code>daprstate&lt;/code> in the specified database.&lt;/p>
+&lt;p>Additionally, if the optional &lt;code>archive&lt;/code> metadata is set to &lt;code>true&lt;/code>, on each state change, the RethinkDB state store will also log state changes with timestamp in the &lt;code>daprstate_archive&lt;/code> table. This allows for time series analyses of the state managed by Dapr.&lt;/p>
+&lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th>字段&lt;/th>
-&lt;th style="text-align:center">Required&lt;/th>
-&lt;th>Details&lt;/th>
-&lt;th>Example&lt;/th>
+&lt;th style="text-align:center">必填&lt;/th>
+&lt;th>详情&lt;/th>
+&lt;th>示例&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
 &lt;td>address&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>The address for RethinkDB server&lt;/td>
 &lt;td>&lt;code>&amp;quot;127.0.0.1:28015&amp;quot;&lt;/code>, &lt;code>&amp;quot;rethinkdb.default.svc.cluster.local:28015&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>database&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
-&lt;td>The database to use. The database to use. Alpha-numerics only&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
+&lt;td>The database to use. Alpha-numerics only&lt;/td>
 &lt;td>&lt;code>&amp;quot;dapr&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
@@ -1960,14 +2014,14 @@ The Dapr CLI automatically deploys a local redis instance in self hosted mode as
 &lt;/tbody>
 &lt;/table>
 &lt;h2 id="setup-rethinkdb">Setup RethinkDB&lt;/h2>
-&lt;ul class="nav nav-tabs" id="tabs-3" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
-id="tabs-3-self-hosted-tab" data-toggle="tab" href="#tabs-3-self-hosted" role="tab"
-aria-controls="tabs-3-self-hosted" aria-selected="true">
+&lt;ul class="nav nav-tabs" id="tabs-2" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-2-self-hosted-tab" data-toggle="tab" href="#tabs-2-self-hosted" role="tab"
+aria-controls="tabs-2-self-hosted" aria-selected="true">
 Self-Hosted
 &lt;/a>
 &lt;/li>&lt;/ul>
-&lt;div class="tab-content" id="tabs-3-content">
-&lt;div class="tab-pane fade show active" id="tabs-3-self-hosted" role="tabpanel" aria-labelled-by="tabs-3-self-hosted-tab">
+&lt;div class="tab-content" id="tabs-2-content">
+&lt;div class="tab-pane fade show active" id="tabs-2-self-hosted" role="tabpanel" aria-labelled-by="tabs-2-self-hosted-tab">
 &lt;br />&lt;p>You can run &lt;a href="https://rethinkdb.com/">RethinkDB&lt;/a> locally using Docker:&lt;/p>
 &lt;pre>&lt;code>docker run --name rethinkdb -v &amp;quot;$PWD:/rethinkdb-data&amp;quot; -d rethinkdb:latest
 &lt;/code>&lt;/pre>&lt;p>To connect to the admin UI:&lt;/p>
@@ -1976,12 +2030,12 @@ Self-Hosted
 &lt;/div>
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
-&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Dapr组件的基本格式&lt;/a>&lt;/li>
+&lt;li>阅读 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">本指南&lt;/a> 以获取配置状态存储组件的说明&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">状态管理构建块&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: SQL Server</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-sqlserver/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-sqlserver/</guid><description>
-&lt;h2 id="component-format">Component format&lt;/h2>
-&lt;p>To setup SQL Server state store create a component of type &lt;code>state.sqlserver&lt;/code>. To setup SQL Server state store create a component of type &lt;code>state.sqlserver&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;h2 id="配置">配置&lt;/h2>
+&lt;p>To setup SQL Server state store create a component of type &lt;code>state.sqlserver&lt;/code>. 请参阅&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">本指南&lt;/a>，了解如何创建和应用状态存储配置。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -2012,37 +2066,47 @@ Self-Hosted
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">schema&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;SCHEMA&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional. defaults to &amp;#34;dbo&amp;#34;&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">indexedProperties&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;INDEXED-PROPERTIES&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional. List of IndexedProperties.&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">tableName&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-TABLE-NAME&amp;gt; &lt;/span> &lt;span style="color:#75715e"># Required.&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">keyType &lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-KEY-TYPE&amp;gt; &lt;/span> &lt;span style="color:#75715e"># Optional. defaults to &amp;#34;string&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">keyLength&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;KEY-LENGTH&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional. defaults to 200. Yo be used with &amp;#34;string&amp;#34; keyType&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">schema&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;SCHEMA&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional. defaults to &amp;#34;dbo&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">indexedProperties&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;INDEXED-PROPERTIES&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional. List of IndexedProperties. &lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 The example configuration shown above, contain a username and password as plain-text strings. 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/%7D">here&lt;/a>。
+以上示例将密钥明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
 &lt;/div>
 &lt;div class="alert alert-primary" role="alert">
 &lt;h4 class="alert-heading">Note&lt;/h4>
 Currently this component does not support state management for actors
 &lt;/div>
-&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th>字段&lt;/th>
-&lt;th style="text-align:center">Required&lt;/th>
-&lt;th>Details&lt;/th>
-&lt;th>Example&lt;/th>
+&lt;th style="text-align:center">必填&lt;/th>
+&lt;th>详情&lt;/th>
+&lt;th>示例&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
 &lt;td>connectionString&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>The connection string used to connect&lt;/td>
 &lt;td>&lt;code>&amp;quot;Server=myServerName\myInstanceName;Database=myDataBase;User Id=myUsername;Password=myPassword;&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>tableName&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
-&lt;td>The name of the table to use. The name of the table to use. Alpha-numeric with underscores&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
+&lt;td>The name of the table to use. Alpha-numeric with underscores&lt;/td>
 &lt;td>&lt;code>&amp;quot;table_name&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
@@ -2054,13 +2118,13 @@ Currently this component does not support state management for actors
 &lt;tr>
 &lt;td>keyLength&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>The max length of key. The type of key used. Defaults to &lt;code>&amp;quot;string&amp;quot;&lt;/code> The max length of key. Used along with &lt;code>&amp;quot;string&amp;quot;&lt;/code> keytype. Defaults to &lt;code>&amp;quot;200&amp;quot;&lt;/code>&lt;/td>
+&lt;td>The max length of key. Used along with &lt;code>&amp;quot;string&amp;quot;&lt;/code> keytype. Defaults to &lt;code>&amp;quot;200&amp;quot;&lt;/code>&lt;/td>
 &lt;td>&lt;code>&amp;quot;200&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>schema&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>The schema to use. The schema to use. Defaults to &lt;code>&amp;quot;dbo&amp;quot;&lt;/code>&lt;/td>
+&lt;td>The schema to use. Defaults to &lt;code>&amp;quot;dbo&amp;quot;&lt;/code>&lt;/td>
 &lt;td>&lt;code>&amp;quot;dapr&amp;quot;&lt;/code>,&lt;code>&amp;quot;dbo&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
@@ -2072,13 +2136,13 @@ Currently this component does not support state management for actors
 &lt;/tbody>
 &lt;/table>
 &lt;h2 id="create-azure-sql-instance">Create Azure SQL instance&lt;/h2>
-&lt;p>&lt;a href="https://docs.microsoft.com/azure/sql-database/sql-database-single-database-get-started?tabs=azure-portal">Follow the instructions&lt;/a> from the Azure documentation on how to create a SQL database. The database must be created before Dapr consumes it. The database must be created before Dapr consumes it.&lt;/p>
+&lt;p>&lt;a href="https://docs.microsoft.com/azure/sql-database/sql-database-single-database-get-started?tabs=azure-portal">Follow the instructions&lt;/a> from the Azure documentation on how to create a SQL database. The database must be created before Dapr consumes it. The database must be created before Dapr consumes it. The database must be created before Dapr consumes it.&lt;/p>
 &lt;p>&lt;strong>Note: SQL Server state store also supports SQL Server running on VMs.&lt;/strong>&lt;/p>
 &lt;p>In order to setup SQL Server as a state store, you need the following properties:&lt;/p>
 &lt;ul>
-&lt;li>&lt;strong>Connection String&lt;/strong>: the SQL Server connection string. For example: server=localhost;user id=sa;password=your-password;port=1433;database=mydatabase; For example: server=localhost;user id=sa;password=your-password;port=1433;database=mydatabase;&lt;/li>
-&lt;li>&lt;strong>Schema&lt;/strong>: The database schema to use (default=dbo). Will be created if does not exist Will be created if does not exist&lt;/li>
-&lt;li>&lt;strong>Table Name&lt;/strong>: The database table name. Will be created if does not exist Will be created if does not exist&lt;/li>
+&lt;li>&lt;strong>Connection String&lt;/strong>: the SQL Server connection string. For example: server=localhost;user id=sa;password=your-password;port=1433;database=mydatabase;&lt;/li>
+&lt;li>&lt;strong>Schema&lt;/strong>: The database schema to use (default=dbo). Will be created if does not exist&lt;/li>
+&lt;li>&lt;strong>Table Name&lt;/strong>: The database table name. Will be created if does not exist&lt;/li>
 &lt;li>&lt;strong>Indexed Properties&lt;/strong>: Optional properties from json data which will be indexed and persisted as individual column&lt;/li>
 &lt;/ul>
 &lt;h3 id="create-a-dedicated-user">Create a dedicated user&lt;/h3>
@@ -2089,12 +2153,12 @@ Currently this component does not support state management for actors
 &lt;/ul>
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
-&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Dapr组件的基本格式&lt;/a>&lt;/li>
+&lt;li>阅读 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">本指南&lt;/a> 以获取配置状态存储组件的说明&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">状态管理构建块&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: Zookeeper</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-zookeeper/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-zookeeper/</guid><description>
-&lt;h2 id="component-format">Component format&lt;/h2>
-&lt;p>To setup Zookeeper state store create a component of type &lt;code>state.zookeeper&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration. To setup SQL Server state store create a component of type &lt;code>state.sqlserver&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;h2 id="配置">配置&lt;/h2>
+&lt;p>To setup Zookeeper state store create a component of type &lt;code>state.zookeeper&lt;/code>. 请参阅&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">本指南&lt;/a>，了解如何创建和应用状态存储配置。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -2121,85 +2185,93 @@ Currently this component does not support state management for actors
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">maxConnBufferSize&lt;/span>
 &lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-MAX-CONN-BUFFER-SIZE&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1048576&amp;#34;&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">keyPrefixPath&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-KEY-PREFIX-PATH&amp;gt; # Optional. Example&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;zookeeper.default.svc.cluster.local:2181&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">sessionTimeout&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-SESSION-TIMEOUT&amp;gt; # Required. Example&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;5s&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">maxBufferSize&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-MAX-BUFFER-SIZE&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1048576&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">maxConnBufferSize&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-MAX-CONN-BUFFER-SIZE&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1048576&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">keyPrefixPath&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-KEY-PREFIX-PATH&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional.&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 The example configuration shown above, contain a username and password as plain-text strings. 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/%7D">here&lt;/a>。
+以上示例将密钥明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
 &lt;/div>
-&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th>字段&lt;/th>
-&lt;th style="text-align:center">Required&lt;/th>
-&lt;th>Details&lt;/th>
-&lt;th>Example&lt;/th>
+&lt;th style="text-align:center">必填&lt;/th>
+&lt;th>详情&lt;/th>
+&lt;th>示例&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
 &lt;td>servers&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>Comma delimited list of servers&lt;/td>
 &lt;td>&lt;code>&amp;quot;zookeeper.default.svc.cluster.local:2181&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>sessionTimeout&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>The session timeout value&lt;/td>
 &lt;td>&lt;code>&amp;quot;5s&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>maxBufferSize&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>The maximum size of buffer. The maximum size of buffer. Defaults to &lt;code>&amp;quot;1048576&amp;quot;&lt;/code>&lt;/td>
+&lt;td>The maximum size of buffer. Defaults to &lt;code>&amp;quot;1048576&amp;quot;&lt;/code>&lt;/td>
 &lt;td>&lt;code>&amp;quot;1048576&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>maxConnBufferSize&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>The maximum size of connection buffer. Defautls to &lt;code>&amp;quot;1048576&lt;/code>&amp;quot; Defautls to &lt;code>&amp;quot;1048576&lt;/code>&amp;quot;&lt;/td>
+&lt;td>The maximum size of connection buffer. Defautls to &lt;code>&amp;quot;1048576&lt;/code>&amp;quot;&lt;/td>
 &lt;td>&lt;code>&amp;quot;1048576&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>keyPrefixPath&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>The key prefix path in Zookeeper. No default No default&lt;/td>
+&lt;td>The key prefix path in Zookeeper. No default&lt;/td>
 &lt;td>&lt;code>&amp;quot;dapr&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
 &lt;h2 id="setup-zookeeper">Setup Zookeeper&lt;/h2>
-&lt;ul class="nav nav-tabs" id="tabs-3" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
-id="tabs-3-self-hosted-tab" data-toggle="tab" href="#tabs-3-self-hosted" role="tab"
-aria-controls="tabs-3-self-hosted" aria-selected="true">
+&lt;ul class="nav nav-tabs" id="tabs-2" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-2-self-hosted-tab" data-toggle="tab" href="#tabs-2-self-hosted" role="tab"
+aria-controls="tabs-2-self-hosted" aria-selected="true">
 Self-Hosted
 &lt;/a>
 &lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
-id="tabs-3-kubernetes-tab" data-toggle="tab" href="#tabs-3-kubernetes" role="tab"
-aria-controls="tabs-3-kubernetes" aria-selected="false">
+id="tabs-2-kubernetes-tab" data-toggle="tab" href="#tabs-2-kubernetes" role="tab"
+aria-controls="tabs-2-kubernetes" aria-selected="false">
 Kubernetes
 &lt;/a>
 &lt;/li>&lt;/ul>
-&lt;div class="tab-content" id="tabs-3-content">
-&lt;div class="tab-pane fade show active" id="tabs-3-self-hosted" role="tabpanel" aria-labelled-by="tabs-3-self-hosted-tab">
+&lt;div class="tab-content" id="tabs-2-content">
+&lt;div class="tab-pane fade show active" id="tabs-2-self-hosted" role="tabpanel" aria-labelled-by="tabs-2-self-hosted-tab">
 &lt;br />&lt;p>You can run Zookeeper locally using Docker:&lt;/p>
 &lt;pre>&lt;code>docker run --name some-zookeeper --restart always -d zookeeper
 &lt;/code>&lt;/pre>&lt;p>You can then interact with the server using &lt;code>localhost:2181&lt;/code>.&lt;/p>
 &lt;/div>
-&lt;div class="tab-pane fade" id="tabs-3-kubernetes" role="tabpanel" aria-labelled-by="tabs-3-kubernetes-tab">
+&lt;div class="tab-pane fade" id="tabs-2-kubernetes" role="tabpanel" aria-labelled-by="tabs-2-kubernetes-tab">
 &lt;br />&lt;p>The easiest way to install Zookeeper on Kubernetes is by using the &lt;a href="https://github.com/helm/charts/tree/master/incubator/zookeeper">Helm chart&lt;/a>:&lt;/p>
 &lt;pre>&lt;code>helm repo add incubator http://storage.googleapis.com/kubernetes-charts-incubator
 helm install zookeeper incubator/zookeeper
-&lt;/code>&lt;/pre>&lt;p>This installs Zookeeper into the &lt;code>default&lt;/code> namespace. This installs Zookeeper into the &lt;code>default&lt;/code> namespace. To interact with Zookeeper, find the service with: &lt;code>kubectl get svc zookeeper&lt;/code>.&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>This installs Zookeeper into the &lt;code>default&lt;/code> namespace. To interact with Zookeeper, find the service with: &lt;code>kubectl get svc zookeeper&lt;/code>.&lt;/p>
 &lt;p>For example, if installing using the example above, the Zookeeper host address would be:&lt;/p>
 &lt;p>&lt;code>zookeeper.default.svc.cluster.local:2181&lt;/code>&lt;/p>
 &lt;/div>
 &lt;/div>
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
-&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Dapr组件的基本格式&lt;/a>&lt;/li>
+&lt;li>阅读 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">本指南&lt;/a> 以获取配置状态存储组件的说明&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">状态管理构建块&lt;/a>&lt;/li>
 &lt;/ul></description></item></channel></rss>

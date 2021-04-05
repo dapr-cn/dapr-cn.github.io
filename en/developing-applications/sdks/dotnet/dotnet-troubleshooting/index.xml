@@ -1,12 +1,32 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr Docs – How to troubleshoot and debug with the Dapr .NET SDK</title><link>https://docs.dapr.io/en/developing-applications/sdks/dotnet/dotnet-troubleshooting/</link><description>Recent content in How to troubleshoot and debug with the Dapr .NET SDK on Dapr Docs</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/en/developing-applications/sdks/dotnet/dotnet-troubleshooting/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Troubleshoot Pub/Sub with the .NET SDK</title><link>https://docs.dapr.io/en/developing-applications/sdks/dotnet/dotnet-troubleshooting/dotnet-troubleshooting-pubsub/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/developing-applications/sdks/dotnet/dotnet-troubleshooting/dotnet-troubleshooting-pubsub/</guid><description>
 &lt;h1 id="troubleshooting-pubsub">Troubleshooting Pub/Sub&lt;/h1>
 &lt;p>The most common problem with pub/sub is that the pub/sub endpoint in your application is not being called.&lt;/p>
-&lt;p>There are two layers to this problem with different solutions:&lt;/p>
+&lt;p>There are a few layers to this problem with different solutions:&lt;/p>
 &lt;ul>
+&lt;li>The application is not recieving any traffic from Dapr&lt;/li>
 &lt;li>The application is not registering pub/sub endpoints with Dapr&lt;/li>
 &lt;li>The pub/sub endpoints are registered with Dapr, but the request is not reaching the desired endpoint&lt;/li>
 &lt;/ul>
-&lt;h2 id="step-1-verify-endpoint-registration">Step 1: Verify endpoint registration&lt;/h2>
+&lt;h2 id="step-1-turn-up-the-logs">Step 1: Turn up the logs&lt;/h2>
+&lt;p>&lt;strong>This is important. Future steps will depend on your ability to see logging output. ASP.NET Core logs almost nothing with the default log settings, so you will need to change it.&lt;/strong>&lt;/p>
+&lt;p>Adjust the logging verbosity to include &lt;code>Information&lt;/code> logging for ASP.NET Core as described &lt;a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/controllers/routing?view=aspnetcore-5.0#debug-diagnostics">here&lt;/a>. Set the &lt;code>Microsoft&lt;/code> key to &lt;code>Information&lt;/code>.&lt;/p>
+&lt;h2 id="step-2-verify-you-can-receive-traffic-from-dapr">Step 2: Verify you can receive traffic from Dapr&lt;/h2>
+&lt;ol>
+&lt;li>
+&lt;p>Start the application as you would normally (&lt;code>dapr run ...&lt;/code>). Make sure that you&amp;rsquo;re including an &lt;code>--app-port&lt;/code> argument in the commandline. Dapr needs to know that your application is listening for traffic. By default an ASP.NET Core application will listen for HTTP on port 5000 in local development.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Wait for Dapr to finish starting&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Examine the logs&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>You should see a log entry like:&lt;/p>
+&lt;pre>&lt;code>info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+Request starting HTTP/1.1 GET http://localhost:5000/.....
+&lt;/code>&lt;/pre>&lt;p>During initialization Dapr will make some requests to your application for configuration. If you can&amp;rsquo;t find these then it means that something has gone wrong. Please ask for help either via an issue or in Discord (include the logs). If you see requests made to your application, then continue to step 3.&lt;/p>
+&lt;h2 id="step-3-verify-endpoint-registration">Step 3: Verify endpoint registration&lt;/h2>
 &lt;ol>
 &lt;li>
 &lt;p>Start the application as you would normally (&lt;code>dapr run ...&lt;/code>).&lt;/p>
@@ -71,7 +91,7 @@ endpoints.MapSubscribeHandler(); &lt;span style="color:#75715e">// This is the D
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>In this example the call to &lt;code>WithTopic(...)&lt;/code> is required but other details might be different.&lt;/p>
 &lt;hr>
 &lt;p>&lt;strong>After correcting this code and re-testing if the JSON output is still the empty array (like &lt;code>[]&lt;/code>) then please open an issue on this repository and include the contents of &lt;code>Startup.cs&lt;/code> and your pub/sub endpoint.&lt;/strong>&lt;/p>
-&lt;h2 id="step-2-verify-endpoint-reachability">Step 2: Verify endpoint reachability&lt;/h2>
+&lt;h2 id="step-4-verify-endpoint-reachability">Step 4: Verify endpoint reachability&lt;/h2>
 &lt;p>In this step we&amp;rsquo;ll verify that the entries registered with pub/sub are reachable. The last step should have left you with some JSON output like the following:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">[
 {&lt;span style="color:#f92672">&amp;#34;topic&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;deposit&amp;#34;&lt;/span>,&lt;span style="color:#f92672">&amp;#34;route&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;deposit&amp;#34;&lt;/span>,&lt;span style="color:#f92672">&amp;#34;pubsubName&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;pubsub&amp;#34;&lt;/span>},
@@ -83,10 +103,7 @@ endpoints.MapSubscribeHandler(); &lt;span style="color:#75715e">// This is the D
 &lt;p>Start the application as you would normally (&lt;code>dapr run ...&lt;/code>).&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>Adjust the logging verbosity to include &lt;code>Information&lt;/code> logging for ASP.NET Core as described &lt;a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/controllers/routing?view=aspnetcore-5.0#debug-diagnostics">here&lt;/a>. Set the &lt;code>Microsoft&lt;/code> key to &lt;code>Information&lt;/code>.&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>Use &lt;code>curl&lt;/code> at the command line (or another HTTP testing tool) to access one of the routes registered a pub/sub endpoint.&lt;/p>
+&lt;p>Use &lt;code>curl&lt;/code> at the command line (or another HTTP testing tool) to access one of the routes registered with a pub/sub endpoint.&lt;/p>
 &lt;/li>
 &lt;/ol>
 &lt;p>Here&amp;rsquo;s an example command assuming your application&amp;rsquo;s listening port is 5000, and one of your pub/sub routes is &lt;code>withdraw&lt;/code>:&lt;/p>

@@ -26,6 +26,6 @@
 &lt;p>如果你使用 &lt;a href="https://aws.amazon.com/single-sign-on/">AWS SSO&lt;/a>进行身份验证，一些 AWS SDK（包括 Go SDK）还不支持此功能。 你可以使用一些实用程序来 &amp;ldquo;桥接 &amp;ldquo;基于 AWS SSO 的凭证和 &amp;ldquo;传统 &amp;ldquo;凭证，例如 &lt;a href="https://pypi.org/project/awshelper/">AwsHelper&lt;/a> 或 &lt;a href="https://github.com/benkehoe/aws-sso-util">aws-sso-util&lt;/a>。&lt;/p>
 &lt;p>如果使用AwsHelper，可以这样启动Dapr:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">AWS_PROFILE&lt;span style="color:#f92672">=&lt;/span>myprofile awshelper dapr run...
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>或者&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>or&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">AWS_PROFILE&lt;span style="color:#f92672">=&lt;/span>myprofile awshelper daprd...
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>在Windows上，环境变量需要在启动&lt;code>awshelper&lt;/code>命令之前进行设置，不支持如上所示的内联操作。&lt;/p></description></item></channel></rss>

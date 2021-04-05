@@ -1,4 +1,212 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr Docs – Getting started with the Dapr actors .NET SDK</title><link>https://docs.dapr.io/en/developing-applications/sdks/dotnet/dotnet-actors/</link><description>Recent content in Getting started with the Dapr actors .NET SDK on Dapr Docs</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/en/developing-applications/sdks/dotnet/dotnet-actors/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Getting started with the Dapr actor .NET SDK</title><link>https://docs.dapr.io/en/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actor-howto/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actor-howto/</guid><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr Docs – Getting started with the Dapr actors .NET SDK</title><link>https://docs.dapr.io/en/developing-applications/sdks/dotnet/dotnet-actors/</link><description>Recent content in Getting started with the Dapr actors .NET SDK on Dapr Docs</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/en/developing-applications/sdks/dotnet/dotnet-actors/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Dapr actor .NET usage guide</title><link>https://docs.dapr.io/en/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actors-client/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actors-client/</guid><description>
+&lt;h2 id="using-the-iactorproxyfactory">Using the IActorProxyFactory&lt;/h2>
+&lt;p>Inside of an &lt;code>Actor&lt;/code> class or otherwisde inside of an ASP.NET Core project you should use the &lt;code>IActorProxyFactory&lt;/code> interface to create actor clients.&lt;/p>
+&lt;p>The &lt;code>AddActors(...)&lt;/code> method will register actor services with ASP.NET Core dependency injection.&lt;/p>
+&lt;ul>
+&lt;li>Outside of an actor instance, the &lt;code>IActorProxyFactory&lt;/code> instance is available through dependency injection as a singleton service.&lt;/li>
+&lt;li>Inside an actor instance, the &lt;code>IActorProxyFactory&lt;/code> instance is available as a property (&lt;code>this.ProxyFactory&lt;/code>).&lt;/li>
+&lt;/ul>
+&lt;p>The following is an example of creating a proxy inside an actor:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#66d9ef">public&lt;/span> Task&amp;lt;MyData&amp;gt; GetDataAsync()
+{
+&lt;span style="color:#66d9ef">var&lt;/span> proxy = &lt;span style="color:#66d9ef">this&lt;/span>.ProxyFactory.CreateActorProxy&amp;lt;IOtherActor&amp;gt;(ActorId.CreateRandom(), &lt;span style="color:#e6db74">&amp;#34;OtherActor&amp;#34;&lt;/span>);
+&lt;span style="color:#66d9ef">await&lt;/span> proxy.DoSomethingGreat();
+&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#66d9ef">this&lt;/span>.StateManager.GetStateAsync&amp;lt;MyData&amp;gt;(&lt;span style="color:#e6db74">&amp;#34;my_data&amp;#34;&lt;/span>);
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>💡 For a non-dependency-injected application you can use the static methods on &lt;code>ActorProxy&lt;/code>. These methods are error prone when you need to configure custom settings, and should be avoided when possible.&lt;/p>
+&lt;/blockquote>
+&lt;p>The guidance in this document will focus on &lt;code>IActorProxyFactory&lt;/code>. &lt;code>ActorProxy&lt;/code>&amp;rsquo;s static method functionality is identical except for the ability to manage configuration centrally.&lt;/p>
+&lt;h2 id="identifying-an-actor">Identifying an actor&lt;/h2>
+&lt;p>In order to communicate with an actor, you will need to know its type and id, and for a strongly-typed client one of its interfaces. All of the APIs on &lt;code>IActorProxyFactory&lt;/code> will require an actor type and actor id.&lt;/p>
+&lt;ul>
+&lt;li>The actor type uniquely identifies the actor implementation across the whole application.&lt;/li>
+&lt;li>The actor id uniquely identifies an instance of that type.&lt;/li>
+&lt;/ul>
+&lt;p>If you do not have an actor id and want to communicate with a new instance, you can use &lt;code>ActorId.CreateRandom()&lt;/code> to create a randomized id. Since the random id is a cryptographically strong identifier, the runtime will create a new actor instance when you interact with it.&lt;/p>
+&lt;p>You can use the type &lt;code>ActorReference&lt;/code> to exchange an actor type and actor id with other actors as part of messages.&lt;/p>
+&lt;h2 id="two-styles-of-actor-client">Two styles of actor client&lt;/h2>
+&lt;p>The actor client supports two different styles of invocation: &lt;em>strongly-typed&lt;/em> clients that use .NET interfaces and &lt;em>weakly-typed&lt;/em> clients that use the &lt;code>ActorProxy&lt;/code> class.&lt;/p>
+&lt;p>Since &lt;em>strongly-typed&lt;/em> clients are based on .NET interfaces provide the typical benefits of strong-typing, however they do not work with non-.NET actors. You should use the &lt;em>weakly-typed&lt;/em> client only when required for interop or other advanced reasons.&lt;/p>
+&lt;h3 id="using-a-strongly-typed-client">Using a strongly-typed client&lt;/h3>
+&lt;p>Use the &lt;code>CreateActorProxy&amp;lt;&amp;gt;&lt;/code> method to create a strongly-typed client like the following example. &lt;code>CreateActorProxy&amp;lt;&amp;gt;&lt;/code> requires an actor interface type, and will return an instance of that interface.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#75715e">// Create a proxy for IOtherActor to type OtherActor with a random id
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">var&lt;/span> proxy = &lt;span style="color:#66d9ef">this&lt;/span>.ProxyFactory.CreateActorProxy&amp;lt;IOtherActor&amp;gt;(ActorId.CreateRandom(), &lt;span style="color:#e6db74">&amp;#34;OtherActor&amp;#34;&lt;/span>);
+&lt;span style="color:#75715e">// Invoke a method defined by the interface to invoke the actor
+&lt;/span>&lt;span style="color:#75715e">//
+&lt;/span>&lt;span style="color:#75715e">// proxy is an implementation of IOtherActor so we can invoke its methods directly
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">await&lt;/span> proxy.DoSomethingGreat();
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="using-a-weakly-typed-client">Using a weakly-typed client&lt;/h3>
+&lt;p>Use the &lt;code>Create&lt;/code> method to create a weakly-typed client like the following example. &lt;code>Create&lt;/code> returns an instance of &lt;code>ActorProxy&lt;/code>.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#75715e">// Create a proxy for type OtherActor with a random id
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">var&lt;/span> proxy = &lt;span style="color:#66d9ef">this&lt;/span>.ProxyFactory.Create(ActorId.CreateRandom(), &lt;span style="color:#e6db74">&amp;#34;OtherActor&amp;#34;&lt;/span>);
+&lt;span style="color:#75715e">// Invoke a method by name to invoke the actor
+&lt;/span>&lt;span style="color:#75715e">//
+&lt;/span>&lt;span style="color:#75715e">// proxy is an instance of ActorProxy.
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">await&lt;/span> proxy.InvokeMethodAsync(&lt;span style="color:#e6db74">&amp;#34;DoSomethingGreat&amp;#34;&lt;/span>);
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Since &lt;code>ActorProxy&lt;/code> is a weakly-typed proxy you need to pass in the actor method name as a string.&lt;/p>
+&lt;p>You can also use &lt;code>ActorProxy&lt;/code> to invoke methods with a request message and response message. Request and response messages will be serialized using the &lt;code>System.Text.Json&lt;/code> serializer.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#75715e">// Create a proxy for type OtherActor with a random id
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">var&lt;/span> proxy = &lt;span style="color:#66d9ef">this&lt;/span>.ProxyFactory.Create(ActorId.CreateRandom(), &lt;span style="color:#e6db74">&amp;#34;OtherActor&amp;#34;&lt;/span>);
+&lt;span style="color:#75715e">// Invoke a method on the proxy to invoke the actor
+&lt;/span>&lt;span style="color:#75715e">//
+&lt;/span>&lt;span style="color:#75715e">// proxy is an instance of ActorProxy.
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">var&lt;/span> request = &lt;span style="color:#66d9ef">new&lt;/span> MyRequest() { Message = &lt;span style="color:#e6db74">&amp;#34;Hi, it&amp;#39;s me.&amp;#34;&lt;/span>, };
+&lt;span style="color:#66d9ef">var&lt;/span> response = &lt;span style="color:#66d9ef">await&lt;/span> proxy.InvokeMethodAsync&amp;lt;MyRequest, MyResponse&amp;gt;(&lt;span style="color:#e6db74">&amp;#34;DoSomethingGreat&amp;#34;&lt;/span>, request);
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>When using a weakly-typed proxy, it is your responsbility to define the correct actor method names and message types. This is done for you when using a strongly-typed proxy since the names and types are part of the interface definition.&lt;/p></description></item><item><title>Developing-Applications: Dapr actor .NET usage guide</title><link>https://docs.dapr.io/en/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actors-usage/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actors-usage/</guid><description>
+&lt;h2 id="authoring-actors">Authoring actors&lt;/h2>
+&lt;h3 id="actorhost">ActorHost&lt;/h3>
+&lt;p>The &lt;code>ActorHost&lt;/code> is a required constructor parameter of all actors, and must be passed to the base class constructor.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#66d9ef">internal&lt;/span> &lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">MyActor&lt;/span> : Actor, IMyActor, IRemindable
+{
+&lt;span style="color:#66d9ef">public&lt;/span> MyActor(ActorHost host) &lt;span style="color:#75715e">// Accept ActorHost in the constructor
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> : &lt;span style="color:#66d9ef">base&lt;/span>(host) &lt;span style="color:#75715e">// Pass ActorHost to the base class constructor
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> {
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The &lt;code>ActorHost&lt;/code> is provided by the runtime and contains all of the state that the allows that actor instance to communicate with the runtime. Since the &lt;code>ActorHost&lt;/code> contains state unique to the actor, you should not pass the instance into other parts of your code. You should not create your own instances of &lt;code>ActorHost&lt;/code> except in tests.&lt;/p>
+&lt;h3 id="using-dependency-injection">Using dependency injection&lt;/h3>
+&lt;p>Actors support &lt;a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection">depenendency injection&lt;/a> of additonal parameters into the constructor. Any other parameters your define will have their values satisfied from the dependency injection container.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#66d9ef">internal&lt;/span> &lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">MyActor&lt;/span> : Actor, IMyActor, IRemindable
+{
+&lt;span style="color:#66d9ef">public&lt;/span> MyActor(ActorHost host, BankService bank) &lt;span style="color:#75715e">// Accept BankService in the constructor
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> : &lt;span style="color:#66d9ef">base&lt;/span>(host)
+{
+...
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>An actor type should have a single &lt;code>public&lt;/code> constructor. The actor infrastructure uses the &lt;a href="https://docs.microsoft.com/en-us/dotnet/core/extensions/dependency-injection#constructor-injection-behavior">ActivatorUtilities&lt;/a> pattern for constructing actor instances.&lt;/p>
+&lt;p>You can register types with dependency injection in &lt;code>Startup.cs&lt;/code> to make them available. You can read more about the different ways of registering your types &lt;a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?#service-registration-methods">here&lt;/a>&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#75715e">// In Startup.cs
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">void&lt;/span> ConfigureServices(IServiceCollection services)
+{
+...
+&lt;span style="color:#75715e">// Register additional types with dependency injection.
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> services.AddSingleton&amp;lt;BankService&amp;gt;();
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Each actor instance has its own dependency injection scope. Each actor remains in memory for some time after performing an operation, and during that time the dependency injection scope associated with the actor is also considered live. The scope will be releases when the actor is deactivated.&lt;/p>
+&lt;p>If an actor injects an &lt;code>IServiceProvider&lt;/code> in the constructor, the actor will recieve a reference to the &lt;code>IServiceProvider&lt;/code> associated with its scope. The &lt;code>IServiceProvider&lt;/code> can be used to resolve services dynamically in the future.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#66d9ef">internal&lt;/span> &lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">MyActor&lt;/span> : Actor, IMyActor, IRemindable
+{
+&lt;span style="color:#66d9ef">public&lt;/span> MyActor(ActorHost host, IServiceProvider services) &lt;span style="color:#75715e">// Accept IServiceProvider in the constructor
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> : &lt;span style="color:#66d9ef">base&lt;/span>(host)
+{
+...
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>When using this pattern, take care to avoid creating many instances of &lt;strong>transient&lt;/strong> services which implement &lt;code>IDisposable&lt;/code>. Since the scope associated with an actor could be considered valid for a long time, it is possible to accumulate many services in memory. See the &lt;a href="https://docs.microsoft.com/en-us/dotnet/core/extensions/dependency-injection-guidelines">dependency injection guidelines&lt;/a> for more information.&lt;/p>
+&lt;h3 id="idisposable-and-actors">IDisposable and actors&lt;/h3>
+&lt;p>Actors can implement &lt;code>IDisposable&lt;/code> or &lt;code>IAsyncDisposable&lt;/code>. It is recommended that you rely on dependency injection for resource management rather than implementing dispose functionality in application code. Dispose support is provided for the rare case where it is truly necessary.&lt;/p>
+&lt;h3 id="logging">Logging&lt;/h3>
+&lt;p>Inside of an actor class you have access to an instance of &lt;code>ILogger&lt;/code> through a property on the base &lt;code>Actor&lt;/code> class. This instance is connected to the ASP.NET Core logging system, and should be used for all logging inside an actor. Read more about logging &lt;a href="https://docs.microsoft.com/en-us/dotnet/core/extensions/logging?tabs=command-line">here&lt;/a>. You can configure a variety of different logging formats and output sinks.&lt;/p>
+&lt;p>You should use &lt;em>structured logging&lt;/em> with &lt;em>named placeholders&lt;/em> like the example below:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#66d9ef">public&lt;/span> Task&amp;lt;MyData&amp;gt; GetDataAsync()
+{
+&lt;span style="color:#66d9ef">this&lt;/span>.Logger.LogInformation(&lt;span style="color:#e6db74">&amp;#34;Getting state at {CurrentTime}&amp;#34;&lt;/span>, DateTime.UtcNow);
+&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#66d9ef">this&lt;/span>.StateManager.GetStateAsync&amp;lt;MyData&amp;gt;(&lt;span style="color:#e6db74">&amp;#34;my_data&amp;#34;&lt;/span>);
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>When logging, avoid using format strings like: &lt;code>$&amp;quot;Getting state at {DateTime.UtcNow}&amp;quot;&lt;/code>&lt;/p>
+&lt;p>Logging should use the &lt;a href="https://docs.microsoft.com/en-us/dotnet/core/extensions/logging?tabs=command-line#log-message-template">named placeholder syntax&lt;/a> which is more performant and offers better integration with logging systems.&lt;/p>
+&lt;h3 id="using-an-explicit-actor-type-name">Using an explicit actor type name&lt;/h3>
+&lt;p>By default, the &lt;em>type&lt;/em> of the actor as seen by clients is derived from the name of the actor implementation class. The default name will be the class name name (without namespace).&lt;/p>
+&lt;p>If desired, you can specify an explicit type name by attaching an &lt;code>ActorAttribute&lt;/code> attribute to the actor implementation class.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#a6e22e">[Actor(TypeName = &amp;#34;MyCustomActorTypeName&amp;#34;)]&lt;/span>
+&lt;span style="color:#66d9ef">internal&lt;/span> &lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">MyActor&lt;/span> : Actor, IMyActor
+{
+&lt;span style="color:#75715e">// ...
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>In the example above the name will be &lt;code>MyCustomActorTypeName&lt;/code>.&lt;/p>
+&lt;p>No change is needed to the code that registers the actor type with the runtime, providing the value via the attribute is all that is required.&lt;/p>
+&lt;h2 id="hosting-actors-on-the-server">Hosting actors on the server&lt;/h2>
+&lt;h3 id="registering-actors">Registering actors&lt;/h3>
+&lt;p>Actor registration is part &lt;code>ConfigureServices&lt;/code> in &lt;code>Startup.cs&lt;/code>. The &lt;code>ConfigureServices&lt;/code> method is where services are registered with dependency injection, and registering the set of actor types is part of the registration of actor services.&lt;/p>
+&lt;p>Inside &lt;code>ConfigureServices&lt;/code> you can:&lt;/p>
+&lt;ul>
+&lt;li>Register the actor runtime (&lt;code>UseActors&lt;/code>)&lt;/li>
+&lt;li>Register actor types (&lt;code>options.Actors.RegisterActor&amp;lt;&amp;gt;&lt;/code>)&lt;/li>
+&lt;li>Configure actor runtime settings &lt;code>options&lt;/code>&lt;/li>
+&lt;li>Register additional service types for dependency injection into actors (&lt;code>services&lt;/code>)&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#75715e">// In Startup.cs
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">void&lt;/span> ConfigureServices(IServiceCollection services)
+{
+&lt;span style="color:#75715e">// Register actor runtime with DI
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> services.AddActors(options =&amp;gt;
+{
+&lt;span style="color:#75715e">// Register actor types and configure actor settings
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> options.Actors.RegisterActor&amp;lt;MyActor&amp;gt;();
+&lt;span style="color:#75715e">// Configure default settings
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> options.ActorIdleTimeout = TimeSpan.FromMinutes(&lt;span style="color:#ae81ff">10&lt;/span>);
+options.ActorScanInterval = TimeSpan.FromSeconds(&lt;span style="color:#ae81ff">35&lt;/span>);
+options.DrainOngoingCallTimeout = TimeSpan.FromSeconds(&lt;span style="color:#ae81ff">35&lt;/span>);
+options.DrainRebalancedActors = &lt;span style="color:#66d9ef">true&lt;/span>;
+});
+&lt;span style="color:#75715e">// Register additional services for use with actors
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> services.AddSingleton&amp;lt;BankService&amp;gt;();
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="configuring-json-options">Configuring JSON options&lt;/h3>
+&lt;p>The actor runtime uses &lt;a href="https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-overview">System.Text.Json&lt;/a> for serializing data to the state store, and for handling requests from the weakly-typed client.&lt;/p>
+&lt;p>By default the actor runtime uses settings based on &lt;a href="https://docs.microsoft.com/en-us/dotnet/api/system.text.json.jsonserializerdefaults?view=net-5.0">JsonSerializerDefaults.Web&lt;/a>&lt;/p>
+&lt;p>You can configure the &lt;code>JsonSerializerOptions&lt;/code> as part of &lt;code>ConfigureServices&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#75715e">// In Startup.cs
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">void&lt;/span> ConfigureServices(IServiceCollection services)
+{
+services.AddActors(options =&amp;gt;
+{
+...
+&lt;span style="color:#75715e">// Customize JSON options
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> options.JsonSerializerOptions = ...
+});
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="actors-and-routing">Actors and routing&lt;/h3>
+&lt;p>The ASP.NET Core hosting support for actors uses the &lt;a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/routing">endpoint routing&lt;/a> system. The .NET SDK provides no support hosting actors with the legacy routing system from early ASP.NET Core releases.&lt;/p>
+&lt;p>Since actors uses endpoint routing, the actors HTTP handler is part of the middleware pipeline. The following is a minimal example of a &lt;code>Configure&lt;/code> method setting up the middleware pipeline with actors.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#75715e">// in Startup.cs
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">void&lt;/span> Configure(IApplicationBuilder app, IWebHostEnvironment env)
+{
+&lt;span style="color:#66d9ef">if&lt;/span> (env.IsDevelopment())
+{
+app.UseDeveloperExceptionPage();
+}
+app.UseRouting();
+app.UseEndpoints(endpoints =&amp;gt;
+{
+&lt;span style="color:#75715e">// Register actors handlers that interface with the Dapr runtime.
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> endpoints.MapActorsHandlers();
+});
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The &lt;code>UseRouting&lt;/code> and &lt;code>UseEndpoints&lt;/code> calls are necessary to configure routing. Adding &lt;code>MapActorsHandlers&lt;/code> inside the endpoint middleware is what configures actors as part of the pipline.&lt;/p>
+&lt;p>This is a minimal example, it&amp;rsquo;s valid for Actors functionality to existing alongside:&lt;/p>
+&lt;ul>
+&lt;li>Controllers&lt;/li>
+&lt;li>Razor Pages&lt;/li>
+&lt;li>Blazor&lt;/li>
+&lt;li>gRPC Services&lt;/li>
+&lt;li>Dapr pub/sub handler&lt;/li>
+&lt;li>other endpoints such as health checks&lt;/li>
+&lt;/ul>
+&lt;h3 id="problematic-middleware">Problematic middleware&lt;/h3>
+&lt;p>Certain middleware may interfere with the routing of Dapr requests to the actors handlers. In particular the &lt;code>UseHttpsRedirection&lt;/code> is problematic for the default configuration of Dapr. Dapr will send requests over unencrypted HTTP by default, which will then be blocked by the &lt;code>UseHttpsRedirection&lt;/code> middleware. This middleware cannot be used with Dapr at this time.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#75715e">// in Startup.cs
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">void&lt;/span> Configure(IApplicationBuilder app, IWebHostEnvironment env)
+{
+&lt;span style="color:#66d9ef">if&lt;/span> (env.IsDevelopment())
+{
+app.UseDeveloperExceptionPage();
+}
+&lt;span style="color:#75715e">// INVALID - this will block non-HTTPS requests
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> app.UseHttpsRedirection();
+&lt;span style="color:#75715e">// INVALID - this will block non-HTTPS requests
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>
+app.UseRouting();
+app.UseEndpoints(endpoints =&amp;gt;
+{
+&lt;span style="color:#75715e">// Register actors handlers that interface with the Dapr runtime.
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> endpoints.MapActorsHandlers();
+});
+}
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Developing-Applications: Example of running and using virtual actors in the .NET SDK</title><link>https://docs.dapr.io/en/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actors-howto/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actors-howto/</guid><description>
+&lt;p>The Dapr actor package allows you to interact with Dapr virtual actors from a .NET application.&lt;/p>
 &lt;h2 id="prerequisites">Prerequisites&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/en/getting-started/install-dapr-cli/">Dapr CLI&lt;/a> installed&lt;/li>
@@ -6,7 +214,7 @@
 &lt;li>&lt;a href="https://dotnet.microsoft.com/download">.NET Core 3.1 or .NET 5+&lt;/a> installed&lt;/li>
 &lt;/ul>
 &lt;h2 id="overview">Overview&lt;/h2>
-&lt;p>This document describes how to create an Actor(&lt;code>MyActor&lt;/code>) and invoke its methods on the client application.&lt;/p>
+&lt;p>This document describes how to create an Actor (&lt;code>MyActor&lt;/code>) and invoke its methods on the client application.&lt;/p>
 &lt;pre>&lt;code>MyActor --- MyActor.Interfaces
 |
 +- MyActorService
@@ -23,7 +231,9 @@
 &lt;p>&lt;strong>The actor client project(\MyActor\MyActorClient)&lt;/strong> This project contains the implementation of the actor client which calls MyActor&amp;rsquo;s method defined in Actor Interfaces.&lt;/p>
 &lt;/li>
 &lt;/ul>
-&lt;h2 id="step-1---create-actor-interface">STEP 1 - Create Actor Interface&lt;/h2>
+&lt;h2 id="step-0-prepare">Step 0: Prepare&lt;/h2>
+&lt;p>Since we&amp;rsquo;ll be creating 3 projects, choose an empty directory to start from, and open it in your terminal of choice.&lt;/p>
+&lt;h2 id="step-1-create-actor-interfaces">Step 1: Create actor interfaces&lt;/h2>
 &lt;p>Actor interface defines the actor contract that is shared by the actor implementation and the clients calling the actor.&lt;/p>
 &lt;p>Actor interface is defined with the below requirements:&lt;/p>
 &lt;ul>
@@ -31,14 +241,15 @@
 &lt;li>The return type of Actor method must be &lt;code>Task&lt;/code> or &lt;code>Task&amp;lt;object&amp;gt;&lt;/code>&lt;/li>
 &lt;li>Actor method can have one argument at a maximum&lt;/li>
 &lt;/ul>
-&lt;h3 id="create-project-and-add-dependencies">Create project and add dependencies&lt;/h3>
+&lt;h3 id="create-interface-project-and-add-dependencies">Create interface project and add dependencies&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#75715e"># Create Actor Interfaces&lt;/span>
 dotnet new classlib -o MyActor.Interfaces
 cd MyActor.Interfaces
 &lt;span style="color:#75715e"># Add Dapr.Actors nuget package. Please use the latest package version from nuget.org&lt;/span>
-dotnet add package Dapr.Actors -v 1.0.0-rc02
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="implement-imyactor-interface">Implement IMyActor Interface&lt;/h3>
-&lt;p>Define IMyActor Interface and MyData data object.&lt;/p>
+dotnet add package Dapr.Actors -v 1.0.0
+cd ..
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="implement-imyactor-interface">Implement IMyActor interface&lt;/h3>
+&lt;p>Define &lt;code>IMyActor&lt;/code> interface and &lt;code>MyData&lt;/code> data object. Paste the following code into &lt;code>MyActor.cs&lt;/code> in the &lt;code>MyActor.Interfaces&lt;/code> project.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#66d9ef">using&lt;/span> Dapr.Actors;
 &lt;span style="color:#66d9ef">using&lt;/span> System.Threading.Tasks;
 &lt;span style="color:#66d9ef">namespace&lt;/span> MyActor.Interfaces
@@ -64,20 +275,20 @@ Task UnregisterTimer();
 }
 }
 }
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="step-2---create-actor-service">STEP 2 - Create Actor Service&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="step-2-create-actor-service">Step 2: Create actor service&lt;/h2>
 &lt;p>Dapr uses ASP.NET web service to host Actor service. This section will implement &lt;code>IMyActor&lt;/code> actor interface and register Actor to Dapr Runtime.&lt;/p>
-&lt;h3 id="create-project-and-add-dependencies-1">Create project and add dependencies&lt;/h3>
+&lt;h3 id="create-actor-service-project-and-add-dependencies">Create actor service project and add dependencies&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#75715e"># Create ASP.Net Web service to host Dapr actor&lt;/span>
-dotnet new webapi -o MyActorService
+dotnet new web -o MyActorService
 cd MyActorService
-&lt;span style="color:#75715e"># Add Dapr.Actors nuget package. Please use the latest package version from nuget.org&lt;/span>
-dotnet add package Dapr.Actors -v 1.0.0-rc02
 &lt;span style="color:#75715e"># Add Dapr.Actors.AspNetCore nuget package. Please use the latest package version from nuget.org&lt;/span>
-dotnet add package Dapr.Actors.AspNetCore -v 1.0.0-rc02
+dotnet add package Dapr.Actors.AspNetCore -v 1.0.0
 &lt;span style="color:#75715e"># Add Actor Interface reference&lt;/span>
 dotnet add reference ../MyActor.Interfaces/MyActor.Interfaces.csproj
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="add-actor-implementation">Add Actor implementation&lt;/h3>
+cd ..
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="add-actor-implementation">Add actor implementation&lt;/h3>
 &lt;p>Implement IMyActor interface and derive from &lt;code>Dapr.Actors.Actor&lt;/code> class. Following example shows how to use Actor Reminders as well. For Actors to use Reminders, it must derive from IRemindable. If you don&amp;rsquo;t intend to use Reminder feature, you can skip implementing IRemindable and reminder specific methods which are shown in the code below.&lt;/p>
+&lt;p>Paste the following code into &lt;code>MyActor.cs&lt;/code> in the &lt;code>MyActorService&lt;/code> project:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#66d9ef">using&lt;/span> Dapr.Actors;
 &lt;span style="color:#66d9ef">using&lt;/span> Dapr.Actors.Runtime;
 &lt;span style="color:#66d9ef">using&lt;/span> MyActor.Interfaces;
@@ -198,28 +409,26 @@ Console.WriteLine(&lt;span style="color:#e6db74">&amp;#34;OnTimerCallBack is cal
 }
 }
 }
-&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="using-an-explicit-actor-type-name">Using an explicit actor type name&lt;/h4>
-&lt;p>By default, the &amp;ldquo;type&amp;rdquo; of the actor as seen by clients is derived from the name of the actor implementation class. If desired, you can specify an explicit type name by attaching an &lt;code>ActorAttribute&lt;/code> attribute to the actor implementation class.&lt;/p>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#a6e22e"> [Actor(TypeName = &amp;#34;MyCustomActorTypeName&amp;#34;)]&lt;/span>
-&lt;span style="color:#66d9ef">internal&lt;/span> &lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">MyActor&lt;/span> : Actor, IMyActor
-{
-&lt;span style="color:#75715e">// ...
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> }
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="register-actor-runtime-with-aspnet-core-startup">Register Actor runtime with ASP.NET Core startup&lt;/h3>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="register-actor-runtime-with-aspnet-core-startup">Register actor runtime with ASP.NET Core startup&lt;/h3>
 &lt;p>The Actor runtime is configured through ASP.NET Core &lt;code>Startup.cs&lt;/code>.&lt;/p>
 &lt;p>The runtime uses the ASP.NET Core dependency injection system to register actor types and essential services. This integration is provided through the &lt;code>AddActors(...)&lt;/code> method call in &lt;code>ConfigureServices(...)&lt;/code>. Use the delegate passed to &lt;code>AddActors(...)&lt;/code> to register actor types and configure actor runtime settings. You can register additional types for dependency injection inside &lt;code>ConfigureServices(...)&lt;/code>. These will be available to be injected into the constructors of your Actor types.&lt;/p>
 &lt;p>Actors are implemented via HTTP calls with the Dapr runtime. This functionality is part of the application&amp;rsquo;s HTTP processing pipeline and is registered inside &lt;code>UseEndpoints(...)&lt;/code> inside &lt;code>Configure(...)&lt;/code>.&lt;/p>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp"> &lt;span style="color:#75715e">// In Startup.cs
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">void&lt;/span> ConfigureServices(IServiceCollection services)
+&lt;p>Paste the following code into &lt;code>Startup.cs&lt;/code> in the &lt;code>MyActorService&lt;/code> project:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#66d9ef">using&lt;/span> Microsoft.AspNetCore.Builder;
+&lt;span style="color:#66d9ef">using&lt;/span> Microsoft.AspNetCore.Hosting;
+&lt;span style="color:#66d9ef">using&lt;/span> Microsoft.Extensions.DependencyInjection;
+&lt;span style="color:#66d9ef">using&lt;/span> Microsoft.Extensions.Hosting;
+&lt;span style="color:#66d9ef">namespace&lt;/span> MyActorService
 {
-&lt;span style="color:#75715e">// Register actor runtime with DI
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> services.AddActors(options =&amp;gt;
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">Startup&lt;/span>
+{
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">void&lt;/span> ConfigureServices(IServiceCollection services)
+{
+services.AddActors(options =&amp;gt;
 {
 &lt;span style="color:#75715e">// Register actor types and configure actor settings
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> options.Actors.RegisterActor&amp;lt;MyActor&amp;gt;();
 });
-&lt;span style="color:#75715e">// Register additional services for use with actors
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> services.AddSingleton&amp;lt;BankService&amp;gt;();
 }
 &lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">void&lt;/span> Configure(IApplicationBuilder app, IWebHostEnvironment env)
 {
@@ -227,10 +436,7 @@ Console.WriteLine(&lt;span style="color:#e6db74">&amp;#34;OnTimerCallBack is cal
 {
 app.UseDeveloperExceptionPage();
 }
-&lt;span style="color:#66d9ef">else&lt;/span>
-{
-app.UseHsts();
-}
+app.UseHttpsRedirection();
 app.UseRouting();
 app.UseEndpoints(endpoints =&amp;gt;
 {
@@ -238,130 +444,99 @@ app.UseEndpoints(endpoints =&amp;gt;
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> endpoints.MapActorsHandlers();
 });
 }
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="optional---override-default-actor-settings">&lt;strong>Optional&lt;/strong> - Override Default Actor Settings&lt;/h3>
-&lt;p>Actor Settings are per app. The settings described &lt;a href="https://docs.dapr.io/reference/api/actors_api/">here&lt;/a> are available on the options and can be modified as below.&lt;/p>
-&lt;p>The following code extends the previous section to do this. Please note the values below are an &lt;strong>example&lt;/strong> only.&lt;/p>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">
-&lt;span style="color:#75715e">// In Startup.cs
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">void&lt;/span> ConfigureServices(IServiceCollection services)
-{
-&lt;span style="color:#75715e">// Register actor runtime with DI
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> services.AddActors(options =&amp;gt;
-{
-&lt;span style="color:#75715e">// Register actor types and configure actor settings
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> options.Actors.RegisterActor&amp;lt;MyActor&amp;gt;();
-options.ActorIdleTimeout = TimeSpan.FromMinutes(&lt;span style="color:#ae81ff">10&lt;/span>);
-options.ActorScanInterval = TimeSpan.FromSeconds(&lt;span style="color:#ae81ff">35&lt;/span>);
-options.DrainOngoingCallTimeout = TimeSpan.FromSeconds(&lt;span style="color:#ae81ff">35&lt;/span>);
-options.DrainRebalancedActors = &lt;span style="color:#66d9ef">true&lt;/span>;
-});
-&lt;span style="color:#75715e">// Register additional services for use with actors
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> services.AddSingleton&amp;lt;BankService&amp;gt;();
 }
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="step-3---add-a-client">STEP 3 - Add a client&lt;/h2>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="step-3-add-a-client">Step 3: Add a client&lt;/h2>
 &lt;p>Create a simple console app to call the actor service. Dapr SDK provides Actor Proxy client to invoke actor methods defined in Actor Interface.&lt;/p>
-&lt;h3 id="create-project-and-add-dependencies-2">Create project and add dependencies&lt;/h3>
+&lt;h3 id="create-actor-client-project-and-add-dependencies">Create actor client project and add dependencies&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#75715e"># Create Actor&amp;#39;s Client&lt;/span>
 dotnet new console -o MyActorClient
 cd MyActorClient
 &lt;span style="color:#75715e"># Add Dapr.Actors nuget package. Please use the latest package version from nuget.org&lt;/span>
-dotnet add package Dapr.Actors -v 1.0.0-rc02
+dotnet add package Dapr.Actors -v 1.0.0
 &lt;span style="color:#75715e"># Add Actor Interface reference&lt;/span>
 dotnet add reference ../MyActor.Interfaces/MyActor.Interfaces.csproj
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="invoke-actor-method-with-actor-service-remoting">Invoke Actor method with Actor Service Remoting&lt;/h3>
-&lt;p>We recommend to use the local proxy to actor instance because &lt;code>ActorProxy.Create&amp;lt;IMyActor&amp;gt;(actorID, actorType)&lt;/code> returns strongly-typed actor instance to set up the remote procedure call.&lt;/p>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#66d9ef">namespace&lt;/span> MyActorClient
-{
+cd ..
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="invoke-actor-methods-with-strongly-typed-client">Invoke actor methods with strongly-typed client&lt;/h3>
+&lt;p>You can use &lt;code>ActorProxy.Create&amp;lt;IMyActor&amp;gt;(..)&lt;/code> to create a strongly-typed client and invoke methods on the actor.&lt;/p>
+&lt;p>Paste the following code into &lt;code>Program.cs&lt;/code> in the &lt;code>MyActorClient&lt;/code> project:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#66d9ef">using&lt;/span> System;
+&lt;span style="color:#66d9ef">using&lt;/span> System.Threading.Tasks;
 &lt;span style="color:#66d9ef">using&lt;/span> Dapr.Actors;
 &lt;span style="color:#66d9ef">using&lt;/span> Dapr.Actors.Client;
 &lt;span style="color:#66d9ef">using&lt;/span> MyActor.Interfaces;
-&lt;span style="color:#66d9ef">using&lt;/span> System;
-&lt;span style="color:#66d9ef">using&lt;/span> System.Threading.Tasks;
-...
-&lt;span style="color:#66d9ef">static&lt;/span> &lt;span style="color:#66d9ef">async&lt;/span> Task InvokeActorMethodWithRemotingAsync()
+&lt;span style="color:#66d9ef">namespace&lt;/span> MyActorClient
 {
-&lt;span style="color:#66d9ef">var&lt;/span> actorType = &lt;span style="color:#e6db74">&amp;#34;MyActor&amp;#34;&lt;/span>; &lt;span style="color:#75715e">// Registered Actor Type in Actor Service
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">var&lt;/span> actorID = &lt;span style="color:#66d9ef">new&lt;/span> ActorId(&lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span>);
-&lt;span style="color:#75715e">// Create the local proxy by using the same interface that the service implements
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">// By using this proxy, you can call strongly typed methods on the interface using Remoting.
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">var&lt;/span> proxy = ActorProxy.Create&amp;lt;IMyActor&amp;gt;(actorID, actorType);
+&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">Program&lt;/span>
+{
+&lt;span style="color:#66d9ef">static&lt;/span> &lt;span style="color:#66d9ef">async&lt;/span> Task MainAsync(&lt;span style="color:#66d9ef">string&lt;/span>[] args)
+{
+Console.WriteLine(&lt;span style="color:#e6db74">&amp;#34;Startup up...&amp;#34;&lt;/span>);
+&lt;span style="color:#75715e">// Registered Actor Type in Actor Service
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">var&lt;/span> actorType = &lt;span style="color:#e6db74">&amp;#34;MyActor&amp;#34;&lt;/span>;
+&lt;span style="color:#75715e">// An ActorId uniquely identifies an actor instance
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">// If the actor matching this id does not exist, it will be created
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">var&lt;/span> actorId = &lt;span style="color:#66d9ef">new&lt;/span> ActorId(&lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span>);
+&lt;span style="color:#75715e">// Create the local proxy by using the same interface that the service implements.
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">//
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">// You need to provide the type and id so the actor can be located.
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">var&lt;/span> proxy = ActorProxy.Create&amp;lt;IMyActor&amp;gt;(actorId, actorType);
+&lt;span style="color:#75715e">// Now you can use the actor interface to call the actor&amp;#39;s methods.
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> Console.WriteLine(&lt;span style="color:#e6db74">$&amp;#34;Calling SetDataAsync on {actorType}:{actorId}...&amp;#34;&lt;/span>);
 &lt;span style="color:#66d9ef">var&lt;/span> response = &lt;span style="color:#66d9ef">await&lt;/span> proxy.SetDataAsync(&lt;span style="color:#66d9ef">new&lt;/span> MyData()
 {
 PropertyA = &lt;span style="color:#e6db74">&amp;#34;ValueA&amp;#34;&lt;/span>,
 PropertyB = &lt;span style="color:#e6db74">&amp;#34;ValueB&amp;#34;&lt;/span>,
 });
-Console.WriteLine(response);
+Console.WriteLine(&lt;span style="color:#e6db74">$&amp;#34;Got response: {response}&amp;#34;&lt;/span>);
+Console.WriteLine(&lt;span style="color:#e6db74">$&amp;#34;Calling GetDataAsync on {actorType}:{actorId}...&amp;#34;&lt;/span>);
 &lt;span style="color:#66d9ef">var&lt;/span> savedData = &lt;span style="color:#66d9ef">await&lt;/span> proxy.GetDataAsync();
-Console.WriteLine(savedData);
+Console.WriteLine(&lt;span style="color:#e6db74">$&amp;#34;Got response: {response}&amp;#34;&lt;/span>);
 }
-...
 }
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="invoke-actor-method-without-actor-service-remoting">Invoke Actor method without Actor Service Remoting&lt;/h3>
-&lt;p>You can invoke Actor methods without remoting (directly over http or using helper methods provided in ActorProxy), if Actor method accepts at-most one argument. Actor runtime will deserialize the incoming request body from client and use it as method argument to invoke the actor method.
-When making non-remoting calls Actor method arguments and return types are serialized, deserialized as JSON.&lt;/p>
-&lt;p>&lt;code>ActorProxy.Create(actorID, actorType)&lt;/code> returns ActorProxy instance and allow to use the raw http client to invoke the method defined in &lt;code>IMyActor&lt;/code>.&lt;/p>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#66d9ef">namespace&lt;/span> MyActorClient
-{
-&lt;span style="color:#66d9ef">using&lt;/span> Dapr.Actors;
-&lt;span style="color:#66d9ef">using&lt;/span> Dapr.Actors.Client;
-&lt;span style="color:#66d9ef">using&lt;/span> MyActor.Interfaces;
-&lt;span style="color:#66d9ef">using&lt;/span> System;
-&lt;span style="color:#66d9ef">using&lt;/span> System.Threading.Tasks;
-...
-&lt;span style="color:#66d9ef">static&lt;/span> &lt;span style="color:#66d9ef">async&lt;/span> Task InvokeActorMethodWithoutRemotingAsync()
-{
-&lt;span style="color:#66d9ef">var&lt;/span> actorType = &lt;span style="color:#e6db74">&amp;#34;MyActor&amp;#34;&lt;/span>;
-&lt;span style="color:#66d9ef">var&lt;/span> actorID = &lt;span style="color:#66d9ef">new&lt;/span> ActorId(&lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span>);
-&lt;span style="color:#75715e">// Create Actor Proxy instance to invoke the methods defined in the interface
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">var&lt;/span> proxy = ActorProxy.Create(actorID, actorType);
-&lt;span style="color:#75715e">// Need to specify the method name and response type explicitly
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">var&lt;/span> response = &lt;span style="color:#66d9ef">await&lt;/span> proxy.InvokeMethodAsync&amp;lt;MyData, &lt;span style="color:#66d9ef">string&lt;/span>&amp;gt;(&lt;span style="color:#e6db74">&amp;#34;SetDataAsync&amp;#34;&lt;/span>, &lt;span style="color:#66d9ef">new&lt;/span> MyData()
-{
-PropertyA = &lt;span style="color:#e6db74">&amp;#34;ValueA&amp;#34;&lt;/span>,
-PropertyB = &lt;span style="color:#e6db74">&amp;#34;ValueB&amp;#34;&lt;/span>,
-});
-Console.WriteLine(response);
-&lt;span style="color:#66d9ef">var&lt;/span> savedData = &lt;span style="color:#66d9ef">await&lt;/span> proxy.InvokeMethodAsync&amp;lt;MyData&amp;gt;(&lt;span style="color:#e6db74">&amp;#34;GetDataAsync&amp;#34;&lt;/span>);
-Console.WriteLine(savedData);
 }
-...
-}
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="run-actor">Run Actor&lt;/h2>
-&lt;p>In order to validate and debug actor service and client, we need to run actor services via Dapr CLI first.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="running-the-code">Running the code&lt;/h2>
+&lt;p>The projects that you&amp;rsquo;ve created can now to test the sample.&lt;/p>
 &lt;ol>
 &lt;li>
-&lt;p>Run Dapr Runtime via Dapr cli&lt;/p>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">$ dapr run --app-id myapp --app-port &lt;span style="color:#ae81ff">5000&lt;/span> --dapr-http-port &lt;span style="color:#ae81ff">3500&lt;/span> dotnet run
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>After executing MyActorService via Dapr runtime, make sure that application is discovered on port 5000 and actor connection is established successfully.&lt;/p>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash"> INFO&lt;span style="color:#f92672">[&lt;/span>0000&lt;span style="color:#f92672">]&lt;/span> starting Dapr Runtime -- version -- commit
-INFO&lt;span style="color:#f92672">[&lt;/span>0000&lt;span style="color:#f92672">]&lt;/span> log level set to: info
-INFO&lt;span style="color:#f92672">[&lt;/span>0000&lt;span style="color:#f92672">]&lt;/span> standalone mode configured
-INFO&lt;span style="color:#f92672">[&lt;/span>0000&lt;span style="color:#f92672">]&lt;/span> dapr id: myapp
-INFO&lt;span style="color:#f92672">[&lt;/span>0000&lt;span style="color:#f92672">]&lt;/span> loaded component statestore &lt;span style="color:#f92672">(&lt;/span>state.redis&lt;span style="color:#f92672">)&lt;/span>
-INFO&lt;span style="color:#f92672">[&lt;/span>0000&lt;span style="color:#f92672">]&lt;/span> application protocol: http. waiting on port &lt;span style="color:#ae81ff">5000&lt;/span>
-INFO&lt;span style="color:#f92672">[&lt;/span>0000&lt;span style="color:#f92672">]&lt;/span> application discovered on port &lt;span style="color:#ae81ff">5000&lt;/span>
-INFO&lt;span style="color:#f92672">[&lt;/span>0000&lt;span style="color:#f92672">]&lt;/span> application configuration loaded
-2019/08/27 14:42:06 redis: connecting to localhost:6379
-2019/08/27 14:42:06 redis: connected to localhost:6379 &lt;span style="color:#f92672">(&lt;/span>localAddr: &lt;span style="color:#f92672">[&lt;/span>::1&lt;span style="color:#f92672">]&lt;/span>:53155, remAddr: &lt;span style="color:#f92672">[&lt;/span>::1&lt;span style="color:#f92672">]&lt;/span>:6379&lt;span style="color:#f92672">)&lt;/span>
-INFO&lt;span style="color:#f92672">[&lt;/span>0000&lt;span style="color:#f92672">]&lt;/span> actor runtime started. actor idle timeout: 1h0m0s. actor scan interval: 30s
-INFO&lt;span style="color:#f92672">[&lt;/span>0000&lt;span style="color:#f92672">]&lt;/span> actors: starting connection attempt to placement service at localhost:50005
-INFO&lt;span style="color:#f92672">[&lt;/span>0000&lt;span style="color:#f92672">]&lt;/span> http server is running on port &lt;span style="color:#ae81ff">3500&lt;/span>
-INFO&lt;span style="color:#f92672">[&lt;/span>0000&lt;span style="color:#f92672">]&lt;/span> gRPC server is running on port &lt;span style="color:#ae81ff">50001&lt;/span>
-INFO&lt;span style="color:#f92672">[&lt;/span>0000&lt;span style="color:#f92672">]&lt;/span> dapr initialized. Status: Running. Init Elapsed 19.699438ms
-INFO&lt;span style="color:#f92672">[&lt;/span>0000&lt;span style="color:#f92672">]&lt;/span> actors: established connection to placement service at localhost:50005
-INFO&lt;span style="color:#f92672">[&lt;/span>0000&lt;span style="color:#f92672">]&lt;/span> actors: placement order received: lock
-INFO&lt;span style="color:#f92672">[&lt;/span>0000&lt;span style="color:#f92672">]&lt;/span> actors: placement order received: update
-INFO&lt;span style="color:#f92672">[&lt;/span>0000&lt;span style="color:#f92672">]&lt;/span> actors: placement tables updated
-INFO&lt;span style="color:#f92672">[&lt;/span>0000&lt;span style="color:#f92672">]&lt;/span> actors: placement order received: unlock
-...
+&lt;p>Run MyActorService&lt;/p>
+&lt;p>Since &lt;code>MyActorService&lt;/code> is hosting actors, it needs to be run with the Dapr CLI.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">cd MyActorService
+dapr run --app-id myapp --app-port &lt;span style="color:#ae81ff">5000&lt;/span> --dapr-http-port &lt;span style="color:#ae81ff">3500&lt;/span> -- dotnet run
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>You will see commandline output from both &lt;code>daprd&lt;/code> and &lt;code>MyActorService&lt;/code> in this terminal. You should see something like the following, which indicates that the application started successfully.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-txt" data-lang="txt">...
+ℹ️ Updating metadata for app command: dotnet run
+✅ You&amp;#39;re up and running! Both Dapr and your app logs will appear here.
+== APP == info: Microsoft.Hosting.Lifetime[0]
+== APP == Now listening on: https://localhost:5001
+== APP == info: Microsoft.Hosting.Lifetime[0]
+== APP == Now listening on: http://localhost:5000
+== APP == info: Microsoft.Hosting.Lifetime[0]
+== APP == Application started. Press Ctrl+C to shut down.
+== APP == info: Microsoft.Hosting.Lifetime[0]
+== APP == Hosting environment: Development
+== APP == info: Microsoft.Hosting.Lifetime[0]
+== APP == Content root path: /Users/ryan/actortest/MyActorService
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
 &lt;p>Run MyActorClient&lt;/p>
-&lt;p>MyActorClient will console out if it calls actor hosted in MyActorService successfully.&lt;/p>
-&lt;blockquote>
-&lt;p>If you specify the different Dapr runtime http port (default port: 3500), you need to set DAPR_HTTP_PORT environment variable before running the client.&lt;/p>
-&lt;/blockquote>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">Success
-PropertyA: ValueA, PropertyB: ValueB
+&lt;p>&lt;code>MyActorClient&lt;/code> is acting as the client, and it can be run normally with &lt;code>dotnet run&lt;/code>.&lt;/p>
+&lt;p>Open a new terminal an navigate to the &lt;code>MyActorClient&lt;/code> directory. Then run the project with:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dotnet run
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>You should see commandline output like:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-txt" data-lang="txt">Startup up...
+Calling SetDataAsync on MyActor:1...
+Got response: Success
+Calling GetDataAsync on MyActor:1...
+Got response: Success
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
-&lt;/ol></description></item></channel></rss>
+&lt;/ol>
+&lt;blockquote>
+&lt;p>💡 This sample relies on a few assumptions. The default listening port for an ASP.NET Core web project is 5000, which is being passed to &lt;code>dapr run&lt;/code> as &lt;code>--app-port 5000&lt;/code>. The default HTTP port for the Dapr sidecar is 3500. We&amp;rsquo;re telling the sidecar for &lt;code>MyActorService&lt;/code> to use 3500 so that &lt;code>MyActorClient&lt;/code> can rely on the default value.&lt;/p>
+&lt;/blockquote>
+&lt;p>Now you have successfully created an actor service and client. See the related links section to learn more.&lt;/p>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actors-client/">.NET Dapr Actors client guide&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actors-usage/">.NET Dapr Actors usage guide&lt;/a>&lt;/li>
+&lt;/ul></description></item></channel></rss>

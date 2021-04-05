@@ -70,6 +70,78 @@ The above example uses secrets as plain strings. It is recommended to use a loca
 &lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/component-secrets/">How-To: Reference secrets in Dapr components&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/en/reference/api/secrets_api/">Secrets API reference&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: AWS SSM Parameter Store</title><link>https://docs.dapr.io/en/operations/components/setup-secret-store/supported-secret-stores/aws-parameter-store/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/operations/components/setup-secret-store/supported-secret-stores/aws-parameter-store/</guid><description>
+&lt;h2 id="component-format">Component format&lt;/h2>
+&lt;p>To setup AWS SSM Parameter Store secret store create a component of type &lt;code>secretstores.aws.parameterstore&lt;/code>. See &lt;a href="https://docs.dapr.io/en/operations/components/setup-secret-store/secret-stores-overview/#apply-the-configuration">this guide&lt;/a> on how to create and apply a secretstore configuration. See this guide on &lt;a href="https://docs.dapr.io/en/operations/components/component-secrets/">referencing secrets&lt;/a> to retrieve and use the secret with Dapr components.&lt;/p>
+&lt;p>See &lt;a href="https://docs.dapr.io/en/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a> for information about authentication-related attributes.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">awsparameterstore&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">secretstores.aws.parameterstore&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">region&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[aws_region]&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">accessKey&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[aws_access_key]&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">secretKey&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[aws_secret_key]&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">sessionToken&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[aws_session_token]&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a local secret store such as &lt;a href="https://docs.dapr.io/en/operations/components/setup-secret-store/supported-secret-stores/kubernetes-secret-store/">Kubernetes secret store&lt;/a> or a &lt;a href="https://docs.dapr.io/en/operations/components/setup-secret-store/supported-secret-stores/file-secret-store/">local file&lt;/a> to bootstrap secure key storage.
+&lt;/div>
+&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Field&lt;/th>
+&lt;th style="text-align:center">Required&lt;/th>
+&lt;th>Details&lt;/th>
+&lt;th>Example&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>region&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The specific AWS region the AWS SSM Parameter Store instance is deployed in&lt;/td>
+&lt;td>&lt;code>&amp;quot;us-east-1&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>accessKey&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The AWS Access Key to access this resource&lt;/td>
+&lt;td>&lt;code>&amp;quot;key&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>secretKey&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The AWS Secret Access Key to access this resource&lt;/td>
+&lt;td>&lt;code>&amp;quot;secretAccessKey&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>sessionToken&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The AWS session token to use&lt;/td>
+&lt;td>&lt;code>&amp;quot;sessionToken&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="create-an-aws-ssm-parameter-store-instance">Create an AWS SSM Parameter Store instance&lt;/h2>
+&lt;p>Setup AWS SSM Parameter Store using the AWS documentation: &lt;a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html">https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html&lt;/a>.&lt;/p>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/secrets/">Secrets building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/secrets/howto-secrets/">How-To: Retrieve a secret&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/component-secrets/">How-To: Reference secrets in Dapr components&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/reference/api/secrets_api/">Secrets API reference&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/integrations/authenticating/authenticating-aws/">Authenticating to AWS&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: Azure Key Vault secret store</title><link>https://docs.dapr.io/en/operations/components/setup-secret-store/supported-secret-stores/azure-keyvault/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/operations/components/setup-secret-store/supported-secret-stores/azure-keyvault/</guid><description>
 &lt;div class="alert alert-primary" role="alert">
 &lt;h4 class="alert-heading">Note&lt;/h4>

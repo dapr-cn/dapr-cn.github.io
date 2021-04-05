@@ -1,4 +1,69 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Kubernetes 集群配置</title><link>https://docs.dapr.io/operations/hosting/kubernetes/cluster/</link><description>Recent content in Kubernetes 集群配置 on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/operations/hosting/kubernetes/cluster/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: 设置 Azure Kubernetes 服务集群</title><link>https://docs.dapr.io/operations/hosting/kubernetes/cluster/setup-aks/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/hosting/kubernetes/cluster/setup-aks/</guid><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Kubernetes 集群配置</title><link>https://docs.dapr.io/operations/hosting/kubernetes/cluster/</link><description>Recent content in Kubernetes 集群配置 on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/operations/hosting/kubernetes/cluster/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: 设置 Minikube 集群</title><link>https://docs.dapr.io/operations/hosting/kubernetes/cluster/setup-minikube/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/hosting/kubernetes/cluster/setup-minikube/</guid><description>
+&lt;h1 id="设置-minikube-集群">设置 Minikube 集群&lt;/h1>
+&lt;h2 id="前期准备">前期准备&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.docker.com/install/">Docker&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/">kubectl&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://minikube.sigs.k8s.io/docs/start/">Minikube&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>注意：对于Windows，在 BIOS 和 &lt;a href="https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v">安装 Hyper-V&lt;/a> 启用虚拟化（Vitualization）&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="启动-minikube-集群">启动 Minikube 集群&lt;/h2>
+&lt;ol>
+&lt;li>(可选) 设置默认的 VM 驱动&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">minikube config set vm-driver &lt;span style="color:#f92672">[&lt;/span>driver_name&lt;span style="color:#f92672">]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>注意：关于支持的驱动程序和如何安装插件的详细信息，请参阅 &lt;a href="https://minikube.sigs.k8s.io/docs/reference/drivers/">DRIVERS&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;ol start="2">
+&lt;li>使用 1.13.x 或更新版本的 Kubernetes &lt;code>--kubernetes-version&lt;/code> 启动集群&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">minikube start --cpus&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">4&lt;/span> --memory&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">4096&lt;/span> --kubernetes-version&lt;span style="color:#f92672">=&lt;/span>1.16.2 --extra-config&lt;span style="color:#f92672">=&lt;/span>apiserver.authorization-mode&lt;span style="color:#f92672">=&lt;/span>RBAC
+&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="3">
+&lt;li>启用仪表盘和 ingress 插件&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#75715e"># 启用 dashboard&lt;/span>
+minikube addons enable dashboard
+&lt;span style="color:#75715e"># 启用 ingress&lt;/span>
+minikube addons enable ingress
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="可选-安装helm-v3">(可选) 安装Helm v3&lt;/h2>
+&lt;ol>
+&lt;li>&lt;a href="https://helm.sh/docs/intro/install/">安装 Helm v3 客户端&lt;/a>&lt;/li>
+&lt;/ol>
+&lt;blockquote>
+&lt;p>&lt;strong>注意：&lt;/strong> 最新的 Dapr helm chart 不再支持 Helm v2。 请按照这篇文章 &lt;a href="https://helm.sh/blog/migrate-from-helm-v2-to-helm-v3/">Helm 迁移指南&lt;/a> 从Helm v2 迁移到Helm v3。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="疑难解答">疑难解答&lt;/h3>
+&lt;ol>
+&lt;li>负载均衡器的外部IP地址不显示在&lt;code>kubectl get svc&lt;/code>&lt;/li>
+&lt;/ol>
+&lt;p>在 Minikube 中，您 Service 的 EXTERNAL-IP 在 &lt;code>kubectl get svc&lt;/code> 显示 &lt;code>&amp;lt;pending&amp;gt;&lt;/code> 在这种情况下，您可以运行 &lt;code>minikube service [service_name]&lt;/code> 在没有外部 IP 地址的情况下打开您的服务。 在这种情况下，您可以运行 &lt;code>minikube service [service_name]&lt;/code> 在没有外部 IP 地址的情况下打开您的服务。&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">$ kubectl get svc
+NAME TYPE CLUSTER-IP EXTERNAL-IP PORT&lt;span style="color:#f92672">(&lt;/span>S&lt;span style="color:#f92672">)&lt;/span> AGE
+...
+$ kubectl get svc
+NAME TYPE CLUSTER-IP EXTERNAL-IP PORT&lt;span style="color:#f92672">(&lt;/span>S&lt;span style="color:#f92672">)&lt;/span> AGE
+...
+calculator-front-end LoadBalancer 10.103.98.37 &amp;lt;pending&amp;gt; 80:30534/TCP 25h
+calculator-front-end-dapr ClusterIP 10.107.128.226 &amp;lt;none&amp;gt; 80/TCP,50001/TCP 25h
+...
+$ minikube service calculator-front-end
+|-----------|----------------------|-------------|---------------------------|
+| NAMESPACE | NAME | TARGET PORT | URL |
+|-----------|----------------------|-------------|---------------------------|
+| default | calculator-front-end | | http://192.168.64.7:30534 |
+|-----------|----------------------|-------------|---------------------------|
+Opening kubernetes service default/calculator-front-end in default browser...
+$ minikube service calculator-front-end
+|-----------|----------------------|-------------|---------------------------|
+| NAMESPACE | NAME | TARGET PORT | URL |
+|-----------|----------------------|-------------|---------------------------|
+| default | calculator-front-end | | http://192.168.64.7:30534 |
+|-----------|----------------------|-------------|---------------------------|
+🎉 Opening kubernetes service default/calculator-front-end in default browser...
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Operations: 设置 Azure Kubernetes 服务集群</title><link>https://docs.dapr.io/operations/hosting/kubernetes/cluster/setup-aks/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/hosting/kubernetes/cluster/setup-aks/</guid><description>
 &lt;h1 id="设置-azure-kubernetes-服务集群">设置 Azure Kubernetes 服务集群&lt;/h1>
 &lt;h2 id="前期准备">前期准备&lt;/h2>
 &lt;ul>
@@ -42,36 +107,31 @@
 &lt;li>如果您需要 Kubernetes 仪表板权限，(例如 configmaps is forbidden: User &amp;ldquo;system:serviceaccount:kube-system:kubernetes-dashboard&amp;rdquo; cannot list configmaps in the namespace &amp;ldquo;default&amp;rdquo; 等等），执行这个命令&lt;/li>
 &lt;/ol>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl create clusterrolebinding kubernetes-dashboard -n kube-system --clusterrole&lt;span style="color:#f92672">=&lt;/span>cluster-admin --serviceaccount&lt;span style="color:#f92672">=&lt;/span>kube-system:kubernetes-dashboard
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Operations: 设置 Minikube 集群</title><link>https://docs.dapr.io/operations/hosting/kubernetes/cluster/setup-minikube/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/hosting/kubernetes/cluster/setup-minikube/</guid><description>
-&lt;h1 id="设置-minikube-集群">设置 Minikube 集群&lt;/h1>
-&lt;h2 id="前期准备">前期准备&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Operations: Setup a Google Kubernetes Engine cluster</title><link>https://docs.dapr.io/operations/hosting/kubernetes/cluster/setup-gke/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/hosting/kubernetes/cluster/setup-gke/</guid><description>
+&lt;h3 id="前期准备">前期准备&lt;/h3>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.docker.com/install/">Docker&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/">kubectl&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://minikube.sigs.k8s.io/docs/start/">Minikube&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://cloud.google.com/sdk">Google Cloud SDK&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;blockquote>
-&lt;p>注意：对于Windows，在 BIOS 和 &lt;a href="https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v">安装 Hyper-V&lt;/a> 启用虚拟化（Vitualization）&lt;/p>
-&lt;/blockquote>
-&lt;h2 id="启动-minikube-集群">启动 Minikube 集群&lt;/h2>
-&lt;ol>
-&lt;li>(可选) 设置默认的 VM 驱动&lt;/li>
-&lt;/ol>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">minikube config set vm-driver &lt;span style="color:#f92672">[&lt;/span>driver_name&lt;span style="color:#f92672">]&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
-&lt;p>注意：关于支持的驱动程序和如何安装插件的详细信息，请参阅 &lt;a href="https://minikube.sigs.k8s.io/docs/reference/drivers/">DRIVERS&lt;/a>。&lt;/p>
-&lt;/blockquote>
-&lt;ol start="2">
-&lt;li>使用 1.13.x 或更新版本的 Kubernetes &lt;code>--kubernetes-version&lt;/code> 启动集群&lt;/li>
-&lt;/ol>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">minikube start --cpus&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">4&lt;/span> --memory&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">4096&lt;/span> --kubernetes-version&lt;span style="color:#f92672">=&lt;/span>1.16.2 --extra-config&lt;span style="color:#f92672">=&lt;/span>apiserver.authorization-mode&lt;span style="color:#f92672">=&lt;/span>RBAC
-&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="3">
-&lt;li>启用仪表盘和 ingress 插件&lt;/li>
-&lt;/ol>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#75715e"># 启用 dashboard&lt;/span>
-minikube addons enable dashboard
-&lt;span style="color:#75715e"># 启用 ingress&lt;/span>
-minikube addons enable ingress
+&lt;h2 id="create-a-new-cluster">Create a new cluster&lt;/h2>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">$ gcloud services enable container.googleapis.com &lt;span style="color:#f92672">&amp;amp;&amp;amp;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> gcloud container clusters create $CLUSTER_NAME &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> --zone $ZONE &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> --project $PROJECT_ID
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>For more options refer to the &lt;a href="https://cloud.google.com/sdk/gcloud/reference/container/clusters/create">Google Cloud SDK docs&lt;/a>, or instead create a cluster through the &lt;a href="https://console.cloud.google.com/kubernetes">Cloud Console&lt;/a> for a more interactive experience.&lt;/p>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">For private GKE clusters&lt;/h4>
+&lt;p>Sidecar injection will not work for private clusters without extra steps. An automatically created firewall rule for master access does not open port 4000. This is needed for Dapr sidecar injection.&lt;/p>
+&lt;p>To review the relevant firewall rule:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">$ gcloud compute firewall-rules list --filter&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;name~gke-&lt;/span>&lt;span style="color:#e6db74">${&lt;/span>CLUSTER_NAME&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74">-[0-9a-z]*-master&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>To replace the existing rule and allow kubernetes master access to port 4000:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">$ gcloud compute firewall-rules update &amp;lt;firewall-rule-name&amp;gt; --allow tcp:10250,tcp:443,tcp:4000
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;/div>
+&lt;h2 id="retrieve-your-credentials-for-kubectl">Retrieve your credentials for &lt;code>kubectl&lt;/code>&lt;/h2>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">$ gcloud container clusters get-credentials $CLUSTER_NAME &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> --zone $ZONE &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> --project $PROJECT_ID
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="可选-安装helm-v3">(可选) 安装Helm v3&lt;/h2>
 &lt;ol>
 &lt;li>&lt;a href="https://helm.sh/docs/intro/install/">安装 Helm v3 客户端&lt;/a>&lt;/li>
@@ -79,32 +139,8 @@ minikube addons enable ingress
 &lt;blockquote>
 &lt;p>&lt;strong>注意：&lt;/strong> 最新的 Dapr helm chart 不再支持 Helm v2。 请按照这篇文章 &lt;a href="https://helm.sh/blog/migrate-from-helm-v2-to-helm-v3/">Helm 迁移指南&lt;/a> 从Helm v2 迁移到Helm v3。&lt;/p>
 &lt;/blockquote>
-&lt;h3 id="疑难解答">疑难解答&lt;/h3>
-&lt;ol>
-&lt;li>负载均衡器的外部IP地址不显示在&lt;code>kubectl get svc&lt;/code>&lt;/li>
+&lt;ol start="2">
+&lt;li>如果您需要 Kubernetes 仪表板权限，(例如 configmaps is forbidden: User &amp;ldquo;system:serviceaccount:kube-system:kubernetes-dashboard&amp;rdquo; cannot list configmaps in the namespace &amp;ldquo;default&amp;rdquo; 等等），执行这个命令&lt;/li>
 &lt;/ol>
-&lt;p>在 Minikube 中，您 Service 的 EXTERNAL-IP 在 &lt;code>kubectl get svc&lt;/code> 显示 &lt;code>&amp;lt;pending&amp;gt;&lt;/code> 在这种情况下，您可以运行 &lt;code>minikube service [service_name]&lt;/code> 在没有外部 IP 地址的情况下打开您的服务。&lt;/p>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">$ kubectl get svc
-NAME TYPE CLUSTER-IP EXTERNAL-IP PORT&lt;span style="color:#f92672">(&lt;/span>S&lt;span style="color:#f92672">)&lt;/span> AGE
-...
-$ kubectl get svc
-NAME TYPE CLUSTER-IP EXTERNAL-IP PORT&lt;span style="color:#f92672">(&lt;/span>S&lt;span style="color:#f92672">)&lt;/span> AGE
-...
-calculator-front-end LoadBalancer 10.103.98.37 &amp;lt;pending&amp;gt; 80:30534/TCP 25h
-calculator-front-end-dapr ClusterIP 10.107.128.226 &amp;lt;none&amp;gt; 80/TCP,50001/TCP 25h
-...
-$ minikube service calculator-front-end
-|-----------|----------------------|-------------|---------------------------|
-| NAMESPACE | NAME | TARGET PORT | URL |
-|-----------|----------------------|-------------|---------------------------|
-| default | calculator-front-end | | http://192.168.64.7:30534 |
-|-----------|----------------------|-------------|---------------------------|
-🎉 Opening kubernetes service default/calculator-front-end in default browser...
-$ minikube service calculator-front-end
-|-----------|----------------------|-------------|---------------------------|
-| NAMESPACE | NAME | TARGET PORT | URL |
-|-----------|----------------------|-------------|---------------------------|
-| default | calculator-front-end | | http://192.168.64.7:30534 |
-|-----------|----------------------|-------------|---------------------------|
-🎉 Opening kubernetes service default/calculator-front-end in default browser...
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl create clusterrolebinding kubernetes-dashboard -n kube-system --clusterrole&lt;span style="color:#f92672">=&lt;/span>cluster-admin --serviceaccount&lt;span style="color:#f92672">=&lt;/span>kube-system:kubernetes-dashboard
 &lt;/code>&lt;/pre>&lt;/div></description></item></channel></rss>

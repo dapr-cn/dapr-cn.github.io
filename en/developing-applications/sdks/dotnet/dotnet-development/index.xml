@@ -1,0 +1,106 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr Docs – Developing applications with the Dapr .NET SDK</title><link>https://docs.dapr.io/en/developing-applications/sdks/dotnet/dotnet-development/</link><description>Recent content in Developing applications with the Dapr .NET SDK on Dapr Docs</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/en/developing-applications/sdks/dotnet/dotnet-development/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Dapr .NET SDK Development with Dapr CLI</title><link>https://docs.dapr.io/en/developing-applications/sdks/dotnet/dotnet-development/dotnet-development-dapr-cli/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/developing-applications/sdks/dotnet/dotnet-development/dotnet-development-dapr-cli/</guid><description>
+&lt;h2 id="dapr-cli">Dapr CLI&lt;/h2>
+&lt;p>&lt;em>Consider this to be a .NET companion to the [Dapr Self-Hosted with Docker Guide]({{ ref self-hosted-overview.md }}))&lt;/em>.&lt;/p>
+&lt;p>The Dapr CLI provides you with a good base to work from by initializing a local redis container, zipkin container, the placement service, and component manifests for redis. This will enable you to work with the following building blocks on a fresh install with no additional setup:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/service-invocation/">Service invocation&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/">State Store&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/pubsub/">Pub/Sub&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/actors/">Actors&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>You can run .NET services with &lt;code>dapr run&lt;/code> as your strategy for developing locally. Plan on running one of these commands per-service in order to launch your application.&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Pro:&lt;/strong> this is easy to set up since its part of the default Dapr installation&lt;/li>
+&lt;li>&lt;strong>Con:&lt;/strong> this uses long-running docker containers on your machine, which might not be desirable&lt;/li>
+&lt;li>&lt;strong>Con:&lt;/strong> the scalability of this approach is poor since it requires running a separate command per-service&lt;/li>
+&lt;/ul>
+&lt;h3 id="using-the-dapr-cli">Using the Dapr CLI&lt;/h3>
+&lt;p>For each service you need to choose:&lt;/p>
+&lt;ul>
+&lt;li>A unique app-id for addressing (&lt;code>app-id&lt;/code>)&lt;/li>
+&lt;li>A unique listening port for HTTP (&lt;code>port&lt;/code>)&lt;/li>
+&lt;/ul>
+&lt;p>You also should have decided on where you are storing components (&lt;code>components-path&lt;/code>).&lt;/p>
+&lt;p>The following command can be run from multiple terminals to launch each service, with the respective values substituted.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-sh" data-lang="sh">dapr run --app-id &amp;lt;app-id&amp;gt; --app-port &amp;lt;port&amp;gt; --components-path &amp;lt;components-path&amp;gt; -- dotnet run -p &amp;lt;project&amp;gt; --urls http://localhost:&amp;lt;port&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Explanation:&lt;/strong> this command will use &lt;code>dapr run&lt;/code> to launch each service and its sidecar. The first half of the command (before &lt;code>--&lt;/code>) passes required configuration to the Dapr CLI. The second half of the command (after &lt;code>--&lt;/code>) passes required configuration to the &lt;code>dotnet run&lt;/code> command.&lt;/p>
+&lt;div class="alert alert-primary" role="alert">
+&lt;h4 class="alert-heading">💡 Ports&lt;/h4>
+Since you need to configure a unique port for each service, you can use this command to pass that port value to &lt;strong>both&lt;/strong> Dapr and the service. &lt;code>--urls http://localhost:&amp;lt;port&amp;gt;&lt;/code> will configure ASP.NET Core to listen for traffic on the provided port. Using configuration at the commandline is a more flexible approach than hardcoding a listening port elsewhere.
+&lt;/div>
+&lt;p>If any of your services do not accept HTTP traffic, then modify the command above by removing the &lt;code>--app-port&lt;/code> and &lt;code>--urls&lt;/code> arguments.&lt;/p>
+&lt;h3 id="next-steps">Next steps&lt;/h3>
+&lt;p>If you need to debug, then use the attach feature of your debugger to attach to one of the running processes.&lt;/p>
+&lt;p>If you want to scale up this approach, then consider building a script which automates this process for your whole application.&lt;/p></description></item><item><title>Developing-Applications: Dapr .NET SDK Development with Project Tye</title><link>https://docs.dapr.io/en/developing-applications/sdks/dotnet/dotnet-development/dotnet-development-tye/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/developing-applications/sdks/dotnet/dotnet-development/dotnet-development-tye/</guid><description>
+&lt;h2 id="project-tye">Project Tye&lt;/h2>
+&lt;p>&lt;a href="https://github.com/dotnet/tye/">.NET Project Tye&lt;/a> is a microservices development tool designed to make running many .NET services easy. Tye enables you to store a configuration of multiple .NET services, processes, and container images as a runnable application.&lt;/p>
+&lt;p>Tye is advantageous for a .NET Dapr developer because:&lt;/p>
+&lt;ul>
+&lt;li>Tye has the ability to automate the dapr CLI built-in&lt;/li>
+&lt;li>Tye understands .NET&amp;rsquo;s conventions and requires almost no configuration for .NET services&lt;/li>
+&lt;li>Tye can manage the lifetime of your dependencies in containers&lt;/li>
+&lt;/ul>
+&lt;p>Pros/cons:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Pro:&lt;/strong> Tye can automate all of the steps described above. You no longer need to think about concepts like ports or app-ids.&lt;/li>
+&lt;li>&lt;strong>Pro:&lt;/strong> Since Tye can also manage containers for you, you can make those part of the application definition and stop the long-running containers on your machine.&lt;/li>
+&lt;/ul>
+&lt;h3 id="using-tye">Using Tye&lt;/h3>
+&lt;p>Follow the &lt;a href="https://github.com/dotnet/tye/blob/master/docs/getting_started.md">Tye Getting Started&lt;/a> to install the &lt;code>tye&lt;/code> CLI and create a &lt;code>tye.yaml&lt;/code> for your application.&lt;/p>
+&lt;p>Next follow the steps in the &lt;a href="https://github.com/dotnet/tye/blob/master/docs/recipes/dapr.md">Tye Dapr recipe&lt;/a> to add Dapr. Make sure to specify the relative path to your components folder with &lt;code>components-path&lt;/code> in &lt;code>tye.yaml&lt;/code>.&lt;/p>
+&lt;p>Next add any additional container dependencies and add component definitions to the folder you created earlier.&lt;/p>
+&lt;p>You should end up with something like this:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">store-application&lt;/span>
+&lt;span style="color:#f92672">extensions&lt;/span>:
+&lt;span style="color:#75715e"># Configuration for dapr goes here.&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">dapr&lt;/span>
+&lt;span style="color:#f92672">components-path&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;components-path&amp;gt; &lt;/span>
+&lt;span style="color:#75715e"># Services to run go here.&lt;/span>
+&lt;span style="color:#f92672">services&lt;/span>:
+&lt;span style="color:#75715e"># The name will be used as the app-id. For a .NET project, Tye only needs the path to the project file.&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">orders&lt;/span>
+&lt;span style="color:#f92672">project&lt;/span>: &lt;span style="color:#ae81ff">orders/orders.csproj&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">products&lt;/span>
+&lt;span style="color:#f92672">project&lt;/span>: &lt;span style="color:#ae81ff">products/products.csproj&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">store&lt;/span>
+&lt;span style="color:#f92672">project&lt;/span>: &lt;span style="color:#ae81ff">store/store.csproj&lt;/span>
+&lt;span style="color:#75715e"># Containers you want to run need an image name and set of ports to expose.&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">redis&lt;/span>
+&lt;span style="color:#f92672">image&lt;/span>: &lt;span style="color:#ae81ff">redis&lt;/span>
+&lt;span style="color:#f92672">bindings&lt;/span>:
+- &lt;span style="color:#f92672">port&lt;/span>: &lt;span style="color:#ae81ff">6973&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Checkin &lt;code>tye.yaml&lt;/code> in source control wiht the application code.&lt;/p>
+&lt;p>You can now use &lt;code>tye run&lt;/code> to launch the whole application from one terminal. When running, Tye has a dashboard at &lt;code>http://localhost:8000&lt;/code> to view application status and logs.&lt;/p>
+&lt;h3 id="next-steps">Next steps&lt;/h3>
+&lt;p>Tye runs your services locally as normal .NET process. If you need to debug, then use the attach feature of your debugger to attach to one of the running processes. Since Tye is .NET aware, it has the ability to &lt;a href="https://github.com/dotnet/tye/blob/master/docs/reference/commandline/tye-run.md#options">start a process suspended&lt;/a> for startup debugging.&lt;/p>
+&lt;p>Tye also has an &lt;a href="https://github.com/dotnet/tye/blob/master/docs/reference/commandline/tye-run.md#options">option&lt;/a> to run your services in containers if you wish to test locally in containers.&lt;/p></description></item><item><title>Developing-Applications: Dapr .NET SDK Development with Docker-Compose</title><link>https://docs.dapr.io/en/developing-applications/sdks/dotnet/dotnet-development/dotnet-development-docker-compose/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/developing-applications/sdks/dotnet/dotnet-development/dotnet-development-docker-compose/</guid><description>
+&lt;h2 id="docker-compose">Docker-Compose&lt;/h2>
+&lt;p>&lt;em>Consider this to be a .NET companion to the [Dapr Self-Hosted with Docker Guide]({{ ref self-hosted-with-docker.md }}))&lt;/em>.&lt;/p>
+&lt;p>&lt;code>docker-compose&lt;/code> is a CLI tool included with Docker Desktop that you can use to run multiple containers at a time. It is a way to automate the lifecycle of multiple containers together, and offers a development experience similar to a production environment for applications targeting Kubernetes.&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Pro:&lt;/strong> Since &lt;code>docker-compose&lt;/code> manages containers for you, you can make dependencies part of the application definition and stop the long-running containers on your machine.&lt;/li>
+&lt;li>&lt;strong>Con:&lt;/strong> most investment required, services need to be containerized to get started.&lt;/li>
+&lt;li>&lt;strong>Con:&lt;/strong> can be difficult to debug and troubleshoot if you are unfamilar with Docker.&lt;/li>
+&lt;/ul>
+&lt;h3 id="using-docker-compose">Using docker-compose&lt;/h3>
+&lt;p>From the .NET perspective, there is no specialized guidance needed for &lt;code>docker-compose&lt;/code> with Dapr. &lt;code>docker-compose&lt;/code> runs containers, and once your service is in a container, configuring it similar to any other programming technology.&lt;/p>
+&lt;div class="alert alert-primary" role="alert">
+&lt;h4 class="alert-heading">💡 App Port&lt;/h4>
+In a container, an ASP.NET Core app will listen on port 80 by default. Remember this for when you need to configure the &lt;code>--app-port&lt;/code> later.
+&lt;/div>
+&lt;p>To summarize the approach:&lt;/p>
+&lt;ul>
+&lt;li>Create a &lt;code>Dockerfile&lt;/code> for each service&lt;/li>
+&lt;li>Create a &lt;code>docker-compose.yaml&lt;/code> and place check it in to the source code repository&lt;/li>
+&lt;/ul>
+&lt;p>To understand the authoring the &lt;code>docker-compose.yaml&lt;/code> you should start with the &lt;a href="https://github.com/dapr/samples/tree/master/hello-docker-compose">Hello, docker-compose sample&lt;/a>.&lt;/p>
+&lt;p>Similar to running locally with &lt;code>dapr run&lt;/code> for each service you need to choose a unique app-id. Choosing the container name as the app-id will make this simple to remember.&lt;/p>
+&lt;p>The compose file will contain at a minimum:&lt;/p>
+&lt;ul>
+&lt;li>A network that the containers use to communiate&lt;/li>
+&lt;li>Each service&amp;rsquo;s container&lt;/li>
+&lt;li>A &lt;code>&amp;lt;service&amp;gt;-daprd&lt;/code> sidecar container with the service&amp;rsquo;s port and app-id specified&lt;/li>
+&lt;li>Additional dependencies that run in containers (redis for example)&lt;/li>
+&lt;li>optional: Dapr placement container (for actors)&lt;/li>
+&lt;/ul>
+&lt;p>You can also view a larger example from the &lt;a href="https://github.com/dotnet-architecture/eShopOnDapr/blob/master/docker-compose.yml">eShopOnContainers&lt;/a> sample application.&lt;/p></description></item></channel></rss>

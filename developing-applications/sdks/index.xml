@@ -10,7 +10,7 @@
 &lt;/div>
 &lt;div class="card">
 &lt;div class="card-body">
-&lt;h5 class="card-title">&lt;b>服务器&lt;/b>&lt;/h5>
+&lt;h5 class="card-title">&lt;b>Server&lt;/b>&lt;/h5>
 &lt;p class="card-text">使用 Dapr SDK 在 .NET 中编写服务器和服务。 包括对 ASP.NET的支持。&lt;/p>
 &lt;a href="https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-server/" class="stretched-link">&lt;/a>
 &lt;/div>
@@ -27,29 +27,37 @@
 &lt;div class="card-deck">
 &lt;div class="card">
 &lt;div class="card-body">
+&lt;h5 class="card-title">&lt;b>Development&lt;/b>&lt;/h5>
+&lt;p class="card-text">Learn about local development options for .NET Dapr applications&lt;/p>
+&lt;a href="https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-development/" class="stretched-link">&lt;/a>
+&lt;/div>
+&lt;/div>
+&lt;div class="card">
+&lt;div class="card-body">
 &lt;h5 class="card-title">&lt;b>示例&lt;/b>&lt;/h5>
-&lt;p class="card-text">克隆.NET SDK repo来尝试一些示例并快速开始。&lt;/p>
+&lt;p class="card-text">Clone the .NET SDK repo to try out some of the examples and get started quickly.&lt;/p>
 &lt;a href="https://github.com/dapr/dotnet-sdk/tree/master/examples" class="stretched-link">&lt;/a>
 &lt;/div>
 &lt;/div>
 &lt;div class="card">
 &lt;div class="card-body">
-&lt;h5 class="card-title">&lt;b>故障排除&lt;/b>&lt;/h5>
+&lt;h5 class="card-title">&lt;b>疑难解答&lt;/b>&lt;/h5>
 &lt;p class="card-text">关于 Dapr API，CLI，资源绑定及更多内容的详细文档&lt;/p>
 &lt;a href="https://docs.dapr.io/reference/" class="stretched-link">&lt;/a>
 &lt;/div>
 &lt;/div>
 &lt;div class="card">
 &lt;div class="card-body">
-&lt;h5 class="card-title">&lt;b>Nuget 包&lt;/b>&lt;/h5>
-&lt;p class="card-text">为您的 .NET应用程序 添加 .NET SDK 的 Dapr 包。&lt;/p>
+&lt;h5 class="card-title">&lt;b>NuGet packages&lt;/b>&lt;/h5>
+&lt;p class="card-text">Dapr packages for adding the .NET SDKs to your .NET applications.&lt;/p>
 &lt;a href="https://www.nuget.org/profiles/dapr.io" class="stretched-link">&lt;/a>
 &lt;/div>
 &lt;/div>
-&lt;/div></description></item><item><title>Developing-Applications: Dapr PHP SDK</title><link>https://docs.dapr.io/developing-applications/sdks/php/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/php/</guid><description>
+&lt;/div>
+&lt;br /></description></item><item><title>Developing-Applications: Dapr PHP SDK</title><link>https://docs.dapr.io/developing-applications/sdks/php/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/php/</guid><description>
 &lt;p>Dapr offers an SDK to help with the development of PHP applications. Using it, you can create PHP clients, servers, and virtual actors with Dapr.&lt;/p>
 &lt;h2 id="setting-up">Setting up&lt;/h2>
-&lt;h3 id="prerequisites">Prerequisites&lt;/h3>
+&lt;h3 id="前期准备">前期准备&lt;/h3>
 &lt;ul>
 &lt;li>&lt;a href="https://getcomposer.org/">Composer&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://www.php.net/">PHP 8&lt;/a>&lt;/li>
@@ -151,13 +159,13 @@ Development
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">pip install dapr-dev
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
 &lt;/div>
-&lt;h2 id="试试吧">试试吧&lt;/h2>
+&lt;h2 id="try-it-out">Try it out&lt;/h2>
 &lt;p>克隆Python SDK 仓库来尝试一些 &lt;a href="https://github.com/dapr/python-sdk/tree/master/examples">示例&lt;/a>。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">git clone https://github.com/dapr/python-sdk.git
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="更多信息">更多信息&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://pypi.org/user/dapr.io/">Python 软件包索引 (PyPI)&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/sdk-serialization/">Dapr SDK 序列化&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/sdk-serialization/">Dapr SDK serialization&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Developing-Applications: Dapr SDK中的序列化</title><link>https://docs.dapr.io/developing-applications/sdks/sdk-serialization/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/sdk-serialization/</guid><description>
 &lt;p>Dapr的SDK为下面两种情况提供序列化： 首先是对于通过请求和响应的有效载荷传递的API对象。 其次，对于要持久化的对象。 对于这两种情况，SDK都提供了默认的序列化实现。 在Java SDK中，由&lt;a href="https://dapr.github.io/java-sdk/io/dapr/serializer/DefaultObjectSerializer.html">DefaultObjectSerializer&lt;/a>这个类提供JSON序列化功能。&lt;/p>
 &lt;h2 id="服务调用">服务调用&lt;/h2>
@@ -188,7 +196,9 @@ client&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">p
 &lt;span style="color:#75715e">// Dapr&amp;#39;s event is compliant to CloudEvent.
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> CloudEvent event &lt;span style="color:#f92672">=&lt;/span> CloudEvent&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">deserialize&lt;/span>&lt;span style="color:#f92672">(&lt;/span>body&lt;span style="color:#f92672">);&lt;/span>
 &lt;span style="color:#f92672">}&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="bindings">Bindings&lt;/h2>
+CloudEvent event &lt;span style="color:#f92672">=&lt;/span> CloudEvent&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">deserialize&lt;/span>&lt;span style="color:#f92672">(&lt;/span>body&lt;span style="color:#f92672">);&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="绑定">绑定&lt;/h2>
 &lt;p>在这种情况下，对象也会被序列化为&lt;code>byte[]&lt;/code>类型，而输入绑定会按原样接收原始的&lt;code>byte[]&lt;/code>，并将其反序列化为预期的对象类型。&lt;/p>
 &lt;ul>
 &lt;li>输出绑定:&lt;/li>

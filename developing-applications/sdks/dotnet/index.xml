@@ -1,10 +1,9 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Dapr .NET SDK</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/</link><description>Recent content in Dapr .NET SDK on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/developing-applications/sdks/dotnet/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Dapr actors .NET SDK入门</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/</guid><description>
-&lt;p>通过Dapr actor 程序包，您可以与.NET应用程序中的Dapr虚拟actor进行交互。&lt;/p></description></item><item><title>Developing-Applications: Dapr 客户端 .NET SDK入门</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-client/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-client/</guid><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Dapr .NET SDK</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/</link><description>Recent content in Dapr .NET SDK on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/developing-applications/sdks/dotnet/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Dapr 客户端 .NET SDK入门</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-client/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-client/</guid><description>
 &lt;p>Dapr 客户端包允许您从.NET应用程序中与其他 Dapr 应用程序进行交互。&lt;/p>
-&lt;h2 id="先决条件">先决条件&lt;/h2>
+&lt;h2 id="前期准备">前期准备&lt;/h2>
 &lt;ul>
 &lt;li>安装 &lt;a href="https://docs.dapr.io/getting-started/install-dapr-cli/">Dapr CLI&lt;/a>&lt;/li>
-&lt;li>初始化后的 &lt;a href="https://docs.dapr.io/getting-started/install-dapr-selfhost/">Dapr 环境&lt;/a>&lt;/li>
+&lt;li>初始化的 &lt;a href="https://docs.dapr.io/getting-started/install-dapr-selfhost/">Dapr 环境&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://dotnet.microsoft.com/download">.NET Core 3.1 或 .NET 5+&lt;/a> 已安装&lt;/li>
 &lt;/ul>
 &lt;h2 id="构建块">构建块&lt;/h2>
@@ -115,4 +114,26 @@ Console.WriteLine(&lt;span style="color:#e6db74">&amp;#34;Got a secret value, I&
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://github.com/dapr/dotnet-sdk/tree/master/examples">.NET SDK 示例&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Developing-Applications: 使用 Dapr .NET SDK 创建服务器</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-server/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-server/</guid><description/></item><item><title>Developing-Applications: 如何用 Dapr.NET SDK 进行故障排除和诊断</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-troubleshooting/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-troubleshooting/</guid><description/></item></channel></rss>
+&lt;/ul></description></item><item><title>Developing-Applications: Dapr actors .NET SDK入门</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/</guid><description>
+&lt;p>通过Dapr actor 程序包，您可以与.NET应用程序中的Dapr虚拟actor进行交互。&lt;/p>
+&lt;p>See &lt;a href="https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actors-howto/">How to use Dapr actors&lt;/a> for getting started instructions.&lt;/p></description></item><item><title>Developing-Applications: Developing applications with the Dapr .NET SDK</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-development/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-development/</guid><description>
+&lt;h2 id="thinking-more-than-one-at-a-time">Thinking more than one at a time&lt;/h2>
+&lt;p>Using your favorite IDE or editor to launch an application typically assumes that you only need to run one thing - the application you are debugging. However, developing microservices challenges you think about your local development process for &lt;em>more than one at a time&lt;/em>. A microservices application has multiple services that you might need running at the same time as well as dependencies like state stores to manage.&lt;/p>
+&lt;p>Adding Dapr to your development process means you need to manage the following concerns:&lt;/p>
+&lt;ul>
+&lt;li>Each service you want to run&lt;/li>
+&lt;li>A Dapr sidecar for each service&lt;/li>
+&lt;li>Dapr component and configuration manifests&lt;/li>
+&lt;li>Additional dependencies such as state stores&lt;/li>
+&lt;li>optional: the Dapr placement service for actors&lt;/li>
+&lt;/ul>
+&lt;p>This document will assume that you&amp;rsquo;re building a production application, and want to create a repeatable and robust set of development practices. The guidance here is general, and applies to any .NET server application using Dapr (including actors).&lt;/p>
+&lt;h2 id="managing-components">Managing components&lt;/h2>
+&lt;p>You have two primary methods of storing component definitions for local development with Dapr:&lt;/p>
+&lt;ul>
+&lt;li>Use the default location (&lt;code>~/.dapr/components&lt;/code>)&lt;/li>
+&lt;li>Use your own location&lt;/li>
+&lt;/ul>
+&lt;p>Creating a folder within your source code repository to store components and configuration will give you a way to version and share these definitions. The guidance provided here will assume you created a folder next to the application source code to store these files.&lt;/p>
+&lt;h2 id="development-options">Development options&lt;/h2>
+&lt;p>Choose one of these links to learn about tools you can use in local development scenarios. These articles are ordered from lowest investment to highest investment. You may want to read them all to get an overview of your options.&lt;/p></description></item><item><title>Developing-Applications: 使用 Dapr .NET SDK 创建服务器</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-server/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-server/</guid><description/></item><item><title>Developing-Applications: 如何用 Dapr.NET SDK 进行故障排除和诊断</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-troubleshooting/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-troubleshooting/</guid><description/></item></channel></rss>

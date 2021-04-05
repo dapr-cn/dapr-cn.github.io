@@ -115,4 +115,25 @@ Console.WriteLine(&lt;span style="color:#e6db74">&amp;#34;Got a secret value, I&
 &lt;ul>
 &lt;li>&lt;a href="https://github.com/dapr/dotnet-sdk/tree/master/examples">.NET SDK examples&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Developing-Applications: Create servers with the Dapr .NET SDK</title><link>https://docs.dapr.io/en/developing-applications/sdks/dotnet/dotnet-server/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/developing-applications/sdks/dotnet/dotnet-server/</guid><description/></item><item><title>Developing-Applications: Getting started with the Dapr actors .NET SDK</title><link>https://docs.dapr.io/en/developing-applications/sdks/dotnet/dotnet-actors/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/developing-applications/sdks/dotnet/dotnet-actors/</guid><description>
-&lt;p>The Dapr actor package allows you to interact with Dapr virtual actors from a .NET application.&lt;/p></description></item><item><title>Developing-Applications: How to troubleshoot and debug with the Dapr .NET SDK</title><link>https://docs.dapr.io/en/developing-applications/sdks/dotnet/dotnet-troubleshooting/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/developing-applications/sdks/dotnet/dotnet-troubleshooting/</guid><description/></item></channel></rss>
+&lt;p>The Dapr actor package allows you to interact with Dapr virtual actors from a .NET application.&lt;/p>
+&lt;p>See &lt;a href="https://docs.dapr.io/en/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actors-howto/">How to use Dapr actors&lt;/a> for getting started instructions.&lt;/p></description></item><item><title>Developing-Applications: Developing applications with the Dapr .NET SDK</title><link>https://docs.dapr.io/en/developing-applications/sdks/dotnet/dotnet-development/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/developing-applications/sdks/dotnet/dotnet-development/</guid><description>
+&lt;h2 id="thinking-more-than-one-at-a-time">Thinking more than one at a time&lt;/h2>
+&lt;p>Using your favorite IDE or editor to launch an application typically assumes that you only need to run one thing - the application you are debugging. However, developing microservices challenges you think about your local development process for &lt;em>more than one at a time&lt;/em>. A microservices application has multiple services that you might need running at the same time as well as dependencies like state stores to manage.&lt;/p>
+&lt;p>Adding Dapr to your development process means you need to manage the following concerns:&lt;/p>
+&lt;ul>
+&lt;li>Each service you want to run&lt;/li>
+&lt;li>A Dapr sidecar for each service&lt;/li>
+&lt;li>Dapr component and configuration manifests&lt;/li>
+&lt;li>Additional dependencies such as state stores&lt;/li>
+&lt;li>optional: the Dapr placement service for actors&lt;/li>
+&lt;/ul>
+&lt;p>This document will assume that you&amp;rsquo;re building a production application, and want to create a repeatable and robust set of development practices. The guidance here is general, and applies to any .NET server application using Dapr (including actors).&lt;/p>
+&lt;h2 id="managing-components">Managing components&lt;/h2>
+&lt;p>You have two primary methods of storing component definitions for local development with Dapr:&lt;/p>
+&lt;ul>
+&lt;li>Use the default location (&lt;code>~/.dapr/components&lt;/code>)&lt;/li>
+&lt;li>Use your own location&lt;/li>
+&lt;/ul>
+&lt;p>Creating a folder within your source code repository to store components and configuration will give you a way to version and share these definitions. The guidance provided here will assume you created a folder next to the application source code to store these files.&lt;/p>
+&lt;h2 id="development-options">Development options&lt;/h2>
+&lt;p>Choose one of these links to learn about tools you can use in local development scenarios. These articles are ordered from lowest investment to highest investment. You may want to read them all to get an overview of your options.&lt;/p></description></item><item><title>Developing-Applications: How to troubleshoot and debug with the Dapr .NET SDK</title><link>https://docs.dapr.io/en/developing-applications/sdks/dotnet/dotnet-troubleshooting/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/developing-applications/sdks/dotnet/dotnet-troubleshooting/</guid><description/></item></channel></rss>

@@ -1,26 +1,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Dapr Python SDK</title><link>https://docs.dapr.io/developing-applications/sdks/python/</link><description>Recent content in Dapr Python SDK on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/developing-applications/sdks/python/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Getting started with the Dapr client Python SDK</title><link>https://docs.dapr.io/developing-applications/sdks/python/python-client/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/python/python-client/</guid><description>
 &lt;p>The Dapr client package allows you to interact with other Dapr applications from a Python application.&lt;/p>
-&lt;h2 id="pre-requisites">Pre-requisites&lt;/h2>
+&lt;h2 id="前提">前提&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/getting-started/install-dapr-cli/">Dapr CLI&lt;/a> installed&lt;/li>
-&lt;li>Initialized &lt;a href="https://docs.dapr.io/getting-started/install-dapr-selfhost/">Dapr environment&lt;/a>&lt;/li>
+&lt;li>安装 &lt;a href="https://docs.dapr.io/getting-started/install-dapr-cli/">Dapr CLI&lt;/a>&lt;/li>
+&lt;li>初始化的 &lt;a href="https://docs.dapr.io/getting-started/install-dapr-selfhost/">Dapr 环境&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://www.python.org/downloads/">Python 3.7+&lt;/a> installed&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/python/#install-the0dapr-module">Dapr Python module&lt;/a> installed&lt;/li>
 &lt;/ul>
 &lt;h2 id="import-the-client-package">Import the client package&lt;/h2>
 &lt;p>The dapr package contains the &lt;code>DaprClient&lt;/code> which will be used to create and use a client.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">from&lt;/span> dapr.clients &lt;span style="color:#f92672">import&lt;/span> DaprClient
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="building-blocks">Building blocks&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="构建块">构建块&lt;/h2>
 &lt;p>The Python SDK allows you to interface with all of the &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/">Dapr building blocks&lt;/a>.&lt;/p>
-&lt;h3 id="invoke-a-service">Invoke a service&lt;/h3>
+&lt;h3 id="调用服务">调用服务&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">from&lt;/span> dapr.clients &lt;span style="color:#f92672">import&lt;/span> DaprClient
 &lt;span style="color:#66d9ef">with&lt;/span> DaprClient() &lt;span style="color:#66d9ef">as&lt;/span> d:
 resp &lt;span style="color:#f92672">=&lt;/span> d&lt;span style="color:#f92672">.&lt;/span>invoke_service(id&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;service-to-invoke&amp;#39;&lt;/span>, method&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;method-to-invoke&amp;#39;&lt;/span>, data&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;{&amp;#34;message&amp;#34;:&amp;#34;Hello World&amp;#34;}&amp;#39;&lt;/span>)
 &lt;/code>&lt;/pre>&lt;/div>&lt;ul>
-&lt;li>For a full guide on service invocation visit &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/service-invocation/howto-invoke-discover-services/">How-To: Invoke a service&lt;/a>.&lt;/li>
+&lt;li>有关服务调用的完整指南，请访问 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/service-invocation/howto-invoke-discover-services/">如何：调用服务&lt;/a>。&lt;/li>
 &lt;li>Visit &lt;a href="https://github.com/dapr/python-sdk/tree/daprdocs-setup/examples/invoke-simple">Python SDK examples&lt;/a> for code samples and instructions to try out service invocation&lt;/li>
 &lt;/ul>
-&lt;h3 id="save--get-application-state">Save &amp;amp; get application state&lt;/h3>
+&lt;h3 id="保存--获取-应用程序状态">保存 &amp;amp; 获取 应用程序状态&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">from&lt;/span> dapr.clients &lt;span style="color:#f92672">import&lt;/span> DaprClient
 &lt;span style="color:#66d9ef">with&lt;/span> DaprClient() &lt;span style="color:#66d9ef">as&lt;/span> d:
 &lt;span style="color:#75715e"># Save state&lt;/span>
@@ -30,31 +30,31 @@ data &lt;span style="color:#f92672">=&lt;/span> d&lt;span style="color:#f92672">
 &lt;span style="color:#75715e"># Delete state&lt;/span>
 d&lt;span style="color:#f92672">.&lt;/span>delete_state(store_name&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;statestore&amp;#34;&lt;/span>, key&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;key1&amp;#34;&lt;/span>)
 &lt;/code>&lt;/pre>&lt;/div>&lt;ul>
-&lt;li>For a full list of state operations visit &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/">How-To: Get &amp;amp; save state&lt;/a>.&lt;/li>
+&lt;li>有关状态操作的完整列表，请访问 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/">如何：获取 &amp;amp; 保存 状态。&lt;/a>。&lt;/li>
 &lt;li>Visit &lt;a href="https://github.com/dapr/python-sdk/tree/daprdocs-setup/examples/state_store">Python SDK examples&lt;/a> for code samples and instructions to try out state management&lt;/li>
 &lt;/ul>
-&lt;h3 id="publish-messages">Publish messages&lt;/h3>
+&lt;h3 id="发布消息">发布消息&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">from&lt;/span> dapr.clients &lt;span style="color:#f92672">import&lt;/span> DaprClient
 &lt;span style="color:#66d9ef">with&lt;/span> DaprClient() &lt;span style="color:#66d9ef">as&lt;/span> d:
 resp &lt;span style="color:#f92672">=&lt;/span> d&lt;span style="color:#f92672">.&lt;/span>publish_event(pubsub_name&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;pubsub&amp;#39;&lt;/span>, topic&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;TOPIC_A&amp;#39;&lt;/span>, data&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;{&amp;#34;message&amp;#34;:&amp;#34;Hello World&amp;#34;}&amp;#39;&lt;/span>)
 &lt;/code>&lt;/pre>&lt;/div>&lt;ul>
-&lt;li>For a full list of state operations visit &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/">How-To: Publish &amp;amp; subscribe&lt;/a>.&lt;/li>
+&lt;li>有关状态操作的完整列表，请访问 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/">如何: 发布 &amp;amp; 订阅&lt;/a>。&lt;/li>
 &lt;li>Visit &lt;a href="https://github.com/dapr/python-sdk/tree/daprdocs-setup/examples/pubsub-simple">Python SDK examples&lt;/a> for code samples and instructions to try out pub/sub&lt;/li>
 &lt;/ul>
-&lt;h3 id="interact-with-output-bindings">Interact with output bindings&lt;/h3>
+&lt;h3 id="与输出绑定交互">与输出绑定交互&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">from&lt;/span> dapr.clients &lt;span style="color:#f92672">import&lt;/span> DaprClient
 &lt;span style="color:#66d9ef">with&lt;/span> DaprClient() &lt;span style="color:#66d9ef">as&lt;/span> d:
 resp &lt;span style="color:#f92672">=&lt;/span> d&lt;span style="color:#f92672">.&lt;/span>invoke_binding(name&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;kafkaBinding&amp;#39;&lt;/span>, operation&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;create&amp;#39;&lt;/span>, data&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;{&amp;#34;message&amp;#34;:&amp;#34;Hello World&amp;#34;}&amp;#39;&lt;/span>)
 &lt;/code>&lt;/pre>&lt;/div>&lt;ul>
-&lt;li>For a full guide on output bindings visit &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings&lt;/a>.&lt;/li>
+&lt;li>有关输出绑定的完整指南，请访问 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/bindings/howto-bindings/">如何：使用绑定&lt;/a>。&lt;/li>
 &lt;li>Visit &lt;a href="https://github.com/dapr/python-sdk/tree/daprdocs-setup/examples/invoke-binding">Python SDK examples&lt;/a> for code samples and instructions to try out output bindings&lt;/li>
 &lt;/ul>
-&lt;h3 id="retrieve-secrets">Retrieve secrets&lt;/h3>
+&lt;h3 id="检索密钥">检索密钥&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">from&lt;/span> dapr.clients &lt;span style="color:#f92672">import&lt;/span> DaprClient
 &lt;span style="color:#66d9ef">with&lt;/span> DaprClient() &lt;span style="color:#66d9ef">as&lt;/span> d:
 resp &lt;span style="color:#f92672">=&lt;/span> d&lt;span style="color:#f92672">.&lt;/span>get_secret(store_name&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;localsecretstore&amp;#39;&lt;/span>, key&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;secretKey&amp;#39;&lt;/span>)
 &lt;/code>&lt;/pre>&lt;/div>&lt;ul>
-&lt;li>For a full guide on secrets visit &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/secrets/howto-secrets/">How-To: Retrieve secrets&lt;/a>.&lt;/li>
+&lt;li>有关密钥的完整指南，请访问&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/secrets/howto-secrets/">如何：检索密钥&lt;/a>。&lt;/li>
 &lt;li>Visit &lt;a href="https://github.com/dapr/python-sdk/tree/daprdocs-setup/examples/secret_store">Python SDK examples&lt;/a> for code samples and instructions to try out retrieving secrets&lt;/li>
 &lt;/ul>
 &lt;h2 id="相关链接">相关链接&lt;/h2>
@@ -62,10 +62,10 @@ resp &lt;span style="color:#f92672">=&lt;/span> d&lt;span style="color:#f92672">
 &lt;li>&lt;a href="https://github.com/dapr/python-sdk/tree/daprdocs-setup/examples">Python SDK examples&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Developing-Applications: Getting started with the Dapr actor Python SDK</title><link>https://docs.dapr.io/developing-applications/sdks/python/python-actor/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/python/python-actor/</guid><description>
 &lt;p>The Dapr actor package allows you to interact with Dapr virtual actors from a Python application.&lt;/p>
-&lt;h2 id="pre-requisites">Pre-requisites&lt;/h2>
+&lt;h2 id="前提">前提&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/getting-started/install-dapr-cli/">Dapr CLI&lt;/a> installed&lt;/li>
-&lt;li>Initialized &lt;a href="https://docs.dapr.io/getting-started/install-dapr-selfhost/">Dapr environment&lt;/a>&lt;/li>
+&lt;li>安装 &lt;a href="https://docs.dapr.io/getting-started/install-dapr-cli/">Dapr CLI&lt;/a>&lt;/li>
+&lt;li>初始化的 &lt;a href="https://docs.dapr.io/getting-started/install-dapr-selfhost/">Dapr 环境&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://www.python.org/downloads/">Python 3.7+&lt;/a> installed&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/python/#install-the0dapr-module">Dapr Python module&lt;/a> installed&lt;/li>
 &lt;/ul>

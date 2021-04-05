@@ -1,5 +1,5 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Dapr 中的组件管理</title><link>https://docs.dapr.io/operations/components/</link><description>Recent content in Dapr 中的组件管理 on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/operations/components/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: Component schema</title><link>https://docs.dapr.io/operations/components/component-schema/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/component-schema/</guid><description>
-&lt;p>Dapr defines and registers components using a &lt;a href="https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/">CustomResourceDefinition&lt;/a>. All components are defined as a CRD and can be applied to any hosting environment where Dapr is running, not just Kubernetes. All components are defined as a CRD and can be applied to any hosting environment where Dapr is running, not just Kubernetes.&lt;/p>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Dapr 中的组件管理</title><link>https://docs.dapr.io/operations/components/</link><description>Recent content in Dapr 中的组件管理 on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/operations/components/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: 组件schema</title><link>https://docs.dapr.io/operations/components/component-schema/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/component-schema/</guid><description>
+&lt;p>Dapr defines and registers components using a &lt;a href="https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/">CustomResourceDefinition&lt;/a>. All components are defined as a CRD and can be applied to any hosting environment where Dapr is running, not just Kubernetes.&lt;/p>
 &lt;h2 id="format">Format&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
@@ -19,22 +19,22 @@
 &lt;thead>
 &lt;tr>
 &lt;th>字段&lt;/th>
-&lt;th style="text-align:center">Required&lt;/th>
-&lt;th>Details&lt;/th>
-&lt;th>Example&lt;/th>
+&lt;th style="text-align:center">必填&lt;/th>
+&lt;th>详情&lt;/th>
+&lt;th>示例&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
 &lt;td>apiVersion&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>The version of the Dapr (and Kubernetes if applicable) API you are calling&lt;/td>
 &lt;td>&lt;code>dapr.io/v1alpha1&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>kind&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
-&lt;td>The type of CRD. The type of CRD. For components is must always be &lt;code>Component&lt;/code>&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
+&lt;td>The type of CRD. For components is must always be &lt;code>Component&lt;/code>&lt;/td>
 &lt;td>&lt;code>Component&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
@@ -45,7 +45,7 @@
 &lt;/tr>
 &lt;tr>
 &lt;td>metadata.name&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>The name of the component&lt;/td>
 &lt;td>&lt;code>prod-statestore&lt;/code>&lt;/td>
 &lt;/tr>
@@ -63,38 +63,38 @@
 &lt;/tr>
 &lt;tr>
 &lt;td>spec.type&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>The type of the component&lt;/td>
 &lt;td>&lt;code>state.redis&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>spec.version&lt;/td>
-&lt;td style="text-align:center">Y&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
 &lt;td>The version of the component&lt;/td>
 &lt;td>&lt;code>v1&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>spec.initTimeout&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>The timeout duration for the initialization of the component. Default is 30s Default is 30s&lt;/td>
+&lt;td>The timeout duration for the initialization of the component. Default is 30s&lt;/td>
 &lt;td>&lt;code>5m&lt;/code>, &lt;code>1h&lt;/code>, &lt;code>20s&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>spec.ignoreErrors&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Tells the Dapr sidecar to continue initialization if the component fails to load. Default is false Default is false&lt;/td>
+&lt;td>Tells the Dapr sidecar to continue initialization if the component fails to load. Default is false&lt;/td>
 &lt;td>&lt;code>false&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;strong>spec.metadata&lt;/strong>&lt;/td>
 &lt;td style="text-align:center">-&lt;/td>
-&lt;td>&lt;strong>A key/value pair of component specific configuration. See your component definition for fields See your component definition for fields&lt;/strong>&lt;/td>
+&lt;td>&lt;strong>A key/value pair of component specific configuration. See your component definition for fields&lt;/strong>&lt;/td>
 &lt;td>&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
 &lt;h3 id="special-metadata-values">Special metadata values&lt;/h3>
-&lt;p>Metadata values can contain a &lt;code>{uuid}&lt;/code> tag that is replaced with a randomly generate UUID when the Dapr sidecar starts up. A new UUID is generated on every start up. It can be used, for example, to have a pod on Kubernetes with multiple application instances consuming a &lt;a href="https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/setup-mqtt/">shared MQTT subscription&lt;/a>. Below is an example of using the &lt;code>{uuid}&lt;/code> tag. A new UUID is generated on every start up. It can be used, for example, to have a pod on Kubernetes with multiple application instances consuming a &lt;a href="https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/setup-mqtt/">shared MQTT subscription&lt;/a>. Below is an example of using the &lt;code>{uuid}&lt;/code> tag.&lt;/p>
+&lt;p>Metadata values can contain a &lt;code>{uuid}&lt;/code> tag that is replaced with a randomly generate UUID when the Dapr sidecar starts up. A new UUID is generated on every start up. It can be used, for example, to have a pod on Kubernetes with multiple application instances consuming a &lt;a href="https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/setup-mqtt/">shared MQTT subscription&lt;/a>. Below is an example of using the &lt;code>{uuid}&lt;/code> tag.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -113,25 +113,25 @@
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;false&amp;#34;&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">cleanSession&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;false&amp;#34;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="further-reading">Further reading&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="深入阅读">深入阅读&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/concepts/components-concept/">Components concept&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-secrets/">Reference secrets in component definitions&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/">Supported state stores&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/">支持的状态存储&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/">Supported pub/sub brokers&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/">Supported secret stores&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/operations/components/setup-bindings/supported-bindings/">Supported bindings&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-scopes/">Set component scopes&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: Certification lifecycle</title><link>https://docs.dapr.io/operations/components/certification-lifecycle/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/certification-lifecycle/</guid><description>
-&lt;h2 id="overview">Overview&lt;/h2>
-&lt;p>Dapr 使用模块化设计，将功能作为组件来提供。 每个组件都有接口定义。 All of the components are pluggable so that in ideal scenarios, you can swap out one component with the same interface for another. All of the components are pluggable so that in ideal scenarios, you can swap out one component with the same interface for another. Each component that is used in production, needs to maintain a certain set of technical requirements that ensure the functional compatibility and robustness of the component.&lt;/p>
+&lt;h2 id="概述">概述&lt;/h2>
+&lt;p>Dapr 使用模块化设计，将功能作为组件来提供。 每个组件都有接口定义。 All of the components are pluggable so that in ideal scenarios, you can swap out one component with the same interface for another. Each component that is used in production, needs to maintain a certain set of technical requirements that ensure the functional compatibility and robustness of the component.&lt;/p>
 &lt;p>In general a component needs to be:&lt;/p>
 &lt;ul>
 &lt;li>compliant with the defined Dapr interfaces&lt;/li>
 &lt;li>functionally correct and robust&lt;/li>
 &lt;li>well documented and maintained&lt;/li>
 &lt;/ul>
-&lt;p>To make sure a component conforms to the standards set by Dapr, there are a set of tests run against a component in a Dapr maintainers managed environment. Once the tests pass consistently, the maturity level can be determined for a component. Once the tests pass consistently, the maturity level can be determined for a component.&lt;/p>
+&lt;p>To make sure a component conforms to the standards set by Dapr, there are a set of tests run against a component in a Dapr maintainers managed environment. Once the tests pass consistently, the maturity level can be determined for a component.&lt;/p>
 &lt;h2 id="certification-levels">Certification levels&lt;/h2>
 &lt;p>The levels are as follows:&lt;/p>
 &lt;ul>
@@ -163,13 +163,13 @@
 &lt;li>The component is well documented, tested and maintained across multiple versions of components-contrib repo&lt;/li>
 &lt;/ul>
 &lt;h2 id="conformance-tests">Conformance tests&lt;/h2>
-&lt;p>Each component in the &lt;a href="https://github.com/dapr/components-contrib">components-contrib&lt;/a> repository needs to adhere to a set of interfaces defined by Dapr. Each component in the &lt;a href="https://github.com/dapr/components-contrib">components-contrib&lt;/a> repository needs to adhere to a set of interfaces defined by Dapr. Conformance tests are tests that are run on these component definitions with their associated backing services such that the component is tested to be conformant with the Dapr interface specifications and behavior.&lt;/p>
+&lt;p>Each component in the &lt;a href="https://github.com/dapr/components-contrib">components-contrib&lt;/a> repository needs to adhere to a set of interfaces defined by Dapr. Conformance tests are tests that are run on these component definitions with their associated backing services such that the component is tested to be conformant with the Dapr interface specifications and behavior.&lt;/p>
 &lt;p>The conformance tests are defined for the following building blocks:&lt;/p>
 &lt;ul>
 &lt;li>State store&lt;/li>
 &lt;li>Secret store&lt;/li>
-&lt;li>Bindings&lt;/li>
-&lt;li>Pub/Sub&lt;/li>
+&lt;li>绑定&lt;/li>
+&lt;li>发布/订阅&lt;/li>
 &lt;/ul>
 &lt;p>To understand more about them see the readme &lt;a href="https://github.com/dapr/components-contrib/blob/master/tests/conformance/README.md">here&lt;/a>.&lt;/p>
 &lt;h3 id="test-requirements">Test requirements&lt;/h3>
@@ -187,14 +187,14 @@
 &lt;li>The user details the environment setup in the issue created, so that a Dapr maintainer can setup the service in a managed environment&lt;/li>
 &lt;li>After the environment setup is complete, Dapr maintainers review the PR and if approved merges that PR&lt;/li>
 &lt;li>Dapr maintainers review functional correctness with the test being run in an environment maintained by the Dapr team&lt;/li>
-&lt;li>Dapr maintainers update the component status document categorized by Dapr Runtime version. This is done as part of the release process in the next release of Dapr runtime This is done as part of the release process in the next release of Dapr runtime&lt;/li>
+&lt;li>Dapr maintainers update the component status document categorized by Dapr Runtime version. This is done as part of the release process in the next release of Dapr runtime&lt;/li>
 &lt;/ul>
 &lt;h3 id="existing-ga-certified-component">Existing GA certified component&lt;/h3>
 &lt;p>For an existing GA certified component, conformance test should be run against any changes made to component code or the backing service version or the client version.&lt;/p>
 &lt;p>In the scenarios where a component version is updated, the component again starts from Alpha stage and then the new component certification is followed for that.&lt;/p></description></item><item><title>Operations: How-To: Scope components to one or more applications</title><link>https://docs.dapr.io/operations/components/component-scopes/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/component-scopes/</guid><description>
 &lt;p>Dapr components are namespaced (separate from the Kubernetes namespace concept), meaning a Dapr runtime instance can only access components that have been deployed to the same namespace.&lt;/p>
-&lt;p>When Dapr runs, it matches it&amp;rsquo;s own configured namespace with the namespace of the components that it loads and initializes only the ones matching its namespaces. All other components in a different namespace are not loaded. All other components in a different namespace are not loaded.&lt;/p>
-&lt;h2 id="namespaces">Namespaces&lt;/h2>
+&lt;p>When Dapr runs, it matches it&amp;rsquo;s own configured namespace with the namespace of the components that it loads and initializes only the ones matching its namespaces. All other components in a different namespace are not loaded.&lt;/p>
+&lt;h2 id="命名空间">命名空间&lt;/h2>
 &lt;p>Namespaces can be used to limit component access to particular Dapr instances.&lt;/p>
 &lt;ul class="nav nav-tabs" id="tabs-0" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
 id="tabs-0-self-hosted-tab" data-toggle="tab" href="#tabs-0-self-hosted" role="tab"
@@ -209,7 +209,7 @@ Kubernetes
 &lt;/li>&lt;/ul>
 &lt;div class="tab-content" id="tabs-0-content">
 &lt;div class="tab-pane fade show active" id="tabs-0-self-hosted" role="tabpanel" aria-labelled-by="tabs-0-self-hosted-tab">
-&lt;br />&lt;p>In self hosted mode, a developer can specify the namespace to a Dapr instance by setting the &lt;code>NAMESPACE&lt;/code> environment variable. If the &lt;code>NAMESPACE&lt;/code> environment variable is set, Dapr does not load any component that does not specify the same namespace in its metadata. If the &lt;code>NAMESPACE&lt;/code> environment variable is set, Dapr does not load any component that does not specify the same namespace in its metadata.&lt;/p>
+&lt;br />&lt;p>In self hosted mode, a developer can specify the namespace to a Dapr instance by setting the &lt;code>NAMESPACE&lt;/code> environment variable. If the &lt;code>NAMESPACE&lt;/code> environment variable is set, Dapr does not load any component that does not specify the same namespace in its metadata.&lt;/p>
 &lt;p>For example given this component in the &lt;code>production&lt;/code> namespace&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
@@ -247,7 +247,7 @@ Kubernetes
 &lt;/div>
 &lt;/div>
 &lt;h2 id="using-namespaces-with-service-invocation">Using namespaces with service invocation&lt;/h2>
-&lt;p>When using service invocation an application in a namespace you have to qualify it with the namespace. When using service invocation an application in a namespace you have to qualify it with the namespace. For example calling the &lt;code>ping&lt;/code> method on &lt;code>myapp&lt;/code> which is scoped to the &lt;code>production&lt;/code> namespace would be like this.&lt;/p>
+&lt;p>When using service invocation an application in a namespace you have to qualify it with the namespace. For example calling the &lt;code>ping&lt;/code> method on &lt;code>myapp&lt;/code> which is scoped to the &lt;code>production&lt;/code> namespace would be like this.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">https://localhost:3500/v1.0/invoke/myapp.production/method/ping
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>Or using a curl command from an external DNS address, in this case &lt;code>api.demo.dapr.team&lt;/code> would be like this.&lt;/p>
 &lt;p>MacOS/Linux:&lt;/p>
@@ -258,7 +258,7 @@ https://api.demo.dapr.team/v1.0/invoke/myapp.production/method/ping
 &lt;/code>&lt;/pre>&lt;h2 id="using-namespaces-with-pubsub">Using namespaces with pub/sub&lt;/h2>
 &lt;p>Read &lt;a href="https://docs.dapr.io/operations/components/component-scopes/">Pub/Sub and namespaces&lt;/a> for more information on scoping components.&lt;/p>
 &lt;h2 id="application-access-to-components-with-scopes">Application access to components with scopes&lt;/h2>
-&lt;p>Developers and operators might want to limit access for one database to a certain application, or a specific set of applications. Developers and operators might want to limit access for one database to a certain application, or a specific set of applications. To achieve this, Dapr allows you to specify &lt;code>scopes&lt;/code> on the component YAML. Application scopes added to a component limit only the applications with specific IDs to be able to use the component. Application scopes added to a component limit only the applications with specific IDs to be able to use the component.&lt;/p>
+&lt;p>Developers and operators might want to limit access for one database to a certain application, or a specific set of applications. To achieve this, Dapr allows you to specify &lt;code>scopes&lt;/code> on the component YAML. Application scopes added to a component limit only the applications with specific IDs to be able to use the component.&lt;/p>
 &lt;p>The following example shows how to give access to two Dapr enabled apps, with the app IDs of &lt;code>app1&lt;/code> and &lt;code>app2&lt;/code> to the Redis component named &lt;code>statestore&lt;/code> which itself is in the &lt;code>production&lt;/code> namespace&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
@@ -274,14 +274,14 @@ https://api.demo.dapr.team/v1.0/invoke/myapp.production/method/ping
 &lt;span style="color:#f92672">scopes&lt;/span>:
 - &lt;span style="color:#ae81ff">app1&lt;/span>
 - &lt;span style="color:#ae81ff">app2&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="example--iframe-width560-height315-srchttpswwwyoutubecomembed8w-ibdnvcumstart1763-frameborder0-allowaccelerometer-autoplay-clipboard-write-encrypted-media-gyroscope-picture-in-picture-allowfullscreen-markcrwd-markiframe">Example &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/8W-iBDNvCUM?start=1763" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark">&lt;/iframe>&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="示例-iframe-width560-height315-srchttpswwwyoutubecomembed8w-ibdnvcumstart1763-frameborder0-allowaccelerometer-autoplay-clipboard-write-encrypted-media-gyroscope-picture-in-picture-allowfullscreen-markcrwd-markiframe">示例 &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/8W-iBDNvCUM?start=1763" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark">&lt;/iframe>&lt;/h2>
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/operations/components/setup-pubsub/pubsub-namespaces/">Configure Pub/Sub components with multiple namespaces&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/secrets/secrets-scopes/">Use secret scoping&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/operations/configuration/secret-scope/">Limit the secrets that can be read from secret stores&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: How-To: Reference secrets in components</title><link>https://docs.dapr.io/operations/components/component-secrets/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/component-secrets/</guid><description>
-&lt;h2 id="overview">Overview&lt;/h2>
+&lt;h2 id="概述">概述&lt;/h2>
 &lt;p>Components can reference secrets for the &lt;code>spec.metadata&lt;/code> section within the components definition.&lt;/p>
 &lt;p>In order to reference a secret, you need to set the &lt;code>auth.secretStore&lt;/code> field to specify the name of the secret store that holds the secrets.&lt;/p>
 &lt;p>When running in Kubernetes, if the &lt;code>auth.secretStore&lt;/code> is empty, the Kubernetes secret store is assumed.&lt;/p>
@@ -322,7 +322,7 @@ https://api.demo.dapr.team/v1.0/invoke/myapp.production/method/ping
 &lt;span style="color:#f92672">secretStore&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;SECRET_STORE_NAME&amp;gt;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>SECRET_STORE_NAME&lt;/code> is the name of the configured &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/">secret store component&lt;/a>. When running in Kubernetes and using a Kubernetes secret store, the field &lt;code>auth.SecretStore&lt;/code> defaults to &lt;code>kubernetes&lt;/code> and can be left empty. When running in Kubernetes and using a Kubernetes secret store, the field &lt;code>auth.SecretStore&lt;/code> defaults to &lt;code>kubernetes&lt;/code> and can be left empty.&lt;/p>
 &lt;p>The above component definition tells Dapr to extract a secret named &lt;code>redis-secret&lt;/code> from the defined secret store and assign the value of the &lt;code>redis-password&lt;/code> key in the secret to the &lt;code>redisPassword&lt;/code> field in the Component.&lt;/p>
-&lt;h2 id="example">Example&lt;/h2>
+&lt;h2 id="示例">示例&lt;/h2>
 &lt;h3 id="referencing-a-kubernetes-secret">Referencing a Kubernetes secret&lt;/h3>
 &lt;p>The following example shows you how to create a Kubernetes secret to hold the connection string for an Event Hubs binding.&lt;/p>
 &lt;ol>
@@ -352,10 +352,10 @@ https://api.demo.dapr.team/v1.0/invoke/myapp.production/method/ping
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;/ol>
 &lt;h2 id="scoping-access-to-secrets">Scoping access to secrets&lt;/h2>
-&lt;p>Dapr can restrict access to secrets in a secret store using its configuration. Dapr can restrict access to secrets in a secret store using its configuration. Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/secrets/secrets-scopes/">How To: Use secret scoping&lt;/a> and &lt;a href="https://docs.dapr.io/operations/configuration/secret-scope/">How-To: Limit the secrets that can be read from secret stores&lt;/a> for more information. This is the recommended way to limit access to secrets using Dapr. This is the recommended way to limit access to secrets using Dapr.&lt;/p>
+&lt;p>Dapr can restrict access to secrets in a secret store using its configuration. Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/secrets/secrets-scopes/">How To: Use secret scoping&lt;/a> and &lt;a href="https://docs.dapr.io/operations/configuration/secret-scope/">How-To: Limit the secrets that can be read from secret stores&lt;/a> for more information. This is the recommended way to limit access to secrets using Dapr.&lt;/p>
 &lt;h2 id="kubernetes-permissions">Kubernetes permissions&lt;/h2>
 &lt;h3 id="default-namespace">Default namespace&lt;/h3>
-&lt;p>When running in Kubernetes, Dapr, during installtion, defines default Role and RoleBinding for secrets access from Kubernetes secret store in the &lt;code>default&lt;/code> namespace. For Dapr enabled apps that fetch secrets from &lt;code>default&lt;/code> namespace, a secret can be defined and referenced in components as shown in the example above. For Dapr enabled apps that fetch secrets from &lt;code>default&lt;/code> namespace, a secret can be defined and referenced in components as shown in the example above.&lt;/p>
+&lt;p>When running in Kubernetes, Dapr, during installtion, defines default Role and RoleBinding for secrets access from Kubernetes secret store in the &lt;code>default&lt;/code> namespace. For Dapr enabled apps that fetch secrets from &lt;code>default&lt;/code> namespace, a secret can be defined and referenced in components as shown in the example above.&lt;/p>
 &lt;h3 id="non-default-namespaces">Non-default namespaces&lt;/h3>
 &lt;p>If your Dapr enabled apps are using components that fetch secrets from non-default namespaces, apply the following resources to that namespace:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">---
@@ -384,10 +384,10 @@ https://api.demo.dapr.team/v1.0/invoke/myapp.production/method/ping
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>These resources grant Dapr permissions to get secrets from the Kubernetes secret store for the namespace defined in the Role and RoleBinding.&lt;/p>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Note&lt;/h4>
-In production scenario to limit Dapr&amp;rsquo;s access to certain secret resources alone, you can use the &lt;code>resourceNames&lt;/code> field. See this &lt;a href="https://kubernetes.io/docs/reference/access-authn-authz/rbac/#referring-to-resources">link&lt;/a> for further explanation. See this &lt;a href="https://kubernetes.io/docs/reference/access-authn-authz/rbac/#referring-to-resources">link&lt;/a> for further explanation.
+In production scenario to limit Dapr&amp;rsquo;s access to certain secret resources alone, you can use the &lt;code>resourceNames&lt;/code> field. See this &lt;a href="https://kubernetes.io/docs/reference/access-authn-authz/rbac/#referring-to-resources">link&lt;/a> for further explanation.
 &lt;/div>
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/secrets/secrets-scopes/">Use secret scoping&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/operations/configuration/secret-scope/">Limit the secrets that can be read from secret stores&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: 状态存储组件</title><link>https://docs.dapr.io/operations/components/setup-state-store/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/</guid><description/></item><item><title>Operations: Pub/Sub 代理</title><link>https://docs.dapr.io/operations/components/setup-pubsub/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-pubsub/</guid><description/></item><item><title>Operations: 密钥仓库组件</title><link>https://docs.dapr.io/operations/components/setup-secret-store/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-secret-store/</guid><description/></item><item><title>Operations: 绑定组件</title><link>https://docs.dapr.io/operations/components/setup-bindings/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-bindings/</guid><description/></item></channel></rss>
+&lt;/ul></description></item><item><title>Operations: 状态存储组件</title><link>https://docs.dapr.io/operations/components/setup-state-store/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/</guid><description/></item><item><title>Operations: Pub/Sub 代理</title><link>https://docs.dapr.io/operations/components/setup-pubsub/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-pubsub/</guid><description/></item><item><title>Operations: 密钥存储组件</title><link>https://docs.dapr.io/operations/components/setup-secret-store/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-secret-store/</guid><description/></item><item><title>Operations: 绑定组件</title><link>https://docs.dapr.io/operations/components/setup-bindings/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-bindings/</guid><description/></item></channel></rss>

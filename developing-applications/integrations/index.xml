@@ -36,7 +36,11 @@
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="使用-grpc-调用-dapr---执行示例">使用 gRPC 调用 dapr - 执行示例&lt;/h2>
 &lt;p>下面的步骤显示了如何创建 Dapr 客户端并调用 &lt;code>保存状态数据&lt;/code> 操作：&lt;/p>
 &lt;ol>
+&lt;li>
+&lt;ol>
 &lt;li>导入包&lt;/li>
+&lt;/ol>
+&lt;/li>
 &lt;/ol>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#f92672">package&lt;/span> &lt;span style="color:#a6e22e">main&lt;/span>
 &lt;span style="color:#f92672">import&lt;/span> (
@@ -46,7 +50,11 @@
 &lt;span style="color:#a6e22e">dapr&lt;/span> &lt;span style="color:#e6db74">&amp;#34;github.com/dapr/go-sdk/client&amp;#34;&lt;/span>
 )
 &lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
+&lt;li>
+&lt;ol start="2">
 &lt;li>创建客户端&lt;/li>
+&lt;/ol>
+&lt;/li>
 &lt;/ol>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#75715e">// just for this demo
 &lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#a6e22e">ctx&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">context&lt;/span>.&lt;span style="color:#a6e22e">Background&lt;/span>()
@@ -71,7 +79,11 @@
 &lt;h2 id="使用-dapr-创建-grpc-应用程序">使用 Dapr 创建 gRPC 应用程序&lt;/h2>
 &lt;p>以下步骤将向您显示如何创建一个让Dapr服务器与之通信的应用程序。&lt;/p>
 &lt;ol>
+&lt;li>
+&lt;ol>
 &lt;li>导入包&lt;/li>
+&lt;/ol>
+&lt;/li>
 &lt;/ol>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#f92672">package&lt;/span> &lt;span style="color:#a6e22e">main&lt;/span>
 &lt;span style="color:#f92672">import&lt;/span> (
@@ -129,6 +141,27 @@
 &lt;span style="color:#a6e22e">fmt&lt;/span>.&lt;span style="color:#a6e22e">Println&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;Invoked from binding&amp;#34;&lt;/span>)
 &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#f92672">&amp;amp;&lt;/span>&lt;span style="color:#a6e22e">pb&lt;/span>.&lt;span style="color:#a6e22e">BindingEventResponse&lt;/span>{}, &lt;span style="color:#66d9ef">nil&lt;/span>
 }
+&lt;span style="color:#75715e">// This method is fired whenever a message has been published to a topic that has been subscribed. Dapr用CloudEvents 0.3规范发送发布的消息。 In this example, we are telling Dapr
+&lt;/span>&lt;span style="color:#75715e">// To subscribe to a topic named TopicA
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">func&lt;/span> (&lt;span style="color:#a6e22e">s&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">server&lt;/span>) &lt;span style="color:#a6e22e">ListTopicSubscriptions&lt;/span>(&lt;span style="color:#a6e22e">ctx&lt;/span> &lt;span style="color:#a6e22e">context&lt;/span>.&lt;span style="color:#a6e22e">Context&lt;/span>, &lt;span style="color:#a6e22e">in&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">empty&lt;/span>.&lt;span style="color:#a6e22e">Empty&lt;/span>) (&lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">pb&lt;/span>.&lt;span style="color:#a6e22e">ListTopicSubscriptionsResponse&lt;/span>, &lt;span style="color:#66d9ef">error&lt;/span>) {
+&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#f92672">&amp;amp;&lt;/span>&lt;span style="color:#a6e22e">pb&lt;/span>.&lt;span style="color:#a6e22e">ListTopicSubscriptionsResponse&lt;/span>{
+&lt;span style="color:#a6e22e">Subscriptions&lt;/span>: []&lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">pb&lt;/span>.&lt;span style="color:#a6e22e">TopicSubscription&lt;/span>{
+{&lt;span style="color:#a6e22e">Topic&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;TopicA&amp;#34;&lt;/span>},
+},
+}, &lt;span style="color:#66d9ef">nil&lt;/span>
+}
+&lt;span style="color:#75715e">// Dapr will call this method to get the list of bindings the app will get invoked by. In this example, we are telling Dapr
+&lt;/span>&lt;span style="color:#75715e">// To invoke our app with a binding named storage
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">func&lt;/span> (&lt;span style="color:#a6e22e">s&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">server&lt;/span>) &lt;span style="color:#a6e22e">ListInputBindings&lt;/span>(&lt;span style="color:#a6e22e">ctx&lt;/span> &lt;span style="color:#a6e22e">context&lt;/span>.&lt;span style="color:#a6e22e">Context&lt;/span>, &lt;span style="color:#a6e22e">in&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">empty&lt;/span>.&lt;span style="color:#a6e22e">Empty&lt;/span>) (&lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">pb&lt;/span>.&lt;span style="color:#a6e22e">ListInputBindingsResponse&lt;/span>, &lt;span style="color:#66d9ef">error&lt;/span>) {
+&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#f92672">&amp;amp;&lt;/span>&lt;span style="color:#a6e22e">pb&lt;/span>.&lt;span style="color:#a6e22e">ListInputBindingsResponse&lt;/span>{
+&lt;span style="color:#a6e22e">Bindings&lt;/span>: []&lt;span style="color:#66d9ef">string&lt;/span>{&lt;span style="color:#e6db74">&amp;#34;storage&amp;#34;&lt;/span>},
+}, &lt;span style="color:#66d9ef">nil&lt;/span>
+}
+&lt;span style="color:#75715e">// This method gets invoked every time a new event is fired from a registerd binding. The message carries the binding name, a payload and optional metadata
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">func&lt;/span> (&lt;span style="color:#a6e22e">s&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">server&lt;/span>) &lt;span style="color:#a6e22e">OnBindingEvent&lt;/span>(&lt;span style="color:#a6e22e">ctx&lt;/span> &lt;span style="color:#a6e22e">context&lt;/span>.&lt;span style="color:#a6e22e">Context&lt;/span>, &lt;span style="color:#a6e22e">in&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">pb&lt;/span>.&lt;span style="color:#a6e22e">BindingEventRequest&lt;/span>) (&lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">pb&lt;/span>.&lt;span style="color:#a6e22e">BindingEventResponse&lt;/span>, &lt;span style="color:#66d9ef">error&lt;/span>) {
+&lt;span style="color:#a6e22e">fmt&lt;/span>.&lt;span style="color:#a6e22e">Println&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;Invoked from binding&amp;#34;&lt;/span>)
+&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#f92672">&amp;amp;&lt;/span>&lt;span style="color:#a6e22e">pb&lt;/span>.&lt;span style="color:#a6e22e">BindingEventResponse&lt;/span>{}, &lt;span style="color:#66d9ef">nil&lt;/span>
+}
 &lt;span style="color:#75715e">// This method is fired whenever a message has been published to a topic that has been subscribed. Dapr用CloudEvents 0.3规范发送发布的消息。
 &lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">func&lt;/span> (&lt;span style="color:#a6e22e">s&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">server&lt;/span>) &lt;span style="color:#a6e22e">OnTopicEvent&lt;/span>(&lt;span style="color:#a6e22e">ctx&lt;/span> &lt;span style="color:#a6e22e">context&lt;/span>.&lt;span style="color:#a6e22e">Context&lt;/span>, &lt;span style="color:#a6e22e">in&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">pb&lt;/span>.&lt;span style="color:#a6e22e">TopicEventRequest&lt;/span>) (&lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">empty&lt;/span>.&lt;span style="color:#a6e22e">Empty&lt;/span>, &lt;span style="color:#66d9ef">error&lt;/span>) {
 &lt;span style="color:#a6e22e">fmt&lt;/span>.&lt;span style="color:#a6e22e">Println&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;Topic message arrived&amp;#34;&lt;/span>)
@@ -147,11 +180,6 @@
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">s&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">grpc&lt;/span>.&lt;span style="color:#a6e22e">NewServer&lt;/span>()
 &lt;span style="color:#a6e22e">pb&lt;/span>.&lt;span style="color:#a6e22e">RegisterAppCallbackServer&lt;/span>(&lt;span style="color:#a6e22e">s&lt;/span>, &lt;span style="color:#f92672">&amp;amp;&lt;/span>&lt;span style="color:#a6e22e">server&lt;/span>{})
 &lt;span style="color:#a6e22e">fmt&lt;/span>.&lt;span style="color:#a6e22e">Println&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;Client starting...&amp;#34;&lt;/span>)
-&lt;span style="color:#75715e">// and start...
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#a6e22e">err&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">s&lt;/span>.&lt;span style="color:#a6e22e">Serve&lt;/span>(&lt;span style="color:#a6e22e">lis&lt;/span>); &lt;span style="color:#a6e22e">err&lt;/span> &lt;span style="color:#f92672">!=&lt;/span> &lt;span style="color:#66d9ef">nil&lt;/span> {
-&lt;span style="color:#a6e22e">log&lt;/span>.&lt;span style="color:#a6e22e">Fatalf&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;failed to serve: %v&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">err&lt;/span>)
-}
-}
 &lt;span style="color:#75715e">// and start...
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#a6e22e">err&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">s&lt;/span>.&lt;span style="color:#a6e22e">Serve&lt;/span>(&lt;span style="color:#a6e22e">lis&lt;/span>); &lt;span style="color:#a6e22e">err&lt;/span> &lt;span style="color:#f92672">!=&lt;/span> &lt;span style="color:#66d9ef">nil&lt;/span> {
 &lt;span style="color:#a6e22e">log&lt;/span>.&lt;span style="color:#a6e22e">Fatalf&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;failed to serve: %v&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">err&lt;/span>)

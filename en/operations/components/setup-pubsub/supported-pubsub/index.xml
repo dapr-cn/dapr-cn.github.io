@@ -414,6 +414,10 @@ For example, a Dapr app running on Kubernetes with &lt;code>dapr.io/app-id: &amp
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">10&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">autoDeleteOnIdleInSec&lt;/span> &lt;span style="color:#75715e"># Optional&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">10&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">maxReconnectionAttempts&lt;/span> &lt;span style="color:#75715e"># Optional&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">30&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">connectionRecoveryInSec&lt;/span> &lt;span style="color:#75715e"># Optional&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">2&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
 &lt;p>&lt;strong>NOTE:&lt;/strong> The above settings are shared across all topics that use this component.&lt;/p>
 &lt;/blockquote>
@@ -509,6 +513,18 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;td style="text-align:center">N&lt;/td>
 &lt;td>Time in seconds to wait before auto deleting messages.&lt;/td>
 &lt;td>&lt;code>10&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>maxReconnectionAttempts&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Defines the maximum number of reconnect attempts. Default: &lt;code>30&lt;/code>&lt;/td>
+&lt;td>&lt;code>30&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>connectionRecoveryInSec&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Time in seconds to wait between connection recovery attempts. Defaults: &lt;code>2&lt;/code>&lt;/td>
+&lt;td>&lt;code>2&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
@@ -680,6 +696,12 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;td>A comma delimited string of servers. Example: &amp;ldquo;hazelcast:3000,hazelcast2:3000&amp;rdquo;&lt;/td>
 &lt;td>&lt;code>&amp;quot;hazelcast:3000,hazelcast2:3000&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
+&lt;tr>
+&lt;td>backOffMaxRetries&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The maximum number of retries to process the message before returning an error. Defaults to &lt;code>&amp;quot;0&amp;quot;&lt;/code> which means the component will not retry processing the message. &lt;code>&amp;quot;-1&amp;quot;&lt;/code> will retry indefinitely until the message is processed or the application is shutdown. And positive number is treated as the maximum retry count. The component will wait 5 seconds between retries.&lt;/td>
+&lt;td>&lt;code>&amp;quot;3&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
 &lt;/tbody>
 &lt;/table>
 &lt;h2 id="create-a-hazelcast-instance">Create a Hazelcast instance&lt;/h2>
@@ -781,6 +803,12 @@ Kubernetes
 &lt;td style="text-align:center">Required for using TLS&lt;/td>
 &lt;td>Client key. Can be &lt;code>secretKeyRef&lt;/code> to use a secret reference&lt;/td>
 &lt;td>&lt;code>012345&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>backOffMaxRetries&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The maximum number of retries to process the message before returning an error. Defaults to &lt;code>&amp;quot;0&amp;quot;&lt;/code> which means the component will not retry processing the message. &lt;code>&amp;quot;-1&amp;quot;&lt;/code> will retry indefinitely until the message is processed or the application is shutdown. And positive number is treated as the maximum retry count. The component will wait 5 seconds between retries.&lt;/td>
+&lt;td>&lt;code>&amp;quot;3&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
@@ -1347,6 +1375,30 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;td style="text-align:center">N&lt;/td>
 &lt;td>If the Redis instance supports TLS with public certificates, can be configured to be enabled or disabled. Defaults to &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
 &lt;td>&lt;code>&amp;quot;true&amp;quot;&lt;/code>, &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>redeliverInterval&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The interval between checking for pending messages to redelivery. Defaults to &lt;code>&amp;quot;60s&amp;quot;&lt;/code>. &lt;code>&amp;quot;0&amp;quot;&lt;/code> disables redelivery.&lt;/td>
+&lt;td>&lt;code>&amp;quot;30s&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>processingTimeout&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The amount time a message must be pending before attempting to redeliver it. Defaults to &lt;code>&amp;quot;15s&amp;quot;&lt;/code>. &lt;code>&amp;quot;0&amp;quot;&lt;/code> disables redelivery.&lt;/td>
+&lt;td>&lt;code>&amp;quot;30s&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>queueDepth&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The size of the message queue for processing. Defaults to &lt;code>&amp;quot;100&amp;quot;&lt;/code>.&lt;/td>
+&lt;td>&lt;code>&amp;quot;1000&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>concurrency&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The number of concurrent workers that are processing messages. Defaults to &lt;code>&amp;quot;10&amp;quot;&lt;/code>.&lt;/td>
+&lt;td>&lt;code>&amp;quot;15&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>

@@ -28,7 +28,7 @@
 &lt;li>输入 &lt;code>dapr&lt;/code> 来过滤列表到可用的 Dapr 远程容器，并选择符合您应用程序的语言容器。 请注意，您可能需要选择 &lt;code>Show All Definitions...&lt;/code> &lt;br />&lt;img src="https://docs.dapr.io/images/vscode-remotecontainers-daprcontainers.png" alt="添加 dapr 容器的截图" width="700" />&lt;/li>
 &lt;li>按照提示重建您在容器中的应用程序。 &lt;br />&lt;img src="https://docs.dapr.io/images/vscode-remotecontainers-reopen.png" alt="在开发容器中重新打开应用程序的截图" width="700" />&lt;/li>
 &lt;/ol>
-&lt;h4 id="例子">例子&lt;/h4>
+&lt;h4 id="示例-1">示例&lt;/h4>
 &lt;p>观看有关如何使用应用程序的 Dapr VS 代码远程容器的 &lt;a href="https://www.bilibili.com/video/BV1QK4y1p7fn?p=8&amp;amp;t=120">视频&lt;/a>。 &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/D2dO4aGpHcg?start=120" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark">&lt;/iframe>&lt;/p>
 &lt;h2 id="疑难解答">疑难解答&lt;/h2>
 &lt;h3 id="同时调试多个dapr应用程序">同时调试多个Dapr应用程序&lt;/h3>
@@ -37,7 +37,7 @@
 &lt;p>如果你想要通过 &lt;a href="https://code.visualstudio.com/Docs/editor/tasks">tasks.json&lt;/a> 和 &lt;a href="https://code.visualstudio.com/Docs/editor/debugging">launch.json&lt;/a> 文件配置一个项目使用Dapr而又不想使用 Dapr VS Code extension，这里有一些手动步骤说明。&lt;/p>
 &lt;p>开发 Dapr应用程序时，您通常使用 dapr cli 来启动你自定义的dapr服务，就像这样：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr run --app-id nodeapp --app-port &lt;span style="color:#ae81ff">3000&lt;/span> --dapr-http-port &lt;span style="color:#ae81ff">3500&lt;/span> app.js
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>这将生成组件的 yaml 文件(如果它们不存在)，以便您的服务能够与本地的redis 容器交互。 当你刚刚入门时这是好的开始，但是如果你想要附加一个debugger到你的服务并且通过VS Code进行单点调试呢？ 您可以在这里使用 dapr 运行时(daprd) 来帮助实现这一点。&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这将生成组件的 yaml 文件(如果它们不存在)，以便您的服务能够与本地的redis 容器交互。 作为一个入门方法这很好用，但是如果你想要附加一个调试器到你的服务来进行代码调试呢？ 您可以在这里使用 dapr 运行时(daprd) 来帮助实现这一点。&lt;/p>
 &lt;div class="alert alert-primary" role="alert">
 &lt;h4 class="alert-heading">Note&lt;/h4>
 Dapr runtime (daprd) 不会自动生成用于 Redis 的组件的 yaml 文件。 这些将需要手动创建，否则您需要运行 dapr cli (dapr) 来自动创建它们。
@@ -90,7 +90,7 @@ Dapr runtime (daprd) 不会自动生成用于 Redis 的组件的 yaml 文件。 
 &lt;li>-app-port &amp;ndash; 您的应用程序代码正在监听的端口号&lt;/li>
 &lt;li>-dapr-http-port &amp;ndash; Dapr api的 http 端口&lt;/li>
 &lt;li>-dapr-grpc-port &amp;ndash; Dapr api的 grpc 端口&lt;/li>
-&lt;li>-placement-host-address &amp;ndash; 放置服务的位置(这应该在docker中运行，因为它是当你安装了dapr 并运行&lt;code> dapr init&lt;/code>的时候创建)&lt;/li>
+&lt;li>-placement-host-address &amp;ndash; 放置服务的位置(这应该在docker中运行，因为它是当你安装了dapr 并运行&lt;code>dapr init&lt;/code>的时候创建) &amp;gt; 注意: 您将需要确保您为您创建的每个dapr-grpc (-dapr-http-port 和 -dapr-grpc-port) 指定不同的 http/grpc 端口， 否则，当您尝试启动第二个配置时将端口冲突。&lt;/li>
 &lt;/ul>
 &lt;blockquote>
 &lt;p>注意: 您将需要确保您为您创建的每个dapr-grpc (-dapr-http-port 和 -dapr-grpc-port) 指定不同的 http/grpc 端口， 否则，当您尝试启动第二个配置时将端口冲突。&lt;/p>
@@ -179,7 +179,7 @@ Dapr runtime (daprd) 不会自动生成用于 Redis 的组件的 yaml 文件。 
 &lt;p>一旦您进行了所需的更改， 您应该能够在 VSCode 中切换到 &lt;a href="https://code.visualstudio.com/Docs/editor/debugging">debug&lt;/a> 视图，然后点击“play”按钮来启动您的调试配置。 如果所有配置正确， 您应该在 VSCode 终端窗口中看到数据启动， &lt;a href="https://code.visualstudio.com/Docs/editor/debugging">debugger&lt;/a> 应该附加到您的应用程序(您应该在调试窗口中看到它的输出)。&lt;/p>
 &lt;div class="alert alert-primary" role="alert">
 &lt;h4 class="alert-heading">Note&lt;/h4>
-因为您没有使用 &lt;em>&lt;em>dapr&lt;/em> run&lt;/em>** cli 命令， 但通过运行 **daprd *list*** 命令将不会显示当前正在运行的应用列表。
+因为您没有使用 &lt;strong>&lt;em>dapr&lt;/em> run&lt;/strong>* cli 命令， 但通过运行 **daprd ***list****** 命令将不会显示当前正在运行的应用列表。
 &lt;/div></description></item><item><title>Developing-Applications: IntelliJ</title><link>https://docs.dapr.io/developing-applications/ides/intellij/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/ides/intellij/</guid><description>
 &lt;p>开发 Dapr应用程序时，你通常使用 Dapr CLI 来启动你的 Dapr 服务，就像这样：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr run --app-id nodeapp --app-port &lt;span style="color:#ae81ff">3000&lt;/span> --dapr-http-port &lt;span style="color:#ae81ff">3500&lt;/span> app.js
@@ -288,19 +288,19 @@ MacOS
 &lt;h2 id="收尾">收尾&lt;/h2>
 &lt;p>调试之后，你要确保同时停止了&lt;code>dapr&lt;/code>和你在IntelliJ中的应用。&lt;/p>
 &lt;blockquote>
-&lt;p>注意。由于你使用 &lt;strong>dapr&lt;/strong> &lt;em>&lt;strong>run&lt;/strong>&lt;/em> CLI 命令启动服务。&lt;strong>dapr&lt;/strong> &lt;em>&lt;strong>list&lt;/strong>&lt;/em>命令将在当前使用Dapr运行的应用程序列表中显示IntelliJ的运行情况。&lt;/p>
+&lt;p>由于你使用 &lt;strong>dapr&lt;/strong> &lt;em>&lt;strong>run&lt;/strong>&lt;/em> CLI 命令启动服务。 &lt;strong>dapr&lt;/strong> &lt;em>&lt;strong>list&lt;/strong>&lt;/em>命令将在当前使用Dapr运行的应用程序列表中显示IntelliJ的运行情况。&lt;/p>
 &lt;/blockquote>
 &lt;p>调试愉快!&lt;/p>
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://intellij-support.jetbrains.com/hc/en-us/articles/206544519-Directories-used-by-the-IDE-to-store-settings-caches-plugins-and-logs">更改 IntelliJ 配置目录位置&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://intellij-support.jetbrains.com/hc/en-us/articles/206544519-Directories-used-by-the-IDE-to-store-settings-caches-plugins-and-logs">https://intellij-support.jetbrains.com/hc/en-us/articles/206544519-Directories-used-by-the-IDE-to-store-settings-caches-plugins-and-logs&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Developing-Applications: 使用 GitHub Codespaces 开发</title><link>https://docs.dapr.io/developing-applications/ides/codespaces/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/ides/codespaces/</guid><description>
 &lt;p>&lt;a href="https://github.com/features/codespaces">GitHub Codespaces&lt;/a> 是启动和运行 Dapr 环境最简单的方式。 只需点击一下，您就可以在浏览器中准备好环境、包、代码、示例和文档。&lt;/p>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Private Beta&lt;/h4>
 GitHub Codespaces目前处于内测阶段。 在 &lt;a href="https://github.com/features/codespaces/signup">这里&lt;/a> 注册。
 &lt;/div>
-&lt;h2 id="功能">功能&lt;/h2>
+&lt;h2 id="特性">特性&lt;/h2>
 &lt;ul>
 &lt;li>&lt;strong>单击并运行&lt;/strong>: 获得一个专用和沙盒化的环境，并且所有所需的框架和包件已准备就绪。&lt;/li>
 &lt;li>&lt;strong>基于使用情况的计费&lt;/strong>: 只为您在 Codespace 上花费的开发时间支付费用。 环境在不使用时自动关闭。&lt;/li>

@@ -2,12 +2,12 @@
 &lt;p>每个绑定都有自己独特的属性集。 点击下方列出的绑定的名称链接可以看到每个绑定的组件YAML。&lt;/p>
 &lt;p>表格标题：&lt;/p>
 &lt;blockquote>
-&lt;p>&lt;code>状态&lt;/code>: &lt;a href="%7B%7BX63X%7D%7D">组件认证&lt;/a> 状态&lt;/p>
+&lt;p>&lt;code>Status&lt;/code>: &lt;a href="%7B%7BX%1A64X%7D%7D">Component certification&lt;/a> status&lt;/p>
 &lt;/blockquote>
 &lt;ul>
-&lt;li>&lt;a href="%7B%7BX%1A52X%7D%7D">Alpha&lt;/a>&lt;/li>
-&lt;li>&lt;a href="%7B%7BX%1A54X%7D%7D">Beta&lt;/a>&lt;/li>
-&lt;li>&lt;a href="%7B%7BX%1A56X%7D%7D">GA&lt;/a> &amp;gt; &lt;code>自从&lt;/code>: 定义了当前组件从哪个Dapr Runtime版本开始支持&lt;/li>
+&lt;li>&lt;a href="%7B%7BX%1A53X%7D%7D">Alpha&lt;/a>&lt;/li>
+&lt;li>&lt;a href="%7B%7BX%1A55X%7D%7D">Beta&lt;/a>&lt;/li>
+&lt;li>&lt;a href="%7B%7BX%1A57X%7D%7D">GA&lt;/a> &amp;gt; &lt;code>Since&lt;/code>: defines from which Dapr Runtime version, the component is in the current status&lt;/li>
 &lt;/ul>
 &lt;blockquote>
 &lt;p>&lt;code>组件版本&lt;/code>：代表组件的版本&lt;/p>
@@ -72,6 +72,14 @@
 &lt;td>Alpha&lt;/td>
 &lt;td>v1&lt;/td>
 &lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/operations/components/setup-bindings/supported-bindings/localstorage/">Local Storage&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.1&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;a href="https://docs.dapr.io/operations/components/setup-bindings/supported-bindings/mqtt/">MQTT&lt;/a>&lt;/td>

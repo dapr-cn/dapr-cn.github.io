@@ -77,6 +77,14 @@
 &lt;td>1.0&lt;/td>
 &lt;/tr>
 &lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-bindings/supported-bindings/localstorage/">Local Storage&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.1&lt;/td>
+&lt;/tr>
+&lt;tr>
 &lt;td>&lt;a href="https://docs.dapr.io/en/operations/components/setup-bindings/supported-bindings/mqtt/">MQTT&lt;/a>&lt;/td>
 &lt;td style="text-align:center">✅&lt;/td>
 &lt;td style="text-align:center">✅&lt;/td>

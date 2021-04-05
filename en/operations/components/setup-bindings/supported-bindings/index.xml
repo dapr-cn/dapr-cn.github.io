@@ -503,8 +503,8 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#75715e">*****************&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">secretKey&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#75715e">*****************&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">bucket&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">mybucket&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">sessionToken&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">mysession&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
@@ -564,6 +564,83 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;ul>
 &lt;li>&lt;code>create&lt;/code>&lt;/li>
 &lt;/ul>
+&lt;h3 id="create-file">Create file&lt;/h3>
+&lt;p>To perform a create operation, invoke the AWS S3 binding with a &lt;code>POST&lt;/code> method and the following JSON body:&lt;/p>
+&lt;blockquote>
+&lt;p>Note: by default, a random UUID is generated. See below for Metadata support to set the name&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;operation&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;create&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;data&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;YOUR_CONTENT&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="examples">Examples&lt;/h4>
+&lt;h5 id="save-text-to-a-random-generated-uuid-file">Save text to a random generated UUID file&lt;/h5>
+&lt;ul class="nav nav-tabs" id="tabs-3" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-3-windows-tab" data-toggle="tab" href="#tabs-3-windows" role="tab"
+aria-controls="tabs-3-windows" aria-selected="true">
+Windows
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-3-linux-tab" data-toggle="tab" href="#tabs-3-linux" role="tab"
+aria-controls="tabs-3-linux" aria-selected="false">
+Linux
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-3-content">
+&lt;div class="tab-pane fade show active" id="tabs-3-windows" role="tabpanel" aria-labelled-by="tabs-3-windows-tab">
+&lt;br />&lt;p>On Windows, utilize cmd prompt (PowerShell has different escaping mechanism)&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl -d &lt;span style="color:#e6db74">&amp;#34;{ \&amp;#34;operation\&amp;#34;: \&amp;#34;create\&amp;#34;, \&amp;#34;data\&amp;#34;: \&amp;#34;Hello World\&amp;#34; }&amp;#34;&lt;/span> http://localhost:&amp;lt;dapr-port&amp;gt;/v1.0/bindings/&amp;lt;binding-name&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-3-linux" role="tabpanel" aria-labelled-by="tabs-3-linux-tab">
+&lt;br />&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl -d &lt;span style="color:#e6db74">&amp;#39;{ &amp;#34;operation&amp;#34;: &amp;#34;create&amp;#34;, &amp;#34;data&amp;#34;: &amp;#34;Hello World&amp;#34; }&amp;#39;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> http://localhost:&amp;lt;dapr-port&amp;gt;/v1.0/bindings/&amp;lt;binding-name&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;/div>
+&lt;h5 id="save-text-to-a-specific-file">Save text to a specific file&lt;/h5>
+&lt;ul class="nav nav-tabs" id="tabs-4" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-4-windows-tab" data-toggle="tab" href="#tabs-4-windows" role="tab"
+aria-controls="tabs-4-windows" aria-selected="true">
+Windows
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-4-linux-tab" data-toggle="tab" href="#tabs-4-linux" role="tab"
+aria-controls="tabs-4-linux" aria-selected="false">
+Linux
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-4-content">
+&lt;div class="tab-pane fade show active" id="tabs-4-windows" role="tabpanel" aria-labelled-by="tabs-4-windows-tab">
+&lt;br />&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl -d &lt;span style="color:#e6db74">&amp;#34;{ \&amp;#34;operation\&amp;#34;: \&amp;#34;create\&amp;#34;, \&amp;#34;data\&amp;#34;: \&amp;#34;Hello World\&amp;#34;, \&amp;#34;metadata\&amp;#34;: { \&amp;#34;key\&amp;#34;: \&amp;#34;my-test-file.txt\&amp;#34; } }&amp;#34;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> http://localhost:&amp;lt;dapr-port&amp;gt;/v1.0/bindings/&amp;lt;binding-name&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-4-linux" role="tabpanel" aria-labelled-by="tabs-4-linux-tab">
+&lt;br />&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl -d &lt;span style="color:#e6db74">&amp;#39;{ &amp;#34;operation&amp;#34;: &amp;#34;create&amp;#34;, &amp;#34;data&amp;#34;: &amp;#34;Hello World&amp;#34;, &amp;#34;metadata&amp;#34;: { &amp;#34;key&amp;#34;: &amp;#34;my-test-file.txt&amp;#34; } }&amp;#39;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> http://localhost:&amp;lt;dapr-port&amp;gt;/v1.0/bindings/&amp;lt;binding-name&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;/div>
+&lt;h5 id="upload-a-file">Upload a file&lt;/h5>
+&lt;p>To upload a file, pass the file contents as the data payload; you may want to encode this in e.g. Base64 for binary content.&lt;/p>
+&lt;p>Then you can upload it as you would normally:&lt;/p>
+&lt;ul class="nav nav-tabs" id="tabs-5" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-5-windows-tab" data-toggle="tab" href="#tabs-5-windows" role="tab"
+aria-controls="tabs-5-windows" aria-selected="true">
+Windows
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-5-linux-tab" data-toggle="tab" href="#tabs-5-linux" role="tab"
+aria-controls="tabs-5-linux" aria-selected="false">
+Linux
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-5-content">
+&lt;div class="tab-pane fade show active" id="tabs-5-windows" role="tabpanel" aria-labelled-by="tabs-5-windows-tab">
+&lt;br />&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl -d &lt;span style="color:#e6db74">&amp;#34;{ \&amp;#34;operation\&amp;#34;: \&amp;#34;create\&amp;#34;, \&amp;#34;data\&amp;#34;: \&amp;#34;(YOUR_FILE_CONTENTS)\&amp;#34;, \&amp;#34;metadata\&amp;#34;: { \&amp;#34;key\&amp;#34;: \&amp;#34;my-test-file.jpg\&amp;#34; } }&amp;#34;&lt;/span> http://localhost:&amp;lt;dapr-port&amp;gt;/v1.0/bindings/&amp;lt;binding-name&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-5-linux" role="tabpanel" aria-labelled-by="tabs-5-linux-tab">
+&lt;br />&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl -d &lt;span style="color:#e6db74">&amp;#39;{ &amp;#34;operation&amp;#34;: &amp;#34;create&amp;#34;, &amp;#34;data&amp;#34;: &amp;#34;$(cat my-test-file.jpg)&amp;#34;, &amp;#34;metadata&amp;#34;: { &amp;#34;key&amp;#34;: &amp;#34;my-test-file.jpg&amp;#34; } }&amp;#39;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> http://localhost:&amp;lt;dapr-port&amp;gt;/v1.0/bindings/&amp;lt;binding-name&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;/div>
 &lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
@@ -2121,6 +2198,83 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;ul>
 &lt;li>&lt;code>create&lt;/code>&lt;/li>
 &lt;/ul>
+&lt;h3 id="create-file">Create file&lt;/h3>
+&lt;p>To perform a create operation, invoke the GCP Storage Bucket binding with a &lt;code>POST&lt;/code> method and the following JSON body:&lt;/p>
+&lt;blockquote>
+&lt;p>Note: by default, a random UUID is generated. See below for Metadata support to set the name&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;operation&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;create&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;data&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;YOUR_CONTENT&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="examples">Examples&lt;/h4>
+&lt;h5 id="save-text-to-a-random-generated-uuid-file">Save text to a random generated UUID file&lt;/h5>
+&lt;ul class="nav nav-tabs" id="tabs-2" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-2-windows-tab" data-toggle="tab" href="#tabs-2-windows" role="tab"
+aria-controls="tabs-2-windows" aria-selected="true">
+Windows
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-2-linux-tab" data-toggle="tab" href="#tabs-2-linux" role="tab"
+aria-controls="tabs-2-linux" aria-selected="false">
+Linux
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-2-content">
+&lt;div class="tab-pane fade show active" id="tabs-2-windows" role="tabpanel" aria-labelled-by="tabs-2-windows-tab">
+&lt;br />&lt;p>On Windows, utilize cmd prompt (PowerShell has different escaping mechanism)&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl -d &lt;span style="color:#e6db74">&amp;#34;{ \&amp;#34;operation\&amp;#34;: \&amp;#34;create\&amp;#34;, \&amp;#34;data\&amp;#34;: \&amp;#34;Hello World\&amp;#34; }&amp;#34;&lt;/span> http://localhost:&amp;lt;dapr-port&amp;gt;/v1.0/bindings/&amp;lt;binding-name&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-2-linux" role="tabpanel" aria-labelled-by="tabs-2-linux-tab">
+&lt;br />&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl -d &lt;span style="color:#e6db74">&amp;#39;{ &amp;#34;operation&amp;#34;: &amp;#34;create&amp;#34;, &amp;#34;data&amp;#34;: &amp;#34;Hello World&amp;#34; }&amp;#39;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> http://localhost:&amp;lt;dapr-port&amp;gt;/v1.0/bindings/&amp;lt;binding-name&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;/div>
+&lt;h5 id="save-text-to-a-specific-file">Save text to a specific file&lt;/h5>
+&lt;ul class="nav nav-tabs" id="tabs-3" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-3-windows-tab" data-toggle="tab" href="#tabs-3-windows" role="tab"
+aria-controls="tabs-3-windows" aria-selected="true">
+Windows
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-3-linux-tab" data-toggle="tab" href="#tabs-3-linux" role="tab"
+aria-controls="tabs-3-linux" aria-selected="false">
+Linux
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-3-content">
+&lt;div class="tab-pane fade show active" id="tabs-3-windows" role="tabpanel" aria-labelled-by="tabs-3-windows-tab">
+&lt;br />&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl -d &lt;span style="color:#e6db74">&amp;#34;{ \&amp;#34;operation\&amp;#34;: \&amp;#34;create\&amp;#34;, \&amp;#34;data\&amp;#34;: \&amp;#34;Hello World\&amp;#34;, \&amp;#34;metadata\&amp;#34;: { \&amp;#34;name\&amp;#34;: \&amp;#34;my-test-file.txt\&amp;#34; } }&amp;#34;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> http://localhost:&amp;lt;dapr-port&amp;gt;/v1.0/bindings/&amp;lt;binding-name&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-3-linux" role="tabpanel" aria-labelled-by="tabs-3-linux-tab">
+&lt;br />&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl -d &lt;span style="color:#e6db74">&amp;#39;{ &amp;#34;operation&amp;#34;: &amp;#34;create&amp;#34;, &amp;#34;data&amp;#34;: &amp;#34;Hello World&amp;#34;, &amp;#34;metadata&amp;#34;: { &amp;#34;name&amp;#34;: &amp;#34;my-test-file.txt&amp;#34; } }&amp;#39;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> http://localhost:&amp;lt;dapr-port&amp;gt;/v1.0/bindings/&amp;lt;binding-name&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;/div>
+&lt;h5 id="upload-a-file">Upload a file&lt;/h5>
+&lt;p>To upload a file, pass the file contents as the data payload; you may want to encode this in e.g. Base64 for binary content.&lt;/p>
+&lt;p>Then you can upload it as you would normally:&lt;/p>
+&lt;ul class="nav nav-tabs" id="tabs-4" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-4-windows-tab" data-toggle="tab" href="#tabs-4-windows" role="tab"
+aria-controls="tabs-4-windows" aria-selected="true">
+Windows
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-4-linux-tab" data-toggle="tab" href="#tabs-4-linux" role="tab"
+aria-controls="tabs-4-linux" aria-selected="false">
+Linux
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-4-content">
+&lt;div class="tab-pane fade show active" id="tabs-4-windows" role="tabpanel" aria-labelled-by="tabs-4-windows-tab">
+&lt;br />&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl -d &lt;span style="color:#e6db74">&amp;#34;{ \&amp;#34;operation\&amp;#34;: \&amp;#34;create\&amp;#34;, \&amp;#34;data\&amp;#34;: \&amp;#34;(YOUR_FILE_CONTENTS)\&amp;#34;, \&amp;#34;metadata\&amp;#34;: { \&amp;#34;name\&amp;#34;: \&amp;#34;my-test-file.jpg\&amp;#34; } }&amp;#34;&lt;/span> http://localhost:&amp;lt;dapr-port&amp;gt;/v1.0/bindings/&amp;lt;binding-name&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-4-linux" role="tabpanel" aria-labelled-by="tabs-4-linux-tab">
+&lt;br />&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl -d &lt;span style="color:#e6db74">&amp;#39;{ &amp;#34;operation&amp;#34;: &amp;#34;create&amp;#34;, &amp;#34;data&amp;#34;: &amp;#34;$(cat my-test-file.jpg)&amp;#34;, &amp;#34;metadata&amp;#34;: { &amp;#34;name&amp;#34;: &amp;#34;my-test-file.jpg&amp;#34; } }&amp;#39;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> http://localhost:&amp;lt;dapr-port&amp;gt;/v1.0/bindings/&amp;lt;binding-name&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;/div>
 &lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
@@ -2655,6 +2809,243 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Role&lt;/span>
 &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;ROLENAME&amp;gt;&lt;/span> &lt;span style="color:#75715e"># same as the one above&lt;/span>
 &lt;span style="color:#f92672">apiGroup&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Local Storage binding spec</title><link>https://docs.dapr.io/en/operations/components/setup-bindings/supported-bindings/localstorage/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/operations/components/setup-bindings/supported-bindings/localstorage/</guid><description>
+&lt;h2 id="component-format">Component format&lt;/h2>
+&lt;p>To set up the Local Storage binding, create a component of type &lt;code>bindings.localstorage&lt;/code>. See &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/bindings/howto-bindings/#1-create-a-binding">this guide&lt;/a> on how to create and apply a binding configuration.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">bindings.localstorage&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">rootPath&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;string&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Field&lt;/th>
+&lt;th style="text-align:center">Required&lt;/th>
+&lt;th>Binding support&lt;/th>
+&lt;th>Details&lt;/th>
+&lt;th>Example&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>rootPath&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>Input / Output&lt;/td>
+&lt;td>The root path anchor to which files can be read / saved&lt;/td>
+&lt;td>&lt;code>&amp;quot;/temp/files&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="binding-support">Binding support&lt;/h2>
+&lt;p>This component supports &lt;strong>output binding&lt;/strong> with the following operations:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>create&lt;/code> : &lt;a href="#create-file">Create file&lt;/a>&lt;/li>
+&lt;li>&lt;code>get&lt;/code> : &lt;a href="#get-file">Get file&lt;/a>&lt;/li>
+&lt;li>&lt;code>list&lt;/code> : &lt;a href="#list-files">List files&lt;/a>&lt;/li>
+&lt;li>&lt;code>delete&lt;/code> : &lt;a href="#delete-file">Delete file&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h3 id="create-file">Create file&lt;/h3>
+&lt;p>To perform a create file operation, invoke the Local Storage binding with a &lt;code>POST&lt;/code> method and the following JSON body:&lt;/p>
+&lt;blockquote>
+&lt;p>Note: by default, a random UUID is generated. See below for Metadata support to set the name&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;operation&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;create&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;data&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;YOUR_CONTENT&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="examples">Examples&lt;/h4>
+&lt;h5 id="save-text-to-a-random-generated-uuid-file">Save text to a random generated UUID file&lt;/h5>
+&lt;ul class="nav nav-tabs" id="tabs-1" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-1-windows-tab" data-toggle="tab" href="#tabs-1-windows" role="tab"
+aria-controls="tabs-1-windows" aria-selected="true">
+Windows
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-1-linux-tab" data-toggle="tab" href="#tabs-1-linux" role="tab"
+aria-controls="tabs-1-linux" aria-selected="false">
+Linux
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-1-content">
+&lt;div class="tab-pane fade show active" id="tabs-1-windows" role="tabpanel" aria-labelled-by="tabs-1-windows-tab">
+&lt;br />&lt;p>On Windows, utilize cmd prompt (PowerShell has different escaping mechanism)&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl -d &lt;span style="color:#e6db74">&amp;#34;{ \&amp;#34;operation\&amp;#34;: \&amp;#34;create\&amp;#34;, \&amp;#34;data\&amp;#34;: \&amp;#34;Hello World\&amp;#34; }&amp;#34;&lt;/span> http://localhost:&amp;lt;dapr-port&amp;gt;/v1.0/bindings/&amp;lt;binding-name&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-1-linux" role="tabpanel" aria-labelled-by="tabs-1-linux-tab">
+&lt;br />&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl -d &lt;span style="color:#e6db74">&amp;#39;{ &amp;#34;operation&amp;#34;: &amp;#34;create&amp;#34;, &amp;#34;data&amp;#34;: &amp;#34;Hello World&amp;#34; }&amp;#39;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> http://localhost:&amp;lt;dapr-port&amp;gt;/v1.0/bindings/&amp;lt;binding-name&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;/div>
+&lt;h5 id="save-text-to-a-specific-file">Save text to a specific file&lt;/h5>
+&lt;ul class="nav nav-tabs" id="tabs-2" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-2-windows-tab" data-toggle="tab" href="#tabs-2-windows" role="tab"
+aria-controls="tabs-2-windows" aria-selected="true">
+Windows
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-2-linux-tab" data-toggle="tab" href="#tabs-2-linux" role="tab"
+aria-controls="tabs-2-linux" aria-selected="false">
+Linux
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-2-content">
+&lt;div class="tab-pane fade show active" id="tabs-2-windows" role="tabpanel" aria-labelled-by="tabs-2-windows-tab">
+&lt;br />&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl -d &lt;span style="color:#e6db74">&amp;#34;{ \&amp;#34;operation\&amp;#34;: \&amp;#34;create\&amp;#34;, \&amp;#34;data\&amp;#34;: \&amp;#34;Hello World\&amp;#34;, \&amp;#34;metadata\&amp;#34;: { \&amp;#34;fileName\&amp;#34;: \&amp;#34;my-test-file.txt\&amp;#34; } }&amp;#34;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> http://localhost:&amp;lt;dapr-port&amp;gt;/v1.0/bindings/&amp;lt;binding-name&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-2-linux" role="tabpanel" aria-labelled-by="tabs-2-linux-tab">
+&lt;br />&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl -d &lt;span style="color:#e6db74">&amp;#39;{ &amp;#34;operation&amp;#34;: &amp;#34;create&amp;#34;, &amp;#34;data&amp;#34;: &amp;#34;Hello World&amp;#34;, &amp;#34;metadata&amp;#34;: { &amp;#34;fileName&amp;#34;: &amp;#34;my-test-file.txt&amp;#34; } }&amp;#39;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> http://localhost:&amp;lt;dapr-port&amp;gt;/v1.0/bindings/&amp;lt;binding-name&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;/div>
+&lt;h5 id="save-a-binary-file">Save a binary file&lt;/h5>
+&lt;p>To upload a file, encode it as Base64. The binding should automatically detect the Base64 encoding.&lt;/p>
+&lt;ul class="nav nav-tabs" id="tabs-3" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-3-windows-tab" data-toggle="tab" href="#tabs-3-windows" role="tab"
+aria-controls="tabs-3-windows" aria-selected="true">
+Windows
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-3-linux-tab" data-toggle="tab" href="#tabs-3-linux" role="tab"
+aria-controls="tabs-3-linux" aria-selected="false">
+Linux
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-3-content">
+&lt;div class="tab-pane fade show active" id="tabs-3-windows" role="tabpanel" aria-labelled-by="tabs-3-windows-tab">
+&lt;br />&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl -d &lt;span style="color:#e6db74">&amp;#34;{ \&amp;#34;operation\&amp;#34;: \&amp;#34;create\&amp;#34;, \&amp;#34;data\&amp;#34;: \&amp;#34;YOUR_BASE_64_CONTENT\&amp;#34;, \&amp;#34;metadata\&amp;#34;: { \&amp;#34;fileName\&amp;#34;: \&amp;#34;my-test-file.jpg\&amp;#34; } }&amp;#34;&lt;/span> http://localhost:&amp;lt;dapr-port&amp;gt;/v1.0/bindings/&amp;lt;binding-name&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-3-linux" role="tabpanel" aria-labelled-by="tabs-3-linux-tab">
+&lt;br />&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl -d &lt;span style="color:#e6db74">&amp;#39;{ &amp;#34;operation&amp;#34;: &amp;#34;create&amp;#34;, &amp;#34;data&amp;#34;: &amp;#34;YOUR_BASE_64_CONTENT&amp;#34;, &amp;#34;metadata&amp;#34;: { &amp;#34;fileName&amp;#34;: &amp;#34;my-test-file.jpg&amp;#34; } }&amp;#39;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> http://localhost:&amp;lt;dapr-port&amp;gt;/v1.0/bindings/&amp;lt;binding-name&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;/div>
+&lt;h4 id="response">Response&lt;/h4>
+&lt;p>The response body will contain the following JSON:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;fileName&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;lt;filename&amp;gt;&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="get-file">Get file&lt;/h3>
+&lt;p>To perform a get file operation, invoke the Local Storage binding with a &lt;code>POST&lt;/code> method and the following JSON body:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;operation&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;get&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;metadata&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;fileName&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;myfile&amp;#34;&lt;/span>
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="example">Example&lt;/h4>
+&lt;ul class="nav nav-tabs" id="tabs-4" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-4-windows-tab" data-toggle="tab" href="#tabs-4-windows" role="tab"
+aria-controls="tabs-4-windows" aria-selected="true">
+Windows
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-4-linux-tab" data-toggle="tab" href="#tabs-4-linux" role="tab"
+aria-controls="tabs-4-linux" aria-selected="false">
+Linux
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-4-content">
+&lt;div class="tab-pane fade show active" id="tabs-4-windows" role="tabpanel" aria-labelled-by="tabs-4-windows-tab">
+&lt;br />&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl -d &lt;span style="color:#e6db74">&amp;#39;{ \&amp;#34;operation\&amp;#34;: \&amp;#34;get\&amp;#34;, \&amp;#34;metadata\&amp;#34;: { \&amp;#34;fileName\&amp;#34;: \&amp;#34;myfile\&amp;#34; }}&amp;#39;&lt;/span> http://localhost:&amp;lt;dapr-port&amp;gt;/v1.0/bindings/&amp;lt;binding-name&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-4-linux" role="tabpanel" aria-labelled-by="tabs-4-linux-tab">
+&lt;br />&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl -d &lt;span style="color:#e6db74">&amp;#39;{ &amp;#34;operation&amp;#34;: &amp;#34;get&amp;#34;, &amp;#34;metadata&amp;#34;: { &amp;#34;fileName&amp;#34;: &amp;#34;myfile&amp;#34; }}&amp;#39;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> http://localhost:&amp;lt;dapr-port&amp;gt;/v1.0/bindings/&amp;lt;binding-name&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;/div>
+&lt;h4 id="response-1">Response&lt;/h4>
+&lt;p>The response body contains the value stored in the file.&lt;/p>
+&lt;h3 id="list-files">List files&lt;/h3>
+&lt;p>To perform a list files operation, invoke the Local Storage binding with a &lt;code>POST&lt;/code> method and the following JSON body:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;operation&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;list&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>If you only want to list the files beneath a particular directory below the &lt;code>rootPath&lt;/code>, specify the relative directory name as the &lt;code>fileName&lt;/code> in the metadata.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;operation&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;list&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;metadata&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;fileName&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;my/cool/directory&amp;#34;&lt;/span>
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="example-1">Example&lt;/h4>
+&lt;ul class="nav nav-tabs" id="tabs-5" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-5-windows-tab" data-toggle="tab" href="#tabs-5-windows" role="tab"
+aria-controls="tabs-5-windows" aria-selected="true">
+Windows
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-5-linux-tab" data-toggle="tab" href="#tabs-5-linux" role="tab"
+aria-controls="tabs-5-linux" aria-selected="false">
+Linux
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-5-content">
+&lt;div class="tab-pane fade show active" id="tabs-5-windows" role="tabpanel" aria-labelled-by="tabs-5-windows-tab">
+&lt;br />&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl -d &lt;span style="color:#e6db74">&amp;#39;{ \&amp;#34;operation\&amp;#34;: \&amp;#34;list\&amp;#34;, \&amp;#34;metadata\&amp;#34;: { \&amp;#34;fileName\&amp;#34;: \&amp;#34;my/cool/directory\&amp;#34; }}&amp;#39;&lt;/span> http://localhost:&amp;lt;dapr-port&amp;gt;/v1.0/bindings/&amp;lt;binding-name&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-5-linux" role="tabpanel" aria-labelled-by="tabs-5-linux-tab">
+&lt;br />&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl -d &lt;span style="color:#e6db74">&amp;#39;{ &amp;#34;operation&amp;#34;: &amp;#34;list&amp;#34;, &amp;#34;metadata&amp;#34;: { &amp;#34;fileName&amp;#34;: &amp;#34;my/cool/directory&amp;#34; }}&amp;#39;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> http://localhost:&amp;lt;dapr-port&amp;gt;/v1.0/bindings/&amp;lt;binding-name&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;/div>
+&lt;h4 id="response-2">Response&lt;/h4>
+&lt;p>The response is a JSON array of file names.&lt;/p>
+&lt;h3 id="delete-file">Delete file&lt;/h3>
+&lt;p>To perform a delete file operation, invoke the Local Storage binding with a &lt;code>POST&lt;/code> method and the following JSON body:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;operation&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;delete&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;metadata&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;fileName&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;myfile&amp;#34;&lt;/span>
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="example-2">Example&lt;/h4>
+&lt;ul class="nav nav-tabs" id="tabs-6" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-6-windows-tab" data-toggle="tab" href="#tabs-6-windows" role="tab"
+aria-controls="tabs-6-windows" aria-selected="true">
+Windows
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-6-linux-tab" data-toggle="tab" href="#tabs-6-linux" role="tab"
+aria-controls="tabs-6-linux" aria-selected="false">
+Linux
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-6-content">
+&lt;div class="tab-pane fade show active" id="tabs-6-windows" role="tabpanel" aria-labelled-by="tabs-6-windows-tab">
+&lt;br />&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl -d &lt;span style="color:#e6db74">&amp;#39;{ \&amp;#34;operation\&amp;#34;: \&amp;#34;delete\&amp;#34;, \&amp;#34;metadata\&amp;#34;: { \&amp;#34;fileName\&amp;#34;: \&amp;#34;myfile\&amp;#34; }}&amp;#39;&lt;/span> http://localhost:&amp;lt;dapr-port&amp;gt;/v1.0/bindings/&amp;lt;binding-name&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-6-linux" role="tabpanel" aria-labelled-by="tabs-6-linux-tab">
+&lt;br />&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl -d &lt;span style="color:#e6db74">&amp;#39;{ &amp;#34;operation&amp;#34;: &amp;#34;delete&amp;#34;, &amp;#34;metadata&amp;#34;: { &amp;#34;fileName&amp;#34;: &amp;#34;myfile&amp;#34; }}&amp;#39;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> http://localhost:&amp;lt;dapr-port&amp;gt;/v1.0/bindings/&amp;lt;binding-name&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;/div>
+&lt;h4 id="response-3">Response&lt;/h4>
+&lt;p>An HTTP 204 (No Content) and empty body will be returned if successful.&lt;/p>
+&lt;h2 id="metadata-information">Metadata information&lt;/h2>
+&lt;p>By default the Local Storage output binding auto generates a UUID as the file name. It is configurable in the metadata property of the message.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;data&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;file content&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;metadata&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;fileName&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;filename.txt&amp;#34;&lt;/span>
+},
+&lt;span style="color:#f92672">&amp;#34;operation&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;create&amp;#34;&lt;/span>
+}
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>

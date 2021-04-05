@@ -150,7 +150,7 @@ INFO&lt;span style="color:#f92672">[&lt;/span>0000&lt;span style="color:#f92672"
 INFO&lt;span style="color:#f92672">[&lt;/span>0000&lt;span style="color:#f92672">]&lt;/span> Healthz server is listening on :8080 instance&lt;span style="color:#f92672">=&lt;/span>Nicoletaz-L10.redmond.corp.microsoft.com scope&lt;span style="color:#f92672">=&lt;/span>dapr.placement type&lt;span style="color:#f92672">=&lt;/span>log ver&lt;span style="color:#f92672">=&lt;/span>1.0.0-rc.1
 INFO&lt;span style="color:#f92672">[&lt;/span>0001&lt;span style="color:#f92672">]&lt;/span> cluster leadership acquired instance&lt;span style="color:#f92672">=&lt;/span>Nicoletaz-L10.redmond.corp.microsoft.com scope&lt;span style="color:#f92672">=&lt;/span>dapr.placement type&lt;span style="color:#f92672">=&lt;/span>log ver&lt;span style="color:#f92672">=&lt;/span>1.0.0-rc.1
 INFO&lt;span style="color:#f92672">[&lt;/span>0001&lt;span style="color:#f92672">]&lt;/span> leader is established. instance&lt;span style="color:#f92672">=&lt;/span>Nicoletaz-L10.redmond.corp.microsoft.com scope&lt;span style="color:#f92672">=&lt;/span>dapr.placement type&lt;span style="color:#f92672">=&lt;/span>log ver&lt;span style="color:#f92672">=&lt;/span>1.0.0-rc.1
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>From here on you can follow the sample example created for the &lt;a href="https://github.com/dapr/java-sdk/tree/master/examples/src/main/java/io/dapr/examples/actors">java-sdk&lt;/a>, &lt;a href="https://github.com/dapr/python-sdk/tree/master/examples/demo_actor">python-sdk&lt;/a> or &lt;a href="https://docs.dapr.io/en/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actor-howto/">dotnet-sdk&lt;/a> for running an application with Actors enabled.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>From here on you can follow the sample example created for the &lt;a href="https://github.com/dapr/java-sdk/tree/master/examples/src/main/java/io/dapr/examples/actors">java-sdk&lt;/a>, &lt;a href="https://github.com/dapr/python-sdk/tree/master/examples/demo_actor">python-sdk&lt;/a> or &lt;a href="https://docs.dapr.io/en/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actors-howto/">dotnet-sdk&lt;/a> for running an application with Actors enabled.&lt;/p>
 &lt;p>Update the state store configuration files to have the Redis host and password match the setup that you have. Additionally to enable it as a actor state store have the metadata piece added similar to the &lt;a href="https://github.com/dapr/java-sdk/blob/master/examples/components/state/redis.yaml">sample Java Redis component&lt;/a> definition.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml"> - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">actorStateStore&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
@@ -173,10 +173,10 @@ This will remove the default &lt;code>$HOME/.dapr&lt;/code> directory, binaries 
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr init
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
-&lt;p>Ensure you are using the latest version of Dapr (1.0.1) with:&lt;/p>
+&lt;p>Ensure you are using the latest version of Dapr (v1.1.0) with:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">$ dapr --version
-CLI version: 1.0.0
-Runtime version: 1.0.1
+CLI version: 1.1.0
+Runtime version: 1.1.0
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;/ol></description></item><item><title>Operations: Uninstall Dapr in a self-hosted environment</title><link>https://docs.dapr.io/en/operations/hosting/self-hosted/self-hosted-uninstall/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/operations/hosting/self-hosted/self-hosted-uninstall/</guid><description>
 &lt;p>The following CLI command removes the Dapr sidecar binaries and the placement container:&lt;/p>

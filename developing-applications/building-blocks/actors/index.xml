@@ -62,7 +62,7 @@
 &lt;p>要使用Actor，您的状态存储必须支持多项目事务。 这意味着您的状态存储 &lt;a href="https://github.com/dapr/components-contrib/tree/master/state">component&lt;/a> 必须实现 &lt;a href="https://github.com/dapr/components-contrib/blob/master/state/transactional_store.go">TransactionalStore&lt;/a> 接口。 支持 事务/actors 的组件列表如下: &lt;a href="https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/">受支持的状态存储&lt;/a>。&lt;/p>
 &lt;h2 id="actor-timers-和-reminders">Actor timers 和 reminders&lt;/h2>
 &lt;p>Actors 可以通过 timer 或者 remider 自行注册周期性的任务.&lt;/p>
-&lt;h3 id="actor-timers">Actor timers&lt;/h3>
+&lt;h3 id="actor-计时器">Actor 计时器&lt;/h3>
 &lt;p>你可以通过 timer 在actor中注册一个回调。&lt;/p>
 &lt;p>Dapr Actor 运行时确保回调方法被顺序调用，而非并发调用。 这意味着，在此回调完成执行之前，不会有其他Actor方法或timer/remider回调被执行。&lt;/p>
 &lt;p>Timer的下一个周期在回调完成执行后开始计算。 这意味着 timer 在回调执行时停止，并在回调完成时启动。&lt;/p>

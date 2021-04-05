@@ -32,7 +32,7 @@
 &lt;p>当一个操作被取消时，它将抛出一个 &lt;code>OperationCancelledException&lt;/code>。&lt;/p>
 &lt;h2 id="了解-daprclient-json-序列化">了解 DaprClient JSON 序列化&lt;/h2>
 &lt;p>&lt;code>DaprClient&lt;/code> 上的许多方法使用 &lt;code>System.Text.Json&lt;/code> 序列化器执行JSON序列化。 接受应用程序数据类型作为参数的方法将对其进行JSON序列化，除非文档另有明确说明。&lt;/p>
-&lt;p>如果你有高级需求，值得阅读 &lt;a href="https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-overview"> System.Text.Json 文档&lt;/a> Dapr .NET SDK 没有提供独特的序列化行为或自定义 - 它依赖于底层的序列化器将数据转换为应用程序的 .NET 类型。&lt;/p>
+&lt;p>如果你有高级需求，值得阅读 &lt;a href="https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-overview"> System.Text.Json 文档&lt;/a> Dapr .NET SDK 没有提供独特的序列化行为或自定义 - 它依赖于底层的序列化器将数据转换为应用程序的 .NET 类型。 Dapr .NET SDK 没有提供独特的序列化行为或自定义 - 它依赖于底层的序列化器将数据转换为应用程序的 .NET 类型。&lt;/p>
 &lt;p>&lt;code>DaprClient&lt;/code>被配置为使用来自 &lt;a href="https://docs.microsoft.com/en-us/dotnet/api/system.text.json.jsonserializerdefaults?view=net-5.0">JsonSerializerDefaults.Web&lt;/a> 配置的序列化器配置对象。 这意味着 &lt;code>DaprClient&lt;/code> 将使用 &lt;code>camelCase&lt;/code> 来命名属性，允许读取引号 (&lt;code>&amp;quot;10.99&amp;quot;&lt;/code>)，并将不区分大小写地绑定属性。 这些设置与 ASP.NET Core 和 &lt;code>System.Text.Json.Http&lt;/code> API 所使用的设置相同，并被设计为遵循可互操作的 Web 惯例。&lt;/p>
 &lt;p>&lt;code>System.Text.Json&lt;/code>截至.NET 5.0，并没有很好地支持所有内置的F#语言功能。 如果你使用的是F#，你可能会想要使用一个添加了F#功能支持的转换器包，比如 &lt;a href="https://github.com/Tarmil/FSharp.SystemTextJson">FSharp.SystemTextJson&lt;/a> 。&lt;/p>
 &lt;h3 id="json序列化的简单指南">JSON序列化的简单指南&lt;/h3>
@@ -53,24 +53,22 @@
 &lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span> Color { &lt;span style="color:#66d9ef">get&lt;/span>; &lt;span style="color:#66d9ef">set&lt;/span>; }
 }
 ...
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">Widget&lt;/span>
+{
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span> Color { &lt;span style="color:#66d9ef">get&lt;/span>; &lt;span style="color:#66d9ef">set&lt;/span>; }
+}
+...
 &lt;span style="color:#75715e">// Storing a Widget value as JSON in the state store
 &lt;/span>&lt;span style="color:#75715e">&lt;/span>widget widget = &lt;span style="color:#66d9ef">new&lt;/span> Widget() { Color = &lt;span style="color:#e6db74">&amp;#34;Green&amp;#34;&lt;/span>, };
 &lt;span style="color:#66d9ef">await&lt;/span> client.SaveStateAsync(&lt;span style="color:#e6db74">&amp;#34;mystatestore&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;mykey&amp;#34;&lt;/span>, widget);
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>在上面的例子中，类型参数 &lt;code>TValue&lt;/code> 的类型参数是从 &lt;code>widget&lt;/code> 变量的类型推断出来的。 这一点很重要，因为 &lt;code>System.Text.Json&lt;/code> 序列化器将根据 &lt;em>declared type&lt;/em> 的值来执行序列化。 结果是将存储JSON值 &lt;code>{ &amp;quot;color&amp;quot;: &amp;quot;Green&amp;quot; }&lt;/code> 。&lt;/p>
 &lt;p>考虑一下当你尝试使用 &lt;code>Widget&lt;/code> 的派生类型时会发生什么。&lt;/p>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-C#" data-lang="C#">&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">Widget&lt;/span>
-{
-&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span> Color { &lt;span style="color:#66d9ef">get&lt;/span>; &lt;span style="color:#66d9ef">set&lt;/span>; }
-}
-&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">SuperWidget&lt;/span> : Widget
-{
-&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">bool&lt;/span> HasSelfCleaningFeature { &lt;span style="color:#66d9ef">get&lt;/span>; &lt;span style="color:#66d9ef">set&lt;/span>; }
-}
-...
-&lt;span style="color:#75715e">// Storing a SuperWidget value as JSON in the state store
-&lt;/span>&lt;span style="color:#75715e">&lt;/span>Widget widget = &lt;span style="color:#66d9ef">new&lt;/span> SuperWidget() { Color = &lt;span style="color:#e6db74">&amp;#34;Green&amp;#34;&lt;/span>, HasSelfCleaningFeature = &lt;span style="color:#66d9ef">true&lt;/span>, };
-&lt;span style="color:#66d9ef">await&lt;/span> client.SaveStateAsync(&lt;span style="color:#e6db74">&amp;#34;mystatestore&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;mykey&amp;#34;&lt;/span>, widget);
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>在这个例子中，我们使用的是 &lt;code>SuperWidget&lt;/code> ，但变量的声明类型是 &lt;code>Widget&lt;/code>。 由于JSON序列化器的行为是由声明的类型决定的，所以它只看到一个简单的 &lt;code>Widget&lt;/code>，并将保存&lt;code>{ &amp;quot;color&amp;quot;: &amp;quot;Green&amp;quot; }&lt;/code>，而不是&lt;code>{ &amp;quot;color&amp;quot;: &amp;quot;Green&amp;quot;, &amp;quot;hasSelfCleaningFeature&amp;quot;: true }&lt;/code>。&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-C#" data-lang="C#">&lt;span style="color:#960050;background-color:#1e0010">在这个例子中，我们使用的是&lt;/span> &amp;lt;code&amp;gt;SuperWidget&amp;lt;/code&amp;gt; &lt;span style="color:#960050;background-color:#1e0010">，但变量的声明类型是&lt;/span> &amp;lt;code&amp;gt;Widget&amp;lt;/code&amp;gt;&lt;span style="color:#960050;background-color:#1e0010">。&lt;/span>
+&lt;span style="color:#960050;background-color:#1e0010">由于&lt;/span>JSON序列化器的行为是由声明的类型决定的&lt;span style="color:#960050;background-color:#1e0010">，所以它只看到一个简单的&lt;/span> &amp;lt;code&amp;gt;Widget&amp;lt;/code&amp;gt;&lt;span style="color:#960050;background-color:#1e0010">，并将保存&lt;/span>&amp;lt;code&amp;gt;{ &lt;span style="color:#e6db74">&amp;#34;color&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;Green&amp;#34;&lt;/span> }&amp;lt;/code&amp;gt;&lt;span style="color:#960050;background-color:#1e0010">，而不是&lt;/span>&amp;lt;code&amp;gt;{ &lt;span style="color:#e6db74">&amp;#34;color&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;Green&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;hasSelfCleaningFeature&amp;#34;&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span> }&amp;lt;/code&amp;gt;&lt;span style="color:#960050;background-color:#1e0010">。&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>，但变量的声明类型是 Widget。&lt;/p>
+&lt;p>由于JSON序列化器的行为是由声明的类型决定的，所以它只看到一个简单的 Widget，并将保存{ &amp;ldquo;color&amp;rdquo;: &amp;ldquo;Green&amp;rdquo; }，而不是{ &amp;ldquo;color&amp;rdquo;: &amp;ldquo;Green&amp;rdquo;, &amp;ldquo;hasSelfCleaningFeature&amp;rdquo;: true }。
+&lt;/code>&lt;/p>
+&lt;p>在这个例子中，我们使用的是 &lt;code>SuperWidget&lt;/code> ，但变量的声明类型是 &lt;code>Widget&lt;/code>。 由于JSON序列化器的行为是由声明的类型决定的，所以它只看到一个简单的 &lt;code>Widget&lt;/code>，并将保存&lt;code>{ &amp;quot;color&amp;quot;: &amp;quot;Green&amp;quot; }&lt;/code>，而不是&lt;code>{ &amp;quot;color&amp;quot;: &amp;quot;Green&amp;quot;, &amp;quot;hasSelfCleaningFeature&amp;quot;: true }&lt;/code>。&lt;/p>
 &lt;p>如果你想让 &lt;code>SuperWidget&lt;/code> 的属性被序列化，那么最好的选择是用 &lt;code>object&lt;/code> 覆盖类型参数。 这将导致序列器包含所有数据，因为它对类型一无所知。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-C#" data-lang="C#">Widget widget = &lt;span style="color:#66d9ef">new&lt;/span> SuperWidget() { Color = &lt;span style="color:#e6db74">&amp;#34;Green&amp;#34;&lt;/span>, HasSelfCleaningFeature = &lt;span style="color:#66d9ef">true&lt;/span>, };
 &lt;span style="color:#66d9ef">await&lt;/span> client.SaveStateAsync&amp;lt;&lt;span style="color:#66d9ef">object&lt;/span>&amp;gt;(&lt;span style="color:#e6db74">&amp;#34;mystatestore&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;mykey&amp;#34;&lt;/span>, widget);

@@ -27,6 +27,13 @@
 &lt;div class="card-deck">
 &lt;div class="card">
 &lt;div class="card-body">
+&lt;h5 class="card-title">&lt;b>Development&lt;/b>&lt;/h5>
+&lt;p class="card-text">Learn about local development options for .NET Dapr applications&lt;/p>
+&lt;a href="https://docs.dapr.io/en/developing-applications/sdks/dotnet/dotnet-development/" class="stretched-link">&lt;/a>
+&lt;/div>
+&lt;/div>
+&lt;div class="card">
+&lt;div class="card-body">
 &lt;h5 class="card-title">&lt;b>Examples&lt;/b>&lt;/h5>
 &lt;p class="card-text">Clone the .NET SDK repo to try out some of the examples and get started quickly.&lt;/p>
 &lt;a href="https://github.com/dapr/dotnet-sdk/tree/master/examples" class="stretched-link">&lt;/a>
@@ -46,7 +53,8 @@
 &lt;a href="https://www.nuget.org/profiles/dapr.io" class="stretched-link">&lt;/a>
 &lt;/div>
 &lt;/div>
-&lt;/div></description></item><item><title>Developing-Applications: Dapr PHP SDK</title><link>https://docs.dapr.io/en/developing-applications/sdks/php/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/developing-applications/sdks/php/</guid><description>
+&lt;/div>
+&lt;br /></description></item><item><title>Developing-Applications: Dapr PHP SDK</title><link>https://docs.dapr.io/en/developing-applications/sdks/php/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/developing-applications/sdks/php/</guid><description>
 &lt;p>Dapr offers an SDK to help with the development of PHP applications. Using it, you can create PHP clients, servers, and virtual actors with Dapr.&lt;/p>
 &lt;h2 id="setting-up">Setting up&lt;/h2>
 &lt;h3 id="prerequisites">Prerequisites&lt;/h3>

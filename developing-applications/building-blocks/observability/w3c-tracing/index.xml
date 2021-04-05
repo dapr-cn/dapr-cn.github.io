@@ -1,6 +1,6 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – W3C 跟踪上下文</title><link>https://docs.dapr.io/developing-applications/building-blocks/observability/w3c-tracing/</link><description>Recent content in W3C 跟踪上下文 on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/developing-applications/building-blocks/observability/w3c-tracing/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: W3C 跟踪上下文概述</title><link>https://docs.dapr.io/developing-applications/building-blocks/observability/w3c-tracing/w3c-tracing-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/building-blocks/observability/w3c-tracing/w3c-tracing-overview/</guid><description>
 &lt;h2 id="介绍">介绍&lt;/h2>
-&lt;p>Dapr 使用 W3C 跟踪上下文对服务调用和 pub/sub 消息传递进行分布式跟踪。 在很大程度上，Dapr 负责生成和传播跟踪上下文信息的所有繁重工作，这些信息可以发送到许多不同的诊断工具进行可视化和查询。 作为开发者，您只有在极少数情况下需要传播或生成跟踪标头。&lt;/p>
+&lt;p>Dapr 使用 W3C 追踪上下文对服务调用和 pub/sub 消息传递进行分布式跟踪。 在很大程度上，Dapr 负责生成和传播跟踪上下文信息的所有繁重工作，这些信息可以发送到许多不同的诊断工具进行可视化和查询。 作为开发者，您只有在极少数情况下需要传播或生成跟踪标头。&lt;/p>
 &lt;h2 id="背景">背景&lt;/h2>
 &lt;p>分布式跟踪是一种由跟踪工具实现的方法，用于跟踪、分析和调试跨多个软件组件的事务。 通常情况下，分布式跟踪会游历多个服务，这要求它是唯一可识别的。 跟踪上下文的传播依托于这个唯一标识。&lt;/p>
 &lt;p>在过去，跟踪上下文传播通常由每个不同的跟踪供应商单独实现。 在多供应商环境中，这会导致互操作性问题，例如：&lt;/p>
@@ -24,7 +24,7 @@
 &lt;li>Dapr生成并在服务之间传播跟踪上下文。&lt;/li>
 &lt;li>Dapr 生成跟踪上下文，您需要将跟踪上下文传播到另一个服务，或者你生成跟踪上下文，Dapr 将跟踪上下文传播到服务。&lt;/li>
 &lt;/ol>
-&lt;h3 id="dapr-在服务之间生成和传播跟踪上下文">Dapr 在服务之间生成和传播跟踪上下文&lt;/h3>
+&lt;h3 id="dapr生成并在服务之间传播跟踪上下文">Dapr生成并在服务之间传播跟踪上下文。&lt;/h3>
 &lt;p>在这些场景下，Dapr 会为您完成所有工作。 您不需要创建和传播任何跟踪头。 Dapr 负责创建所有跟踪头并传播它们。 让我们用示例来了解一下这些场景：&lt;/p>
 &lt;ol>
 &lt;li>
@@ -54,16 +54,20 @@
 service A -&amp;gt; service C
 [ .. some code logic ..]
 service A -&amp;gt; service D
+[ .. some code logic ..] some code logic ..]
+service A -&amp;gt; service C
+[ .. some code logic ..]
+service A -&amp;gt; service D
 [ .. some code logic ..]
 &lt;/code>&lt;/pre>
 &lt;p>在这种情况下，当服务 A 首先调用服务 B 时，Dapr 会在服务 A 中生成跟踪标头，然后这些跟踪标头将传播到服务 B。 这些跟踪标头作为响应标头的一部分在服务 B 的响应中返回。 但是，您需要将返回的跟踪上下文传播到下一个服务，如服务 C 和服务 D，因为 Dapr 不知道您希望重用相同的标头。&lt;/p>
 &lt;p>若要了解如何从响应中提取跟踪标头并将跟踪标头添加到请求中，请参阅 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/observability/w3c-tracing/">如何使用跟踪上下文&lt;/a> 一文.&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>您已选择生成自己的跟踪上下文标头。 这是很少会遇到的。 There may be occassions where you specifically chose to add W3C trace headers into a service call, for example if you have an existing application that does not currently use Dapr. 在这种情况下，Dapr 仍然会为您传播跟踪上下文标头。 在这种情况下，Dapr 仍然会为您传播跟踪上下文标头。 如果您决定自己生成跟踪标头，有三种方法可以实现：&lt;/p>
+&lt;p>您已选择生成自己的跟踪上下文标头。 这是很少会遇到的。 There may be occassions where you specifically chose to add W3C trace headers into a service call, for example if you have an existing application that does not currently use Dapr. 在这种情况下，Dapr 仍然会为您传播跟踪上下文标头。 如果您决定自己生成跟踪标头，有三种方法可以实现：&lt;/p>
 &lt;ol>
 &lt;li>
-&lt;p>You can use the industry standard OpenCensus/OpenTelemetry SDKs to generate trace headers and pass these trace headers to a Dapr enabled service. 这是首选的建议。 这是首选的建议。&lt;/p>
+&lt;p>You can use the industry standard OpenCensus/OpenTelemetry SDKs to generate trace headers and pass these trace headers to a Dapr enabled service. 这是首选的建议。&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>您可以使用供应商SDK来生成W3C跟踪标头，如DynaTrace SDK，并将这些跟踪标头传递给启用Dapr的服务。&lt;/p>
@@ -79,7 +83,7 @@ service A -&amp;gt; service D
 &lt;h3 id="跟踪上下文-http-标头格式">跟踪上下文 HTTP 标头格式&lt;/h3>
 &lt;p>当将HTTP响应的跟踪上下文头传播到HTTP请求时，您需要复制这些标头。&lt;/p>
 &lt;h4 id="traceparent-标头">Traceparent 标头&lt;/h4>
-&lt;p>The traceparent header represents the incoming request in a tracing system in a common format, understood by all vendors. 下面是 Traceparent 标头的示例。 下面是 Traceparent 标头的示例。&lt;/p>
+&lt;p>The traceparent header represents the incoming request in a tracing system in a common format, understood by all vendors. 下面是 Traceparent 标头的示例。&lt;/p>
 &lt;p>&lt;code>traceparent: 00-0af7651916cd43dd8448eb211c80319c-b7ad6b7169203331-01&lt;/code>&lt;/p>
 &lt;p>Traceparent 字段的详细信息 [ 在这里 ](https://www. w3. org/Tr/trace-context/#traceparent-header)。&lt;/p>
 &lt;h4 id="tracestate-标头">Tracestate 标头&lt;/h4>
@@ -90,7 +94,7 @@ service A -&amp;gt; service D
 &lt;p>在 gRPC API 调用中，跟踪上下文通过 &lt;code>grpc-trace-bin&lt;/code> 标头传递。&lt;/p>
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/monitoring/tracing/open-telemetry-collector/">操作方法：使用 OpenTelemetry Collector 为分布式跟踪安装应用程序洞察器&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/monitoring/tracing/open-telemetry-collector/">如何使用 OpenTelemetry 为分布式跟踪设置 Application Insights&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/operations/monitoring/tracing/supported-tracing-backends/zipkin/">操作方法: 为分布式跟踪安装 Zipkin&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://www.w3.org/TR/trace-context/">W3C 跟踪上下文规范&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://github.com/dapr/quickstarts/tree/master/observability">可观测性示例&lt;/a>&lt;/li>
@@ -124,7 +128,7 @@ service A -&amp;gt; service D
 &lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="在-c-中检索跟踪上下文">在 C# 中检索跟踪上下文&lt;/h3>
 &lt;h4 id="对于-http-调用-1">对于 HTTP 调用&lt;/h4>
 &lt;p>要从 HTTP 响应检索跟踪上下文，可以使用 &lt;a href="https://docs.microsoft.com/en-us/dotnet/api/system.net.http.headers.httpresponseheaders?view=netcore-3.1">.NET API&lt;/a>:&lt;/p>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#75715e">// client is HttpClient. // client is HttpClient. req is HttpRequestMessage
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#75715e">// client is HttpClient. req is HttpRequestMessage
 &lt;/span>&lt;span style="color:#75715e">&lt;/span>HttpResponseMessage response = &lt;span style="color:#66d9ef">await&lt;/span> client.SendAsync(req);
 IEnumerable&amp;lt;&lt;span style="color:#66d9ef">string&lt;/span>&amp;gt; values1, values2;
 &lt;span style="color:#66d9ef">string&lt;/span> traceparentValue = &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>;
@@ -211,11 +215,11 @@ headers.Add(&lt;span style="color:#e6db74">&amp;#34;grpc-trace-bin&amp;#34;&lt;/
 &lt;/tbody>
 &lt;/table>
 &lt;h3 id="在-go-中创建跟踪上下文">在 Go 中创建跟踪上下文&lt;/h3>
-&lt;h4 id="1-1-1-获取-opencensus-go-sdk">1. 1. 1. 获取 OpenCensus Go SDK&lt;/h4>
+&lt;h4 id="1-1-获取-opencensus-go-sdk">1. 1. 获取 OpenCensus Go SDK&lt;/h4>
 &lt;p>先决条件:OpenCensus Go 库需要 Go 1.8 或更高版本。 有关安装的详细信息，请访问 &lt;a href="https://pkg.go.dev/go.opencensus.io?tab=overview">这里&lt;/a>。&lt;/p>
-&lt;h4 id="2-2-2-导入包-goopenensussiotrace">2. 2. 2. 导入包 &amp;ldquo;go.openensuss.io/trace&amp;rdquo;&lt;/h4>
+&lt;h4 id="2-2-导入包-goopenensussiotrace">2. 2. 导入包 &amp;ldquo;go.openensuss.io/trace&amp;rdquo;&lt;/h4>
 &lt;p>&lt;code>$ go get -u go.opencensus.io&lt;/code>&lt;/p>
-&lt;h4 id="3-3-3-创建跟踪上下文">3. 3. 3. 创建跟踪上下文&lt;/h4>
+&lt;h4 id="3-3-创建跟踪上下文">3. 3. 创建跟踪上下文&lt;/h4>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#a6e22e">ctx&lt;/span>, &lt;span style="color:#a6e22e">span&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">trace&lt;/span>.&lt;span style="color:#a6e22e">StartSpan&lt;/span>(&lt;span style="color:#a6e22e">ctx&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;cache.Get&amp;#34;&lt;/span>)
 &lt;span style="color:#66d9ef">defer&lt;/span> &lt;span style="color:#a6e22e">span&lt;/span>.&lt;span style="color:#a6e22e">End&lt;/span>()
 &lt;span style="color:#75715e">// Do work to get from cache.
@@ -252,7 +256,7 @@ headers.Add(&lt;span style="color:#e6db74">&amp;#34;grpc-trace-bin&amp;#34;&lt;/
 &lt;p>但是，如果您选择显式传递跟踪上下文，那么 Dapr 将使用被传递的跟踪上下文并在整个 HTTP/GRPC 调用中传播。&lt;/p>
 &lt;p>使用示例中的 &lt;a href="https://docs.dapr.io/operations/configuration/grpc/">grpc app&lt;/a> 并将这全部放在一起，以下步骤显示如何创建 Dapr 客户端并调用传递跟踪上下文的 InvokeService 方法 :&lt;/p>
 &lt;p>其他代码片段和详细信息，请参阅 &lt;a href="https://docs.dapr.io/operations/configuration/grpc/">grpc 应用程序&lt;/a>。&lt;/p>
-&lt;h3 id="1-1-1-导入包">1. 1. 1. 导入包&lt;/h3>
+&lt;h3 id="1-1-导入包">1. 1. 导入包&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#f92672">package&lt;/span> &lt;span style="color:#a6e22e">main&lt;/span>
 &lt;span style="color:#f92672">import&lt;/span> (
 &lt;span style="color:#a6e22e">pb&lt;/span> &lt;span style="color:#e6db74">&amp;#34;github.com/dapr/go-sdk/dapr&amp;#34;&lt;/span>
@@ -261,7 +265,7 @@ headers.Add(&lt;span style="color:#e6db74">&amp;#34;grpc-trace-bin&amp;#34;&lt;/
 &lt;span style="color:#e6db74">&amp;#34;google.golang.org/grpc&amp;#34;&lt;/span>
 &lt;span style="color:#e6db74">&amp;#34;google.golang.org/grpc/metadata&amp;#34;&lt;/span>
 )
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="2-2-2-创建客户端">2. 2. 2. 创建客户端&lt;/h3>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="2-2-创建客户端">2. 2. 创建客户端&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go"> &lt;span style="color:#75715e">// Get the Dapr port and create a connection
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">daprPort&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">os&lt;/span>.&lt;span style="color:#a6e22e">Getenv&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;DAPR_GRPC_PORT&amp;#34;&lt;/span>)
 &lt;span style="color:#a6e22e">daprAddress&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">fmt&lt;/span>.&lt;span style="color:#a6e22e">Sprintf&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;localhost:%s&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">daprPort&lt;/span>)
@@ -272,7 +276,7 @@ headers.Add(&lt;span style="color:#e6db74">&amp;#34;grpc-trace-bin&amp;#34;&lt;/
 &lt;span style="color:#66d9ef">defer&lt;/span> &lt;span style="color:#a6e22e">conn&lt;/span>.&lt;span style="color:#a6e22e">Close&lt;/span>()
 &lt;span style="color:#75715e">// Create the client
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">client&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">pb&lt;/span>.&lt;span style="color:#a6e22e">NewDaprClient&lt;/span>(&lt;span style="color:#a6e22e">conn&lt;/span>)
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="3-3-3-使用跟踪上下文调用-invokeservice-方法">3. 3. 3. 使用跟踪上下文调用 InvokeService 方法&lt;/h3>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="3-3-使用跟踪上下文调用-invokeservice-方法">3. 3. 使用跟踪上下文调用 InvokeService 方法&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go"> &lt;span style="color:#75715e">// 创建Trace Context
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">ctx&lt;/span> , &lt;span style="color:#a6e22e">span&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">trace&lt;/span>.&lt;span style="color:#a6e22e">StartSpan&lt;/span>(&lt;span style="color:#a6e22e">context&lt;/span>.&lt;span style="color:#a6e22e">Background&lt;/span>(), &lt;span style="color:#e6db74">&amp;#34;InvokeService&amp;#34;&lt;/span>)
 &lt;span style="color:#75715e">// 返回的上下文可以用于在当前环境中不断传播新创建的span。
