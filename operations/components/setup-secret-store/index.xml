@@ -1,7 +1,7 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Secret store components</title><link>https://docs.dapr.io/operations/components/setup-secret-store/</link><description>Recent content in Secret store components on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/operations/components/setup-secret-store/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: 概述</title><link>https://docs.dapr.io/operations/components/setup-secret-store/secret-stores-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-secret-store/secret-stores-overview/</guid><description>
-&lt;p>Dapr integrates with secret stores to provide apps and other components with secure store and access to secrets such as access keys and passwords. Each secret store component has a name and this name is used when accessing a secret.&lt;/p>
-&lt;p>As with other building block components, secret store components are extensible and can be found in the &lt;a href="https://github.com/dapr/components-contrib">components-contrib repo&lt;/a>.&lt;/p>
-&lt;p>A secret store in Dapr is described using a &lt;code>Component&lt;/code> file with the following fields:&lt;/p>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – 密钥仓库组件</title><link>https://docs.dapr.io/operations/components/setup-secret-store/</link><description>Recent content in 密钥仓库组件 on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/operations/components/setup-secret-store/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: 概述</title><link>https://docs.dapr.io/operations/components/setup-secret-store/secret-stores-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-secret-store/secret-stores-overview/</guid><description>
+&lt;p>Dapr 与密钥存储集成，为应用程序和其他组件提供安全存储和访问密钥和密码等机密。 每个密钥存储组件都有一个名称，这个名称用于访问密钥。&lt;/p>
+&lt;p>与其他构建块组件一样，密钥存储组件是可扩展的，可以在&lt;a href="https://github.com/dapr/components-contrib">components-contrib 仓库&lt;/a>中找到。&lt;/p>
+&lt;p>Dapr中的密钥存储使用&lt;code>Component&lt;/code>文件描述，其字段如下:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -16,8 +16,8 @@
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;KEY&amp;gt;&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;VALUE&amp;gt;&lt;/span>
 ...
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>The type of secret store is determined by the &lt;code>type&lt;/code> field, and things like connection strings and other metadata are put in the &lt;code>.metadata&lt;/code> section.&lt;/p>
-&lt;p>Different &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/">supported secret stores&lt;/a> will have different specific fields that would need to be configured. For example, when configuring a secret store which uses AWS Secrets Manager the file would look like this:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>密钥存储的类型由&lt;code>type&lt;/code>字段决定，连接地址和其他元数据等放在&lt;code>.metadata&lt;/code>部分。&lt;/p>
+&lt;p>不同的 &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/">支持的密钥存储&lt;/a> 将有不同的特定字段需要配置。 例如，当配置一个使用 AWS Secrets Manager秘密存储时，文件看起来就像这样：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -35,8 +35,8 @@
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[aws_secret_key]&amp;#34;&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">sessionToken&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[aws_session_token]&amp;#34;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="apply-the-configuration">Apply the configuration&lt;/h2>
-&lt;p>Once you have created the component&amp;rsquo;s YAML file, follow these instructions to apply it based on your hosting environment:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="应用配置">应用配置&lt;/h2>
+&lt;p>一旦您创建了组件的 YAML 文件，按照以下说明来根据您的主机环境应用它：&lt;/p>
 &lt;ul class="nav nav-tabs" id="tabs-1" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
 id="tabs-1-self-hosted-tab" data-toggle="tab" href="#tabs-1-self-hosted" role="tab"
 aria-controls="tabs-1-self-hosted" aria-selected="true">
@@ -50,17 +50,17 @@ Kubernetes
 &lt;/li>&lt;/ul>
 &lt;div class="tab-content" id="tabs-1-content">
 &lt;div class="tab-pane fade show active" id="tabs-1-self-hosted" role="tabpanel" aria-labelled-by="tabs-1-self-hosted-tab">
-&lt;br />&lt;p>To run locally, create a &lt;code>components&lt;/code> dir containing the YAML file and provide the path to the &lt;code>dapr run&lt;/code> command with the flag &lt;code>--components-path&lt;/code>.&lt;/p>
+&lt;br />&lt;p>要在本地运行，创建一个包含YAML文件的&lt;code>components&lt;/code>目录，并提供&lt;code>dapr run&lt;/code>命令的路径，标志为&lt;code>--components-path&lt;/code>。&lt;/p>
 &lt;/div>
 &lt;div class="tab-pane fade" id="tabs-1-kubernetes" role="tabpanel" aria-labelled-by="tabs-1-kubernetes-tab">
-&lt;br />&lt;p>To deploy in Kubernetes, assuming your component file is named &lt;code>secret-store.yaml&lt;/code>, run:&lt;/p>
+&lt;br />&lt;p>若要在 Kubernetes 中部署，假定您的组件文件名为 &lt;code>secret-store.yaml&lt;/code>，运行：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl apply -f secret-store.yaml
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
 &lt;/div>
-&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/">Supported secret store components&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/secrets/">Secrets building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/">支持的密钥存储组件&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/secrets/">密钥构建块&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: 支持的密钥仓库</title><link>https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/</guid><description>
 &lt;p>表格标题：&lt;/p>
 &lt;blockquote>

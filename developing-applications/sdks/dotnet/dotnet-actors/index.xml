@@ -1,12 +1,12 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Getting started with the Dapr actors .NET SDK</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/</link><description>Recent content in Getting started with the Dapr actors .NET SDK on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Getting started with the Dapr actor .NET SDK</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actor-howto/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actor-howto/</guid><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Dapr actors .NET SDK入门</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/</link><description>Recent content in Dapr actors .NET SDK入门 on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Dapr actor .NET SDK入门</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actor-howto/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actor-howto/</guid><description>
 &lt;h2 id="前期准备">前期准备&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/getting-started/install-dapr-cli/">Dapr CLI&lt;/a> installed&lt;/li>
-&lt;li>Initialized &lt;a href="https://docs.dapr.io/getting-started/install-dapr-selfhost/">Dapr environment&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dotnet.microsoft.com/download">.NET Core 3.1 or .NET 5+&lt;/a> installed&lt;/li>
+&lt;li>安装 &lt;a href="https://docs.dapr.io/getting-started/install-dapr-cli/">Dapr CLI&lt;/a>&lt;/li>
+&lt;li>初始化后的 &lt;a href="https://docs.dapr.io/getting-started/install-dapr-selfhost/">Dapr 环境&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dotnet.microsoft.com/download">.NET Core 3.1 or .NET 5+&lt;/a> 已安装&lt;/li>
 &lt;/ul>
-&lt;h2 id="overview">Overview&lt;/h2>
-&lt;p>This document describes how to create an Actor(&lt;code>MyActor&lt;/code>) and invoke its methods on the client application.&lt;/p>
+&lt;h2 id="概述">概述&lt;/h2>
+&lt;p>本文档描述了如何创建一个Actor(&lt;code>MyActor&lt;/code>) 并从客户端程序调用其方法。&lt;/p>
 &lt;pre>&lt;code>MyActor --- MyActor.Interfaces
 |
 +- MyActorService
@@ -14,31 +14,31 @@
 +- MyActorClient
 &lt;/code>&lt;/pre>&lt;ul>
 &lt;li>
-&lt;p>&lt;strong>The interface project(\MyActor\MyActor.Interfaces).&lt;/strong> This project contains the interface definition for the actor. Actor interfaces can be defined in any project with any name. The interface defines the actor contract that is shared by the actor implementation and the clients calling the actor. Because client projects may depend on it, it typically makes sense to define it in an assembly that is separate from the actor implementation.&lt;/p>
+&lt;p>&lt;strong>接口项目(\MyActor\MyActor.Interfaces).&lt;/strong> 该项目包含了actor的接口定义。 Actor接口可以在任何项目中以任意的名称定义。 它定义了actor的实现和调用actor的客户端之间的约定。 由于客户端项目可能会依赖它，所以在一个和actor实现分隔开的程序集中定义通常是有意义的。&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>&lt;strong>The actor service project(\MyActor\MyActorService).&lt;/strong> This project implements ASP.Net Core web service that is going to host the actor. It contains the implementation of the actor, MyActor.cs. An actor implementation is a class that derives from the base type Actor and implements the interfaces defined in the MyActor.Interfaces project. An actor class must also implement a constructor that accepts an ActorService instance and an ActorId and passes them to the base Actor class.&lt;/p>
+&lt;p>&lt;strong>Actor服务项目 (\MyActor\MyActorService)。&lt;/strong> 该项目实现了Asp.Net Core web service，用于托管actor。 它包含了actor的实现，MyActor.cs。 Actor的实现是一个继承了基类Actor并且实现了Myactor.Interfaces项目中定义的接口的类。 Actor还必须提供接受一个ActorService实例和ActorId的构造函数，并将他们传递给基类。&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>&lt;strong>The actor client project(\MyActor\MyActorClient)&lt;/strong> This project contains the implementation of the actor client which calls MyActor&amp;rsquo;s method defined in Actor Interfaces.&lt;/p>
+&lt;p>&lt;strong>演员客户端项目 (\MyActor\MyActorClient)。&lt;/strong> 该项目包含了actor客户端的实现，并在其中调用了在Actor接口中定义的方法。&lt;/p>
 &lt;/li>
 &lt;/ul>
-&lt;h2 id="step-1---create-actor-interface">STEP 1 - Create Actor Interface&lt;/h2>
-&lt;p>Actor interface defines the actor contract that is shared by the actor implementation and the clients calling the actor.&lt;/p>
-&lt;p>Actor interface is defined with the below requirements:&lt;/p>
+&lt;h2 id="step1---创建actor接口">STEP1 - 创建Actor接口&lt;/h2>
+&lt;p>Actor接口定义了actor的实现和调用actor的客户端之间的约定。&lt;/p>
+&lt;p>Actor接口的定义需要满足以下要求：&lt;/p>
 &lt;ul>
-&lt;li>Actor interface must inherit &lt;code>Dapr.Actors.IActor&lt;/code> interface&lt;/li>
-&lt;li>The return type of Actor method must be &lt;code>Task&lt;/code> or &lt;code>Task&amp;lt;object&amp;gt;&lt;/code>&lt;/li>
-&lt;li>Actor method can have one argument at a maximum&lt;/li>
+&lt;li>Actor接口必须继承 &lt;code>Dapr.Actors.IActor&lt;/code> 接口&lt;/li>
+&lt;li>Actor方法的返回值必须是&lt;code>Task&lt;/code> 或者 &lt;code>Task&amp;lt;object&amp;gt;&lt;/code>类型&lt;/li>
+&lt;li>Actor方法最多只能有一个参数&lt;/li>
 &lt;/ul>
-&lt;h3 id="create-project-and-add-dependencies">Create project and add dependencies&lt;/h3>
+&lt;h3 id="创建项目并添加依赖">创建项目并添加依赖&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#75715e"># Create Actor Interfaces&lt;/span>
 dotnet new classlib -o MyActor.Interfaces
 cd MyActor.Interfaces
 &lt;span style="color:#75715e"># Add Dapr.Actors nuget package. Please use the latest package version from nuget.org&lt;/span>
 dotnet add package Dapr.Actors -v 1.0.0-rc02
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="implement-imyactor-interface">Implement IMyActor Interface&lt;/h3>
-&lt;p>Define IMyActor Interface and MyData data object.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="定义imyactor接口">定义IMyActor接口&lt;/h3>
+&lt;p>定义IMyActor接口和MyData数据对象.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#66d9ef">using&lt;/span> Dapr.Actors;
 &lt;span style="color:#66d9ef">using&lt;/span> System.Threading.Tasks;
 &lt;span style="color:#66d9ef">namespace&lt;/span> MyActor.Interfaces
@@ -64,9 +64,9 @@ Task UnregisterTimer();
 }
 }
 }
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="step-2---create-actor-service">STEP 2 - Create Actor Service&lt;/h2>
-&lt;p>Dapr uses ASP.NET web service to host Actor service. This section will implement &lt;code>IMyActor&lt;/code> actor interface and register Actor to Dapr Runtime.&lt;/p>
-&lt;h3 id="create-project-and-add-dependencies-1">Create project and add dependencies&lt;/h3>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="step2---创建actor服务">STEP2 - 创建Actor服务&lt;/h2>
+&lt;p>Dapr 使用 ASP.NET web service来托管Actor服务。 本节将会实现&lt;code>IMyActor&lt;/code>接口并将Actor注册到Dapr Runtime。&lt;/p>
+&lt;h3 id="创建项目并添加依赖-1">创建项目并添加依赖&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#75715e"># Create ASP.Net Web service to host Dapr actor&lt;/span>
 dotnet new webapi -o MyActorService
 cd MyActorService
@@ -76,8 +76,8 @@ dotnet add package Dapr.Actors -v 1.0.0-rc02
 dotnet add package Dapr.Actors.AspNetCore -v 1.0.0-rc02
 &lt;span style="color:#75715e"># Add Actor Interface reference&lt;/span>
 dotnet add reference ../MyActor.Interfaces/MyActor.Interfaces.csproj
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="add-actor-implementation">Add Actor implementation&lt;/h3>
-&lt;p>Implement IMyActor interface and derive from &lt;code>Dapr.Actors.Actor&lt;/code> class. Following example shows how to use Actor Reminders as well. For Actors to use Reminders, it must derive from IRemindable. If you don&amp;rsquo;t intend to use Reminder feature, you can skip implementing IRemindable and reminder specific methods which are shown in the code below.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="添加actor实现">添加Actor实现&lt;/h3>
+&lt;p>实现IMyActor接口并继承自 &lt;code>Dapr.Actors.Actor&lt;/code> 。 下面的例子同样展示了如何使用Actor Reminders。 Actor如果要使用Reminders，则必须实现IRemindable接口 如果你不打算使用Reminder功能，你可以跳过下面代码中实现IRemindable接口和Reminder特定方法的操作。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#66d9ef">using&lt;/span> Dapr.Actors;
 &lt;span style="color:#66d9ef">using&lt;/span> Dapr.Actors.Runtime;
 &lt;span style="color:#66d9ef">using&lt;/span> MyActor.Interfaces;
@@ -93,7 +93,7 @@ dotnet add reference ../MyActor.Interfaces/MyActor.Interfaces.csproj
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// &amp;lt;summary&amp;gt;
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// Initializes a new instance of MyActor
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// &amp;lt;/summary&amp;gt;
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// &amp;lt;param name=&amp;#34;host&amp;#34;&amp;gt;The Dapr.Actors.Runtime.ActorHost that will host this actor instance.&amp;lt;/param&amp;gt;
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">///
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">public&lt;/span> MyActor(ActorHost host)
 : &lt;span style="color:#66d9ef">base&lt;/span>(host)
 {
@@ -120,7 +120,7 @@ dotnet add reference ../MyActor.Interfaces/MyActor.Interfaces.csproj
 &lt;span style="color:#75715e">/// &amp;lt;summary&amp;gt;
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// Set MyData into actor&amp;#39;s private state store
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// &amp;lt;/summary&amp;gt;
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// &amp;lt;param name=&amp;#34;data&amp;#34;&amp;gt;the user-defined MyData which will be stored into state store as &amp;#34;my_data&amp;#34; state&amp;lt;/param&amp;gt;
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">///
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">async&lt;/span> Task&amp;lt;&lt;span style="color:#66d9ef">string&lt;/span>&amp;gt; SetDataAsync(MyData data)
 {
 &lt;span style="color:#75715e">// Data is saved to configured state store implicitly after each method execution by Actor&amp;#39;s runtime.
@@ -198,17 +198,17 @@ Console.WriteLine(&lt;span style="color:#e6db74">&amp;#34;OnTimerCallBack is cal
 }
 }
 }
-&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="using-an-explicit-actor-type-name">Using an explicit actor type name&lt;/h4>
-&lt;p>By default, the &amp;ldquo;type&amp;rdquo; of the actor as seen by clients is derived from the name of the actor implementation class. If desired, you can specify an explicit type name by attaching an &lt;code>ActorAttribute&lt;/code> attribute to the actor implementation class.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="使用显式的actor类型名称">使用显式的actor类型名称&lt;/h4>
+&lt;p>默认情况下，客户端所看到的actor的“类型”来自actor实现类的名称。 如果需要，你可以通过向actor实现类附加一个 &lt;code>ActorAttribute&lt;/code> 特性来指定一个显式的类型名称。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#a6e22e"> [Actor(TypeName = &amp;#34;MyCustomActorTypeName&amp;#34;)]&lt;/span>
 &lt;span style="color:#66d9ef">internal&lt;/span> &lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">MyActor&lt;/span> : Actor, IMyActor
 {
 &lt;span style="color:#75715e">// ...
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> }
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="register-actor-runtime-with-aspnet-core-startup">Register Actor runtime with ASP.NET Core startup&lt;/h3>
-&lt;p>The Actor runtime is configured through ASP.NET Core &lt;code>Startup.cs&lt;/code>.&lt;/p>
-&lt;p>The runtime uses the ASP.NET Core dependency injection system to register actor types and essential services. This integration is provided through the &lt;code>AddActors(...)&lt;/code> method call in &lt;code>ConfigureServices(...)&lt;/code>. Use the delegate passed to &lt;code>AddActors(...)&lt;/code> to register actor types and configure actor runtime settings. You can register additional types for dependency injection inside &lt;code>ConfigureServices(...)&lt;/code>. These will be available to be injected into the constructors of your Actor types.&lt;/p>
-&lt;p>Actors are implemented via HTTP calls with the Dapr runtime. This functionality is part of the application&amp;rsquo;s HTTP processing pipeline and is registered inside &lt;code>UseEndpoints(...)&lt;/code> inside &lt;code>Configure(...)&lt;/code>.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="使用aspnet-core-startup来注册actor-runtime">使用ASP.NET Core Startup来注册Actor runtime&lt;/h3>
+&lt;p>Actor runtime使用ASP.NET Core &lt;code>Startup.cs&lt;/code>来配置。&lt;/p>
+&lt;p>运行时使用ASP.NET Core依赖注入系统来注册actor类型和基本服务。 通过在 &lt;code>ConfigureServices(...)&lt;/code> 中调用 &lt;code>AddActors(...)&lt;/code> 方法来提供这种集成。 使用传递到 &lt;code>AddActors(...)&lt;/code> 方法的委托来注册actor类型并配置actor运行时设置。 你可以在&lt;code>ConfigureServices(...)&lt;/code>中为依赖注入注册额外的类型。 它们都可以被注入到你的Actor类型的构造器。&lt;/p>
+&lt;p>Actors通过Dapr runtime使用HTTP调用来实现。 此功能是应用程序的 HTTP 处理管道的一部分，在 &lt;code>Configure(...)&lt;/code> 方法中的&lt;code>UseEndpoint(...)&lt;/code> 注册。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp"> &lt;span style="color:#75715e">// In Startup.cs
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">void&lt;/span> ConfigureServices(IServiceCollection services)
 {
@@ -238,9 +238,9 @@ app.UseEndpoints(endpoints =&amp;gt;
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> endpoints.MapActorsHandlers();
 });
 }
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="optional---override-default-actor-settings">&lt;strong>Optional&lt;/strong> - Override Default Actor Settings&lt;/h3>
-&lt;p>Actor Settings are per app. The settings described &lt;a href="https://docs.dapr.io/reference/api/actors_api/">here&lt;/a> are available on the options and can be modified as below.&lt;/p>
-&lt;p>The following code extends the previous section to do this. Please note the values below are an &lt;strong>example&lt;/strong> only.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="可选---覆盖默认的actor设置">&lt;strong>可选&lt;/strong> - 覆盖默认的Actor设置&lt;/h3>
+&lt;p>Actor的设置针对每个应用程序。 在&lt;a href="https://docs.dapr.io/reference/api/actors_api/">此处&lt;/a> 描述的设置在options中可用的并可以通过如下方式来修改。&lt;/p>
+&lt;p>下面的代码扩展了上一节来做这件事。 请注意下面的值仅用于 &lt;strong>示例&lt;/strong>。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">
 &lt;span style="color:#75715e">// In Startup.cs
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">void&lt;/span> ConfigureServices(IServiceCollection services)
@@ -258,9 +258,9 @@ options.DrainRebalancedActors = &lt;span style="color:#66d9ef">true&lt;/span>;
 &lt;span style="color:#75715e">// Register additional services for use with actors
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> services.AddSingleton&amp;lt;BankService&amp;gt;();
 }
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="step-3---add-a-client">STEP 3 - Add a client&lt;/h2>
-&lt;p>Create a simple console app to call the actor service. Dapr SDK provides Actor Proxy client to invoke actor methods defined in Actor Interface.&lt;/p>
-&lt;h3 id="create-project-and-add-dependencies-2">Create project and add dependencies&lt;/h3>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="step-3---添加客户端">STEP 3 - 添加客户端&lt;/h2>
+&lt;p>创建一个简单的控制台应用来调用actor服务。 Dapr SDK 提供 Actor 代理客户端来调用Actor接口中定义的actor方法。&lt;/p>
+&lt;h3 id="创建项目并添加依赖-2">创建项目并添加依赖&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#75715e"># Create Actor&amp;#39;s Client&lt;/span>
 dotnet new console -o MyActorClient
 cd MyActorClient
@@ -268,8 +268,8 @@ cd MyActorClient
 dotnet add package Dapr.Actors -v 1.0.0-rc02
 &lt;span style="color:#75715e"># Add Actor Interface reference&lt;/span>
 dotnet add reference ../MyActor.Interfaces/MyActor.Interfaces.csproj
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="invoke-actor-method-with-actor-service-remoting">Invoke Actor method with Actor Service Remoting&lt;/h3>
-&lt;p>We recommend to use the local proxy to actor instance because &lt;code>ActorProxy.Create&amp;lt;IMyActor&amp;gt;(actorID, actorType)&lt;/code> returns strongly-typed actor instance to set up the remote procedure call.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="使用-actor-服务远程调用-actor-方法">使用 Actor 服务远程调用 Actor 方法&lt;/h3>
+&lt;p>我们建议使用actor实例的本地代理，因为 &lt;code>ActorProxy.Create&amp;lt;IMyActor&amp;gt;(actorID, actorType)&lt;/code>返回强类型的actor实例来配置远程过程调用。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#66d9ef">namespace&lt;/span> MyActorClient
 {
 &lt;span style="color:#66d9ef">using&lt;/span> Dapr.Actors;
@@ -296,9 +296,9 @@ Console.WriteLine(savedData);
 }
 ...
 }
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="invoke-actor-method-without-actor-service-remoting">Invoke Actor method without Actor Service Remoting&lt;/h3>
-&lt;p>You can invoke Actor methods without remoting (directly over http or using helper methods provided in ActorProxy), if Actor method accepts at-most one argument. Actor runtime will deserialize the incoming request body from client and use it as method argument to invoke the actor method. When making non-remoting calls Actor method arguments and return types are serialized, deserialized as JSON.&lt;/p>
-&lt;p>&lt;code>ActorProxy.Create(actorID, actorType)&lt;/code> returns ActorProxy instance and allow to use the raw http client to invoke the method defined in &lt;code>IMyActor&lt;/code>.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="无-actor-服务远程调用-actor-方法">无 Actor 服务远程调用 Actor 方法&lt;/h3>
+&lt;p>如果actor方法接受最多一个参数，您可以无需使用remoting来调用actor方法(直接通过 http 或使用 ActorProxy 提供的辅助方法)。 Actor 运行时将会反序列化从客户端接收到的请求体，并将其作为方法参数来调用actor方法。 当进行non-remoting调用，Actor方法参数和返回值会被序列化，反序列化为 JSON 。&lt;/p>
+&lt;p>&lt;code>ActorProxy.Create(actorID, actorType)&lt;/code> 返回ActorProxy实例，并且可以使用原始的http client 来调用在 &lt;code>IMyActor&lt;/code>中定义的方法。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#66d9ef">namespace&lt;/span> MyActorClient
 {
 &lt;span style="color:#66d9ef">using&lt;/span> Dapr.Actors;
@@ -325,13 +325,13 @@ Console.WriteLine(savedData);
 }
 ...
 }
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="run-actor">Run Actor&lt;/h2>
-&lt;p>In order to validate and debug actor service and client, we need to run actor services via Dapr CLI first.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="运行-actor">运行 Actor&lt;/h2>
+&lt;p>为了验证和调试执行者服务和客户端，我们需要先通过 Dapr CLI 运行 actor 服务。&lt;/p>
 &lt;ol>
 &lt;li>
-&lt;p>Run Dapr Runtime via Dapr cli&lt;/p>
+&lt;p>通过 Dapr cli 运行 Dapr&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">$ dapr run --app-id myapp --app-port &lt;span style="color:#ae81ff">5000&lt;/span> --dapr-http-port &lt;span style="color:#ae81ff">3500&lt;/span> dotnet run
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>After executing MyActorService via Dapr runtime, make sure that application is discovered on port 5000 and actor connection is established successfully.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>通过 Dapr 运行时执行 MyActorService 后，请确保应用程序在 5000 端口被发现，并成功建立actor连接。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash"> INFO&lt;span style="color:#f92672">[&lt;/span>0000&lt;span style="color:#f92672">]&lt;/span> starting Dapr Runtime -- version -- commit
 INFO&lt;span style="color:#f92672">[&lt;/span>0000&lt;span style="color:#f92672">]&lt;/span> log level set to: info
 INFO&lt;span style="color:#f92672">[&lt;/span>0000&lt;span style="color:#f92672">]&lt;/span> standalone mode configured
@@ -355,10 +355,10 @@ INFO&lt;span style="color:#f92672">[&lt;/span>0000&lt;span style="color:#f92672"
 ...
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
-&lt;p>Run MyActorClient&lt;/p>
-&lt;p>MyActorClient will console out if it calls actor hosted in MyActorService successfully.&lt;/p>
+&lt;p>运行 MyActorClient&lt;/p>
+&lt;p>如果MyActorClient成功的调用了MyActorService中的actor，它将会在控制台进行输出。&lt;/p>
 &lt;blockquote>
-&lt;p>If you specify the different Dapr runtime http port (default port: 3500), you need to set DAPR_HTTP_PORT environment variable before running the client.&lt;/p>
+&lt;p>如果你指定了不同的Dapr运行时http端口（默认端口：3500），你需要在运行客户端之前设置DAPR_HTTP_PORT环境变量。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash"> Success
 PropertyA: ValueA, PropertyB: ValueB
 &lt;/code>&lt;/pre>&lt;/div>&lt;/blockquote>

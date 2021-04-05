@@ -1,12 +1,12 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Virtual Actors</title><link>https://docs.dapr.io/developing-applications/sdks/php/php-actors/</link><description>Recent content in Virtual Actors on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/developing-applications/sdks/php/php-actors/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Production Reference: Actors</title><link>https://docs.dapr.io/developing-applications/sdks/php/php-actors/php-actor-reference/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/php/php-actors/php-actor-reference/</guid><description>
-&lt;h2 id="proxy-modes">Proxy modes&lt;/h2>
-&lt;p>There are four different modes actor proxies are handled. Each mode presents different trade-offs that you&amp;rsquo;ll need to weigh during development and in production.&lt;/p>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Virtual Actors</title><link>https://docs.dapr.io/developing-applications/sdks/php/php-actors/</link><description>Recent content in Virtual Actors on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/developing-applications/sdks/php/php-actors/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: 参考：actor</title><link>https://docs.dapr.io/developing-applications/sdks/php/php-actors/php-actor-reference/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/php/php-actors/php-actor-reference/</guid><description>
+&lt;h2 id="代理模式">代理模式&lt;/h2>
+&lt;p>Actor 代理有四种处理方式。 每种模式都需要您在开发和生产过程中权衡。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
 &lt;span style="color:#a6e22e">\Dapr\Actors\Generators\ProxyFactory&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">GENERATED&lt;/span>;
 &lt;span style="color:#a6e22e">\Dapr\Actors\Generators\ProxyFactory&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">GENERATED_CACHED&lt;/span>;
 &lt;span style="color:#a6e22e">\Dapr\Actors\Generators\ProxyFactory&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">ONLY_EXISTING&lt;/span>;
 &lt;span style="color:#a6e22e">\Dapr\Actors\Generators\ProxyFactory&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">DYNAMIC&lt;/span>;
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>It can be set with &lt;code>dapr.actors.proxy.generation&lt;/code> configuration key.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>它可以使用 &lt;code>dapr.actors.proxy.generate&lt;/code> 配置密钥。&lt;/p>
 &lt;ul class="nav nav-tabs" id="tabs-0" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
 id="tabs-0-generated-tab" data-toggle="tab" href="#tabs-0-generated" role="tab"
 aria-controls="tabs-0-generated" aria-selected="true">
@@ -30,16 +30,16 @@ DYNAMIC
 &lt;/li>&lt;/ul>
 &lt;div class="tab-content" id="tabs-0-content">
 &lt;div class="tab-pane fade show active" id="tabs-0-generated" role="tabpanel" aria-labelled-by="tabs-0-generated-tab">
-&lt;br />&lt;p>This is the default mode. In this mode, a class is generated and &lt;code>eval&lt;/code>&amp;rsquo;d on every request. It&amp;rsquo;s mostly for development and shouldn&amp;rsquo;t be used in production.&lt;/p>
+&lt;br />&lt;p>这是默认的模式。 在这种模式下，每次请求都会生成一个 &lt;code>eval&lt;/code>类， 它主要用于开发环境而不能应用于生产。&lt;/p>
 &lt;/div>
 &lt;div class="tab-pane fade" id="tabs-0-generated_cached" role="tabpanel" aria-labelled-by="tabs-0-generated_cached-tab">
-&lt;br />&lt;p>This is the same as &lt;code>ProxyModes::GENERATED&lt;/code> except the class is stored in a tmp file so it doesn&amp;rsquo;t need to be regenerated on every request. It doesn&amp;rsquo;t know when to update the cached class, so using it in development is discouraged but is offered for when manually generating the files isn&amp;rsquo;t possible.&lt;/p>
+&lt;br />&lt;p>这与 &lt;code>ProxyModes::GENERATED&lt;/code> 相同，但这个类存储在临时文件中，所以不需要在每个请求中重新生成。 它不知道何时更新缓存的类，也无法手动生成文件时提供，因此不建议在开发中使用它&lt;/p>
 &lt;/div>
 &lt;div class="tab-pane fade" id="tabs-0-only_existing" role="tabpanel" aria-labelled-by="tabs-0-only_existing-tab">
-&lt;br />&lt;p>In this mode, an exception is thrown if the proxy class doesn&amp;rsquo;t exist. This is useful for when you don&amp;rsquo;t want to generate code in production. You&amp;rsquo;ll have to make sure the class is generated and pre-/autoloaded.&lt;/p>
-&lt;h3 id="generating-proxies">Generating proxies&lt;/h3>
-&lt;p>You can create a composer script to generate proxies on demand to take advantage of the &lt;code>ONLY_EXISTING&lt;/code> mode.&lt;/p>
-&lt;p>Create a &lt;code>ProxyCompiler.php&lt;/code>&lt;/p>
+&lt;br />&lt;p>在这种模式下，如果不存在代理类，将会抛出异常。 可以用在当你不想在生产生产环境中生成代码时 您必须确保class生成并自动加载。&lt;/p>
+&lt;h3 id="生成代理">生成代理&lt;/h3>
+&lt;p>您可以创建一个编写器脚本来根据需要生成代理，以利用&lt;code>ONLY_EXISTING&lt;/code>模式。&lt;/p>
+&lt;p>创建 &lt;code>ProxyCompiler.php&lt;/code>&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
 &lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">ProxyCompiler&lt;/span> {
 &lt;span style="color:#66d9ef">private&lt;/span> &lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#66d9ef">PROXIES&lt;/span> &lt;span style="color:#f92672">=&lt;/span> [
@@ -65,7 +65,7 @@ $filename &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db
 }
 }
 }
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Then add a psr-4 autoloader for the generated proxies and a script in &lt;code>composer.json&lt;/code>:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后在 &lt;code>composer.json&lt;/code> 中为生成的代理添加一个 psr-4 自动加载器和脚本：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
 &lt;span style="color:#f92672">&amp;#34;autoload&amp;#34;&lt;/span>: {
 &lt;span style="color:#f92672">&amp;#34;psr-4&amp;#34;&lt;/span>: {
@@ -76,7 +76,7 @@ $filename &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db
 &lt;span style="color:#f92672">&amp;#34;compile-proxies&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;ProxyCompiler::compile&amp;#34;&lt;/span>
 }
 }
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>And finally, configure dapr to only use the generated proxies:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>最后，将dapr配置为仅使用生成的代理：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
 &lt;span style="color:#75715e">// in config.php
 &lt;/span>&lt;span style="color:#75715e">&lt;/span>
@@ -85,20 +85,20 @@ $filename &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db
 ];
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
 &lt;div class="tab-pane fade" id="tabs-0-dynamic" role="tabpanel" aria-labelled-by="tabs-0-dynamic-tab">
-&lt;br />&lt;p>In this mode, the proxy satisfies the interface contract, however, it does not actually implement the interface itself (meaning &lt;code>instanceof&lt;/code> will be &lt;code>false&lt;/code>). This mode takes advantage of a few quirks in PHP to work and exists for cases where code cannot be &lt;code>eval&lt;/code>&amp;rsquo;d or generated.&lt;/p>
+&lt;br />&lt;p>然而，在这种模式下，代理人满足了接口契约。 它实际上没有实现接口本身 (意指 &lt;code>instanceof&lt;/code> 将是 &lt;code>false&lt;/code>). 这种模式利用了PHP中的一些特性来工作，并适用于某些情况 其中code不能是&lt;code>eval&lt;/code>&amp;lsquo;d或生成。&lt;/p>
 &lt;/div>
 &lt;/div>
-&lt;h3 id="requests">Requests&lt;/h3>
-&lt;p>Creating an actor proxy is very inexpensive for any mode. There are no requests made when creating an actor proxy object.&lt;/p>
-&lt;p>When you call a method on a proxy object, only methods that you implemented are serviced by your actor implementation. &lt;code>get_id()&lt;/code> is handled locally, and &lt;code>get_reminder()&lt;/code>, &lt;code>delete_reminder()&lt;/code>, etc. are handled by the &lt;code>daprd&lt;/code>.&lt;/p>
-&lt;h2 id="actor-implementation">Actor implementation&lt;/h2>
-&lt;p>Every actor implementation in PHP must implement &lt;code>\Dapr\Actors\IActor&lt;/code> and use the &lt;code>\Dapr\Actors\ActorTrait&lt;/code> trait. This allows for fast reflection and some shortcuts. Using the &lt;code>\Dapr\Actors\Actor&lt;/code> abstract base class does this for you, but if you need to override the default behavior, you can do so by implementing the interface and using the trait.&lt;/p>
-&lt;h2 id="activation-and-deactivation">Activation and deactivation&lt;/h2>
-&lt;p>When an actor activates, a token file is written to a temporary directory (by default this is in &lt;code>'/tmp/dapr_' + sha256(concat(Dapr type, id))&lt;/code> in linux and &lt;code>'%temp%/dapr_' + sha256(concat(Dapr type, id))&lt;/code> on Windows). This is persisted until the actor deactivates, or the host shuts down. This allows for &lt;code>on_activation&lt;/code> to be called once and only once when Dapr activates the actor on the host.&lt;/p>
-&lt;h2 id="performance">Performance&lt;/h2>
-&lt;p>Actor method invocation is very fast on a production setup with &lt;code>php-fpm&lt;/code> and &lt;code>nginx&lt;/code>, or IIS on Windows. Even though the actor is constructed on every request, actor state keys are only loaded on-demand and not during each request. However, there is some overhead in loading each key individually. This can be mitigated by storing an array of data in state, trading some usability for speed. It is not recommended doing this from the start, but as an optimization when needed.&lt;/p>
-&lt;h2 id="versioning-state">Versioning state&lt;/h2>
-&lt;p>The names of the variables in the &lt;code>ActorState&lt;/code> object directly correspond to key names in the store. This means that if you change the type or name of a variable, you may run into errors. To get around this, you may need to version your state object. In order to do this, you&amp;rsquo;ll need to override how state is loaded and stored. There are many ways to approach this, one such solution might be something like this:&lt;/p>
+&lt;h3 id="请求列表">请求列表&lt;/h3>
+&lt;p>无论使用哪种模式，创建actor代理都是非常方便的。 在创建actor代理对象时不会发出请求。&lt;/p>
+&lt;p>当您在代理对象上调用方法时，actor只会为您实现的方法提供服务。 &lt;code>get_id()&lt;/code> 是本地处理的， &lt;code>get_emergder()&lt;/code>, &lt;code>delete_emergder()&lt;/code>, 等由 &lt;code>daprd&lt;/code> 处理。&lt;/p>
+&lt;h2 id="添加actor实现">添加Actor实现&lt;/h2>
+&lt;p>PHP 中的每个执行者必须实现 &lt;code>\Dapr\Actors\Iactor&lt;/code> 并使用 &lt;code>\Dapr\Actors\ActorTrait&lt;/code> 特性。 这个支持反射. 使用 &lt;code>\Dapr\Actors\Actor&lt;/code> 抽象基础类为您服务。 但是 如果您需要覆盖默认行为，您可以通过实现接口和使用特性来做到这一点。&lt;/p>
+&lt;h2 id="激活和停用">激活和停用&lt;/h2>
+&lt;p>当actor激活时，令牌文件将被写入临时目录（默认情况下，该目录位于linux下 &lt;code>'/tmp/dapr_'+ sha256（concat（Dapr type，Id））&amp;lt;/ code&amp;gt;和Windows上的&amp;lt;code&amp;gt;'％temp％/ dapr_'+ sha256（concat（Dapr type，Id））&amp;lt;/ code&amp;gt;）。 这种情况持续到actor或host停用。 这允许&amp;lt;code&amp;gt; on_activation &lt;/code>被调用一次 并且只有Dapr激活host上的actor时才执行一次。&lt;/p>
+&lt;h2 id="性能">性能&lt;/h2>
+&lt;p>actor方法的执行效率非常高， &lt;code>php-fpm&lt;/code> and &lt;code>nginx&lt;/code>, 或 IIS 在 Windows 上有一个生产设置。 虽然actor是在每个请求上都会构造，actor状态密钥是按需加载，而不是在每个请求时加载。 在分别加载每个key时会有一些开销。 可以通过在状态中存储数据数组来缓解这种情况 ，为了速度而牺牲了一些可用性。 不建议从一开始就这样做，而是在需要 时作为一种优化。&lt;/p>
+&lt;h2 id="版本状态">版本状态&lt;/h2>
+&lt;p>&lt;code>ActorState&lt;/code>对象中的变量名直接对应于存储库中的键名。 这意味着如果更改一个变量的类型或名称，可能会出现错误。 To get around this, you may need to version your state object. In order to do this, you&amp;rsquo;ll need to override how state is loaded and stored. There are many ways to approach this, one such solution might be something like this:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
 &lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">VersionedState&lt;/span> &lt;span style="color:#66d9ef">extends&lt;/span> &lt;span style="color:#a6e22e">\Dapr\Actors\ActorState&lt;/span> {
 &lt;span style="color:#e6db74">/**

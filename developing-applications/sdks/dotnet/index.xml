@@ -1,16 +1,16 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Dapr .NET SDK</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/</link><description>Recent content in Dapr .NET SDK on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/developing-applications/sdks/dotnet/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Getting started with the Dapr actors .NET SDK</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/</guid><description>
-&lt;p>The Dapr actor package allows you to interact with Dapr virtual actors from a .NET application.&lt;/p></description></item><item><title>Developing-Applications: Getting started with the Dapr client .NET SDK</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-client/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-client/</guid><description>
-&lt;p>The Dapr client package allows you to interact with other Dapr applications from a .NET application.&lt;/p>
-&lt;h2 id="前期准备">前期准备&lt;/h2>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Dapr .NET SDK</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/</link><description>Recent content in Dapr .NET SDK on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/developing-applications/sdks/dotnet/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Dapr actors .NET SDK入门</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/</guid><description>
+&lt;p>通过Dapr actor 程序包，您可以与.NET应用程序中的Dapr虚拟actor进行交互。&lt;/p></description></item><item><title>Developing-Applications: Dapr 客户端 .NET SDK入门</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-client/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-client/</guid><description>
+&lt;p>Dapr 客户端包允许您从.NET应用程序中与其他 Dapr 应用程序进行交互。&lt;/p>
+&lt;h2 id="先决条件">先决条件&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/getting-started/install-dapr-cli/">Dapr CLI&lt;/a> installed&lt;/li>
-&lt;li>Initialized &lt;a href="https://docs.dapr.io/getting-started/install-dapr-selfhost/">Dapr environment&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dotnet.microsoft.com/download">.NET Core 3.1 or .NET 5+&lt;/a> installed&lt;/li>
+&lt;li>安装 &lt;a href="https://docs.dapr.io/getting-started/install-dapr-cli/">Dapr CLI&lt;/a>&lt;/li>
+&lt;li>初始化后的 &lt;a href="https://docs.dapr.io/getting-started/install-dapr-selfhost/">Dapr 环境&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://dotnet.microsoft.com/download">.NET Core 3.1 或 .NET 5+&lt;/a> 已安装&lt;/li>
 &lt;/ul>
-&lt;h2 id="building-blocks">Building blocks&lt;/h2>
-&lt;p>The .NET SDK allows you to interface with all of the &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/">Dapr building blocks&lt;/a>.&lt;/p>
-&lt;h3 id="invoke-a-service">Invoke a service&lt;/h3>
-&lt;p>You can either use the &lt;code>DaprClient&lt;/code> or &lt;code>System.Net.Http.HttpClient&lt;/code> to invoke your services.&lt;/p>
+&lt;h2 id="构建块">构建块&lt;/h2>
+&lt;p>.NET SDK允许您与所有的&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/">Dapr构建块&lt;/a>接口。&lt;/p>
+&lt;h3 id="调用服务">调用服务&lt;/h3>
+&lt;p>您可以使用 &lt;code>DaprClient&lt;/code> 或 &lt;code>System.Net.Http.HttpClient&lt;/code> 调用您的服务。&lt;/p>
 &lt;ul class="nav nav-tabs" id="tabs-3" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
 id="tabs-3-sdk-tab" data-toggle="tab" href="#tabs-3-sdk" role="tab"
 aria-controls="tabs-3-sdk" aria-selected="true">
@@ -39,9 +39,9 @@ Console.WriteLine(&lt;span style="color:#e6db74">&amp;#34;Returned: id:{0} | Bal
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
 &lt;/div>
 &lt;ul>
-&lt;li>For a full guide on service invocation visit &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/service-invocation/howto-invoke-discover-services/">How-To: Invoke a service&lt;/a>.&lt;/li>
+&lt;li>有关服务调用的完整指南，请访问 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/service-invocation/howto-invoke-discover-services/">如何：调用服务&lt;/a>。&lt;/li>
 &lt;/ul>
-&lt;h3 id="save--get-application-state">Save &amp;amp; get application state&lt;/h3>
+&lt;h3 id="保存--获取-应用程序状态">保存 &amp;amp; 获取 应用程序状态&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#66d9ef">var&lt;/span> client = &lt;span style="color:#66d9ef">new&lt;/span> DaprClientBuilder().Build();
 &lt;span style="color:#66d9ef">var&lt;/span> state = &lt;span style="color:#66d9ef">new&lt;/span> Widget() { Size = &lt;span style="color:#e6db74">&amp;#34;small&amp;#34;&lt;/span>, Color = &lt;span style="color:#e6db74">&amp;#34;yellow&amp;#34;&lt;/span>, };
 &lt;span style="color:#66d9ef">await&lt;/span> client.SaveStateAsync(storeName, stateKeyName, state, cancellationToken: cancellationToken);
@@ -51,18 +51,18 @@ Console.WriteLine(&lt;span style="color:#e6db74">$&amp;#34;Got State: {state.Siz
 &lt;span style="color:#66d9ef">await&lt;/span> client.DeleteStateAsync(storeName, stateKeyName, cancellationToken: cancellationToken);
 Console.WriteLine(&lt;span style="color:#e6db74">&amp;#34;Deleted State!&amp;#34;&lt;/span>);
 &lt;/code>&lt;/pre>&lt;/div>&lt;ul>
-&lt;li>For a full list of state operations visit &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/">How-To: Get &amp;amp; save state&lt;/a>.&lt;/li>
+&lt;li>有关状态操作的完整列表，请访问 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/">如何：获取 &amp;amp; 保存 状态。&lt;/a>。&lt;/li>
 &lt;/ul>
-&lt;h3 id="publish-messages">Publish messages&lt;/h3>
+&lt;h3 id="发布消息">发布消息&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#66d9ef">var&lt;/span> client = &lt;span style="color:#66d9ef">new&lt;/span> DaprClientBuilder().Build();
 &lt;span style="color:#66d9ef">var&lt;/span> eventData = &lt;span style="color:#66d9ef">new&lt;/span> { Id = &lt;span style="color:#e6db74">&amp;#34;17&amp;#34;&lt;/span>, Amount = &lt;span style="color:#ae81ff">10&lt;/span>m, };
 &lt;span style="color:#66d9ef">await&lt;/span> client.PublishEventAsync(pubsubName, &lt;span style="color:#e6db74">&amp;#34;deposit&amp;#34;&lt;/span>, eventData, cancellationToken);
 Console.WriteLine(&lt;span style="color:#e6db74">&amp;#34;Published deposit event!&amp;#34;&lt;/span>);
 &lt;/code>&lt;/pre>&lt;/div>&lt;ul>
-&lt;li>For a full list of state operations visit &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/">How-To: Publish &amp;amp; subscribe&lt;/a>.&lt;/li>
-&lt;li>Visit &lt;a href="https://github.com/dapr/dotnet-sdk/tree/master/examples/client/PublishSubscribe">.NET SDK examples&lt;/a> for code samples and instructions to try out pub/sub&lt;/li>
+&lt;li>有关状态操作的完整列表，请访问 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/">如何: 发布 &amp;amp; 订阅&lt;/a>。&lt;/li>
+&lt;li>请访问&lt;a href="https://github.com/dapr/dotnet-sdk/tree/master/examples/client/PublishSubscribe">.NET SDK示例&lt;/a>，获取代码示例和说明，以试用 发布/订阅。&lt;/li>
 &lt;/ul>
-&lt;h3 id="interact-with-output-bindings">Interact with output bindings&lt;/h3>
+&lt;h3 id="与输出绑定交互">与输出绑定交互&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#66d9ef">using&lt;/span> var client = &lt;span style="color:#66d9ef">new&lt;/span> DaprClientBuilder().Build();
 &lt;span style="color:#75715e">// Example payload for the Twilio SendGrid binding
 &lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">var&lt;/span> email = &lt;span style="color:#66d9ef">new&lt;/span>
@@ -76,9 +76,9 @@ data = &lt;span style="color:#e6db74">&amp;#34;&amp;lt;h1&amp;gt;Testing Dapr Bi
 };
 &lt;span style="color:#66d9ef">await&lt;/span> client.InvokeBindingAsync(&lt;span style="color:#e6db74">&amp;#34;send-email&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;create&amp;#34;&lt;/span>, email);
 &lt;/code>&lt;/pre>&lt;/div>&lt;ul>
-&lt;li>For a full guide on output bindings visit &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings&lt;/a>.&lt;/li>
+&lt;li>有关输出绑定的完整指南，请访问 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/bindings/howto-bindings/">如何：使用绑定&lt;/a>。&lt;/li>
 &lt;/ul>
-&lt;h3 id="retrieve-secrets">Retrieve secrets&lt;/h3>
+&lt;h3 id="检索密钥">检索密钥&lt;/h3>
 &lt;ul class="nav nav-tabs" id="tabs-8" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
 id="tabs-8-multi-value-secret-tab" data-toggle="tab" href="#tabs-8-multi-value-secret" role="tab"
 aria-controls="tabs-8-multi-value-secret" aria-selected="true">
@@ -110,9 +110,9 @@ Console.WriteLine(&lt;span style="color:#e6db74">&amp;#34;Got a secret value, I&
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
 &lt;/div>
 &lt;ul>
-&lt;li>For a full guide on secrets visit &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/secrets/howto-secrets/">How-To: Retrieve secrets&lt;/a>.&lt;/li>
+&lt;li>有关密钥的完整指南，请访问&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/secrets/howto-secrets/">如何：检索密钥&lt;/a>。&lt;/li>
 &lt;/ul>
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://github.com/dapr/dotnet-sdk/tree/master/examples">.NET SDK examples&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Developing-Applications: Create servers with the Dapr .NET SDK</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-server/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-server/</guid><description/></item><item><title>Developing-Applications: How to troubleshoot and debug with the Dapr .NET SDK</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-troubleshooting/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-troubleshooting/</guid><description/></item></channel></rss>
+&lt;li>&lt;a href="https://github.com/dapr/dotnet-sdk/tree/master/examples">.NET SDK 示例&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Developing-Applications: 使用 Dapr .NET SDK 创建服务器</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-server/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-server/</guid><description/></item><item><title>Developing-Applications: 如何用 Dapr.NET SDK 进行故障排除和诊断</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-troubleshooting/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-troubleshooting/</guid><description/></item></channel></rss>

@@ -713,7 +713,7 @@ export 从 Kubernetes 中导出根证书、签发密钥到本地文件
 &lt;td>&lt;code>--image&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;/td>
-&lt;td>要在中生成代码的 image。 Input is: &lt;code>repository/image&lt;/code>&lt;/td>
+&lt;td>要在中生成代码的 image。 输入为： &lt;code>repository/image&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--log-level&lt;/code>&lt;/td>

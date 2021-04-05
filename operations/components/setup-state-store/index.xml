@@ -23,35 +23,35 @@
 &lt;li>&lt;a href="https://docs.dapr.io/concepts/components-concept/">组件概念&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">状态管理概览&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/reference/api/state_api/">状态管理 API 规范&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Supported state stores</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/</guid><description>
-&lt;p>Table captions:&lt;/p>
+&lt;/ul></description></item><item><title>Operations: 支持的状态存储</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/</guid><description>
+&lt;p>表格标题：&lt;/p>
 &lt;blockquote>
-&lt;p>&lt;code>Status&lt;/code>: &lt;a href="%7B%7BX%1A39X%7D%7D">Component certification&lt;/a> status&lt;/p>
+&lt;p>&lt;code>状态&lt;/code>: &lt;a href="%7B%7BX%1A39X%7D%7D">组件认证&lt;/a> 状态&lt;/p>
 &lt;/blockquote>
 &lt;ul>
 &lt;li>&lt;a href="%7B%7BX%1A28X%7D%7D">Alpha&lt;/a>&lt;/li>
 &lt;li>&lt;a href="%7B%7BX%1A30X%7D%7D">Beta&lt;/a>&lt;/li>
-&lt;li>&lt;a href="%7B%7BX%1A32X%7D%7D">GA&lt;/a> &amp;gt; &lt;code>Since&lt;/code>: defines from which Dapr Runtime version, the component is in the current status&lt;/li>
+&lt;li>&lt;a href="%7B%7BX%1A32X%7D%7D">GA&lt;/a> &amp;gt; &lt;code>自从&lt;/code>: 定义了当前组件从哪个Dapr Runtime版本开始支持&lt;/li>
 &lt;/ul>
 &lt;blockquote>
-&lt;p>&lt;code>Component version&lt;/code>: defines the version of the component&lt;/p>
+&lt;p>&lt;code>Component version&lt;/code>: 定义了组件的版本&lt;/p>
 &lt;/blockquote>
 &lt;p>Dapr 状态管理组件不同程度地支持以下存储:&lt;/p>
 &lt;blockquote>
 &lt;p>如果存储引擎同时支持事务性操作和etag，则状态存储可以用于 actors。&lt;/p>
 &lt;/blockquote>
-&lt;h3 id="generic">Generic&lt;/h3>
+&lt;h3 id="通用">通用&lt;/h3>
 &lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th>名称&lt;/th>
 &lt;th>CRUD&lt;/th>
-&lt;th>Transactional&lt;/th>
+&lt;th>事务&lt;/th>
 &lt;th>ETag&lt;/th>
 &lt;th>Actors&lt;/th>
-&lt;th>Status&lt;/th>
-&lt;th>Component version&lt;/th>
-&lt;th>Since&lt;/th>
+&lt;th>状态 （Status）&lt;/th>
+&lt;th>组件版本(Component version)&lt;/th>
+&lt;th>自从(Since)&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -191,14 +191,14 @@
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>Name&lt;/th>
+&lt;th>名称&lt;/th>
 &lt;th>CRUD&lt;/th>
-&lt;th>Transactional&lt;/th>
+&lt;th>事务&lt;/th>
 &lt;th>ETag&lt;/th>
 &lt;th>Actors&lt;/th>
-&lt;th>Status&lt;/th>
-&lt;th>Component version&lt;/th>
-&lt;th>Since&lt;/th>
+&lt;th>状态 （Status）&lt;/th>
+&lt;th>组件版本(Component version)&lt;/th>
+&lt;th>自从(Since)&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -218,14 +218,14 @@
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>Name&lt;/th>
+&lt;th>名称&lt;/th>
 &lt;th>CRUD&lt;/th>
-&lt;th>Transactional&lt;/th>
+&lt;th>事务&lt;/th>
 &lt;th>ETag&lt;/th>
 &lt;th>Actors&lt;/th>
-&lt;th>Status&lt;/th>
-&lt;th>Component version&lt;/th>
-&lt;th>Since&lt;/th>
+&lt;th>状态 （Status）&lt;/th>
+&lt;th>组件版本(Component version)&lt;/th>
+&lt;th>自从(Since)&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -245,14 +245,14 @@
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>Name&lt;/th>
+&lt;th>名称&lt;/th>
 &lt;th>CRUD&lt;/th>
-&lt;th>Transactional&lt;/th>
+&lt;th>事务&lt;/th>
 &lt;th>ETag&lt;/th>
 &lt;th>Actors&lt;/th>
-&lt;th>Status&lt;/th>
-&lt;th>Component version&lt;/th>
-&lt;th>Since&lt;/th>
+&lt;th>状态 （Status）&lt;/th>
+&lt;th>组件版本(Component version)&lt;/th>
+&lt;th>自从(Since)&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>

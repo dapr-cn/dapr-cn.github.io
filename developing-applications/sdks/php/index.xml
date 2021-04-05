@@ -1,6 +1,6 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Dapr PHP SDK</title><link>https://docs.dapr.io/developing-applications/sdks/php/</link><description>Recent content in Dapr PHP SDK on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/developing-applications/sdks/php/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Virtual Actors</title><link>https://docs.dapr.io/developing-applications/sdks/php/php-actors/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/php/php-actors/</guid><description>
 &lt;p>如果您之前不了解actor模型，可以先在这里查看 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/actors/actors-overview/">actor模型&lt;/a>&lt;/p>
-&lt;p>In the PHP SDK, there are two sides to an actor, the Client, and the Actor (aka, the Runtime). As a client of an actor, you&amp;rsquo;ll interact with a remote actor via the &lt;code>ActorProxy&lt;/code> class. This class generates a proxy class on-the-fly using one of several configured strategies.&lt;/p>
+&lt;p>在PHP SDK中，角色有两个方面，即客户端和actor（也称为运行时）。 As a client of an actor, you&amp;rsquo;ll interact with a remote actor via the &lt;code>ActorProxy&lt;/code> class. This class generates a proxy class on-the-fly using one of several configured strategies.&lt;/p>
 &lt;p>When writing an actor, state can be managed for you. You can hook into the actor lifecycle, and define reminders and timers. This gives you considerable power for handling all types of problems that the actor pattern is suited for.&lt;/p>
 &lt;h2 id="the-actor-proxy">The Actor Proxy&lt;/h2>
 &lt;p>Whenever you want to communicate with an actor, you&amp;rsquo;ll need to get a proxy object to do so. The proxy is responsible for serializing your request, deserializing the response, and returning it to you, all while obeying the contract defined by the specified interface.&lt;/p>
@@ -148,8 +148,8 @@ $result &lt;span style="color:#f92672">=&lt;/span> $app&lt;span style="color:#f9
 &lt;span style="color:#e6db74">&amp;#39;dapr.serializers.custom&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> [&lt;span style="color:#a6e22e">SomeClass&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">class&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> &lt;span style="color:#a6e22e">SerializeSomeClass&lt;/span>()],
 ];
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="deserialization">Deserialization&lt;/h2>
-&lt;p>Deserialization works exactly the same way, except the interface is &lt;code>\Dapr\Deserialization\Deserializers\IDeserialize&lt;/code>.&lt;/p></description></item><item><title>Developing-Applications: Publish and Subscribe with PHP</title><link>https://docs.dapr.io/developing-applications/sdks/php/php-pubsub/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/php/php-pubsub/</guid><description>
-&lt;p>With Dapr, you can publish anything, including cloud events. The SDK contains a simple cloud event implementation, but you can also just pass an array that conforms to the cloud event spec or use another library.&lt;/p>
+&lt;p>Deserialization works exactly the same way, except the interface is &lt;code>\Dapr\Deserialization\Deserializers\IDeserialize&lt;/code>.&lt;/p></description></item><item><title>Developing-Applications: 使用 PHP 发布和订阅</title><link>https://docs.dapr.io/developing-applications/sdks/php/php-pubsub/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/php/php-pubsub/</guid><description>
+&lt;p>有了 Dapr，您可以发布包括云事件的任何内容， SDK包含一个简单的云事件实现，但是 您也可以只传递一个符合云事件规范的数组，或者使用另一个库。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
 $app&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">post&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;/publish&amp;#39;&lt;/span>, &lt;span style="color:#66d9ef">function&lt;/span>(&lt;span style="color:#a6e22e">\DI\FactoryInterface&lt;/span> $factory) {
 &lt;span style="color:#75715e">// create a new publisher that publishes to my-pub-sub component
@@ -157,9 +157,9 @@ $app&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e
 &lt;span style="color:#75715e">// publish that something happened to my-topic
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> $publisher&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">topic&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;my-topic&amp;#39;&lt;/span>)&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">publish&lt;/span>([&lt;span style="color:#e6db74">&amp;#39;something&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> &lt;span style="color:#e6db74">&amp;#39;happened&amp;#39;&lt;/span>]);
 });
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>For more information about publish/subscribe, check out &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/">the howto&lt;/a>.&lt;/p>
-&lt;h2 id="data-content-type">Data content type&lt;/h2>
-&lt;p>The PHP SDK allows setting the data content type either when constructing a custom cloud event, or when publishing raw data.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>想了解更多有关发布/订阅的信息，请参阅 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/">如何处理&lt;/a>&lt;/p>
+&lt;h2 id="数据内容类型">数据内容类型&lt;/h2>
+&lt;p>PHP SDK 允许在构建自定义云端事件或发布原始 数据时设置数据内容类型。&lt;/p>
 &lt;ul class="nav nav-tabs" id="tabs-1" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
 id="tabs-1-cloudevent-tab" data-toggle="tab" href="#tabs-1-cloudevent" role="tab"
 aria-controls="tabs-1-cloudevent" aria-selected="true">
@@ -190,19 +190,19 @@ Only &lt;code>application/octet-steam&lt;/code> is supported for binary data.
 &lt;/div>
 &lt;/div>
 &lt;/div>
-&lt;h2 id="receiving-cloud-events">Receiving cloud events&lt;/h2>
-&lt;p>In your subscription handler, you can have the DI Container inject either a &lt;code>Dapr\PubSub\CloudEvent&lt;/code> or an &lt;code>array&lt;/code> into your controller. The former does some validation to ensure you have a proper event. If you need direct access to the data, or the events do not conform to the spec, use an &lt;code>array&lt;/code>.&lt;/p></description></item><item><title>Developing-Applications: State Management with PHP</title><link>https://docs.dapr.io/developing-applications/sdks/php/php-state/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/php/php-state/</guid><description>
-&lt;p>Dapr offers a great modular approach to using state in your application. The best way to learn the basics is to visit &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/">the howto&lt;/a>.&lt;/p>
-&lt;h2 id="metadata">Metadata&lt;/h2>
-&lt;p>Many state components allow you to pass metadata to the component to control specific aspects of the component&amp;rsquo;s behavior. The PHP SDK allows you to pass that metadata through:&lt;/p>
+&lt;h2 id="接收云事件">接收云事件&lt;/h2>
+&lt;p>在订阅处理器中，您可以通过 DI 容器将 dapr\PubSub\Cloud Event&lt;/code> &lt;code>或 &amp;lt;code&amp;gt;array&lt;/code> 注入到控制器中。 之前进行了一些验证以确保您有一个适当的事件。 如果您需要直接访问数据或者事件，请使用 array &amp;lt;/ code&amp;gt;。&lt;/p>&lt;/p></description></item><item><title>Developing-Applications: 使用PHP的状态管理</title><link>https://docs.dapr.io/developing-applications/sdks/php/php-state/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/php/php-state/</guid><description>
+&lt;p>Dapr 提供了一个很好的模块化方法来管理您的应用程序中的状态。 新手入门可以参考 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/">如何帮助&lt;/a>&lt;/p>
+&lt;h2 id="元数据metadata">元数据（Metadata）&lt;/h2>
+&lt;p>许多状态组件允许您将元数据传递给组件，以控制组件的特定行为。 PHP SDK 允许您通过以下方式传递该元数据：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
 $app&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">run&lt;/span>(
 &lt;span style="color:#a6e22e">fn&lt;/span>(&lt;span style="color:#a6e22e">\Dapr\State\StateManager&lt;/span> $stateManager) &lt;span style="color:#f92672">=&amp;gt;&lt;/span>
 $stateManager&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">save_state&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;statestore&amp;#39;&lt;/span>, &lt;span style="color:#66d9ef">new&lt;/span> &lt;span style="color:#a6e22e">\Dapr\State\StateItem&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;key&amp;#39;&lt;/span>, &lt;span style="color:#e6db74">&amp;#39;value&amp;#39;&lt;/span>, &lt;span style="color:#a6e22e">metadata&lt;/span>&lt;span style="color:#f92672">:&lt;/span> [&lt;span style="color:#e6db74">&amp;#39;port&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> &lt;span style="color:#e6db74">&amp;#39;112&amp;#39;&lt;/span>])));
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>This is an example of how you might pass the port metadata to &lt;a href="https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-cassandra/">Cassandra&lt;/a>.&lt;/p>
-&lt;p>Every state operation allows passing metadata.&lt;/p>
-&lt;h2 id="consistencyconcurrency">Consistency/concurrency&lt;/h2>
-&lt;p>In the PHP SDK, there are four classes that represent the four different types of consistency and concurrency in Dapr:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这是为您展示如何将元数据传递给 &lt;a href="https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-cassandra/">Cassandra&lt;/a> 的一个例子。&lt;/p>
+&lt;p>每个状态操作都允许传递元数据。&lt;/p>
+&lt;h2 id="一致性并发性">一致性/并发性&lt;/h2>
+&lt;p>在PHP SDK中，有四种不同类型的Dapr中的一致性和并发性：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
 [
 &lt;span style="color:#a6e22e">\Dapr\consistency\StrongLastWrite&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">class&lt;/span>,
@@ -210,11 +210,11 @@ $stateManager&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="c
 &lt;span style="color:#a6e22e">\Dapr\consistency\EventualLastWrite&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">class&lt;/span>,
 &lt;span style="color:#a6e22e">\Dapr\consistency\EventualFirstWrite&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">class&lt;/span>,
 ]
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Passing one of them to a &lt;code>StateManager&lt;/code> method or using the &lt;code>StateStore()&lt;/code> attribute allows you to define how the state store should handle conflicts.&lt;/p>
-&lt;h2 id="parallelism">Parallelism&lt;/h2>
-&lt;p>When doing a bulk read or beginning a transaction, you can specify the amount of parallelism. Dapr will read &amp;ldquo;at most&amp;rdquo; that many keys at a time from the underlying store if it has to read one key at a time. This can be helpful to control the load on the state store at the expense of performance. The default is &lt;code>10&lt;/code>.&lt;/p>
-&lt;h2 id="prefix">Prefix&lt;/h2>
-&lt;p>Hardcoded key names are useful, but why not make state objects more reusable? When committing a transaction or saving an object to state, you can pass a prefix that is applied to every key in the object.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>将其中之一传递给 &lt;code>StateManager&lt;/code> 方法或使用 &lt;code>StateStore()&lt;/code> 属性允许您定义state store来处理冲突。&lt;/p>
+&lt;h2 id="并行">并行&lt;/h2>
+&lt;p>进行批量读取或开始事务时，可以指定并行的数量。 Dapr 一次可以从store中读取更多的key 这是以牺牲性能为代价控制状态存储的负载。 该属性的默认值是 &lt;code>10&lt;/code>。&lt;/p>
+&lt;h2 id="前缀">前缀&lt;/h2>
+&lt;p>硬编码的键名很有用，但是为什么不让状态对象可复用性更高呢？ 当提交交易或保存 对象状态时，您可以传递一个应用于对象中每个键的前缀。&lt;/p>
 &lt;ul class="nav nav-tabs" id="tabs-2" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
 id="tabs-2-transaction-prefix-tab" data-toggle="tab" href="#tabs-2-transaction-prefix" role="tab"
 aria-controls="tabs-2-transaction-prefix" aria-selected="true">

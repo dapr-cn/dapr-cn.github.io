@@ -1,62 +1,62 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – 日志</title><link>https://docs.dapr.io/operations/monitoring/logging/</link><description>Recent content in 日志 on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/operations/monitoring/logging/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: How-To: Set up Fluentd, Elastic search and Kibana in Kubernetes</title><link>https://docs.dapr.io/operations/monitoring/logging/fluentd/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/monitoring/logging/fluentd/</guid><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – 日志</title><link>https://docs.dapr.io/operations/monitoring/logging/</link><description>Recent content in 日志 on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/operations/monitoring/logging/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: 操作方法：在 Kubernetes 中搭建 Fluentd、Elastic search 和 Kibana</title><link>https://docs.dapr.io/operations/monitoring/logging/fluentd/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/monitoring/logging/fluentd/</guid><description>
 &lt;h2 id="前期准备">前期准备&lt;/h2>
 &lt;ul>
 &lt;li>Kubernetes (&amp;gt; 1.14)&lt;/li>
 &lt;li>&lt;a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/">kubectl&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://helm.sh/">Helm 3&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;h2 id="install-elastic-search-and-kibana">Install Elastic search and Kibana&lt;/h2>
+&lt;h2 id="安装-elasticsearch-和-kibana">安装 Elasticsearch 和 Kibana&lt;/h2>
 &lt;ol>
 &lt;li>
-&lt;p>Create namespace for monitoring tool and add Helm repo for Elastic Search&lt;/p>
+&lt;p>为监测工具创建命名空间并添加 Helm Repo 用于Elastic Search&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl create namespace dapr-monitoring
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
-&lt;p>Add Elastic helm repo&lt;/p>
+&lt;p>添加 Elastic helm repo&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm repo add elastic https://helm.elastic.co
 helm repo update
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
-&lt;p>Install Elastic Search using Helm&lt;/p>
+&lt;p>使用 Helm 安装 Elastic Search&lt;/p>
 &lt;/li>
 &lt;/ol>
-&lt;p>By default the chart creates 3 replicas which must be on different nodes. If your cluster has less than 3 nodes, specify a lower number of replicas. For example, this sets it to 1: If your cluster has less than 3 nodes, specify a lower number of replicas. For example, this sets it to 1:&lt;/p>
+&lt;p>默认情况下，Chart 必须在不同的节点上创建3个副本。 如果您的集群少于3个节点，请指定一个较低的副本数量。 例如，将它设置为 1：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm install elasticsearch elastic/elasticsearch -n dapr-monitoring --set replicas&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Otherwise:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>否则：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm install elasticsearch elastic/elasticsearch -n dapr-monitoring
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>If you are using minikube or want to disable persistent volumes for development purposes, you can disable it by using the following command:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果您正在使用 minikube 或者想要禁用持久化卷来开发，您可以使用以下命令禁用它：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm install elasticsearch elastic/elasticsearch -n dapr-monitoring --set persistence.enabled&lt;span style="color:#f92672">=&lt;/span>false,replicas&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;ol start="4">
 &lt;li>
-&lt;p>Install Kibana&lt;/p>
+&lt;p>安装 Kibana&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm install kibana elastic/kibana -n dapr-monitoring
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
-&lt;p>Validation&lt;/p>
-&lt;p>Ensure Elastic Search and Kibana are running in your Kubernetes cluster.&lt;/p>
+&lt;p>校验&lt;/p>
+&lt;p>确保 Elastic Search 和 Kibana 正在您的Kubernetes 集群中运行。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl get pods -n dapr-monitoring
 NAME READY STATUS RESTARTS AGE
 elasticsearch-master-0 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 6m58s
 kibana-kibana-95bc54b89-zqdrk 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 4m21s
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;/ol>
-&lt;h2 id="install-fluentd">Install Fluentd&lt;/h2>
+&lt;h2 id="安装-fluentd">安装 Fluentd&lt;/h2>
 &lt;ol>
-&lt;li>Install config map and Fluentd as a daemonset&lt;/li>
+&lt;li>安装 config map 和 Fluentd 作为守护程序&lt;/li>
 &lt;/ol>
-&lt;p>Download these config files:&lt;/p>
+&lt;p>下载这些配置文件：&lt;/p>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/docs/fluentd-config-map.yaml">fluentd-config-map.yaml&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/docs/fluentd-dapr-with-rbac.yaml">fluentd-dapr-with-rbac.yaml&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;blockquote>
-&lt;p>Note: If you already have Fluentd running in your cluster, please enable the nested json parser to parse JSON formatted log from Dapr.&lt;/p>
+&lt;p>注意：如果你已经在你的集群中运行 Fluentd，请启用 nested json 解析器从 Dapr 解析JSON 格式的日志。&lt;/p>
 &lt;/blockquote>
-&lt;p>Apply the configurations to your cluster:&lt;/p>
+&lt;p>将配置应用到您的集群：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl apply -f ./fluentd-config-map.yaml
 kubectl apply -f ./fluentd-dapr-with-rbac.yaml
 &lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
-&lt;li>Ensure that Fluentd is running as a daemonset; the number of instances should be the same as the number of cluster nodes. In the example below we only have 1 node. In the example below we only have 1 node.&lt;/li>
+&lt;li>确保 Fluentd 作为守护程序运行；实例的数量应与集群节点的数量相同。 在下面的例子中，我们只有一个节点。&lt;/li>
 &lt;/ol>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl get pods -n kube-system -w
 NAME READY STATUS RESTARTS AGE
@@ -64,20 +64,20 @@ coredns-6955765f44-cxjxk 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 
 coredns-6955765f44-jlskv 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 4m41s
 etcd-m01 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 4m48s
 fluentd-sdrld 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 14s
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="install-dapr-with-json-formatted-logs">Install Dapr with JSON formatted logs&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="使用-json-格式化日志安装-dapr">使用 JSON 格式化日志安装 Dapr&lt;/h2>
 &lt;ol>
 &lt;li>
-&lt;p>Install Dapr with enabling JSON-formatted logs&lt;/p>
+&lt;p>使用 JSON 格式化日志启用 Dapr&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm repo add dapr https://dapr.github.io/helm-charts/
 helm repo update
 helm install dapr dapr/dapr --namespace dapr-system --set global.logAsJson&lt;span style="color:#f92672">=&lt;/span>true
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
-&lt;p>Enable JSON formatted log in Dapr sidecar&lt;/p>
+&lt;p>在 Dapr sidecar 中启用 JSON 格式化日志&lt;/p>
 &lt;/li>
 &lt;/ol>
-&lt;p>Add &lt;code>dapr.io/log-as-json: &amp;quot;true&amp;quot;&lt;/code> annotation to your deployment yaml.&lt;/p>
-&lt;p>You can run Kafka locally using &lt;a href="https://github.com/wurstmeister/kafka-docker">this&lt;/a> Docker image. To run without Docker, see the getting started guide &lt;a href="https://kafka.apache.org/quickstart">here&lt;/a>.&lt;/p>
+&lt;p>添加 &lt;code>dapr.io/log-as-json: &amp;quot;true&amp;quot;&lt;/code> annotation 到你的部署yaml.&lt;/p>
+&lt;p>示例:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">apps/v1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Deployment&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -99,12 +99,12 @@ helm install dapr dapr/dapr --namespace dapr-system --set global.logAsJson&lt;sp
 &lt;span style="color:#f92672">dapr.io/app-id&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;pythonapp&amp;#34;&lt;/span>
 &lt;span style="color:#f92672">dapr.io/log-as-json&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
 ...
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="search-logs">Search logs&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="搜索日志">搜索日志&lt;/h2>
 &lt;blockquote>
-&lt;p>Note: Elastic Search takes a time to index the logs that Fluentd sends.&lt;/p>
+&lt;p>注意: Elastic Search 需要一段时间才能索引 Fluentd 发送的日志。&lt;/p>
 &lt;/blockquote>
 &lt;ol>
-&lt;li>Port-forward to svc/kibana-kibana&lt;/li>
+&lt;li>Port-forward 到 svc/kibana-kibana&lt;/li>
 &lt;/ol>
 &lt;pre>&lt;code>$ kubectl port-forward svc/kibana-kibana 5601 -n dapr-monitoring
 Forwarding from 127.0.0.1:5601 -&amp;gt; 5601
@@ -113,50 +113,50 @@ Handling connection for 5601
 Handling connection for 5601
 &lt;/code>&lt;/pre>&lt;ol start="2">
 &lt;li>
-&lt;p>Browse &lt;code>http://localhost:5601&lt;/code>&lt;/p>
+&lt;p>浏览 &lt;code>http://localhost:5601&lt;/code>&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>Click Management -&amp;gt; Index Management&lt;/p>
+&lt;p>点击Management -&amp;gt; Index Management&lt;/p>
 &lt;/li>
 &lt;/ol>
-&lt;p>&lt;img src="https://docs.dapr.io/images/kibana-1.png" alt="kibana management">&lt;/p>
+&lt;p>&lt;img src="https://docs.dapr.io/images/kibana-1.png" alt="kibana 管理">&lt;/p>
 &lt;ol start="4">
-&lt;li>Wait until dapr-* is indexed.&lt;/li>
+&lt;li>请稍候，直到Dapr-* 被索引。&lt;/li>
 &lt;/ol>
-&lt;p>&lt;img src="https://docs.dapr.io/images/kibana-2.png" alt="index log">&lt;/p>
+&lt;p>&lt;img src="https://docs.dapr.io/images/kibana-2.png" alt="索引日志">&lt;/p>
 &lt;ol start="5">
-&lt;li>Once dapr-* indexed, click Kibana-&amp;gt;Index Patterns and Create Index Pattern&lt;/li>
+&lt;li>一旦dapr-* 被索引了，请点击 Kibana-&amp;gt; Index Patterns 并创建索引模式&lt;/li>
 &lt;/ol>
-&lt;p>&lt;img src="https://docs.dapr.io/images/kibana-3.png" alt="create index pattern">&lt;/p>
+&lt;p>&lt;img src="https://docs.dapr.io/images/kibana-3.png" alt="创建索引模式">&lt;/p>
 &lt;ol start="6">
-&lt;li>Define index pattern - type &lt;code>dapr*&lt;/code> in index pattern&lt;/li>
+&lt;li>在index pattern中输入 &lt;code>dapr*&lt;/code>定义索引模式&lt;/li>
 &lt;/ol>
-&lt;p>&lt;img src="https://docs.dapr.io/images/kibana-4.png" alt="define index pattern">&lt;/p>
+&lt;p>&lt;img src="https://docs.dapr.io/images/kibana-4.png" alt="定义索引模式">&lt;/p>
 &lt;ol start="7">
-&lt;li>Select time stamp filed: &lt;code>@timestamp&lt;/code>&lt;/li>
+&lt;li>选择time stamp填入： &lt;code>@timestamp&lt;/code>&lt;/li>
 &lt;/ol>
 &lt;p>&lt;img src="https://docs.dapr.io/images/kibana-5.png" alt="timestamp">&lt;/p>
 &lt;ol start="8">
-&lt;li>Confirm that &lt;code>scope&lt;/code>, &lt;code>type&lt;/code>, &lt;code>app_id&lt;/code>, &lt;code>level&lt;/code>, etc are being indexed.&lt;/li>
+&lt;li>确认 &lt;code>scope&lt;/code>, &lt;code>type&lt;/code>, &lt;code>app_id&lt;/code>, &lt;code>level&lt;/code>, 等正在索引。&lt;/li>
 &lt;/ol>
 &lt;blockquote>
-&lt;p>Note: if you cannot find the indexed field, please wait. Note: if you cannot find the indexed field, please wait. it depends on the volume of data and resource size where elastic search is running.&lt;/p>
+&lt;p>注意：如果您找不到索引字段，请稍候。 它取决于正在进行弹性搜索的数据量和资源大小。&lt;/p>
 &lt;/blockquote>
-&lt;p>&lt;img src="https://docs.dapr.io/images/kibana-6.png" alt="indexing">&lt;/p>
+&lt;p>&lt;img src="https://docs.dapr.io/images/kibana-6.png" alt="正在索引">&lt;/p>
 &lt;ol start="9">
-&lt;li>Click &lt;code>discover&lt;/code> icon and search &lt;code>scope:*&lt;/code>&lt;/li>
+&lt;li>点击 &lt;code>discover&lt;/code> 图标并搜索 &lt;code>scope:*&lt;/code>&lt;/li>
 &lt;/ol>
 &lt;blockquote>
-&lt;p>Note: it would take some time to make log searchable based on the data volume and resource.&lt;/p>
+&lt;p>注：根据数据量和资源进行日志检索需要一些时间。&lt;/p>
 &lt;/blockquote>
-&lt;p>&lt;img src="https://docs.dapr.io/images/kibana-7.png" alt="discover">&lt;/p>
-&lt;h2 id="references">References&lt;/h2>
+&lt;p>&lt;img src="https://docs.dapr.io/images/kibana-7.png" alt="发现">&lt;/p>
+&lt;h2 id="参考">参考&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.fluentd.org/v/0.12/articles/kubernetes-fluentd">Fluentd for Kubernetes&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.fluentd.org/v/0.12/articles/kubernetes-fluentd">用于 Kubernetes 的 Fluentd&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://github.com/elastic/helm-charts/tree/master/elasticsearch">Elastic search helm chart&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://github.com/elastic/helm-charts/tree/master/kibana">Kibana helm chart&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://www.elastic.co/guide/en/kibana/current/kuery-query.html">Kibana Query Language&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/troubleshooting/logs-troubleshooting/">Troubleshooting using Logs&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.elastic.co/guide/en/kibana/current/kuery-query.html">Kibana 查询语句&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/troubleshooting/logs-troubleshooting/">使用日志进行故障排除&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: 日志</title><link>https://docs.dapr.io/operations/monitoring/logging/logs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/monitoring/logging/logs/</guid><description>
 &lt;p>Dapr以纯文本形式或JSON格式生成结构化日志到标准输出。 默认情况下，所有 Dapr 进程 (运行时和系统服务) 都以纯文本写入控制台输出。 要启用 JSON 格式的日志，您需要在运行 Dapr 进程时添加 &lt;code>--log-as-json&lt;/code> 命令标志。&lt;/p>
 &lt;p>如果要使用搜索引擎 ( 例如 Elastic Search 或 Azure Monitor ) 来搜索日志，那么建议使用 JSON 格式的日志，日志收集器和搜索引擎可以使用内置 JSON 解析器进行解析。&lt;/p>

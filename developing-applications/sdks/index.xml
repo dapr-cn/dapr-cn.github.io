@@ -1,24 +1,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Dapr 开发套件 (SDKs)</title><link>https://docs.dapr.io/developing-applications/sdks/</link><description>Recent content in Dapr 开发套件 (SDKs) on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/developing-applications/sdks/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Dapr .NET SDK</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/dotnet/</guid><description>
-&lt;p>Dapr offers a variety of packages to help with the development of .NET applications. Using them you can create .NET clients, servers, and virtual actors with Dapr.&lt;/p>
+&lt;p>Dapr提供了帮助开发 .NET 应用程序各种包。 你可以使用他们来创建 .NET 客户端、服务器和 virtual actors。&lt;/p>
 &lt;div class="card-deck">
 &lt;div class="card">
 &lt;div class="card-body">
-&lt;h5 class="card-title">&lt;b>Client&lt;/b>&lt;/h5>
-&lt;p class="card-text">Create .NET clients that interact with a Dapr sidecar and other Dapr applications.&lt;/p>
+&lt;h5 class="card-title">&lt;b>客户端&lt;/b>&lt;/h5>
+&lt;p class="card-text">创建与 Dapr sidecar 和其他Dapr 应用程序交互的 .NET 客户端。&lt;/p>
 &lt;a href="https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-client/" class="stretched-link">&lt;/a>
 &lt;/div>
 &lt;/div>
 &lt;div class="card">
 &lt;div class="card-body">
-&lt;h5 class="card-title">&lt;b>Server&lt;/b>&lt;/h5>
-&lt;p class="card-text">Write servers and services in .NET using the Dapr SDK. Includes support for ASP.NET.&lt;/p>
+&lt;h5 class="card-title">&lt;b>服务器&lt;/b>&lt;/h5>
+&lt;p class="card-text">使用 Dapr SDK 在 .NET 中编写服务器和服务。 包括对 ASP.NET的支持。&lt;/p>
 &lt;a href="https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-server/" class="stretched-link">&lt;/a>
 &lt;/div>
 &lt;/div>
 &lt;div class="card">
 &lt;div class="card-body">
 &lt;h5 class="card-title">&lt;b>Actors&lt;/b>&lt;/h5>
-&lt;p class="card-text">Create virtual actors with state, reminders/timers, and methods in .NET.&lt;/p>
+&lt;p class="card-text">在 .NET 中创建具有状态、reminders/timer 和方法的 virtual actors。&lt;/p>
 &lt;a href="https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/" class="stretched-link">&lt;/a>
 &lt;/div>
 &lt;/div>
@@ -27,22 +27,22 @@
 &lt;div class="card-deck">
 &lt;div class="card">
 &lt;div class="card-body">
-&lt;h5 class="card-title">&lt;b>Examples&lt;/b>&lt;/h5>
-&lt;p class="card-text">Clone the .NET SDK repo to try out some of the examples and get started quickly.&lt;/p>
+&lt;h5 class="card-title">&lt;b>示例&lt;/b>&lt;/h5>
+&lt;p class="card-text">克隆.NET SDK repo来尝试一些示例并快速开始。&lt;/p>
 &lt;a href="https://github.com/dapr/dotnet-sdk/tree/master/examples" class="stretched-link">&lt;/a>
 &lt;/div>
 &lt;/div>
 &lt;div class="card">
 &lt;div class="card-body">
-&lt;h5 class="card-title">&lt;b>Troubleshooting&lt;/b>&lt;/h5>
+&lt;h5 class="card-title">&lt;b>故障排除&lt;/b>&lt;/h5>
 &lt;p class="card-text">关于 Dapr API，CLI，资源绑定及更多内容的详细文档&lt;/p>
 &lt;a href="https://docs.dapr.io/reference/" class="stretched-link">&lt;/a>
 &lt;/div>
 &lt;/div>
 &lt;div class="card">
 &lt;div class="card-body">
-&lt;h5 class="card-title">&lt;b>NuGet packages&lt;/b>&lt;/h5>
-&lt;p class="card-text">Dapr packages for adding the .NET SDKs to your .NET applications.&lt;/p>
+&lt;h5 class="card-title">&lt;b>Nuget 包&lt;/b>&lt;/h5>
+&lt;p class="card-text">为您的 .NET应用程序 添加 .NET SDK 的 Dapr 包。&lt;/p>
 &lt;a href="https://www.nuget.org/profiles/dapr.io" class="stretched-link">&lt;/a>
 &lt;/div>
 &lt;/div>
@@ -114,11 +114,11 @@ $app&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e
 &lt;li>&lt;a href="https://packagist.org/packages/dapr/php-sdk">Packagist&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/sdk-serialization/">Dapr SDK serialization&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Developing-Applications: Dapr Python SDK</title><link>https://docs.dapr.io/developing-applications/sdks/python/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/python/</guid><description>
-&lt;p>Dapr提供了帮助开发Python应用程序各种包。 你可以使用他们来创建 Python 客户端、服务器和虚拟actors。&lt;/p>
+&lt;p>Dapr提供了帮助开发Python应用程序各种包。 你可以使用他们来创建 Python 客户端、服务器和 virtual actors。&lt;/p>
 &lt;h2 id="可用软件包">可用软件包&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/python/python-client/">&lt;strong>Dapr 客户端&lt;/strong>&lt;/a> 用于与 Python 应用程序交互的 Dapr 边车和其他 Dapr 应用程序&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/python/python-actor/">&lt;strong>Dapr actor&lt;/strong>&lt;/a> 用于使用 Python 创建并和有状态的虚拟 actors 交互。&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/python/python-actor/">&lt;strong>Dapr actor&lt;/strong>&lt;/a> 用于使用 Python 创建并和有状态的virtual actors 交互。&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/python/python-sdk-extensions/">&lt;strong>扩展&lt;/strong>&lt;/a> 用于将Dapr与其他 Python 框架兼容
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/python/python-sdk-extensions/python-grpc/">&lt;strong>gRPC 扩展&lt;/strong>&lt;/a> 用创建 Dapr gRPC 服务器&lt;/li>
@@ -161,9 +161,8 @@ Development
 &lt;/ul></description></item><item><title>Developing-Applications: Dapr SDK中的序列化</title><link>https://docs.dapr.io/developing-applications/sdks/sdk-serialization/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/sdk-serialization/</guid><description>
 &lt;p>Dapr的SDK为下面两种情况提供序列化： 首先是对于通过请求和响应的有效载荷传递的API对象。 其次，对于要持久化的对象。 对于这两种情况，SDK都提供了默认的序列化实现。 在Java SDK中，由&lt;a href="https://dapr.github.io/java-sdk/io/dapr/serializer/DefaultObjectSerializer.html">DefaultObjectSerializer&lt;/a>这个类提供JSON序列化功能。&lt;/p>
 &lt;h2 id="服务调用">服务调用&lt;/h2>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java"> No translations matched your search
-DaprClient client &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#66d9ef">new&lt;/span> DaprClientBuilder&lt;span style="color:#f92672">()).&lt;/span>&lt;span style="color:#a6e22e">build&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
-client&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">invokeService&lt;/span>&lt;span style="color:#f92672">(&lt;/span>Verb&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">POST&lt;/span>&lt;span style="color:#f92672">,&lt;/span> &lt;span style="color:#e6db74">&amp;#34;myappid&amp;#34;&lt;/span>&lt;span style="color:#f92672">,&lt;/span> &lt;span style="color:#e6db74">&amp;#34;saySomething&amp;#34;&lt;/span>&lt;span style="color:#f92672">,&lt;/span> &lt;span style="color:#e6db74">&amp;#34;My Message&amp;#34;&lt;/span>&lt;span style="color:#f92672">,&lt;/span> &lt;span style="color:#66d9ef">null&lt;/span>&lt;span style="color:#f92672">).&lt;/span>&lt;span style="color:#a6e22e">block&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java"> DaprClient client &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#66d9ef">new&lt;/span> DaprClientBuilder&lt;span style="color:#f92672">()).&lt;/span>&lt;span style="color:#a6e22e">build&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
+client&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">invokeService&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#34;myappid&amp;#34;&lt;/span>&lt;span style="color:#f92672">,&lt;/span> &lt;span style="color:#e6db74">&amp;#34;saySomething&amp;#34;&lt;/span>&lt;span style="color:#f92672">,&lt;/span> &lt;span style="color:#e6db74">&amp;#34;My Message&amp;#34;&lt;/span>&lt;span style="color:#f92672">,&lt;/span> HttpExtension&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">POST&lt;/span>&lt;span style="color:#f92672">).&lt;/span>&lt;span style="color:#a6e22e">block&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>在上面的示例中，应用程序将收到一个对&lt;code>saySomething&lt;/code>方法的&lt;code>POST&lt;/code>请求，请求的有效载荷为&lt;code>&amp;quot;My Message&amp;quot;&lt;/code>，这句说明中给它添加了引号是因为序列化工具会把输入的String字符串序列化为JSON。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-text" data-lang="text">POST /saySomething HTTP/1.1
 Host: localhost
@@ -253,7 +252,4 @@ System&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">o
 &lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span>VGhpcyBpcyBhIG1lc3NhZ2UgdG8gYmUgc2F2ZWQgYW5kIHJldHJpZXZlZC4&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;
 &lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash"> redis-cli MGET &lt;span style="color:#e6db74">&amp;#34;ActorStateIT_StatefulActorService||StatefulActorTest||1581130928192||mydata
 &lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span>eyJ2YWx1ZSI6Ik15IGRhdGEgdmFsdWUuIn0&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;
-&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="6">
-&lt;li>当序列化一个&lt;code>byte[]&lt;/code>的对象时，序列化工具应该只是将其传递过去，因为&lt;code>byte[]&lt;/code>应该已经在SDK内部处理。 当反序列化为&lt;code>byte[]&lt;/code>时，也会发生同样的情况。&lt;/li>
-&lt;/ol>
-&lt;p>&lt;em>目前而言，&lt;a href="https://github.com/dapr/java-sdk/">Java SDK&lt;/a>是唯一实现该规范的Dapr SDK。 在不久的将来，其他SDK也会实现同样的功能。&lt;/em>&lt;/p></description></item></channel></rss>
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;em>目前而言，&lt;a href="https://github.com/dapr/java-sdk/">Java SDK&lt;/a>是唯一实现该规范的Dapr SDK。 在不久的将来，其他SDK也会实现同样的功能。&lt;/em>&lt;/p></description></item></channel></rss>

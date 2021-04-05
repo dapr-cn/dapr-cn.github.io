@@ -125,22 +125,22 @@ dapr-sentry-9435776c7f-8f7yd 1/1 Running &lt;span style="color:#ae81ff">0&lt;/sp
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="下一步">下一步&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/getting-started/configure-state-pubsub/">如何操作：配置 状态存储 和 发布/订阅 消息代理&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Deploy to hybrid Linux/Windows Kubernetes clusters</title><link>https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-hybrid-clusters/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-hybrid-clusters/</guid><description>
-&lt;p>Dapr supports running on kubernetes clusters with windows nodes. You can run your Dapr microservices exclusively on Windows, exclusively on Linux, or a combination of both. This is helpful to users who may be doing a piecemeal migration of a legacy application into a Dapr Kubernetes cluster. You can run your Dapr microservices exclusively on Windows, exclusively on Linux, or a combination of both. This is helpful to users who may be doing a piecemeal migration of a legacy application into a Dapr Kubernetes cluster.&lt;/p>
-&lt;p>Kubernetes uses a concept called node affinity so that you can denote whether you want your application to be launched on a Linux node or a Windows node. Kubernetes uses a concept called node affinity so that you can denote whether you want your application to be launched on a Linux node or a Windows node. When deploying to a cluster which has both Windows and Linux nodes, you must provide affinity rules for your applications, otherwise the Kubernetes scheduler might launch your application on the wrong type of node.&lt;/p>
-&lt;h2 id="pre-requisites">Pre-requisites&lt;/h2>
-&lt;p>You will need a Kubernetes cluster with Windows nodes. You will need a Kubernetes cluster with Windows nodes. Many Kubernetes providers support the automatic provisioning of Windows enabled Kubernetes clusters.&lt;/p>
+&lt;/ul></description></item><item><title>Operations: 部署到 Linux/Windows Kubernetes 的混合集群</title><link>https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-hybrid-clusters/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-hybrid-clusters/</guid><description>
+&lt;p>Dapr 支持在带有 windows 节点的 kubernetes 集群上运行。 您可以只在 Windows 上运行您的 Dapr 微服务，或只在 Linux 上运行，或者两者兼而有之。 这对那些可能会将遗留应用零散迁移到 Dapr Kubernetes 集群的用户很有帮助。&lt;/p>
+&lt;p>Kubernetes 使用了一个叫做节点亲和性的概念，这样你就可以表示你的应用是想在 Linux 节点还是 Windows 节点上启动。 当部署到一个同时拥有 Windows 和 Linux 节点的集群时，你必须为你的应用提供亲和性规则，否则 Kubernetes 调度器可能会在错误的节点类型上启动你的应用。&lt;/p>
+&lt;h2 id="先决条件">先决条件&lt;/h2>
+&lt;p>您需要一个带有Windows节点的 Kubernetes 集群。 许多 Kubernetes 提供商支持自动配置启用 Windows 的 Kubernetes 集群。&lt;/p>
 &lt;ol>
-&lt;li>Follow your preferred provider&amp;rsquo;s instructions for setting up a cluster with Windows enabled&lt;/li>
+&lt;li>按照您的首选提供商的说明来设置一个带有Windows功能的集群。&lt;/li>
 &lt;/ol>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.microsoft.com/en-us/azure/aks/windows-container-cli">Setting up Windows on Azure AKS&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.aws.amazon.com/eks/latest/userguide/windows-support.html">Setting up Windows on AWS EKS&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://cloud.google.com/kubernetes-engine/docs/how-to/creating-a-cluster-windows">Setting up Windows on Google Cloud GKE&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.microsoft.com/en-us/azure/aks/windows-container-cli">在 Azure AKS 上设置 Windows&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.aws.amazon.com/eks/latest/userguide/windows-support.html">在 AWS EKS 上设置 Windows&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://cloud.google.com/kubernetes-engine/docs/how-to/creating-a-cluster-windows">在 Google Cloud GKE 上设置 Windows&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;ol start="2">
 &lt;li>
-&lt;p>Once you have set up the cluster, you should see that it has both Windows and Linux nodes available&lt;/p>
+&lt;p>一旦你设置了集群，你应该看到它同时有 Windows 和 Linux 节点可用&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl get nodes -o wide
 NAME STATUS ROLES AGE VERSION INTERNAL-IP EXTERNAL-IP OS-IMAGE KERNEL-VERSION CONTAINER-RUNTIME
 aks-nodepool1-11819434-vmss000000 Ready agent 6d v1.17.9 10.240.0.4 &amp;lt;none&amp;gt; Ubuntu 16.04.6 LTS 4.15.0-1092-azure docker://3.0.10+azure
@@ -150,21 +150,21 @@ akswin000000 Ready agent 6d v1.17.9 10.240.0.66 &amp;lt;none&amp;gt; Windows Ser
 akswin000001 Ready agent 6d v1.17.9 10.240.0.97 &amp;lt;none&amp;gt; Windows Server &lt;span style="color:#ae81ff">2019&lt;/span> Datacenter 10.0.17763.1339 docker://19.3.5
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;/ol>
-&lt;h2 id="installing-the-dapr-control-plane">Installing the Dapr control plane&lt;/h2>
-&lt;p>If you are installing using the Dapr CLI or via a helm chart, simply follow the normal deployment procedures: &lt;a href="https://docs.dapr.io/getting-started/install-dapr-selfhost/#installing-Dapr-on-a-kubernetes-cluster">Installing Dapr on a Kubernetes cluster&lt;/a>&lt;/p>
-&lt;p>Affinity will be automatically set for &lt;code>kubernetes.io/os=linux&lt;/code>. Affinity will be automatically set for kubernetes.io/os=linux. This will be sufficient for most users, as Kubernetes requires at least one Linux node pool.&lt;/p>
+&lt;h2 id="安装-dapr-控制面板">安装 Dapr 控制面板&lt;/h2>
+&lt;p>如果您正在使用 Dapr CLI 或通过 Helm Chart 安装， 只需遵循正常的部署程序： &lt;a href="https://docs.dapr.io/getting-started/install-dapr-selfhost/#installing-Dapr-on-a-kubernetes-cluster">在 Kubernetes 集群上安装 Dapr&lt;/a>&lt;/p>
+&lt;p>关联性将被自动设置为 &lt;code>kubernetes.io/os=linux&lt;/code>。 这对于大多数用户来说是足够的，因为Kubernetes至少需要一个Linux节点池。&lt;/p>
 &lt;blockquote>
-&lt;p>&lt;strong>Note:&lt;/strong> Dapr control plane containers are built and tested for both windows and linux, however, we generally recommend using the linux control plane containers. They tend to be smaller and have a much larger user base. They tend to be smaller and have a much larger user base.&lt;/p>
+&lt;p>&lt;strong>注意：&lt;/strong> Dapr 控制面板容器是为windows和linux构建和测试的，但是，我们一般建议使用linux 控制面板容器。 它们往往较小，用户基础也大得多。&lt;/p>
 &lt;/blockquote>
-&lt;p>If you understand the above, but want to deploy the Dapr control plane to Windows, you can do so by setting:&lt;/p>
+&lt;p>如果您理解以上内容，但想要将 Dapr 控制面板部署到Windows，您可以通过设置这样做：&lt;/p>
 &lt;pre>&lt;code>helm install dapr dapr/dapr --set global.daprControlPlaneOs=windows
-&lt;/code>&lt;/pre>&lt;h2 id="installing-dapr-applications">Installing Dapr applications&lt;/h2>
-&lt;h3 id="windows-applications">Windows applications&lt;/h3>
-&lt;p>In order to launch a Dapr application on Windows, you&amp;rsquo;ll first need to create a Docker container with your application installed. For a step by step guide see &lt;a href="https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/set-up-environment">Get started: Prep Windows for containers&lt;/a>. Once you have a docker container with your application, create a deployment YAML file with node affinity set to kubernetes.io/os: windows. For a step by step guide see &lt;a href="https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/set-up-environment">Get started: Prep Windows for containers&lt;/a>. Once you have a docker container with your application, create a deployment YAML file with node affinity set to kubernetes.io/os: windows.&lt;/p>
+&lt;/code>&lt;/pre>&lt;h2 id="安装-dapr-应用程序">安装 Dapr 应用程序&lt;/h2>
+&lt;h3 id="windows-应用程序">Windows 应用程序&lt;/h3>
+&lt;p>为了在 Windows 上启动 Dapr 应用程序，您需要首先创建一个安装应用程序的 Docker 容器。 指南见 &lt;a href="https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/set-up-environment">开始：为容器准备 Windows&lt;/a>。 一旦你拥有一个带有应用程序的Docker container，创建一个 deployment YAML 文件，节点亲和性设置为 kubernetes.io/os: windows。&lt;/p>
 &lt;ol>
 &lt;li>
-&lt;p>Create a deployment YAML&lt;/p>
-&lt;p>Here is a sample deployment with nodeAffinity set to &amp;ldquo;windows&amp;rdquo;. Modify as needed for your application.&lt;/p>
+&lt;p>创建一个 deployment YAML&lt;/p>
+&lt;p>这里是一个示例 deployment ，节点关联性设置为“windows”。 根据您的应用程序的需要修改。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">apps/v1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Deployment&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -201,19 +201,19 @@ akswin000001 Ready agent 6d v1.17.9 10.240.0.97 &amp;lt;none&amp;gt; Windows Ser
 &lt;span style="color:#f92672">operator&lt;/span>: &lt;span style="color:#ae81ff">In&lt;/span>
 &lt;span style="color:#f92672">values&lt;/span>:
 - &lt;span style="color:#ae81ff">windows&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>This deployment yaml will be the same as any other dapr application, with an additional spec.template.spec.affinity section as shown above.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这个 deployment yaml 将与任何其它的 dapr 应用程序相同，还有一个额外的 spec.template.spec.affinity 部分如上文所示。&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>Deploy to your Kubernetes cluster&lt;/p>
+&lt;p>部署到您的 Kubernetes 集群&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl apply -f deploy_windows.yaml
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;/ol>
-&lt;h3 id="linux-applications">Linux applications&lt;/h3>
-&lt;p>If you have already got a dapr application with runs on Linux, you&amp;rsquo;ll still need to add affinity rules as above, but choose linux affinity instead.&lt;/p>
+&lt;h3 id="linux-应用程序">Linux 应用程序&lt;/h3>
+&lt;p>如果您已经在 Linux 上有运行的 dapr 应用程序， 您仍然需要像以上添加亲和性规则，只不过要选择 linux 亲和性。&lt;/p>
 &lt;ol>
 &lt;li>
-&lt;p>Create a deployment YAML&lt;/p>
-&lt;p>Here is a sample deployment with nodeAffinity set to &amp;ldquo;linux&amp;rdquo;. Modify as needed for your application.&lt;/p>
+&lt;p>创建一个 deployment YAML&lt;/p>
+&lt;p>这里是一个示例 deployment，节点亲和性设置为“linux”。 根据您的应用程序的需要修改。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">apps/v1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Deployment&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -252,23 +252,23 @@ akswin000001 Ready agent 6d v1.17.9 10.240.0.97 &amp;lt;none&amp;gt; Windows Ser
 - &lt;span style="color:#ae81ff">linux&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
-&lt;p>Deploy to your Kubernetes cluster&lt;/p>
+&lt;p>部署到您的 Kubernetes 集群&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl apply -f deploy_linux.yaml
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;/ol>
-&lt;h2 id="cleanup">Cleanup&lt;/h2>
+&lt;h2 id="清理">清理&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl delete -f deploy_linux.yaml
 kubectl delete -f deploy_windows.yaml
 helm uninstall dapr
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>See the &lt;a href="https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/">official Kubernetes documentation&lt;/a> for examples of more advanced configuration via node affinity&lt;/li>
-&lt;li>&lt;a href="https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/set-up-environment">Get started: Prep Windows for containers&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.microsoft.com/en-us/azure/aks/windows-container-cli">Setting up a Windows enabled Kubernetes cluster on Azure AKS&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.aws.amazon.com/eks/latest/userguide/windows-support.html">Setting up a Windows enabled Kubernetes cluster on AWS EKS&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://cloud.google.com/kubernetes-engine/docs/how-to/creating-a-cluster-windows">Setting up Windows on Google Cloud GKE&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Dapr Kubernetes pod annotations spec</title><link>https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-annotations/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-annotations/</guid><description>
-&lt;p>The following table shows all the supported pod Spec annotations supported by Dapr.&lt;/p>
+&lt;li>通过 &lt;a href="https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/">官方的 Kubernetes 文档&lt;/a> 获取更高级的节点亲和性配置的案例&lt;/li>
+&lt;li>&lt;a href="https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/set-up-environment">开始：为容器准备 Windows&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.microsoft.com/en-us/azure/aks/windows-container-cli">在 Azure AKS 上设置一个启用了 Windows Kubernetes 的集群&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.aws.amazon.com/eks/latest/userguide/windows-support.html">在 AWS EKS 上设置一个启用了 Windows Kubernetes 的集群&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://cloud.google.com/kubernetes-engine/docs/how-to/creating-a-cluster-windows">在 Google Cloud GKE 上设置 Windows&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Dapr Kubernetes pod annotations规范</title><link>https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-annotations/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-annotations/</guid><description>
+&lt;p>下表显示了所有Dapr支持的pod规范annotations。&lt;/p>
 &lt;table>
 &lt;thead>
 &lt;tr>
@@ -279,103 +279,103 @@ helm uninstall dapr
 &lt;tbody>
 &lt;tr>
 &lt;td>&lt;code>dapr.io/enabled&lt;/code>&lt;/td>
-&lt;td>Setting this paramater to &lt;code>true&lt;/code> injects the Dapr sidecar into the pod&lt;/td>
+&lt;td>设定此参数为 &lt;code>true&lt;/code> 注入Dapr sidecar到pod&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>dapr.io/app-port&lt;/code>&lt;/td>
-&lt;td>This parameter tells Dapr which port your application is listening on&lt;/td>
+&lt;td>这个参数告诉Dapr你的应用程序正在监听哪个端口。&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>dapr.io/app-id&lt;/code>&lt;/td>
-&lt;td>The unique ID of the application. The unique ID of the application. Used for service discovery, state encapsulation and the pub/sub consumer ID&lt;/td>
+&lt;td>应用程序唯一 ID。 用于服务发现、状态封装 和 发布/订阅 消费者ID&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>dapr.io/log-level&lt;/code>&lt;/td>
-&lt;td>Sets the log level for the Dapr sidecar. Sets the log level for the Dapr sidecar. Allowed values are &lt;code>debug&lt;/code>, &lt;code>info&lt;/code>, &lt;code>warn&lt;/code>, &lt;code>error&lt;/code>. Default is &lt;code>info&lt;/code> Default is &lt;code>info&lt;/code>&lt;/td>
+&lt;td>为 Dapr sidecar设置日志级别。 允许的值是&lt;code>debug&lt;/code>，&lt;code>info&lt;/code>，&lt;code>warn&lt;/code>，&lt;code>error&lt;/code>。 默认是 &lt;code>info&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>dapr.io/config&lt;/code>&lt;/td>
-&lt;td>Tells Dapr which Configuration CRD to use&lt;/td>
+&lt;td>告诉 Dapr 要使用哪个配置 CRD&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>dapr.io/log-as-json&lt;/code>&lt;/td>
-&lt;td>Setting this parameter to &lt;code>true&lt;/code> outputs logs in JSON format. Default is &lt;code>false&lt;/code> Default is &lt;code>false&lt;/code>&lt;/td>
+&lt;td>将此参数设置为&lt;code>true&lt;/code>以JSON格式输出日志。 默认值为 &lt;code>false&lt;/code>.&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>dapr.io/enable-profiling&lt;/code>&lt;/td>
-&lt;td>Setting this paramater to &lt;code>true&lt;/code> starts the Dapr profiling server on port &lt;code>7777&lt;/code>. Default is &lt;code>false&lt;/code> Default is &lt;code>false&lt;/code>&lt;/td>
+&lt;td>设置此参数为 &lt;code>true&lt;/code> 在端口 &lt;code>7777&lt;/code> 上启动Dapr分析服务器。 默认值为 &lt;code>false&lt;/code>.&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>dapr.io/api-token-secret&lt;/code>&lt;/td>
-&lt;td>Tells Dapr which Kubernetes secret to use for token based API authentication. By default this is not set. By default this is not set.&lt;/td>
+&lt;td>告诉Dapr使用哪个Kubernetes密钥来进行基于令牌的API认证。 默认情况下未设置。&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>dapr.io/app-protocol&lt;/code>&lt;/td>
-&lt;td>Tells Dapr which protocol your application is using. Tells Dapr which protocol your application is using. Valid options are &lt;code>http&lt;/code> and &lt;code>grpc&lt;/code>. Default is &lt;code>http&lt;/code> Default is &lt;code>http&lt;/code>&lt;/td>
+&lt;td>告诉 Dapr 你的应用程序正在使用哪种协议。 有效选项是 &lt;code>http&lt;/code> and &lt;code>grpc&lt;/code>。 Default is &lt;code>http&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>dapr.io/app-max-concurrency&lt;/code>&lt;/td>
-&lt;td>Limit the concurrency of your application. Limit the concurrency of your application. A valid value is any number larger than &lt;code>0&lt;/code>&lt;/td>
+&lt;td>限制应用程序的并发量。 有效的数值是大于 &lt;code>0&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>dapr.io/app-ssl&lt;/code>&lt;/td>
-&lt;td>Tells Dapr to invoke the app over an insecure SSL connection. Applies to both HTTP and gRPC. Default is &lt;code>false&lt;/code>. Applies to both HTTP and gRPC. Default is &lt;code>false&lt;/code>.&lt;/td>
+&lt;td>告诉Dapr通过不安全的SSL连接调用应用程序。 同时适用于HTTP和gRPC。 默认值为 &lt;code>false&lt;/code>.&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>dapr.io/metrics-port&lt;/code>&lt;/td>
-&lt;td>Sets the port for the sidecar metrics server. Default is &lt;code>9090&lt;/code> Default is &lt;code>9090&lt;/code>&lt;/td>
+&lt;td>设置 sidecar 度量服务器的端口。 默认值为 &lt;code>9090&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>dapr.io/sidecar-cpu-limit&lt;/code>&lt;/td>
-&lt;td>Maximum amount of CPU that the Dapr sidecar can use. See valid values &lt;a href="https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/">here&lt;/a>. By default this is not set&lt;/td>
+&lt;td>Dapr sidecar可以使用的最大CPU数量。 请参阅 &lt;a href="https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/">此处&lt;/a> 的有效值。 默认情况下未设置&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>dapr.io/sidecar-memory-limit&lt;/code>&lt;/td>
-&lt;td>Maximum amount of Memory that the Dapr sidecar can use. See valid values &lt;a href="https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/">here&lt;/a>. By default this is not set&lt;/td>
+&lt;td>Dapr sidecar可以使用的最大内存量。 请参阅 &lt;a href="https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/">此处&lt;/a> 的有效值。 默认情况下未设置&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>dapr.io/sidecar-cpu-request&lt;/code>&lt;/td>
-&lt;td>Amount of CPU that the Dapr sidecar requests. See valid values &lt;a href="https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/">here&lt;/a>. By default this is not set&lt;/td>
+&lt;td>Dapr sidecar要求的 CPU 数量。 请参阅 &lt;a href="https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/">此处&lt;/a> 的有效值。 默认情况下未设置&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>dapr.io/sidecar-memory-request&lt;/code>&lt;/td>
-&lt;td>Amount of Memory that the Dapr sidecar requests .See valid values &lt;a href="https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/">here&lt;/a>. By default this is not set By default this is not set&lt;/td>
+&lt;td>Dapr sidecar 请求的内存数量。请参阅 &lt;a href="https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/">此处&lt;/a> 的有效值。 默认情况下未设置&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>dapr.io/sidecar-liveness-probe-delay-seconds&lt;/code>&lt;/td>
-&lt;td>Number of seconds after the sidecar container has started before liveness probe is initiated. Read more &lt;a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes">here&lt;/a>. Default is &lt;code>3&lt;/code> Read more &lt;a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes">here&lt;/a>. Default is &lt;code>3&lt;/code>&lt;/td>
+&lt;td>Sidecar容器启动后的秒数，然后才启动活度探测。 在 &lt;a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes">此处&lt;/a> 阅读更多 默认值为 &lt;code>3&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>dapr.io/sidecar-liveness-probe-timeout-seconds&lt;/code>&lt;/td>
-&lt;td>Number of seconds after which the sidecar liveness probe times out. Read more &lt;a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes">here&lt;/a>. Default is &lt;code>3&lt;/code>&lt;/td>
+&lt;td>Sidecar 存活探针超时的秒数。 在 &lt;a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes">此处&lt;/a> 阅读更多 默认值为 &lt;code>3&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>dapr.io/sidecar-liveness-probe-period-seconds&lt;/code>&lt;/td>
-&lt;td>How often (in seconds) to perform the sidecar liveness probe. Read more &lt;a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes">here&lt;/a>. Default is &lt;code>6&lt;/code> Read more &lt;a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes">here&lt;/a>. Default is &lt;code>6&lt;/code>&lt;/td>
+&lt;td>每隔多长时间（以秒为单位）进行一次 sidecar 存活探针。 在 &lt;a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes">此处&lt;/a> 阅读更多 默认值为 &lt;code>6&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>dapr.io/sidecar-liveness-probe-threshold&lt;/code>&lt;/td>
-&lt;td>When the sidecar liveness probe fails, Kubernetes will try N times before giving up. In this case, the Pod will be marked Unhealthy. Read more about &lt;code>failureThreshold&lt;/code> &lt;a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes">here&lt;/a>. Default is &lt;code>3&lt;/code>&lt;/td>
+&lt;td>当 sidecar 存活探针失败时，Kubernetes会在放弃之前尝试N次。 在这种情况下，Pod 将被标记为不健康。 在 &lt;a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes">此处&lt;/a> 阅读更多关于 &lt;code>failureThreshold&lt;/code> 。 默认值为 &lt;code>3&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>dapr.io/sidecar-readiness-probe-delay-seconds&lt;/code>&lt;/td>
-&lt;td>Number of seconds after the sidecar container has started before readiness probe is initiated. Read more &lt;a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes">here&lt;/a>. Default is &lt;code>3&lt;/code> Read more &lt;a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes">here&lt;/a>. Default is &lt;code>3&lt;/code>&lt;/td>
+&lt;td>Sidecar 容器启动后，启动准备就绪探针前的秒数。 在 &lt;a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes">此处&lt;/a> 阅读更多 默认值为 &lt;code>3&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>dapr.io/sidecar-readiness-probe-timeout-seconds&lt;/code>&lt;/td>
-&lt;td>Number of seconds after which the sidecar readiness probe times out. Read more &lt;a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes">here&lt;/a>. Default is &lt;code>3&lt;/code> Read more &lt;a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes">here&lt;/a>. Default is &lt;code>3&lt;/code>&lt;/td>
+&lt;td>Sidecar 准备就绪探针超时的秒数。 在 &lt;a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes">此处&lt;/a> 阅读更多 默认值为 &lt;code>3&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>dapr.io/sidecar-readiness-probe-period-seconds&lt;/code>&lt;/td>
-&lt;td>How often (in seconds) to perform the sidecar readiness probe. Read more &lt;a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes">here&lt;/a>. Default is &lt;code>6&lt;/code> Read more &lt;a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes">here&lt;/a>. Default is &lt;code>6&lt;/code>&lt;/td>
+&lt;td>每个多长时间（以秒为单位）进行一次 sidecar 准备就绪探针。 在 &lt;a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes">此处&lt;/a> 阅读更多 默认值为 &lt;code>6&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>dapr.io/sidecar-readiness-probe-threshold&lt;/code>&lt;/td>
-&lt;td>When the sidecar readiness probe fails, Kubernetes will try N times before giving up. In this case, the Pod will be marked Unready. Read more about &lt;code>failureThreshold&lt;/code> &lt;a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes">here&lt;/a>. Default is &lt;code>3&lt;/code>&lt;/td>
+&lt;td>当 sidecar 准备就绪探针失败时，Kubernetes会在放弃之前尝试N次。 在这种情况下，Pod 将被标记为未就绪。 在 &lt;a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes">此处&lt;/a> 阅读更多关于 &lt;code>failureThreshold&lt;/code> 。 默认值为 &lt;code>3&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>dapr.io/http-max-request-size&lt;/code>&lt;/td>
-&lt;td>Increasing max size of request body http and grpc servers parameter in MB to handle uploading of big files. Default is &lt;code>4&lt;/code> MB Default is &lt;code>4&lt;/code> MB&lt;/td>
+&lt;td>增加http和grpc服务器请求正文参数的最大大小，单位为MB，以处理大文件的上传。 默认值为 &lt;code>4&lt;/code> MB&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table></description></item><item><title>Operations: Kubernetes生产环境配置指南</title><link>https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-production/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-production/</guid><description>
@@ -532,29 +532,29 @@ nodeapp &lt;span style="color:#ae81ff">3000&lt;/span> 16h 2020-07-29 17:16.22
 &lt;p>要为 Dapr 配置后台追踪，请访问&lt;a href="https://docs.dapr.io/operations/monitoring/tracing/setup-tracing/">这个&lt;/a>链接。&lt;/p>
 &lt;h3 id="度量">度量&lt;/h3>
 &lt;p>对于度量，Dapr在9090端口上暴露了一个Prometheus端点，可以被Prometheus收集。&lt;/p>
-&lt;p>要为 Dapr 配置Prometheus、Grafana 和其他监控工具，请访问 &lt;a href="https://docs.dapr.io/operations/monitoring/">这个&lt;/a>链接。&lt;/p></description></item><item><title>Operations: Upgrade Dapr on a Kubernetes cluster</title><link>https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-upgrade/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-upgrade/</guid><description>
+&lt;p>要为 Dapr 配置Prometheus、Grafana 和其他监控工具，请访问 &lt;a href="https://docs.dapr.io/operations/monitoring/">这个&lt;/a>链接。&lt;/p></description></item><item><title>Operations: 更新 Kubernetes 集群中的 dapr</title><link>https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-upgrade/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-upgrade/</guid><description>
 &lt;h2 id="前期准备">前期准备&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/getting-started/install-dapr-cli/">Dapr CLI&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://github.com/helm/helm/releases">Helm 3&lt;/a> (if using Helm)&lt;/li>
+&lt;li>&lt;a href="https://github.com/helm/helm/releases">Helm 3&lt;/a> (如果使用 Helm)&lt;/li>
 &lt;/ul>
-&lt;h2 id="upgrade-existing-cluster-to-101">Upgrade existing cluster to 1.0.1&lt;/h2>
-&lt;p>There are two ways to upgrade the Dapr control plane on a Kubernetes cluster using either the Dapr CLI or Helm.&lt;/p>
+&lt;h2 id="将现有集群升级为101">将现有集群升级为1.0.1&lt;/h2>
+&lt;p>有两种方法可以使用Dapr CLI或Helm升级Kubernetes集群上的Dapr control plane。&lt;/p>
 &lt;h3 id="dapr-cli">Dapr CLI&lt;/h3>
-&lt;p>The example below shows how to upgrade to version 1.0.1:&lt;/p>
+&lt;p>下面的例子显示了如何升级到1.0.1版本：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr upgrade -k --runtime-version&lt;span style="color:#f92672">=&lt;/span>1.0.1
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>You can provide all the available Helm chart configurations using the Dapr CLI. See &lt;a href="https://github.com/dapr/cli#supplying-helm-values">here&lt;/a> for more info. See &lt;a href="https://github.com/dapr/cli#supplying-helm-values">here&lt;/a> for more info.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>您可以使用Dapr CLI提供所有可用的Helm chart配置。 请参阅 &lt;a href="https://github.com/dapr/cli#supplying-helm-values">这里&lt;/a> 以获取更多信息。&lt;/p>
 &lt;h3 id="helm">Helm&lt;/h3>
-&lt;p>From version 1.0.0 onwards, upgrading Dapr using Helm is no longer a disruptive action since existing certificate values will automatically be re-used.&lt;/p>
+&lt;p>从1.0.0版本开始，使用Helm升级Dapr不再是一个破坏性的动作，因为现有的证书值将自动被重新使用。&lt;/p>
 &lt;ol>
 &lt;li>
-&lt;p>Upgrade Dapr from 1.0.0 (or newer) to any [NEW VERSION] &amp;gt; v1.0.0:&lt;/p>
+&lt;p>将Dapr从1.0.0（或更新）升级到任何[新版本] &amp;gt; v1.0.0。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm repo update
 &lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm upgrade dapr dapr/dapr --version &lt;span style="color:#f92672">[&lt;/span>NEW VERSION&lt;span style="color:#f92672">]&lt;/span> --namespace dapr-system --wait
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;em>If you&amp;rsquo;re using a values file, remember to add the &lt;code>--values&lt;/code> option when running the upgrade command.&lt;/em>&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;em>如果你使用的是values文件，记得在运行升级命令时添加&lt;code>--values&lt;/code>选项。&lt;/em>&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>Ensure all pods are running:&lt;/p>
+&lt;p>确保所有pod正在运行：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl get pods -n dapr-system -w
 NAME READY STATUS RESTARTS AGE
 dapr-dashboard-69f5c5c867-mqhg4 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 42s
@@ -564,15 +564,15 @@ dapr-sentry-84565c747b-7bh8h 1/1 Running &lt;span style="color:#ae81ff">0&lt;/sp
 dapr-sidecar-injector-68f868668f-6xnbt 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 41s
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
-&lt;p>Restart your application deployments to update the Dapr runtime:&lt;/p>
+&lt;p>重新启动您的应用程序 deployments 以更新 Dapr 运行时。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl rollout restart deploy/&amp;lt;DEPLOYMENT-NAME&amp;gt;
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
-&lt;p>All done!&lt;/p>
+&lt;p>全部完成！&lt;/p>
 &lt;/li>
 &lt;/ol>
 &lt;h2 id="下一步">下一步&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-overview/">Dapr on Kubernetes&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-production/">Dapr production guidelines&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-overview/">Kubernetes上的 Dapr&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-production/">Dapr生产环境指南&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: Kubernetes 集群配置</title><link>https://docs.dapr.io/operations/hosting/kubernetes/cluster/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/hosting/kubernetes/cluster/</guid><description/></item></channel></rss>

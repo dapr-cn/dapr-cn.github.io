@@ -2,7 +2,7 @@
 &lt;p>It is recommended to run Dapr with tracing enabled for any production scenario. It is recommended to run Dapr with tracing enabled for any production scenario. You can configure Dapr to send tracing and telemetry data to many backends based on your environment, whether it is running in the cloud or on-premises.&lt;/p>
 &lt;h2 id="tracing-configuration">Tracing configuration&lt;/h2>
 &lt;p>The &lt;code>tracing&lt;/code> section under the &lt;code>Configuration&lt;/code> spec contains the following properties:&lt;/p>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yml" data-lang="yml">&lt;span style="color:#f92672">tracing&lt;/span>:
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yml" data-lang="yml">&lt;span style="color:#f92672">spec&lt;/span>:
 &lt;span style="color:#f92672">tracing&lt;/span>:
 &lt;span style="color:#f92672">samplingRate&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span>
 &lt;span style="color:#f92672">zipkin&lt;/span>:
@@ -227,4 +227,4 @@
 &lt;ul>
 &lt;li>Try out the &lt;a href="https://github.com/dapr/quickstarts/tree/master/observability/README.md">observability quickstart&lt;/a>&lt;/li>
 &lt;li>How to set &lt;a href="https://docs.dapr.io/operations/configuration/configuration-overview/#tracing">tracing configuration options&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Common Tracing Backends</title><link>https://docs.dapr.io/operations/monitoring/tracing/supported-tracing-backends/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/monitoring/tracing/supported-tracing-backends/</guid><description/></item></channel></rss>
+&lt;/ul></description></item><item><title>Operations: 常见追踪后端</title><link>https://docs.dapr.io/operations/monitoring/tracing/supported-tracing-backends/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/monitoring/tracing/supported-tracing-backends/</guid><description/></item></channel></rss>

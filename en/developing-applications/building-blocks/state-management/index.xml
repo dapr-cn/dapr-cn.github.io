@@ -6,7 +6,7 @@
 &lt;li>Distributed concurrency and data consistency&lt;/li>
 &lt;li>Bulk &lt;a href="https://en.wikipedia.org/wiki/Create,_read,_update_and_delete">CRUD&lt;/a> operations&lt;/li>
 &lt;/ul>
-&lt;p>Your application can used Dapr&amp;rsquo;s state management API to save and read key/value pairs using a state store component, as shown in the diagram below. For example, by using HTTP POST you can save key/value pairs and by using HTTP GET you can read a key and have its value returned.&lt;/p>
+&lt;p>Your application can use Dapr&amp;rsquo;s state management API to save and read key/value pairs using a state store component, as shown in the diagram below. For example, by using HTTP POST you can save key/value pairs and by using HTTP GET you can read a key and have its value returned.&lt;/p>
 &lt;img src="https://docs.dapr.io/images/state-management-overview.png" width=900>
 &lt;h2 id="features">Features&lt;/h2>
 &lt;h3 id="pluggable-state-stores">Pluggable state stores&lt;/h3>

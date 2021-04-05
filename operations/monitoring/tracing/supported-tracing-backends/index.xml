@@ -1,11 +1,11 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Common Tracing Backends</title><link>https://docs.dapr.io/operations/monitoring/tracing/supported-tracing-backends/</link><description>Recent content in Common Tracing Backends on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/operations/monitoring/tracing/supported-tracing-backends/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: How-To: Set-up New Relic for Dapr observability</title><link>https://docs.dapr.io/operations/monitoring/tracing/supported-tracing-backends/newrelic/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/monitoring/tracing/supported-tracing-backends/newrelic/</guid><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – 常见追踪后端</title><link>https://docs.dapr.io/operations/monitoring/tracing/supported-tracing-backends/</link><description>Recent content in 常见追踪后端 on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/operations/monitoring/tracing/supported-tracing-backends/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: 指南：为 Dapr observability 设置 New Relic</title><link>https://docs.dapr.io/operations/monitoring/tracing/supported-tracing-backends/newrelic/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/monitoring/tracing/supported-tracing-backends/newrelic/</guid><description>
 &lt;h2 id="前期准备">前期准备&lt;/h2>
 &lt;ul>
-&lt;li>Perpetually &lt;a href="https://newrelic.com/signup">free New Relic account&lt;/a>, 100 GB/month of free data ingest, 1 free full access user, unlimited free basic users&lt;/li>
+&lt;li>永久 &lt;a href="https://newrelic.com/signup">免费的 New Relic 账户&lt;/a>, 100 GB/月免费数据摄取, 1 个免费的完整访问权限用户, 无限制免费基本用户&lt;/li>
 &lt;/ul>
-&lt;h2 id="configure-dapr-tracing">Configure Dapr tracing&lt;/h2>
-&lt;p>Dapr natively captures metrics and traces that can be send directly to New Relic. Dapr natively captures metrics and traces that can be send directly to New Relic. The easiest way to export these is by configuring Dapr to send the traces to &lt;a href="https://docs.newrelic.com/docs/understand-dependencies/distributed-tracing/trace-api/report-zipkin-format-traces-trace-api#existing-zipkin">New Relic&amp;rsquo;s Trace API&lt;/a> using the Zipkin trace format.&lt;/p>
-&lt;p>In order for the integration to send data to New Relic &lt;a href="https://newrelic.com/platform/telemetry-data-platform">Telemetry Data Platform&lt;/a>, you need a &lt;a href="https://docs.newrelic.com/docs/apis/get-started/intro-apis/types-new-relic-api-keys#insights-insert-key">New Relic Insights Insert API key&lt;/a>.&lt;/p>
+&lt;h2 id="配置dapr追踪">配置Dapr追踪&lt;/h2>
+&lt;p>Dapr本机捕获的度量和跟踪可以直接发送到New Relic。 最简单的导出方式是配置Dapr来使用 Zipkin 跟踪格式发送追踪到 &lt;a href="https://docs.newrelic.com/docs/understand-dependencies/distributed-tracing/trace-api/report-zipkin-format-traces-trace-api#existing-zipkin">New Relic Trace API&lt;/a>。&lt;/p>
+&lt;p>为了集成将数据发送到New Relic &lt;a href="https://newrelic.com/platform/telemetry-data-platform">Telemetry Data Platform&lt;/a>您需要一个 &lt;a href="https://docs.newrelic.com/docs/apis/get-started/intro-apis/types-new-relic-api-keys#insights-insert-key">New Relic Insights Insert API key&lt;/a>。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -16,65 +16,66 @@
 &lt;span style="color:#f92672">samplingRate&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span>
 &lt;span style="color:#f92672">zipkin&lt;/span>:
 &lt;span style="color:#f92672">endpointAddress&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;https://trace-api.newrelic.com/trace/v1?Api-Key=&amp;lt;NR-INSIGHTS-INSERT-API-KEY&amp;gt;&amp;amp;Data-Format=zipkin&amp;amp;Data-Format-Version=2&amp;#34;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="viewing-traces">Viewing Traces&lt;/h3>
-&lt;p>New Relic Distributed Tracing overview &lt;img src="https://docs.dapr.io/images/nr-distributed-tracing-overview.png" alt="New Relic Kubernetes Cluster Explorer App">&lt;/p>
-&lt;p>New Relic Distributed Tracing details &lt;img src="https://docs.dapr.io/images/nr-distributed-tracing-detail.png" alt="New Relic Kubernetes Cluster Explorer App">&lt;/p>
-&lt;h2 id="optional-new-relic-instrumentation">(optional) New Relic Instrumentation&lt;/h2>
-&lt;p>In order for the integrations to send data to New Relic Telemetry Data Platform, you either need a &lt;a href="https://docs.newrelic.com/docs/accounts/accounts-billing/account-setup/new-relic-license-key">New Relic license key&lt;/a> or &lt;a href="https://docs.newrelic.com/docs/apis/get-started/intro-apis/types-new-relic-api-keys#insights-insert-key">New Relic Insights Insert API key&lt;/a>.&lt;/p>
-&lt;h3 id="opentelemetry-instrumentation">OpenTelemetry instrumentation&lt;/h3>
-&lt;p>Leverage the different language specific OpenTelemetry implementations, for example &lt;a href="https://github.com/newrelic/newrelic-telemetry-sdk-dotnet">New Relic Telemetry SDK and OpenTelemetry support for .NET&lt;/a>. In this case, use the &lt;a href="https://github.com/newrelic/newrelic-telemetry-sdk-dotnet/tree/main/src/NewRelic.OpenTelemetry">OpenTelemetry Trace Exporter&lt;/a>. See example &lt;a href="https://github.com/harrykimpel/quickstarts/blob/master/distributed-calculator/csharp-otel/Startup.cs">here&lt;/a>. In this case, use the &lt;a href="https://github.com/newrelic/newrelic-telemetry-sdk-dotnet/tree/main/src/NewRelic.OpenTelemetry">OpenTelemetry Trace Exporter&lt;/a>. See example &lt;a href="https://github.com/harrykimpel/quickstarts/blob/master/distributed-calculator/csharp-otel/Startup.cs">here&lt;/a>.&lt;/p>
-&lt;h3 id="new-relic-language-agent">New Relic Language agent&lt;/h3>
-&lt;p>Similarly to the OpenTelemetry instrumentation, you can also leverage a New Relic language agent. Similarly to the OpenTelemetry instrumentation, you can also leverage a New Relic language agent. As an example, the &lt;a href="https://docs.newrelic.com/docs/agents/net-agent/installation/install-docker-container">New Relic agent instrumentation for .NET Core&lt;/a> is part of the Dockerfile. See example &lt;a href="https://github.com/harrykimpel/quickstarts/blob/master/distributed-calculator/csharp/Dockerfile">here&lt;/a>. See example &lt;a href="https://github.com/harrykimpel/quickstarts/blob/master/distributed-calculator/csharp/Dockerfile">here&lt;/a>.&lt;/p>
-&lt;h2 id="optional-enable-new-relic-kubernetes-integration">(optional) Enable New Relic Kubernetes integration&lt;/h2>
-&lt;p>In case Dapr and your applications run in the context of a Kubernetes environment, you can enable additional metrics and logs.&lt;/p>
-&lt;p>The easiest way to install the New Relic Kubernetes integration is to use the &lt;a href="https://one.newrelic.com/launcher/nr1-core.settings?pane=eyJuZXJkbGV0SWQiOiJrOHMtY2x1c3Rlci1leHBsb3Jlci1uZXJkbGV0Lms4cy1zZXR1cCJ9">automated installer&lt;/a> to generate a manifest. It bundles not just the integration DaemonSets, but also other New Relic Kubernetes configurations, like &lt;a href="https://docs.newrelic.com/docs/integrations/kubernetes-integration/kubernetes-events/install-kubernetes-events-integration">Kubernetes events&lt;/a>, &lt;a href="https://docs.newrelic.com/docs/integrations/prometheus-integrations/get-started/new-relic-prometheus-openmetrics-integration-kubernetes">Prometheus OpenMetrics&lt;/a>, and &lt;a href="https://docs.newrelic.com/docs/logs">New Relic log monitoring&lt;/a>. It bundles not just the integration DaemonSets, but also other New Relic Kubernetes configurations, like &lt;a href="https://docs.newrelic.com/docs/integrations/kubernetes-integration/kubernetes-events/install-kubernetes-events-integration">Kubernetes events&lt;/a>, &lt;a href="https://docs.newrelic.com/docs/integrations/prometheus-integrations/get-started/new-relic-prometheus-openmetrics-integration-kubernetes">Prometheus OpenMetrics&lt;/a>, and &lt;a href="https://docs.newrelic.com/docs/logs">New Relic log monitoring&lt;/a>.&lt;/p>
-&lt;h3 id="new-relic-kubernetes-cluster-explorer">New Relic Kubernetes Cluster Explorer&lt;/h3>
-&lt;p>The &lt;a href="https://docs.newrelic.com/docs/integrations/kubernetes-integration/understand-use-data/kubernetes-cluster-explorer">New Relic Kubernetes Cluster Explorer&lt;/a> provides a unique visualization of the entire data and deployments of the data collected by the Kubernetes integration.&lt;/p>
-&lt;p>It is a good starting point to observe all your data and dig deeper into any performance issues or incidents happening inside of the application or microservices.&lt;/p>
-&lt;p>&lt;img src="https://docs.dapr.io/images/nr-k8s-cluster-explorer-app.png" alt="New Relic Kubernetes Cluster Explorer App">&lt;/p>
-&lt;p>Automated correlation is part of the visualization capabilities of New Relic.&lt;/p>
-&lt;h3 id="pod-level-details">Pod-level details&lt;/h3>
-&lt;p>&lt;img src="https://docs.dapr.io/images/nr-k8s-pod-level-details.png" alt="New Relic K8s Pod Level Details">&lt;/p>
-&lt;h3 id="logs-in-context">Logs in Context&lt;/h3>
-&lt;p>&lt;img src="https://docs.dapr.io/images/nr-k8s-logs-in-context.png" alt="New Relic K8s Logs In Context">&lt;/p>
-&lt;h2 id="new-relic-dashboards">New Relic Dashboards&lt;/h2>
-&lt;h3 id="kubernetes-overview">Kubernetes Overview&lt;/h3>
-&lt;p>&lt;img src="https://docs.dapr.io/images/nr-dashboard-k8s-overview.png" alt="New Relic Dashboard Kubernetes Overview">&lt;/p>
-&lt;h3 id="dapr-system-services">Dapr System Services&lt;/h3>
-&lt;p>&lt;img src="https://docs.dapr.io/images/nr-dashboard-dapr-system-services.png" alt="New Relic Dashboard Dapr System Services">&lt;/p>
-&lt;h3 id="dapr-metrics">Dapr Metrics&lt;/h3>
-&lt;p>&lt;img src="https://docs.dapr.io/images/nr-dashboard-dapr-metrics-1.png" alt="New Relic Dashboard Dapr Metrics 1">&lt;/p>
-&lt;h2 id="new-relic-grafana-integration">New Relic Grafana integration&lt;/h2>
-&lt;p>New Relic teamed up with &lt;a href="https://grafana.com/">Grafana Labs&lt;/a> so you can use the &lt;a href="https://newrelic.com/platform/telemetry-data-platform">Telemetry Data Platform&lt;/a> as a data source for Prometheus metrics and see them in your existing dashboards, seamlessly tapping into the reliability, scale, and security provided by New Relic.&lt;/p>
-&lt;p>&lt;a href="https://github.com/dapr/dapr/blob/227028e7b76b7256618cd3236d70c1d4a4392c9a/grafana/README.md">Grafana dashboard templates&lt;/a> to monitor Dapr system services and sidecars can easily be used without any changes. New Relic provides a &lt;a href="https://docs.newrelic.com/docs/integrations/grafana-integrations/set-configure/configure-new-relic-prometheus-data-source-grafana">native endpoint for Prometheus metrics&lt;/a> into Grafana. A datasource can easily be set-up:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="查看追踪">查看追踪&lt;/h3>
+&lt;p>New Relic 分布式追踪概览 &lt;img src="https://docs.dapr.io/images/nr-distributed-tracing-overview.png" alt="New Relic Kubernetes 集群资源管理器应用">&lt;/p>
+&lt;p>New Relic 分布式追踪详情&lt;img src="https://docs.dapr.io/images/nr-distributed-tracing-detail.png" alt="New Relic Kubernetes 集群资源管理器应用">&lt;/p>
+&lt;h2 id="可选-new-relic-仪器">(可选) New Relic 仪器&lt;/h2>
+&lt;p>为了将数据发送给New Relic的遥测数据的集成平台,你需要一个 &lt;a href="https://docs.newrelic.com/docs/accounts/accounts-billing/account-setup/new-relic-license-key">New Relic的许可证密钥&lt;/a> 或 &lt;a href="https://docs.newrelic.com/docs/apis/get-started/intro-apis/types-new-relic-api-keys#insights-insert-key">New Relic的Insights Insert API Key&lt;/a>。&lt;/p>
+&lt;h3 id="opentelemetry-工具">OpenTelemetry 工具&lt;/h3>
+&lt;p>利用不同语言的 OpenTelemetry 实现，例如 &lt;a href="https://github.com/newrelic/newrelic-telemetry-sdk-dotnet">支持 .NET 的 New Relic Telemetry SDK 和 OpenTelemetry&lt;/a>。 在这种情况下，使用 &lt;a href="https://github.com/newrelic/newrelic-telemetry-sdk-dotnet/tree/main/src/NewRelic.OpenTelemetry">OpenTelemetry Trace Exporter&lt;/a>。 &lt;a href="https://github.com/harrykimpel/quickstarts/blob/master/distributed-calculator/csharp-otel/Startup.cs">查看示例&lt;/a>。&lt;/p>
+&lt;h3 id="new-relic-语言代理">New Relic 语言代理&lt;/h3>
+&lt;p>类似于 OpenTelemetry 仪器, 您也可以利用一个 New Relic 语言代理。 一个例子是 &lt;/a>.NET Core 的 New Relic 代理工具
+是Docker文件的一部分。 &lt;a href="https://github.com/harrykimpel/quickstarts/blob/master/distributed-calculator/csharp/Dockerfile">查看示例&lt;/a>。&lt;/p>&lt;/p>
+&lt;h2 id="可选-启用-new-relic-kubernetes-集成">(可选) 启用 New Relic Kubernetes 集成&lt;/h2>
+&lt;p>如果 Dapr 和您的应用程序在Kubernetes环境中运行，您可以启用额外的度量和日志。&lt;/p>
+&lt;p>安装New Relic Kubernetes集成的最简单方法是使用&lt;a href="https://one.newrelic.com/launcher/nr1-core.settings?pane=eyJuZXJkbGV0SWQiOiJrOHMtY2x1c3Rlci1leHBsb3Jlci1uZXJkbGV0Lms4cy1zZXR1cCJ9">自动安装程序&lt;/a>生成一个清单。 它不仅包着集成守护程序，而且包着其他New Relic Kubernetes配置， 像 &lt;a href="https://docs.newrelic.com/docs/integrations/kubernetes-integration/kubernetes-events/install-kubernetes-events-integration">Kubernetes 事件&lt;/a>, &lt;a href="https://docs.newrelic.com/docs/integrations/prometheus-integrations/get-started/new-relic-prometheus-openmetrics-integration-kubernetes">Prometheus OpenMetrics&lt;/a>, 和 &lt;a href="https://docs.newrelic.com/docs/logs">New Relic日志监测&lt;/a>。&lt;/p>
+&lt;h3 id="new-relic-kubernetes-集群浏览器">New Relic Kubernetes 集群浏览器&lt;/h3>
+&lt;p>&lt;a href="https://docs.newrelic.com/docs/integrations/kubernetes-integration/understand-use-data/kubernetes-cluster-explorer">New Relic Kubernetes Cluster Explorer&lt;/a>提供了Kubernetes集成收集的数据的整个数据和部署的独特可视化。&lt;/p>
+&lt;p>观察您的所有数据并深入了解应用程序或微型服务内发生的任何性能问题或事故是一个很好的起点。&lt;/p>
+&lt;p>&lt;img src="https://docs.dapr.io/images/nr-k8s-cluster-explorer-app.png" alt="New Relic Kubernetes 集群资源管理器应用">&lt;/p>
+&lt;p>自动关联是New Relic的可视化功能的一部分。&lt;/p>
+&lt;h3 id="pod-级别细节">Pod 级别细节&lt;/h3>
+&lt;p>&lt;img src="https://docs.dapr.io/images/nr-k8s-pod-level-details.png" alt="New Relic K8s Pod 级别详细信息">&lt;/p>
+&lt;h3 id="上下文中的日志">上下文中的日志&lt;/h3>
+&lt;p>&lt;img src="https://docs.dapr.io/images/nr-k8s-logs-in-context.png" alt="在上下文日志的 New Relic K8s">&lt;/p>
+&lt;h2 id="new-relic-仪表盘">New Relic 仪表盘&lt;/h2>
+&lt;h3 id="kubernetes-概述">Kubernetes 概述&lt;/h3>
+&lt;p>&lt;img src="https://docs.dapr.io/images/nr-dashboard-k8s-overview.png" alt="New Relic 仪表盘 Kubernetes 概览">&lt;/p>
+&lt;h3 id="dapr-系统服务">Dapr 系统服务&lt;/h3>
+&lt;p>&lt;img src="https://docs.dapr.io/images/nr-dashboard-dapr-system-services.png" alt="New Relic 仪表盘 Dapr 系统服务">&lt;/p>
+&lt;h3 id="dapr-度量">Dapr 度量&lt;/h3>
+&lt;p>&lt;img src="https://docs.dapr.io/images/nr-dashboard-dapr-metrics-1.png" alt="New Relic 仪表盘 Dapr Metrics 1">&lt;/p>
+&lt;h2 id="new-relic-grafana-集成">New Relic Grafana 集成&lt;/h2>
+&lt;p>New Relic 与 &lt;a href="https://grafana.com/">Grafana Labs&lt;/a> 联手让您可以使用 &lt;a href="https://newrelic.com/platform/telemetry-data-platform">遥测数据平台&lt;/a> 作为 Prometheus metrics 的数据源并展示在仪表盘中, 无缝地利用了New Relic提供的可靠性、规模和安全性。&lt;/p>
+&lt;p>&lt;a href="https://github.com/dapr/dapr/blob/227028e7b76b7256618cd3236d70c1d4a4392c9a/grafana/README.md">Grafana 仪表板模板&lt;/a> 用于监视Dapr系统服务和sidecars可以让你轻松使用而不做任何更改。 New Relic提供了&lt;a href="https://docs.newrelic.com/docs/integrations/grafana-integrations/set-configure/configure-new-relic-prometheus-data-source-grafana">用于 Prometheus metrics 的原生端点&lt;/a>到Grafana。 数据源可以很容易地设置:&lt;/p>
 &lt;p>&lt;img src="https://docs.dapr.io/images/nr-grafana-datasource.png" alt="New Relic Grafana Data Source">&lt;/p>
-&lt;p>And the exact same dashboard templates from Dapr can be imported to visualize Dapr system services and sidecars.&lt;/p>
-&lt;p>&lt;img src="https://docs.dapr.io/images/nr-grafana-dashboard.png" alt="New Relic Grafana Dashboard">&lt;/p>
-&lt;h2 id="new-relic-alerts">New Relic Alerts&lt;/h2>
-&lt;p>All the data that is collected from Dapr, Kubernetes or any services that run on top of can be used to set-up alerts and notifications into the preferred channel of your choice. See &lt;a href="https://docs.newrelic.com/docs/alerts-applied-intelligence">Alerts and Applied Intelligence&lt;/a>. See &lt;a href="https://docs.newrelic.com/docs/alerts-applied-intelligence">Alerts and Applied Intelligence&lt;/a>.&lt;/p>
-&lt;h2 id="related-linksreferences">Related Links/References&lt;/h2>
+&lt;p>也可以从 Dapr 导入完全相同的仪表板模板以可视化Dapr 系统服务和 sidecars。&lt;/p>
+&lt;p>&lt;img src="https://docs.dapr.io/images/nr-grafana-dashboard.png" alt="New Relic Grafana 仪表盘">&lt;/p>
+&lt;h2 id="new-relic-警报">New Relic 警报&lt;/h2>
+&lt;p>从Dapr、Kubernetes或运行在其上的任何服务收集的所有数据都可以用于设置警报和通知到您选择的首选通道。 参见&lt;a href="https://docs.newrelic.com/docs/alerts-applied-intelligence">警报和应用情报&lt;/a>。&lt;/p>
+&lt;h2 id="关联链接参考">关联链接/参考&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://newrelic.com/signup">New Relic Account Signup&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://newrelic.com/platform/telemetry-data-platform">Telemetry Data Platform&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.newrelic.com/docs/understand-dependencies/distributed-tracing/get-started/introduction-distributed-tracing">Distributed Tracing&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://newrelic.com/signup">New Relic 注册&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://newrelic.com/platform/telemetry-data-platform">遥测数据平台&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.newrelic.com/docs/understand-dependencies/distributed-tracing/get-started/introduction-distributed-tracing">分布式跟踪&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.newrelic.com/docs/understand-dependencies/distributed-tracing/trace-api">New Relic Trace API&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.newrelic.com/docs/telemetry-data-platform/get-data/apis/introduction-metric-api">New Relic Metric API&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.newrelic.com/docs/apis/get-started/intro-apis/types-new-relic-api-keys">Types of New Relic API keys&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://blog.newrelic.com/product-news/opentelemetry-user-experience/">New Relic OpenTelemetry User Experience&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.newrelic.com/docs/alerts-applied-intelligence">Alerts and Applied Intelligence&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: How-To: Set up Jaeger for distributed tracing</title><link>https://docs.dapr.io/operations/monitoring/tracing/supported-tracing-backends/jaeger/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/monitoring/tracing/supported-tracing-backends/jaeger/</guid><description>
-&lt;p>Dapr currently supports the Zipkin protocol. Dapr currently supports the Zipkin protocol. Since Jaeger is compatible with Zipkin, the Zipkin protocol can be used to talk to Jaeger.&lt;/p>
-&lt;h2 id="configure-self-hosted-mode">Configure self hosted mode&lt;/h2>
-&lt;h3 id="setup">Setup&lt;/h3>
-&lt;p>The simplest way to start Jaeger is to use the pre-built all-in-one Jaeger image published to DockerHub:&lt;/p>
+&lt;li>&lt;a href="https://docs.newrelic.com/docs/apis/get-started/intro-apis/types-new-relic-api-keys">New Relic API key 类型&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://blog.newrelic.com/product-news/opentelemetry-user-experience/">New Relic OpenTelemetry 用户体验&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.newrelic.com/docs/alerts-applied-intelligence">警报和应用情报&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: 操作方法: 为分布式跟踪安装 Jaeger</title><link>https://docs.dapr.io/operations/monitoring/tracing/supported-tracing-backends/jaeger/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/monitoring/tracing/supported-tracing-backends/jaeger/</guid><description>
+&lt;p>Dapr 目前支持Zipkin 协议。 既然Jaeger 与 Zipkin 兼容，那么 Zipkin 协议可以用来与 Jaeger 通信。&lt;/p>
+&lt;h2 id="配置自托管模式">配置自托管模式&lt;/h2>
+&lt;h3 id="设置">设置&lt;/h3>
+&lt;p>启动Jaeger的最简单方式是使用发布到DockerHub的Jaeger全家桶镜像：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">docker run -d --name jaeger &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -e COLLECTOR_ZIPKIN_HTTP_PORT&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">9412&lt;/span> &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -p 16686:16686 &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -p 9412:9412 &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span> jaegertracing/all-in-one:1.21
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Next, create the following YAML files locally:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>接下来，在本地创建以下YAML文件：&lt;/p>
 &lt;ul>
-&lt;li>&lt;strong>config.yaml&lt;/strong>: Note that because we are using the Zipkin protocol to talk to Jaeger, we specify the &lt;code>zipkin&lt;/code> section of tracing configuration set the &lt;code>endpointAddress&lt;/code> to address of the Jaeger instance.&lt;/li>
+&lt;li>&lt;strong>config.yaml&lt;/strong>: 注意, 因为我们正在使用 Zipkin 协议 来与 Jaeger 通信, 我们指定 &lt;code>zipkin&lt;/code> 追踪部分 配置设置 &lt;code>endpointAddress&lt;/code> 来定位Jaeger 实例。&lt;/li>
 &lt;/ul>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
@@ -86,14 +87,14 @@
 &lt;span style="color:#f92672">samplingRate&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span>
 &lt;span style="color:#f92672">zipkin&lt;/span>:
 &lt;span style="color:#f92672">endpointAddress&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;http://localhost:9412/api/v2/spans&amp;#34;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>To launch the application referring to the new YAML file, you can use &lt;code>--config&lt;/code> option:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>要启动指向新的 YAML 文件的应用程序，您可以使用&lt;code>--config&lt;/code> 选项：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr run --app-id mynode --app-port &lt;span style="color:#ae81ff">3000&lt;/span> node app.js --config config.yaml
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="viewing-traces">Viewing Traces&lt;/h3>
-&lt;p>To view traces, in your browser go to http://localhost:16686 and you will see the Jaeger UI.&lt;/p>
-&lt;h2 id="configure-kubernetes">Configure Kubernetes&lt;/h2>
-&lt;p>The following steps shows you how to configure Dapr to send distributed tracing data to Jaeger running as a container in your Kubernetes cluster, how to view them.&lt;/p>
-&lt;h3 id="setup-1">Setup&lt;/h3>
-&lt;p>First create the following YAML file to install Jaeger&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="查看追踪">查看追踪&lt;/h3>
+&lt;p>要查看追踪，在您的浏览器中请访问 http://localhost:16686，您会看到Jaeger UI。&lt;/p>
+&lt;h2 id="配置-kubernetes">配置 Kubernetes&lt;/h2>
+&lt;p>下面的步骤显示了如何配置 Dapr 将分布式跟踪数据发送到在 Kubernetes 集群中作为容器运行的 Jaeger，以及如何查看它们。&lt;/p>
+&lt;h3 id="设置-1">设置&lt;/h3>
+&lt;p>首先创建下面的 YAML 文件来安装Jaeger&lt;/p>
 &lt;ul>
 &lt;li>jaeger-operator.yaml&lt;/li>
 &lt;/ul>
@@ -110,14 +111,14 @@
 &lt;span style="color:#f92672">options&lt;/span>:
 &lt;span style="color:#f92672">query&lt;/span>:
 &lt;span style="color:#f92672">base-path&lt;/span>: &lt;span style="color:#ae81ff">/jaeger&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Now, use the above YAML file to install Jaeger&lt;/p>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#75715e"># Install Jaeger&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>现在，使用上面的 YAML 文件安装 Jaeger&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#75715e"># 安装 Jaeger&lt;/span>
 helm repo add jaegertracing https://jaegertracing.github.io/helm-charts
 helm install jaeger-operator jaegertracing/jaeger-operator
 kubectl apply -f jaeger-operator.yaml
-&lt;span style="color:#75715e"># Wait for Jaeger to be up and running&lt;/span>
+&lt;span style="color:#75715e"># 等待 Jaeger 启动和运行&lt;/span>
 kubectl wait deploy --selector app.kubernetes.io/name&lt;span style="color:#f92672">=&lt;/span>jaeger --for&lt;span style="color:#f92672">=&lt;/span>condition&lt;span style="color:#f92672">=&lt;/span>available
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Next, create the following YAML file locally:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>接下来，在本地创建以下YAML文件：&lt;/p>
 &lt;ul>
 &lt;li>&lt;strong>tracing.yaml&lt;/strong>&lt;/li>
 &lt;/ul>
@@ -131,21 +132,21 @@ kubectl wait deploy --selector app.kubernetes.io/name&lt;span style="color:#f926
 &lt;span style="color:#f92672">samplingRate&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span>
 &lt;span style="color:#f92672">zipkin&lt;/span>:
 &lt;span style="color:#f92672">endpointAddress&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;http://jaeger-collector.default.svc.cluster.local:9411/api/v2/spans&amp;#34;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Finally, deploy the the Dapr component and configuration files:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>最后，部署Dapr组件和配置文件：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl apply -f tracing.yaml
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>In order to enable this configuration for your Dapr sidecar, add the following annotation to your pod spec template:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>为了启用您的 Dapr sidecar 的配置，请在您的pod spec模板中添加以下注释：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yml" data-lang="yml">&lt;span style="color:#f92672">annotations&lt;/span>:
 &lt;span style="color:#f92672">dapr.io/config&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;tracing&amp;#34;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>That&amp;rsquo;s it! That&amp;rsquo;s it! Your Dapr sidecar is now configured for use with Jaeger.&lt;/p>
-&lt;h3 id="viewing-tracing-data">Viewing Tracing Data&lt;/h3>
-&lt;p>To view traces, connect to the Jaeger Service and open the UI:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>就这么简单！ 您的 Dapr sidecar 现已配置为用于 Jaeger。&lt;/p>
+&lt;h3 id="查看追踪数据">查看追踪数据&lt;/h3>
+&lt;p>要查看追踪数据，请连接到Jaeger服务并打开 UI：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl port-forward svc/jaeger-query &lt;span style="color:#ae81ff">16686&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>In your browser, go to &lt;code>http://localhost:16686&lt;/code> and you will see the Jaeger UI.&lt;/p>
-&lt;p>&lt;img src="https://docs.dapr.io/images/jaeger_ui.png" alt="jaeger">&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>在您的浏览器中，转到 &lt;code>http://localhost:16686&lt;/code> 并会看到Jaeger UI。&lt;/p>
+&lt;p>&lt;img src="https://docs.dapr.io/images/jaeger_ui.png" alt="Jaeger">&lt;/p>
 &lt;h2 id="参考资料">参考资料&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://www.jaegertracing.io/docs/1.21/getting-started/#all-in-one">Jaeger Getting Started&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/observability/w3c-tracing/">W3C distributed tracing&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.jaegertracing.io/docs/1.21/getting-started/#all-in-one">Jaeger 入门&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/observability/w3c-tracing/">W3C 分布式跟踪&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: How-To: Set up Zipkin for distributed tracing</title><link>https://docs.dapr.io/operations/monitoring/tracing/supported-tracing-backends/zipkin/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/monitoring/tracing/supported-tracing-backends/zipkin/</guid><description>
 &lt;h2 id="configure-self-hosted-mode">Configure self hosted mode&lt;/h2>
 &lt;p>For self hosted mode, on running &lt;code>dapr init&lt;/code>:&lt;/p>

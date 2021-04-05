@@ -1,53 +1,53 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Getting started with the Dapr client .NET SDK</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-client/</link><description>Recent content in Getting started with the Dapr client .NET SDK on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-client/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: DaprClient usage</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-client/dotnet-daprclient-usage/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-client/dotnet-daprclient-usage/</guid><description>
-&lt;h2 id="lifetime-management">Lifetime management&lt;/h2>
-&lt;p>A &lt;code>DaprClient&lt;/code> holds access to networking resources in the form of TCP sockets used to communicate with the Dapr sidecar. &lt;code>DaprClient&lt;/code> implements &lt;code>IDisposable&lt;/code> to support eager cleanup of resources.&lt;/p>
-&lt;p>For best performance, create a single long-lived instance of &lt;code>DaprClient&lt;/code> and provide access to that shared instance throughout your application. &lt;code>DaprClient&lt;/code> instances are thread-safe and intended to be shared.&lt;/p>
-&lt;p>Avoid creating a &lt;code>DaprClient&lt;/code> per-operation and disposing it when the operation is complete.&lt;/p>
-&lt;h2 id="configuring-daprclient">Configuring DaprClient&lt;/h2>
-&lt;p>A &lt;code>DaprClient&lt;/code> can be configured by invoking methods on &lt;code>DaprClientBuilder&lt;/code> class before calling &lt;code>.Build()&lt;/code> to create the client. The settings for each &lt;code>DaprClient&lt;/code> object are separate and cannot be changed after calling &lt;code>.Build()&lt;/code>.&lt;/p>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Dapr 客户端 .NET SDK入门</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-client/</link><description>Recent content in Dapr 客户端 .NET SDK入门 on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-client/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: DaprClient 使用</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-client/dotnet-daprclient-usage/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-client/dotnet-daprclient-usage/</guid><description>
+&lt;h2 id="生命周期管理">生命周期管理&lt;/h2>
+&lt;p>&lt;code>DaprClient&lt;/code> 能够以TCP 套接口的形式访问网络资源，与 Dapr sidecar 通信。 &lt;code>DaprClient&lt;/code> 实现 &lt;code>IDisposable&lt;/code> 以支持主动的资源清理。&lt;/p>
+&lt;p>为了获得最佳性能，请创建一个&lt;code>DaprClient&lt;/code>的单一长期实例，并在整个应用程序中提供对该共享实例的访问权限。 &lt;code>DaprClient&lt;/code> 实例是线程安全的并且允许共享的。&lt;/p>
+&lt;p>避免每个操作创建一个 &lt;code>DaprClient&lt;/code> 并在操作完成后释放它。&lt;/p>
+&lt;h2 id="配置-daprclient">配置 DaprClient&lt;/h2>
+&lt;p>在调用&lt;code>.Build()&lt;/code>创建客户端之前，可以通过调用&lt;code>DaprClientBuilder&lt;/code>类的方法来配置&lt;code>DaprClient&lt;/code>。 每个&lt;code>DaprClient&lt;/code>对象的设置都是独立的，并且在调用&lt;code>.Build()&lt;/code>后无法更改。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-C#" data-lang="C#">&lt;span style="color:#66d9ef">var&lt;/span> daprClient = &lt;span style="color:#66d9ef">new&lt;/span> DaprClientBuilder()
 .UseJsonSerializerSettings( ... ) &lt;span style="color:#75715e">// Configure JSON serializer
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> .Build();
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>The &lt;code>DaprClientBuilder&lt;/code> contains settings for:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>DaprClientBuilder&lt;/code>包含以下设置：&lt;/p>
 &lt;ul>
-&lt;li>The HTTP endpoint of the Dapr sidecar&lt;/li>
-&lt;li>The gRPC endpoint of the Dapr sidecar&lt;/li>
-&lt;li>The &lt;code>JsonSerializerOptions&lt;/code> object used to configure JSON serialization&lt;/li>
-&lt;li>The &lt;code>GrpcChannelOptions&lt;/code> object used to configure gRPC&lt;/li>
-&lt;li>The API Token used to authenticate requests to the sidecar&lt;/li>
+&lt;li>Dapr sidecar 的 HTTP 终结点。&lt;/li>
+&lt;li>Dapr sidecar 的 gRPC 终结点。&lt;/li>
+&lt;li>用于配置 JSON 序列化的 &lt;code>JsonSerializerOptions&lt;/code> 对象&lt;/li>
+&lt;li>用于配置 gRPC 的 &lt;code>GrpcChannelOptions&lt;/code> 对象&lt;/li>
+&lt;li>用于验证请求到 sidecar 的 API 令牌&lt;/li>
 &lt;/ul>
-&lt;p>The SDK will read the following environment variables to configure the default values:&lt;/p>
+&lt;p>SDK 将读取以下环境变量来配置默认值：&lt;/p>
 &lt;ul>
-&lt;li>&lt;code>DAPR_HTTP_PORT&lt;/code>: used to find the HTTP endpoint of the Dapr sidecar&lt;/li>
-&lt;li>&lt;code>DAPR_GRPC_PORT&lt;/code>: used to find the gRPC endpoint of the Dapr sidecar&lt;/li>
-&lt;li>&lt;code>DAPR_API_TOKEN&lt;/code>: used to set the API Token&lt;/li>
+&lt;li>&lt;code>DAPR_HTTP_PORT&lt;/code>: 用于查找 Dapr sidecar 的 HTTP 终结点&lt;/li>
+&lt;li>&lt;code>DAPR_GRPC_PORT&lt;/code>: 用于查找 Dapr sidecar 的 gRPC 终结点&lt;/li>
+&lt;li>&lt;code>DAPR_API_TOKEN&lt;/code>: 用于设置 API 令牌&lt;/li>
 &lt;/ul>
-&lt;h3 id="configuring-grpc-channel-options">Configuring gRPC channel options&lt;/h3>
-&lt;p>Dapr&amp;rsquo;s use of &lt;code>CancellationToken&lt;/code> for cancellation relies on the configuration of the gRPC channel options. If you need to configure these options yourself, make sure to enable the &lt;a href="https://grpc.github.io/grpc/csharp-dotnet/api/Grpc.Net.Client.GrpcChannelOptions.html#Grpc_Net_Client_GrpcChannelOptions_ThrowOperationCanceledOnCancellation">ThrowOperationCanceledOnCancellation setting&lt;/a>.&lt;/p>
+&lt;h3 id="配置-grpc-通道选项">配置 gRPC 通道选项&lt;/h3>
+&lt;p>Dapr 使用&lt;code>CancellationToken&lt;/code>来取消，依赖于 gRPC 通道选项的配置。 如果您需要自己配置这些选项，请确保启用 &lt;a href="https://grpc.github.io/grpc/csharp-dotnet/api/Grpc.Net.Client.GrpcChannelOptions.html#Grpc_Net_Client_GrpcChannelOptions_ThrowOperationCanceledOnCancellation">ThrowOperationCanceledOnCancellation 设置&lt;/a>。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-C#" data-lang="C#">&lt;span style="color:#66d9ef">var&lt;/span> daprClient = &lt;span style="color:#66d9ef">new&lt;/span> DaprClientBuilder()
 .UseGrpcChannelOptions(&lt;span style="color:#66d9ef">new&lt;/span> GrpcChannelOptions { ... ThrowOperationCanceledOnCancellation = &lt;span style="color:#66d9ef">true&lt;/span> })
 .Build();
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="using-cancellation-with-daprclient">Using cancellation with DaprClient&lt;/h2>
-&lt;p>The APIs on DaprClient that perform asynchronous operations accept an optional &lt;code>CancellationToken&lt;/code> parameter. This follows a standard .NET idiom for cancellable operations. Note that when cancellation occurs, there is no guarantee that the remote endpoint stops processing the request, only that the client has stopped waiting for completion.&lt;/p>
-&lt;p>When an operation is cancelled, it will throw an &lt;code>OperationCancelledException&lt;/code>.&lt;/p>
-&lt;h2 id="understanding-daprclient-json-serialization">Understanding DaprClient JSON serialization&lt;/h2>
-&lt;p>Many method on &lt;code>DaprClient&lt;/code> perform JSON serialization using the &lt;code>System.Text.Json&lt;/code> serializer. Methods that accept an application data type as an argument will JSON serialize it, unless the documentation clearly states otherwise.&lt;/p>
-&lt;p>It is worth reading the &lt;a href="https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-overview">System.Text.Json documentation&lt;/a> if you have advanced requirements. The Dapr .NET SDK provides no unique serialization behavior or customizations - it relies on the underlying serializer to convert data to and from the application&amp;rsquo;s .NET types.&lt;/p>
-&lt;p>&lt;code>DaprClient&lt;/code> is configured to use a serializer options object configured from &lt;a href="https://docs.microsoft.com/en-us/dotnet/api/system.text.json.jsonserializerdefaults?view=net-5.0">JsonSerializerDefaults.Web&lt;/a>. This means that &lt;code>DaprClient&lt;/code> will use &lt;code>camelCase&lt;/code> for property names, allow reading quoted numbers (&lt;code>&amp;quot;10.99&amp;quot;&lt;/code>), and will bind properties case-insensitively. These are the same settings used with ASP.NET Core and the &lt;code>System.Text.Json.Http&lt;/code> APIs, and are designed to follow interoperable web conventions.&lt;/p>
-&lt;p>&lt;code>System.Text.Json&lt;/code> as of .NET 5.0 does not have good support for all of F# language features built-in. If you are using F# you may want to use one of the converter packages that add support for F#&amp;rsquo;s features such as &lt;a href="https://github.com/Tarmil/FSharp.SystemTextJson">FSharp.SystemTextJson&lt;/a>.&lt;/p>
-&lt;h3 id="simple-guidance-for-json-serialization">Simple guidance for JSON serialization&lt;/h3>
-&lt;p>Your experience using JSON serialization and &lt;code>DaprClient&lt;/code> will be smooth if you use a feature set that maps to JSON&amp;rsquo;s type system. These are general guidelines that will simplify your code where they can be applied.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="使用-daprclient-取消">使用 DaprClient 取消&lt;/h2>
+&lt;p>DaprClient 上执行异步操作的API接受一个可选的&lt;code>CancellationToken&lt;/code>参数。 这遵循了可取消操作的标准.NET习惯用法。 请注意，当取消发生时，并不能保证远程端点停止处理请求，只能保证客户端已经停止等待完成。&lt;/p>
+&lt;p>当一个操作被取消时，它将抛出一个 &lt;code>OperationCancelledException&lt;/code>。&lt;/p>
+&lt;h2 id="了解-daprclient-json-序列化">了解 DaprClient JSON 序列化&lt;/h2>
+&lt;p>&lt;code>DaprClient&lt;/code> 上的许多方法使用 &lt;code>System.Text.Json&lt;/code> 序列化器执行JSON序列化。 接受应用程序数据类型作为参数的方法将对其进行JSON序列化，除非文档另有明确说明。&lt;/p>
+&lt;p>如果你有高级需求，值得阅读 &lt;a href="https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-overview"> System.Text.Json 文档&lt;/a> Dapr .NET SDK 没有提供独特的序列化行为或自定义 - 它依赖于底层的序列化器将数据转换为应用程序的 .NET 类型。&lt;/p>
+&lt;p>&lt;code>DaprClient&lt;/code>被配置为使用来自 &lt;a href="https://docs.microsoft.com/en-us/dotnet/api/system.text.json.jsonserializerdefaults?view=net-5.0">JsonSerializerDefaults.Web&lt;/a> 配置的序列化器配置对象。 这意味着 &lt;code>DaprClient&lt;/code> 将使用 &lt;code>camelCase&lt;/code> 来命名属性，允许读取引号 (&lt;code>&amp;quot;10.99&amp;quot;&lt;/code>)，并将不区分大小写地绑定属性。 这些设置与 ASP.NET Core 和 &lt;code>System.Text.Json.Http&lt;/code> API 所使用的设置相同，并被设计为遵循可互操作的 Web 惯例。&lt;/p>
+&lt;p>&lt;code>System.Text.Json&lt;/code>截至.NET 5.0，并没有很好地支持所有内置的F#语言功能。 如果你使用的是F#，你可能会想要使用一个添加了F#功能支持的转换器包，比如 &lt;a href="https://github.com/Tarmil/FSharp.SystemTextJson">FSharp.SystemTextJson&lt;/a> 。&lt;/p>
+&lt;h3 id="json序列化的简单指南">JSON序列化的简单指南&lt;/h3>
+&lt;p>如果您使用一个映射到JSON类型系统的特性集，您使用JSON序列化和 &lt;code>DaprClient&lt;/code> 的体验将会很顺畅。 这些都是一般准则，在可以应用的地方会简化你的代码。&lt;/p>
 &lt;ul>
-&lt;li>Avoid inheritance and polymorphism&lt;/li>
-&lt;li>Do not attempt to serialize data with cyclic references&lt;/li>
-&lt;li>Do not put complex or expensive logic in constructors or property accessors&lt;/li>
-&lt;li>Use .NET types that map cleanly to JSON types (numeric types, strings, &lt;code>DateTime&lt;/code>)&lt;/li>
-&lt;li>Create your own classes for top-level messages, events, or state values so you can add properties in the future&lt;/li>
-&lt;li>Design types with &lt;code>get&lt;/code>/&lt;code>set&lt;/code> properties OR use the &lt;a href="https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-immutability?pivots=dotnet-5-0">supported pattern&lt;/a> for immutable types with JSON&lt;/li>
+&lt;li>避免继承和多态性&lt;/li>
+&lt;li>不要试图用循环引用来序列化数据。&lt;/li>
+&lt;li>不要将复杂或昂贵的逻辑放在构造函数或属性访问器中&lt;/li>
+&lt;li>使用.NET类型，干净利落地映射到JSON类型（数字类型，字符串，&lt;code>DateTime&lt;/code>）&lt;/li>
+&lt;li>为顶层消息、事件或状态值创建自己的类，以便您可以在未来添加属性&lt;/li>
+&lt;li>使用 &lt;code>get&lt;/code>/&lt;code>set&lt;/code> 属性设计类型，或者使用JSON&lt;a href="https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-immutability?pivots=dotnet-5-0">支持的模式&lt;/a>来设计不可变类型。&lt;/li>
 &lt;/ul>
-&lt;h3 id="polymorphism-and-serialization">Polymorphism and serialization&lt;/h3>
-&lt;p>The &lt;code>System.Text.Json&lt;/code> serializer used by &lt;code>DaprClient&lt;/code> uses the declared type of values when performing serialization.&lt;/p>
-&lt;p>This section will use &lt;code>DaprClient.SaveStateAsync&amp;lt;TValue&amp;gt;(...)&lt;/code> in examples, but the advice is applicable to any Dapr building block exposed by the SDK.&lt;/p>
+&lt;h3 id="多态性和序列化">多态性和序列化&lt;/h3>
+&lt;p>&lt;code>DaprClient&lt;/code> 使用的 &lt;code>System.Text.Json&lt;/code> 序列化器在执行序列化时使用声明的值类型。&lt;/p>
+&lt;p>本节将在示例中使用 &lt;code>DaprClient.SaveStateAsync&amp;lt;TValue&amp;gt;(...)&lt;/code> ，但该建议适用于SDK暴露的任何 Dapr 构建块。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-C#" data-lang="C#">&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">Widget&lt;/span>
 {
 &lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span> Color { &lt;span style="color:#66d9ef">get&lt;/span>; &lt;span style="color:#66d9ef">set&lt;/span>; }
@@ -56,8 +56,8 @@
 &lt;span style="color:#75715e">// Storing a Widget value as JSON in the state store
 &lt;/span>&lt;span style="color:#75715e">&lt;/span>widget widget = &lt;span style="color:#66d9ef">new&lt;/span> Widget() { Color = &lt;span style="color:#e6db74">&amp;#34;Green&amp;#34;&lt;/span>, };
 &lt;span style="color:#66d9ef">await&lt;/span> client.SaveStateAsync(&lt;span style="color:#e6db74">&amp;#34;mystatestore&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;mykey&amp;#34;&lt;/span>, widget);
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>In the example above, the type parameter &lt;code>TValue&lt;/code> has its type argument inferred from the type of the &lt;code>widget&lt;/code> variable. This is important because the &lt;code>System.Text.Json&lt;/code> serializer will perform serialization based on the &lt;em>declared type&lt;/em> of the value. The result is that the JSON value &lt;code>{ &amp;quot;color&amp;quot;: &amp;quot;Green&amp;quot; }&lt;/code> will be stored.&lt;/p>
-&lt;p>Consider what happens when you try to use derived type of &lt;code>Widget&lt;/code>:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>在上面的例子中，类型参数 &lt;code>TValue&lt;/code> 的类型参数是从 &lt;code>widget&lt;/code> 变量的类型推断出来的。 这一点很重要，因为 &lt;code>System.Text.Json&lt;/code> 序列化器将根据 &lt;em>declared type&lt;/em> 的值来执行序列化。 结果是将存储JSON值 &lt;code>{ &amp;quot;color&amp;quot;: &amp;quot;Green&amp;quot; }&lt;/code> 。&lt;/p>
+&lt;p>考虑一下当你尝试使用 &lt;code>Widget&lt;/code> 的派生类型时会发生什么。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-C#" data-lang="C#">&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">Widget&lt;/span>
 {
 &lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span> Color { &lt;span style="color:#66d9ef">get&lt;/span>; &lt;span style="color:#66d9ef">set&lt;/span>; }
@@ -70,12 +70,12 @@
 &lt;span style="color:#75715e">// Storing a SuperWidget value as JSON in the state store
 &lt;/span>&lt;span style="color:#75715e">&lt;/span>Widget widget = &lt;span style="color:#66d9ef">new&lt;/span> SuperWidget() { Color = &lt;span style="color:#e6db74">&amp;#34;Green&amp;#34;&lt;/span>, HasSelfCleaningFeature = &lt;span style="color:#66d9ef">true&lt;/span>, };
 &lt;span style="color:#66d9ef">await&lt;/span> client.SaveStateAsync(&lt;span style="color:#e6db74">&amp;#34;mystatestore&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;mykey&amp;#34;&lt;/span>, widget);
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>In this example we&amp;rsquo;re using a &lt;code>SuperWidget&lt;/code> but the variable&amp;rsquo;s declared type is &lt;code>Widget&lt;/code>. Since the JSON serializer&amp;rsquo;s behavior is determined by the declared type, it only sees a simple &lt;code>Widget&lt;/code> and will save the value &lt;code>{ &amp;quot;color&amp;quot;: &amp;quot;Green&amp;quot; }&lt;/code> instead of &lt;code>{ &amp;quot;color&amp;quot;: &amp;quot;Green&amp;quot;, &amp;quot;hasSelfCleaningFeature&amp;quot;: true }&lt;/code>.&lt;/p>
-&lt;p>If you want the properties of &lt;code>SuperWidget&lt;/code> to be serialized, then the best option is to override the type argument with &lt;code>object&lt;/code>. This will cause the serializer to include all data as it knows nothing about the type.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>在这个例子中，我们使用的是 &lt;code>SuperWidget&lt;/code> ，但变量的声明类型是 &lt;code>Widget&lt;/code>。 由于JSON序列化器的行为是由声明的类型决定的，所以它只看到一个简单的 &lt;code>Widget&lt;/code>，并将保存&lt;code>{ &amp;quot;color&amp;quot;: &amp;quot;Green&amp;quot; }&lt;/code>，而不是&lt;code>{ &amp;quot;color&amp;quot;: &amp;quot;Green&amp;quot;, &amp;quot;hasSelfCleaningFeature&amp;quot;: true }&lt;/code>。&lt;/p>
+&lt;p>如果你想让 &lt;code>SuperWidget&lt;/code> 的属性被序列化，那么最好的选择是用 &lt;code>object&lt;/code> 覆盖类型参数。 这将导致序列器包含所有数据，因为它对类型一无所知。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-C#" data-lang="C#">Widget widget = &lt;span style="color:#66d9ef">new&lt;/span> SuperWidget() { Color = &lt;span style="color:#e6db74">&amp;#34;Green&amp;#34;&lt;/span>, HasSelfCleaningFeature = &lt;span style="color:#66d9ef">true&lt;/span>, };
 &lt;span style="color:#66d9ef">await&lt;/span> client.SaveStateAsync&amp;lt;&lt;span style="color:#66d9ef">object&lt;/span>&amp;gt;(&lt;span style="color:#e6db74">&amp;#34;mystatestore&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;mykey&amp;#34;&lt;/span>, widget);
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="error-handling">Error handling&lt;/h2>
-&lt;p>Methods on &lt;code>DaprClient&lt;/code> will throw &lt;code>DaprException&lt;/code> or a subclass when a failure is encountered.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="错误处理">错误处理&lt;/h2>
+&lt;p>&lt;code>DaprClient&lt;/code> 上的方法会在遇到失败时抛出 &lt;code>DaprException&lt;/code> 或子类。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-C#" data-lang="C#">&lt;span style="color:#66d9ef">try&lt;/span>
 {
 &lt;span style="color:#66d9ef">var&lt;/span> widget = &lt;span style="color:#66d9ef">new&lt;/span> Widget() { Color = &lt;span style="color:#e6db74">&amp;#34;Green&amp;#34;&lt;/span>, };
@@ -85,10 +85,10 @@
 {
 &lt;span style="color:#75715e">// handle the exception, log, retry, etc.
 &lt;/span>&lt;span style="color:#75715e">&lt;/span>}
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>The most common cases of failure will be related to:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>最常见的失败情况将与以下方面有关：&lt;/p>
 &lt;ul>
-&lt;li>Incorrect configuration of Dapr component&lt;/li>
-&lt;li>Transient failures such as a networking problem&lt;/li>
-&lt;li>Invalid data, such as a failure to deserialize JSON&lt;/li>
+&lt;li>Dapr组件配置不正确&lt;/li>
+&lt;li>暂时性故障，如网络问题&lt;/li>
+&lt;li>无效数据，如未能反序列化JSON&lt;/li>
 &lt;/ul>
-&lt;p>In any of these cases you can examine more exception details through the &lt;code>.InnerException&lt;/code> property.&lt;/p></description></item></channel></rss>
+&lt;p>在任何这些情况下，你都可以通过 &lt;code>.InnerException&lt;/code> 属性检查更多的异常细节。&lt;/p></description></item></channel></rss>
