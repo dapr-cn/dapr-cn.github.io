@@ -1,14 +1,14 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – 指标</title><link>https://docs.dapr.io/operations/monitoring/metrics/</link><description>Recent content in 指标 on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/operations/monitoring/metrics/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: How-To: Set up Azure Monitor to search logs and collect metrics</title><link>https://docs.dapr.io/operations/monitoring/metrics/azure-monitor/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/monitoring/metrics/azure-monitor/</guid><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – 指标</title><link>https://docs.dapr.io/operations/monitoring/metrics/</link><description>Recent content in 指标 on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/operations/monitoring/metrics/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: 指南: 设置 Azure 监视器以搜索日志并收集指标</title><link>https://docs.dapr.io/operations/monitoring/metrics/azure-monitor/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/monitoring/metrics/azure-monitor/</guid><description>
 &lt;h2 id="前期准备">前期准备&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.microsoft.com/en-us/azure/aks/">Azure Kubernetes Service&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-overview">Enable Azure Monitor For containers in AKS&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-overview">对AKS中的容器启用 Azure Monitor。&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/">kubectl&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://helm.sh/">Helm 3&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;h2 id="enable-prometheus-metric-scrape-using-config-map">Enable Prometheus metric scrape using config map&lt;/h2>
+&lt;h2 id="使用config-map启用-prometheus-度量抓取">使用config map启用 Prometheus 度量抓取&lt;/h2>
 &lt;ol>
-&lt;li>Make sure that omsagents are running&lt;/li>
+&lt;li>请确保正在运行 omsagents&lt;/li>
 &lt;/ol>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">$ kubectl get pods -n kube-system
 NAME READY STATUS RESTARTS AGE
@@ -22,10 +22,10 @@ omsagent-rs-74f488997c-dshpx 1/1 Running &lt;span style="color:#ae81ff">1&lt;/sp
 omsagent-smtk7 1/1 Running &lt;span style="color:#ae81ff">1&lt;/span> 44h
 ...
 &lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
-&lt;li>Apply config map to enable Prometheus metrics endpoint scrape.&lt;/li>
+&lt;li>应用config map来启用Prometheus metrics endpoint抓取。&lt;/li>
 &lt;/ol>
-&lt;p>You can use &lt;a href="https://docs.dapr.io/docs/azm-config-map.yaml">azm-config-map.yaml&lt;/a> to enable prometheus metrics endpoint scrape.&lt;/p>
-&lt;p>If you installed Dapr to the different namespace, you need to change the &lt;code>monitor_kubernetes_pod_namespaces&lt;/code> array values. 例如:&lt;/p>
+&lt;p>您可以使用 &lt;a href="https://docs.dapr.io/docs/azm-config-map.yaml">azm-config-map.yaml&lt;/a> 来启用 Prometheus 度量端点抓取。&lt;/p>
+&lt;p>如果你安装 Dapr 到不同的命名空间, 你需要更改 &lt;code>monitor_kubernetes_pod_namespaces&lt;/code> 数组值。 例如:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">...
 &lt;span style="color:#ae81ff">...&lt;/span>
 &lt;span style="color:#f92672">prometheus-data-collection-settings&lt;/span>: |-&lt;span style="color:#e6db74">
@@ -36,7 +36,7 @@ omsagent-smtk7 1/1 Running &lt;span style="color:#ae81ff">1&lt;/span> 44h
 &lt;/span>&lt;span style="color:#e6db74"> [prometheus_data_collection_settings.node]
 &lt;/span>&lt;span style="color:#e6db74"> interval = &amp;#34;1m&amp;#34;&lt;/span>
 ...
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Apply config map:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>应用config map：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl apply -f ./azm-config.map.yaml
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="使用-json-格式化日志安装-dapr">使用 JSON 格式化日志安装 Dapr&lt;/h2>
 &lt;ol>
@@ -44,10 +44,10 @@ omsagent-smtk7 1/1 Running &lt;span style="color:#ae81ff">1&lt;/span> 44h
 &lt;/ol>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm install dapr dapr/dapr --namespace dapr-system --set global.logAsJson&lt;span style="color:#f92672">=&lt;/span>true
 &lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
-&lt;li>Enable JSON formatted log in Dapr sidecar and add Prometheus annotations.&lt;/li>
+&lt;li>启用 JSON 格式化日志到 Dapr sidecar 并添加 Prometheus 注释。&lt;/li>
 &lt;/ol>
 &lt;blockquote>
-&lt;p>Note: OMS Agent scrapes the metrics only if replicaset has Prometheus annotations.&lt;/p>
+&lt;p>注意: OMS Agent仅在replicaset具有Prometheus注释时才抓取指标。&lt;/p>
 &lt;/blockquote>
 &lt;p>添加 &lt;code>dapr.io/log-as-json: &amp;quot;true&amp;quot;&lt;/code> annotation 到你的部署yaml.&lt;/p>
 &lt;p>Example:&lt;/p>
@@ -75,25 +75,25 @@ omsagent-smtk7 1/1 Running &lt;span style="color:#ae81ff">1&lt;/span> 44h
 &lt;span style="color:#f92672">prometheus.io/port&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;9090&amp;#34;&lt;/span>
 &lt;span style="color:#f92672">prometheus.io/path&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;/&amp;#34;&lt;/span>
 ...
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="search-metrics-and-logs-with-azure-monitor">Search metrics and logs with Azure Monitor&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="用-azure-monitor-搜索度量和日志">用 Azure Monitor 搜索度量和日志&lt;/h2>
 &lt;ol>
 &lt;li>
-&lt;p>Go to Azure Monitor&lt;/p>
+&lt;p>前往Azure Monitor&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>Search Dapr logs&lt;/p>
+&lt;p>搜索 Dapr 日志&lt;/p>
 &lt;/li>
 &lt;/ol>
-&lt;p>Here is an example query, to parse JSON formatted logs and query logs from dapr system processes.&lt;/p>
+&lt;p>下面是一个示例查询，用于解析JSON格式的日志和来自Dapr系统进程的查询日志。&lt;/p>
 &lt;pre>&lt;code>ContainerLog
 | extend parsed=parse_json(LogEntry)
 | project Time=todatetime(parsed['time']), app_id=parsed['app_id'], scope=parsed['scope'],level=parsed['level'], msg=parsed['msg'], type=parsed['type'], ver=parsed['ver'], instance=parsed['instance']
 | where level != &amp;quot;&amp;quot;
 | sort by Time
 &lt;/code>&lt;/pre>&lt;ol start="3">
-&lt;li>Search metrics&lt;/li>
+&lt;li>搜索度量&lt;/li>
 &lt;/ol>
-&lt;p>This query, queries process_resident_memory_bytes Prometheus metrics for Dapr system processes and renders timecharts&lt;/p>
+&lt;p>这个语句查询process_resident_memory_bytes Prometheus度量的Dapr系统进程，并呈现时间图&lt;/p>
 &lt;pre>&lt;code>InsightsMetrics
 | where Namespace == &amp;quot;prometheus&amp;quot; and Name == &amp;quot;process_resident_memory_bytes&amp;quot;
 | extend tags=parse_json(Tags)
@@ -103,9 +103,9 @@ omsagent-smtk7 1/1 Running &lt;span style="color:#ae81ff">1&lt;/span> 44h
 | render timechart
 &lt;/code>&lt;/pre>&lt;h1 id="参考资料">参考资料&lt;/h1>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-prometheus-integration">Configure scraping of Prometheus metrics with Azure Monitor for containers&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-agent-config">Configure agent data collection for Azure Monitor for containers&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.microsoft.com/en-us/azure/azure-monitor/log-query/query-language">Azure Monitor Query&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-prometheus-integration">使用Azure Monitor为容器配置普Prometheus度量数据抓取&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-agent-config">配置用于容器的 Azure Monitor的代理数据收集&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.microsoft.com/en-us/azure/azure-monitor/log-query/query-language">Azure Monitor 查询&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: How-To: Observe metrics with Prometheus</title><link>https://docs.dapr.io/operations/monitoring/metrics/prometheus/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/monitoring/metrics/prometheus/</guid><description>
 &lt;h2 id="setup-prometheus-locally">Setup Prometheus Locally&lt;/h2>
 &lt;p>To run Prometheus on your local machine, you can either &lt;a href="#install">install and run it as a process&lt;/a> or run it as a &lt;a href="#Run-as-Container">Docker container&lt;/a>.&lt;/p>

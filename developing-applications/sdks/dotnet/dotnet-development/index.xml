@@ -69,38 +69,38 @@ In a container, an ASP.NET Core app will listen on port 80 by default. Remember 
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>Checkin &lt;code>tye.yaml&lt;/code> in source control wiht the application code.&lt;/p>
 &lt;p>You can now use &lt;code>tye run&lt;/code> to launch the whole application from one terminal. When running, Tye has a dashboard at &lt;code>http://localhost:8000&lt;/code> to view application status and logs.&lt;/p>
 &lt;h3 id="下一步">下一步&lt;/h3>
-&lt;p>Tye runs your services locally as normal .NET process. If you need to debug, then use the attach feature of your debugger to attach to one of the running processes. Since Tye is .NET aware, it has the ability to &lt;a href="https://github.com/dotnet/tye/blob/master/docs/reference/commandline/tye-run.md#options">start a process suspended&lt;/a> for startup debugging.&lt;/p>
-&lt;p>Tye also has an &lt;a href="https://github.com/dotnet/tye/blob/master/docs/reference/commandline/tye-run.md#options">option&lt;/a> to run your services in containers if you wish to test locally in containers.&lt;/p></description></item><item><title>Developing-Applications: Dapr .NET SDK Development with Dapr CLI</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-development/dotnet-development-dapr-cli/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-development/dotnet-development-dapr-cli/</guid><description>
+&lt;p>Tye runs your services locally as normal .NET process. 如果您需要调试，请使用调试器的附加功能将其附加到正在运行的进程中。 Since Tye is .NET aware, it has the ability to &lt;a href="https://github.com/dotnet/tye/blob/master/docs/reference/commandline/tye-run.md#options">start a process suspended&lt;/a> for startup debugging.&lt;/p>
+&lt;p>Tye also has an &lt;a href="https://github.com/dotnet/tye/blob/master/docs/reference/commandline/tye-run.md#options">option&lt;/a> to run your services in containers if you wish to test locally in containers.&lt;/p></description></item><item><title>Developing-Applications: Dapr .NET SDK 与 Dapr CLI 进行开发</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-development/dotnet-development-dapr-cli/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-development/dotnet-development-dapr-cli/</guid><description>
 &lt;h2 id="dapr-cli">Dapr CLI&lt;/h2>
-&lt;p>&lt;em>Consider this to be a .NET companion to the [Dapr Self-Hosted with Docker Guide]({{ ref self-hosted-overview.md }}))&lt;/em>.&lt;/p>
-&lt;p>The Dapr CLI provides you with a good base to work from by initializing a local redis container, zipkin container, the placement service, and component manifests for redis. This will enable you to work with the following building blocks on a fresh install with no additional setup:&lt;/p>
+&lt;p>&lt;em>这篇文章是一篇与 .NET 相关的文章，另见 [使用 Docker 进行 Dapr 自托管]({{ ref self-hosted-overview.md }})&lt;/em>&lt;/p>
+&lt;p>Dapr CLI 为您提供了一个很好的工作基础，通过初始化本地重新分配容器、拉取容器、放置服务和用于重新分配的组件清单。 这将使您能够在没有额外设置的新安装中处理以下构建块：&lt;/p>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/service-invocation/">服务调用&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">State Store&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">状态存储&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/">发布/订阅&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/actors/">Actors&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;p>You can run .NET services with &lt;code>dapr run&lt;/code> as your strategy for developing locally. Plan on running one of these commands per-service in order to launch your application.&lt;/p>
+&lt;p>您可以用 &lt;code>dapr run&lt;/code> 来运行.NET 服务，作为您在本地开发的策略。 为每个服务的这些命令，以便启动您的应用程序。&lt;/p>
 &lt;ul>
-&lt;li>&lt;strong>Pro:&lt;/strong> this is easy to set up since its part of the default Dapr installation&lt;/li>
-&lt;li>&lt;strong>Con:&lt;/strong> this uses long-running docker containers on your machine, which might not be desirable&lt;/li>
-&lt;li>&lt;strong>Con:&lt;/strong> the scalability of this approach is poor since it requires running a separate command per-service&lt;/li>
+&lt;li>&lt;strong>好处：&lt;/strong> ，这是很容易设置，因为它的默认Dapr安装的一部分&lt;/li>
+&lt;li>&lt;strong>坏处：&lt;/strong> 这在你的机器上使用长期运行的 docker 容器，这可能是不可取的&lt;/li>
+&lt;li>&lt;strong>坏处：&lt;/strong> 这种方法的可伸缩性很差，因为它需要每个服务运行一个单独的命令&lt;/li>
 &lt;/ul>
 &lt;h3 id="使用-dapr-cli">使用 Dapr CLI&lt;/h3>
-&lt;p>For each service you need to choose:&lt;/p>
+&lt;p>对于您需要选择的每个服务，需要如下内容：&lt;/p>
 &lt;ul>
-&lt;li>A unique app-id for addressing (&lt;code>app-id&lt;/code>)&lt;/li>
-&lt;li>A unique listening port for HTTP (&lt;code>port&lt;/code>)&lt;/li>
+&lt;li>一个唯一的地址应用程序ID(&lt;code>app-id&lt;/code>)&lt;/li>
+&lt;li>一个唯一的 HTTP 监听端口 (&lt;code>port&lt;/code>)&lt;/li>
 &lt;/ul>
-&lt;p>You also should have decided on where you are storing components (&lt;code>components-path&lt;/code>).&lt;/p>
-&lt;p>The following command can be run from multiple terminals to launch each service, with the respective values substituted.&lt;/p>
+&lt;p>您还应该决定将组件配置存储在哪里（&lt;code>components-path&lt;/code>）。&lt;/p>
+&lt;p>以下命令可以从多个终端运行以启动每个服务，并替换相应的值。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-sh" data-lang="sh">dapr run --app-id &amp;lt;app-id&amp;gt; --app-port &amp;lt;port&amp;gt; --components-path &amp;lt;components-path&amp;gt; -- dotnet run -p &amp;lt;project&amp;gt; --urls http://localhost:&amp;lt;port&amp;gt;
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Explanation:&lt;/strong> this command will use &lt;code>dapr run&lt;/code> to launch each service and its sidecar. The first half of the command (before &lt;code>--&lt;/code>) passes required configuration to the Dapr CLI. The second half of the command (after &lt;code>--&lt;/code>) passes required configuration to the &lt;code>dotnet run&lt;/code> command.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>说明：&lt;/strong> 此命令将使用 &lt;code>dapr run&lt;/code> 来启动每个服务及其 sidecar。 命令的前半部分（在 &lt;code>--&lt;/code>之前） 将所需的配置传递给 Dapr CLI。 命令的后半部分（ &lt;code>--&lt;/code>之后）将所需的配置传递给 &lt;code>dotnet run&lt;/code> 命令。&lt;/p>
 &lt;div class="alert alert-primary" role="alert">
 &lt;h4 class="alert-heading">💡 Ports&lt;/h4>
-Since you need to configure a unique port for each service, you can use this command to pass that port value to &lt;strong>both&lt;/strong> Dapr and the service. &lt;code>--urls http://localhost:&amp;lt;port&amp;gt;&lt;/code> will configure ASP.NET Core to listen for traffic on the provided port. Using configuration at the commandline is a more flexible approach than hardcoding a listening port elsewhere.
+因为您需要为每个服务配置一个独特的端口， 您可以使用此命令将该端口值传递到 &lt;strong>同时&lt;/strong>传递给 Dapr 和应用服务。 &lt;code>--urls http://localhost：&amp;lt;port&amp;gt;&lt;/code> 将配置 ASP.NET Core 来监听所提供端口上的流量。 在命令行处使用配置比在其他地方硬编码监听端口更灵活。
 &lt;/div>
-&lt;p>If any of your services do not accept HTTP traffic, then modify the command above by removing the &lt;code>--app-port&lt;/code> and &lt;code>--urls&lt;/code> arguments.&lt;/p>
+&lt;p>如果您的服务都不接受任何HTTP流量， 然后通过删除 &lt;code>--app-port&lt;/code> 和 &lt;code>--urls&lt;/code> 参数来修改上面的命令。&lt;/p>
 &lt;h3 id="下一步">下一步&lt;/h3>
-&lt;p>If you need to debug, then use the attach feature of your debugger to attach to one of the running processes.&lt;/p>
-&lt;p>If you want to scale up this approach, then consider building a script which automates this process for your whole application.&lt;/p></description></item></channel></rss>
+&lt;p>如果您需要调试，请使用调试器的附加功能将其附加到正在运行的进程中。&lt;/p>
+&lt;p>如果您想要伸缩这个方法，以部署更多的应用，可以考虑构建一个脚本，为您的整个应用程序自动化此过程。&lt;/p></description></item></channel></rss>

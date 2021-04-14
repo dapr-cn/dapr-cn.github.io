@@ -1,12 +1,12 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Dapr actors .NET SDK入门</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/</link><description>Recent content in Dapr actors .NET SDK入门 on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Dapr actor .NET usage guide</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actors-client/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actors-client/</guid><description>
-&lt;h2 id="using-the-iactorproxyfactory">Using the IActorProxyFactory&lt;/h2>
-&lt;p>Inside of an &lt;code>Actor&lt;/code> class or otherwisde inside of an ASP.NET Core project you should use the &lt;code>IActorProxyFactory&lt;/code> interface to create actor clients.&lt;/p>
-&lt;p>The &lt;code>AddActors(...)&lt;/code> method will register actor services with ASP.NET Core dependency injection.&lt;/p>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Dapr actors .NET SDK入门</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/</link><description>Recent content in Dapr actors .NET SDK入门 on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Dapr actor .NET 使用指南</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actors-client/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actors-client/</guid><description>
+&lt;h2 id="使用-iactorproxyfactory">使用 IActorProxyFactory&lt;/h2>
+&lt;p>在一个 &lt;code>Actor&lt;/code> 类或其他ASP.NET Core项目中，你应该使用 &lt;code>IActorProxyFactory&lt;/code> 接口来创建 actor 客户端。&lt;/p>
+&lt;p>&lt;code>AddActors(...)&lt;/code> 方法将通过 ASP.NET Core 依赖注入注册 actor 服务。&lt;/p>
 &lt;ul>
-&lt;li>Outside of an actor instance, the &lt;code>IActorProxyFactory&lt;/code> instance is available through dependency injection as a singleton service.&lt;/li>
-&lt;li>Inside an actor instance, the &lt;code>IActorProxyFactory&lt;/code> instance is available as a property (&lt;code>this.ProxyFactory&lt;/code>).&lt;/li>
+&lt;li>在 actor 实例之外，&lt;code>IActorProxyFactory&lt;/code> 实例可以通过依赖注入作为单例服务使用。&lt;/li>
+&lt;li>在一个 actor 实例中，&lt;code>IActorProxyFactory&lt;/code> 实例作为一个属性(&lt;code>this.ProxyFactory&lt;/code>)可用。&lt;/li>
 &lt;/ul>
-&lt;p>The following is an example of creating a proxy inside an actor:&lt;/p>
+&lt;p>下面是一个在 actor 内部创建代理的例子。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#66d9ef">public&lt;/span> Task&amp;lt;MyData&amp;gt; GetDataAsync()
 {
 &lt;span style="color:#66d9ef">var&lt;/span> proxy = &lt;span style="color:#66d9ef">this&lt;/span>.ProxyFactory.CreateActorProxy&amp;lt;IOtherActor&amp;gt;(ActorId.CreateRandom(), &lt;span style="color:#e6db74">&amp;#34;OtherActor&amp;#34;&lt;/span>);
@@ -14,38 +14,38 @@
 &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#66d9ef">this&lt;/span>.StateManager.GetStateAsync&amp;lt;MyData&amp;gt;(&lt;span style="color:#e6db74">&amp;#34;my_data&amp;#34;&lt;/span>);
 }
 &lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
-&lt;p>💡 For a non-dependency-injected application you can use the static methods on &lt;code>ActorProxy&lt;/code>. These methods are error prone when you need to configure custom settings, and should be avoided when possible.&lt;/p>
+&lt;p>💡 对于一个非依赖注入的应用程序，你可以使用 &lt;code>ActorProxy&lt;/code> 上静态方法。 当你需要配置自定义设置时，这些方法容易出错，应尽量避免。&lt;/p>
 &lt;/blockquote>
-&lt;p>The guidance in this document will focus on &lt;code>IActorProxyFactory&lt;/code>. &lt;code>ActorProxy&lt;/code>&amp;rsquo;s static method functionality is identical except for the ability to manage configuration centrally.&lt;/p>
-&lt;h2 id="identifying-an-actor">Identifying an actor&lt;/h2>
-&lt;p>In order to communicate with an actor, you will need to know its type and id, and for a strongly-typed client one of its interfaces. All of the APIs on &lt;code>IActorProxyFactory&lt;/code> will require an actor type and actor id.&lt;/p>
+&lt;p>本文档中的指导将集中在 &lt;code>IActorProxyFactory&lt;/code> 上。 &lt;code>ActorProxy&lt;/code> 的静态方法功能是相同的，除了集中管理配置的能力。&lt;/p>
+&lt;h2 id="识别-actor">识别 actor&lt;/h2>
+&lt;p>为了与 actor 进行通信，你需要知道它的类型和id，对于强类型的客户端，需要知道它的一个接口。 &lt;code>IActorProxyFactory&lt;/code> 上的所有API都需要一个 actor 类型和 actor id。&lt;/p>
 &lt;ul>
-&lt;li>The actor type uniquely identifies the actor implementation across the whole application.&lt;/li>
-&lt;li>The actor id uniquely identifies an instance of that type.&lt;/li>
+&lt;li>Actor 类型唯一地识别了 actor 在整个应用中的实现情况。&lt;/li>
+&lt;li>Actor id唯一地标识了该类型的一个实例。&lt;/li>
 &lt;/ul>
-&lt;p>If you do not have an actor id and want to communicate with a new instance, you can use &lt;code>ActorId.CreateRandom()&lt;/code> to create a randomized id. Since the random id is a cryptographically strong identifier, the runtime will create a new actor instance when you interact with it.&lt;/p>
-&lt;p>You can use the type &lt;code>ActorReference&lt;/code> to exchange an actor type and actor id with other actors as part of messages.&lt;/p>
-&lt;h2 id="two-styles-of-actor-client">Two styles of actor client&lt;/h2>
-&lt;p>The actor client supports two different styles of invocation: &lt;em>strongly-typed&lt;/em> clients that use .NET interfaces and &lt;em>weakly-typed&lt;/em> clients that use the &lt;code>ActorProxy&lt;/code> class.&lt;/p>
-&lt;p>Since &lt;em>strongly-typed&lt;/em> clients are based on .NET interfaces provide the typical benefits of strong-typing, however they do not work with non-.NET actors. You should use the &lt;em>weakly-typed&lt;/em> client only when required for interop or other advanced reasons.&lt;/p>
-&lt;h3 id="using-a-strongly-typed-client">Using a strongly-typed client&lt;/h3>
-&lt;p>Use the &lt;code>CreateActorProxy&amp;lt;&amp;gt;&lt;/code> method to create a strongly-typed client like the following example. &lt;code>CreateActorProxy&amp;lt;&amp;gt;&lt;/code> requires an actor interface type, and will return an instance of that interface.&lt;/p>
+&lt;p>如果您没有actor id，并且想要与新的实例进行通信，您可以使用 &lt;code>ActorId.CreateRandom()&lt;/code> 来创建一个随机的id。 由于随机 id 是一个加密的强标识符，所以当你与它交互时，运行时将创建一个新的 actor 实例。&lt;/p>
+&lt;p>你可以使用 &lt;code>ActorReference&lt;/code> 类型与其他actor交换 actor类型和actor id作为消息的一部分。&lt;/p>
+&lt;h2 id="actor-客户端的两种风格">Actor 客户端的两种风格&lt;/h2>
+&lt;p>Actor客户端支持两种不同风格的调用。&lt;em>使用.NET接口的强类型&lt;/em>客户端和使用 &lt;code>ActorProxy&lt;/code> 类的弱类型&lt;/em>客户端。&lt;/p>
+&lt;p>由于 &lt;em>强类型&lt;/em> 客户端基于.NET接口提供了强类型的典型优势，但是它们不能与非.NET Actors 一起工作。 您应该只在需要互操作或其他高级原因时才使用 &lt;em>弱类型&lt;/em> 客户端。&lt;/p>
+&lt;h3 id="使用强类型客户端">使用强类型客户端&lt;/h3>
+&lt;p>使用 &lt;code>CreateActorProxy&amp;lt;&amp;gt;&lt;/code> 来创建一个强类型的客户端，比如下面的例子。 &lt;code>CreateActorProxy&amp;lt;&amp;gt;&lt;/code> 需要一个actor接口类型，并将返回该接口的实例。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#75715e">// Create a proxy for IOtherActor to type OtherActor with a random id
 &lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">var&lt;/span> proxy = &lt;span style="color:#66d9ef">this&lt;/span>.ProxyFactory.CreateActorProxy&amp;lt;IOtherActor&amp;gt;(ActorId.CreateRandom(), &lt;span style="color:#e6db74">&amp;#34;OtherActor&amp;#34;&lt;/span>);
 &lt;span style="color:#75715e">// Invoke a method defined by the interface to invoke the actor
 &lt;/span>&lt;span style="color:#75715e">//
 &lt;/span>&lt;span style="color:#75715e">// proxy is an implementation of IOtherActor so we can invoke its methods directly
 &lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">await&lt;/span> proxy.DoSomethingGreat();
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="using-a-weakly-typed-client">Using a weakly-typed client&lt;/h3>
-&lt;p>Use the &lt;code>Create&lt;/code> method to create a weakly-typed client like the following example. &lt;code>Create&lt;/code> returns an instance of &lt;code>ActorProxy&lt;/code>.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="使用弱类型客户端">使用弱类型客户端&lt;/h3>
+&lt;p>使用 &lt;code>Create&lt;/code> 方法来创建一个弱类型客户端，比如下面的例子。 &lt;code>Create&lt;/code> 返回一个 &lt;code>ActorProxy&lt;/code> 的实例。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#75715e">// Create a proxy for type OtherActor with a random id
 &lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">var&lt;/span> proxy = &lt;span style="color:#66d9ef">this&lt;/span>.ProxyFactory.Create(ActorId.CreateRandom(), &lt;span style="color:#e6db74">&amp;#34;OtherActor&amp;#34;&lt;/span>);
 &lt;span style="color:#75715e">// Invoke a method by name to invoke the actor
 &lt;/span>&lt;span style="color:#75715e">//
 &lt;/span>&lt;span style="color:#75715e">// proxy is an instance of ActorProxy.
 &lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">await&lt;/span> proxy.InvokeMethodAsync(&lt;span style="color:#e6db74">&amp;#34;DoSomethingGreat&amp;#34;&lt;/span>);
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Since &lt;code>ActorProxy&lt;/code> is a weakly-typed proxy you need to pass in the actor method name as a string.&lt;/p>
-&lt;p>You can also use &lt;code>ActorProxy&lt;/code> to invoke methods with a request message and response message. Request and response messages will be serialized using the &lt;code>System.Text.Json&lt;/code> serializer.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>由于 &lt;code>ActorProxy&lt;/code> 是一个弱类型的代理，你需要将 actor 方法名作为一个字符串传入。&lt;/p>
+&lt;p>您也可以使用 &lt;code>ActorProxy&lt;/code> 来调用带有请求消息和响应消息的方法。 请求和响应消息将使用 &lt;code>System.Text.Json&lt;/code> 序列化器序列化。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#75715e">// Create a proxy for type OtherActor with a random id
 &lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">var&lt;/span> proxy = &lt;span style="color:#66d9ef">this&lt;/span>.ProxyFactory.Create(ActorId.CreateRandom(), &lt;span style="color:#e6db74">&amp;#34;OtherActor&amp;#34;&lt;/span>);
 &lt;span style="color:#75715e">// Invoke a method on the proxy to invoke the actor
@@ -53,10 +53,10 @@
 &lt;/span>&lt;span style="color:#75715e">// proxy is an instance of ActorProxy.
 &lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">var&lt;/span> request = &lt;span style="color:#66d9ef">new&lt;/span> MyRequest() { Message = &lt;span style="color:#e6db74">&amp;#34;Hi, it&amp;#39;s me.&amp;#34;&lt;/span>, };
 &lt;span style="color:#66d9ef">var&lt;/span> response = &lt;span style="color:#66d9ef">await&lt;/span> proxy.InvokeMethodAsync&amp;lt;MyRequest, MyResponse&amp;gt;(&lt;span style="color:#e6db74">&amp;#34;DoSomethingGreat&amp;#34;&lt;/span>, request);
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>When using a weakly-typed proxy, it is your responsbility to define the correct actor method names and message types. This is done for you when using a strongly-typed proxy since the names and types are part of the interface definition.&lt;/p></description></item><item><title>Developing-Applications: Dapr actor .NET usage guide</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actors-usage/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actors-usage/</guid><description>
-&lt;h2 id="authoring-actors">Authoring actors&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>当使用弱类型的代理时，您有责任定义正确的代理方法名称和消息类型。 当使用强类型代理时，这是为你完成的，因为名称和类型是接口定义的一部分。&lt;/p></description></item><item><title>Developing-Applications: Dapr actor .NET 使用指南</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actors-usage/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actors-usage/</guid><description>
+&lt;h2 id="编写-actors">编写 Actors&lt;/h2>
 &lt;h3 id="actorhost">ActorHost&lt;/h3>
-&lt;p>The &lt;code>ActorHost&lt;/code> is a required constructor parameter of all actors, and must be passed to the base class constructor.&lt;/p>
+&lt;p>&lt;code>ActorHost&lt;/code> 是所有Actors的必备构造参数，必须传递给基类构造函数。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#66d9ef">internal&lt;/span> &lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">MyActor&lt;/span> : Actor, IMyActor, IRemindable
 {
 &lt;span style="color:#66d9ef">public&lt;/span> MyActor(ActorHost host) &lt;span style="color:#75715e">// Accept ActorHost in the constructor
@@ -64,9 +64,9 @@
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> {
 }
 }
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>The &lt;code>ActorHost&lt;/code> is provided by the runtime and contains all of the state that the allows that actor instance to communicate with the runtime. Since the &lt;code>ActorHost&lt;/code> contains state unique to the actor, you should not pass the instance into other parts of your code. You should not create your own instances of &lt;code>ActorHost&lt;/code> except in tests.&lt;/p>
-&lt;h3 id="using-dependency-injection">Using dependency injection&lt;/h3>
-&lt;p>Actors support &lt;a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection">depenendency injection&lt;/a> of additonal parameters into the constructor. Any other parameters your define will have their values satisfied from the dependency injection container.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>ActorHost&lt;/code> 由运行时提供，包含了允许该 actor 实例与运行时通信的所有状态。 因为 &lt;code>ActorHost&lt;/code> 包含了actor 独有的状态，所以你不应该将实例传递到代码的其他部分。 除了在测试中，您不应该创建自己的 &lt;code>ActorHost&lt;/code> 实例。&lt;/p>
+&lt;h3 id="使用依赖输入">使用依赖输入&lt;/h3>
+&lt;p>Actors支持&lt;a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection">依赖性注入&lt;/a>到构造函数中的附加参数。 您定义的任何其他参数都将从依赖注入容器中得到它们的值。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#66d9ef">internal&lt;/span> &lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">MyActor&lt;/span> : Actor, IMyActor, IRemindable
 {
 &lt;span style="color:#66d9ef">public&lt;/span> MyActor(ActorHost host, BankService bank) &lt;span style="color:#75715e">// Accept BankService in the constructor
@@ -75,8 +75,8 @@
 ...
 }
 }
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>An actor type should have a single &lt;code>public&lt;/code> constructor. The actor infrastructure uses the &lt;a href="https://docs.microsoft.com/en-us/dotnet/core/extensions/dependency-injection#constructor-injection-behavior">ActivatorUtilities&lt;/a> pattern for constructing actor instances.&lt;/p>
-&lt;p>You can register types with dependency injection in &lt;code>Startup.cs&lt;/code> to make them available. You can read more about the different ways of registering your types &lt;a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?#service-registration-methods">here&lt;/a>&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>一个 actor 类型应该有一个单一的&lt;code>public&lt;/code>构造函数。 Actor 基础设施使用 &lt;a href="https://docs.microsoft.com/en-us/dotnet/core/extensions/dependency-injection#constructor-injection-behavior">ActivatorUtilities&lt;/a> 模式来构建 actor 实例。&lt;/p>
+&lt;p>你可以在 &lt;code>Startup.cs&lt;/code> 中用依赖注入注册类型来使它们可用。 你可以阅读更多关于注册类型的不同方法 &lt;a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?#service-registration-methods">这里&lt;/a> 。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#75715e">// In Startup.cs
 &lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">void&lt;/span> ConfigureServices(IServiceCollection services)
 {
@@ -84,8 +84,8 @@
 &lt;span style="color:#75715e">// Register additional types with dependency injection.
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> services.AddSingleton&amp;lt;BankService&amp;gt;();
 }
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Each actor instance has its own dependency injection scope. Each actor remains in memory for some time after performing an operation, and during that time the dependency injection scope associated with the actor is also considered live. The scope will be releases when the actor is deactivated.&lt;/p>
-&lt;p>If an actor injects an &lt;code>IServiceProvider&lt;/code> in the constructor, the actor will recieve a reference to the &lt;code>IServiceProvider&lt;/code> associated with its scope. The &lt;code>IServiceProvider&lt;/code> can be used to resolve services dynamically in the future.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>每个actor实例都有自己的依赖注入范围。 每个 actor 在执行完一个操作后，都会在内存中保留一段时间，在这段时间内，与 actor 相关的依赖注入作用域也被认为是活的。 当演员被停用时，该范围将被释放。&lt;/p>
+&lt;p>如果一个actor在构造函数中注入一个 &lt;code>IServiceProvider&lt;/code> ，该actor将收到一个与它的作用域相关联的 &lt;code>IServiceProvider&lt;/code> 的引用。 &lt;code>IServiceProvider&lt;/code> 可以用来在将来动态地解析服务。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#66d9ef">internal&lt;/span> &lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">MyActor&lt;/span> : Actor, IMyActor, IRemindable
 {
 &lt;span style="color:#66d9ef">public&lt;/span> MyActor(ActorHost host, IServiceProvider services) &lt;span style="color:#75715e">// Accept IServiceProvider in the constructor
@@ -94,38 +94,39 @@
 ...
 }
 }
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>When using this pattern, take care to avoid creating many instances of &lt;strong>transient&lt;/strong> services which implement &lt;code>IDisposable&lt;/code>. Since the scope associated with an actor could be considered valid for a long time, it is possible to accumulate many services in memory. See the &lt;a href="https://docs.microsoft.com/en-us/dotnet/core/extensions/dependency-injection-guidelines">dependency injection guidelines&lt;/a> for more information.&lt;/p>
-&lt;h3 id="idisposable-and-actors">IDisposable and actors&lt;/h3>
-&lt;p>Actors can implement &lt;code>IDisposable&lt;/code> or &lt;code>IAsyncDisposable&lt;/code>. It is recommended that you rely on dependency injection for resource management rather than implementing dispose functionality in application code. Dispose support is provided for the rare case where it is truly necessary.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>在使用该模式时，要注意避免创建许多实现 &lt;code>IDisposable&lt;/code> 的 &lt;strong>transient&lt;/strong> 服务的实例。 由于与一个 actor 相关联的作用域可以被认为是长期有效的，所以有可能在内存中积累许多服务。 更多信息请参见 &lt;a href="https://docs.microsoft.com/en-us/dotnet/core/extensions/dependency-injection-guidelines">依赖注入指南&lt;/a> 。&lt;/p>
+&lt;h3 id="idisposable-和-actors">IDisposable 和 actors&lt;/h3>
+&lt;p>Actors可以实现 &lt;code>IDisposable&lt;/code> 或 &lt;code>IAsyncDisposable&lt;/code> 。 建议您依靠依赖注入进行资源管理，而不是在应用代码中实现处置功能。 在真正有必要的罕见情况下，提供处置支持。&lt;/p>
 &lt;h3 id="日志">日志&lt;/h3>
-&lt;p>Inside of an actor class you have access to an instance of &lt;code>ILogger&lt;/code> through a property on the base &lt;code>Actor&lt;/code> class. This instance is connected to the ASP.NET Core logging system, and should be used for all logging inside an actor. Read more about logging &lt;a href="https://docs.microsoft.com/en-us/dotnet/core/extensions/logging?tabs=command-line">here&lt;/a>. You can configure a variety of different logging formats and output sinks.&lt;/p>
-&lt;p>You should use &lt;em>structured logging&lt;/em> with &lt;em>named placeholders&lt;/em> like the example below:&lt;/p>
+&lt;p>在 actor 类的内部，你可以通过基类 &lt;code>Actor&lt;/code> 上的一个属性来访问 &lt;code>ILogger&lt;/code> 的实例。 该实例连接到 ASP.NET Core 日志系统，应该用于 actor 内部的所有日志记录。 在 &lt;a href="https://docs.microsoft.com/en-us/dotnet/core/extensions/logging?tabs=command-line">此处&lt;/a> 阅读更多有关日志的信息。 您可以配置各种不同的日志格式和输出接收器。&lt;/p>
+&lt;p>您应该使用 &lt;em>结构化日志&lt;/em> 与 &lt;em>命名的占位符&lt;/em> 类似于下面的示例：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#66d9ef">public&lt;/span> Task&amp;lt;MyData&amp;gt; GetDataAsync()
 {
 &lt;span style="color:#66d9ef">this&lt;/span>.Logger.LogInformation(&lt;span style="color:#e6db74">&amp;#34;Getting state at {CurrentTime}&amp;#34;&lt;/span>, DateTime.UtcNow);
 &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#66d9ef">this&lt;/span>.StateManager.GetStateAsync&amp;lt;MyData&amp;gt;(&lt;span style="color:#e6db74">&amp;#34;my_data&amp;#34;&lt;/span>);
 }
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>When logging, avoid using format strings like: &lt;code>$&amp;quot;Getting state at {DateTime.UtcNow}&amp;quot;&lt;/code>&lt;/p>
-&lt;p>Logging should use the &lt;a href="https://docs.microsoft.com/en-us/dotnet/core/extensions/logging?tabs=command-line#log-message-template">named placeholder syntax&lt;/a> which is more performant and offers better integration with logging systems.&lt;/p>
-&lt;h3 id="using-an-explicit-actor-type-name">Using an explicit actor type name&lt;/h3>
-&lt;p>By default, the &lt;em>type&lt;/em> of the actor as seen by clients is derived from the name of the actor implementation class. The default name will be the class name name (without namespace).&lt;/p>
-&lt;p>If desired, you can specify an explicit type name by attaching an &lt;code>ActorAttribute&lt;/code> attribute to the actor implementation class.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>日志记录时，避免使用格式字符串： &lt;code>$&amp;quot;Getting state at {DateTime.UtcNow}&lt;/code>&lt;/p>
+&lt;p>日志记录应该使用 &lt;a href="https://docs.microsoft.com/en-us/dotnet/core/extensions/logging?tabs=command-line#log-message-template">命名的占位符语法&lt;/a>, 这种语法更加性能，能够更好地与日志系统集成。&lt;/p>
+&lt;h3 id="使用显式的actor类型名称">使用显式的actor类型名称&lt;/h3>
+&lt;p>默认情况下，客户端所看到的actor的 &lt;em>type&lt;/em> 来自 actor 实现类的名称。 默认名称将是类名 (不含命名空间)。&lt;/p>
+&lt;p>如果需要，你可以通过向actor实现类附加一个 &lt;code>ActorAttribute&lt;/code> 特性来指定一个显式的类型名称。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#a6e22e">[Actor(TypeName = &amp;#34;MyCustomActorTypeName&amp;#34;)]&lt;/span>
 &lt;span style="color:#66d9ef">internal&lt;/span> &lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">MyActor&lt;/span> : Actor, IMyActor
 {
 &lt;span style="color:#75715e">// ...
 &lt;/span>&lt;span style="color:#75715e">&lt;/span>}
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>In the example above the name will be &lt;code>MyCustomActorTypeName&lt;/code>.&lt;/p>
-&lt;p>No change is needed to the code that registers the actor type with the runtime, providing the value via the attribute is all that is required.&lt;/p>
-&lt;h2 id="hosting-actors-on-the-server">Hosting actors on the server&lt;/h2>
-&lt;h3 id="registering-actors">Registering actors&lt;/h3>
-&lt;p>Actor registration is part &lt;code>ConfigureServices&lt;/code> in &lt;code>Startup.cs&lt;/code>. The &lt;code>ConfigureServices&lt;/code> method is where services are registered with dependency injection, and registering the set of actor types is part of the registration of actor services.&lt;/p>
-&lt;p>Inside &lt;code>ConfigureServices&lt;/code> you can:&lt;/p>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>在上面的示例中，名称将是 &lt;code>MyCustomActorTypename&lt;/code>。&lt;/p>
+&lt;p>无需更改以运行时注册 actor类型的代码，只需通过属性提供值。&lt;/p>
+&lt;h2 id="在服务器上托管-actors">在服务器上托管 Actors&lt;/h2>
+&lt;h3 id="注册-actors">注册 Actors&lt;/h3>
+&lt;p>Actor 注册是 &lt;code>Startup.cs&lt;/code> 中 &lt;code>ConfigureServices&lt;/code> 的一部分。 &lt;code>ConfigureServices&lt;/code>方法是用依赖注入注册服务的位置，注册 actor 类型集是 actor 服务注册的一部分。&lt;/p>
+&lt;p>在 &lt;code>ConfigureServices&lt;/code> 中，您可以：&lt;/p>
 &lt;ul>
-&lt;li>Register the actor runtime (&lt;code>UseActors&lt;/code>)&lt;/li>
-&lt;li>Register actor types (&lt;code>options.Actors.RegisterActor&amp;lt;&amp;gt;&lt;/code>)&lt;/li>
-&lt;li>Configure actor runtime settings &lt;code>options&lt;/code>&lt;/li>
-&lt;li>Register additional service types for dependency injection into actors (&lt;code>services&lt;/code>)&lt;/li>
+&lt;li>注册 actor 运行时(&lt;code>UseActors&lt;/code>)&lt;/li>
+&lt;li>注册 actor 类型(&lt;code>options.Actors.RegisterActor&amp;lt;&amp;gt;&lt;/code>)&lt;/li>
+&lt;li>配置 actor 运行时设置 &lt;code>options&lt;/code>&lt;/li>
+&lt;li>注册额外的服务类型以便将依赖注入到 Actors中(&lt;code>services&lt;/code>)&lt;/li>
 &lt;/ul>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#75715e">// In Startup.cs
 &lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">void&lt;/span> ConfigureServices(IServiceCollection services)
@@ -144,10 +145,10 @@ options.DrainRebalancedActors = &lt;span style="color:#66d9ef">true&lt;/span>;
 &lt;span style="color:#75715e">// Register additional services for use with actors
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> services.AddSingleton&amp;lt;BankService&amp;gt;();
 }
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="configuring-json-options">Configuring JSON options&lt;/h3>
-&lt;p>The actor runtime uses &lt;a href="https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-overview">System.Text.Json&lt;/a> for serializing data to the state store, and for handling requests from the weakly-typed client.&lt;/p>
-&lt;p>By default the actor runtime uses settings based on &lt;a href="https://docs.microsoft.com/en-us/dotnet/api/system.text.json.jsonserializerdefaults?view=net-5.0">JsonSerializerDefaults.Web&lt;/a>&lt;/p>
-&lt;p>You can configure the &lt;code>JsonSerializerOptions&lt;/code> as part of &lt;code>ConfigureServices&lt;/code>:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="配置-json-选项">配置 JSON 选项&lt;/h3>
+&lt;p>Actor 运行时使用 &lt;a href="https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-overview">System.Text.Json&lt;/a> 将数据序列化到状态存储，并处理来自弱类型客户端的请求。&lt;/p>
+&lt;p>默认情况下，actor运行时使用基于 &lt;a href="https://docs.microsoft.com/en-us/dotnet/api/system.text.json.jsonserializerdefaults?view=net-5.0">JsonSerializerDefaults.Web&lt;/a> 的设置。&lt;/p>
+&lt;p>您可以配置 &lt;code>JsonSerializerOptions&lt;/code> 作为 &lt;code>ConfigureServices&lt;/code> 的一部分：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#75715e">// In Startup.cs
 &lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">void&lt;/span> ConfigureServices(IServiceCollection services)
 {
@@ -158,9 +159,9 @@ services.AddActors(options =&amp;gt;
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> options.JsonSerializerOptions = ...
 });
 }
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="actors-and-routing">Actors and routing&lt;/h3>
-&lt;p>The ASP.NET Core hosting support for actors uses the &lt;a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/routing">endpoint routing&lt;/a> system. The .NET SDK provides no support hosting actors with the legacy routing system from early ASP.NET Core releases.&lt;/p>
-&lt;p>Since actors uses endpoint routing, the actors HTTP handler is part of the middleware pipeline. The following is a minimal example of a &lt;code>Configure&lt;/code> method setting up the middleware pipeline with actors.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="actors-和-路由">Actors 和 路由&lt;/h3>
+&lt;p>ASP.NET Core 托管支持对 actors 使用[终结点路由](&lt;a href="https://docs.microsoft.com/en-us/aspnet/core/fundamenta">https://docs.microsoft.com/en-us/aspnet/core/fundamenta&lt;/a> ls/routing) 系统。 .NET SDK 不提供支持托管 Actors 的早期 ASP.NET Core版本的遗留路由系统。&lt;/p>
+&lt;p>由于 actors 使用终结点路由，Actors HTTP处理程序是中间件管道的一部分。 下面是一个 &lt;code>Configure&lt;/code> 方法与 actors一起设置中间件管道的最小示例。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#75715e">// in Startup.cs
 &lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">void&lt;/span> Configure(IApplicationBuilder app, IWebHostEnvironment env)
 {
@@ -175,18 +176,18 @@ app.UseEndpoints(endpoints =&amp;gt;
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> endpoints.MapActorsHandlers();
 });
 }
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>The &lt;code>UseRouting&lt;/code> and &lt;code>UseEndpoints&lt;/code> calls are necessary to configure routing. Adding &lt;code>MapActorsHandlers&lt;/code> inside the endpoint middleware is what configures actors as part of the pipline.&lt;/p>
-&lt;p>This is a minimal example, it&amp;rsquo;s valid for Actors functionality to existing alongside:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>UseRouting&lt;/code> 和 &lt;code>UseEndpoints&lt;/code> 调用是配置路由所必需的。 在终结点中间件中添加 &lt;code>MapActorsHandlers&lt;/code> 就是将 actors 配置为管道的一部分。&lt;/p>
+&lt;p>这只是一个最小的例子，它对 Actor 功能并存是有效的：&lt;/p>
 &lt;ul>
 &lt;li>Controllers&lt;/li>
 &lt;li>Razor Pages&lt;/li>
 &lt;li>Blazor&lt;/li>
-&lt;li>gRPC Services&lt;/li>
-&lt;li>Dapr pub/sub handler&lt;/li>
-&lt;li>other endpoints such as health checks&lt;/li>
+&lt;li>gRPC 服务&lt;/li>
+&lt;li>Dapr 发布/订阅 处理&lt;/li>
+&lt;li>其他终结点，如健康检查&lt;/li>
 &lt;/ul>
-&lt;h3 id="problematic-middleware">Problematic middleware&lt;/h3>
-&lt;p>Certain middleware may interfere with the routing of Dapr requests to the actors handlers. In particular the &lt;code>UseHttpsRedirection&lt;/code> is problematic for the default configuration of Dapr. Dapr will send requests over unencrypted HTTP by default, which will then be blocked by the &lt;code>UseHttpsRedirection&lt;/code> middleware. This middleware cannot be used with Dapr at this time.&lt;/p>
+&lt;h3 id="问题中间件">问题中间件&lt;/h3>
+&lt;p>某些中间件可能会干扰 Dapr 请求到 actors 处理程序的路由。 特别是 &lt;code>UseHttpsRedirection&lt;/code> 对于Dapr的默认配置是有问题的。 Dapr默认会通过未加密的HTTP发送请求，然后会被 &lt;code>UseHttpsRedirection&lt;/code> 中间件阻止。 这个中间件目前不能与 Dapr 一起使用。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#75715e">// in Startup.cs
 &lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">void&lt;/span> Configure(IApplicationBuilder app, IWebHostEnvironment env)
 {
@@ -205,7 +206,7 @@ app.UseEndpoints(endpoints =&amp;gt;
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> endpoints.MapActorsHandlers();
 });
 }
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Developing-Applications: Example of running and using virtual actors in the .NET SDK</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actors-howto/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actors-howto/</guid><description>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Developing-Applications: 在.NET SDK中运行和使用 virtual actors 的例子。</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actors-howto/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actors-howto/</guid><description>
 &lt;p>通过Dapr actor 程序包，您可以与.NET应用程序中的Dapr虚拟actor进行交互。&lt;/p>
 &lt;h2 id="前期准备">前期准备&lt;/h2>
 &lt;ul>
@@ -214,7 +215,7 @@ app.UseEndpoints(endpoints =&amp;gt;
 &lt;li>&lt;a href="https://dotnet.microsoft.com/download">.NET Core 3.1 或 .NET 5+&lt;/a> 已安装&lt;/li>
 &lt;/ul>
 &lt;h2 id="概述">概述&lt;/h2>
-&lt;p>This document describes how to create an Actor (&lt;code>MyActor&lt;/code>) and invoke its methods on the client application.&lt;/p>
+&lt;p>本文档描述了如何创建一个Actor(&lt;code>MyActor&lt;/code>) 并从客户端程序调用其方法。&lt;/p>
 &lt;pre>&lt;code>MyActor --- MyActor.Interfaces
 |
 +- MyActorService
@@ -232,26 +233,25 @@ app.UseEndpoints(endpoints =&amp;gt;
 { // &amp;hellip; }&lt;/p>
 &lt;/li>
 &lt;/ul>
-&lt;h2 id="step-0-prepare">Step 0: Prepare&lt;/h2>
-&lt;p>Since we&amp;rsquo;ll be creating 3 projects, choose an empty directory to start from, and open it in your terminal of choice.&lt;/p>
-&lt;h2 id="step-1-create-actor-interfaces">Step 1: Create actor interfaces&lt;/h2>
-&lt;p>Actor interface defines the actor contract that is shared by the actor implementation and the clients calling the actor.&lt;/p>
-&lt;p>Actor interface is defined with the below requirements:&lt;/p>
+&lt;h2 id="第-0-步准备">第 0 步：准备&lt;/h2>
+&lt;p>由于我们将创建3个项目，所以选择一个空的目录开始，在你选择的终端中打开它。&lt;/p>
+&lt;h2 id="第-1-步创建-actor-接口">第 1 步：创建 actor 接口&lt;/h2>
+&lt;p>Actor接口定义了actor的实现和调用actor的客户端之间的约定。&lt;/p>
+&lt;p>Actor接口的定义需要满足以下要求：&lt;/p>
 &lt;ul>
 &lt;li>Actor接口必须继承 &lt;code>Dapr.Actors.IActor&lt;/code> 接口&lt;/li>
 &lt;li>Actor方法的返回值必须是&lt;code>Task&lt;/code> 或者 &lt;code>Task&amp;lt;object&amp;gt;&lt;/code>类型&lt;/li>
 &lt;li>Actor方法最多只能有一个参数&lt;/li>
 &lt;/ul>
-&lt;h3 id="create-interface-project-and-add-dependencies">Create interface project and add dependencies&lt;/h3>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#75715e"># Create Actor Interfaces&lt;/span>
+&lt;h3 id="创建接口项目并添加依赖">创建接口项目并添加依赖&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#75715e"># 创建 Actor 接口&lt;/span>
 dotnet new classlib -o MyActor.Interfaces
 cd MyActor.Interfaces
-&lt;span style="color:#75715e"># Add Dapr.Actors nuget package. Please use the latest package version from nuget.org&lt;/span>
-dotnet add package Dapr.Actors -v 1.0.0-rc02 Please use the latest package version from nuget.org
+&lt;span style="color:#75715e"># 添加 Dapr.Actors nuget 包。 请使用来自 nuget.org 的最新软件包版本&lt;/span>
 dotnet add package Dapr.Actors -v 1.0.0
 cd ..
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="implement-imyactor-interface">Implement IMyActor interface&lt;/h3>
-&lt;p>Define &lt;code>IMyActor&lt;/code> interface and &lt;code>MyData&lt;/code> data object. Paste the following code into &lt;code>MyActor.cs&lt;/code> in the &lt;code>MyActor.Interfaces&lt;/code> project.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="定义imyactor接口">定义IMyActor接口&lt;/h3>
+&lt;p>定义 &lt;code>IMyActor&lt;/code> 接口和 &lt;code>MyData&lt;/code> 数据对象。 在 &lt;code>Myactor.Interface&lt;/code> 项目中，将以下代码粘贴到 &lt;code>Myactor.cs&lt;/code> 中。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#66d9ef">using&lt;/span> Dapr.Actors;
 &lt;span style="color:#66d9ef">using&lt;/span> System.Threading.Tasks;
 &lt;span style="color:#66d9ef">namespace&lt;/span> MyActor.Interfaces
@@ -277,20 +277,20 @@ Task UnregisterTimer();
 }
 }
 }
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="step-2-create-actor-service">Step 2: Create actor service&lt;/h2>
-&lt;p>Dapr uses ASP.NET web service to host Actor service. This section will implement &lt;code>IMyActor&lt;/code> actor interface and register Actor to Dapr Runtime.&lt;/p>
-&lt;h3 id="create-actor-service-project-and-add-dependencies">Create actor service project and add dependencies&lt;/h3>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#75715e"># Create ASP.Net Web service to host Dapr actor&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="第-2-步创建-actor-服务">第 2 步：创建 actor 服务&lt;/h2>
+&lt;p>Dapr 使用 ASP.NET web 服务来托管 Actor 服务。 本节将会实现 &lt;code>IMyActor&lt;/code> 接口并将 Actor 注册到 Dapr Runtime。&lt;/p>
+&lt;h3 id="创建-actor-服务项目并添加依赖">创建 actor 服务项目并添加依赖&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#75715e"># 创建 ASP.Net Web 服务来托管 Dapr actor&lt;/span>
 dotnet new web -o MyActorService
 cd MyActorService
-&lt;span style="color:#75715e"># Add Dapr.Actors.AspNetCore nuget package. Please use the latest package version from nuget.org&lt;/span>
+&lt;span style="color:#75715e"># 添加 Dapr.Actors.AspNetCore nuget 包. 请从nuget.org添加最新的包版本&lt;/span>
 dotnet add package Dapr.Actors.AspNetCore -v 1.0.0
-&lt;span style="color:#75715e"># Add Actor Interface reference&lt;/span>
+&lt;span style="color:#75715e"># 添加 Actor 接口引用&lt;/span>
 dotnet add reference ../MyActor.Interfaces/MyActor.Interfaces.csproj
 cd ..
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="add-actor-implementation">Add actor implementation&lt;/h3>
-&lt;p>Implement IMyActor interface and derive from &lt;code>Dapr.Actors.Actor&lt;/code> class. Following example shows how to use Actor Reminders as well. For Actors to use Reminders, it must derive from IRemindable. If you don&amp;rsquo;t intend to use Reminder feature, you can skip implementing IRemindable and reminder specific methods which are shown in the code below.&lt;/p>
-&lt;p>Paste the following code into &lt;code>MyActor.cs&lt;/code> in the &lt;code>MyActorService&lt;/code> project:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="添加-actor-实现">添加 actor 实现&lt;/h3>
+&lt;p>实现IMyActor接口并继承自 &lt;code>Dapr.Actors.Actor&lt;/code> 。 下面的例子同样展示了如何使用Actor Reminders。 Actor如果要使用Reminders，则必须实现IRemindable接口 如果你不打算使用Reminder功能，你可以跳过下面代码中实现IRemindable接口和Reminder特定方法的操作。&lt;/p>
+&lt;p>在 &lt;code>MyActorService&lt;/code> 项目中，将以下代码粘贴到 &lt;code>MyActor.cs&lt;/code> 中。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#66d9ef">using&lt;/span> Dapr.Actors;
 &lt;span style="color:#66d9ef">using&lt;/span> Dapr.Actors.Runtime;
 &lt;span style="color:#66d9ef">using&lt;/span> MyActor.Interfaces;
@@ -411,131 +411,11 @@ Console.WriteLine(&lt;span style="color:#e6db74">&amp;#34;OnTimerCallBack is cal
 }
 }
 }
-&lt;span style="color:#66d9ef">using&lt;/span> Dapr.Actors;
-&lt;span style="color:#66d9ef">using&lt;/span> Dapr.Actors.Runtime;
-&lt;span style="color:#66d9ef">using&lt;/span> MyActor.Interfaces;
-&lt;span style="color:#66d9ef">using&lt;/span> System;
-&lt;span style="color:#66d9ef">using&lt;/span> System.Threading.Tasks;
-&lt;span style="color:#66d9ef">namespace&lt;/span> MyActorService
-{
-&lt;span style="color:#66d9ef">internal&lt;/span> &lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">MyActor&lt;/span> : Actor, IMyActor, IRemindable
-{
-&lt;span style="color:#75715e">// The constructor must accept ActorHost as a parameter, and can also accept additional
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">// parameters that will be retrieved from the dependency injection container
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">//
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// &amp;lt;summary&amp;gt;
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// Initializes a new instance of MyActor
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// &amp;lt;/summary&amp;gt;
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">///
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">public&lt;/span> MyActor(ActorHost host)
-: &lt;span style="color:#66d9ef">base&lt;/span>(host)
-{
-}
-&lt;span style="color:#75715e">/// &amp;lt;summary&amp;gt;
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// This method is called whenever an actor is activated.
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// An actor is activated the first time any of its methods are invoked.
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// &amp;lt;/summary&amp;gt;
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">protected&lt;/span> &lt;span style="color:#66d9ef">override&lt;/span> Task OnActivateAsync()
-{
-&lt;span style="color:#75715e">// Provides opportunity to perform some optional setup.
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> Console.WriteLine(&lt;span style="color:#e6db74">$&amp;#34;Activating actor id: {this.Id}&amp;#34;&lt;/span>);
-&lt;span style="color:#66d9ef">return&lt;/span> Task.CompletedTask;
-}
-&lt;span style="color:#75715e">/// &amp;lt;summary&amp;gt;
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// This method is called whenever an actor is deactivated after a period of inactivity.
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// &amp;lt;/summary&amp;gt;
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">protected&lt;/span> &lt;span style="color:#66d9ef">override&lt;/span> Task OnDeactivateAsync()
-{
-&lt;span style="color:#75715e">// Provides Opporunity to perform optional cleanup.
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> Console.WriteLine(&lt;span style="color:#e6db74">$&amp;#34;Deactivating actor id: {this.Id}&amp;#34;&lt;/span>);
-&lt;span style="color:#66d9ef">return&lt;/span> Task.CompletedTask;
-}
-&lt;span style="color:#75715e">/// &amp;lt;summary&amp;gt;
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// Set MyData into actor&amp;#39;s private state store
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// &amp;lt;/summary&amp;gt;
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">///
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">async&lt;/span> Task&amp;lt;&lt;span style="color:#66d9ef">string&lt;/span>&amp;gt; SetDataAsync(MyData data)
-{
-&lt;span style="color:#75715e">// Data is saved to configured state store implicitly after each method execution by Actor&amp;#39;s runtime.
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">// Data can also be saved explicitly by calling this.StateManager.SaveStateAsync();
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">// State to be saved must be DataContract serializable.
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">await&lt;/span> &lt;span style="color:#66d9ef">this&lt;/span>.StateManager.SetStateAsync&amp;lt;MyData&amp;gt;(
-&lt;span style="color:#e6db74">&amp;#34;my_data&amp;#34;&lt;/span>, &lt;span style="color:#75715e">// state name
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> data); &lt;span style="color:#75715e">// data saved for the named state &amp;#34;my_data&amp;#34;
-&lt;/span>&lt;span style="color:#75715e">&lt;/span>
-&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Success&amp;#34;&lt;/span>;
-}
-&lt;span style="color:#75715e">/// &amp;lt;summary&amp;gt;
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// Get MyData from actor&amp;#39;s private state store
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// &amp;lt;/summary&amp;gt;
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// &amp;lt;return&amp;gt;the user-defined MyData which is stored into state store as &amp;#34;my_data&amp;#34; state&amp;lt;/return&amp;gt;
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">public&lt;/span> Task&amp;lt;MyData&amp;gt; GetDataAsync()
-{
-&lt;span style="color:#75715e">// Gets state from the state store.
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#66d9ef">this&lt;/span>.StateManager.GetStateAsync&amp;lt;MyData&amp;gt;(&lt;span style="color:#e6db74">&amp;#34;my_data&amp;#34;&lt;/span>);
-}
-&lt;span style="color:#75715e">/// &amp;lt;summary&amp;gt;
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// Register MyReminder reminder with the actor
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// &amp;lt;/summary&amp;gt;
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">async&lt;/span> Task RegisterReminder()
-{
-&lt;span style="color:#66d9ef">await&lt;/span> &lt;span style="color:#66d9ef">this&lt;/span>.RegisterReminderAsync(
-&lt;span style="color:#e6db74">&amp;#34;MyReminder&amp;#34;&lt;/span>, &lt;span style="color:#75715e">// The name of the reminder
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">null&lt;/span>, &lt;span style="color:#75715e">// User state passed to IRemindable.ReceiveReminderAsync()
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> TimeSpan.FromSeconds(&lt;span style="color:#ae81ff">5&lt;/span>), &lt;span style="color:#75715e">// Time to delay before invoking the reminder for the first time
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> TimeSpan.FromSeconds(&lt;span style="color:#ae81ff">5&lt;/span>)); &lt;span style="color:#75715e">// Time interval between reminder invocations after the first invocation
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> }
-&lt;span style="color:#75715e">/// &amp;lt;summary&amp;gt;
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// Unregister MyReminder reminder with the actor
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// &amp;lt;/summary&amp;gt;
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">public&lt;/span> Task UnregisterReminder()
-{
-Console.WriteLine(&lt;span style="color:#e6db74">&amp;#34;Unregistering MyReminder...&amp;#34;&lt;/span>);
-&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#66d9ef">this&lt;/span>.UnregisterReminderAsync(&lt;span style="color:#e6db74">&amp;#34;MyReminder&amp;#34;&lt;/span>);
-}
-&lt;span style="color:#75715e">// &amp;lt;summary&amp;gt;
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">// Implement IRemindeable.ReceiveReminderAsync() which is call back invoked when an actor reminder is triggered.
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">// &amp;lt;/summary&amp;gt;
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">public&lt;/span> Task ReceiveReminderAsync(&lt;span style="color:#66d9ef">string&lt;/span> reminderName, &lt;span style="color:#66d9ef">byte&lt;/span>[] state, TimeSpan dueTime, TimeSpan period)
-{
-Console.WriteLine(&lt;span style="color:#e6db74">&amp;#34;ReceiveReminderAsync is called!&amp;#34;&lt;/span>);
-&lt;span style="color:#66d9ef">return&lt;/span> Task.CompletedTask;
-}
-&lt;span style="color:#75715e">/// &amp;lt;summary&amp;gt;
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// Register MyTimer timer with the actor
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// &amp;lt;/summary&amp;gt;
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">public&lt;/span> Task RegisterTimer()
-{
-&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#66d9ef">this&lt;/span>.RegisterTimerAsync(
-&lt;span style="color:#e6db74">&amp;#34;MyTimer&amp;#34;&lt;/span>, &lt;span style="color:#75715e">// The name of the timer
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> nameof(&lt;span style="color:#66d9ef">this&lt;/span>.OnTimerCallBack), &lt;span style="color:#75715e">// Timer callback
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">null&lt;/span>, &lt;span style="color:#75715e">// User state passed to OnTimerCallback()
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> TimeSpan.FromSeconds(&lt;span style="color:#ae81ff">5&lt;/span>), &lt;span style="color:#75715e">// Time to delay before the async callback is first invoked
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> TimeSpan.FromSeconds(&lt;span style="color:#ae81ff">5&lt;/span>)); &lt;span style="color:#75715e">// Time interval between invocations of the async callback
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> }
-&lt;span style="color:#75715e">/// &amp;lt;summary&amp;gt;
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// Unregister MyTimer timer with the actor
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// &amp;lt;/summary&amp;gt;
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">public&lt;/span> Task UnregisterTimer()
-{
-Console.WriteLine(&lt;span style="color:#e6db74">&amp;#34;Unregistering MyTimer...&amp;#34;&lt;/span>);
-&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#66d9ef">this&lt;/span>.UnregisterTimerAsync(&lt;span style="color:#e6db74">&amp;#34;MyTimer&amp;#34;&lt;/span>);
-}
-&lt;span style="color:#75715e">/// &amp;lt;summary&amp;gt;
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// Timer callback once timer is expired
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// &amp;lt;/summary&amp;gt;
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">private&lt;/span> Task OnTimerCallBack(&lt;span style="color:#66d9ef">byte&lt;/span>[] data)
-{
-Console.WriteLine(&lt;span style="color:#e6db74">&amp;#34;OnTimerCallBack is called!&amp;#34;&lt;/span>);
-&lt;span style="color:#66d9ef">return&lt;/span> Task.CompletedTask;
-}
-}
-}
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="register-actor-runtime-with-aspnet-core-startup">Register actor runtime with ASP.NET Core startup&lt;/h3>
-&lt;p>The Actor runtime is configured through ASP.NET Core &lt;code>Startup.cs&lt;/code>.&lt;/p>
-&lt;p>The runtime uses the ASP.NET Core dependency injection system to register actor types and essential services. This integration is provided through the &lt;code>AddActors(...)&lt;/code> method call in &lt;code>ConfigureServices(...)&lt;/code>. Use the delegate passed to &lt;code>AddActors(...)&lt;/code> to register actor types and configure actor runtime settings. You can register additional types for dependency injection inside &lt;code>ConfigureServices(...)&lt;/code>. These will be available to be injected into the constructors of your Actor types.&lt;/p>
-&lt;p>Actors are implemented via HTTP calls with the Dapr runtime. This functionality is part of the application&amp;rsquo;s HTTP processing pipeline and is registered inside &lt;code>UseEndpoints(...)&lt;/code> inside &lt;code>Configure(...)&lt;/code>.&lt;/p>
-&lt;p>Paste the following code into &lt;code>Startup.cs&lt;/code> in the &lt;code>MyActorService&lt;/code> project:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="使用-aspnet-core-startup-来注册-actor-runtime">使用 ASP.NET Core Startup 来注册 actor runtime&lt;/h3>
+&lt;p>Actor runtime 使用 ASP.NET Core &lt;code>Startup.cs&lt;/code> 来配置。&lt;/p>
+&lt;p>运行时使用ASP.NET Core依赖注入系统来注册actor类型和基本服务。 通过在 &lt;code>ConfigureServices(...)&lt;/code> 中调用 &lt;code>AddActors(...)&lt;/code> 方法来提供这种集成。 使用传递到 &lt;code>AddActors(...)&lt;/code> 方法的委托来注册actor类型并配置actor运行时设置。 你可以在&lt;code>ConfigureServices(...)&lt;/code>中为依赖注入注册额外的类型。 它们都可以被注入到你的Actor类型的构造器。&lt;/p>
+&lt;p>Actors通过Dapr runtime使用HTTP调用来实现。 此功能是应用程序的 HTTP 处理管道的一部分，在 &lt;code>Configure(...)&lt;/code> 方法中的&lt;code>UseEndpoint(...)&lt;/code> 注册。&lt;/p>
+&lt;p>在 &lt;code>MyActorService&lt;/code> 项目中，将以下代码粘贴到 &lt;code>Startup.cs&lt;/code> 中。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#66d9ef">using&lt;/span> Microsoft.AspNetCore.Builder;
 &lt;span style="color:#66d9ef">using&lt;/span> Microsoft.AspNetCore.Hosting;
 &lt;span style="color:#66d9ef">using&lt;/span> Microsoft.Extensions.DependencyInjection;
@@ -568,20 +448,21 @@ app.UseEndpoints(endpoints =&amp;gt;
 }
 }
 }
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="step-3-add-a-client">Step 3: Add a client&lt;/h2>
-&lt;p>Create a simple console app to call the actor service. Dapr SDK provides Actor Proxy client to invoke actor methods defined in Actor Interface.&lt;/p>
-&lt;h3 id="create-actor-client-project-and-add-dependencies">Create actor client project and add dependencies&lt;/h3>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#75715e"># Create Actor&amp;#39;s Client&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="第-3-步添加客户端">第 3 步：添加客户端&lt;/h2>
+&lt;p>创建一个简单的控制台应用来调用actor服务。 Dapr SDK 提供 Actor 代理客户端来调用Actor接口中定义的actor方法。&lt;/p>
+&lt;h3 id="创建-actor-客户端项目并添加依赖">创建 actor 客户端项目并添加依赖&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#75715e"># 创建 Actor 客户端&lt;/span>
 dotnet new console -o MyActorClient
 cd MyActorClient
-&lt;span style="color:#75715e"># Add Dapr.Actors nuget package. Please use the latest package version from nuget.org&lt;/span>
+&lt;span style="color:#75715e"># 添加 Dapr.Actors nuget 包。 Please use the latest package version from nuget.org&lt;/span>
+请从nuget.org添加最新的包版本
 dotnet add package Dapr.Actors -v 1.0.0
-&lt;span style="color:#75715e"># Add Actor Interface reference&lt;/span>
+&lt;span style="color:#75715e"># 添加 Actor 接口引用&lt;/span>
 dotnet add reference ../MyActor.Interfaces/MyActor.Interfaces.csproj
 cd ..
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="invoke-actor-methods-with-strongly-typed-client">Invoke actor methods with strongly-typed client&lt;/h3>
-&lt;p>You can use &lt;code>ActorProxy.Create&amp;lt;IMyActor&amp;gt;(..)&lt;/code> to create a strongly-typed client and invoke methods on the actor.&lt;/p>
-&lt;p>Paste the following code into &lt;code>Program.cs&lt;/code> in the &lt;code>MyActorClient&lt;/code> project:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="使用强类型客户端调用-actor-方法">使用强类型客户端调用 actor 方法&lt;/h3>
+&lt;p>您可以使用 &lt;code>ActorProxy.Create&amp;lt;IMyActor&amp;gt;(.)&lt;/code> 来创建一个强类型客户端，并调用 actor 上的方法。&lt;/p>
+&lt;p>在 &lt;code>MyActorClient&lt;/code> 项目中，将以下代码粘贴到 &lt;code>Program.cs&lt;/code> 中。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#66d9ef">using&lt;/span> System;
 &lt;span style="color:#66d9ef">using&lt;/span> System.Threading.Tasks;
 &lt;span style="color:#66d9ef">using&lt;/span> Dapr.Actors;
@@ -617,15 +498,15 @@ Console.WriteLine(&lt;span style="color:#e6db74">$&amp;#34;Got response: {respon
 }
 }
 }
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="running-the-code">Running the code&lt;/h2>
-&lt;p>The projects that you&amp;rsquo;ve created can now to test the sample.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="运行代码">运行代码&lt;/h2>
+&lt;p>你已经创建的项目现在可以测试示例。&lt;/p>
 &lt;ol>
 &lt;li>
-&lt;p>Run MyActorService&lt;/p>
-&lt;p>Since &lt;code>MyActorService&lt;/code> is hosting actors, it needs to be run with the Dapr CLI.&lt;/p>
+&lt;p>运行 MyActorService&lt;/p>
+&lt;p>由于&lt;code>MyActorService&lt;/code>正在托管 Actors，因此需要使用 Dapr CLI 来运行。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">cd MyActorService
 dapr run --app-id myapp --app-port &lt;span style="color:#ae81ff">5000&lt;/span> --dapr-http-port &lt;span style="color:#ae81ff">3500&lt;/span> -- dotnet run
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>You will see commandline output from both &lt;code>daprd&lt;/code> and &lt;code>MyActorService&lt;/code> in this terminal. You should see something like the following, which indicates that the application started successfully.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>您将在这个终端中看到 &lt;code>daprd&lt;/code> 和 &lt;code>MyActorService&lt;/code> 的命令行输出。 您应该看到以下情况，这表明应用程序已成功启动。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-txt" data-lang="txt">...
 ℹ️ Updating metadata for app command: dotnet run
 ✅ You&amp;#39;re up and running! Both Dapr and your app logs will appear here.
@@ -642,10 +523,10 @@ dapr run --app-id myapp --app-port &lt;span style="color:#ae81ff">5000&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
 &lt;p>运行 MyActorClient&lt;/p>
-&lt;p>&lt;code>MyActorClient&lt;/code> is acting as the client, and it can be run normally with &lt;code>dotnet run&lt;/code>.&lt;/p>
-&lt;p>Open a new terminal an navigate to the &lt;code>MyActorClient&lt;/code> directory. Then run the project with:&lt;/p>
+&lt;p>&lt;code>MyActorClient&lt;/code> 作为客户端，它可以用 &lt;code>dotnet run&lt;/code> 正常运行。&lt;/p>
+&lt;p>打开一个新的终端，导航到 &lt;code>MyActorClient&lt;/code> 目录。 然后运行此项目：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dotnet run
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>You should see commandline output like:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>您应该看到命令行输出，如：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-txt" data-lang="txt">Startup up...
 Calling SetDataAsync on MyActor:1...
 Got response: Success
@@ -654,11 +535,11 @@ Got response: Success
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;/ol>
 &lt;blockquote>
-&lt;p>💡 This sample relies on a few assumptions. The default listening port for an ASP.NET Core web project is 5000, which is being passed to &lt;code>dapr run&lt;/code> as &lt;code>--app-port 5000&lt;/code>. The default HTTP port for the Dapr sidecar is 3500. We&amp;rsquo;re telling the sidecar for &lt;code>MyActorService&lt;/code> to use 3500 so that &lt;code>MyActorClient&lt;/code> can rely on the default value.&lt;/p>
+&lt;p>💡 这个示例依赖于几个假设。 ASP.NET Core Web 项目的默认监听端口是 5000，它被传递给 &lt;code>dapr run&lt;/code> 作为 &lt;code>--app-port 5000&lt;/code>。 Dapr sidecar 的默认HTTP端口是 3500。 我们告诉 sidecar 的 &lt;code>MyActorService&lt;/code> 使用 3500，以便 &lt;code>MyActorClient&lt;/code> 可以依赖默认值。&lt;/p>
 &lt;/blockquote>
-&lt;p>Now you have successfully created an actor service and client. See the related links section to learn more.&lt;/p>
+&lt;p>现在您已经成功创建了 actor 服务和客户端。 查看相关链接部分了解更多信息。&lt;/p>
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actors-client/">.NET Dapr Actors client guide&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actors-usage/">.NET Dapr Actors usage guide&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actors-client/">.NET Dapr Actors 客户端指南&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actors-usage/">.NET Dapr Actors 客户端指南&lt;/a>&lt;/li>
 &lt;/ul></description></item></channel></rss>

@@ -26,12 +26,12 @@
 &lt;/ul></description></item><item><title>Operations: 支持的状态存储</title><link>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/</guid><description>
 &lt;p>表格标题：&lt;/p>
 &lt;blockquote>
-&lt;p>&lt;code>Status&lt;/code>: &lt;a href="%7B%7BX%1A39X%7D%7D">Component certification&lt;/a> status&lt;/p>
+&lt;p>&lt;code>Status&lt;/code>: &lt;a href="%7B%7BX%1A39X%7D%7D">组件认证&lt;/a> 状态&lt;/p>
 &lt;/blockquote>
 &lt;ul>
 &lt;li>&lt;a href="%7B%7BX%1A28X%7D%7D">Alpha&lt;/a>&lt;/li>
 &lt;li>&lt;a href="%7B%7BX%1A30X%7D%7D">Beta&lt;/a>&lt;/li>
-&lt;li>&lt;a href="%7B%7BX%1A32X%7D%7D">GA&lt;/a> &amp;gt; &lt;code>Since&lt;/code>: defines from which Dapr Runtime version, the component is in the current status&lt;/li>
+&lt;li>&lt;a href="%7B%7BX%1A32X%7D%7D">GA&lt;/a> &amp;gt; &lt;code>自从&lt;/code>: 定义了当前组件从哪个Dapr Runtime版本开始支持&lt;/li>
 &lt;/ul>
 &lt;blockquote>
 &lt;p>&lt;code>组件版本&lt;/code>：代表组件的版本&lt;/p>

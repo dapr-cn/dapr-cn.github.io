@@ -336,13 +336,13 @@ zsh Generates zsh completion scripts
 &lt;td>&lt;code>--wait&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;code>false&lt;/code>&lt;/td>
-&lt;td>Wait for Kubernetes initialization to complete&lt;/td>
+&lt;td>等待Kubernetes初始化完成&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--timeout&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;code>300&lt;/code>&lt;/td>
-&lt;td>The wait timeout for the Kubernetes installation&lt;/td>
+&lt;td>Kubernetes安装等待超时&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--namespace&lt;/code>, &lt;code>-n&lt;/code>&lt;/td>
@@ -375,9 +375,9 @@ zsh Generates zsh completion scripts
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr init
 &lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="在-kubernetes-中初始化-dapr">在 Kubernetes 中初始化 dapr&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr init -k
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="initialize-dapr-in-kubernetes-and-wait-for-the-installation-to-complete">Initialize Dapr in Kubernetes and wait for the installation to complete&lt;/h3>
-&lt;p>You can wait for the installation to complete its deployment with the &lt;code>--wait&lt;/code> flag.&lt;/p>
-&lt;p>The default timeout is 300s (5 min), but can be customized with the &lt;code>--timeout&lt;/code> flag.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="初始化kubernetes的dapr并等待安装完成">初始化Kubernetes的Dapr并等待安装完成&lt;/h3>
+&lt;p>您可以使用 &lt;code>--want&lt;/code> 标志来等待安装完成。&lt;/p>
+&lt;p>默认超时是 300s (5分钟)，但可以使用 &lt;code>--timeout&lt;/code> 标志自定义超时。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr init -k --wait --timeout &lt;span style="color:#ae81ff">600&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="以-self-hosted-初始化指定版本的-dapr-运行时">以 Self-Hosted 初始化指定版本的 Dapr 运行时&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr init --runtime-version 0.10.0

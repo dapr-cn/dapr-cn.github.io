@@ -27,15 +27,15 @@
 &lt;div class="card-deck">
 &lt;div class="card">
 &lt;div class="card-body">
-&lt;h5 class="card-title">&lt;b>Development&lt;/b>&lt;/h5>
-&lt;p class="card-text">Learn about local development options for .NET Dapr applications&lt;/p>
+&lt;h5 class="card-title">&lt;b>开发&lt;/b>&lt;/h5>
+&lt;p class="card-text">了解 .NET Dapr 应用程序的本地开发选项&lt;/p>
 &lt;a href="https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-development/" class="stretched-link">&lt;/a>
 &lt;/div>
 &lt;/div>
 &lt;div class="card">
 &lt;div class="card-body">
 &lt;h5 class="card-title">&lt;b>示例&lt;/b>&lt;/h5>
-&lt;p class="card-text">Clone the .NET SDK repo to try out some of the examples and get started quickly.&lt;/p>
+&lt;p class="card-text">克隆.NET SDK repo来尝试一些示例并快速开始。&lt;/p>
 &lt;a href="https://github.com/dapr/dotnet-sdk/tree/master/examples" class="stretched-link">&lt;/a>
 &lt;/div>
 &lt;/div>
@@ -48,8 +48,8 @@
 &lt;/div>
 &lt;div class="card">
 &lt;div class="card-body">
-&lt;h5 class="card-title">&lt;b>NuGet packages&lt;/b>&lt;/h5>
-&lt;p class="card-text">Dapr packages for adding the .NET SDKs to your .NET applications.&lt;/p>
+&lt;h5 class="card-title">&lt;b>Nuget 包&lt;/b>&lt;/h5>
+&lt;p class="card-text">为您的 .NET应用程序 添加 .NET SDK 的 Dapr 包。&lt;/p>
 &lt;a href="https://www.nuget.org/profiles/dapr.io" class="stretched-link">&lt;/a>
 &lt;/div>
 &lt;/div>
