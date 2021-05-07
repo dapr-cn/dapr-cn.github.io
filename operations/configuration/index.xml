@@ -356,7 +356,7 @@
 - &lt;span style="color:#f92672">storeName&lt;/span>: &lt;span style="color:#ae81ff">vault&lt;/span>
 &lt;span style="color:#f92672">defaultAccess&lt;/span>: &lt;span style="color:#ae81ff">deny&lt;/span>
 &lt;span style="color:#f92672">allowedSecrets&lt;/span>: [&lt;span style="color:#e6db74">&amp;#34;secret1&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;secret2&amp;#34;&lt;/span>]
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>This example defines configuration for secret store named vault. 密钥仓库的默认访问权限是&lt;code>deny&lt;/code>，而有些密钥可以通过应用程序基于&lt;code>allowedSecrets&lt;/code>列表访问。 Follow &lt;a href="https://docs.dapr.io/operations/configuration/configuration-overview/">these instructions&lt;/a> to apply configuration to the sidecar.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>This example defines configuration for secret store named vault. 密钥仓库的默认访问权限是&lt;code>deny&lt;/code>，而有些密钥可以通过应用程序基于&lt;code>allowedSecrets&lt;/code>列表访问。 按照 &lt;a href="https://docs.dapr.io/operations/configuration/configuration-overview/">这些说明&lt;/a> 将配置应用到 sidecar。&lt;/p>
 &lt;h3 id="scenario-3-deny-access-to-certain-senstive-secrets-in-a-secret-store">Scenario 3: Deny access to certain senstive secrets in a secret store&lt;/h3>
 &lt;p>定义以下 &lt;code>config.yaml&lt;/code>:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
@@ -369,7 +369,7 @@
 - &lt;span style="color:#f92672">storeName&lt;/span>: &lt;span style="color:#ae81ff">vault&lt;/span>
 &lt;span style="color:#f92672">defaultAccess&lt;/span>: &lt;span style="color:#ae81ff">allow&lt;/span> &lt;span style="color:#75715e"># this is the default value, line can be omitted&lt;/span>
 &lt;span style="color:#f92672">deniedSecrets&lt;/span>: [&lt;span style="color:#e6db74">&amp;#34;secret1&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;secret2&amp;#34;&lt;/span>]
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>上面的配置明确禁止从名为 vault 的密钥仓库访问 &lt;code>secret1&lt;/code> 和 &lt;code>secret2&lt;/code> ，但允许访问所有其他密钥。 Follow &lt;a href="https://docs.dapr.io/operations/configuration/configuration-overview/">these instructions&lt;/a> to apply configuration to the sidecar.&lt;/p></description></item><item><title>Operations: How-To: Apply access control list configuration for service invocation</title><link>https://docs.dapr.io/operations/configuration/invoke-allowlist/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/configuration/invoke-allowlist/</guid><description>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>上面的配置明确禁止从名为 vault 的密钥仓库访问 &lt;code>secret1&lt;/code> 和 &lt;code>secret2&lt;/code> ，但允许访问所有其他密钥。 按照 &lt;a href="https://docs.dapr.io/operations/configuration/configuration-overview/">这些说明&lt;/a> 将配置应用到 sidecar。&lt;/p></description></item><item><title>Operations: How-To: Apply access control list configuration for service invocation</title><link>https://docs.dapr.io/operations/configuration/invoke-allowlist/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/configuration/invoke-allowlist/</guid><description>
 &lt;p>Access control enables the configuration of policies that restrict what operations &lt;em>calling&lt;/em> applications can perform, via service invocation, on the &lt;em>called&lt;/em> application. To limit access to a called applications from specific operations and HTTP verbs from the calling applications, you can define an access control policy specification in configuration.&lt;/p>
 &lt;p>An access control policy is specified in configuration and be applied to Dapr sidecar for the &lt;em>called&lt;/em> application. Example access policies are shown below and access to the called app is based on the matched policy action. You can provide a default global action for all calling applications and if no access control policy is specified, the default behavior is to allow all calling applicatons to access to the called app.&lt;/p>
 &lt;p>Watch this &lt;a href="https://youtu.be/j99RN_nxExA?t=1108">video&lt;/a> on how to apply access control list for service invocation. &lt;iframe width="688" height="430" src="https://www.youtube.com/embed/j99RN_nxExA?start=1108" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark">&lt;/iframe>&lt;/p>
@@ -436,7 +436,7 @@
 &lt;td>App level default action in case the app is found but no specific operation is matched&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>operations&lt;/td>
+&lt;td>功能操作&lt;/td>
 &lt;td>string&lt;/td>
 &lt;td>operations that are allowed from the calling app&lt;/td>
 &lt;/tr>
@@ -813,5 +813,5 @@ Kubernetes
 &lt;/div>
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-annotations/">Dapr Kubernetes pod annotations spec&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-annotations/">Dapr Kubernetes pod annotations规范&lt;/a>&lt;/li>
 &lt;/ul></description></item></channel></rss>

@@ -1,0 +1,903 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr Docs – Secret store component specs</title><link>https://docs.dapr.io/en/reference/components-reference/supported-secret-stores/</link><description>Recent content in Secret store component specs on Dapr Docs</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/en/reference/components-reference/supported-secret-stores/index.xml" rel="self" type="application/rss+xml"/><item><title>Reference: AWS Secrets Manager</title><link>https://docs.dapr.io/en/reference/components-reference/supported-secret-stores/aws-secret-manager/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/reference/components-reference/supported-secret-stores/aws-secret-manager/</guid><description>
+&lt;h2 id="component-format">Component format&lt;/h2>
+&lt;p>To setup AWS Secrets Manager secret store create a component of type &lt;code>secretstores.aws.secretmanager&lt;/code>. See &lt;a href="https://docs.dapr.io/en/operations/components/setup-secret-store/#apply-the-configuration">this guide&lt;/a> on how to create and apply a secretstore configuration. See this guide on &lt;a href="https://docs.dapr.io/en/operations/components/component-secrets/">referencing secrets&lt;/a> to retrieve and use the secret with Dapr components.&lt;/p>
+&lt;p>See &lt;a href="https://docs.dapr.io/en/developing-applications/integrations/cloud-providers/authenticating-aws/">Authenticating to AWS&lt;/a> for information about authentication-related attributes.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">awssecretmanager&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">secretstores.aws.secretmanager&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">region&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[aws_region]&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">accessKey&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[aws_access_key]&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">secretKey&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[aws_secret_key]&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">sessionToken&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[aws_session_token]&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a local secret store such as &lt;a href="https://docs.dapr.io/en/reference/components-reference/supported-secret-stores/kubernetes-secret-store/">Kubernetes secret store&lt;/a> or a &lt;a href="https://docs.dapr.io/en/reference/components-reference/supported-secret-stores/file-secret-store/">local file&lt;/a> to bootstrap secure key storage.
+&lt;/div>
+&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Field&lt;/th>
+&lt;th style="text-align:center">Required&lt;/th>
+&lt;th>Details&lt;/th>
+&lt;th>Example&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>region&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The specific AWS region the AWS Secrets Manager instance is deployed in&lt;/td>
+&lt;td>&lt;code>&amp;quot;us-east-1&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>accessKey&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The AWS Access Key to access this resource&lt;/td>
+&lt;td>&lt;code>&amp;quot;key&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>secretKey&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The AWS Secret Access Key to access this resource&lt;/td>
+&lt;td>&lt;code>&amp;quot;secretAccessKey&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>sessionToken&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The AWS session token to use&lt;/td>
+&lt;td>&lt;code>&amp;quot;sessionToken&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="create-an-aws-secrets-manager-instance">Create an AWS Secrets Manager instance&lt;/h2>
+&lt;p>Setup AWS Secrets Manager using the AWS documentation: &lt;a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/tutorials_basic.html">https://docs.aws.amazon.com/secretsmanager/latest/userguide/tutorials_basic.html&lt;/a>.&lt;/p>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/secrets/">Secrets building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/secrets/howto-secrets/">How-To: Retrieve a secret&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/component-secrets/">How-To: Reference secrets in Dapr components&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/reference/api/secrets_api/">Secrets API reference&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/integrations/cloud-providers/authenticating-aws/">Authenticating to AWS&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Reference: AWS SSM Parameter Store</title><link>https://docs.dapr.io/en/reference/components-reference/supported-secret-stores/aws-parameter-store/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/reference/components-reference/supported-secret-stores/aws-parameter-store/</guid><description>
+&lt;h2 id="component-format">Component format&lt;/h2>
+&lt;p>To setup AWS SSM Parameter Store secret store create a component of type &lt;code>secretstores.aws.parameterstore&lt;/code>. See &lt;a href="https://docs.dapr.io/en/operations/components/setup-secret-store/#apply-the-configuration">this guide&lt;/a> on how to create and apply a secretstore configuration. See this guide on &lt;a href="https://docs.dapr.io/en/operations/components/component-secrets/">referencing secrets&lt;/a> to retrieve and use the secret with Dapr components.&lt;/p>
+&lt;p>See &lt;a href="https://docs.dapr.io/en/developing-applications/integrations/cloud-providers/authenticating-aws/">Authenticating to AWS&lt;/a> for information about authentication-related attributes.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">awsparameterstore&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">secretstores.aws.parameterstore&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">region&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[aws_region]&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">accessKey&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[aws_access_key]&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">secretKey&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[aws_secret_key]&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">sessionToken&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[aws_session_token]&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a local secret store such as &lt;a href="https://docs.dapr.io/en/reference/components-reference/supported-secret-stores/kubernetes-secret-store/">Kubernetes secret store&lt;/a> or a &lt;a href="https://docs.dapr.io/en/reference/components-reference/supported-secret-stores/file-secret-store/">local file&lt;/a> to bootstrap secure key storage.
+&lt;/div>
+&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Field&lt;/th>
+&lt;th style="text-align:center">Required&lt;/th>
+&lt;th>Details&lt;/th>
+&lt;th>Example&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>region&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The specific AWS region the AWS SSM Parameter Store instance is deployed in&lt;/td>
+&lt;td>&lt;code>&amp;quot;us-east-1&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>accessKey&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The AWS Access Key to access this resource&lt;/td>
+&lt;td>&lt;code>&amp;quot;key&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>secretKey&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The AWS Secret Access Key to access this resource&lt;/td>
+&lt;td>&lt;code>&amp;quot;secretAccessKey&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>sessionToken&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The AWS session token to use&lt;/td>
+&lt;td>&lt;code>&amp;quot;sessionToken&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="create-an-aws-ssm-parameter-store-instance">Create an AWS SSM Parameter Store instance&lt;/h2>
+&lt;p>Setup AWS SSM Parameter Store using the AWS documentation: &lt;a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html">https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html&lt;/a>.&lt;/p>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/secrets/">Secrets building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/secrets/howto-secrets/">How-To: Retrieve a secret&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/component-secrets/">How-To: Reference secrets in Dapr components&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/reference/api/secrets_api/">Secrets API reference&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/integrations/cloud-providers/authenticating-aws/">Authenticating to AWS&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Reference: Azure Key Vault secret store</title><link>https://docs.dapr.io/en/reference/components-reference/supported-secret-stores/azure-keyvault/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/reference/components-reference/supported-secret-stores/azure-keyvault/</guid><description>
+&lt;div class="alert alert-primary" role="alert">
+&lt;h4 class="alert-heading">Note&lt;/h4>
+Azure Managed Identity can be used for Azure Key Vault access on Kubernetes. Instructions &lt;a href="https://docs.dapr.io/en/reference/components-reference/supported-secret-stores/azure-keyvault-managed-identity/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="component-format">Component format&lt;/h2>
+&lt;p>To setup Azure Key Vault secret store create a component of type &lt;code>secretstores.azure.keyvault&lt;/code>. See &lt;a href="https://docs.dapr.io/en/operations/components/setup-secret-store/#apply-the-configuration">this guide&lt;/a> on how to create and apply a secretstore configuration. See this guide on &lt;a href="https://docs.dapr.io/en/operations/components/component-secrets/">referencing secrets&lt;/a> to retrieve and use the secret with Dapr components.&lt;/p>
+&lt;p>See also &lt;a href="#configure-the-component">configure the component&lt;/a> guide in this page.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">azurekeyvault&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">secretstores.azure.keyvault&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">vaultName&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: [&lt;span style="color:#ae81ff">your_keyvault_name]&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">spnTenantId&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[your_service_principal_tenant_id]&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">spnClientId&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[your_service_principal_app_id]&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">value &lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[pfx_certificate_contents]&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">spnCertificateFile&lt;/span>
+&lt;span style="color:#f92672">value &lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[pfx_certificate_file_fully_qualified_local_path]&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a local secret store such as &lt;a href="https://docs.dapr.io/en/reference/components-reference/supported-secret-stores/kubernetes-secret-store/">Kubernetes secret store&lt;/a> or a &lt;a href="https://docs.dapr.io/en/reference/components-reference/supported-secret-stores/file-secret-store/">local file&lt;/a> to bootstrap secure key storage.
+&lt;/div>
+&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;h3 id="self-hosted">Self-Hosted&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Field&lt;/th>
+&lt;th style="text-align:center">Required&lt;/th>
+&lt;th>Details&lt;/th>
+&lt;th>Example&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>vaultName&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The name of the Azure Key Vault&lt;/td>
+&lt;td>&lt;code>&amp;quot;mykeyvault&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>spnTenantId&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>Service Principal Tenant Id&lt;/td>
+&lt;td>&lt;code>&amp;quot;spnTenantId&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>spnClientId&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>Service Principal App Id&lt;/td>
+&lt;td>&lt;code>&amp;quot;spnAppId&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>spnCertificateFile&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>PFX certificate file path. &lt;br>&lt;/br> For Windows the &lt;code>[pfx_certificate_file_fully_qualified_local_path]&lt;/code> value must use escaped backslashes, i.e. double backslashes. For example &lt;code>&amp;quot;C:\\folder1\\folder2\\certfile.pfx&amp;quot;&lt;/code>. &lt;br>&lt;/br> For Linux you can use single slashes. For example &lt;code>&amp;quot;/folder1/folder2/certfile.pfx&amp;quot;&lt;/code>. &lt;br>&lt;/br> See &lt;a href="#configure-the-component">configure the component&lt;/a> for more details&lt;/td>
+&lt;td>&lt;code>&amp;quot;C:\\folder1\\folder2\\certfile.pfx&amp;quot;&lt;/code>, &lt;code>&amp;quot;/folder1/folder2/certfile.pfx&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="kubernetes">Kubernetes&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Field&lt;/th>
+&lt;th style="text-align:center">Required&lt;/th>
+&lt;th>Details&lt;/th>
+&lt;th>Example&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>vaultName&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The name of the Azure Key Vault&lt;/td>
+&lt;td>&lt;code>&amp;quot;mykeyvault&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>spnTenantId&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>Service Principal Tenant Id&lt;/td>
+&lt;td>&lt;code>&amp;quot;spnTenantId&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>spnClientId&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>Service Principal App Id&lt;/td>
+&lt;td>&lt;code>&amp;quot;spnAppId&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>spnCertificate&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>PKCS 12 encoded bytes of the certificate. See &lt;a href="#configure-the-component">configure the component&lt;/a> for details on encoding this in a Kubernetes secret.&lt;/td>
+&lt;td>&lt;code>secretKeyRef: ...&lt;/code> &lt;br /> See &lt;a href="#configure-the-component">configure the component&lt;/a> for more information.&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="setup-key-vault-and-service-principal">Setup Key Vault and service principal&lt;/h2>
+&lt;h3 id="prerequisites">Prerequisites&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a href="https://azure.microsoft.com/en-us/free/">Azure Subscription&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest">Azure CLI&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h3 id="steps">Steps&lt;/h3>
+&lt;ol>
+&lt;li>
+&lt;p>Login to Azure and set the default subscription&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#75715e"># Log in Azure&lt;/span>
+az login
+&lt;span style="color:#75715e"># Set your subscription to the default subscription&lt;/span>
+az account set -s &lt;span style="color:#f92672">[&lt;/span>your subscription id&lt;span style="color:#f92672">]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Create an Azure Key Vault in a region&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">az keyvault create --location &lt;span style="color:#f92672">[&lt;/span>region&lt;span style="color:#f92672">]&lt;/span> --name &lt;span style="color:#f92672">[&lt;/span>your_keyvault&lt;span style="color:#f92672">]&lt;/span> --resource-group &lt;span style="color:#f92672">[&lt;/span>your resource group&lt;span style="color:#f92672">]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Create a service principal&lt;/p>
+&lt;p>Create a service principal with a new certificate and store the 1-year certificate inside your keyvault&amp;rsquo;s certificate vault. You can skip this step if you want to use an existing service principal for keyvault instead of creating new one&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">az ad sp create-for-rbac --name &lt;span style="color:#f92672">[&lt;/span>your_service_principal_name&lt;span style="color:#f92672">]&lt;/span> --create-cert --cert &lt;span style="color:#f92672">[&lt;/span>certificate_name&lt;span style="color:#f92672">]&lt;/span> --keyvault &lt;span style="color:#f92672">[&lt;/span>your_keyvault&lt;span style="color:#f92672">]&lt;/span> --skip-assignment --years &lt;span style="color:#ae81ff">1&lt;/span>
+&lt;span style="color:#f92672">{&lt;/span>
+&lt;span style="color:#e6db74">&amp;#34;appId&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;a4f90000-0000-0000-0000-00000011d000&amp;#34;&lt;/span>,
+&lt;span style="color:#e6db74">&amp;#34;displayName&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[your_service_principal_name]&amp;#34;&lt;/span>,
+&lt;span style="color:#e6db74">&amp;#34;name&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;http://[your_service_principal_name]&amp;#34;&lt;/span>,
+&lt;span style="color:#e6db74">&amp;#34;password&amp;#34;&lt;/span>: null,
+&lt;span style="color:#e6db74">&amp;#34;tenant&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;34f90000-0000-0000-0000-00000011d000&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Save both the appId and tenant from the output which will be used in the next step&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Get the Object Id for [your_service_principal_name]&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">az ad sp show --id &lt;span style="color:#f92672">[&lt;/span>service_principal_app_id&lt;span style="color:#f92672">]&lt;/span>
+&lt;span style="color:#f92672">{&lt;/span>
+...
+&lt;span style="color:#e6db74">&amp;#34;objectId&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[your_service_principal_object_id]&amp;#34;&lt;/span>,
+&lt;span style="color:#e6db74">&amp;#34;objectType&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;ServicePrincipal&amp;#34;&lt;/span>,
+...
+&lt;span style="color:#f92672">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Grant the service principal the GET permission to your Azure Key Vault&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">az keyvault set-policy --name &lt;span style="color:#f92672">[&lt;/span>your_keyvault&lt;span style="color:#f92672">]&lt;/span> --object-id &lt;span style="color:#f92672">[&lt;/span>your_service_principal_object_id&lt;span style="color:#f92672">]&lt;/span> --secret-permissions get
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Now that your service principal has access to your keyvault you are ready to configure the secret store component to use secrets stored in your keyvault to access other components securely.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Download the certificate in PFX format from your Azure Key Vault either using the Azure portal or the Azure CLI:&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Using the Azure portal:&lt;/strong>&lt;/p>
+&lt;p>Go to your key vault on the Azure portal and navigate to the &lt;em>Certificates&lt;/em> tab under &lt;em>Settings&lt;/em>. Find the certificate that was created during the service principal creation, named [certificate_name] and click on it.&lt;/p>
+&lt;p>Click &lt;em>Download in PFX/PEM format&lt;/em> to download the certificate.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Using the Azure CLI:&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">az keyvault secret download --vault-name &lt;span style="color:#f92672">[&lt;/span>your_keyvault&lt;span style="color:#f92672">]&lt;/span> --name &lt;span style="color:#f92672">[&lt;/span>certificate_name&lt;span style="color:#f92672">]&lt;/span> --encoding base64 --file &lt;span style="color:#f92672">[&lt;/span>certificate_name&lt;span style="color:#f92672">]&lt;/span>.pfx
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;/ul>
+&lt;h2 id="configure-the-component">Configure the component&lt;/h2>
+&lt;ul class="nav nav-tabs" id="tabs-4" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-4-self-hosted-tab" data-toggle="tab" href="#tabs-4-self-hosted" role="tab"
+aria-controls="tabs-4-self-hosted" aria-selected="true">
+Self-Hosted
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-4-kubernetes-tab" data-toggle="tab" href="#tabs-4-kubernetes" role="tab"
+aria-controls="tabs-4-kubernetes" aria-selected="false">
+Kubernetes
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-4-content">
+&lt;div class="tab-pane fade show active" id="tabs-4-self-hosted" role="tabpanel" aria-labelled-by="tabs-4-self-hosted-tab">
+&lt;br />&lt;ol>
+&lt;li>
+&lt;p>Copy downloaded PFX cert from your Azure Keyvault into your components directory or a secure location on your local disk&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Create a file called &lt;code>azurekeyvault.yaml&lt;/code> in the components directory&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">azurekeyvault&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">secretstores.azure.keyvault&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">vaultName&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: [&lt;span style="color:#ae81ff">your_keyvault_name]&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">spnTenantId&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[your_service_principal_tenant_id]&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">spnClientId&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[your_service_principal_app_id]&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">spnCertificateFile&lt;/span>
+&lt;span style="color:#f92672">value &lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[pfx_certificate_file_fully_qualified_local_path]&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;/ol>
+&lt;p>Fill in the metadata fields with your Key Vault details from the above setup process.&lt;/p>
+&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-4-kubernetes" role="tabpanel" aria-labelled-by="tabs-4-kubernetes-tab">
+&lt;br />&lt;p>In Kubernetes, you store the certificate for the service principal into the Kubernetes Secret Store and then enable Azure Key Vault secret store with this certificate in Kubernetes secretstore.&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Create a kubernetes secret using the following command:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl create secret generic &lt;span style="color:#f92672">[&lt;/span>your_k8s_spn_secret_name&lt;span style="color:#f92672">]&lt;/span> --from-file&lt;span style="color:#f92672">=[&lt;/span>your_k8s_spn_secret_key&lt;span style="color:#f92672">]=[&lt;/span>pfx_certificate_file_fully_qualified_local_path&lt;span style="color:#f92672">]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>&lt;code>[pfx_certificate_file_fully_qualified_local_path]&lt;/code> is the path of PFX cert file you downloaded above&lt;/li>
+&lt;li>&lt;code>[your_k8s_spn_secret_name]&lt;/code> is secret name in Kubernetes secret store&lt;/li>
+&lt;li>&lt;code>[your_k8s_spn_secret_key]&lt;/code> is secret key in Kubernetes secret store&lt;/li>
+&lt;/ul>
+&lt;ol start="2">
+&lt;li>Create a &lt;code>azurekeyvault.yaml&lt;/code> component file&lt;/li>
+&lt;/ol>
+&lt;p>The component yaml refers to the Kubernetes secretstore using &lt;code>auth&lt;/code> property and &lt;code>secretKeyRef&lt;/code> refers to the certificate stored in Kubernetes secret store.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">azurekeyvault&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">secretstores.azure.keyvault&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">vaultName&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: [&lt;span style="color:#ae81ff">your_keyvault_name]&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">spnTenantId&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[your_service_principal_tenant_id]&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">spnClientId&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[your_service_principal_app_id]&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">spnCertificate&lt;/span>
+&lt;span style="color:#f92672">secretKeyRef&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: [&lt;span style="color:#ae81ff">your_k8s_spn_secret_name]&lt;/span>
+&lt;span style="color:#f92672">key&lt;/span>: [&lt;span style="color:#ae81ff">your_k8s_spn_secret_key]&lt;/span>
+&lt;span style="color:#f92672">auth&lt;/span>:
+&lt;span style="color:#f92672">secretStore&lt;/span>: &lt;span style="color:#ae81ff">kubernetes&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="3">
+&lt;li>Apply &lt;code>azurekeyvault.yaml&lt;/code> component&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl apply -f azurekeyvault.yaml
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;/div>
+&lt;h2 id="references">References&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.microsoft.com/en-us/cli/azure/keyvault?view=azure-cli-latest#az-keyvault-create">Azure CLI Keyvault CLI&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli?view=azure-cli-latest">Create an Azure service principal with Azure CLI&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/secrets/">Secrets building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/secrets/howto-secrets/">How-To: Retrieve a secret&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/component-secrets/">How-To: Reference secrets in Dapr components&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/reference/api/secrets_api/">Secrets API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Reference: Azure Key Vault with Managed Identities on Kubernetes</title><link>https://docs.dapr.io/en/reference/components-reference/supported-secret-stores/azure-keyvault-managed-identity/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/reference/components-reference/supported-secret-stores/azure-keyvault-managed-identity/</guid><description>
+&lt;h2 id="component-format">Component format&lt;/h2>
+&lt;p>To setup Azure Key Vault secret store with Managed Identies create a component of type &lt;code>secretstores.azure.keyvault&lt;/code>. See &lt;a href="https://docs.dapr.io/en/operations/components/setup-secret-store/#apply-the-configuration">this guide&lt;/a> on how to create and apply a secretstore configuration. See this guide on &lt;a href="https://docs.dapr.io/en/operations/components/component-secrets/">referencing secrets&lt;/a> to retrieve and use the secret with Dapr components.&lt;/p>
+&lt;p>In Kubernetes mode, you store the certificate for the service principal into the Kubernetes Secret Store and then enable Azure Key Vault secret store with this certificate in Kubernetes secretstore.&lt;/p>
+&lt;p>The component yaml uses the name of your key vault and the Cliend ID of the managed identity to setup the secret store.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">azurekeyvault&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">secretstores.azure.keyvault&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">vaultName&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: [&lt;span style="color:#ae81ff">your_keyvault_name]&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">spnClientId&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: [&lt;span style="color:#ae81ff">your_managed_identity_client_id]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a local secret store such as &lt;a href="https://docs.dapr.io/en/reference/components-reference/supported-secret-stores/kubernetes-secret-store/">Kubernetes secret store&lt;/a> or a &lt;a href="https://docs.dapr.io/en/reference/components-reference/supported-secret-stores/file-secret-store/">local file&lt;/a> to bootstrap secure key storage.
+&lt;/div>
+&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Field&lt;/th>
+&lt;th style="text-align:center">Required&lt;/th>
+&lt;th>Details&lt;/th>
+&lt;th>Example&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>vaultName&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The name of the Azure Key Vault&lt;/td>
+&lt;td>&lt;code>&amp;quot;mykeyvault&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>spnClientId&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>Your managed identity client Id&lt;/td>
+&lt;td>&lt;code>&amp;quot;yourId&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="setup-managed-identity-and-azure-key-vault">Setup Managed Identity and Azure Key Vault&lt;/h2>
+&lt;h3 id="prerequisites">Prerequisites&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a href="https://azure.microsoft.com/en-us/free/">Azure Subscription&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest">Azure CLI&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h3 id="steps">Steps&lt;/h3>
+&lt;ol>
+&lt;li>
+&lt;p>Login to Azure and set the default subscription&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#75715e"># Log in Azure&lt;/span>
+az login
+&lt;span style="color:#75715e"># Set your subscription to the default subscription&lt;/span>
+az account set -s &lt;span style="color:#f92672">[&lt;/span>your subscription id&lt;span style="color:#f92672">]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Create an Azure Key Vault in a region&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">az keyvault create --location &lt;span style="color:#f92672">[&lt;/span>region&lt;span style="color:#f92672">]&lt;/span> --name &lt;span style="color:#f92672">[&lt;/span>your keyvault&lt;span style="color:#f92672">]&lt;/span> --resource-group &lt;span style="color:#f92672">[&lt;/span>your resource group&lt;span style="color:#f92672">]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Create the managed identity(Optional)&lt;/p>
+&lt;p>This step is required only if the AKS Cluster is provisoned without the flag &amp;ldquo;&amp;ndash;enable-managed-identity&amp;rdquo;. If the cluster is provisioned with managed identity, than it is suggested to use the autogenerated managed identity that is associated to the Resource Group MC_*.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">$identity &lt;span style="color:#f92672">=&lt;/span> az identity create -g &lt;span style="color:#f92672">[&lt;/span>your resource group&lt;span style="color:#f92672">]&lt;/span> -n &lt;span style="color:#f92672">[&lt;/span>your managed identity name&lt;span style="color:#f92672">]&lt;/span> -o json | ConvertFrom-Json
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Below is the command to retrieve the managed identity in the autogenerated scenario:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">az aks show -g &amp;lt;AKSResourceGroup&amp;gt; -n &amp;lt;AKSClusterName&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>For more detail about the roles to assign to integrate AKS with Azure Services &lt;a href="https://azure.github.io/aad-pod-identity/docs/getting-started/role-assignment/">Role Assignment&lt;/a>.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Retrieve Managed Identity ID&lt;/p>
+&lt;p>The two main scenario are:&lt;/p>
+&lt;ul>
+&lt;li>Service Principal, in this case the Resource Group is the one in which is deployed the AKS Service Cluster&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">$clientId&lt;span style="color:#f92672">=&lt;/span> az aks show -g &amp;lt;AKSResourceGroup&amp;gt; -n &amp;lt;AKSClusterName&amp;gt; --query servicePrincipalProfile.clientId -otsv
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>Managed Identity, in this case the Resource Group is the one in which is deployed the AKS Service Cluster&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">$clientId&lt;span style="color:#f92672">=&lt;/span> az aks show -g &amp;lt;AKSResourceGroup&amp;gt; -n &amp;lt;AKSClusterName&amp;gt; --query identityProfile.kubeletidentity.clientId -otsv
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Assign the Reader role to the managed identity&lt;/p>
+&lt;p>For AKS cluster, the cluster resource group refers to the resource group with a MC_ prefix, which contains all of the infrastructure resources associated with the cluster like VM/VMSS.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">az role assignment create --role &lt;span style="color:#e6db74">&amp;#34;Reader&amp;#34;&lt;/span> --assignee $clientId --scope /subscriptions/&lt;span style="color:#f92672">[&lt;/span>your subscription id&lt;span style="color:#f92672">]&lt;/span>/resourcegroups/&lt;span style="color:#f92672">[&lt;/span>your resource group&lt;span style="color:#f92672">]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Assign the Managed Identity Operator role to the AKS Service Principal
+Refer to previous step about the Resource Group to use and which identity to assign&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">az role assignment create --role &lt;span style="color:#e6db74">&amp;#34;Managed Identity Operator&amp;#34;&lt;/span> --assignee $clientId --scope /subscriptions/&lt;span style="color:#f92672">[&lt;/span>your subscription id&lt;span style="color:#f92672">]&lt;/span>/resourcegroups/&lt;span style="color:#f92672">[&lt;/span>your resource group&lt;span style="color:#f92672">]&lt;/span>
+az role assignment create --role &lt;span style="color:#e6db74">&amp;#34;Virtual Machine Contributor&amp;#34;&lt;/span> --assignee $clientId --scope /subscriptions/&lt;span style="color:#f92672">[&lt;/span>your subscription id&lt;span style="color:#f92672">]&lt;/span>/resourcegroups/&lt;span style="color:#f92672">[&lt;/span>your resource group&lt;span style="color:#f92672">]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Add a policy to the Key Vault so the managed identity can read secrets&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">az keyvault set-policy --name &lt;span style="color:#f92672">[&lt;/span>your keyvault&lt;span style="color:#f92672">]&lt;/span> --spn $clientId --secret-permissions get list
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Enable AAD Pod Identity on AKS&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl apply -f https://raw.githubusercontent.com/Azure/aad-pod-identity/master/deploy/infra/deployment-rbac.yaml
+&lt;span style="color:#75715e"># For AKS clusters, deploy the MIC and AKS add-on exception by running -&lt;/span>
+kubectl apply -f https://raw.githubusercontent.com/Azure/aad-pod-identity/master/deploy/infra/mic-exception.yaml
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Configure the Azure Identity and AzureIdentityBinding yaml&lt;/p>
+&lt;p>Save the following yaml as azure-identity-config.yaml:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;aadpodidentity.k8s.io/v1&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">AzureIdentity&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: [&lt;span style="color:#ae81ff">your managed identity name]&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">0&lt;/span>
+&lt;span style="color:#f92672">resourceID&lt;/span>: [&lt;span style="color:#ae81ff">your managed identity id]&lt;/span>
+&lt;span style="color:#f92672">clientID&lt;/span>: [&lt;span style="color:#ae81ff">your managed identity Client ID]&lt;/span>
+---
+&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;aadpodidentity.k8s.io/v1&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">AzureIdentityBinding&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: [&lt;span style="color:#ae81ff">your managed identity name]-identity-binding&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">azureIdentity&lt;/span>: [&lt;span style="color:#ae81ff">your managed identity name]&lt;/span>
+&lt;span style="color:#f92672">selector&lt;/span>: [&lt;span style="color:#ae81ff">your managed identity selector]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Deploy the azure-identity-config.yaml:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#ae81ff">kubectl apply -f azure-identity-config.yaml&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;/ol>
+&lt;h2 id="references">References&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.microsoft.com/en-us/cli/azure/keyvault?view=azure-cli-latest#az-keyvault-create">Azure CLI Keyvault CLI&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli?view=azure-cli-latest">Create an Azure service principal with Azure CLI&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/Azure/aad-pod-identity">AAD Pod Identity&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/secrets/">Secrets building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/secrets/howto-secrets/">How-To: Retrieve a secret&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/component-secrets/">How-To: Reference secrets in Dapr components&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/reference/api/secrets_api/">Secrets API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Reference: GCP Secret Manager</title><link>https://docs.dapr.io/en/reference/components-reference/supported-secret-stores/gcp-secret-manager/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/reference/components-reference/supported-secret-stores/gcp-secret-manager/</guid><description>
+&lt;h2 id="component-format">Component format&lt;/h2>
+&lt;p>To setup GCP Secret Manager secret store create a component of type &lt;code>secretstores.gcp.secretmanager&lt;/code>. See &lt;a href="https://docs.dapr.io/en/operations/components/setup-secret-store/#apply-the-configuration">this guide&lt;/a> on how to create and apply a secretstore configuration. See this guide on &lt;a href="https://docs.dapr.io/en/operations/components/component-secrets/">referencing secrets&lt;/a> to retrieve and use the secret with Dapr components.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">gcpsecretmanager&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">secretstores.gcp.secretmanager&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">type&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;replace-with-account-type&amp;gt;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">project_id&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;replace-with-project-id&amp;gt;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">private_key_id&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;replace-with-private-key-id&amp;gt;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">client_email&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;replace-with-email&amp;gt;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">client_id&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;replace-with-client-id&amp;gt;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">auth_uri&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;replace-with-auth-uri&amp;gt; &lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">token_uri&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;replace-with-token-uri&amp;gt; &lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">auth_provider_x509_cert_url&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;replace-with-auth-provider-cert-url&amp;gt; &lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">client_x509_cert_url&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;replace-with-client-cert-url&amp;gt; &lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">private_key&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;replace-with-private-key&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a local secret store such as &lt;a href="https://docs.dapr.io/en/reference/components-reference/supported-secret-stores/kubernetes-secret-store/">Kubernetes secret store&lt;/a> or a &lt;a href="https://docs.dapr.io/en/reference/components-reference/supported-secret-stores/file-secret-store/">local file&lt;/a> to bootstrap secure key storage.
+&lt;/div>
+&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Field&lt;/th>
+&lt;th style="text-align:center">Required&lt;/th>
+&lt;th>Details&lt;/th>
+&lt;th>Example&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>type&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The type of the account.&lt;/td>
+&lt;td>&lt;code>&amp;quot;serviceAccount&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>project_id&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The project ID associated with this component.&lt;/td>
+&lt;td>&lt;code>&amp;quot;project_id&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>private_key_id&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The private key ID&lt;/td>
+&lt;td>&lt;code>&amp;quot;privatekey&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>client_email&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The client email address&lt;/td>
+&lt;td>&lt;code>&amp;quot;client@example.com&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>client_id&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The ID of the client&lt;/td>
+&lt;td>&lt;code>&amp;quot;11111111&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>auth_uri&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The authentication URI&lt;/td>
+&lt;td>&lt;code>&amp;quot;https://accounts.google.com/o/oauth2/auth&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>token_uri&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The authentication token URI&lt;/td>
+&lt;td>&lt;code>&amp;quot;https://oauth2.googleapis.com/token&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>auth_provider_x509_cert_url&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The certificate URL for the auth provider&lt;/td>
+&lt;td>&lt;code>&amp;quot;https://www.googleapis.com/oauth2/v1/certs&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>client_x509_cert_url&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The certificate URL for the client&lt;/td>
+&lt;td>&lt;code>&amp;quot;https://www.googleapis.com/robot/v1/metadata/x509/&amp;lt;project-name&amp;gt;.iam.gserviceaccount.com&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>private_key&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The private key for authentication&lt;/td>
+&lt;td>&lt;code>&amp;quot;privateKey&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="setup-gcp-secret-manager-instance">Setup GCP Secret Manager instance&lt;/h2>
+&lt;p>Setup GCP Secret Manager using the GCP documentation: &lt;a href="https://cloud.google.com/secret-manager/docs/quickstart">https://cloud.google.com/secret-manager/docs/quickstart&lt;/a>.&lt;/p>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/secrets/">Secrets building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/secrets/howto-secrets/">How-To: Retrieve a secret&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/component-secrets/">How-To: Reference secrets in Dapr components&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/reference/api/secrets_api/">Secrets API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Reference: HashiCorp Vault</title><link>https://docs.dapr.io/en/reference/components-reference/supported-secret-stores/hashicorp-vault/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/reference/components-reference/supported-secret-stores/hashicorp-vault/</guid><description>
+&lt;h2 id="create-the-vault-component">Create the Vault component&lt;/h2>
+&lt;p>To setup HashiCorp Vault secret store create a component of type &lt;code>secretstores.hashicorp.vault&lt;/code>. See &lt;a href="https://docs.dapr.io/en/operations/components/setup-secret-store/#apply-the-configuration">this guide&lt;/a> on how to create and apply a secretstore configuration. See this guide on &lt;a href="https://docs.dapr.io/en/operations/components/component-secrets/">referencing secrets&lt;/a> to retrieve and use the secret with Dapr components.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">vault&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">secretstores.hashicorp.vault&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">vaultAddr&lt;/span>
+&lt;span style="color:#f92672">value: [vault_address] # Optional. Default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;https://127.0.0.1:8200&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">caCert&lt;/span> &lt;span style="color:#75715e"># Optional. This or caPath or caPem&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[ca_cert]&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">caPath&lt;/span> &lt;span style="color:#75715e"># Optional. This or CaCert or caPem&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[path_to_ca_cert_file]&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">caPem&lt;/span> &lt;span style="color:#75715e"># Optional. This or CaCert or CaPath&lt;/span>
+&lt;span style="color:#f92672">value &lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[encoded_ca_cert_pem]&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name: skipVerify # Optional. Default&lt;/span>: &lt;span style="color:#66d9ef">false&lt;/span>
+&lt;span style="color:#f92672">value &lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[skip_tls_verification]&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">tlsServerName&lt;/span> &lt;span style="color:#75715e"># Optional.&lt;/span>
+&lt;span style="color:#f92672">value &lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[tls_config_server_name]&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">vaultTokenMountPath&lt;/span> &lt;span style="color:#75715e"># Required. Path to token file.&lt;/span>
+&lt;span style="color:#f92672">value &lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[path_to_file_containing_token]&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name: vaultKVPrefix # Optional. Default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;dapr&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">value &lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[vault_prefix]&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a local secret store such as &lt;a href="https://docs.dapr.io/en/reference/components-reference/supported-secret-stores/kubernetes-secret-store/">Kubernetes secret store&lt;/a> or a &lt;a href="https://docs.dapr.io/en/reference/components-reference/supported-secret-stores/file-secret-store/">local file&lt;/a> to bootstrap secure key storage.
+&lt;/div>
+&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Field&lt;/th>
+&lt;th style="text-align:center">Required&lt;/th>
+&lt;th>Details&lt;/th>
+&lt;th>Example&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>vaultAddr&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The address of the Vault server. Defaults to &lt;code>&amp;quot;https://127.0.0.1:8200&amp;quot;&lt;/code>&lt;/td>
+&lt;td>&lt;code>&amp;quot;https://127.0.0.1:8200&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>caCert&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Certificate Authority use only one of the options. The encoded cacerts to use&lt;/td>
+&lt;td>&lt;code>&amp;quot;cacerts&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>caPath&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Certificate Authority use only one of the options. The path to a CA cert file&lt;/td>
+&lt;td>&lt;code>&amp;quot;path/to/cacert/file&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>caPem&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Certificate Authority use only one of the options. The encoded cacert pem to use&lt;/td>
+&lt;td>&lt;code>&amp;quot;encodedpem&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>skipVerify&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Skip TLS verification. Defaults to &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
+&lt;td>&lt;code>&amp;quot;true&amp;quot;&lt;/code>, &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>tlsServerName&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>TLS config server name&lt;/td>
+&lt;td>&lt;code>&amp;quot;tls-server&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>vaultTokenMountPath&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>Path to file containing token&lt;/td>
+&lt;td>&lt;code>&amp;quot;path/to/file&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>vaultKVPrefix&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The prefix in vault. Defautls to &lt;code>&amp;quot;dapr&amp;quot;&lt;/code>&lt;/td>
+&lt;td>&lt;code>&amp;quot;dapr&amp;quot;&lt;/code>, &lt;code>&amp;quot;myprefix&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="setup-hashicorp-vault-instance">Setup Hashicorp Vault instance&lt;/h2>
+&lt;ul class="nav nav-tabs" id="tabs-3" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-3-self-hosted-tab" data-toggle="tab" href="#tabs-3-self-hosted" role="tab"
+aria-controls="tabs-3-self-hosted" aria-selected="true">
+Self-Hosted
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-3-kubernetes-tab" data-toggle="tab" href="#tabs-3-kubernetes" role="tab"
+aria-controls="tabs-3-kubernetes" aria-selected="false">
+Kubernetes
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-3-content">
+&lt;div class="tab-pane fade show active" id="tabs-3-self-hosted" role="tabpanel" aria-labelled-by="tabs-3-self-hosted-tab">
+&lt;br />&lt;p>Setup Hashicorp Vault using the Vault documentation: &lt;a href="https://www.vaultproject.io/docs/install/index.html">https://www.vaultproject.io/docs/install/index.html&lt;/a>.&lt;/p>
+&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-3-kubernetes" role="tabpanel" aria-labelled-by="tabs-3-kubernetes-tab">
+&lt;br />&lt;p>For Kubernetes, you can use the Helm Chart: &lt;a href="https://github.com/hashicorp/vault-helm">https://github.com/hashicorp/vault-helm&lt;/a>.&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/secrets/">Secrets building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/secrets/howto-secrets/">How-To: Retrieve a secret&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/component-secrets/">How-To: Reference secrets in Dapr components&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/reference/api/secrets_api/">Secrets API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Reference: Kubernetes secrets</title><link>https://docs.dapr.io/en/reference/components-reference/supported-secret-stores/kubernetes-secret-store/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/reference/components-reference/supported-secret-stores/kubernetes-secret-store/</guid><description>
+&lt;h2 id="summary">Summary&lt;/h2>
+&lt;p>Kubernetes has a built-in secrets store which Dapr components can use to retrieve secrets from. No special configuration is needed to setup the Kubernetes secrets store, and you are able to retrieve secrets from the &lt;code>http://localhost:3500/v1.0/secrets/kubernetes/[my-secret]&lt;/code> URL. See this guide on &lt;a href="https://docs.dapr.io/en/operations/components/component-secrets/">referencing secrets&lt;/a> to retrieve and use the secret with Dapr components.&lt;/p>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/secrets/">Secrets building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/secrets/howto-secrets/">How-To: Retrieve a secret&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/component-secrets/">How-To: Reference secrets in Dapr components&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/reference/api/secrets_api/">Secrets API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Reference: Local environment variables (for Development)</title><link>https://docs.dapr.io/en/reference/components-reference/supported-secret-stores/envvar-secret-store/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/reference/components-reference/supported-secret-stores/envvar-secret-store/</guid><description>
+&lt;p>This Dapr secret store component uses locally defined environment variable and does not use authentication.&lt;/p>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+This approach to secret management is not recommended for production environments.
+&lt;/div>
+&lt;h2 id="component-format">Component format&lt;/h2>
+&lt;p>To setup local environment variables secret store create a component of type &lt;code>secretstores.local.env&lt;/code>. Create a file with the following content in your &lt;code>./components&lt;/code> directory:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">envvar-secret-store&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">secretstores.local.env&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="related-links">Related Links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/secrets/">Secrets building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/secrets/howto-secrets/">How-To: Retreive a secret&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/component-secrets/">How-To: Reference secrets in Dapr components&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/reference/api/secrets_api/">Secrets API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Reference: Local file (for Development)</title><link>https://docs.dapr.io/en/reference/components-reference/supported-secret-stores/file-secret-store/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/reference/components-reference/supported-secret-stores/file-secret-store/</guid><description>
+&lt;p>This Dapr secret store component reads plain text JSON from a given file and does not use authentication.&lt;/p>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+This approach to secret management is not recommended for production environments.
+&lt;/div>
+&lt;h2 id="component-format">Component format&lt;/h2>
+&lt;p>To setup local file based secret store create a component of type &lt;code>secretstores.local.file&lt;/code>. Create a file with the following content in your &lt;code>./components&lt;/code> directory:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">local-secret-store&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">secretstores.local.file&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">secretsFile&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: [&lt;span style="color:#ae81ff">path to the JSON file]&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">nestedSeparator&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;:&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Field&lt;/th>
+&lt;th style="text-align:center">Required&lt;/th>
+&lt;th>Details&lt;/th>
+&lt;th>Example&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>secretsFile&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The path to the file where secrets are stored&lt;/td>
+&lt;td>&lt;code>&amp;quot;path/to/file.json&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>nestedSeparator&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Used by the store when flattening the JSON hierarchy to a map. Defaults to &lt;code>&amp;quot;:&amp;quot;&lt;/code>&lt;/td>
+&lt;td>&lt;code>&amp;quot;:&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="setup-json-file-to-hold-the-secrets">Setup JSON file to hold the secrets&lt;/h2>
+&lt;p>Given the following json:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;redisPassword&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;your redis password&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;connectionStrings&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;sql&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;your sql connection string&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;mysql&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;your mysql connection string&amp;#34;&lt;/span>
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The store will load the file and create a map with the following key value pairs:&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>flattened key&lt;/th>
+&lt;th>value&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&amp;ldquo;redis&amp;rdquo;&lt;/td>
+&lt;td>&amp;ldquo;your redis password&amp;rdquo;&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&amp;ldquo;connectionStrings:sql&amp;rdquo;&lt;/td>
+&lt;td>&amp;ldquo;your sql connection string&amp;rdquo;&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&amp;ldquo;connectionStrings:mysql&amp;rdquo;&lt;/td>
+&lt;td>&amp;ldquo;your mysql connection string&amp;rdquo;&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>Use the flattened key (&lt;code>connectionStrings:sql&lt;/code>) to access the secret.&lt;/p>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/secrets/">Secrets building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/secrets/howto-secrets/">How-To: Retrieve a secret&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/component-secrets/">How-To: Reference secrets in Dapr components&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/reference/api/secrets_api/">Secrets API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item></channel></rss>

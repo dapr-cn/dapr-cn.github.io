@@ -73,7 +73,7 @@
 &lt;li>试试 &lt;a href="https://github.com/dapr/quickstarts/tree/master/pub-sub">Pub/Sub 快速启动示例&lt;/a>&lt;/li>
 &lt;li>了解 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-scopes/">Topic 作用域&lt;/a>&lt;/li>
 &lt;li>了解 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-message-ttl/">消息存活时间（TTL）&lt;/a>&lt;/li>
-&lt;li>可用发布/订阅实现的完整列表 &lt;a href="https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/">在这&lt;/a>。&lt;/li>
+&lt;li>可用发布/订阅实现的完整列表 &lt;a href="https://docs.dapr.io/reference/components-reference/supported-pubsub/">在这&lt;/a>。&lt;/li>
 &lt;li>阅读 &lt;a href="https://docs.dapr.io/reference/api/pubsub_api/">API 引用&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Developing-Applications: 指南：发布消息并订阅主题</title><link>https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/</guid><description>
 &lt;h2 id="介绍">介绍&lt;/h2>
@@ -135,7 +135,7 @@ Kubernetes
 &lt;h2 id="步骤-2-订阅主题">步骤 2: 订阅主题&lt;/h2>
 &lt;p>Dapr 允许两种方法订阅主题：&lt;/p>
 &lt;ul>
-&lt;li>&lt;strong>声明&lt;/strong>，其中订阅是在外部文件中定义的。&lt;/li>
+&lt;li>&lt;strong>Declaratively&lt;/strong>, where subscriptions are defined in an external file.&lt;/li>
 &lt;li>&lt;strong>编程方式&lt;/strong>，订阅在用户代码中定义&lt;/li>
 &lt;/ul>
 &lt;div class="alert alert-primary" role="alert">
@@ -301,10 +301,10 @@ subscriptions &lt;span style="color:#f92672">=&lt;/span> [{&lt;span style="color
 &lt;span style="color:#66d9ef">print&lt;/span>(request&lt;span style="color:#f92672">.&lt;/span>json, flush&lt;span style="color:#f92672">=&lt;/span>True)
 &lt;span style="color:#66d9ef">return&lt;/span> json&lt;span style="color:#f92672">.&lt;/span>dumps({&lt;span style="color:#e6db74">&amp;#39;success&amp;#39;&lt;/span>:True}), &lt;span style="color:#ae81ff">200&lt;/span>, {&lt;span style="color:#e6db74">&amp;#39;ContentType&amp;#39;&lt;/span>:&lt;span style="color:#e6db74">&amp;#39;application/json&amp;#39;&lt;/span>}
 app&lt;span style="color:#f92672">.&lt;/span>run()
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>创建名为&amp;quot; &lt;code>app1.py&lt;/code> 的文件，并粘贴如下内容：&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>创建 &lt;code>app1.py&lt;/code> 后，确保 flask 和 flask_cors 已经安装了：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">pip install flask
 pip install flask_cors
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>创建 &lt;code>app1.py&lt;/code> 后，确保 flask 和 flask_cors 已经安装了：&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后运行:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr --app-id app1 --app-port &lt;span style="color:#ae81ff">5000&lt;/span> run python app1.py
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
 &lt;div class="tab-pane fade" id="tabs-4-node" role="tabpanel" aria-labelled-by="tabs-4-node-tab">
@@ -327,7 +327,7 @@ pip install flask_cors
 &lt;span style="color:#a6e22e">res&lt;/span>.&lt;span style="color:#a6e22e">sendStatus&lt;/span>(&lt;span style="color:#ae81ff">200&lt;/span>);
 });
 &lt;span style="color:#a6e22e">app&lt;/span>.&lt;span style="color:#a6e22e">listen&lt;/span>(&lt;span style="color:#a6e22e">port&lt;/span>, () =&amp;gt; &lt;span style="color:#a6e22e">console&lt;/span>.&lt;span style="color:#a6e22e">log&lt;/span>(&lt;span style="color:#e6db74">`consumer app listening on port &lt;/span>&lt;span style="color:#e6db74">${&lt;/span>&lt;span style="color:#a6e22e">port&lt;/span>&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74">!`&lt;/span>))
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>设置上述订阅后，将此 javascript（Node &amp;gt; 4.16）下载到 &lt;code>app2.js&lt;/code> 文件中：&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>运行此应用：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr --app-id app2 --app-port &lt;span style="color:#ae81ff">3000&lt;/span> run node app2.js
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
 &lt;div class="tab-pane fade" id="tabs-4-php" role="tabpanel" aria-labelled-by="tabs-4-php-tab">
@@ -347,7 +347,7 @@ $logger&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#
 }
 );
 $app&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">start&lt;/span>();
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>设置上述订阅后，将此 javascript（Node &amp;gt; 4.16）下载到 &lt;code>app2.js&lt;/code> 文件中：&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>运行此应用：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr --app-id app1 --app-port &lt;span style="color:#ae81ff">3000&lt;/span> run -- php -S 0.0.0.0:3000 app1.php
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
 &lt;/div>
@@ -463,7 +463,7 @@ $logger&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#
 &lt;/div>
 &lt;h2 id="发送自定义-cloudevent">发送自定义 CloudEvent&lt;/h2>
 &lt;p>Dapr 自动接收发布请求上发送的数据，并将其包装在CloudEvent 1.0 信封中。 如果您想使用自己自定义的 CloudEvent，请确保指定内容类型为 &lt;code>application/ cloudevents+json&lt;/code>。&lt;/p>
-&lt;p>在&lt;a href="#Content-Types">这里&lt;/a>查看内容类型的信息。&lt;/p>
+&lt;p>Read about content types &lt;a href="#content-types">here&lt;/a>, and about the &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-overview/#cloud-events-message-format">Cloud Events message format&lt;/a>.&lt;/p>
 &lt;h2 id="下一步">下一步&lt;/h2>
 &lt;ul>
 &lt;li>试试 &lt;a href="https://github.com/dapr/quickstarts/tree/master/pub-sub">Pub/Sub 快速启动示例&lt;/a>&lt;/li>
@@ -711,12 +711,12 @@ $logger&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#
 &lt;ul>
 &lt;li>您可以重写这个文件以使用另一个 Redis 实例或者另一个 &lt;a href="https://docs.dapr.io/operations/components/setup-pubsub/">pubsub component&lt;/a> ，通过创建 &lt;code>components&lt;/code> 文件夹（文件夹中包含重写的文件）并在 &lt;code>dapr run&lt;/code> 命令行界面使用 &lt;code>--components-path&lt;/code> 标志。&lt;/li>
 &lt;li>了解 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-message-ttl/">消息存活时间&lt;/a>&lt;/li>
-&lt;li>https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-pubsub/">Pub/Sub 组件列表&lt;/a>&lt;/li>
 &lt;li>阅读 &lt;a href="https://docs.dapr.io/reference/api/pubsub_api/">API 引用&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Developing-Applications: 消息生存时间</title><link>https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-message-ttl/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-message-ttl/</guid><description>
 &lt;h2 id="介绍">介绍&lt;/h2>
 &lt;p>Dapr 允许对每个消息设置生存时间(TTL)。 这意味着应用程序可以设置每条消息的生存时间，并且这些消息过期后订阅者不会收到。&lt;/p>
-&lt;p>所有 Dapr &lt;a href="https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/">Pub/Sub组件&lt;/a> 与消息 TTL 兼容，因为 Dapr 在运行时内处理 TTL 逻辑。 只需在发布消息时设置 &lt;code>ttlInseconds&lt;/code> 元数据。&lt;/p>
+&lt;p>所有 Dapr &lt;a href="https://docs.dapr.io/reference/components-reference/supported-pubsub/">Pub/Sub组件&lt;/a> 与消息 TTL 兼容，因为 Dapr 在运行时内处理 TTL 逻辑。 只需在发布消息时设置 &lt;code>ttlInseconds&lt;/code> 元数据。&lt;/p>
 &lt;p>在 Kafka 等组件中，可以通过&lt;a href="https://kafka.apache.org/documentation/#topicconfigs_retention.ms">文档中&lt;/a> &lt;code>retention.ms&lt;/code> 在主题配置 TTL。 在 Dapr 中使用 TTL 消息时，使用 Kafka 的应用程序现在除了每个主题外，还可以设定每条消息的 TTL。&lt;/p>
 &lt;h2 id="本机消息ttl支持">本机消息TTL支持&lt;/h2>
 &lt;p>当消息的 TTL 在 Pub/Sub 组件中得到本机支持时，Dapr 仅仅 TTL 的配置，不会增加任何额外的逻辑，保持可预见的行为。 当组件以不同方式处理过期消息时，这是很有帮助的。 例如，使用 Azure Service Bus 时，过期的消息存储在死信队列中，而不仅仅是删除。&lt;/p>
@@ -781,6 +781,6 @@ $publisher&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="colo
 &lt;ul>
 &lt;li>了解 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-scopes/">Topic 作用域&lt;/a>&lt;/li>
 &lt;li>您可以重写这个文件以使用另一个 Redis 实例或者另一个 &lt;a href="https://docs.dapr.io/operations/components/setup-pubsub/">pubsub component&lt;/a> ，通过创建 &lt;code>components&lt;/code> 文件夹（文件夹中包含重写的文件）并在 &lt;code>dapr run&lt;/code> 命令行界面使用 &lt;code>--components-path&lt;/code> 标志。&lt;/li>
-&lt;li>https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-pubsub/">Pub/Sub 组件列表&lt;/a>&lt;/li>
 &lt;li>阅读 &lt;a href="https://docs.dapr.io/reference/api/pubsub_api/">API 引用&lt;/a>&lt;/li>
 &lt;/ul></description></item></channel></rss>

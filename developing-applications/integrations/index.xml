@@ -50,11 +50,7 @@
 &lt;span style="color:#a6e22e">dapr&lt;/span> &lt;span style="color:#e6db74">&amp;#34;github.com/dapr/go-sdk/client&amp;#34;&lt;/span>
 )
 &lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
-&lt;li>
-&lt;ol start="2">
 &lt;li>创建客户端&lt;/li>
-&lt;/ol>
-&lt;/li>
 &lt;/ol>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#75715e">// just for this demo
 &lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#a6e22e">ctx&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">context&lt;/span>.&lt;span style="color:#a6e22e">Background&lt;/span>()
@@ -62,18 +58,18 @@
 &lt;span style="color:#75715e">// create the client
 &lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#a6e22e">client&lt;/span>, &lt;span style="color:#a6e22e">err&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">dapr&lt;/span>.&lt;span style="color:#a6e22e">NewClient&lt;/span>()
 &lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#a6e22e">err&lt;/span> &lt;span style="color:#f92672">!=&lt;/span> &lt;span style="color:#66d9ef">nil&lt;/span> {
-&lt;span style="color:#a6e22e">logger&lt;/span>.&lt;span style="color:#a6e22e">Panic&lt;/span>(&lt;span style="color:#a6e22e">err&lt;/span>)
+&lt;span style="color:#a6e22e">log&lt;/span>.&lt;span style="color:#a6e22e">Panic&lt;/span>(&lt;span style="color:#a6e22e">err&lt;/span>)
 }
 &lt;span style="color:#66d9ef">defer&lt;/span> &lt;span style="color:#a6e22e">client&lt;/span>.&lt;span style="color:#a6e22e">Close&lt;/span>()
 &lt;/code>&lt;/pre>&lt;/div>&lt;ol start="3">
 &lt;li>调用 &amp;quot; 保存状态 &amp;quot; 方法&lt;/li>
 &lt;/ol>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#75715e">// save state with the key key1
-&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#a6e22e">err&lt;/span> = &lt;span style="color:#a6e22e">client&lt;/span>.&lt;span style="color:#a6e22e">SaveStateData&lt;/span>(&lt;span style="color:#a6e22e">ctx&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;statestore&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;key1&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">data&lt;/span>)
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#a6e22e">err&lt;/span> = &lt;span style="color:#a6e22e">client&lt;/span>.&lt;span style="color:#a6e22e">SaveState&lt;/span>(&lt;span style="color:#a6e22e">ctx&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;statestore&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;key1&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">data&lt;/span>)
 &lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#a6e22e">err&lt;/span> &lt;span style="color:#f92672">!=&lt;/span> &lt;span style="color:#66d9ef">nil&lt;/span> {
-&lt;span style="color:#a6e22e">logger&lt;/span>.&lt;span style="color:#a6e22e">Panic&lt;/span>(&lt;span style="color:#a6e22e">err&lt;/span>)
+&lt;span style="color:#a6e22e">log&lt;/span>.&lt;span style="color:#a6e22e">Panic&lt;/span>(&lt;span style="color:#a6e22e">err&lt;/span>)
 }
-&lt;span style="color:#a6e22e">logger&lt;/span>.&lt;span style="color:#a6e22e">Println&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;data saved&amp;#34;&lt;/span>)
+&lt;span style="color:#a6e22e">log&lt;/span>.&lt;span style="color:#a6e22e">Println&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;data saved&amp;#34;&lt;/span>)
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>好耶!&lt;/p>
 &lt;p>现在你可以探索Dapr客户端上的所有不同方法。&lt;/p>
 &lt;h2 id="使用-dapr-创建-grpc-应用程序">使用 Dapr 创建 gRPC 应用程序&lt;/h2>
@@ -102,6 +98,7 @@
 &lt;/ol>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#75715e">// server is our user app
 &lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">type&lt;/span> &lt;span style="color:#a6e22e">server&lt;/span> &lt;span style="color:#66d9ef">struct&lt;/span> {
+&lt;span style="color:#a6e22e">pb&lt;/span>.&lt;span style="color:#a6e22e">UnimplementedAppCallbackServer&lt;/span>
 }
 &lt;span style="color:#75715e">// EchoMethod is a simple demo method to invoke
 &lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">func&lt;/span> (&lt;span style="color:#a6e22e">s&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">server&lt;/span>) &lt;span style="color:#a6e22e">EchoMethod&lt;/span>() &lt;span style="color:#66d9ef">string&lt;/span> {
@@ -142,9 +139,9 @@
 &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#f92672">&amp;amp;&lt;/span>&lt;span style="color:#a6e22e">pb&lt;/span>.&lt;span style="color:#a6e22e">BindingEventResponse&lt;/span>{}, &lt;span style="color:#66d9ef">nil&lt;/span>
 }
 &lt;span style="color:#75715e">// This method is fired whenever a message has been published to a topic that has been subscribed. Dapr sends published messages in a CloudEvents 0.3 envelope.
-&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">func&lt;/span> (&lt;span style="color:#a6e22e">s&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">server&lt;/span>) &lt;span style="color:#a6e22e">OnTopicEvent&lt;/span>(&lt;span style="color:#a6e22e">ctx&lt;/span> &lt;span style="color:#a6e22e">context&lt;/span>.&lt;span style="color:#a6e22e">Context&lt;/span>, &lt;span style="color:#a6e22e">in&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">pb&lt;/span>.&lt;span style="color:#a6e22e">TopicEventRequest&lt;/span>) (&lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">empty&lt;/span>.&lt;span style="color:#a6e22e">Empty&lt;/span>, &lt;span style="color:#66d9ef">error&lt;/span>) {
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">func&lt;/span> (&lt;span style="color:#a6e22e">s&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">server&lt;/span>) &lt;span style="color:#a6e22e">OnTopicEvent&lt;/span>(&lt;span style="color:#a6e22e">ctx&lt;/span> &lt;span style="color:#a6e22e">context&lt;/span>.&lt;span style="color:#a6e22e">Context&lt;/span>, &lt;span style="color:#a6e22e">in&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">pb&lt;/span>.&lt;span style="color:#a6e22e">TopicEventRequest&lt;/span>) (&lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">pb&lt;/span>.&lt;span style="color:#a6e22e">TopicEventResponse&lt;/span>, &lt;span style="color:#66d9ef">error&lt;/span>) {
 &lt;span style="color:#a6e22e">fmt&lt;/span>.&lt;span style="color:#a6e22e">Println&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;Topic message arrived&amp;#34;&lt;/span>)
-&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#f92672">&amp;amp;&lt;/span>&lt;span style="color:#a6e22e">empty&lt;/span>.&lt;span style="color:#a6e22e">Empty&lt;/span>{}, &lt;span style="color:#66d9ef">nil&lt;/span>
+&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#f92672">&amp;amp;&lt;/span>&lt;span style="color:#a6e22e">pb&lt;/span>.&lt;span style="color:#a6e22e">TopicEventResponse&lt;/span>{}, &lt;span style="color:#66d9ef">nil&lt;/span>
 }
 &lt;/code>&lt;/pre>&lt;/div>&lt;ol start="3">
 &lt;li>创建服务器&lt;/li>
@@ -180,7 +177,7 @@
 &lt;/ul></description></item><item><title>Developing-Applications: 使用KEDA对Dapr应用进行自动缩放</title><link>https://docs.dapr.io/developing-applications/integrations/autoscale-keda/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/integrations/autoscale-keda/</guid><description>
 &lt;p>Dapr采用模块化的构件方法，加上10多个不同的&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/">pub/sub组件&lt;/a>，简化了消息处理程序的编写工作。 由于Dapr可以在许多环境中运行（如虚拟机、裸机、云或边缘），因此Dapr应用的自动伸缩是由宿主管理的。&lt;/p>
 &lt;p>对于Kubernetes，Dapr集成了&lt;a href="https://github.com/kedacore/keda">KEDA&lt;/a>，这是一个用于Kubernetes的事件驱动的自动伸缩组件。 Dapr的许多pub/sub组件与&lt;a href="https://github.com/kedacore/keda">KEDA&lt;/a>提供的扩展器重叠，因此很容易在Kubernetes上配置Dapr的deployment，以使用KEDA根据背压自动扩展。&lt;/p>
-&lt;p>这篇文章中配置了一个可扩展的Dapr应用以及背压的Kafka主题，然而你也可以将这种方法应用到Dapr提供的&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/">pub/sub组件&lt;/a>中。&lt;/p>
+&lt;p>This how-to walks through the configuration of a scalable Dapr application along with the back pressure on Kafka topic, however you can apply this approach to any &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/">pub/sub components&lt;/a> offered by Dapr.&lt;/p>
 &lt;h2 id="安装keda">安装KEDA&lt;/h2>
 &lt;p>要安装KEDA，请遵循KEDA网站上的&lt;a href="https://keda.sh/docs/latest/deploy/">部署KEDA&lt;/a>说明。&lt;/p>
 &lt;h2 id="安装kafka可选">安装Kafka(可选)&lt;/h2>
@@ -268,4 +265,6 @@ kubectl wait -n kafka --for&lt;span style="color:#f92672">=&lt;/span>condition&l
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl apply -f kafka_scaler.yaml
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>全部完成！&lt;/p>
 &lt;p>现在，&lt;code>ScaledObject&lt;/code> KEDA对象已经配置好了，你的deployment将根据Kafka主题的延迟进行扩展。 更多关于为Kafka主题配置KEDA的信息可以在&lt;a href="https://keda.sh/docs/2.0/scalers/apache-kafka/">这里&lt;/a>获得。&lt;/p>
-&lt;p>现在你可以开始将消息发布到您的Kafka主题&lt;code>demo-topic&lt;/code>，当延迟阈值高于&lt;code>5&lt;/code>主题时，你可以看到pods开始自动缩放，正如我们在KEDA缩放器清单中定义的那样。 您可以通过使用Dapr &lt;a href="https://github.com/dapr/CLI#publishsubscribe">Publish&lt;/a> CLI命令将消息发布到Kafka Dapr组件。&lt;/p></description></item><item><title>Developing-Applications: 对服务进行身份验证</title><link>https://docs.dapr.io/developing-applications/integrations/authenticating/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/integrations/authenticating/</guid><description/></item></channel></rss>
+&lt;p>现在你可以开始将消息发布到您的Kafka主题&lt;code>demo-topic&lt;/code>，当延迟阈值高于&lt;code>5&lt;/code>主题时，你可以看到pods开始自动缩放，正如我们在KEDA缩放器清单中定义的那样。 You can publish messages to the Kafka Dapr component by using the Dapr &lt;a href="https://docs.dapr.io/reference/cli/dapr-publish/">Publish&lt;/a> CLI command&lt;/p></description></item><item><title>Developing-Applications: Dapr extension for Azure Functions runtime</title><link>https://docs.dapr.io/developing-applications/integrations/azure-functions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/integrations/azure-functions/</guid><description>
+&lt;p>Dapr 通过扩展与 Azure Functions 运行时集成，使函数可以与 Dapr 无缝交互。 Azure Functions 提供事件驱动的编程模型， 而 Dapr 提供了云原生的构建块。 通过此扩展，您可以为无服务器和事件驱动的应用程序同时提供两者。 更多信息请阅读 &lt;a href="https://cloudblogs.microsoft.com/opensource/2020/07/01/announcing-azure-functions-extension-for-dapr/">用于 Dapr 的 Azure Functions扩展&lt;/a> 并访问 &lt;a href="https://github.com/dapr/azure-functions-extension">Azure Functions 扩展&lt;/a> 仓库以试用示例。&lt;/p></description></item><item><title>Developing-Applications: Build workflows with Logic Apps</title><link>https://docs.dapr.io/developing-applications/integrations/workflows/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/integrations/workflows/</guid><description>
+&lt;p>要使开发者能够轻松构建使用 Dapr 能力的工作流应用程序，包括诊断和多语言支持，您可以使用 Dapr 工作流。 Dapr integrates with workflow engines such as Logic Apps runtime. For more information read &lt;a href="https://cloudblogs.microsoft.com/opensource/2020/05/26/announcing-cloud-native-workflows-dapr-logic-apps/">cloud-native workflows using Dapr and Logic Apps&lt;/a> and visit the &lt;a href="https://github.com/dapr/workflows">Dapr workflow&lt;/a> repo to try out the samples.&lt;/p></description></item><item><title>Developing-Applications: Integrations with cloud providers</title><link>https://docs.dapr.io/developing-applications/integrations/cloud-providers/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/integrations/cloud-providers/</guid><description/></item></channel></rss>

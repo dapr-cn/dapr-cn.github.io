@@ -1,10 +1,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – 常见追踪后端</title><link>https://docs.dapr.io/operations/monitoring/tracing/supported-tracing-backends/</link><description>Recent content in 常见追踪后端 on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/operations/monitoring/tracing/supported-tracing-backends/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: How-To: Set-up New Relic for distributed tracing</title><link>https://docs.dapr.io/operations/monitoring/tracing/supported-tracing-backends/newrelic/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/monitoring/tracing/supported-tracing-backends/newrelic/</guid><description>
-&lt;h2 id="前期准备">前期准备&lt;/h2>
+&lt;h2 id="先决条件">先决条件&lt;/h2>
 &lt;ul>
 &lt;li>Perpetually &lt;a href="https://newrelic.com/signup?ref=dapr">free New Relic account&lt;/a>, 100 GB/month of free data ingest, 1 free full access user, unlimited free basic users&lt;/li>
 &lt;/ul>
 &lt;h2 id="configure-dapr-tracing">Configure Dapr tracing&lt;/h2>
-&lt;p>Dapr natively captures metrics and traces that can be send directly to New Relic. The easiest way to export these is by configuring Dapr to send the traces to &lt;a href="https://docs.newrelic.com/docs/understand-dependencies/distributed-tracing/trace-api/report-zipkin-format-traces-trace-api#existing-zipkin">New Relic&amp;rsquo;s Trace API&lt;/a> using the Zipkin trace format.&lt;/p>
+&lt;p>Dapr natively captures metrics and traces that can be send directly to New Relic. The easiest way to export these is by configuring Dapr to send the traces to &lt;a href="https://docs.newrelic.com/docs/distributed-tracing/trace-api/report-zipkin-format-traces-trace-api/">New Relic&amp;rsquo;s Trace API&lt;/a> using the Zipkin trace format.&lt;/p>
 &lt;p>In order for the integration to send data to New Relic &lt;a href="https://newrelic.com/platform/telemetry-data-platform">Telemetry Data Platform&lt;/a>, you need a &lt;a href="https://docs.newrelic.com/docs/apis/get-started/intro-apis/types-new-relic-api-keys#insights-insert-key">New Relic Insights Insert API key&lt;/a>.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
@@ -16,7 +16,7 @@
 &lt;span style="color:#f92672">samplingRate&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span>
 &lt;span style="color:#f92672">zipkin&lt;/span>:
 &lt;span style="color:#f92672">endpointAddress&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;https://trace-api.newrelic.com/trace/v1?Api-Key=&amp;lt;NR-INSIGHTS-INSERT-API-KEY&amp;gt;&amp;amp;Data-Format=zipkin&amp;amp;Data-Format-Version=2&amp;#34;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="viewing-traces">Viewing Traces&lt;/h3>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="查看-traces">查看 Traces&lt;/h3>
 &lt;p>New Relic 分布式追踪概览 &lt;img src="https://docs.dapr.io/images/nr-distributed-tracing-overview.png" alt="New Relic Kubernetes Cluster Explorer App">&lt;/p>
 &lt;p>New Relic Distributed Tracing details &lt;img src="https://docs.dapr.io/images/nr-distributed-tracing-detail.png" alt="New Relic Kubernetes Cluster Explorer App">&lt;/p>
 &lt;h2 id="optional-new-relic-instrumentation">(optional) New Relic Instrumentation&lt;/h2>
@@ -58,8 +58,7 @@
 &lt;li>&lt;a href="https://newrelic.com/signup">New Relic Account Signup&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://newrelic.com/platform/telemetry-data-platform">Telemetry Data Platform&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.newrelic.com/docs/understand-dependencies/distributed-tracing/get-started/introduction-distributed-tracing">Distributed Tracing&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.newrelic.com/docs/understand-dependencies/distributed-tracing/trace-api">New Relic Trace API&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.newrelic.com/docs/telemetry-data-platform/get-data/apis/introduction-metric-api">New Relic Metric API&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.newrelic.com/docs/distributed-tracing/trace-api/introduction-trace-api/">New Relic Trace API&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.newrelic.com/docs/apis/get-started/intro-apis/types-new-relic-api-keys">Types of New Relic API keys&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://blog.newrelic.com/product-news/opentelemetry-user-experience/">New Relic OpenTelemetry User Experience&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.newrelic.com/docs/alerts-applied-intelligence">Alerts and Applied Intelligence&lt;/a>&lt;/li>
@@ -87,14 +86,14 @@
 &lt;span style="color:#f92672">samplingRate&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span>
 &lt;span style="color:#f92672">zipkin&lt;/span>:
 &lt;span style="color:#f92672">endpointAddress&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;http://localhost:9412/api/v2/spans&amp;#34;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>To launch the application referring to the new YAML file, you can use &lt;code>--config&lt;/code> option:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>要启动指向新的 YAML 文件的应用程序，您可以使用 &lt;code>--config&lt;/code> 选项：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr run --app-id mynode --app-port &lt;span style="color:#ae81ff">3000&lt;/span> node app.js --config config.yaml
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="viewing-traces">Viewing Traces&lt;/h3>
-&lt;p>To view traces, in your browser go to http://localhost:16686 and you will see the Jaeger UI.&lt;/p>
-&lt;h2 id="configure-kubernetes">Configure Kubernetes&lt;/h2>
-&lt;p>The following steps shows you how to configure Dapr to send distributed tracing data to Jaeger running as a container in your Kubernetes cluster, how to view them.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="查看-traces">查看 Traces&lt;/h3>
+&lt;p>要查看 traces，在您的浏览器中请访问 http://localhost:16686，您会看到Jaeger UI。&lt;/p>
+&lt;h2 id="配置-kubernetes">配置 Kubernetes&lt;/h2>
+&lt;p>以下步骤可向您展示如何配置 Dapr 将分布式跟踪数据发送给 Jaeger，该数据作为 Dapr 中的容器运行，以及如何查看它们。&lt;/p>
 &lt;h3 id="设置-1">设置&lt;/h3>
-&lt;p>First create the following YAML file to install Jaeger&lt;/p>
+&lt;p>首先创建下面的 YAML 文件来安装Jaeger&lt;/p>
 &lt;ul>
 &lt;li>jaeger-operator.yaml&lt;/li>
 &lt;/ul>
@@ -111,14 +110,14 @@
 &lt;span style="color:#f92672">options&lt;/span>:
 &lt;span style="color:#f92672">query&lt;/span>:
 &lt;span style="color:#f92672">base-path&lt;/span>: &lt;span style="color:#ae81ff">/jaeger&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Now, use the above YAML file to install Jaeger&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>现在，使用上面的 YAML 文件安装 Jaeger&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#75715e"># Install Jaeger&lt;/span>
 helm repo add jaegertracing https://jaegertracing.github.io/helm-charts
 helm install jaeger-operator jaegertracing/jaeger-operator
 kubectl apply -f jaeger-operator.yaml
 &lt;span style="color:#75715e"># Wait for Jaeger to be up and running&lt;/span>
 kubectl wait deploy --selector app.kubernetes.io/name&lt;span style="color:#f92672">=&lt;/span>jaeger --for&lt;span style="color:#f92672">=&lt;/span>condition&lt;span style="color:#f92672">=&lt;/span>available
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Next, create the following YAML file locally:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>接下来，在本地创建以下YAML文件：&lt;/p>
 &lt;ul>
 &lt;li>&lt;strong>tracing.yaml&lt;/strong>&lt;/li>
 &lt;/ul>
@@ -132,20 +131,20 @@ kubectl wait deploy --selector app.kubernetes.io/name&lt;span style="color:#f926
 &lt;span style="color:#f92672">samplingRate&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span>
 &lt;span style="color:#f92672">zipkin&lt;/span>:
 &lt;span style="color:#f92672">endpointAddress&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;http://jaeger-collector.default.svc.cluster.local:9411/api/v2/spans&amp;#34;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Finally, deploy the the Dapr component and configuration files:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>最后，部署Dapr组件和配置文件：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl apply -f tracing.yaml
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>In order to enable this configuration for your Dapr sidecar, add the following annotation to your pod spec template:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>为了启用您的 Dapr sidecar 的配置，请在您的pod spec模板中添加以下注释：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yml" data-lang="yml">&lt;span style="color:#f92672">annotations&lt;/span>:
 &lt;span style="color:#f92672">dapr.io/config&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;tracing&amp;#34;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>That&amp;rsquo;s it! Your Dapr sidecar is now configured for use with Jaeger.&lt;/p>
-&lt;h3 id="viewing-tracing-data">Viewing Tracing Data&lt;/h3>
-&lt;p>To view traces, connect to the Jaeger Service and open the UI:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>就这么简单！ 您的 Dapr sidecar 现已配置为Jaeger使用。&lt;/p>
+&lt;h3 id="查看追踪数据">查看追踪数据&lt;/h3>
+&lt;p>要查看 traces 数据，请连接到Jaeger服务并打开 UI：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl port-forward svc/jaeger-query &lt;span style="color:#ae81ff">16686&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>In your browser, go to &lt;code>http://localhost:16686&lt;/code> and you will see the Jaeger UI.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>在您的浏览器中，转到 &lt;code>http://localhost:16686&lt;/code> 并会看到Jaeger UI。&lt;/p>
 &lt;p>&lt;img src="https://docs.dapr.io/images/jaeger_ui.png" alt="jaeger">&lt;/p>
 &lt;h2 id="参考资料">参考资料&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://www.jaegertracing.io/docs/1.21/getting-started/#all-in-one">Jaeger Getting Started&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.jaegertracing.io/docs/1.21/getting-started/#all-in-one">Jaeger 快速入门&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/observability/w3c-tracing/">W3C 分布式跟踪&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: 操作方法: 为分布式跟踪安装 Zipkin</title><link>https://docs.dapr.io/operations/monitoring/tracing/supported-tracing-backends/zipkin/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/monitoring/tracing/supported-tracing-backends/zipkin/</guid><description>
 &lt;h2 id="配置自托管模式">配置自托管模式&lt;/h2>
@@ -175,16 +174,16 @@ kubectl wait deploy --selector app.kubernetes.io/name&lt;span style="color:#f926
 &lt;li>The applications launched with &lt;code>dapr run&lt;/code> by default reference the config file in &lt;code>$HOME/.dapr/config.yaml&lt;/code> or &lt;code>%USERPROFILE%\.dapr\config.yaml&lt;/code> and can be overridden with the Dapr CLI using the &lt;code>--config&lt;/code> param:&lt;/li>
 &lt;/ol>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr run --app-id mynode --app-port &lt;span style="color:#ae81ff">3000&lt;/span> node app.js
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="viewing-traces">Viewing Traces&lt;/h3>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="查看-traces">查看 Traces&lt;/h3>
 &lt;p>To view traces, in your browser go to http://localhost:9411 and you will see the Zipkin UI.&lt;/p>
-&lt;h2 id="configure-kubernetes">Configure Kubernetes&lt;/h2>
+&lt;h2 id="配置-kubernetes">配置 Kubernetes&lt;/h2>
 &lt;p>The following steps shows you how to configure Dapr to send distributed tracing data to Zipkin running as a container in your Kubernetes cluster, and how to view them.&lt;/p>
 &lt;h3 id="设置">设置&lt;/h3>
 &lt;p>First, deploy Zipkin:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl create deployment zipkin --image openzipkin/zipkin
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>Create a Kubernetes service for the Zipkin pod:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl expose deployment zipkin --type ClusterIP --port &lt;span style="color:#ae81ff">9411&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Next, create the following YAML file locally:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>接下来，在本地创建以下YAML文件：&lt;/p>
 &lt;ul>
 &lt;li>tracing.yaml configuration&lt;/li>
 &lt;/ul>
@@ -200,11 +199,11 @@ kubectl wait deploy --selector app.kubernetes.io/name&lt;span style="color:#f926
 &lt;span style="color:#f92672">endpointAddress&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;http://zipkin.default.svc.cluster.local:9411/api/v2/spans&amp;#34;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>Now, deploy the the Dapr configuration file:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl apply -f tracing.yaml
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>In order to enable this configuration for your Dapr sidecar, add the following annotation to your pod spec template:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>为了启用您的 Dapr sidecar 的配置，请在您的pod spec模板中添加以下注释：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yml" data-lang="yml">&lt;span style="color:#f92672">annotations&lt;/span>:
 &lt;span style="color:#f92672">dapr.io/config&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;tracing&amp;#34;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>That&amp;rsquo;s it! Your sidecar is now configured to send traces to Zipkin.&lt;/p>
-&lt;h3 id="viewing-tracing-data">Viewing Tracing Data&lt;/h3>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>就这么简单！ Your sidecar is now configured to send traces to Zipkin.&lt;/p>
+&lt;h3 id="查看追踪数据">查看追踪数据&lt;/h3>
 &lt;p>To view traces, connect to the Zipkin service and open the UI:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl port-forward svc/zipkin 9411:9411
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>In your browser, go to &lt;code>http://localhost:9411&lt;/code> and you will see the Zipkin UI.&lt;/p>

@@ -65,7 +65,7 @@ helm install &lt;span style="color:#ae81ff">\
 &lt;/code>&lt;/pre>&lt;p>Replace the &lt;code>ca.crt&lt;/code>, &lt;code>issuer.crt&lt;/code> and &lt;code>issuer.key&lt;/code> keys in the Kubernetes secret with their corresponding values from the new certificates. &lt;em>&lt;strong>Note: The values must be base64 encoded&lt;/strong>&lt;/em>&lt;/p>
 &lt;p>If you signed the new cert root with a different private key, restart all Dapr-enabled pods. The recommended way to do this is to perform a rollout restart of your deployment:&lt;/p>
 &lt;pre>&lt;code>kubectl rollout restart deploy/myapp
-&lt;/code>&lt;/pre>&lt;h2 id="self-hosted">Self-hosted&lt;/h2>
+&lt;/code>&lt;/pre>&lt;h2 id="自托管">自托管&lt;/h2>
 &lt;h3 id="running-sentry-system-service">Running Sentry system service&lt;/h3>
 &lt;p>In order to run Sentry, you can either build from source, or download a release binary from &lt;a href="https://github.com/dapr/dapr/releases">here&lt;/a>.&lt;/p>
 &lt;p>When building from source, please refer to &lt;a href="https://github.com/dapr/dapr/blob/master/docs/development/developing-dapr.md#build-the-dapr-binaries">this&lt;/a> guide on how to build Dapr.&lt;/p>
@@ -142,7 +142,7 @@ helm install &lt;span style="color:#ae81ff">\
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>Server&lt;/th>
+&lt;th>服务器&lt;/th>
 &lt;th>Authorization URL&lt;/th>
 &lt;th>Token URL&lt;/th>
 &lt;/tr>
@@ -297,7 +297,7 @@ helm install &lt;span style="color:#ae81ff">\
 &lt;/blockquote>
 &lt;h2 id="configure-api-token-authentication-in-dapr">Configure API token authentication in Dapr&lt;/h2>
 &lt;p>The token authentication configuration is slightly different for either Kubernetes or self-hosted Dapr deployments:&lt;/p>
-&lt;h3 id="self-hosted">Self-hosted&lt;/h3>
+&lt;h3 id="自托管">自托管&lt;/h3>
 &lt;p>In self-hosting scenario, Dapr looks for the presence of &lt;code>DAPR_API_TOKEN&lt;/code> environment variable. If that environment variable is set while &lt;code>daprd&lt;/code> process launches, Dapr will enforce authentication on its public APIs:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">export DAPR_API_TOKEN&lt;span style="color:#f92672">=&lt;/span>&amp;lt;token&amp;gt;
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>To rotate the configured token, simply set the &lt;code>DAPR_API_TOKEN&lt;/code> environment variable to the new value and restart the &lt;code>daprd&lt;/code> process.&lt;/p>
@@ -313,7 +313,7 @@ helm install &lt;span style="color:#ae81ff">\
 &lt;span style="color:#f92672">dapr.io/api-token-secret&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;dapr-api-token&amp;#34;&lt;/span> &lt;span style="color:#75715e"># name of the Kubernetes secret&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>When deployed, Dapr sidecar injector will automatically create a secret reference and inject the actual value into &lt;code>DAPR_API_TOKEN&lt;/code> environment variable.&lt;/p>
 &lt;h2 id="rotate-a-token">Rotate a token&lt;/h2>
-&lt;h3 id="self-hosted-1">Self-hosted&lt;/h3>
+&lt;h3 id="自托管-1">自托管&lt;/h3>
 &lt;p>To rotate the configured token in self-hosted, simply set the &lt;code>DAPR_API_TOKEN&lt;/code> environment variable to the new value and restart the &lt;code>daprd&lt;/code> process.&lt;/p>
 &lt;h3 id="kubernetes-1">Kubernetes&lt;/h3>
 &lt;p>To rotate the configured token in Kubernates, update the previously created secret with the new token in each namespace. You can do that using &lt;code>kubectl patch&lt;/code> command, but the easiest way to update these in each namespace is by using manifest:&lt;/p>
@@ -348,7 +348,7 @@ image: myregistry/myapp
 envFrom:
 - secretRef:
 name: dapr-api-token
-&lt;/code>&lt;/pre>&lt;h3 id="self-hosted-2">Self-hosted&lt;/h3>
+&lt;/code>&lt;/pre>&lt;h3 id="自托管-2">自托管&lt;/h3>
 &lt;p>In self-hosted mode, you can set the token as an environment variable for your app:&lt;/p>
 &lt;pre>&lt;code>export DAPR_API_TOKEN=&amp;lt;my-dapr-token&amp;gt;
 &lt;/code>&lt;/pre>&lt;h2 id="相关链接">相关链接&lt;/h2>
@@ -368,7 +368,7 @@ name: dapr-api-token
 &lt;/blockquote>
 &lt;h2 id="configure-app-api-token-authentication-in-dapr">Configure app API token authentication in Dapr&lt;/h2>
 &lt;p>The token authentication configuration is slightly different for either Kubernetes or self-hosted Dapr deployments:&lt;/p>
-&lt;h3 id="self-hosted">Self-hosted&lt;/h3>
+&lt;h3 id="自托管">自托管&lt;/h3>
 &lt;p>In self-hosting scenario, Dapr looks for the presence of &lt;code>APP_API_TOKEN&lt;/code> environment variable. If that environment variable is set while &lt;code>daprd&lt;/code> process launches, Dapr includes the token when calling an app:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">export APP_API_TOKEN&lt;span style="color:#f92672">=&lt;/span>&amp;lt;token&amp;gt;
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>To rotate the configured token, simply set the &lt;code>APP_API_TOKEN&lt;/code> environment variable to the new value and restart the &lt;code>daprd&lt;/code> process.&lt;/p>
@@ -384,7 +384,7 @@ name: dapr-api-token
 &lt;span style="color:#f92672">dapr.io/app-token-secret&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;app-api-token&amp;#34;&lt;/span> &lt;span style="color:#75715e"># name of the Kubernetes secret&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>When deployed, the Dapr Sidecar Injector automatically creates a secret reference and injects the actual value into &lt;code>APP_API_TOKEN&lt;/code> environment variable.&lt;/p>
 &lt;h2 id="rotate-a-token">Rotate a token&lt;/h2>
-&lt;h3 id="self-hosted-1">Self-hosted&lt;/h3>
+&lt;h3 id="自托管-1">自托管&lt;/h3>
 &lt;p>To rotate the configured token in self-hosted, simply set the &lt;code>APP_API_TOKEN&lt;/code> environment variable to the new value and restart the &lt;code>daprd&lt;/code> process.&lt;/p>
 &lt;h3 id="kubernetes-1">Kubernetes&lt;/h3>
 &lt;p>To rotate the configured token in Kubernates, update the previously created secret with the new token in each namespace. You can do that using &lt;code>kubectl patch&lt;/code> command, but the easiest way to update these in each namespace is by using manifest:&lt;/p>
@@ -419,7 +419,7 @@ image: myregistry/myapp
 envFrom:
 - secretRef:
 name: app-api-token
-&lt;/code>&lt;/pre>&lt;h3 id="self-hosted-2">Self-hosted&lt;/h3>
+&lt;/code>&lt;/pre>&lt;h3 id="自托管-2">自托管&lt;/h3>
 &lt;p>In self-hosted mode, you can set the token as an environment variable for your app:&lt;/p>
 &lt;pre>&lt;code>export APP_API_TOKEN=&amp;lt;my-app-token&amp;gt;
 &lt;/code>&lt;/pre>&lt;h2 id="相关链接">相关链接&lt;/h2>

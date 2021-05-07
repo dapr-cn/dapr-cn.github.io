@@ -1,0 +1,33 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Integrations with cloud providers</title><link>https://docs.dapr.io/developing-applications/integrations/cloud-providers/</link><description>Recent content in Integrations with cloud providers on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/developing-applications/integrations/cloud-providers/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: AWS认证</title><link>https://docs.dapr.io/developing-applications/integrations/cloud-providers/authenticating-aws/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/integrations/cloud-providers/authenticating-aws/</guid><description>
+&lt;p>所有使用AWS服务(如DynamoDB、SQS、S3等) 的Dapr组件都使用一套标准化的属性进行配置，这些属性描述如下。&lt;/p>
+&lt;p>&lt;a href="https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/configuring-sdk.html#specifying-credentials">这篇文章&lt;/a>提供了关于（Dapr 使用的） AWS SDK如何处理证书的概述&lt;/p>
+&lt;p>以下属性都不是必需的，因为AWS SDK可以使用上面链接中描述的默认供应链进行配置。 测试组件配置并检查Dapr运行时的日志输出以确保组件正确初始化是很重要的。&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>region&lt;/code>。要连接到哪个AWS区域。 在某些情况下(例如在自托管模式下运行Dapr时)，这个标志可以由环境变量&lt;code>AWS_REGION&lt;/code>提供。 Since Dapr sidecar injection doesn&amp;rsquo;t allow configuring environment variables on the Dapr sidecar, it is recommended to always set the &lt;code>region&lt;/code> attribute in the component spec.&lt;/li>
+&lt;li>&lt;code>endpoint&lt;/code>: The endpoint is normally handled internally by the AWS SDK. However, in some situations it might make sense to set it locally - for example if developing against &lt;a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html">DynamoDB Local&lt;/a>.&lt;/li>
+&lt;li>&lt;code>accessKey&lt;/code>: AWS Access key id.&lt;/li>
+&lt;li>&lt;code>secretKey&lt;/code>: AWS Secret access key. Use together with &lt;code>accessKey&lt;/code> to explicitly specify credentials.&lt;/li>
+&lt;li>&lt;code>sessionToken&lt;/code>: AWS Session token. 与&lt;code>accessKey&lt;/code>和&lt;code>secretKey&lt;/code>一起使用。 当使用普通IAM用户的 access key和密钥时，通常不需要session token。&lt;/li>
+&lt;/ul>
+&lt;h2 id="在组件清单文件中明确指定凭证的替代方法">在组件清单文件中明确指定凭证的替代方法&lt;/h2>
+&lt;p>在生产场景中，建议使用&lt;a href="https://github.com/uswitch/kiam">Kiam&lt;/a>或&lt;a href="https://github.com/jtblin/kube2iam">Kube2iam&lt;/a>等解决方案。 如果在 AWS EKS 上运行，你可以 &lt;a href="https://docs.aws.amazon.com/eks/latest/userguide/create-service-account-iam-policy-and-role.html">将 IAM 角色链接到 Kubernetes 服务帐户&lt;/a>，你的 pod 可以使用该帐户。&lt;/p>
+&lt;p>所有这些解决方案都解决了同样的问题：它们允许Dapr运行时进程（或sidecar）动态地重新获取凭证，因此不需要显式凭证。 这样做有几个好处，比如自动轮换访问密钥，避免必须管理密钥。&lt;/p>
+&lt;p>Kiam和Kube2IAM都是通过拦截对&lt;a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-service.html">实例元数据服务&lt;/a>的调用来工作的。&lt;/p>
+&lt;h2 id="在aws-ec2上以单机模式运行时使用实例角色配置文件">在AWS EC2上以单机模式运行时使用实例角色/配置文件&lt;/h2>
+&lt;p>如果直接在AWS EC2实例上以单机模式运行Dapr，可以使用实例配置文件。 只需配置一个iam角色并&lt;a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2_instance-profiles.html">将其附加到ec2实例的实例配置文件&lt;/a>中，Dapr就能对AWS进行身份验证，而无需在Dapr组件清单中指定证书。&lt;/p>
+&lt;h2 id="以单机模式在本地运行dapr时验证到aws">以单机模式在本地运行dapr时验证到AWS&lt;/h2>
+&lt;p>当在单机模式下运行Dapr（或直接运行Dapr时）时，你可以选择像这样在进程中注入环境变量（在Linux/MacOS上)。&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">FOO&lt;span style="color:#f92672">=&lt;/span>bar daprd --app-id myapp
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果你在本地有&lt;a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html">配置的名为AWS的配置文件&lt;/a>，您可以通过指定 &amp;ldquo;AWS_PROFILE &amp;ldquo;环境变量来告诉Dapr（或Dapr运行时）要使用哪个配置文件：&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">AWS_PROFILE&lt;span style="color:#f92672">=&lt;/span>myprofile dapr run...
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>or&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">AWS_PROFILE&lt;span style="color:#f92672">=&lt;/span>myprofile daprd...
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>你可以使用任何&lt;a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html#envvars-list">支持的环境变量&lt;/a>以这种方式配置Dapr。&lt;/p>
+&lt;p>在Windows上，需要在启动&lt;code>dapr&lt;/code>或&lt;code>daprd&lt;/code>命令之前设置环境变量，不支持如上图所示的内联操作。&lt;/p>
+&lt;h2 id="使用基于-aws-sso-的配置文件时验证到aws">使用基于 AWS SSO 的配置文件时验证到AWS&lt;/h2>
+&lt;p>如果你使用 &lt;a href="https://aws.amazon.com/single-sign-on/">AWS SSO&lt;/a>进行身份验证，一些 AWS SDK（包括 Go SDK）还不支持此功能。 你可以使用一些实用程序来 &amp;ldquo;桥接 &amp;ldquo;基于 AWS SSO 的凭证和 &amp;ldquo;传统 &amp;ldquo;凭证，例如 &lt;a href="https://pypi.org/project/awshelper/">AwsHelper&lt;/a> 或 &lt;a href="https://github.com/benkehoe/aws-sso-util">aws-sso-util&lt;/a>。&lt;/p>
+&lt;p>如果使用AwsHelper，可以这样启动Dapr:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">AWS_PROFILE&lt;span style="color:#f92672">=&lt;/span>myprofile awshelper dapr run...
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>or&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">AWS_PROFILE&lt;span style="color:#f92672">=&lt;/span>myprofile awshelper daprd...
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>在Windows上，环境变量需要在启动&lt;code>awshelper&lt;/code>命令之前进行设置，不支持如上所示的内联操作。&lt;/p></description></item></channel></rss>

@@ -1,0 +1,2130 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr Docs – State store component specs</title><link>https://docs.dapr.io/en/reference/components-reference/supported-state-stores/</link><description>Recent content in State store component specs on Dapr Docs</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/en/reference/components-reference/supported-state-stores/index.xml" rel="self" type="application/rss+xml"/><item><title>Reference: Aerospike</title><link>https://docs.dapr.io/en/reference/components-reference/supported-state-stores/setup-aerospike/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/reference/components-reference/supported-state-stores/setup-aerospike/</guid><description>
+&lt;h2 id="component-format">Component format&lt;/h2>
+&lt;p>To setup Aerospike state store create a component of type &lt;code>state.Aerospike&lt;/code>. See &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">state.Aerospike&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">hosts&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-HOSTS&amp;gt; # Required. A comma delimited string of hosts. Example&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;aerospike:3000,aerospike2:3000&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">namespace&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-NAMESPACE&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Required. The aerospike namespace.&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">set&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-SET&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/en/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Field&lt;/th>
+&lt;th style="text-align:center">Required&lt;/th>
+&lt;th>Details&lt;/th>
+&lt;th>Example&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>hosts&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>Host name/port of database server&lt;/td>
+&lt;td>&lt;code>&amp;quot;localhost:3000&amp;quot;&lt;/code>, &lt;code>&amp;quot;aerospike:3000,aerospike2:3000&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>namespace&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The Aerospike namespace&lt;/td>
+&lt;td>&lt;code>&amp;quot;namespace&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>set&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The setName in the database&lt;/td>
+&lt;td>&lt;code>&amp;quot;myset&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="setup-aerospike">Setup Aerospike&lt;/h2>
+&lt;ul class="nav nav-tabs" id="tabs-2" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-2-self-hosted-tab" data-toggle="tab" href="#tabs-2-self-hosted" role="tab"
+aria-controls="tabs-2-self-hosted" aria-selected="true">
+Self-Hosted
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-2-kubernetes-tab" data-toggle="tab" href="#tabs-2-kubernetes" role="tab"
+aria-controls="tabs-2-kubernetes" aria-selected="false">
+Kubernetes
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-2-content">
+&lt;div class="tab-pane fade show active" id="tabs-2-self-hosted" role="tabpanel" aria-labelled-by="tabs-2-self-hosted-tab">
+&lt;br />&lt;p>You can run Aerospike locally using Docker:&lt;/p>
+&lt;pre>&lt;code>docker run -d --name aerospike -p 3000:3000 -p 3001:3001 -p 3002:3002 -p 3003:3003 aerospike
+&lt;/code>&lt;/pre>&lt;p>You can then interact with the server using &lt;code>localhost:3000&lt;/code>.&lt;/p>
+&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-2-kubernetes" role="tabpanel" aria-labelled-by="tabs-2-kubernetes-tab">
+&lt;br />&lt;p>The easiest way to install Aerospike on Kubernetes is by using the &lt;a href="https://github.com/helm/charts/tree/master/stable/aerospike">Helm chart&lt;/a>:&lt;/p>
+&lt;pre>&lt;code>helm repo add incubator http://storage.googleapis.com/kubernetes-charts-incubator
+helm install --name my-aerospike --namespace aerospike stable/aerospike
+&lt;/code>&lt;/pre>&lt;p>This installs Aerospike into the &lt;code>aerospike&lt;/code> namespace.
+To interact with Aerospike, find the service with: &lt;code>kubectl get svc aerospike -n aerospike&lt;/code>.&lt;/p>
+&lt;p>For example, if installing using the example above, the Aerospike host address would be:&lt;/p>
+&lt;p>&lt;code>aerospike-my-aerospike.aerospike.svc.cluster.local:3000&lt;/code>&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Reference: AWS DynamoDB</title><link>https://docs.dapr.io/en/reference/components-reference/supported-state-stores/setup-dynamodb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/reference/components-reference/supported-state-stores/setup-dynamodb/</guid><description>
+&lt;h2 id="component-format">Component format&lt;/h2>
+&lt;p>To setup a DynamoDB state store create a component of type &lt;code>state.aws.dynamodb&lt;/code>. See &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">state.aws.dynamodb&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">table&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;mytable&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">accessKey&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;abcd&amp;#34;&lt;/span> &lt;span style="color:#75715e"># Optional&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">secretKey&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;abcd&amp;#34;&lt;/span> &lt;span style="color:#75715e"># Optional&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">endpoint&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;http://localhost:8080&amp;#34;&lt;/span> &lt;span style="color:#75715e"># Optional&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">region &lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;eu-west-1&amp;#34;&lt;/span> &lt;span style="color:#75715e"># Optional&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">sessionToken&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;abcd&amp;#34;&lt;/span> &lt;span style="color:#75715e"># Optional&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/en/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Field&lt;/th>
+&lt;th style="text-align:center">Required&lt;/th>
+&lt;th>Details&lt;/th>
+&lt;th>Example&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>table&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>name of the DynamoDB table to use&lt;/td>
+&lt;td>&lt;code>&amp;quot;mytable&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>accessKey&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>ID of the AWS account with appropriate permissions to SNS and SQS. Can be &lt;code>secretKeyRef&lt;/code> to use a secret reference&lt;/td>
+&lt;td>&lt;code>&amp;quot;AKIAIOSFODNN7EXAMPLE&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>secretKey&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Secret for the AWS user. Can be &lt;code>secretKeyRef&lt;/code> to use a secret reference&lt;/td>
+&lt;td>&lt;code>&amp;quot;wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>region&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The AWS region to the instance. See this page for valid regions: &lt;a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html">https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html&lt;/a>. Ensure that DynamoDB are available in that region.&lt;/td>
+&lt;td>&lt;code>&amp;quot;us-east-1&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>endpoint&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>AWS endpoint for the component to use. Only used for local development. The &lt;code>endpoint&lt;/code> is unncessary when running against production AWS&lt;/td>
+&lt;td>&lt;code>&amp;quot;http://localhost:4566&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>sessionToken&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>AWS session token to use. A session token is only required if you are using temporary security credentials.&lt;/td>
+&lt;td>&lt;code>&amp;quot;TOKEN&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="setup-aws-dynamodb">Setup AWS DynamoDB&lt;/h2>
+&lt;p>See &lt;a href="https://docs.dapr.io/en/developing-applications/integrations/cloud-providers/authenticating-aws/">Authenticating to AWS&lt;/a> for information about authentication-related attributes&lt;/p>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/integrations/cloud-providers/authenticating-aws/">Authenticating to AWS&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Reference: Azure Blob Storage</title><link>https://docs.dapr.io/en/reference/components-reference/supported-state-stores/setup-azure-blobstorage/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/reference/components-reference/supported-state-stores/setup-azure-blobstorage/</guid><description>
+&lt;h2 id="component-format">Component format&lt;/h2>
+&lt;p>To setup Azure Blobstorage state store create a component of type &lt;code>state.azure.blobstorage&lt;/code>. See &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">state.azure.blobstorage&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">accountName&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-ACCOUNT-NAME&amp;gt;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">accountKey&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-ACCOUNT-KEY&amp;gt;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">containerName&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-CONTAINER-NAME&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/en/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Field&lt;/th>
+&lt;th style="text-align:center">Required&lt;/th>
+&lt;th>Details&lt;/th>
+&lt;th>Example&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>accountName&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The storage account name&lt;/td>
+&lt;td>&lt;code>&amp;quot;mystorageaccount&amp;quot;&lt;/code>.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>accountKey&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>Primary or secondary storage key&lt;/td>
+&lt;td>&lt;code>&amp;quot;key&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>containerName&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The name of the container to be used for Dapr state. The container will be created for you if it doesn&amp;rsquo;t exist&lt;/td>
+&lt;td>&lt;code>&amp;quot;container&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="setup-azure-blobstorage">Setup Azure Blobstorage&lt;/h2>
+&lt;p>&lt;a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-account-create?tabs=azure-portal">Follow the instructions&lt;/a> from the Azure documentation on how to create an Azure Storage Account.&lt;/p>
+&lt;p>If you wish to create a container for Dapr to use, you can do so beforehand. However, Blob Storage state provider will create one for you automatically if it doesn&amp;rsquo;t exist.&lt;/p>
+&lt;p>In order to setup Azure Blob Storage as a state store, you will need the following properties:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>AccountName&lt;/strong>: The storage account name. For example: &lt;strong>mystorageaccount&lt;/strong>.&lt;/li>
+&lt;li>&lt;strong>AccountKey&lt;/strong>: Primary or secondary storage key.&lt;/li>
+&lt;li>&lt;strong>ContainerName&lt;/strong>: The name of the container to be used for Dapr state. The container will be created for you if it doesn&amp;rsquo;t exist.&lt;/li>
+&lt;/ul>
+&lt;h2 id="apply-the-configuration">Apply the configuration&lt;/h2>
+&lt;h3 id="in-kubernetes">In Kubernetes&lt;/h3>
+&lt;p>To apply Azure Blob Storage state store to Kubernetes, use the &lt;code>kubectl&lt;/code> CLI:&lt;/p>
+&lt;pre>&lt;code>kubectl apply -f azureblob.yaml
+&lt;/code>&lt;/pre>&lt;h3 id="running-locally">Running locally&lt;/h3>
+&lt;p>To run locally, create a &lt;code>components&lt;/code> dir containing the YAML file and provide the path to the &lt;code>dapr run&lt;/code> command with the flag &lt;code>--components-path&lt;/code>.&lt;/p>
+&lt;p>This state store creates a blob file in the container and puts raw state inside it.&lt;/p>
+&lt;p>For example, the following operation coming from service called &lt;code>myservice&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X POST http://localhost:3500/v1.0/state &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span>
+-d &lt;span style="color:#e6db74">&amp;#39;[
+&lt;/span>&lt;span style="color:#e6db74"> {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;key&amp;#34;: &amp;#34;nihilus&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;value&amp;#34;: &amp;#34;darth&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74"> ]&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>creates the blob file in the containter with &lt;code>key&lt;/code> as filename and &lt;code>value&lt;/code> as the contents of file.&lt;/p>
+&lt;h2 id="concurrency">Concurrency&lt;/h2>
+&lt;p>Azure Blob Storage state concurrency is achieved by using &lt;code>ETag&lt;/code>s according to &lt;a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-concurrency#managing-concurrency-in-blob-storage">the Azure Blob Storage documentation&lt;/a>.&lt;/p>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Reference: Azure Cosmos DB</title><link>https://docs.dapr.io/en/reference/components-reference/supported-state-stores/setup-azure-cosmosdb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/reference/components-reference/supported-state-stores/setup-azure-cosmosdb/</guid><description>
+&lt;h2 id="component-format">Component format&lt;/h2>
+&lt;p>To setup Azure CosmosDb state store create a component of type &lt;code>state.azure.cosmosdb&lt;/code>. See &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">state.azure.cosmosdb&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">url&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-URL&amp;gt;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">masterKey&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-MASTER-KEY&amp;gt;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">database&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-DATABASE&amp;gt;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">collection&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-COLLECTION&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/en/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;p>If you wish to use CosmosDb as an actor store, append the following to the yaml.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml"> - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">actorStateStore&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Field&lt;/th>
+&lt;th style="text-align:center">Required&lt;/th>
+&lt;th>Details&lt;/th>
+&lt;th>Example&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>url&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The CosmosDB url&lt;/td>
+&lt;td>&lt;code>&amp;quot;https://******.documents.azure.com:443/&amp;quot;&lt;/code>.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>masterKey&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The key to authenticate to the CosmosDB account&lt;/td>
+&lt;td>&lt;code>&amp;quot;key&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>database&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The name of the database&lt;/td>
+&lt;td>&lt;code>&amp;quot;db&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>collection&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The name of the collection&lt;/td>
+&lt;td>&lt;code>&amp;quot;collection&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorStateStore&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Consider this state store for actors. Defaults to &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
+&lt;td>&lt;code>&amp;quot;true&amp;quot;&lt;/code>, &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="setup-azure-cosmos-db">Setup Azure Cosmos DB&lt;/h2>
+&lt;p>&lt;a href="https://docs.microsoft.com/en-us/azure/cosmos-db/how-to-manage-database-account">Follow the instructions&lt;/a> from the Azure documentation on how to create an Azure CosmosDB account. The database and collection must be created in CosmosDB before Dapr can use it.&lt;/p>
+&lt;p>&lt;strong>Note : The partition key for the collection must be named &amp;ldquo;/partitionKey&amp;rdquo;. Note: this is case-sensitive.&lt;/strong>&lt;/p>
+&lt;p>In order to setup CosmosDB as a state store, you need the following properties:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>URL&lt;/strong>: the CosmosDB url. for example: https://******.documents.azure.com:443/&lt;/li>
+&lt;li>&lt;strong>Master Key&lt;/strong>: The key to authenticate to the CosmosDB account&lt;/li>
+&lt;li>&lt;strong>Database&lt;/strong>: The name of the database&lt;/li>
+&lt;li>&lt;strong>Collection&lt;/strong>: The name of the collection&lt;/li>
+&lt;/ul>
+&lt;h2 id="data-format">Data format&lt;/h2>
+&lt;p>To use the CosmosDB state store, your data must be sent to Dapr in JSON-serialized. Having it just JSON &lt;em>serializable&lt;/em> will not work.&lt;/p>
+&lt;p>If you are using the Dapr SDKs (e.g. &lt;a href="https://github.com/dapr/dotnet-sdk">https://github.com/dapr/dotnet-sdk&lt;/a>) the SDK will serialize your data to json.&lt;/p>
+&lt;p>For examples see the curl operations in the &lt;a href="#partition-keys">Partition keys&lt;/a> section.&lt;/p>
+&lt;h2 id="partition-keys">Partition keys&lt;/h2>
+&lt;p>For &lt;strong>non-actor state&lt;/strong> operations, the Azure Cosmos DB state store will use the &lt;code>key&lt;/code> property provided in the requests to the Dapr API to determine the Cosmos DB partition key. This can be overridden by specifying a metadata field in the request with a key of &lt;code>partitionKey&lt;/code> and a value of the desired partition.&lt;/p>
+&lt;p>The following operation will use &lt;code>nihilus&lt;/code> as the partition key value sent to CosmosDB:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X POST http://localhost:3500/v1.0/state/&amp;lt;store_name&amp;gt; &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span>
+-d &lt;span style="color:#e6db74">&amp;#39;[
+&lt;/span>&lt;span style="color:#e6db74"> {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;key&amp;#34;: &amp;#34;nihilus&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;value&amp;#34;: &amp;#34;darth&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74"> ]&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>For &lt;strong>non-actor&lt;/strong> state operations, if you want to control the CosmosDB partition, you can specify it in metadata. Reusing the example above, here&amp;rsquo;s how to put it under the &lt;code>mypartition&lt;/code> partition&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X POST http://localhost:3500/v1.0/state/&amp;lt;store_name&amp;gt; &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span>
+-d &lt;span style="color:#e6db74">&amp;#39;[
+&lt;/span>&lt;span style="color:#e6db74"> {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;key&amp;#34;: &amp;#34;nihilus&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;value&amp;#34;: &amp;#34;darth&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;metadata&amp;#34;: {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;partitionKey&amp;#34;: &amp;#34;mypartition&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74"> ]&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>For &lt;strong>actor&lt;/strong> state operations, the partition key is generated by Dapr using the &lt;code>appId&lt;/code>, the actor type, and the actor id, such that data for the same actor always ends up under the same partition (you do not need to specify it). This is because actor state operations must use transactions, and in CosmosDB the items in a transaction must be on the same partition.&lt;/p>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Reference: Azure Table Storage</title><link>https://docs.dapr.io/en/reference/components-reference/supported-state-stores/setup-azure-tablestorage/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/reference/components-reference/supported-state-stores/setup-azure-tablestorage/</guid><description>
+&lt;h2 id="component-format">Component format&lt;/h2>
+&lt;p>To setup Azure Tablestorage state store create a component of type &lt;code>state.azure.tablestorage&lt;/code>. See &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">state.azure.tablestorage&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">accountName&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-ACCOUNT-NAME&amp;gt;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">accountKey&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-ACCOUNT-KEY&amp;gt;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">tableName&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-TABLE-NAME&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/en/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Field&lt;/th>
+&lt;th style="text-align:center">Required&lt;/th>
+&lt;th>Details&lt;/th>
+&lt;th>Example&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>accountName&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The storage account name&lt;/td>
+&lt;td>&lt;code>&amp;quot;mystorageaccount&amp;quot;&lt;/code>.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>accountKey&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>Primary or secondary storage key&lt;/td>
+&lt;td>&lt;code>&amp;quot;key&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>tableName&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The name of the table to be used for Dapr state. The table will be created for you if it doesn&amp;rsquo;t exist&lt;/td>
+&lt;td>&lt;code>&amp;quot;table&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="setup-azure-table-storage">Setup Azure Table Storage&lt;/h2>
+&lt;p>&lt;a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-account-create?tabs=azure-portal">Follow the instructions&lt;/a> from the Azure documentation on how to create an Azure Storage Account.&lt;/p>
+&lt;p>If you wish to create a table for Dapr to use, you can do so beforehand. However, Table Storage state provider will create one for you automatically if it doesn&amp;rsquo;t exist.&lt;/p>
+&lt;p>In order to setup Azure Table Storage as a state store, you will need the following properties:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>AccountName&lt;/strong>: The storage account name. For example: &lt;strong>mystorageaccount&lt;/strong>.&lt;/li>
+&lt;li>&lt;strong>AccountKey&lt;/strong>: Primary or secondary storage key.&lt;/li>
+&lt;li>&lt;strong>TableName&lt;/strong>: The name of the table to be used for Dapr state. The table will be created for you if it doesn&amp;rsquo;t exist.&lt;/li>
+&lt;/ul>
+&lt;h2 id="partitioning">Partitioning&lt;/h2>
+&lt;p>The Azure Table Storage state store uses the &lt;code>key&lt;/code> property provided in the requests to the Dapr API to determine the &lt;code>row key&lt;/code>. Service Name is used for &lt;code>partition key&lt;/code>. This provides best performance, as each service type stores state in it&amp;rsquo;s own table partition.&lt;/p>
+&lt;p>This state store creates a column called &lt;code>Value&lt;/code> in the table storage and puts raw state inside it.&lt;/p>
+&lt;p>For example, the following operation coming from service called &lt;code>myservice&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X POST http://localhost:3500/v1.0/state &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span>
+-d &lt;span style="color:#e6db74">&amp;#39;[
+&lt;/span>&lt;span style="color:#e6db74"> {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;key&amp;#34;: &amp;#34;nihilus&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;value&amp;#34;: &amp;#34;darth&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74"> ]&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>will create the following record in a table:&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>PartitionKey&lt;/th>
+&lt;th>RowKey&lt;/th>
+&lt;th>Value&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>myservice&lt;/td>
+&lt;td>nihilus&lt;/td>
+&lt;td>darth&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="concurrency">Concurrency&lt;/h2>
+&lt;p>Azure Table Storage state concurrency is achieved by using &lt;code>ETag&lt;/code>s according to &lt;a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-concurrency#managing-concurrency-in-table-storage">the official documenation&lt;/a>.&lt;/p>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Reference: Cassandra</title><link>https://docs.dapr.io/en/reference/components-reference/supported-state-stores/setup-cassandra/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/reference/components-reference/supported-state-stores/setup-cassandra/</guid><description>
+&lt;h2 id="component-format">Component format&lt;/h2>
+&lt;p>To setup Cassandra state store create a component of type &lt;code>state.cassandra&lt;/code>. See &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">state.cassandra&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">hosts&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-COMMA-DELIMITED-HOSTS&amp;gt; # Required. Example&lt;/span>: &lt;span style="color:#ae81ff">cassandra.cassandra.svc.cluster.local&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">username&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-PASSWORD&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">password&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-PASSWORD&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">consistency&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-CONSISTENCY&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;All&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">table&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-TABLE&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;items&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">keyspace&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-KEYSPACE&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;dapr&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">protoVersion&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-PROTO-VERSION&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;4&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">replicationFactor&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-REPLICATION-FACTOR&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/en/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Field&lt;/th>
+&lt;th style="text-align:center">Required&lt;/th>
+&lt;th>Details&lt;/th>
+&lt;th>Example&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>hosts&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>Comma separated value of the hosts&lt;/td>
+&lt;td>&lt;code>&amp;quot;cassandra.cassandra.svc.cluster.local&amp;quot;&lt;/code>.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>port&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Port for communication. Default &lt;code>&amp;quot;9042&amp;quot;&lt;/code>&lt;/td>
+&lt;td>&lt;code>&amp;quot;9042&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>username&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The username of database user. No default&lt;/td>
+&lt;td>&lt;code>&amp;quot;user&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>password&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The password for the user&lt;/td>
+&lt;td>&lt;code>&amp;quot;password&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>consistency&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The consistency values&lt;/td>
+&lt;td>&lt;code>&amp;quot;All&amp;quot;&lt;/code>, &lt;code>&amp;quot;Quorum&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>table&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Table name. Defaults to &lt;code>&amp;quot;items&amp;quot;&lt;/code>&lt;/td>
+&lt;td>&lt;code>&amp;quot;items&amp;quot;&lt;/code>, &lt;code>&amp;quot;tab&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>keyspace&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The cassandra keyspace to use. Defaults to &lt;code>&amp;quot;dapr&amp;quot;&lt;/code>&lt;/td>
+&lt;td>&lt;code>&amp;quot;dapr&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>protoVersion&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The proto version for the client. Defaults to &lt;code>&amp;quot;4&amp;quot;&lt;/code>&lt;/td>
+&lt;td>&lt;code>&amp;quot;3&amp;quot;&lt;/code>, &lt;code>&amp;quot;4&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>replicationFactor&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The replication factor for the calls. Defaults to &lt;code>&amp;quot;1&amp;quot;&lt;/code>&lt;/td>
+&lt;td>&lt;code>&amp;quot;3&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="setup-cassandra">Setup Cassandra&lt;/h2>
+&lt;ul class="nav nav-tabs" id="tabs-2" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-2-self-hosted-tab" data-toggle="tab" href="#tabs-2-self-hosted" role="tab"
+aria-controls="tabs-2-self-hosted" aria-selected="true">
+Self-Hosted
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-2-kubernetes-tab" data-toggle="tab" href="#tabs-2-kubernetes" role="tab"
+aria-controls="tabs-2-kubernetes" aria-selected="false">
+Kubernetes
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-2-content">
+&lt;div class="tab-pane fade show active" id="tabs-2-self-hosted" role="tabpanel" aria-labelled-by="tabs-2-self-hosted-tab">
+&lt;br />&lt;p>You can run Cassandra locally with the Datastax Docker image:&lt;/p>
+&lt;pre>&lt;code>docker run -e DS_LICENSE=accept --memory 4g --name my-dse -d datastax/dse-server -g -s -k
+&lt;/code>&lt;/pre>&lt;p>You can then interact with the server using &lt;code>localhost:9042&lt;/code>.&lt;/p>
+&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-2-kubernetes" role="tabpanel" aria-labelled-by="tabs-2-kubernetes-tab">
+&lt;br />&lt;p>The easiest way to install Cassandra on Kubernetes is by using the &lt;a href="https://github.com/helm/charts/tree/master/incubator/cassandra">Helm chart&lt;/a>:&lt;/p>
+&lt;pre>&lt;code>kubectl create namespace cassandra
+helm install cassandra incubator/cassandra --namespace cassandra
+&lt;/code>&lt;/pre>&lt;p>This installs Cassandra into the &lt;code>cassandra&lt;/code> namespace by default.
+To interact with Cassandra, find the service with: &lt;code>kubectl get svc -n cassandra&lt;/code>.&lt;/p>
+&lt;p>For example, if installing using the example above, the Cassandra DNS would be:&lt;/p>
+&lt;p>&lt;code>cassandra.cassandra.svc.cluster.local&lt;/code>&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Reference: Cloudstate</title><link>https://docs.dapr.io/en/reference/components-reference/supported-state-stores/setup-cloudstate/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/reference/components-reference/supported-state-stores/setup-cloudstate/</guid><description>
+&lt;h2 id="component-format">Component format&lt;/h2>
+&lt;p>To setup Cloudstate state store create a component of type &lt;code>state.cloudstate&lt;/code>. See &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">state.cloudstate&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">host&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-HOST&amp;gt;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">serverPort&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-PORT&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Field&lt;/th>
+&lt;th style="text-align:center">Required&lt;/th>
+&lt;th>Details&lt;/th>
+&lt;th>Example&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>hosts&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>Specifies the address for the Cloudstate API&lt;/td>
+&lt;td>&lt;code>&amp;quot;localhost:8013&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>serverPort&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>Specifies the port to be opened in Dapr for Cloudstate to callback to. This can be any free port that is not used by either your application or Dapr&lt;/td>
+&lt;td>&lt;code>&amp;quot;8080&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>Since Cloudstate is running as an additional sidecar in the pod, you can reach it via &lt;code>localhost&lt;/code> with the default port of &lt;code>8013&lt;/code>.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="introduction">Introduction&lt;/h2>
+&lt;p>The Cloudstate-Dapr integration is unique in the sense that it enables developers to achieve high-throughput, low latency scenarios by leveraging Cloudstate running as a sidecar &lt;em>next&lt;/em> to Dapr, keeping the state near the compute unit for optimal performance while providing replication between multiple instances that can be safely scaled up and down. This is due to Cloudstate forming an Akka cluster between its sidecars with replicated in-memory entities.&lt;/p>
+&lt;p>Dapr leverages Cloudstate&amp;rsquo;s CRDT capabilities with last-write-wins semantics.&lt;/p>
+&lt;h2 id="setup-cloudstate">Setup Cloudstate&lt;/h2>
+&lt;p>To install Cloudstate on your Kubernetes cluster, run the following commands:&lt;/p>
+&lt;pre>&lt;code>kubectl create namespace cloudstate
+kubectl apply -n cloudstate -f https://github.com/cloudstateio/cloudstate/releases/download/v0.5.0/cloudstate-0.5.0.yaml
+&lt;/code>&lt;/pre>&lt;p>This installs Cloudstate into the &lt;code>cloudstate&lt;/code> namespace with version &lt;code>0.5.0&lt;/code>.&lt;/p>
+&lt;h2 id="apply-the-configuration">Apply the configuration&lt;/h2>
+&lt;h3 id="in-kubernetes">In Kubernetes&lt;/h3>
+&lt;p>To apply the Cloudstate state store to Kubernetes, use the &lt;code>kubectl&lt;/code> CLI:&lt;/p>
+&lt;pre>&lt;code>kubectl apply -f cloudstate.yaml
+&lt;/code>&lt;/pre>&lt;h2 id="running-the-cloudstate-sidecar-alongside-dapr">Running the Cloudstate sidecar alongside Dapr&lt;/h2>
+&lt;p>The next examples shows you how to manually inject a Cloudstate sidecar into a Dapr enabled deployment:&lt;/p>
+&lt;p>&lt;em>Notice the &lt;code>HTTP_PORT&lt;/code> for the &lt;code>cloudstate-sidecar&lt;/code> container is the port to be used in the Cloudstate component yaml in &lt;code>host&lt;/code>.&lt;/em>&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">extensions/v1beta1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Deployment&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">annotations&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">test-dapr-app&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">labels&lt;/span>:
+&lt;span style="color:#f92672">app&lt;/span>: &lt;span style="color:#ae81ff">test-dapr-app&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">replicas&lt;/span>: &lt;span style="color:#ae81ff">1&lt;/span>
+&lt;span style="color:#f92672">selector&lt;/span>:
+&lt;span style="color:#f92672">matchLabels&lt;/span>:
+&lt;span style="color:#f92672">app&lt;/span>: &lt;span style="color:#ae81ff">test-dapr-app&lt;/span>
+&lt;span style="color:#f92672">template&lt;/span>:
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">annotations&lt;/span>:
+&lt;span style="color:#f92672">dapr.io/enabled&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">dapr.io/app-id&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;testapp&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">labels&lt;/span>:
+&lt;span style="color:#f92672">app&lt;/span>: &lt;span style="color:#ae81ff">test-dapr-app&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">containers&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">user-container&lt;/span>
+&lt;span style="color:#f92672">image&lt;/span>: &lt;span style="color:#ae81ff">nginx&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">cloudstate-sidecar&lt;/span>
+&lt;span style="color:#f92672">env&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">HTTP_PORT&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;8013&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">USER_FUNCTION_PORT&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;8080&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">REMOTING_PORT&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;2552&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">MANAGEMENT_PORT&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;8558&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">SELECTOR_LABEL_VALUE&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">test-dapr-app&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">SELECTOR_LABEL&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">app&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">REQUIRED_CONTACT_POINT_NR&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">JAVA_OPTS&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: -&lt;span style="color:#ae81ff">Xms256m -Xmx256m&lt;/span>
+&lt;span style="color:#f92672">image&lt;/span>: &lt;span style="color:#ae81ff">cloudstateio/cloudstate-proxy-no-store:0.5.0&lt;/span>
+&lt;span style="color:#f92672">livenessProbe&lt;/span>:
+&lt;span style="color:#f92672">httpGet&lt;/span>:
+&lt;span style="color:#f92672">path&lt;/span>: &lt;span style="color:#ae81ff">/alive&lt;/span>
+&lt;span style="color:#f92672">port&lt;/span>: &lt;span style="color:#ae81ff">8558&lt;/span>
+&lt;span style="color:#f92672">scheme&lt;/span>: &lt;span style="color:#ae81ff">HTTP&lt;/span>
+&lt;span style="color:#f92672">initialDelaySeconds&lt;/span>: &lt;span style="color:#ae81ff">2&lt;/span>
+&lt;span style="color:#f92672">failureThreshold&lt;/span>: &lt;span style="color:#ae81ff">20&lt;/span>
+&lt;span style="color:#f92672">periodSeconds&lt;/span>: &lt;span style="color:#ae81ff">2&lt;/span>
+&lt;span style="color:#f92672">readinessProbe&lt;/span>:
+&lt;span style="color:#f92672">httpGet&lt;/span>:
+&lt;span style="color:#f92672">path&lt;/span>: &lt;span style="color:#ae81ff">/ready&lt;/span>
+&lt;span style="color:#f92672">port&lt;/span>: &lt;span style="color:#ae81ff">8558&lt;/span>
+&lt;span style="color:#f92672">scheme&lt;/span>: &lt;span style="color:#ae81ff">HTTP&lt;/span>
+&lt;span style="color:#f92672">initialDelaySeconds&lt;/span>: &lt;span style="color:#ae81ff">2&lt;/span>
+&lt;span style="color:#f92672">failureThreshold&lt;/span>: &lt;span style="color:#ae81ff">20&lt;/span>
+&lt;span style="color:#f92672">periodSeconds&lt;/span>: &lt;span style="color:#ae81ff">10&lt;/span>
+&lt;span style="color:#f92672">resources&lt;/span>:
+&lt;span style="color:#f92672">limits&lt;/span>:
+&lt;span style="color:#f92672">memory&lt;/span>: &lt;span style="color:#ae81ff">512Mi&lt;/span>
+&lt;span style="color:#f92672">requests&lt;/span>:
+&lt;span style="color:#f92672">cpu&lt;/span>: &lt;span style="color:#ae81ff">400m&lt;/span>
+&lt;span style="color:#f92672">memory&lt;/span>: &lt;span style="color:#ae81ff">512Mi&lt;/span>
+---
+&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">rbac.authorization.k8s.io/v1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Role&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">cloudstate-pod-reader&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">rules&lt;/span>:
+- &lt;span style="color:#f92672">apiGroups&lt;/span>:
+- &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">resources&lt;/span>:
+- &lt;span style="color:#ae81ff">pods&lt;/span>
+&lt;span style="color:#f92672">verbs&lt;/span>:
+- &lt;span style="color:#ae81ff">get&lt;/span>
+- &lt;span style="color:#ae81ff">watch&lt;/span>
+- &lt;span style="color:#ae81ff">list&lt;/span>
+---
+&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">rbac.authorization.k8s.io/v1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">RoleBinding&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">cloudstate-read-pods-default&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">roleRef&lt;/span>:
+&lt;span style="color:#f92672">apiGroup&lt;/span>: &lt;span style="color:#ae81ff">rbac.authorization.k8s.io&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Role&lt;/span>
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">cloudstate-pod-reader&lt;/span>
+&lt;span style="color:#f92672">subjects&lt;/span>:
+- &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">ServiceAccount&lt;/span>
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Reference: Couchbase</title><link>https://docs.dapr.io/en/reference/components-reference/supported-state-stores/setup-couchbase/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/reference/components-reference/supported-state-stores/setup-couchbase/</guid><description>
+&lt;h2 id="component-format">Component format&lt;/h2>
+&lt;p>To setup Couchbase state store create a component of type &lt;code>state.couchbase&lt;/code>. See &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">state.couchbase&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">couchbaseURL&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-URL&amp;gt; # Required. Example&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;http://localhost:8091&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">username&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-USERNAME&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Required.&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">password&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-PASSWORD&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Required.&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">bucketName&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-BUCKET&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Required.&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/en/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Field&lt;/th>
+&lt;th style="text-align:center">Required&lt;/th>
+&lt;th>Details&lt;/th>
+&lt;th>Example&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>couchbaseURL&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The URL of the Couchbase server&lt;/td>
+&lt;td>&lt;code>&amp;quot;http://localhost:8091&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>username&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The username for the database&lt;/td>
+&lt;td>&lt;code>&amp;quot;user&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>password&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The password for access&lt;/td>
+&lt;td>&lt;code>&amp;quot;password&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>bucketName&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The bucket name to write to&lt;/td>
+&lt;td>&lt;code>&amp;quot;bucket&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="setup-couchbase">Setup Couchbase&lt;/h2>
+&lt;ul class="nav nav-tabs" id="tabs-2" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-2-self-hosted-tab" data-toggle="tab" href="#tabs-2-self-hosted" role="tab"
+aria-controls="tabs-2-self-hosted" aria-selected="true">
+Self-Hosted
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-2-kubernetes-tab" data-toggle="tab" href="#tabs-2-kubernetes" role="tab"
+aria-controls="tabs-2-kubernetes" aria-selected="false">
+Kubernetes
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-2-content">
+&lt;div class="tab-pane fade show active" id="tabs-2-self-hosted" role="tabpanel" aria-labelled-by="tabs-2-self-hosted-tab">
+&lt;br />&lt;p>You can run Couchbase locally using Docker:&lt;/p>
+&lt;pre>&lt;code>docker run -d --name db -p 8091-8094:8091-8094 -p 11210:11210 couchbase
+&lt;/code>&lt;/pre>&lt;p>You can then interact with the server using &lt;code>localhost:8091&lt;/code> and start the server setup.&lt;/p>
+&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-2-kubernetes" role="tabpanel" aria-labelled-by="tabs-2-kubernetes-tab">
+&lt;br />&lt;p>The easiest way to install Couchbase on Kubernetes is by using the &lt;a href="https://github.com/couchbase-partners/helm-charts#deploying-for-development-quick-start">Helm chart&lt;/a>:&lt;/p>
+&lt;pre>&lt;code>helm repo add couchbase https://couchbase-partners.github.io/helm-charts/
+helm install couchbase/couchbase-operator
+helm install couchbase/couchbase-cluster
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;/div>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Reference: GCP Firestore (Datastore mode)</title><link>https://docs.dapr.io/en/reference/components-reference/supported-state-stores/setup-firestore/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/reference/components-reference/supported-state-stores/setup-firestore/</guid><description>
+&lt;h2 id="component-format">Component format&lt;/h2>
+&lt;p>To setup GCP Firestore state store create a component of type &lt;code>state.gcp.firestore&lt;/code>. See &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">state.gcp.firestore&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">type&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-CREDENTIALS-TYPE&amp;gt; # Required. Example&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;serviceaccount&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">project_id&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-PROJECT-ID&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Required.&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">private_key_id&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-PRIVATE-KEY-ID&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Required.&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">private_key&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-PRIVATE-KEY&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Required.&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">client_email&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-CLIENT-EMAIL&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Required.&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">client_id&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-CLIENT-ID&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Required.&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">auth_uri&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-AUTH-URI&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Required.&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">token_uri&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-TOKEN-URI&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Required.&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">auth_provider_x509_cert_url&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-AUTH-X509-CERT-URL&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Required.&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">client_x509_cert_url&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-CLIENT-x509-CERT-URL&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Required.&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">entity_kind&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-ENTITY-KIND&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;DaprState&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/en/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Field&lt;/th>
+&lt;th style="text-align:center">Required&lt;/th>
+&lt;th>Details&lt;/th>
+&lt;th>Example&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>type&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The credentials type&lt;/td>
+&lt;td>&lt;code>&amp;quot;serviceaccount&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>project_id&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The ID of the GCP project to use&lt;/td>
+&lt;td>&lt;code>&amp;quot;project-id&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>private_key_id&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The ID of the prvate key to use&lt;/td>
+&lt;td>&lt;code>&amp;quot;private-key-id&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>client_email&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The email address for the client&lt;/td>
+&lt;td>&lt;code>&amp;quot;eample@example.com&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>client_id&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The client id value to use for authentication&lt;/td>
+&lt;td>&lt;code>&amp;quot;client-id&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>auth_uri&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The authentication URI to use&lt;/td>
+&lt;td>&lt;code>&amp;quot;https://accounts.google.com/o/oauth2/auth&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>token_uri&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The token URI to query for Auth token&lt;/td>
+&lt;td>&lt;code>&amp;quot;https://oauth2.googleapis.com/token&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>auth_provider_x509_cert_url&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The auth provider certificate URL&lt;/td>
+&lt;td>&lt;code>&amp;quot;https://www.googleapis.com/oauth2/v1/certs&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>client_x509_cert_url&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The client certificate URL&lt;/td>
+&lt;td>&lt;code>&amp;quot;https://www.googleapis.com/robot/v1/metadata/x509/x&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>entity_kind&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The entity name in Filestore. Defaults to &lt;code>&amp;quot;DaprState&amp;quot;&lt;/code>&lt;/td>
+&lt;td>&lt;code>&amp;quot;DaprState&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="setup-gcp-firestone">Setup GCP Firestone&lt;/h2>
+&lt;ul class="nav nav-tabs" id="tabs-2" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-2-self-hosted-tab" data-toggle="tab" href="#tabs-2-self-hosted" role="tab"
+aria-controls="tabs-2-self-hosted" aria-selected="true">
+Self-Hosted
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-2-google-cloud-tab" data-toggle="tab" href="#tabs-2-google-cloud" role="tab"
+aria-controls="tabs-2-google-cloud" aria-selected="false">
+Google Cloud
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-2-content">
+&lt;div class="tab-pane fade show active" id="tabs-2-self-hosted" role="tabpanel" aria-labelled-by="tabs-2-self-hosted-tab">
+&lt;br />&lt;p>You can use the GCP Datastore emulator to run locally using the instructions &lt;a href="https://cloud.google.com/datastore/docs/tools/datastore-emulator">here&lt;/a>.&lt;/p>
+&lt;p>You can then interact with the server using &lt;code>localhost:8081&lt;/code>.&lt;/p>
+&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-2-google-cloud" role="tabpanel" aria-labelled-by="tabs-2-google-cloud-tab">
+&lt;br />&lt;p>Follow the instructions &lt;a href="https://cloud.google.com/datastore/docs/quickstart">here&lt;/a> to get started with setting up Firestore in Google Cloud.&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Reference: HashiCorp Consul</title><link>https://docs.dapr.io/en/reference/components-reference/supported-state-stores/setup-consul/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/reference/components-reference/supported-state-stores/setup-consul/</guid><description>
+&lt;h2 id="component-format">Component format&lt;/h2>
+&lt;p>To setup Hashicorp Consul state store create a component of type &lt;code>state.consul&lt;/code>. See &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">state.consul&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">datacenter&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-DATA-CENTER&amp;gt; # Required. Example&lt;/span>: &lt;span style="color:#ae81ff">dc1&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">httpAddr&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-CONSUL-HTTP-ADDRESS&amp;gt; # Required. Example&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;consul.default.svc.cluster.local:8500&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">aclToken&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-ACL-TOKEN&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">scheme&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-SCHEME&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;http&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">keyPrefixPath&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-TABLE&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/en/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Field&lt;/th>
+&lt;th style="text-align:center">Required&lt;/th>
+&lt;th>Details&lt;/th>
+&lt;th>Example&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>datacenter&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>Datacenter to use&lt;/td>
+&lt;td>&lt;code>&amp;quot;dc1&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>httpAddr&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>Address of the Consul server&lt;/td>
+&lt;td>&lt;code>&amp;quot;consul.default.svc.cluster.local:8500&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>aclToken&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Per Request ACL Token. Default is &lt;code>&amp;quot;&amp;quot;&lt;/code>&lt;/td>
+&lt;td>&lt;code>&amp;quot;token&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>scheme&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Scheme is the URI scheme for the Consul server. Default is &lt;code>&amp;quot;http&amp;quot;&lt;/code>&lt;/td>
+&lt;td>&lt;code>&amp;quot;http&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>keyPrefixPath&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Key prefix path in Consul. Default is &lt;code>&amp;quot;&amp;quot;&lt;/code>&lt;/td>
+&lt;td>&lt;code>&amp;quot;dapr&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="setup-hashicorp-consul">Setup HashiCorp Consul&lt;/h2>
+&lt;ul class="nav nav-tabs" id="tabs-2" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-2-self-hosted-tab" data-toggle="tab" href="#tabs-2-self-hosted" role="tab"
+aria-controls="tabs-2-self-hosted" aria-selected="true">
+Self-Hosted
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-2-kubernetes-tab" data-toggle="tab" href="#tabs-2-kubernetes" role="tab"
+aria-controls="tabs-2-kubernetes" aria-selected="false">
+Kubernetes
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-2-content">
+&lt;div class="tab-pane fade show active" id="tabs-2-self-hosted" role="tabpanel" aria-labelled-by="tabs-2-self-hosted-tab">
+&lt;br />&lt;p>You can run Consul locally using Docker:&lt;/p>
+&lt;pre>&lt;code>docker run -d --name=dev-consul -e CONSUL_BIND_INTERFACE=eth0 consul
+&lt;/code>&lt;/pre>&lt;p>You can then interact with the server using &lt;code>localhost:8500&lt;/code>.&lt;/p>
+&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-2-kubernetes" role="tabpanel" aria-labelled-by="tabs-2-kubernetes-tab">
+&lt;br />&lt;p>The easiest way to install Consul on Kubernetes is by using the &lt;a href="https://github.com/helm/charts/tree/master/stable/consul">Helm chart&lt;/a>:&lt;/p>
+&lt;pre>&lt;code>helm install consul stable/consul
+&lt;/code>&lt;/pre>&lt;p>This installs Consul into the &lt;code>default&lt;/code> namespace.
+To interact with Consul, find the service with: &lt;code>kubectl get svc consul&lt;/code>.&lt;/p>
+&lt;p>For example, if installing using the example above, the Consul host address would be:&lt;/p>
+&lt;p>&lt;code>consul.default.svc.cluster.local:8500&lt;/code>&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Reference: Hazelcast</title><link>https://docs.dapr.io/en/reference/components-reference/supported-state-stores/setup-hazelcast/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/reference/components-reference/supported-state-stores/setup-hazelcast/</guid><description>
+&lt;h2 id="create-a-dapr-component">Create a Dapr component&lt;/h2>
+&lt;p>To setup Hazelcast state store create a component of type &lt;code>state.hazelcast&lt;/code>. See &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">state.hazelcast&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">hazelcastServers&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-HOSTS&amp;gt; # Required. A comma delimited string of servers. Example&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;hazelcast:3000,hazelcast2:3000&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">hazelcastMap&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-MAP&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Required. Hazelcast map configuration.&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/en/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Field&lt;/th>
+&lt;th style="text-align:center">Required&lt;/th>
+&lt;th>Details&lt;/th>
+&lt;th>Example&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>hazelcastServers&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>A comma delimited string of servers&lt;/td>
+&lt;td>&lt;code>&amp;quot;hazelcast:3000,hazelcast2:3000&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>hazelcastMap&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>Hazelcast Map configuration&lt;/td>
+&lt;td>&lt;code>&amp;quot;foo-map&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="setup-hazelcast">Setup Hazelcast&lt;/h2>
+&lt;ul class="nav nav-tabs" id="tabs-2" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-2-self-hosted-tab" data-toggle="tab" href="#tabs-2-self-hosted" role="tab"
+aria-controls="tabs-2-self-hosted" aria-selected="true">
+Self-Hosted
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-2-kubernetes-tab" data-toggle="tab" href="#tabs-2-kubernetes" role="tab"
+aria-controls="tabs-2-kubernetes" aria-selected="false">
+Kubernetes
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-2-content">
+&lt;div class="tab-pane fade show active" id="tabs-2-self-hosted" role="tabpanel" aria-labelled-by="tabs-2-self-hosted-tab">
+&lt;br />&lt;p>You can run Hazelcast locally using Docker:&lt;/p>
+&lt;pre>&lt;code>docker run -e JAVA_OPTS=&amp;quot;-Dhazelcast.local.publicAddress=127.0.0.1:5701&amp;quot; -p 5701:5701 hazelcast/hazelcast
+&lt;/code>&lt;/pre>&lt;p>You can then interact with the server using the &lt;code>127.0.0.1:5701&lt;/code>.&lt;/p>
+&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-2-kubernetes" role="tabpanel" aria-labelled-by="tabs-2-kubernetes-tab">
+&lt;br />&lt;p>The easiest way to install Hazelcast on Kubernetes is by using the &lt;a href="https://github.com/helm/charts/tree/master/stable/hazelcast">Helm chart&lt;/a>.&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Reference: Memcached</title><link>https://docs.dapr.io/en/reference/components-reference/supported-state-stores/setup-memcached/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/reference/components-reference/supported-state-stores/setup-memcached/</guid><description>
+&lt;h2 id="component-format">Component format&lt;/h2>
+&lt;p>To setup Memcached state store create a component of type &lt;code>state.memcached&lt;/code>. See &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">state.memcached&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">hosts&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-COMMA-DELIMITED-ENDPOINTS&amp;gt; # Required. Example&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;memcached.default.svc.cluster.local:11211&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">maxIdleConnections&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-MAX-IDLE-CONNECTIONS&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;2&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">timeout&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-TIMEOUT&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1000ms&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/en/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Field&lt;/th>
+&lt;th style="text-align:center">Required&lt;/th>
+&lt;th>Details&lt;/th>
+&lt;th>Example&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>hosts&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>Comma delimited endpoints&lt;/td>
+&lt;td>&lt;code>&amp;quot;memcached.default.svc.cluster.local:11211&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>maxIdleConnections&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The max number of idle connections. Defaults to &lt;code>&amp;quot;2&amp;quot;&lt;/code>&lt;/td>
+&lt;td>&lt;code>&amp;quot;3&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>timeout&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The timeout for the calls. Defaults to &lt;code>&amp;quot;1000ms&amp;quot;&lt;/code>&lt;/td>
+&lt;td>&lt;code>&amp;quot;1000ms&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="setup-memcached">Setup Memcached&lt;/h2>
+&lt;ul class="nav nav-tabs" id="tabs-2" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-2-self-hosted-tab" data-toggle="tab" href="#tabs-2-self-hosted" role="tab"
+aria-controls="tabs-2-self-hosted" aria-selected="true">
+Self-Hosted
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-2-kubernetes-tab" data-toggle="tab" href="#tabs-2-kubernetes" role="tab"
+aria-controls="tabs-2-kubernetes" aria-selected="false">
+Kubernetes
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-2-content">
+&lt;div class="tab-pane fade show active" id="tabs-2-self-hosted" role="tabpanel" aria-labelled-by="tabs-2-self-hosted-tab">
+&lt;br />&lt;p>You can run Memcached locally using Docker:&lt;/p>
+&lt;pre>&lt;code>docker run --name my-memcache -d memcached
+&lt;/code>&lt;/pre>&lt;p>You can then interact with the server using &lt;code>localhost:11211&lt;/code>.&lt;/p>
+&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-2-kubernetes" role="tabpanel" aria-labelled-by="tabs-2-kubernetes-tab">
+&lt;br />&lt;p>The easiest way to install Memcached on Kubernetes is by using the &lt;a href="https://github.com/helm/charts/tree/master/stable/memcached">Helm chart&lt;/a>:&lt;/p>
+&lt;pre>&lt;code>helm install memcached stable/memcached
+&lt;/code>&lt;/pre>&lt;p>This installs Memcached into the &lt;code>default&lt;/code> namespace.
+To interact with Memcached, find the service with: &lt;code>kubectl get svc memcached&lt;/code>.&lt;/p>
+&lt;p>For example, if installing using the example above, the Memcached host address would be:&lt;/p>
+&lt;p>&lt;code>memcached.default.svc.cluster.local:11211&lt;/code>&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Reference: MongoDB</title><link>https://docs.dapr.io/en/reference/components-reference/supported-state-stores/setup-mongodb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/reference/components-reference/supported-state-stores/setup-mongodb/</guid><description>
+&lt;h2 id="component-format">Component format&lt;/h2>
+&lt;p>To setup MongoDB state store create a component of type &lt;code>state.mongodb&lt;/code>. See &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">state.mongodb&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">host&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-HOST&amp;gt; # Required. Example&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;mongo-mongodb.default.svc.cluster.local:27017&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">username&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-USERNAME&amp;gt; # Optional. Example&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;admin&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">password&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-PASSWORD&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional.&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">databaseName&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-DATABASE-NAME&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;daprStore&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">collectionName&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-COLLECTION-NAME&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;daprCollection&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">writeconcern&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-WRITE-CONCERN&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional.&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">readconcern&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-READ-CONCERN&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional.&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">operationTimeout&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-OPERATION-TIMEOUT&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;5s&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/en/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;p>If you wish to use MongoDB as an actor store, append the following to the yaml.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml"> - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">actorStateStore&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Field&lt;/th>
+&lt;th style="text-align:center">Required&lt;/th>
+&lt;th>Details&lt;/th>
+&lt;th>Example&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>host&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The host to connect to&lt;/td>
+&lt;td>&lt;code>&amp;quot;mongo-mongodb.default.svc.cluster.local:27017&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>username&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The username of the user to connect with&lt;/td>
+&lt;td>&lt;code>&amp;quot;admin&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>password&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The password of the user&lt;/td>
+&lt;td>&lt;code>&amp;quot;password&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>databaseName&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The name of the database to use. Defaults to &lt;code>&amp;quot;daprStore&amp;quot;&lt;/code>&lt;/td>
+&lt;td>&lt;code>&amp;quot;daprStore&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>collectionName&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The name of the collection to use. Defaults to &lt;code>&amp;quot;daprCollection&amp;quot;&lt;/code>&lt;/td>
+&lt;td>&lt;code>&amp;quot;daprCollection&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>writeconcern&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The write concern to use&lt;/td>
+&lt;td>&lt;code>&amp;quot;majority&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>readconcern&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The read concern to use&lt;/td>
+&lt;td>&lt;code>&amp;quot;majority&amp;quot;&lt;/code>, &lt;code>&amp;quot;local&amp;quot;&lt;/code>,&lt;code>&amp;quot;available&amp;quot;&lt;/code>, &lt;code>&amp;quot;linearizable&amp;quot;&lt;/code>, &lt;code>&amp;quot;snapshot&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>operationTimeout&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The timeout for the operation. Defautls to &lt;code>&amp;quot;5s&amp;quot;&lt;/code>&lt;/td>
+&lt;td>&lt;code>&amp;quot;5s&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="setup-mongodb">Setup MongoDB&lt;/h2>
+&lt;ul class="nav nav-tabs" id="tabs-2" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-2-self-hosted-tab" data-toggle="tab" href="#tabs-2-self-hosted" role="tab"
+aria-controls="tabs-2-self-hosted" aria-selected="true">
+Self-Hosted
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-2-kubernetes-tab" data-toggle="tab" href="#tabs-2-kubernetes" role="tab"
+aria-controls="tabs-2-kubernetes" aria-selected="false">
+Kubernetes
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-2-content">
+&lt;div class="tab-pane fade show active" id="tabs-2-self-hosted" role="tabpanel" aria-labelled-by="tabs-2-self-hosted-tab">
+&lt;br />&lt;p>You can run MongoDB locally using Docker:&lt;/p>
+&lt;pre>&lt;code>docker run --name some-mongo -d mongo
+&lt;/code>&lt;/pre>&lt;p>You can then interact with the server using &lt;code>localhost:27017&lt;/code>.&lt;/p>
+&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-2-kubernetes" role="tabpanel" aria-labelled-by="tabs-2-kubernetes-tab">
+&lt;br />&lt;p>The easiest way to install MongoDB on Kubernetes is by using the &lt;a href="https://github.com/helm/charts/tree/master/stable/mongodb">Helm chart&lt;/a>:&lt;/p>
+&lt;pre>&lt;code>helm install mongo stable/mongodb
+&lt;/code>&lt;/pre>&lt;p>This installs MongoDB into the &lt;code>default&lt;/code> namespace.
+To interact with MongoDB, find the service with: &lt;code>kubectl get svc mongo-mongodb&lt;/code>.&lt;/p>
+&lt;p>For example, if installing using the example above, the MongoDB host address would be:&lt;/p>
+&lt;p>&lt;code>mongo-mongodb.default.svc.cluster.local:27017&lt;/code>&lt;/p>
+&lt;p>Follow the on-screen instructions to get the root password for MongoDB.
+The username is &lt;code>admin&lt;/code> by default.&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Reference: MySQL</title><link>https://docs.dapr.io/en/reference/components-reference/supported-state-stores/setup-mysql/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/reference/components-reference/supported-state-stores/setup-mysql/</guid><description>
+&lt;h2 id="component-format">Component format&lt;/h2>
+&lt;p>To setup MySQL state store create a component of type &lt;code>state.mysql&lt;/code>. See &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">state.mysql&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">connectionString&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;lt;CONNECTION STRING&amp;gt;&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">schemaName&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;lt;SCHEMA NAME&amp;gt;&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">tableName&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;lt;TABLE NAME&amp;gt;&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">pemPath&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;lt;PEM PATH&amp;gt;&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/en/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;p>If you wish to use MySQL as an actor store, append the following to the yaml.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml"> - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">actorStateStore&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Field&lt;/th>
+&lt;th style="text-align:center">Required&lt;/th>
+&lt;th>Details&lt;/th>
+&lt;th>Example&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>connectionString&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The connection string to connect to MySQL. Do not add the schema to the connection string&lt;/td>
+&lt;td>&lt;a href="#non-ssl-connection">Non SSL connection&lt;/a>: &lt;code>&amp;quot;&amp;lt;user&amp;gt;:&amp;lt;password&amp;gt;@tcp(&amp;lt;server&amp;gt;:3306)/?allowNativePasswords=true&amp;quot;&lt;/code>, &lt;a href="#enforced-ssl-connection">Enforced SSL Connection&lt;/a>: &lt;code>&amp;quot;&amp;lt;user&amp;gt;:&amp;lt;password&amp;gt;@tcp(&amp;lt;server&amp;gt;:3306)/?allowNativePasswords=true&amp;amp;tls=custom&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>schemaName&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The schema name to use. Will be created if schema does not exist. Defaults to &lt;code>&amp;quot;dapr_state_store&amp;quot;&lt;/code>&lt;/td>
+&lt;td>&lt;code>&amp;quot;custom_schema&amp;quot;&lt;/code>, &lt;code>&amp;quot;dapr_schema&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>tableName&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The table name to use. Will be created if table does not exist. Defaults to &lt;code>&amp;quot;state&amp;quot;&lt;/code>&lt;/td>
+&lt;td>&lt;code>&amp;quot;table_name&amp;quot;&lt;/code>, &lt;code>&amp;quot;dapr_state&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>pemPath&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Full path to the PEM file to use for &lt;a href="#enforced-ssl-connection">enforced SSL Connection&lt;/a>&lt;/td>
+&lt;td>&lt;code>&amp;quot;/path/to/file.pem&amp;quot;&lt;/code>, &lt;code>&amp;quot;C:\path\to\file.pem&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="setup-mysql">Setup MySQL&lt;/h2>
+&lt;p>Dapr can use any MySQL instance - containerized, running on your local dev machine, or a managed cloud service.&lt;/p>
+&lt;ul class="nav nav-tabs" id="tabs-2" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-2-self-hosted-tab" data-toggle="tab" href="#tabs-2-self-hosted" role="tab"
+aria-controls="tabs-2-self-hosted" aria-selected="true">
+Self-Hosted
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-2-kubernetes-tab" data-toggle="tab" href="#tabs-2-kubernetes" role="tab"
+aria-controls="tabs-2-kubernetes" aria-selected="false">
+Kubernetes
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-2-azure-tab" data-toggle="tab" href="#tabs-2-azure" role="tab"
+aria-controls="tabs-2-azure" aria-selected="false">
+Azure
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-2-aws-tab" data-toggle="tab" href="#tabs-2-aws" role="tab"
+aria-controls="tabs-2-aws" aria-selected="false">
+AWS
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-2-gcp-tab" data-toggle="tab" href="#tabs-2-gcp" role="tab"
+aria-controls="tabs-2-gcp" aria-selected="false">
+GCP
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-2-content">
+&lt;div class="tab-pane fade show active" id="tabs-2-self-hosted" role="tabpanel" aria-labelled-by="tabs-2-self-hosted-tab">
+&lt;br />&lt;!-- Self-Hosted -->
+&lt;p>Run an instance of MySQL. You can run a local instance of MySQL in Docker CE with the following command:&lt;/p>
+&lt;p>This example does not describe a production configuration because it sets the password in plain text and the user name is left as the MySQL default of &amp;ldquo;root&amp;rdquo;.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">docker run --name dapr-mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD&lt;span style="color:#f92672">=&lt;/span>my-secret-pw -d mysql:latest
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-2-kubernetes" role="tabpanel" aria-labelled-by="tabs-2-kubernetes-tab">
+&lt;br />&lt;!-- Kubernetes -->
+&lt;p>We can use &lt;a href="https://helm.sh/">Helm&lt;/a> to quickly create a MySQL instance in our Kubernetes cluster. This approach requires &lt;a href="https://github.com/helm/helm#install">Installing Helm&lt;/a>.&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Install MySQL into your cluster.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm repo add bitnami https://charts.bitnami.com/bitnami
+helm install dapr-mysql bitnami/mysql
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Run &lt;code>kubectl get pods&lt;/code> to see the MySQL containers now running in your cluster.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Next, we&amp;rsquo;ll get our password, which is slightly different depending on the OS we&amp;rsquo;re using:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Windows&lt;/strong>: Run &lt;code>[System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($(kubectl get secret --namespace default dapr-mysql -o jsonpath=&amp;quot;{.data.mysql-root-password}&amp;quot;)))&lt;/code> and copy the outputted password.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Linux/MacOS&lt;/strong>: Run &lt;code>kubectl get secret --namespace default dapr-mysql -o jsonpath=&amp;quot;{.data.mysql-root-password}&amp;quot; | base64 --decode&lt;/code> and copy the outputted password.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>With the password you can construct your connection string.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-2-azure" role="tabpanel" aria-labelled-by="tabs-2-azure-tab">
+&lt;br />&lt;!-- Azure -->
+&lt;p>&lt;a href="http://bit.ly/AzureMySQL">Azure MySQL&lt;/a>&lt;/p>
+&lt;p>If you are using &lt;a href="http://bit.ly/AzureMySQLSSL">MySQL on Azure&lt;/a> see the Azure &lt;a href="http://bit.ly/MySQLSSL">documentation on SSL database connections&lt;/a>, for information on how to download the required certificate.&lt;/p>
+&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-2-aws" role="tabpanel" aria-labelled-by="tabs-2-aws-tab">
+&lt;br />&lt;!-- AWS -->
+&lt;p>&lt;a href="https://aws.amazon.com/rds/mysql/">AWS MySQL&lt;/a>&lt;/p>
+&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-2-gcp" role="tabpanel" aria-labelled-by="tabs-2-gcp-tab">
+&lt;br />&lt;!-- GCP -->
+&lt;p>&lt;a href="https://cloud.google.com/sql/docs/mysql/features">GCP MySQL&lt;/a>&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;h3 id="non-ssl-connection">Non SSL connection&lt;/h3>
+&lt;p>Replace the &lt;code>&amp;lt;CONNECTION STRING&amp;gt;&lt;/code> value with your connection string. The connection string is a standard MySQL connection string. For example, &lt;code>&amp;quot;&amp;lt;user&amp;gt;:&amp;lt;password&amp;gt;@tcp(&amp;lt;server&amp;gt;:3306)/?allowNativePasswords=true&amp;quot;&lt;/code>.&lt;/p>
+&lt;h3 id="enforced-ssl-connection">Enforced SSL connection&lt;/h3>
+&lt;p>If your server requires SSL your connection string must end with &lt;code>&amp;amp;tls=custom&lt;/code> for example, &lt;code>&amp;quot;&amp;lt;user&amp;gt;:&amp;lt;password&amp;gt;@tcp(&amp;lt;server&amp;gt;:3306)/?allowNativePasswords=true&amp;amp;tls=custom&amp;quot;&lt;/code>. You must replace the &lt;code>&amp;lt;PEM PATH&amp;gt;&lt;/code> with a full path to the PEM file. The connection to MySQL will require a minimum TLS version of 1.2.&lt;/p>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Reference: PostgreSQL</title><link>https://docs.dapr.io/en/reference/components-reference/supported-state-stores/setup-postgresql/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/reference/components-reference/supported-state-stores/setup-postgresql/</guid><description>
+&lt;h2 id="create-a-dapr-component">Create a Dapr component&lt;/h2>
+&lt;p>Create a file called &lt;code>postgres.yaml&lt;/code>, paste the following and replace the &lt;code>&amp;lt;CONNECTION STRING&amp;gt;&lt;/code> value with your connection string. The connection string is a standard PostgreSQL connection string. For example, &lt;code>&amp;quot;host=localhost user=postgres password=example port=5432 connect_timeout=10 database=dapr_test&amp;quot;&lt;/code>. See the PostgreSQL &lt;a href="https://www.postgresql.org/docs/current/libpq-connect.html">documentation on database connections&lt;/a>, specifically Keyword/Value Connection Strings, for information on how to define a connection string.&lt;/p>
+&lt;p>If you want to also configure PostgreSQL to store actors, add the &lt;code>actorStateStore&lt;/code> configuration element shown below.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">state.postgresql&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">connectionString&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;lt;CONNECTION STRING&amp;gt;&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/en/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Field&lt;/th>
+&lt;th style="text-align:center">Required&lt;/th>
+&lt;th>Details&lt;/th>
+&lt;th>Example&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>connectionString&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The connection string for PostgreSQL&lt;/td>
+&lt;td>&lt;code>&amp;quot;User ID=root;Password=myPassword;Host=localhost;Port=5432&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorStateStore&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Consider this state store for actors. Defaults to &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
+&lt;td>&lt;code>&amp;quot;true&amp;quot;&lt;/code>, &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>If you wish to use PostgreSQL as an actor store, append the following to the yaml.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml"> - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">actorStateStore&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="create-postgresql">Create PostgreSQL&lt;/h2>
+&lt;ul class="nav nav-tabs" id="tabs-1" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-1-self-hosted-tab" data-toggle="tab" href="#tabs-1-self-hosted" role="tab"
+aria-controls="tabs-1-self-hosted" aria-selected="true">
+Self-Hosted
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-1-content">
+&lt;div class="tab-pane fade show active" id="tabs-1-self-hosted" role="tabpanel" aria-labelled-by="tabs-1-self-hosted-tab">
+&lt;br />&lt;ol>
+&lt;li>
+&lt;p>Run an instance of PostgreSQL. You can run a local instance of PostgreSQL in Docker CE with the following command:&lt;/p>
+&lt;p>This example does not describe a production configuration because it sets the password in plain text and the user name is left as the PostgreSQL default of &amp;ldquo;postgres&amp;rdquo;.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">docker run -p 5432:5432 -e POSTGRES_PASSWORD&lt;span style="color:#f92672">=&lt;/span>example postgres
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Create a database for state data.
+Either the default &amp;ldquo;postgres&amp;rdquo; database can be used, or create a new database for storing state data.&lt;/p>
+&lt;p>To create a new database in PostgreSQL, run the following SQL command:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-SQL" data-lang="SQL">&lt;span style="color:#66d9ef">create&lt;/span> &lt;span style="color:#66d9ef">database&lt;/span> dapr_test
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;/ol>
+&lt;/div>
+&lt;/div>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Reference: Redis</title><link>https://docs.dapr.io/en/reference/components-reference/supported-state-stores/setup-redis/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/reference/components-reference/supported-state-stores/setup-redis/</guid><description>
+&lt;h2 id="component-format">Component format&lt;/h2>
+&lt;p>To setup Redis state store create a component of type &lt;code>state.redis&lt;/code>. See &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">state.redis&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">redisHost&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;HOST&amp;gt;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">redisPassword&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;PASSWORD&amp;gt;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">enableTLS&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;bool&amp;gt; # Optional. Allowed&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>, &lt;span style="color:#66d9ef">false&lt;/span>&lt;span style="color:#ae81ff">.&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">failover&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;bool&amp;gt; # Optional. Allowed&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>, &lt;span style="color:#66d9ef">false&lt;/span>&lt;span style="color:#ae81ff">.&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">sentinelMasterName&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;string&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">maxRetries&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#75715e"># Optional&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">maxRetryBackoff&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#75715e"># Optional&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>TLS:&lt;/strong> If the Redis instance supports TLS with public certificates it can be configured to enable or disable TLS &lt;code>true&lt;/code> or &lt;code>false&lt;/code>.&lt;/p>
+&lt;p>&lt;strong>Failover:&lt;/strong> When set to &lt;code>true&lt;/code> enables the failover feature. The redisHost should be the sentinel host address. See &lt;a href="https://redis.io/topics/sentinel">Redis Sentinel Documentation&lt;/a>&lt;/p>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/en/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;p>If you wish to use Redis as an actor store, append the following to the yaml.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml"> - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">actorStateStore&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Field&lt;/th>
+&lt;th style="text-align:center">Required&lt;/th>
+&lt;th>Details&lt;/th>
+&lt;th>Example&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>redisHost&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>Connection-string for the redis host&lt;/td>
+&lt;td>&lt;code>localhost:6379&lt;/code>, &lt;code>redis-master.default.svc.cluster.local:6379&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>redisPassword&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>Password for Redis host. No Default. Can be &lt;code>secretKeyRef&lt;/code> to use a secret reference&lt;/td>
+&lt;td>&lt;code>&amp;quot;&amp;quot;&lt;/code>, &lt;code>&amp;quot;KeFg23!&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>consumerID&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The consumer group ID&lt;/td>
+&lt;td>&lt;code>&amp;quot;myGroup&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>enableTLS&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>If the Redis instance supports TLS with public certificates, can be configured to be enabled or disabled. Defaults to &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
+&lt;td>&lt;code>&amp;quot;true&amp;quot;&lt;/code>, &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>maxRetries&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Maximum number of retries before giving up. Defaults to &lt;code>3&lt;/code>&lt;/td>
+&lt;td>&lt;code>5&lt;/code>, &lt;code>10&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>maxRetryBackoff&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Minimum backoff between each retry. Defaults to &lt;code>2&lt;/code> seconds&lt;/td>
+&lt;td>&lt;code>3000000000&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>failover&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Property to enabled failover configuration. Needs sentinalMasterName to be set. Defaults to &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
+&lt;td>&lt;code>&amp;quot;true&amp;quot;&lt;/code>, &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>sentinelMasterName&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The sentinel master name. See &lt;a href="https://redis.io/topics/sentinel">Redis Sentinel Documentation&lt;/a>&lt;/td>
+&lt;td>&lt;code>&amp;quot;&amp;quot;&lt;/code>, &lt;code>&amp;quot;127.0.0.1:6379&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorStateStore&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Consider this state store for actors. Defaults to &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
+&lt;td>&lt;code>&amp;quot;true&amp;quot;&lt;/code>, &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="setup-redis">Setup Redis&lt;/h2>
+&lt;p>Dapr can use any Redis instance - containerized, running on your local dev machine, or a managed cloud service. If you already have a Redis store, move on to the &lt;a href="#configuration">Configuration&lt;/a> section.&lt;/p>
+&lt;ul class="nav nav-tabs" id="tabs-2" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-2-self-hosted-tab" data-toggle="tab" href="#tabs-2-self-hosted" role="tab"
+aria-controls="tabs-2-self-hosted" aria-selected="true">
+Self-Hosted
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-2-kubernetes-tab" data-toggle="tab" href="#tabs-2-kubernetes" role="tab"
+aria-controls="tabs-2-kubernetes" aria-selected="false">
+Kubernetes
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-2-azure-tab" data-toggle="tab" href="#tabs-2-azure" role="tab"
+aria-controls="tabs-2-azure" aria-selected="false">
+Azure
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-2-aws-tab" data-toggle="tab" href="#tabs-2-aws" role="tab"
+aria-controls="tabs-2-aws" aria-selected="false">
+AWS
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-2-gcp-tab" data-toggle="tab" href="#tabs-2-gcp" role="tab"
+aria-controls="tabs-2-gcp" aria-selected="false">
+GCP
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-2-content">
+&lt;div class="tab-pane fade show active" id="tabs-2-self-hosted" role="tabpanel" aria-labelled-by="tabs-2-self-hosted-tab">
+&lt;br />&lt;p>A Redis instance is automatically created as a Docker container when you run &lt;code>dapr init&lt;/code>&lt;/p>
+&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-2-kubernetes" role="tabpanel" aria-labelled-by="tabs-2-kubernetes-tab">
+&lt;br />&lt;p>We can use &lt;a href="https://helm.sh/">Helm&lt;/a> to quickly create a Redis instance in our Kubernetes cluster. This approach requires &lt;a href="https://github.com/helm/helm#install">Installing Helm&lt;/a>.&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Install Redis into your cluster. Note that we&amp;rsquo;re explicitly setting an image tag to get a version greater than 5, which is what Dapr' pub/sub functionality requires. If you&amp;rsquo;re intending on using Redis as just a state store (and not for pub/sub), you do not have to set the image version.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm repo add bitnami https://charts.bitnami.com/bitnami
+helm install redis bitnami/redis
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Run &lt;code>kubectl get pods&lt;/code> to see the Redis containers now running in your cluster.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Add &lt;code>redis-master:6379&lt;/code> as the &lt;code>redisHost&lt;/code> in your &lt;a href="#configuration">redis.yaml&lt;/a> file. For example:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml"> &lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">redisHost&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">redis-master:6379&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Next, we&amp;rsquo;ll get the Redis password, which is slightly different depending on the OS we&amp;rsquo;re using:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Windows&lt;/strong>: Run &lt;code>kubectl get secret --namespace default redis -o jsonpath=&amp;quot;{.data.redis-password}&amp;quot; &amp;gt; encoded.b64&lt;/code>, which will create a file with your encoded password. Next, run &lt;code>certutil -decode encoded.b64 password.txt&lt;/code>, which will put your redis password in a text file called &lt;code>password.txt&lt;/code>. Copy the password and delete the two files.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Linux/MacOS&lt;/strong>: Run &lt;code>kubectl get secret --namespace default redis -o jsonpath=&amp;quot;{.data.redis-password}&amp;quot; | base64 --decode&lt;/code> and copy the outputted password.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>Add this password as the &lt;code>redisPassword&lt;/code> value in your &lt;a href="#configuration">redis.yaml&lt;/a> file. For example:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml"> &lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">redisPassword&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">lhDOkwTlp0&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;/ol>
+&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-2-azure" role="tabpanel" aria-labelled-by="tabs-2-azure-tab">
+&lt;br />&lt;p>&lt;strong>Note&lt;/strong>: this approach requires having an Azure Subscription.&lt;/p>
+&lt;ol>
+&lt;li>Open &lt;a href="https://ms.portal.azure.com/#create/Microsoft.Cache">this link&lt;/a> to start the Azure Cache for Redis creation flow. Log in if necessary.&lt;/li>
+&lt;li>Fill out necessary information and &lt;strong>check the &amp;ldquo;Unblock port 6379&amp;rdquo; box&lt;/strong>, which will allow us to persist state without SSL.&lt;/li>
+&lt;li>Click &amp;ldquo;Create&amp;rdquo; to kickoff deployment of your Redis instance.&lt;/li>
+&lt;li>Once your instance is created, you&amp;rsquo;ll need to grab the Host name (FQDN) and your access key.
+&lt;ul>
+&lt;li>for the Host name navigate to the resources &amp;ldquo;Overview&amp;rdquo; and copy &amp;ldquo;Host name&amp;rdquo;&lt;/li>
+&lt;li>for your access key navigate to &amp;ldquo;Access Keys&amp;rdquo; under &amp;ldquo;Settings&amp;rdquo; and copy your key.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Finally, we need to add our key and our host to a &lt;code>redis.yaml&lt;/code> file that Dapr can apply to our cluster. If you&amp;rsquo;re running a sample, you&amp;rsquo;ll add the host and key to the provided &lt;code>redis.yaml&lt;/code>. If you&amp;rsquo;re creating a project from the ground up, you&amp;rsquo;ll create a &lt;code>redis.yaml&lt;/code> file as specified in &lt;a href="#configuration">Configuration&lt;/a>. Set the &lt;code>redisHost&lt;/code> key to &lt;code>[HOST NAME FROM PREVIOUS STEP]:6379&lt;/code> and the &lt;code>redisPassword&lt;/code> key to the key you copied in step 4. &lt;strong>Note:&lt;/strong> In a production-grade application, follow &lt;a href="https://docs.dapr.io/en/operations/components/component-secrets/">secret management&lt;/a> instructions to securely manage your secrets.&lt;/li>
+&lt;/ol>
+&lt;blockquote>
+&lt;p>&lt;strong>NOTE:&lt;/strong> Dapr pub/sub uses &lt;a href="https://redis.io/topics/streams-intro">Redis Streams&lt;/a> that was introduced by Redis 5.0, which isn&amp;rsquo;t currently available on Azure Managed Redis Cache. Consequently, you can use Azure Managed Redis Cache only for state persistence.&lt;/p>
+&lt;/blockquote>
+&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-2-aws" role="tabpanel" aria-labelled-by="tabs-2-aws-tab">
+&lt;br />&lt;p>&lt;a href="https://aws.amazon.com/redis/">AWS Redis&lt;/a>&lt;/p>
+&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-2-gcp" role="tabpanel" aria-labelled-by="tabs-2-gcp-tab">
+&lt;br />&lt;p>&lt;a href="https://cloud.google.com/memorystore/">GCP Cloud MemoryStore&lt;/a>&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;div class="alert alert-primary" role="alert">
+&lt;h4 class="alert-heading">Note&lt;/h4>
+The Dapr CLI automatically deploys a local redis instance in self hosted mode as part of the &lt;code>dapr init&lt;/code> command.
+&lt;/div>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Reference: RethinkDB</title><link>https://docs.dapr.io/en/reference/components-reference/supported-state-stores/setup-rethinkdb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/reference/components-reference/supported-state-stores/setup-rethinkdb/</guid><description>
+&lt;h2 id="component-format">Component format&lt;/h2>
+&lt;p>To setup RethinkDB state store create a component of type &lt;code>state.rethinkdb&lt;/code>. See &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">state.rethinkdb&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">address&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-RETHINKDB-ADDRESS&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Required, e.g. 127.0.0.1:28015 or rethinkdb.default.svc.cluster.local:28015).&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">database&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-RETHINKDB-DB-NAME&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Required, e.g. dapr (alpha-numerics only)&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">table&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#75715e"># Optional&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">username&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;USERNAME&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">password&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;PASSWORD&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">archive&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">bool&lt;/span> &lt;span style="color:#75715e"># Optional (whether or not store should keep archive table of all the state changes)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/en/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;p>If you wish to use Redis as an actor store, append the following to the yaml.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml"> - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">actorStateStore&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>RethinkDB state store supports transactions so it can be used to persist Dapr Actor state. By default, the state will be stored in table name &lt;code>daprstate&lt;/code> in the specified database.&lt;/p>
+&lt;p>Additionally, if the optional &lt;code>archive&lt;/code> metadata is set to &lt;code>true&lt;/code>, on each state change, the RethinkDB state store will also log state changes with timestamp in the &lt;code>daprstate_archive&lt;/code> table. This allows for time series analyses of the state managed by Dapr.&lt;/p>
+&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Field&lt;/th>
+&lt;th style="text-align:center">Required&lt;/th>
+&lt;th>Details&lt;/th>
+&lt;th>Example&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>address&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The address for RethinkDB server&lt;/td>
+&lt;td>&lt;code>&amp;quot;127.0.0.1:28015&amp;quot;&lt;/code>, &lt;code>&amp;quot;rethinkdb.default.svc.cluster.local:28015&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>database&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The database to use. Alpha-numerics only&lt;/td>
+&lt;td>&lt;code>&amp;quot;dapr&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>table&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The table name to use&lt;/td>
+&lt;td>&lt;code>&amp;quot;table&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>username&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The username to connect with&lt;/td>
+&lt;td>&lt;code>&amp;quot;user&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>password&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The password to connect with&lt;/td>
+&lt;td>&lt;code>&amp;quot;password&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>archive&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Whether or not to archive the table&lt;/td>
+&lt;td>&lt;code>&amp;quot;true&amp;quot;&lt;/code>, &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="setup-rethinkdb">Setup RethinkDB&lt;/h2>
+&lt;ul class="nav nav-tabs" id="tabs-2" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-2-self-hosted-tab" data-toggle="tab" href="#tabs-2-self-hosted" role="tab"
+aria-controls="tabs-2-self-hosted" aria-selected="true">
+Self-Hosted
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-2-content">
+&lt;div class="tab-pane fade show active" id="tabs-2-self-hosted" role="tabpanel" aria-labelled-by="tabs-2-self-hosted-tab">
+&lt;br />&lt;p>You can run &lt;a href="https://rethinkdb.com/">RethinkDB&lt;/a> locally using Docker:&lt;/p>
+&lt;pre>&lt;code>docker run --name rethinkdb -v &amp;quot;$PWD:/rethinkdb-data&amp;quot; -d rethinkdb:latest
+&lt;/code>&lt;/pre>&lt;p>To connect to the admin UI:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">open &lt;span style="color:#e6db74">&amp;#34;http://&lt;/span>&lt;span style="color:#66d9ef">$(&lt;/span>docker inspect --format &lt;span style="color:#e6db74">&amp;#39;{{ .NetworkSettings.IPAddress }}&amp;#39;&lt;/span> rethinkdb&lt;span style="color:#66d9ef">)&lt;/span>&lt;span style="color:#e6db74">:8080&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;/div>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Reference: SQL Server</title><link>https://docs.dapr.io/en/reference/components-reference/supported-state-stores/setup-sqlserver/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/reference/components-reference/supported-state-stores/setup-sqlserver/</guid><description>
+&lt;h2 id="component-format">Component format&lt;/h2>
+&lt;p>To setup SQL Server state store create a component of type &lt;code>state.sqlserver&lt;/code>. See &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">state.sqlserver&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">connectionString&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-CONNECTION-STRING&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Required.&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">tableName&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-TABLE-NAME&amp;gt; &lt;/span> &lt;span style="color:#75715e"># Required.&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">keyType &lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-KEY-TYPE&amp;gt; &lt;/span> &lt;span style="color:#75715e"># Optional. defaults to &amp;#34;string&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">keyLength&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;KEY-LENGTH&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional. defaults to 200. Yo be used with &amp;#34;string&amp;#34; keyType&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">schema&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;SCHEMA&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional. defaults to &amp;#34;dbo&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">indexedProperties&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;INDEXED-PROPERTIES&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional. List of IndexedProperties. &lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/en/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;p>If you wish to use Redis as an &lt;a href="https://docs.dapr.io/en/reference/api/state_api/#configuring-state-store-for-actors">actor state store&lt;/a>, append the following to the yaml.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml"> - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">actorStateStore&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Field&lt;/th>
+&lt;th style="text-align:center">Required&lt;/th>
+&lt;th>Details&lt;/th>
+&lt;th>Example&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>connectionString&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The connection string used to connect&lt;/td>
+&lt;td>&lt;code>&amp;quot;Server=myServerName\myInstanceName;Database=myDataBase;User Id=myUsername;Password=myPassword;&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>tableName&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The name of the table to use. Alpha-numeric with underscores&lt;/td>
+&lt;td>&lt;code>&amp;quot;table_name&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>keyType&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The type of key used. Defaults to &lt;code>&amp;quot;string&amp;quot;&lt;/code>&lt;/td>
+&lt;td>&lt;code>&amp;quot;string&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>keyLength&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The max length of key. Used along with &lt;code>&amp;quot;string&amp;quot;&lt;/code> keytype. Defaults to &lt;code>&amp;quot;200&amp;quot;&lt;/code>&lt;/td>
+&lt;td>&lt;code>&amp;quot;200&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>schema&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The schema to use. Defaults to &lt;code>&amp;quot;dbo&amp;quot;&lt;/code>&lt;/td>
+&lt;td>&lt;code>&amp;quot;dapr&amp;quot;&lt;/code>,&lt;code>&amp;quot;dbo&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>indexedProperties&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>List of IndexedProperties.&lt;/td>
+&lt;td>&lt;code>&amp;quot;[{&amp;quot;ColumnName&amp;quot;: &amp;quot;column&amp;quot;, &amp;quot;Property&amp;quot;: &amp;quot;property&amp;quot;, &amp;quot;Type&amp;quot;: &amp;quot;type&amp;quot;}]&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actorStateStore&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Indicates that Dapr should configure this component for the actor state store (&lt;a href="https://docs.dapr.io/en/reference/api/state_api/#configuring-state-store-for-actors">more information&lt;/a>).&lt;/td>
+&lt;td>&lt;code>&amp;quot;true&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="create-azure-sql-instance">Create Azure SQL instance&lt;/h2>
+&lt;p>&lt;a href="https://docs.microsoft.com/azure/sql-database/sql-database-single-database-get-started?tabs=azure-portal">Follow the instructions&lt;/a> from the Azure documentation on how to create a SQL database. The database must be created before Dapr consumes it.&lt;/p>
+&lt;p>&lt;strong>Note: SQL Server state store also supports SQL Server running on VMs.&lt;/strong>&lt;/p>
+&lt;p>In order to setup SQL Server as a state store, you need the following properties:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Connection String&lt;/strong>: the SQL Server connection string. For example: server=localhost;user id=sa;password=your-password;port=1433;database=mydatabase;&lt;/li>
+&lt;li>&lt;strong>Schema&lt;/strong>: The database schema to use (default=dbo). Will be created if does not exist&lt;/li>
+&lt;li>&lt;strong>Table Name&lt;/strong>: The database table name. Will be created if does not exist&lt;/li>
+&lt;li>&lt;strong>Indexed Properties&lt;/strong>: Optional properties from json data which will be indexed and persisted as individual column&lt;/li>
+&lt;/ul>
+&lt;h3 id="create-a-dedicated-user">Create a dedicated user&lt;/h3>
+&lt;p>When connecting with a dedicated user (not &lt;code>sa&lt;/code>), these authorizations are required for the user - even when the user is owner of the desired database schema:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>CREATE TABLE&lt;/code>&lt;/li>
+&lt;li>&lt;code>CREATE TYPE&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Reference: Zookeeper</title><link>https://docs.dapr.io/en/reference/components-reference/supported-state-stores/setup-zookeeper/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/reference/components-reference/supported-state-stores/setup-zookeeper/</guid><description>
+&lt;h2 id="component-format">Component format&lt;/h2>
+&lt;p>To setup Zookeeper state store create a component of type &lt;code>state.zookeeper&lt;/code>. See &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">this guide&lt;/a> on how to create and apply a state store configuration.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">state.zookeeper&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">servers&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-COMMA-DELIMITED-SERVERS&amp;gt; # Required. Example&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;zookeeper.default.svc.cluster.local:2181&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">sessionTimeout&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-SESSION-TIMEOUT&amp;gt; # Required. Example&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;5s&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">maxBufferSize&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-MAX-BUFFER-SIZE&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1048576&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">maxConnBufferSize&lt;/span>
+&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-MAX-CONN-BUFFER-SIZE&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1048576&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">keyPrefixPath&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-KEY-PREFIX-PATH&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional.&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/en/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Field&lt;/th>
+&lt;th style="text-align:center">Required&lt;/th>
+&lt;th>Details&lt;/th>
+&lt;th>Example&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>servers&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>Comma delimited list of servers&lt;/td>
+&lt;td>&lt;code>&amp;quot;zookeeper.default.svc.cluster.local:2181&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>sessionTimeout&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>The session timeout value&lt;/td>
+&lt;td>&lt;code>&amp;quot;5s&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>maxBufferSize&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The maximum size of buffer. Defaults to &lt;code>&amp;quot;1048576&amp;quot;&lt;/code>&lt;/td>
+&lt;td>&lt;code>&amp;quot;1048576&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>maxConnBufferSize&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The maximum size of connection buffer. Defautls to &lt;code>&amp;quot;1048576&lt;/code>&amp;quot;&lt;/td>
+&lt;td>&lt;code>&amp;quot;1048576&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>keyPrefixPath&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The key prefix path in Zookeeper. No default&lt;/td>
+&lt;td>&lt;code>&amp;quot;dapr&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="setup-zookeeper">Setup Zookeeper&lt;/h2>
+&lt;ul class="nav nav-tabs" id="tabs-2" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-2-self-hosted-tab" data-toggle="tab" href="#tabs-2-self-hosted" role="tab"
+aria-controls="tabs-2-self-hosted" aria-selected="true">
+Self-Hosted
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-2-kubernetes-tab" data-toggle="tab" href="#tabs-2-kubernetes" role="tab"
+aria-controls="tabs-2-kubernetes" aria-selected="false">
+Kubernetes
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-2-content">
+&lt;div class="tab-pane fade show active" id="tabs-2-self-hosted" role="tabpanel" aria-labelled-by="tabs-2-self-hosted-tab">
+&lt;br />&lt;p>You can run Zookeeper locally using Docker:&lt;/p>
+&lt;pre>&lt;code>docker run --name some-zookeeper --restart always -d zookeeper
+&lt;/code>&lt;/pre>&lt;p>You can then interact with the server using &lt;code>localhost:2181&lt;/code>.&lt;/p>
+&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-2-kubernetes" role="tabpanel" aria-labelled-by="tabs-2-kubernetes-tab">
+&lt;br />&lt;p>The easiest way to install Zookeeper on Kubernetes is by using the &lt;a href="https://github.com/helm/charts/tree/master/incubator/zookeeper">Helm chart&lt;/a>:&lt;/p>
+&lt;pre>&lt;code>helm repo add incubator http://storage.googleapis.com/kubernetes-charts-incubator
+helm install zookeeper incubator/zookeeper
+&lt;/code>&lt;/pre>&lt;p>This installs Zookeeper into the &lt;code>default&lt;/code> namespace.
+To interact with Zookeeper, find the service with: &lt;code>kubectl get svc zookeeper&lt;/code>.&lt;/p>
+&lt;p>For example, if installing using the example above, the Zookeeper host address would be:&lt;/p>
+&lt;p>&lt;code>zookeeper.default.svc.cluster.local:2181&lt;/code>&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">this guide&lt;/a> for instructions on configuring state store components&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/">State management building block&lt;/a>&lt;/li>
+&lt;/ul></description></item></channel></rss>

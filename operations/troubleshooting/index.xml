@@ -1,7 +1,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Debugging and Troubleshooting</title><link>https://docs.dapr.io/operations/troubleshooting/</link><description>Recent content in Debugging and Troubleshooting on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/operations/troubleshooting/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: Common issues when running Dapr</title><link>https://docs.dapr.io/operations/troubleshooting/common_issues/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/troubleshooting/common_issues/</guid><description>
 &lt;h2 id="i-dont-see-the-dapr-sidecar-injected-to-my-pod">I don&amp;rsquo;t see the Dapr sidecar injected to my pod&lt;/h2>
-&lt;p>There could be several reasons to why a sidecar will not be injected into a pod. First, check your Deployment or Pod YAML file, and check that you have the following annotations in the right place:&lt;/p>
-&lt;p>Sample deployment:&lt;/p>
+&lt;p>There could be several reasons to why a sidecar will not be injected into a pod. First, check your deployment or pod YAML file, and check that you have the following annotations in the right place:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">annotations&lt;/span>:
+&lt;span style="color:#f92672">dapr.io/enabled&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">dapr.io/app-id&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;nodeapp&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">dapr.io/app-port&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;3000&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="sample-deployment">Sample deployment:&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">apps/v1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Deployment&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -19,9 +23,9 @@
 &lt;span style="color:#f92672">labels&lt;/span>:
 &lt;span style="color:#f92672">app&lt;/span>: &lt;span style="color:#ae81ff">node&lt;/span>
 &lt;span style="color:#f92672">annotations&lt;/span>:
-&lt;span style="color:#f92672">&amp;lt;b&amp;gt;dapr.io/enabled&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>&lt;span style="color:#ae81ff">&amp;lt;/b&amp;gt;&lt;/span>
-&lt;span style="color:#f92672">&amp;lt;b&amp;gt;dapr.io/app-id&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;nodeapp&amp;#34;&lt;/span>&lt;span style="color:#ae81ff">&amp;lt;/b&amp;gt;&lt;/span>
-&lt;span style="color:#f92672">&amp;lt;b&amp;gt;dapr.io/app-port&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;3000&amp;#34;&lt;/span>&lt;span style="color:#ae81ff">&amp;lt;/b&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">dapr.io/enabled&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">dapr.io/app-id&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;nodeapp&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">dapr.io/app-port&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;3000&amp;#34;&lt;/span>
 &lt;span style="color:#f92672">spec&lt;/span>:
 &lt;span style="color:#f92672">containers&lt;/span>:
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">node&lt;/span>
@@ -50,7 +54,7 @@ Warning BackOff 3m2s (x18 over 6m48s) kubelet, aks-agentpool-12499885-vmss000000
 &lt;p>The most common cause of this failure is that a component (such as a state store) is misconfigured and is causing initialization to take too long. When initialization takes a long time, it&amp;rsquo;s possible that the health check could terminate the sidecar before anything useful is logged by the sidecar.&lt;/p>
 &lt;p>To diagnose the root cause:&lt;/p>
 &lt;ul>
-&lt;li>Significantly increase the liveness probe delay - &lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-overview/">link&lt;/a>&lt;/li>
+&lt;li>Significantly increase the liveness probe delay - &lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-annotations/">link&lt;/a>&lt;/li>
 &lt;li>Set the log level of the sidecar to debug - &lt;a href="https://docs.dapr.io/operations/troubleshooting/logs-troubleshooting/#setting-the-sidecar-log-level">link&lt;/a>&lt;/li>
 &lt;li>Watch the logs for meaningful information - &lt;a href="https://docs.dapr.io/operations/troubleshooting/logs-troubleshooting/#viewing-logs-on-kubernetes">link&lt;/a>&lt;/li>
 &lt;/ul>
@@ -129,7 +133,7 @@ Warning BackOff 3m2s (x18 over 6m48s) kubelet, aks-agentpool-12499885-vmss000000
 &lt;p>When running Dapr with the Dapr CLI, both your app&amp;rsquo;s log output and the runtime&amp;rsquo;s output will be redirected to the same session, for easy debugging. For example, this is the output when running Dapr:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr run node myapp.js
 ℹ️ Starting Dapr with id Trackgreat-Lancer on port &lt;span style="color:#ae81ff">56730&lt;/span>
-✅ You are up and running! Both Dapr and your app logs will appear here.
+✅ You are up and running!
 &lt;span style="color:#f92672">==&lt;/span> APP &lt;span style="color:#f92672">==&lt;/span> App listening on port 3000!
 &lt;span style="color:#f92672">==&lt;/span> DAPR &lt;span style="color:#f92672">==&lt;/span> time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-05T12:26:43-07:00&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;starting Dapr Runtime -- version 0.3.0-alpha -- commit b6f2810-dirty&amp;#34;&lt;/span>
 &lt;span style="color:#f92672">==&lt;/span> DAPR &lt;span style="color:#f92672">==&lt;/span> time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-05T12:26:43-07:00&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;log level set to: info&amp;#34;&lt;/span>
@@ -140,7 +144,7 @@ Warning BackOff 3m2s (x18 over 6m48s) kubelet, aks-agentpool-12499885-vmss000000
 &lt;span style="color:#f92672">==&lt;/span> DAPR &lt;span style="color:#f92672">==&lt;/span> 2019/09/05 12:26:43 redis: connecting to localhost:6379
 &lt;span style="color:#f92672">==&lt;/span> DAPR &lt;span style="color:#f92672">==&lt;/span> 2019/09/05 12:26:43 redis: connected to localhost:6379 &lt;span style="color:#f92672">(&lt;/span>localAddr: &lt;span style="color:#f92672">[&lt;/span>::1&lt;span style="color:#f92672">]&lt;/span>:56734, remAddr: &lt;span style="color:#f92672">[&lt;/span>::1&lt;span style="color:#f92672">]&lt;/span>:6379&lt;span style="color:#f92672">)&lt;/span>
 &lt;span style="color:#f92672">==&lt;/span> DAPR &lt;span style="color:#f92672">==&lt;/span> time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-05T12:26:43-07:00&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>warning msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;failed to init input bindings: app channel not initialized&amp;#34;&lt;/span>
-&lt;span style="color:#f92672">==&lt;/span> DAPR &lt;span style="color:#f92672">==&lt;/span> time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-05T12:26:43-07:00&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;actor runtime started. actor idle timeout: 1h0m0s. actor scan interval: 30s&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">==&lt;/span> DAPR &lt;span style="color:#f92672">==&lt;/span> time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-05T12:26:43-07:00&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;actor runtime started. actor scan interval: 30s&amp;#34;&lt;/span>
 &lt;span style="color:#f92672">==&lt;/span> DAPR &lt;span style="color:#f92672">==&lt;/span> time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-05T12:26:43-07:00&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;actors: starting connection attempt to placement service at localhost:50005&amp;#34;&lt;/span>
 &lt;span style="color:#f92672">==&lt;/span> DAPR &lt;span style="color:#f92672">==&lt;/span> time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-05T12:26:43-07:00&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;http server is running on port 56730&amp;#34;&lt;/span>
 &lt;span style="color:#f92672">==&lt;/span> DAPR &lt;span style="color:#f92672">==&lt;/span> time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-05T12:26:43-07:00&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;gRPC server is running on port 56731&amp;#34;&lt;/span>
@@ -159,7 +163,7 @@ Warning BackOff 3m2s (x18 over 6m48s) kubelet, aks-agentpool-12499885-vmss000000
 &lt;li>dapr_placement&lt;/li>
 &lt;li>dapr_sidecar_injector&lt;/li>
 &lt;/ul>
-&lt;p>Example:&lt;/p>
+&lt;p>示例:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm install dapr dapr/dapr --namespace dapr-system --set dapr_operator.logLevel&lt;span style="color:#f92672">=&lt;/span>error
 &lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="viewing-logs-on-kubernetes">Viewing Logs on Kubernetes&lt;/h3>
 &lt;p>Dapr logs are written to stdout and stderr. This section will guide you on how to view logs for Dapr system components as well as the Dapr sidecar.&lt;/p>
@@ -175,7 +179,7 @@ time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&am
 time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-04T02:52:27Z&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;app id: addapp&amp;#34;&lt;/span>
 time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-04T02:52:27Z&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;application protocol: http. waiting on port 6000&amp;#34;&lt;/span>
 time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-04T02:52:27Z&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;application discovered on port 6000&amp;#34;&lt;/span>
-time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-04T02:52:27Z&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;actor runtime started. actor idle timeout: 1h0m0s. actor scan interval: 30s&amp;#34;&lt;/span>
+time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-04T02:52:27Z&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;actor runtime started. actor scan interval: 30s&amp;#34;&lt;/span>
 time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-04T02:52:27Z&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;actors: starting connection attempt to placement service at dapr-placement.dapr-system.svc.cluster.local:80&amp;#34;&lt;/span>
 time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-04T02:52:27Z&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;http server is running on port 3500&amp;#34;&lt;/span>
 time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;2019-09-04T02:52:27Z&amp;#34;&lt;/span> level&lt;span style="color:#f92672">=&lt;/span>info msg&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;gRPC server is running on port 50001&amp;#34;&lt;/span>

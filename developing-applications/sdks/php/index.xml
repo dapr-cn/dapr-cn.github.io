@@ -112,7 +112,7 @@ $app &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">\
 &lt;span style="color:#a6e22e">\Nyholm\Psr7\Factory\Psr17Factory&lt;/span> $factory) &lt;span style="color:#f92672">=&amp;gt;&lt;/span> $response&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">withBody&lt;/span>($factory&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">createStream&lt;/span>($id)));
 $app&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">start&lt;/span>();
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="将应用程序作为客户端">将应用程序作为客户端&lt;/h2>
-&lt;p>当你只想使用Dapr作为客户端，例如在现有代码中，你可以调用 &lt;code>$app-&amp;gt;run()&lt;/code>。 在这些情况下，特别是在生产中 通常不需要自定义配置，但您可能想使用编译的DI 容器：&lt;/p>
+&lt;p>当你只想使用Dapr作为客户端，例如在现有代码中，你可以调用 &lt;code>$app-&amp;gt;run()&lt;/code>。 通常情况下，特别是在生产中 不需要自定义配置，但您可能想使用编译的DI 容器：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
 &lt;span style="color:#75715e">// app.php
 &lt;/span>&lt;span style="color:#75715e">&lt;/span>
@@ -193,13 +193,13 @@ Only &lt;code>application/octet-steam&lt;/code> is supported for binary data.
 &lt;h2 id="接收云事件">接收云事件&lt;/h2>
 &lt;p>在订阅处理器中，您可以通过 DI 容器将 dapr\PubSub\Cloud Event&lt;/code> &lt;code>或 &amp;lt;code&amp;gt;array&lt;/code> 注入到控制器中。 之前进行了一些验证以确保您有一个适当的事件。 如果您需要直接访问数据或者事件，请使用 array &amp;lt;/ code&amp;gt;。&lt;/p>&lt;/p></description></item><item><title>Developing-Applications: 使用PHP的状态管理</title><link>https://docs.dapr.io/developing-applications/sdks/php/php-state/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/php/php-state/</guid><description>
 &lt;p>Dapr 提供了一个很好的模块化方法来管理您的应用程序中的状态。 新手入门可以参考 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/">如何帮助&lt;/a>&lt;/p>
-&lt;h2 id="metadata">Metadata&lt;/h2>
+&lt;h2 id="元数据metadata">元数据（Metadata）&lt;/h2>
 &lt;p>许多状态组件允许您将元数据传递给组件，以控制组件的特定行为。 PHP SDK 允许您通过以下方式传递该元数据：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
 $app&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">run&lt;/span>(
 &lt;span style="color:#a6e22e">fn&lt;/span>(&lt;span style="color:#a6e22e">\Dapr\State\StateManager&lt;/span> $stateManager) &lt;span style="color:#f92672">=&amp;gt;&lt;/span>
 $stateManager&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">save_state&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;statestore&amp;#39;&lt;/span>, &lt;span style="color:#66d9ef">new&lt;/span> &lt;span style="color:#a6e22e">\Dapr\State\StateItem&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;key&amp;#39;&lt;/span>, &lt;span style="color:#e6db74">&amp;#39;value&amp;#39;&lt;/span>, &lt;span style="color:#a6e22e">metadata&lt;/span>&lt;span style="color:#f92672">:&lt;/span> [&lt;span style="color:#e6db74">&amp;#39;port&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> &lt;span style="color:#e6db74">&amp;#39;112&amp;#39;&lt;/span>])));
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>这是为您展示如何将元数据传递给 &lt;a href="https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/setup-cassandra/">Cassandra&lt;/a> 的一个例子。&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这是为您展示如何将元数据传递给 &lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-cassandra/">Cassandra&lt;/a> 的一个例子。&lt;/p>
 &lt;p>每个状态操作都允许传递元数据。&lt;/p>
 &lt;h2 id="一致性并发性">一致性/并发性&lt;/h2>
 &lt;p>在PHP SDK中，有四种不同类型的Dapr中的一致性和并发性：&lt;/p>

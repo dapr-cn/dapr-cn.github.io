@@ -63,7 +63,7 @@ dapr completion &lt;span style="color:#f92672">[&lt;/span>command&lt;span style=
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>名称&lt;/th>
+&lt;th>Name&lt;/th>
 &lt;th>环境变量&lt;/th>
 &lt;th>默认值&lt;/th>
 &lt;th>描述&lt;/th>
@@ -116,43 +116,6 @@ source ~/.zshrc
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-txt" data-lang="txt">bash Generates bash completion scripts
 powershell Generates powershell completion scripts
 zsh Generates zsh completion scripts
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: components CLI 命令参考</title><link>https://docs.dapr.io/reference/cli/dapr-components/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/cli/dapr-components/</guid><description>
-&lt;h2 id="描述">描述&lt;/h2>
-&lt;p>列出所有 Dapr 组件。&lt;/p>
-&lt;h2 id="支持的平台">支持的平台&lt;/h2>
-&lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/">Kubernetes&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;h2 id="用法">用法&lt;/h2>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr components &lt;span style="color:#f92672">[&lt;/span>flags&lt;span style="color:#f92672">]&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="参数">参数&lt;/h2>
-&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th>名称&lt;/th>
-&lt;th>环境变量&lt;/th>
-&lt;th>默认值&lt;/th>
-&lt;th>描述&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td>&lt;code>--help&lt;/code>, &lt;code>-h&lt;/code>&lt;/td>
-&lt;td>&lt;/td>
-&lt;td>&lt;/td>
-&lt;td>显示此帮助消息&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;code>--kubernetes&lt;/code>, &lt;code>-k&lt;/code>&lt;/td>
-&lt;td>&lt;/td>
-&lt;td>&lt;code>false&lt;/code>&lt;/td>
-&lt;td>列出 Kubernetes 集群中的所有 Dapr 组件&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;h2 id="示例">示例&lt;/h2>
-&lt;h3 id="列出-kubernetes-组件">列出 Kubernetes 组件&lt;/h3>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr components -k
 &lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: configurations CLI 命令参考</title><link>https://docs.dapr.io/reference/cli/dapr-configurations/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/cli/dapr-configurations/</guid><description>
 &lt;h2 id="描述">描述&lt;/h2>
 &lt;p>列出所有 Dapr 配置。&lt;/p>
@@ -166,7 +129,7 @@ zsh Generates zsh completion scripts
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>名称&lt;/th>
+&lt;th>Name&lt;/th>
 &lt;th>环境变量&lt;/th>
 &lt;th>默认值&lt;/th>
 &lt;th>描述&lt;/th>
@@ -216,7 +179,7 @@ zsh Generates zsh completion scripts
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>名称&lt;/th>
+&lt;th>Name&lt;/th>
 &lt;th>环境变量&lt;/th>
 &lt;th>默认值&lt;/th>
 &lt;th>描述&lt;/th>
@@ -273,7 +236,7 @@ zsh Generates zsh completion scripts
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>名称&lt;/th>
+&lt;th>Name&lt;/th>
 &lt;th>环境变量&lt;/th>
 &lt;th>默认值&lt;/th>
 &lt;th>描述&lt;/th>
@@ -301,7 +264,7 @@ zsh Generates zsh completion scripts
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>名称&lt;/th>
+&lt;th>Name&lt;/th>
 &lt;th>环境变量&lt;/th>
 &lt;th>默认值&lt;/th>
 &lt;th>描述&lt;/th>
@@ -398,7 +361,7 @@ zsh Generates zsh completion scripts
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>名称&lt;/th>
+&lt;th>Name&lt;/th>
 &lt;th>环境变量&lt;/th>
 &lt;th>默认值&lt;/th>
 &lt;th>描述&lt;/th>
@@ -456,7 +419,7 @@ zsh Generates zsh completion scripts
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>名称&lt;/th>
+&lt;th>Name&lt;/th>
 &lt;th>环境变量&lt;/th>
 &lt;th>默认值&lt;/th>
 &lt;th>描述&lt;/th>
@@ -482,61 +445,6 @@ zsh Generates zsh completion scripts
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr list
 &lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="列出在-kubernetes-模式下-dapr-实例">列出在 Kubernetes 模式下 Dapr 实例&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr list -k
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: logs CLI 命令参考</title><link>https://docs.dapr.io/reference/cli/dapr-logs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/cli/dapr-logs/</guid><description>
-&lt;h2 id="描述">描述&lt;/h2>
-&lt;p>获取应用程序的 dapr sidecar 日志。&lt;/p>
-&lt;h2 id="支持的平台">支持的平台&lt;/h2>
-&lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/">Kubernetes&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;h2 id="用法">用法&lt;/h2>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr logs &lt;span style="color:#f92672">[&lt;/span>flags&lt;span style="color:#f92672">]&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="参数">参数&lt;/h2>
-&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th>名称&lt;/th>
-&lt;th>环境变量&lt;/th>
-&lt;th>默认值&lt;/th>
-&lt;th>描述&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td>&lt;code>--app-id&lt;/code>, &lt;code>-a&lt;/code>&lt;/td>
-&lt;td>&lt;/td>
-&lt;td>&lt;/td>
-&lt;td>需要显示日志的应用程序 Id&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;code>--help&lt;/code>, &lt;code>-h&lt;/code>&lt;/td>
-&lt;td>&lt;/td>
-&lt;td>&lt;/td>
-&lt;td>显示此帮助消息&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;code>--kubernetes&lt;/code>, &lt;code>-k&lt;/code>&lt;/td>
-&lt;td>&lt;/td>
-&lt;td>&lt;code>true&lt;/code>&lt;/td>
-&lt;td>从 Kubernetes 集群获取日志&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;code>--namespace&lt;/code>, &lt;code>-n&lt;/code>&lt;/td>
-&lt;td>&lt;/td>
-&lt;td>&lt;code>default&lt;/code>&lt;/td>
-&lt;td>部署应用程序的 Kubernetes 名称空间&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;code>--pod-name&lt;/code>, &lt;code>-p&lt;/code>&lt;/td>
-&lt;td>&lt;/td>
-&lt;td>&lt;/td>
-&lt;td>Kubernetes 中的 pod 的名称，以防您的应用程序具有多个 pod (可选)&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;h2 id="示例">示例&lt;/h2>
-&lt;h3 id="从定制名称空间中的目标-pod-获取-应用程序的日志">从定制名称空间中的目标 Pod 获取 应用程序的日志&lt;/h3>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr logs -k --app-id sample --pod-name target --namespace custom
 &lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: mtls CLI 命令参考</title><link>https://docs.dapr.io/reference/cli/dapr-mtls/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/cli/dapr-mtls/</guid><description>
 &lt;h2 id="描述">描述&lt;/h2>
 &lt;p>检查是否启用了 mTLS&lt;/p>
@@ -551,7 +459,7 @@ dapr mtls &lt;span style="color:#f92672">[&lt;/span>command&lt;span style="color
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>名称&lt;/th>
+&lt;th>Name&lt;/th>
 &lt;th>环境变量&lt;/th>
 &lt;th>默认值&lt;/th>
 &lt;th>描述&lt;/th>
@@ -597,7 +505,7 @@ export 从 Kubernetes 中导出根证书、签发密钥到本地文件
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>名称&lt;/th>
+&lt;th>Name&lt;/th>
 &lt;th>环境变量&lt;/th>
 &lt;th>默认值&lt;/th>
 &lt;th>描述&lt;/th>
@@ -652,7 +560,7 @@ export 从 Kubernetes 中导出根证书、签发密钥到本地文件
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>名称&lt;/th>
+&lt;th>Name&lt;/th>
 &lt;th>环境变量&lt;/th>
 &lt;th>默认值&lt;/th>
 &lt;th>描述&lt;/th>
@@ -775,7 +683,7 @@ export 从 Kubernetes 中导出根证书、签发密钥到本地文件
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>名称&lt;/th>
+&lt;th>Name&lt;/th>
 &lt;th>环境变量&lt;/th>
 &lt;th>默认值&lt;/th>
 &lt;th>描述&lt;/th>
@@ -812,7 +720,7 @@ export 从 Kubernetes 中导出根证书、签发密钥到本地文件
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>名称&lt;/th>
+&lt;th>Name&lt;/th>
 &lt;th>环境变量&lt;/th>
 &lt;th>默认值&lt;/th>
 &lt;th>描述&lt;/th>
@@ -850,7 +758,7 @@ export 从 Kubernetes 中导出根证书、签发密钥到本地文件
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>名称&lt;/th>
+&lt;th>Name&lt;/th>
 &lt;th>环境变量&lt;/th>
 &lt;th>默认值&lt;/th>
 &lt;th>描述&lt;/th>
@@ -909,7 +817,7 @@ export 从 Kubernetes 中导出根证书、签发密钥到本地文件
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>名称&lt;/th>
+&lt;th>Name&lt;/th>
 &lt;th>环境变量&lt;/th>
 &lt;th>默认值&lt;/th>
 &lt;th>描述&lt;/th>
@@ -946,10 +854,102 @@ export 从 Kubernetes 中导出根证书、签发密钥到本地文件
 &lt;h3 id="将-kubernetes-中的-dapr-升级到最新版本">将 Kubernetes 中的 dapr 升级到最新版本&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr upgrade -k
 &lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="在-kubernetes-中升级指定版本的-dapr-运行时">在 Kubernetes 中升级指定版本的 Dapr 运行时&lt;/h3>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr upgrade -k --runtime-version 1.1.0
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr upgrade -k --runtime-version 1.1.2
 &lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="在-kubernetes-中升级指定版本的-dapr-运行时并包含一些参数">在 Kubernetes 中升级指定版本的 Dapr 运行时，并包含一些参数&lt;/h3>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr upgrade -k --runtime-version 1.1.0 --set global.logAsJson&lt;span style="color:#f92672">=&lt;/span>true
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr upgrade -k --runtime-version 1.1.2 --set global.logAsJson&lt;span style="color:#f92672">=&lt;/span>true
 &lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="相关链接">相关链接&lt;/h1>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-upgrade/">更新 Kubernetes 集群中的 Dapr&lt;/a>&lt;/li>
-&lt;/ul></description></item></channel></rss>
+&lt;/ul></description></item><item><title>Reference: logs CLI 命令参考</title><link>https://docs.dapr.io/reference/cli/dapr-logs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/cli/dapr-logs/</guid><description>
+&lt;h2 id="描述">描述&lt;/h2>
+&lt;p>获取应用程序的 dapr sidecar 日志。&lt;/p>
+&lt;h2 id="支持的平台">支持的平台&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/">Kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="用法">用法&lt;/h2>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr logs &lt;span style="color:#f92672">[&lt;/span>flags&lt;span style="color:#f92672">]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="参数">参数&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th>环境变量&lt;/th>
+&lt;th>默认值&lt;/th>
+&lt;th>描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;code>--app-id&lt;/code>, &lt;code>-a&lt;/code>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>需要显示日志的应用程序 Id&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>--help&lt;/code>, &lt;code>-h&lt;/code>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>显示此帮助消息&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>--kubernetes&lt;/code>, &lt;code>-k&lt;/code>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;code>true&lt;/code>&lt;/td>
+&lt;td>从 Kubernetes 集群获取日志&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>--namespace&lt;/code>, &lt;code>-n&lt;/code>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;code>default&lt;/code>&lt;/td>
+&lt;td>部署应用程序的 Kubernetes 名称空间&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>--pod-name&lt;/code>, &lt;code>-p&lt;/code>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>Kubernetes 中的 pod 的名称，以防您的应用程序具有多个 pod (可选)&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="示例">示例&lt;/h2>
+&lt;h3 id="从定制名称空间中的目标-pod-获取-应用程序的日志">从定制名称空间中的目标 Pod 获取 应用程序的日志&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr logs -k --app-id sample --pod-name target --namespace custom
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Reference: components CLI 命令参考</title><link>https://docs.dapr.io/reference/cli/dapr-components/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/cli/dapr-components/</guid><description>
+&lt;h2 id="描述">描述&lt;/h2>
+&lt;p>列出所有 Dapr 组件。&lt;/p>
+&lt;h2 id="支持的平台">支持的平台&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/">Kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="用法">用法&lt;/h2>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr components &lt;span style="color:#f92672">[&lt;/span>flags&lt;span style="color:#f92672">]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="参数">参数&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th>环境变量&lt;/th>
+&lt;th>默认值&lt;/th>
+&lt;th>描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;code>--help&lt;/code>, &lt;code>-h&lt;/code>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>显示此帮助消息&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>--kubernetes&lt;/code>, &lt;code>-k&lt;/code>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;code>false&lt;/code>&lt;/td>
+&lt;td>列出 Kubernetes 集群中的所有 Dapr 组件&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="示例">示例&lt;/h2>
+&lt;h3 id="列出-kubernetes-组件">列出 Kubernetes 组件&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr components -k
+&lt;/code>&lt;/pre>&lt;/div></description></item></channel></rss>

@@ -1,6 +1,6 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Dapr 中的组件管理</title><link>https://docs.dapr.io/operations/components/</link><description>Recent content in Dapr 中的组件管理 on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/operations/components/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: 组件schema</title><link>https://docs.dapr.io/operations/components/component-schema/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/component-schema/</guid><description>
-&lt;p>Dapr defines and registers components using a &lt;a href="https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/">CustomResourceDefinition&lt;/a>. All components are defined as a CRD and can be applied to any hosting environment where Dapr is running, not just Kubernetes.&lt;/p>
-&lt;h2 id="format">Format&lt;/h2>
+&lt;p>Dapr 使用 &lt;a href="https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/">CustomResourceDefinition&lt;/a> 定义和注册组件。 所有组件都定义为 CRD，可应用于 Dapr 运行的任何托管环境，而不仅仅是 Kubernetes。&lt;/p>
+&lt;h2 id="格式">格式&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -14,7 +14,7 @@
 &lt;span style="color:#f92672">metadata&lt;/span>:
 - &lt;span style="color:#f92672">name&lt;/span>: [&lt;span style="color:#ae81ff">METADATA-NAME]&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: [&lt;span style="color:#ae81ff">METADATA-VALUE]&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="fields">Fields&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="字段">字段&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
@@ -27,74 +27,74 @@
 &lt;tbody>
 &lt;tr>
 &lt;td>apiVersion&lt;/td>
-&lt;td style="text-align:center">是&lt;/td>
-&lt;td>The version of the Dapr (and Kubernetes if applicable) API you are calling&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>您正在调用的Dapr版本(如果适用的话为 Kubernetes) API&lt;/td>
 &lt;td>&lt;code>dapr.io/v1alpha1&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>kind&lt;/td>
-&lt;td style="text-align:center">是&lt;/td>
-&lt;td>The type of CRD. For components is must always be &lt;code>Component&lt;/code>&lt;/td>
-&lt;td>&lt;code>Component&lt;/code>&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>CRD的类型。 组件必须始终是 &lt;code>Component&lt;/code>&lt;/td>
+&lt;td>&lt;code>Component (组件)&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;strong>metadata&lt;/strong>&lt;/td>
 &lt;td style="text-align:center">-&lt;/td>
-&lt;td>&lt;strong>Information about the component registration&lt;/strong>&lt;/td>
+&lt;td>&lt;strong>有关组件注册的信息&lt;/strong>&lt;/td>
 &lt;td>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>metadata.name&lt;/td>
-&lt;td style="text-align:center">是&lt;/td>
-&lt;td>The name of the component&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>组件的名称&lt;/td>
 &lt;td>&lt;code>prod-statestore&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>metadata.namespace&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>The namespace for the component for hosting environments with namespaces&lt;/td>
+&lt;td>主机环境的命名空间&lt;/td>
 &lt;td>&lt;code>myapp-namespace&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;strong>spec&lt;/strong>&lt;/td>
 &lt;td style="text-align:center">-&lt;/td>
-&lt;td>&lt;strong>Detailed information on the component resource&lt;/strong>&lt;/td>
+&lt;td>&lt;strong>关于组件资源的详细信息&lt;/strong>&lt;/td>
 &lt;td>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>spec.type&lt;/td>
-&lt;td style="text-align:center">是&lt;/td>
-&lt;td>The type of the component&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>组件类型&lt;/td>
 &lt;td>&lt;code>state.redis&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>spec.version&lt;/td>
-&lt;td style="text-align:center">是&lt;/td>
-&lt;td>The version of the component&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>组件版本&lt;/td>
 &lt;td>&lt;code>v1&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>spec.initTimeout&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>The timeout duration for the initialization of the component. Default is 30s&lt;/td>
+&lt;td>组件初始化的超时时间 默认为30秒&lt;/td>
 &lt;td>&lt;code>5m&lt;/code>, &lt;code>1h&lt;/code>, &lt;code>20s&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>spec.ignoreErrors&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Tells the Dapr sidecar to continue initialization if the component fails to load. Default is false&lt;/td>
+&lt;td>如果组件加载失败，请告诉Dapr sidecar 继续初始化。 默认为 false&lt;/td>
 &lt;td>&lt;code>false&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;strong>spec.metadata&lt;/strong>&lt;/td>
 &lt;td style="text-align:center">-&lt;/td>
-&lt;td>&lt;strong>A key/value pair of component specific configuration. See your component definition for fields&lt;/strong>&lt;/td>
+&lt;td>&lt;strong>一个组件特定配置的键/值。 查看你的组件字段定义&lt;/strong>&lt;/td>
 &lt;td>&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h3 id="special-metadata-values">Special metadata values&lt;/h3>
-&lt;p>Metadata values can contain a &lt;code>{uuid}&lt;/code> tag that is replaced with a randomly generate UUID when the Dapr sidecar starts up. A new UUID is generated on every start up. It can be used, for example, to have a pod on Kubernetes with multiple application instances consuming a &lt;a href="https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/setup-mqtt/">shared MQTT subscription&lt;/a>. Below is an example of using the &lt;code>{uuid}&lt;/code> tag.&lt;/p>
+&lt;h3 id="特殊的元数据值">特殊的元数据值&lt;/h3>
+&lt;p>元数据值可以包含一个 &lt;code>{uuid}&lt;/code> 标签，当 Dapr sidecar 启动时，该标记将被随机生成的 UUID 所取代。 每个启动都会生成新的 UUID。 它可以用来在 Kubernetes 上区分同一个 pod 的多个实例 ，比如 &lt;a href="https://docs.dapr.io/reference/components-reference/supported-pubsub/setup-mqtt/">共享的 MQTT 订阅&lt;/a>。 下面是一个使用 &lt;code> {uuid}&lt;/code> 选项的示例。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -116,12 +116,12 @@
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="深入阅读">深入阅读&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/concepts/components-concept/">Components concept&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-secrets/">Reference secrets in component definitions&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/">支持的状态存储&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/">Supported pub/sub brokers&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/">Supported secret stores&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/setup-bindings/supported-bindings/">Supported bindings&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-scopes/">Set component scopes&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-secrets/">组件定义中的引用密钥&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/">支持的状态存储&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-pubsub/">支持的 发布/订阅 消息代理&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-secret-stores/">支持的密钥存储&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/">Supported bindings&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-scopes/">设置组件作用域&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: Certification lifecycle</title><link>https://docs.dapr.io/operations/components/certification-lifecycle/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/certification-lifecycle/</guid><description>
 &lt;h2 id="概述">概述&lt;/h2>
 &lt;p>Dapr 使用模块化设计，将功能作为组件来提供。 每个组件都有接口定义。 All of the components are pluggable so that in ideal scenarios, you can swap out one component with the same interface for another. Each component that is used in production, needs to maintain a certain set of technical requirements that ensure the functional compatibility and robustness of the component.&lt;/p>
@@ -191,11 +191,11 @@
 &lt;/ul>
 &lt;h3 id="existing-ga-certified-component">Existing GA certified component&lt;/h3>
 &lt;p>For an existing GA certified component, conformance test should be run against any changes made to component code or the backing service version or the client version.&lt;/p>
-&lt;p>In the scenarios where a component version is updated, the component again starts from Alpha stage and then the new component certification is followed for that.&lt;/p></description></item><item><title>Operations: How-To: Scope components to one or more applications</title><link>https://docs.dapr.io/operations/components/component-scopes/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/component-scopes/</guid><description>
-&lt;p>Dapr components are namespaced (separate from the Kubernetes namespace concept), meaning a Dapr runtime instance can only access components that have been deployed to the same namespace.&lt;/p>
-&lt;p>When Dapr runs, it matches it&amp;rsquo;s own configured namespace with the namespace of the components that it loads and initializes only the ones matching its namespaces. All other components in a different namespace are not loaded.&lt;/p>
+&lt;p>In the scenarios where a component version is updated, the component again starts from Alpha stage and then the new component certification is followed for that.&lt;/p></description></item><item><title>Operations: How-To: 限定组件作用范围在一或多个应用</title><link>https://docs.dapr.io/operations/components/component-scopes/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/component-scopes/</guid><description>
+&lt;p>Dapr 组件的名称空间（注意与 Kubernetes 名称空间概念区分），这意味着 Dapr runtime 实例只能访问已部署到同一名称空间的组件。&lt;/p>
+&lt;p>当 Dapr 运行时，它将自己的配置名称空间与其加载的组件的命名空间进行匹配，并且仅初始化与其名称空间匹配的组件。 并且不会加载不同命名空间中的所有其他组件。&lt;/p>
 &lt;h2 id="命名空间">命名空间&lt;/h2>
-&lt;p>Namespaces can be used to limit component access to particular Dapr instances.&lt;/p>
+&lt;p>名称空间可用于限制组件访问特定的 Dapr 实例。&lt;/p>
 &lt;ul class="nav nav-tabs" id="tabs-0" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
 id="tabs-0-self-hosted-tab" data-toggle="tab" href="#tabs-0-self-hosted" role="tab"
 aria-controls="tabs-0-self-hosted" aria-selected="true">
@@ -209,8 +209,8 @@ Kubernetes
 &lt;/li>&lt;/ul>
 &lt;div class="tab-content" id="tabs-0-content">
 &lt;div class="tab-pane fade show active" id="tabs-0-self-hosted" role="tabpanel" aria-labelled-by="tabs-0-self-hosted-tab">
-&lt;br />&lt;p>In self hosted mode, a developer can specify the namespace to a Dapr instance by setting the &lt;code>NAMESPACE&lt;/code> environment variable. If the &lt;code>NAMESPACE&lt;/code> environment variable is set, Dapr does not load any component that does not specify the same namespace in its metadata.&lt;/p>
-&lt;p>For example given this component in the &lt;code>production&lt;/code> namespace&lt;/p>
+&lt;br />&lt;p>在自托管模式下，开发人员可以通过设置 &lt;code>NAMESPACE&lt;/code> 环境变量来指定 Dapr 实例的名称空间。 如果设置了 &lt;code>NAMESPACE&lt;/code> 环境变量，Dapr 只会加载其元数据中指定相同名称空间的组件。&lt;/p>
+&lt;p>例如，将此组件 &lt;code>production&lt;/code> 命名空间中&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -222,7 +222,7 @@ Kubernetes
 &lt;span style="color:#f92672">metadata&lt;/span>:
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">redisHost&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">redis-master:6379&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>To tell Dapr which namespace it is deployed to, set the environment variable:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>若要告诉 Dapr 它部署到哪个名称空间，请设置环境变量：&lt;/p>
 &lt;p>MacOS/Linux:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">export NAMESPACE&lt;span style="color:#f92672">=&lt;/span>production
 &lt;span style="color:#75715e"># run Dapr as usual&lt;/span>
@@ -231,7 +231,7 @@ Kubernetes
 &lt;span style="color:#75715e"># run Dapr as usual&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
 &lt;div class="tab-pane fade" id="tabs-0-kubernetes" role="tabpanel" aria-labelled-by="tabs-0-kubernetes-tab">
-&lt;br />&lt;p>Let&amp;rsquo;s consider the following component in Kubernetes:&lt;/p>
+&lt;br />&lt;p>让我们考虑在 Kubernetes 中的以下组件：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -243,23 +243,23 @@ Kubernetes
 &lt;span style="color:#f92672">metadata&lt;/span>:
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">redisHost&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">redis-master:6379&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>In this example, the Redis component is only accessible to Dapr instances running inside the &lt;code>production&lt;/code> namespace.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>在此示例中，只有运行在 &lt;code>production&lt;/code> 名称空间内的 Dapr 实例才能访问 Redis 组件。&lt;/p>
 &lt;/div>
 &lt;/div>
-&lt;h2 id="using-namespaces-with-service-invocation">Using namespaces with service invocation&lt;/h2>
-&lt;p>When using service invocation an application in a namespace you have to qualify it with the namespace. For example calling the &lt;code>ping&lt;/code> method on &lt;code>myapp&lt;/code> which is scoped to the &lt;code>production&lt;/code> namespace would be like this.&lt;/p>
+&lt;h2 id="在服务调用时使用名称空间">在服务调用时使用名称空间&lt;/h2>
+&lt;p>在名称空间中使用服务调用应用程序时，您必须将其与名称空间进行限定。 例如，在 &lt;code>myapp&lt;/code> 上调用 &lt;code>ping&lt;/code> 方法，该方法限定范围为 &lt;code>production&lt;/code> 名称空间。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">https://localhost:3500/v1.0/invoke/myapp.production/method/ping
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Or using a curl command from an external DNS address, in this case &lt;code>api.demo.dapr.team&lt;/code> would be like this.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>或者使用外部DNS地址的curl 命令，在这种情况下 &lt;code>api.demo.dapr.team&lt;/code> 就类似下面这样&lt;/p>
 &lt;p>MacOS/Linux:&lt;/p>
 &lt;pre>&lt;code>curl -i -d '{ &amp;quot;message&amp;quot;: &amp;quot;hello&amp;quot; }' \
 -H &amp;quot;Content-type: application/json&amp;quot; \
 -H &amp;quot;dapr-api-token: ${API_TOKEN}&amp;quot; \
 https://api.demo.dapr.team/v1.0/invoke/myapp.production/method/ping
-&lt;/code>&lt;/pre>&lt;h2 id="using-namespaces-with-pubsub">Using namespaces with pub/sub&lt;/h2>
-&lt;p>Read &lt;a href="https://docs.dapr.io/operations/components/component-scopes/">Pub/Sub and namespaces&lt;/a> for more information on scoping components.&lt;/p>
-&lt;h2 id="application-access-to-components-with-scopes">Application access to components with scopes&lt;/h2>
-&lt;p>Developers and operators might want to limit access for one database to a certain application, or a specific set of applications. To achieve this, Dapr allows you to specify &lt;code>scopes&lt;/code> on the component YAML. Application scopes added to a component limit only the applications with specific IDs to be able to use the component.&lt;/p>
-&lt;p>The following example shows how to give access to two Dapr enabled apps, with the app IDs of &lt;code>app1&lt;/code> and &lt;code>app2&lt;/code> to the Redis component named &lt;code>statestore&lt;/code> which itself is in the &lt;code>production&lt;/code> namespace&lt;/p>
+&lt;/code>&lt;/pre>&lt;h2 id="使用-pubsub-的命名空间">使用 pub/sub 的命名空间&lt;/h2>
+&lt;p>请阅读 &lt;a href="https://docs.dapr.io/operations/components/component-scopes/">Pub/Sub 和名称空间&lt;/a> 了解有关范围组件的更多信息。&lt;/p>
+&lt;h2 id="对具有作用域的组件的应用程序访问">对具有作用域的组件的应用程序访问&lt;/h2>
+&lt;p>开发人员和操作员可能希望将一个数据库的访问权限限制为某个应用程序或一组特定应用程序。 为此，Dapr 允许您在组件 YAML 上指定&lt;/code>scopes`作用域。 添加到组件的这些应用程序作用域仅限制具有特定 ID 的应用程序才能使用该组件。&lt;/p>&lt;/p>
+&lt;p spaces-before="0">下面的示例演示如何给予两个启用的Dapr应用访问权限， 使用 &lt;code>app1` 和 `app2` 两个应用程序可以访问名为 `statestore` 的 Redis 组件，这个组件部署在 `production` 命名空间
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -277,15 +277,15 @@ https://api.demo.dapr.team/v1.0/invoke/myapp.production/method/ping
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="示例-iframe-width560-height315-srchttpswwwyoutubecomembed8w-ibdnvcumstart1763-frameborder0-allowaccelerometer-autoplay-clipboard-write-encrypted-media-gyroscope-picture-in-picture-allowfullscreen-markcrwd-markiframe">示例 &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/8W-iBDNvCUM?start=1763" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark">&lt;/iframe>&lt;/h2>
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/setup-pubsub/pubsub-namespaces/">Configure Pub/Sub components with multiple namespaces&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/secrets/secrets-scopes/">Use secret scoping&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/configuration/secret-scope/">Limit the secrets that can be read from secret stores&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/setup-pubsub/pubsub-namespaces/">操作：配置具有多个命名空间的 Pub/Sub 组件&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/secrets/secrets-scopes/">使用密钥作用域&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/configuration/secret-scope/">限制可以从密钥仓库中读取的密钥&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: How-To: Reference secrets in components</title><link>https://docs.dapr.io/operations/components/component-secrets/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/component-secrets/</guid><description>
 &lt;h2 id="概述">概述&lt;/h2>
 &lt;p>Components can reference secrets for the &lt;code>spec.metadata&lt;/code> section within the components definition.&lt;/p>
 &lt;p>In order to reference a secret, you need to set the &lt;code>auth.secretStore&lt;/code> field to specify the name of the secret store that holds the secrets.&lt;/p>
 &lt;p>When running in Kubernetes, if the &lt;code>auth.secretStore&lt;/code> is empty, the Kubernetes secret store is assumed.&lt;/p>
-&lt;h3 id="supported-secret-stores">Supported secret stores&lt;/h3>
+&lt;h3 id="支持的密钥存储">支持的密钥存储&lt;/h3>
 &lt;p>Go to &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/secrets/howto-secrets/">this&lt;/a> link to see all the secret stores supported by Dapr, along with information on how to configure and use them.&lt;/p>
 &lt;h2 id="referencing-secrets">Referencing secrets&lt;/h2>
 &lt;p>While you have the option to use plain text secrets, this is not recommended for production:&lt;/p>
@@ -320,7 +320,7 @@ https://api.demo.dapr.team/v1.0/invoke/myapp.production/method/ping
 &lt;span style="color:#f92672">key&lt;/span>: &lt;span style="color:#ae81ff">redis-password&lt;/span>
 &lt;span style="color:#f92672">auth&lt;/span>:
 &lt;span style="color:#f92672">secretStore&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;SECRET_STORE_NAME&amp;gt;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>SECRET_STORE_NAME&lt;/code> is the name of the configured &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/">secret store component&lt;/a>. When running in Kubernetes and using a Kubernetes secret store, the field &lt;code>auth.SecretStore&lt;/code> defaults to &lt;code>kubernetes&lt;/code> and can be left empty. When running in Kubernetes and using a Kubernetes secret store, the field &lt;code>auth.SecretStore&lt;/code> defaults to &lt;code>kubernetes&lt;/code> and can be left empty.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>SECRET_STORE_NAME&lt;/code> is the name of the configured &lt;a href="https://docs.dapr.io/reference/components-reference/supported-secret-stores/">secret store component&lt;/a>. When running in Kubernetes and using a Kubernetes secret store, the field &lt;code>auth.SecretStore&lt;/code> defaults to &lt;code>kubernetes&lt;/code> and can be left empty. When running in Kubernetes and using a Kubernetes secret store, the field &lt;code>auth.SecretStore&lt;/code> defaults to &lt;code>kubernetes&lt;/code> and can be left empty.&lt;/p>
 &lt;p>The above component definition tells Dapr to extract a secret named &lt;code>redis-secret&lt;/code> from the defined secret store and assign the value of the &lt;code>redis-password&lt;/code> key in the secret to the &lt;code>redisPassword&lt;/code> field in the Component.&lt;/p>
 &lt;h2 id="示例">示例&lt;/h2>
 &lt;h3 id="referencing-a-kubernetes-secret">Referencing a Kubernetes secret&lt;/h3>
@@ -388,6 +388,202 @@ In production scenario to limit Dapr&amp;rsquo;s access to certain secret resour
 &lt;/div>
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/secrets/secrets-scopes/">Use secret scoping&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/configuration/secret-scope/">Limit the secrets that can be read from secret stores&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: 状态存储组件</title><link>https://docs.dapr.io/operations/components/setup-state-store/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/</guid><description/></item><item><title>Operations: Pub/Sub 代理</title><link>https://docs.dapr.io/operations/components/setup-pubsub/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-pubsub/</guid><description/></item><item><title>Operations: 密钥存储组件</title><link>https://docs.dapr.io/operations/components/setup-secret-store/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-secret-store/</guid><description/></item><item><title>Operations: 绑定组件</title><link>https://docs.dapr.io/operations/components/setup-bindings/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-bindings/</guid><description/></item></channel></rss>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/secrets/secrets-scopes/">使用密钥作用域&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/configuration/secret-scope/">限制可以从密钥仓库中读取的密钥&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: 状态存储组件</title><link>https://docs.dapr.io/operations/components/setup-state-store/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-state-store/</guid><description>
+&lt;p>Dapr 与现有数据库集成，为应用程序提供CRUD操作、事务等状态管理功能。 Dapr 支持为&lt;em>每个应用&lt;/em>配置多个命名的状态存储组件。&lt;/p>
+&lt;p>状态存储可以扩展，可以在 &lt;a href="https://github.com/dapr/components-contrib">components-contrib repo&lt;/a> 中找到。&lt;/p>
+&lt;p>Dapr 的使用 &lt;code>Component&lt;/code> 文件来描述状态存储：&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">statestore&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">state.&amp;lt;DATABASE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;KEY&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;VALUE&amp;gt;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;KEY&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;VALUE&amp;gt;&lt;/span>
+...
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>数据库的类型由&lt;code>type&lt;/code>字段决定，连接地址和其他元数据等放在&lt;code>.metadata&lt;/code>部分。 即使元数据值可以在纯文本中包含密钥，但建议您使用一个 &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">密钥存储&lt;/a>。&lt;/p>
+&lt;p>阅读 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">本指南&lt;/a> 以获取配置状态存储组件的说明.&lt;/p>
+&lt;h2 id="支持的状态存储">支持的状态存储&lt;/h2>
+&lt;p>Visit &lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/">this reference&lt;/a> to see all of the supported state stores in Dapr.&lt;/p>
+&lt;h2 id="相关主题">相关主题&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/concepts/components-concept/">组件概念&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">状态管理概览&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/reference/api/state_api/">状态管理 API 规范&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/">支持的状态存储&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Pub/Sub 代理</title><link>https://docs.dapr.io/operations/components/setup-pubsub/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-pubsub/</guid><description>
+&lt;p>Dapr集成了pub/sub消息总线，为应用程序提供了创建事件驱动、松散耦合架构的能力，在这种架构下，生产者通过主题向消费者发送事件。&lt;/p>
+&lt;p>Dapr支持为&lt;em>每个应用&lt;/em>配置多个命名的pub/sub组件。 每个pub/sub组件都有一个名称，这个名称在发布消息主题时使用。 阅读 &lt;a href="https://docs.dapr.io/reference/api/pubsub_api/">API 参考&lt;/a>，了解如何发布和订阅主题的详细信息。&lt;/p>
+&lt;p>Pub/sub组件是可扩展的， &lt;a href="https://docs.dapr.io/reference/components-reference/supported-pubsub/">这里&lt;/a>有支持的pub/sub组件列表，实现可以在&lt;a href="https://github.com/dapr/components-contrib">components-contrib repo&lt;/a>中找到。&lt;/p>
+&lt;h2 id="组件文件">组件文件&lt;/h2>
+&lt;p>Pub/sub使用&lt;code>Component&lt;/code>文件来描述：&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">pubsub&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">pubsub.&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;KEY&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;VALUE&amp;gt;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;KEY&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;VALUE&amp;gt;&lt;/span>
+...
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Pub/sub的类型由&lt;code>type&lt;/code>字段决定，连接地址和其他元数据等属性放在&lt;code>.metadata&lt;/code>部分。 尽管元数据值可以包含纯文本的密钥，但建议你使用&lt;a href="https://docs.dapr.io/operations/components/component-secrets/">密钥仓库&lt;/a>来存储并用&lt;code>secretKeyRef&lt;/code>引用。&lt;/p>
+&lt;div class="alert alert-primary" role="alert">
+&lt;h4 class="alert-heading">Topic creation&lt;/h4>
+根据你使用的 pub/sub 消息总线及其配置方式，主题可能会被自动创建。 即使消息总线支持自动创建主题，在生产环境中把它禁用也是一种常见的做法。 你可能会需要使用 CLI、管理控制台或请求表单来手动创建应用所需的主题。
+&lt;/div>
+&lt;p>请访问 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-3-publish-a-topic">本指南&lt;/a>，了解有关配置和使用 pub/sub 组件的说明。&lt;/p>
+&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;ul>
+&lt;li>Dapr概述 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-overview/">Pub/Sub构件块&lt;/a>&lt;/li>
+&lt;li>试试 &lt;a href="https://github.com/dapr/quickstarts/tree/master/pub-sub">Pub/Sub 快速启动示例&lt;/a>&lt;/li>
+&lt;li>阅读&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/">发布和订阅指南&lt;/a>&lt;/li>
+&lt;li>了解 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-scopes/">Topic 作用域&lt;/a>&lt;/li>
+&lt;li>了解 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-message-ttl/">消息存活时间&lt;/a>&lt;/li>
+&lt;li>您可以重写这个文件以使用另一个 Redis 实例或者另一个 &lt;a href="https://docs.dapr.io/operations/components/setup-pubsub/">pubsub component&lt;/a> ，通过创建 &lt;code>components&lt;/code> 文件夹（文件夹中包含重写的文件）并在 &lt;code>dapr run&lt;/code> 命令行界面使用 &lt;code>--components-path&lt;/code> 标志。&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-pubsub/">Pub/Sub 组件列表&lt;/a>&lt;/li>
+&lt;li>阅读 &lt;a href="https://docs.dapr.io/reference/api/pubsub_api/">API 引用&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: 密钥仓库组件</title><link>https://docs.dapr.io/operations/components/setup-secret-store/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-secret-store/</guid><description>
+&lt;p>Dapr integrates with secret stores to provide apps and other components with secure storage and access to secrets such as access keys and passwords. 每个密钥存储组件都有一个名称，这个名称用于访问密钥。&lt;/p>
+&lt;p>与其他构建块组件一样，密钥存储组件是可扩展的，可以在&lt;a href="https://github.com/dapr/components-contrib">components-contrib 仓库&lt;/a>中找到。&lt;/p>
+&lt;p>Dapr中的密钥存储使用&lt;code>Component&lt;/code>文件描述，其字段如下:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">secretstore&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">secretstores.&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;KEY&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;VALUE&amp;gt;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;KEY&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;VALUE&amp;gt;&lt;/span>
+...
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>密钥存储的类型由&lt;code>type&lt;/code>字段决定，连接地址和其他元数据等放在&lt;code>.metadata&lt;/code>部分。&lt;/p>
+&lt;p>不同的 &lt;a href="https://docs.dapr.io/reference/components-reference/supported-secret-stores/">支持的密钥存储&lt;/a> 将有不同的特定字段需要配置。 例如，当配置一个使用 AWS Secrets Manager秘密存储时，文件看起来就像这样：&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">awssecretmanager&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">secretstores.aws.secretmanager&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">region&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[aws_region]&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">accessKey&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[aws_access_key]&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">secretKey&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[aws_secret_key]&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">sessionToken&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[aws_session_token]&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="应用配置">应用配置&lt;/h2>
+&lt;p>一旦您创建了组件的 YAML 文件，按照以下说明来根据您的主机环境应用它：&lt;/p>
+&lt;ul class="nav nav-tabs" id="tabs-1" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-1-self-hosted-tab" data-toggle="tab" href="#tabs-1-self-hosted" role="tab"
+aria-controls="tabs-1-self-hosted" aria-selected="true">
+Self-Hosted
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-1-kubernetes-tab" data-toggle="tab" href="#tabs-1-kubernetes" role="tab"
+aria-controls="tabs-1-kubernetes" aria-selected="false">
+Kubernetes
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-1-content">
+&lt;div class="tab-pane fade show active" id="tabs-1-self-hosted" role="tabpanel" aria-labelled-by="tabs-1-self-hosted-tab">
+&lt;br />&lt;p>要在本地运行，创建一个包含YAML文件的&lt;code>components&lt;/code>目录，并提供&lt;code>dapr run&lt;/code>命令的路径，标志为&lt;code>--components-path&lt;/code>。&lt;/p>
+&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-1-kubernetes" role="tabpanel" aria-labelled-by="tabs-1-kubernetes-tab">
+&lt;br />&lt;p>若要在 Kubernetes 中部署，假定您的组件文件名为 &lt;code>secret-store.yaml&lt;/code>，运行：&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl apply -f secret-store.yaml
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;/div>
+&lt;h2 id="支持的密钥存储">支持的密钥存储&lt;/h2>
+&lt;p>Visit the &lt;a href="https://docs.dapr.io/reference/components-reference/supported-secret-stores/">secret stores reference&lt;/a> for a full list of supported secret stores.&lt;/p>
+&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-secret-stores/">支持的密钥存储组件&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/secrets/">密钥构建块&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: 绑定组件</title><link>https://docs.dapr.io/operations/components/setup-bindings/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-bindings/</guid><description>
+&lt;p>Dapr integrates with external resources to allow apps to both be triggered by external events and interact with the resources. Each binding component has a name and this name is used when interacting with the resource.&lt;/p>
+&lt;p>As with other building block components, binding components are extensible and can be found in the &lt;a href="https://github.com/dapr/components-contrib">components-contrib repo&lt;/a>.&lt;/p>
+&lt;p>A binding in Dapr is described using a &lt;code>Component&lt;/code> file with the following fields:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">bindings.&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;KEY&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;VALUE&amp;gt;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;KEY&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;VALUE&amp;gt;&lt;/span>
+...
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The type of binding is determined by the &lt;code>type&lt;/code> field, and things like connection strings and other metadata are put in the &lt;code>.metadata&lt;/code> section.&lt;/p>
+&lt;p>Different &lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/">supported bindings&lt;/a> will have different specific fields that would need to be configured. For example, when configuring a binding for &lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/blobstorage/">Azure Blob Storage&lt;/a>, the file would look like this:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">bindings.azure.blobstorage&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">storageAccount&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">myStorageAccountName&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">storageAccessKey&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#75715e">***********&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">container&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">container1&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">decodeBase64&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;bool&amp;gt;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">getBlobRetryCount&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;integer&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="应用配置">应用配置&lt;/h2>
+&lt;p>一旦您创建了组件的 YAML 文件，按照以下说明来根据您的主机环境应用它：&lt;/p>
+&lt;ul class="nav nav-tabs" id="tabs-2" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-2-self-hosted-tab" data-toggle="tab" href="#tabs-2-self-hosted" role="tab"
+aria-controls="tabs-2-self-hosted" aria-selected="true">
+Self-Hosted
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-2-kubernetes-tab" data-toggle="tab" href="#tabs-2-kubernetes" role="tab"
+aria-controls="tabs-2-kubernetes" aria-selected="false">
+Kubernetes
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-2-content">
+&lt;div class="tab-pane fade show active" id="tabs-2-self-hosted" role="tabpanel" aria-labelled-by="tabs-2-self-hosted-tab">
+&lt;br />&lt;p>要在本地运行，创建一个包含YAML文件的&lt;code>components&lt;/code>目录，并提供&lt;code>dapr run&lt;/code>命令的路径，标志为&lt;code>--components-path&lt;/code>。&lt;/p>
+&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-2-kubernetes" role="tabpanel" aria-labelled-by="tabs-2-kubernetes-tab">
+&lt;br />&lt;p>若要在 Kubernetes 中部署，假定您的组件文件名为 &lt;code>mybinding.yaml&lt;/code>，运行：&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl apply -f mybinding.yaml
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;/div>
+&lt;h2 id="supported-bindings">Supported bindings&lt;/h2>
+&lt;p>Visit the &lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/">bindings reference&lt;/a> for a full list of supported resources.&lt;/p>
+&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/bindings/">绑定构建块&lt;/a>&lt;/li>
+&lt;li>&lt;a href="%7B%7BX%1A8X%7D%7D">Supported bindings&lt;/a>&lt;/li>
+&lt;/ul></description></item></channel></rss>

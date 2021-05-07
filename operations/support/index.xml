@@ -1,130 +1,4 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Support and versioning</title><link>https://docs.dapr.io/operations/support/</link><description>Recent content in Support and versioning on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/operations/support/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: Supported releases</title><link>https://docs.dapr.io/operations/support/support-release-policy/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/support/support-release-policy/</guid><description>
-&lt;h2 id="介绍">介绍&lt;/h2>
-&lt;p>This topic details the supported versions of Dapr releases, the upgrade policies and how deprecations and breaking changes are communicated.&lt;/p>
-&lt;p>Dapr releases use &lt;code>MAJOR.MINOR.PATCH&lt;/code> versioning. For example 1.0.0&lt;/p>
-&lt;ul>
-&lt;li>A &lt;code>PATCH&lt;/code> version is incremented for bug and security hot fixes.&lt;/li>
-&lt;li>A &lt;code>MINOR&lt;/code> version is updated as part of the regular release cadence, including new features, bug and security fixes.&lt;/li>
-&lt;li>A &lt;code>MAJOR&lt;/code> version is updated when there’s a non-backward compatible change to the runtime, such as an API change. A &lt;code>MAJOR&lt;/code> release can also occur then there is a considered a significant addition/change of functionality that needs to differentiate from the previous version.&lt;/li>
-&lt;/ul>
-&lt;p>A supported release means;&lt;/p>
-&lt;ul>
-&lt;li>A hoxfix patch is released if the release has a critical issue such as a mainline broken scenario or a security issue. Each of these are reviewed on a case by case basis.&lt;/li>
-&lt;li>Issues are investigated for the supported releases. If a release is no longer supported, you need to upgrade to a newer release and determine if the issue is still relevant.&lt;/li>
-&lt;/ul>
-&lt;p>From the 1.0.0 release onwards two (2) versions of Dapr are supported; the current and previous versions. Typically these are &lt;code>MINOR&lt;/code>release updates. This means that there is a rolling window that moves forward for supported releases and it is your operational responsibility to remain up to date with these supported versions. If you have an older version of Dapr you may have to do intermediate upgrades to get to a supported version.&lt;/p>
-&lt;p>There will be at least 6 weeks between major.minor version releases giving users a 12 week (3 month) rolling window for upgrading.&lt;/p>
-&lt;p>Patch support is for supported versions (current and previous).&lt;/p>
-&lt;h2 id="supported-versions">Supported versions&lt;/h2>
-&lt;p>The table below shows the versions of Dapr releases that have been tested together and form a &amp;ldquo;packaged&amp;rdquo; release. Any other combinations of releases are not supported.&lt;/p>
-&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th>Release date&lt;/th>
-&lt;th style="text-align:center">Runtime&lt;/th>
-&lt;th style="text-align:left">CLI&lt;/th>
-&lt;th>SDK&lt;/th>
-&lt;th>Dashboard&lt;/th>
-&lt;th>状态&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td>Feb 17th 2021&lt;/td>
-&lt;td style="text-align:center">1.0.0&lt;/br>&lt;/td>
-&lt;td style="text-align:left">1.0.0&lt;/td>
-&lt;td>Java 1.0.0 &lt;/br>Go 1.0.0 &lt;/br>PHP 1.0.0 &lt;/br>Python 1.0.0 &lt;/br>.NET 1.0.0&lt;/td>
-&lt;td>0.6.0&lt;/td>
-&lt;td>Supported&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>Mar 4th 2021&lt;/td>
-&lt;td style="text-align:center">1.0.1&lt;/br>&lt;/td>
-&lt;td style="text-align:left">1.0.1&lt;/td>
-&lt;td>Java 1.0.2 &lt;/br>Go 1.0.0 &lt;/br>PHP 1.0.0 &lt;/br>Python 1.0.0 &lt;/br>.NET 1.0.0&lt;/td>
-&lt;td>0.6.0&lt;/td>
-&lt;td>Supported&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>Apr 1st 2021&lt;/td>
-&lt;td style="text-align:center">1.1.0&lt;/br>&lt;/td>
-&lt;td style="text-align:left">1.1.0&lt;/td>
-&lt;td>Java 1.0.2 &lt;/br>Go 1.1.0 &lt;/br>PHP 1.0.0 &lt;/br>Python 1.1.0 &lt;/br>.NET 1.1.0&lt;/td>
-&lt;td>0.6.0&lt;/td>
-&lt;td>Supported (current)&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;h2 id="upgrade-paths">Upgrade paths&lt;/h2>
-&lt;p>After the 1.0 release of the runtime there may be situations where it is necessary to explicitly upgrade through an additional release to reach the desired target. For example an upgrade from v1.0 to v1.2 may need go pass through v1.1&lt;/p>
-&lt;p>The table below shows the tested upgrade paths for the Dapr runtime. For example you are able to upgrade from 1.0-rc4 to the 1.0 release. Any other combinations of upgrades have not been tested.&lt;/p>
-&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th>Current Runtime version&lt;/th>
-&lt;th>Must upgrade through&lt;/th>
-&lt;th>Target Runtime version&lt;/th>
-&lt;th>Notes&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td>0.11&lt;/td>
-&lt;td>N/A&lt;/td>
-&lt;td>1.0.1&lt;/td>
-&lt;td>Use Dapr CLI to upgrade for both self hosted and Kubernetes&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>&lt;/td>
-&lt;td>1.0.1&lt;/td>
-&lt;td>1.1.0&lt;/td>
-&lt;td>&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>1.0-rc1 to 1.0-rc4&lt;/td>
-&lt;td>N/A&lt;/td>
-&lt;td>1.0.1&lt;/td>
-&lt;td>See Dapr 1.0 release notes&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>1.0.0 or 1.0.1&lt;/td>
-&lt;td>N/A&lt;/td>
-&lt;td>1.1.0&lt;/td>
-&lt;td>See Dapr 1.1 release notes&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;h2 id="feature-and-deprecations">Feature and deprecations&lt;/h2>
-&lt;p>There is a process for announcing feature deprecations. Deprecations are applied two (2) releases after the release in which they were announced. For example Feature X is announced to be deprecated in the 1.0.0 release notes and will then be removed in 1.2.0.&lt;/p>
-&lt;p>Deprecations appear in release notes under a section named “Deprecations”, which indicates:&lt;/p>
-&lt;ul>
-&lt;li>The point in the future the now-deprecated feature will no longer be supported. For example release x.y.z. This is at least two (2) releases prior.&lt;/li>
-&lt;li>Document any steps the user must take to modify their code, operations, etc if applicable in the release notes.&lt;/li>
-&lt;/ul>
-&lt;p>After announcing a future breaking change, the change will happen in 2 releases or 6 months, whichever is greater. Deprecated features should respond with warning but do nothing otherwise.&lt;/p>
-&lt;p>Here is an example, using a hypothetical 1.1.0 as the deprecation announcement release.&lt;/p>
-&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th>Feature&lt;/th>
-&lt;th>Deprecation announcement&lt;/th>
-&lt;th>Deprecation&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td>Feature X&lt;/td>
-&lt;td>1.1.0&lt;/td>
-&lt;td>1.3.0&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;h2 id="upgrade-on-hosting-platforms">Upgrade on Hosting platforms&lt;/h2>
-&lt;p>Dapr can support multiple hosting platforms for production. With the 1.0 release the two supported platforms are Kubernetes and physical machines. For Kubernetes upgrades see &lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-production/">Production guidelines on Kubernetes&lt;/a>&lt;/p>
-&lt;h2 id="相关链接">相关链接&lt;/h2>
-&lt;ul>
-&lt;li>Read the &lt;a href="https://docs.dapr.io/operations/support/support-versioning/">Versioning policy&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Versioning policy</title><link>https://docs.dapr.io/operations/support/support-versioning/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/support/support-versioning/</guid><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Support and versioning</title><link>https://docs.dapr.io/operations/support/</link><description>Recent content in Support and versioning on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/operations/support/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: Versioning policy</title><link>https://docs.dapr.io/operations/support/support-versioning/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/support/support-versioning/</guid><description>
 &lt;h2 id="介绍">介绍&lt;/h2>
 &lt;p>Dapr is designed for future changes in the runtime, APIs and components with versioning schemes. This topic describes the versioning schemes and strategies for APIs, manifests such as components and Github repositories.&lt;/p>
 &lt;h2 id="versioning">Versioning&lt;/h2>
@@ -153,7 +27,7 @@
 &lt;li>A &lt;code>MINOR&lt;/code> versions &lt;em>may&lt;/em> be incremented for any other changes. For example a change to the JSON schema of the message sent to the API. The definition of a breaking change to the API can be viewed &lt;a href="https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#123-definition-of-a-breaking-change">here&lt;/a>.&lt;/li>
 &lt;li>Experimental APIs include an “alpha” suffix to denote for their alpha status. For example v1.0alpha, v2.0alpha, etc.&lt;/li>
 &lt;/ul>
-&lt;h2 id="dapr-runtime">Dapr runtime&lt;/h2>
+&lt;h2 id="dapr-运行时">Dapr 运行时&lt;/h2>
 &lt;p>Dapr releases use &lt;code>MAJOR.MINOR.PATCH&lt;/code> versioning. For example 1.0.0. Read &lt;a href="https://docs.dapr.io/operations/support/support-release-policy/">Supported releases&lt;/a> for more on the versioning of releases.&lt;/p>
 &lt;h2 id="helm-charts">Helm Charts&lt;/h2>
 &lt;p>Helm charts in the &lt;a href="https://github.com/dapr/helm-charts">helm-charts repo&lt;/a> are versioned with the Dapr runtime. The Helm charts are used in the &lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-deploy/#install-with-helm-advanced">Kubernetes deployment&lt;/a>&lt;/p>
@@ -166,10 +40,10 @@
 &lt;p>The &lt;a href="https://github.com/dapr/components-contrib/">components-contrib&lt;/a> repo release is a flat version across all components inside. That is, a version for the components-contrib repo release is made up of all the schemas for the components inside it. A new version of Dapr does not mean there is a new release of components-contrib if there are no component changes.&lt;/p>
 &lt;p>Note: Components have a production usage lifecycle status: Alpha, Beta and GA (stable). These statuses are not related to their versioning. The tables of supported components shows both their versions and their status.&lt;/p>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/">状态存储组件&lt;/a> 列表&lt;/li>
-&lt;li>可用发布/订阅实现的完整列表 &lt;a href="https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/">在这&lt;/a>。&lt;/li>
-&lt;li>List of &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/supported-secret-stores/">secret store components&lt;/a>&lt;/li>
-&lt;li>List of &lt;a href="https://docs.dapr.io/operations/components/setup-bindings/supported-bindings/">binding components&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/">状态存储组件&lt;/a> 列表&lt;/li>
+&lt;li>可用发布/订阅实现的完整列表 &lt;a href="https://docs.dapr.io/reference/components-reference/supported-pubsub/">在这&lt;/a>。&lt;/li>
+&lt;li>List of &lt;a href="https://docs.dapr.io/reference/components-reference/supported-secret-stores/">secret store components&lt;/a>&lt;/li>
+&lt;li>List of &lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/">binding components&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;p>For more information on component versioning read &lt;a href="https://github.com/dapr/components-contrib/blob/master/docs/developing-component.md#version-2-and-beyond-of-a-component">Version 2 and beyond of a component&lt;/a>&lt;/p>
 &lt;h3 id="component-schemas">Component schemas&lt;/h3>
@@ -204,4 +78,151 @@
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
 &lt;li>Read the &lt;a href="https://docs.dapr.io/operations/support/support-release-policy/">Supported releases&lt;/a>&lt;/li>
-&lt;/ul></description></item></channel></rss>
+&lt;/ul></description></item><item><title>Operations: Supported releases</title><link>https://docs.dapr.io/operations/support/support-release-policy/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/support/support-release-policy/</guid><description>
+&lt;h2 id="介绍">介绍&lt;/h2>
+&lt;p>This topic details the supported versions of Dapr releases, the upgrade policies and how deprecations and breaking changes are communicated.&lt;/p>
+&lt;p>Dapr releases use &lt;code>MAJOR.MINOR.PATCH&lt;/code> versioning. For example 1.0.0&lt;/p>
+&lt;ul>
+&lt;li>A &lt;code>PATCH&lt;/code> version is incremented for bug and security hot fixes.&lt;/li>
+&lt;li>A &lt;code>MINOR&lt;/code> version is updated as part of the regular release cadence, including new features, bug and security fixes.&lt;/li>
+&lt;li>A &lt;code>MAJOR&lt;/code> version is updated when there’s a non-backward compatible change to the runtime, such as an API change. A &lt;code>MAJOR&lt;/code> release can also occur then there is a considered a significant addition/change of functionality that needs to differentiate from the previous version.&lt;/li>
+&lt;/ul>
+&lt;p>A supported release means;&lt;/p>
+&lt;ul>
+&lt;li>A hoxfix patch is released if the release has a critical issue such as a mainline broken scenario or a security issue. Each of these are reviewed on a case by case basis.&lt;/li>
+&lt;li>Issues are investigated for the supported releases. If a release is no longer supported, you need to upgrade to a newer release and determine if the issue is still relevant.&lt;/li>
+&lt;/ul>
+&lt;p>From the 1.0.0 release onwards two (2) versions of Dapr are supported; the current and previous versions. Typically these are &lt;code>MINOR&lt;/code>release updates. This means that there is a rolling window that moves forward for supported releases and it is your operational responsibility to remain up to date with these supported versions. If you have an older version of Dapr you may have to do intermediate upgrades to get to a supported version.&lt;/p>
+&lt;p>There will be at least 6 weeks between major.minor version releases giving users a 12 week (3 month) rolling window for upgrading.&lt;/p>
+&lt;p>Patch support is for supported versions (current and previous).&lt;/p>
+&lt;h2 id="supported-versions">Supported versions&lt;/h2>
+&lt;p>The table below shows the versions of Dapr releases that have been tested together and form a &amp;ldquo;packaged&amp;rdquo; release. Any other combinations of releases are not supported.&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Release date&lt;/th>
+&lt;th style="text-align:center">Runtime&lt;/th>
+&lt;th style="text-align:left">CLI&lt;/th>
+&lt;th>SDKs&lt;/th>
+&lt;th>Dashboard&lt;/th>
+&lt;th>状态 （Status）&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>Feb 17th 2021&lt;/td>
+&lt;td style="text-align:center">1.0.0&lt;/br>&lt;/td>
+&lt;td style="text-align:left">1.0.0&lt;/td>
+&lt;td>Java 1.0.0 &lt;/br>Go 1.0.0 &lt;/br>PHP 1.0.0 &lt;/br>Python 1.0.0 &lt;/br>.NET 1.0.0&lt;/td>
+&lt;td>0.6.0&lt;/td>
+&lt;td>Supported&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Mar 4th 2021&lt;/td>
+&lt;td style="text-align:center">1.0.1&lt;/br>&lt;/td>
+&lt;td style="text-align:left">1.0.1&lt;/td>
+&lt;td>Java 1.0.2 &lt;/br>Go 1.0.0 &lt;/br>PHP 1.0.0 &lt;/br>Python 1.0.0 &lt;/br>.NET 1.0.0&lt;/td>
+&lt;td>0.6.0&lt;/td>
+&lt;td>Supported&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Apr 1st 2021&lt;/td>
+&lt;td style="text-align:center">1.1.0&lt;/br>&lt;/td>
+&lt;td style="text-align:left">1.1.0&lt;/td>
+&lt;td>Java 1.0.2 &lt;/br>Go 1.1.0 &lt;/br>PHP 1.0.0 &lt;/br>Python 1.1.0 &lt;/br>.NET 1.1.0&lt;/td>
+&lt;td>0.6.0&lt;/td>
+&lt;td>Supported&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Apr 6th 2021&lt;/td>
+&lt;td style="text-align:center">1.1.1&lt;/br>&lt;/td>
+&lt;td style="text-align:left">1.1.0&lt;/td>
+&lt;td>Java 1.0.2 &lt;/br>Go 1.1.0 &lt;/br>PHP 1.0.0 &lt;/br>Python 1.1.0 &lt;/br>.NET 1.1.0&lt;/td>
+&lt;td>0.6.0&lt;/td>
+&lt;td>Supported (current)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Apr 16th 2021&lt;/td>
+&lt;td style="text-align:center">1.1.2&lt;/br>&lt;/td>
+&lt;td style="text-align:left">1.1.0&lt;/td>
+&lt;td>Java 1.0.2 &lt;/br>Go 1.1.0 &lt;/br>PHP 1.0.0 &lt;/br>Python 1.1.0 &lt;/br>.NET 1.1.0&lt;/td>
+&lt;td>0.6.0&lt;/td>
+&lt;td>Supported (current)&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="upgrade-paths">Upgrade paths&lt;/h2>
+&lt;p>After the 1.0 release of the runtime there may be situations where it is necessary to explicitly upgrade through an additional release to reach the desired target. For example an upgrade from v1.0 to v1.2 may need go pass through v1.1&lt;/p>
+&lt;p>The table below shows the tested upgrade paths for the Dapr runtime. For example you are able to upgrade from 1.0-rc4 to the 1.0 release. Any other combinations of upgrades have not been tested.&lt;/p>
+&lt;p>General guidance on upgrading can be found for &lt;a href="%7B%7BX%1A52X%7D%7D">self hosted mode&lt;/a> and &lt;a href="%7B%7BX%1A53X%7D%7D">Kubernetes&lt;/a> deployments. It is best to review the target version release notes for specific guidance.&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Current Runtime version&lt;/th>
+&lt;th>Must upgrade through&lt;/th>
+&lt;th>Target Runtime version&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>0.11&lt;/td>
+&lt;td>N/A&lt;/td>
+&lt;td>1.0.1&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;/td>
+&lt;td>1.0.1&lt;/td>
+&lt;td>1.1.2&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>1.0-rc1 to 1.0-rc4&lt;/td>
+&lt;td>N/A&lt;/td>
+&lt;td>1.0.1&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>1.0.0 or 1.0.1&lt;/td>
+&lt;td>N/A&lt;/td>
+&lt;td>1.1.2&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>1.1.0 or 1.1.1&lt;/td>
+&lt;td>N/A&lt;/td>
+&lt;td>1.1.2&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="feature-and-deprecations">Feature and deprecations&lt;/h2>
+&lt;p>There is a process for announcing feature deprecations. Deprecations are applied two (2) releases after the release in which they were announced. For example Feature X is announced to be deprecated in the 1.0.0 release notes and will then be removed in 1.2.0.&lt;/p>
+&lt;p>Deprecations appear in release notes under a section named “Deprecations”, which indicates:&lt;/p>
+&lt;ul>
+&lt;li>The point in the future the now-deprecated feature will no longer be supported. For example release x.y.z. This is at least two (2) releases prior.&lt;/li>
+&lt;li>Document any steps the user must take to modify their code, operations, etc if applicable in the release notes.&lt;/li>
+&lt;/ul>
+&lt;p>After announcing a future breaking change, the change will happen in 2 releases or 6 months, whichever is greater. Deprecated features should respond with warning but do nothing otherwise.&lt;/p>
+&lt;p>Here is an example, using a hypothetical 1.1.0 as the deprecation announcement release.&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Feature&lt;/th>
+&lt;th>Deprecation announcement&lt;/th>
+&lt;th>Deprecation&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>Feature X&lt;/td>
+&lt;td>1.1.0&lt;/td>
+&lt;td>1.3.0&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="upgrade-on-hosting-platforms">Upgrade on Hosting platforms&lt;/h2>
+&lt;p>Dapr can support multiple hosting platforms for production. With the 1.0 release the two supported platforms are Kubernetes and physical machines. For Kubernetes upgrades see &lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-production/">Production guidelines on Kubernetes&lt;/a>&lt;/p>
+&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;ul>
+&lt;li>Read the &lt;a href="https://docs.dapr.io/operations/support/support-versioning/">Versioning policy&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Operations: Reporting security issues</title><link>https://docs.dapr.io/operations/support/support-security-issues/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/support/support-security-issues/</guid><description>
+&lt;p>The Dapr organization and team makes security a central focus of how we operate and design our software. From the Dapr binaries to the GitHub release processes, we take numerous steps to ensure user applications and data is secure. For more information visit the &lt;a href="https://docs.dapr.io/concepts/security-concept/">security page&lt;/a>.&lt;/p>
+&lt;h2 id="reporting-security-issues">Reporting security issues&lt;/h2>
+&lt;p>To report a security issue, please privately email the &lt;a href="mailto:dapr@dapr.io?subject=%5BSecurity%20Disclosure%5D:%20ISSUE%20TITLE">Dapr Maintainers (dapr@dapr.io)&lt;/a>&lt;/p>
+&lt;p>The Dapr maintainers will triage and respond ASAP and then patch and send an annoucement within 30 days.&lt;/p></description></item></channel></rss>

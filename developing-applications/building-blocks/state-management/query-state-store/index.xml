@@ -18,7 +18,7 @@
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>然后，读取返回的文档的&lt;strong>value&lt;/strong>字段。&lt;/p>
 &lt;p>要获取状态version/ETag ，请使用以下命令:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-sql" data-lang="sql">&lt;span style="color:#66d9ef">SELECT&lt;/span> states._etag &lt;span style="color:#66d9ef">FROM&lt;/span> states &lt;span style="color:#66d9ef">WHERE&lt;/span> states.id &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;myapp||balance&amp;#39;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="4-获取-actor-状态">4. 获取 actor 状态&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="4-4-获取-actor-状态">4. 4. 获取 actor 状态&lt;/h2>
 &lt;p>要获取应用ID为 &amp;ldquo;myets &amp;ldquo;，实例ID为&amp;quot;leroy&amp;rdquo;，actor类型为&amp;quot;cat&amp;quot;的相关联所有actor的状态键，请使用以下命令:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-sql" data-lang="sql">&lt;span style="color:#66d9ef">SELECT&lt;/span> &lt;span style="color:#f92672">*&lt;/span> &lt;span style="color:#66d9ef">FROM&lt;/span> states &lt;span style="color:#66d9ef">WHERE&lt;/span> &lt;span style="color:#66d9ef">CONTAINS&lt;/span>(states.id, &lt;span style="color:#e6db74">&amp;#39;mypets||cat||leroy||&amp;#39;&lt;/span>)
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>要获取特定actor状态（如&amp;quot;food&amp;rdquo;） ，请使用以下命令:&lt;/p>
@@ -26,7 +26,7 @@
 &lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
 &lt;p>&lt;strong>警告:&lt;/strong> 您不应该手动更新或删除存储引擎中的状态， 所有的写入和删除操作都应该通过Dapr运行时来完成。 所有的写入和删除操作都应该通过Dapr运行时来完成。&lt;/p>
 &lt;/blockquote></description></item><item><title>Developing-Applications: Redis</title><link>https://docs.dapr.io/developing-applications/building-blocks/state-management/query-state-store/query-redis-store/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/building-blocks/state-management/query-state-store/query-redis-store/</guid><description>
-&lt;p>Dapr 在保存和检索状态时不会转换状态值。 Dapr requires all state store implementations to abide by a certain key format scheme (see &lt;a href="%7B%7BX%1A16X%7D%7D">Dapr state management spec&lt;/a>. 您可以直接与基础存储进行交互以操作状态数据，例如查询状态、创建聚合视图和进行备份。&lt;/p>
+&lt;p>Dapr 在保存和检索状态时不会转换状态值。 Dapr 要求所有状态存储的实现都遵守特定格式(见 &lt;a href="%7B%7BX%1A16X%7D%7D">Dapr 状态管理规范&lt;/a>)。 您可以直接与基础存储进行交互以操作状态数据，例如查询状态、创建聚合视图和进行备份。&lt;/p>
 &lt;blockquote>
 &lt;p>&lt;strong>注：&lt;/strong> 以下示例使用 Redis CLI 来查询作为Dapr默认状态存储实现的Redis中的状态数据。&lt;/p>
 &lt;/blockquote>
@@ -45,7 +45,7 @@
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">HGET myapp&lt;span style="color:#f92672">||&lt;/span>balance data
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>要获取状态version/ETag ，请使用以下命令:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">HGET myapp&lt;span style="color:#f92672">||&lt;/span>balance version
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="4-获取-actor-状态">4. 获取 actor 状态&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="4-4-获取-actor-状态">4. 4. 获取 actor 状态&lt;/h2>
 &lt;p>要获取应用ID为 &amp;ldquo;myets &amp;ldquo;，实例ID为&amp;quot;leroy&amp;rdquo;，actor类型为&amp;quot;cat&amp;quot;的相关联所有actor的状态键，请使用以下命令:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">KEYS mypets&lt;span style="color:#f92672">||&lt;/span>cat&lt;span style="color:#f92672">||&lt;/span>leroy*
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>要获取特定actor状态（如&amp;quot;food&amp;rdquo;） ，请使用以下命令:&lt;/p>
@@ -72,7 +72,7 @@
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="4-获取过滤后的状态数据">4. 获取过滤后的状态数据&lt;/h2>
 &lt;p>执行下面的查询，以获取json数据中 &amp;ldquo;color &amp;ldquo;值等于 &amp;ldquo;blue &amp;ldquo;的所有状态数据：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-sql" data-lang="sql">&lt;span style="color:#66d9ef">SELECT&lt;/span> &lt;span style="color:#f92672">*&lt;/span> &lt;span style="color:#66d9ef">FROM&lt;/span> states &lt;span style="color:#66d9ef">WHERE&lt;/span> JSON_VALUE([&lt;span style="color:#66d9ef">Data&lt;/span>], &lt;span style="color:#e6db74">&amp;#39;$.color&amp;#39;&lt;/span>) &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;blue&amp;#39;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="5-获取-actor-状态">5. 获取 actor 状态&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="5-4-获取-actor-状态">5. 4. 获取 actor 状态&lt;/h2>
 &lt;p>要获取应用ID为 &amp;ldquo;myets &amp;ldquo;，实例ID为&amp;quot;leroy&amp;rdquo;，actor类型为&amp;quot;cat&amp;quot;的相关联所有actor的状态键，请使用以下命令:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-sql" data-lang="sql">&lt;span style="color:#66d9ef">SELECT&lt;/span> &lt;span style="color:#f92672">*&lt;/span> &lt;span style="color:#66d9ef">FROM&lt;/span> states &lt;span style="color:#66d9ef">WHERE&lt;/span> [&lt;span style="color:#66d9ef">Key&lt;/span>] &lt;span style="color:#66d9ef">LIKE&lt;/span> &lt;span style="color:#e6db74">&amp;#39;mypets||cat||leroy||%&amp;#39;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>要获取特定actor状态（如&amp;quot;food&amp;rdquo;） ，请使用以下命令:&lt;/p>

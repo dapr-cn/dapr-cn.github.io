@@ -11,7 +11,7 @@
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>名称&lt;/th>
+&lt;th>Name&lt;/th>
 &lt;th>环境变量&lt;/th>
 &lt;th>默认值&lt;/th>
 &lt;th>描述&lt;/th>
@@ -48,7 +48,7 @@
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>名称&lt;/th>
+&lt;th>Name&lt;/th>
 &lt;th>环境变量&lt;/th>
 &lt;th>默认值&lt;/th>
 &lt;th>描述&lt;/th>

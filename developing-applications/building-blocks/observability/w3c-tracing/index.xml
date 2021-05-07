@@ -24,7 +24,7 @@
 &lt;li>Dapr生成并在服务之间传播跟踪上下文。&lt;/li>
 &lt;li>Dapr 生成跟踪上下文，您需要将跟踪上下文传播到另一个服务，或者你生成跟踪上下文，Dapr 将跟踪上下文传播到服务。&lt;/li>
 &lt;/ol>
-&lt;h3 id="dapr生成并在服务之间传播跟踪上下文">Dapr生成并在服务之间传播跟踪上下文。&lt;/h3>
+&lt;h3 id="dapr-在服务之间生成和传播跟踪上下文">Dapr 在服务之间生成和传播跟踪上下文&lt;/h3>
 &lt;p>在这些场景下，Dapr 会为您完成所有工作。 您不需要创建和传播任何跟踪头。 Dapr 负责创建所有跟踪头并传播它们。 让我们用示例来了解一下这些场景：&lt;/p>
 &lt;ol>
 &lt;li>
@@ -85,7 +85,7 @@ service A -&amp;gt; service D
 &lt;h4 id="traceparent-标头">Traceparent 标头&lt;/h4>
 &lt;p>Traceparent 头以所有供应商都能理解的通用格式在追踪系统中表示收到的请求。 下面是 Traceparent 标头的示例。&lt;/p>
 &lt;p>&lt;code>traceparent: 00-0af7651916cd43dd8448eb211c80319c-b7ad6b7169203331-01&lt;/code>&lt;/p>
-&lt;p>Traceparent 字段的详细信息 [ 在这里 ](https://www. w3. org/Tr/trace-context/#traceparent-header)。&lt;/p>
+&lt;p>关于 traceparent 字段的详情可见&lt;a href="https://www.w3.org/TR/trace-context/#traceparent-header">此处&lt;/a>&lt;/p>
 &lt;h4 id="tracestate-标头">Tracestate 标头&lt;/h4>
 &lt;p>Tracestate 标头包含特定于供应商格式的父级（parent）。&lt;/p>
 &lt;p>&lt;code>tracestate: congo=t61rcWkgMzE&lt;/code>&lt;/p>
@@ -169,6 +169,9 @@ tracestateValue = values2.FirstOrDefault();
 &lt;p>要在 HTTP 请求中传递跟踪上下文，可以使用 &lt;a href="https://docs.microsoft.com/en-us/dotnet/api/system.net.http.headers.httprequestheaders?view=netcore-3.1">.NET API&lt;/a>:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#75715e">// client is HttpClient. req is HttpRequestMessage
 &lt;/span>&lt;span style="color:#75715e">&lt;/span>req.Headers.Add(&lt;span style="color:#e6db74">&amp;#34;traceparent&amp;#34;&lt;/span>, traceparentValue);
+req.Headers.Add(&lt;span style="color:#e6db74">&amp;#34;tracestate&amp;#34;&lt;/span>, tracestateValue);
+HttpResponseMessage response = &lt;span style="color:#66d9ef">await&lt;/span> client.SendAsync(req); req &lt;span style="color:#66d9ef">is&lt;/span> HttpRequestMessage
+req.Headers.Add(&lt;span style="color:#e6db74">&amp;#34;traceparent&amp;#34;&lt;/span>, traceparentValue);
 req.Headers.Add(&lt;span style="color:#e6db74">&amp;#34;tracestate&amp;#34;&lt;/span>, tracestateValue);
 HttpResponseMessage response = &lt;span style="color:#66d9ef">await&lt;/span> client.SendAsync(req);
 &lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="对于grpc-调用-3">对于gRPC 调用&lt;/h4>
@@ -265,7 +268,7 @@ headers.Add(&lt;span style="color:#e6db74">&amp;#34;grpc-trace-bin&amp;#34;&lt;/
 &lt;span style="color:#e6db74">&amp;#34;google.golang.org/grpc&amp;#34;&lt;/span>
 &lt;span style="color:#e6db74">&amp;#34;google.golang.org/grpc/metadata&amp;#34;&lt;/span>
 )
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="2-2-创建客户端">2. 2. 创建客户端&lt;/h3>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="2-创建客户端">2. 创建客户端&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go"> &lt;span style="color:#75715e">// Get the Dapr port and create a connection
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">daprPort&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">os&lt;/span>.&lt;span style="color:#a6e22e">Getenv&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;DAPR_GRPC_PORT&amp;#34;&lt;/span>)
 &lt;span style="color:#a6e22e">daprAddress&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">fmt&lt;/span>.&lt;span style="color:#a6e22e">Sprintf&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;localhost:%s&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">daprPort&lt;/span>)
@@ -276,16 +279,16 @@ headers.Add(&lt;span style="color:#e6db74">&amp;#34;grpc-trace-bin&amp;#34;&lt;/
 &lt;span style="color:#66d9ef">defer&lt;/span> &lt;span style="color:#a6e22e">conn&lt;/span>.&lt;span style="color:#a6e22e">Close&lt;/span>()
 &lt;span style="color:#75715e">// Create the client
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">client&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">pb&lt;/span>.&lt;span style="color:#a6e22e">NewDaprClient&lt;/span>(&lt;span style="color:#a6e22e">conn&lt;/span>)
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="3-3-使用跟踪上下文调用-invokeservice-方法">3. 3. 使用跟踪上下文调用 InvokeService 方法&lt;/h3>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go"> &lt;span style="color:#75715e">// 创建Trace Context
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="3-使用跟踪上下文调用-invokeservice-方法">3. 使用跟踪上下文调用 InvokeService 方法&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go"> &lt;span style="color:#75715e">// Create the Trace Context
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">ctx&lt;/span> , &lt;span style="color:#a6e22e">span&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">trace&lt;/span>.&lt;span style="color:#a6e22e">StartSpan&lt;/span>(&lt;span style="color:#a6e22e">context&lt;/span>.&lt;span style="color:#a6e22e">Background&lt;/span>(), &lt;span style="color:#e6db74">&amp;#34;InvokeService&amp;#34;&lt;/span>)
-&lt;span style="color:#75715e">// 返回的上下文可以用于在当前环境中不断传播新创建的span。
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">// 在同一进程中，Context用来传播追踪上下文。
+&lt;span style="color:#75715e">// The returned context can be used to keep propagating the newly created span in the current context.
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">// In the same process, context.Context is used to propagate trace context.
 &lt;/span>&lt;span style="color:#75715e">&lt;/span>
-&lt;span style="color:#75715e">// 跨进程中，使用Trace Context 的传播格式来传播追踪上下文。
+&lt;span style="color:#75715e">// Across the process, use the propagation format of Trace Context to propagate trace context.
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">traceContext&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">propagation&lt;/span>.&lt;span style="color:#a6e22e">Binary&lt;/span>(&lt;span style="color:#a6e22e">span&lt;/span>.&lt;span style="color:#a6e22e">SpanContext&lt;/span>())
 &lt;span style="color:#a6e22e">ctx&lt;/span> = &lt;span style="color:#a6e22e">metadata&lt;/span>.&lt;span style="color:#a6e22e">NewOutgoingContext&lt;/span>(&lt;span style="color:#a6e22e">ctx&lt;/span>, string(&lt;span style="color:#a6e22e">traceContext&lt;/span>))
-&lt;span style="color:#75715e">// 传递链路上下文
+&lt;span style="color:#75715e">// Pass the trace context
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">resp&lt;/span>, &lt;span style="color:#a6e22e">err&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">client&lt;/span>.&lt;span style="color:#a6e22e">InvokeService&lt;/span>(&lt;span style="color:#a6e22e">ctx&lt;/span>, &lt;span style="color:#f92672">&amp;amp;&lt;/span>&lt;span style="color:#a6e22e">pb&lt;/span>.&lt;span style="color:#a6e22e">InvokeServiceRequest&lt;/span>{
 &lt;span style="color:#a6e22e">Id&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;client&amp;#34;&lt;/span>,
 &lt;span style="color:#a6e22e">Message&lt;/span>: &lt;span style="color:#f92672">&amp;amp;&lt;/span>&lt;span style="color:#a6e22e">commonv1pb&lt;/span>.&lt;span style="color:#a6e22e">InvokeRequest&lt;/span>{

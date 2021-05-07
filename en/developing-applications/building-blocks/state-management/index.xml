@@ -1,6 +1,6 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr Docs – State management</title><link>https://docs.dapr.io/en/developing-applications/building-blocks/state-management/</link><description>Recent content in State management on Dapr Docs</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/en/developing-applications/building-blocks/state-management/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: State management overview</title><link>https://docs.dapr.io/en/developing-applications/building-blocks/state-management/state-management-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/developing-applications/building-blocks/state-management/state-management-overview/</guid><description>
 &lt;h2 id="introduction">Introduction&lt;/h2>
-&lt;p>Using state management, your application can store data as key/value pairs in the &lt;a href="https://docs.dapr.io/en/operations/components/setup-state-store/supported-state-stores/">supported state stores&lt;/a>.&lt;/p>
+&lt;p>Using state management, your application can store data as key/value pairs in the &lt;a href="https://docs.dapr.io/en/reference/components-reference/supported-state-stores/">supported state stores&lt;/a>.&lt;/p>
 &lt;p>When using state management your application can leverage features that would otherwise be complicated and error-prone to build yourself such as:&lt;/p>
 &lt;ul>
 &lt;li>Distributed concurrency and data consistency&lt;/li>
@@ -10,7 +10,7 @@
 &lt;img src="https://docs.dapr.io/images/state-management-overview.png" width=900>
 &lt;h2 id="features">Features&lt;/h2>
 &lt;h3 id="pluggable-state-stores">Pluggable state stores&lt;/h3>
-&lt;p>Dapr data stores are modeled as components, which can be swapped out without any changes to your service code. See &lt;a href="https://docs.dapr.io/en/operations/components/setup-state-store/supported-state-stores/">supported state stores&lt;/a> to see the list.&lt;/p>
+&lt;p>Dapr data stores are modeled as components, which can be swapped out without any changes to your service code. See &lt;a href="https://docs.dapr.io/en/reference/components-reference/supported-state-stores/">supported state stores&lt;/a> to see the list.&lt;/p>
 &lt;h3 id="configurable-state-store-behavior">Configurable state store behavior&lt;/h3>
 &lt;p>Dapr allows developers to attach additional metadata to a state operation request that describes how the request is expected to be handled. You can attach:&lt;/p>
 &lt;ul>
@@ -18,7 +18,7 @@
 &lt;li>Consistency requirements&lt;/li>
 &lt;/ul>
 &lt;p>By default, your application should assume a data store is &lt;strong>eventually consistent&lt;/strong> and uses a &lt;strong>last-write-wins&lt;/strong> concurrency pattern.&lt;/p>
-&lt;p>&lt;a href="https://docs.dapr.io/en/operations/components/setup-state-store/supported-state-stores/">Not all stores are created equal&lt;/a>. To ensure portability of your application you can query the capabilities of the store and make your code adaptive to different store capabilities.&lt;/p>
+&lt;p>&lt;a href="https://docs.dapr.io/en/reference/components-reference/supported-state-stores/">Not all stores are created equal&lt;/a>. To ensure portability of your application you can query the capabilities of the store and make your code adaptive to different store capabilities.&lt;/p>
 &lt;h3 id="concurrency">Concurrency&lt;/h3>
 &lt;p>Dapr supports optimistic concurrency control (OCC) using ETags. When a state is requested, Dapr always attaches an ETag property to the returned state. When the user code tries to update or delete a state, it’s expected to attach the ETag either through the request body for updates or the &lt;code>If-Match&lt;/code> header for deletes. The write operation can succeed only when the provided ETag matches with the ETag in the state store.&lt;/p>
 &lt;p>Dapr chooses OCC because in many applications, data update conflicts are rare because clients are naturally partitioned by business contexts to operate on different data. However, if your application chooses to use ETags, a request may get rejected because of mismatched ETags. It&amp;rsquo;s recommended that you use a retry policy to compensate for such conflicts when using ETags.&lt;/p>
@@ -63,7 +63,7 @@ Direct queries of the state store are not governed by Dapr concurrency control, 
 &lt;/ul>
 &lt;/li>
 &lt;li>Try out the &lt;a href="https://github.com/dapr/quickstarts/blob/master/hello-world/README.md">hello world quickstart&lt;/a> which shows how to use state management or try the samples in the &lt;a href="https://docs.dapr.io/en/developing-applications/sdks/">Dapr SDKs&lt;/a>&lt;/li>
-&lt;li>List of &lt;a href="https://docs.dapr.io/en/operations/components/setup-state-store/supported-state-stores/">state store components&lt;/a>&lt;/li>
+&lt;li>List of &lt;a href="https://docs.dapr.io/en/reference/components-reference/supported-state-stores/">state store components&lt;/a>&lt;/li>
 &lt;li>Read the &lt;a href="https://docs.dapr.io/en/reference/api/state_api/">state management API reference&lt;/a>&lt;/li>
 &lt;li>Read the &lt;a href="https://docs.dapr.io/en/reference/api/actors_api/">actors API reference&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Developing-Applications: How-To: Save and get state</title><link>https://docs.dapr.io/en/developing-applications/building-blocks/state-management/howto-get-save-state/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/developing-applications/building-blocks/state-management/howto-get-save-state/</guid><description>
@@ -79,7 +79,7 @@ In this guide we&amp;rsquo;ll start of with the basics: Using the key/value stat
 &lt;/ul>
 &lt;h2 id="step-1-setup-a-state-store">Step 1: Setup a state store&lt;/h2>
 &lt;p>A state store component represents a resource that Dapr uses to communicate with a database.&lt;/p>
-&lt;p>For the purpose of this guide we&amp;rsquo;ll use a Redis state store, but any state store from the &lt;a href="https://docs.dapr.io/en/operations/components/setup-state-store/supported-state-stores/">supported list&lt;/a> will work.&lt;/p>
+&lt;p>For the purpose of this guide we&amp;rsquo;ll use a Redis state store, but any state store from the &lt;a href="https://docs.dapr.io/en/reference/components-reference/supported-state-stores/">supported list&lt;/a> will work.&lt;/p>
 &lt;ul class="nav nav-tabs" id="tabs-3" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
 id="tabs-3-self-hosted-cli-tab" data-toggle="tab" href="#tabs-3-self-hosted-cli" role="tab"
 aria-controls="tabs-3-self-hosted-cli" aria-selected="true">
@@ -97,7 +97,7 @@ Kubernetes
 &lt;p>To optionally change the state store being used, replace the YAML file &lt;code>statestore.yaml&lt;/code> under &lt;code>/components&lt;/code> with the file of your choice.&lt;/p>
 &lt;/div>
 &lt;div class="tab-pane fade" id="tabs-3-kubernetes" role="tabpanel" aria-labelled-by="tabs-3-kubernetes-tab">
-&lt;br />&lt;p>To deploy this into a Kubernetes cluster, fill in the &lt;code>metadata&lt;/code> connection details of your &lt;a href="https://docs.dapr.io/en/operations/components/setup-state-store/supported-state-stores/">desired statestore component&lt;/a> in the yaml below, save as &lt;code>statestore.yaml&lt;/code>, and run &lt;code>kubectl apply -f statestore.yaml&lt;/code>.&lt;/p>
+&lt;br />&lt;p>To deploy this into a Kubernetes cluster, fill in the &lt;code>metadata&lt;/code> connection details of your &lt;a href="https://docs.dapr.io/en/reference/components-reference/supported-state-stores/">desired statestore component&lt;/a> in the yaml below, save as &lt;code>statestore.yaml&lt;/code>, and run &lt;code>kubectl apply -f statestore.yaml&lt;/code>.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -388,7 +388,7 @@ $logger&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#
 &lt;h2 id="step-5-perform-state-transactions">Step 5: Perform state transactions&lt;/h2>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Note&lt;/h4>
-State transactions require a state store that supports multi-item transactions. Visit the &lt;a href="https://docs.dapr.io/en/operations/components/setup-state-store/supported-state-stores/">supported state stores page&lt;/a> page for a full list. Note that the default Redis container created in a self-hosted environment supports them.
+State transactions require a state store that supports multi-item transactions. Visit the &lt;a href="https://docs.dapr.io/en/reference/components-reference/supported-state-stores/">supported state stores page&lt;/a> page for a full list. Note that the default Redis container created in a self-hosted environment supports them.
 &lt;/div>
 &lt;ul class="nav nav-tabs" id="tabs-9" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
 id="tabs-9-http-api-bash-tab" data-toggle="tab" href="#tabs-9-http-api-bash" role="tab"
@@ -503,12 +503,12 @@ $logger&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#
 &lt;h2 id="setup-a-state-store">Setup a state store&lt;/h2>
 &lt;p>A state store component represents a resource that Dapr uses to communicate with a database.
 For the purpose of this guide, we&amp;rsquo;ll use a Redis state store.&lt;/p>
-&lt;p>See a list of supported state stores &lt;a href="https://docs.dapr.io/en/operations/components/setup-state-store/supported-state-stores/">here&lt;/a>&lt;/p>
+&lt;p>See a list of supported state stores &lt;a href="https://docs.dapr.io/en/reference/components-reference/supported-state-stores/">here&lt;/a>&lt;/p>
 &lt;h3 id="using-the-dapr-cli">Using the Dapr CLI&lt;/h3>
 &lt;p>The Dapr CLI automatically provisions a state store (Redis) and creates the relevant YAML when running your app with &lt;code>dapr run&lt;/code>.
 To change the state store being used, replace the YAML under &lt;code>/components&lt;/code> with the file of your choice.&lt;/p>
 &lt;h3 id="kubernetes">Kubernetes&lt;/h3>
-&lt;p>See the instructions &lt;a href="https://docs.dapr.io/en/operations/components/setup-state-store/setup-state-store-overview/">here&lt;/a> on how to setup different state stores on Kubernetes.&lt;/p>
+&lt;p>See the instructions &lt;a href="https://docs.dapr.io/en/operations/components/setup-state-store/">here&lt;/a> on how to setup different state stores on Kubernetes.&lt;/p>
 &lt;h2 id="strong-and-eventual-consistency">Strong and Eventual consistency&lt;/h2>
 &lt;p>Using strong consistency, Dapr will make sure the underlying state store returns the response once the data has been written to all replicas or received an ack from a quorum before writing or deleting state.&lt;/p>
 &lt;p>For get requests, Dapr will make sure the store returns the most up to date data consistently among replicas.
@@ -646,4 +646,4 @@ success &lt;span style="color:#f92672">=&lt;/span> save_state(newState)
 &lt;/span>&lt;span style="color:#e6db74"> }
 &lt;/span>&lt;span style="color:#e6db74"> ]&amp;#39;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>The key will be saved as &lt;code>darth&lt;/code>.&lt;/p></description></item><item><title>Developing-Applications: Work with backend state stores</title><link>https://docs.dapr.io/en/developing-applications/building-blocks/state-management/query-state-store/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/developing-applications/building-blocks/state-management/query-state-store/</guid><description>
-&lt;p>Explore the &lt;strong>Operations&lt;/strong> section to see a list of &lt;a href="https://docs.dapr.io/en/operations/components/setup-state-store/supported-state-stores/">supported state stores&lt;/a> and how to setup &lt;a href="https://docs.dapr.io/en/operations/components/setup-state-store/setup-state-store-overview/">state store components&lt;/a>.&lt;/p></description></item></channel></rss>
+&lt;p>Explore the &lt;strong>Operations&lt;/strong> section to see a list of &lt;a href="https://docs.dapr.io/en/reference/components-reference/supported-state-stores/">supported state stores&lt;/a> and how to setup &lt;a href="https://docs.dapr.io/en/operations/components/setup-state-store/">state store components&lt;/a>.&lt;/p></description></item></channel></rss>

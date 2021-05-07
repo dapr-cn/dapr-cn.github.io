@@ -2,7 +2,7 @@
 &lt;h2 id="introduction">Introduction&lt;/h2>
 &lt;p>The &lt;a href="https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern">publish/subscribe pattern&lt;/a> allows microservices to communicate with each other using messages. The &lt;strong>producer or publisher&lt;/strong> sends messages to a &lt;strong>topic&lt;/strong> without knowledge of what application will receive them. This involves writing them to an input channel. Similarly, a &lt;strong>consumer or subscriber&lt;/strong> subscribes to the topic and receive its messages without any knowledge of what service produced these messages. This involves receiving messages from an output channel. An intermediary message broker is responsible for copying each message from an input channel to an output channels for all subscribers interested in that message. This pattern is especially useful when you need to decouple microservices from one another.&lt;/p>
 &lt;p>The publish/subscribe API in Dapr provides an at-least-once guarantee and integrates with various message brokers and queuing systems. The specific implementation used by your service is pluggable and configured as a Dapr pub/sub component at runtime. This approach removes the dependency from your service and, as a result, makes your service more portable and flexible to changes.&lt;/p>
-&lt;p>The complete list of Dapr pub/sub components is &lt;a href="https://docs.dapr.io/en/operations/components/setup-pubsub/supported-pubsub/">here&lt;/a>.&lt;/p>
+&lt;p>The complete list of Dapr pub/sub components is &lt;a href="https://docs.dapr.io/en/reference/components-reference/supported-pubsub/">here&lt;/a>.&lt;/p>
 &lt;img src="https://docs.dapr.io/images/pubsub-overview-pattern.png" width=1000>
 &lt;p>&lt;br>&lt;/br>&lt;/p>
 &lt;p>The Dapr pub/sub building block provides a platform-agnostic API to send and receive messages. Your services publish messages to a named topic and also subscribe to a topic to consume the messages.&lt;/p>
@@ -73,7 +73,7 @@
 &lt;li>Try out the &lt;a href="https://github.com/dapr/quickstarts/tree/master/pub-sub">Pub/Sub quickstart sample&lt;/a>&lt;/li>
 &lt;li>Learn about &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/pubsub/pubsub-scopes/">topic scoping&lt;/a>&lt;/li>
 &lt;li>Learn about &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/pubsub/pubsub-message-ttl/">message time-to-live (TTL)&lt;/a>&lt;/li>
-&lt;li>List of &lt;a href="https://docs.dapr.io/en/operations/components/setup-pubsub/supported-pubsub/">pub/sub components&lt;/a>&lt;/li>
+&lt;li>List of &lt;a href="https://docs.dapr.io/en/reference/components-reference/supported-pubsub/">pub/sub components&lt;/a>&lt;/li>
 &lt;li>Read the &lt;a href="https://docs.dapr.io/en/reference/api/pubsub_api/">pub/sub API reference&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Developing-Applications: How-To: Publish a message and subscribe to a topic</title><link>https://docs.dapr.io/en/developing-applications/building-blocks/pubsub/howto-publish-subscribe/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/developing-applications/building-blocks/pubsub/howto-publish-subscribe/</guid><description>
 &lt;h2 id="introduction">Introduction&lt;/h2>
@@ -139,7 +139,7 @@ Kubernetes
 &lt;h2 id="step-2-subscribe-to-topics">Step 2: Subscribe to topics&lt;/h2>
 &lt;p>Dapr allows two methods by which you can subscribe to topics:&lt;/p>
 &lt;ul>
-&lt;li>&lt;strong>Declaratively&lt;/strong>, where subscriptions are are defined in an external file.&lt;/li>
+&lt;li>&lt;strong>Declaratively&lt;/strong>, where subscriptions are defined in an external file.&lt;/li>
 &lt;li>&lt;strong>Programmatically&lt;/strong>, where subscriptions are defined in user code.&lt;/li>
 &lt;/ul>
 &lt;div class="alert alert-primary" role="alert">
@@ -470,7 +470,7 @@ $logger&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#
 &lt;h2 id="sending-a-custom-cloudevent">Sending a custom CloudEvent&lt;/h2>
 &lt;p>Dapr automatically takes the data sent on the publish request and wraps it in a CloudEvent 1.0 envelope.
 If you want to use your own custom CloudEvent, make sure to specify the content type as &lt;code>application/cloudevents+json&lt;/code>.&lt;/p>
-&lt;p>See info about content types &lt;a href="#Content-Types">here&lt;/a>.&lt;/p>
+&lt;p>Read about content types &lt;a href="#content-types">here&lt;/a>, and about the &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/pubsub/pubsub-overview/#cloud-events-message-format">Cloud Events message format&lt;/a>.&lt;/p>
 &lt;h2 id="next-steps">Next steps&lt;/h2>
 &lt;ul>
 &lt;li>Try the &lt;a href="https://github.com/dapr/quickstarts/tree/master/pub-sub">Pub/Sub quickstart sample&lt;/a>&lt;/li>
@@ -719,12 +719,12 @@ If you want to use your own custom CloudEvent, make sure to specify the content 
 &lt;ul>
 &lt;li>Learn &lt;a href="https://docs.dapr.io/en/operations/components/setup-pubsub/pubsub-namespaces/">how to configure Pub/Sub components with multiple namespaces&lt;/a>&lt;/li>
 &lt;li>Learn about &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/pubsub/pubsub-message-ttl/">message time-to-live&lt;/a>&lt;/li>
-&lt;li>List of &lt;a href="https://docs.dapr.io/en/operations/components/setup-pubsub/supported-pubsub/">pub/sub components&lt;/a>&lt;/li>
+&lt;li>List of &lt;a href="https://docs.dapr.io/en/reference/components-reference/supported-pubsub/">pub/sub components&lt;/a>&lt;/li>
 &lt;li>Read the &lt;a href="https://docs.dapr.io/en/reference/api/pubsub_api/">API reference&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Developing-Applications: Message Time-to-Live (TTL)</title><link>https://docs.dapr.io/en/developing-applications/building-blocks/pubsub/pubsub-message-ttl/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/developing-applications/building-blocks/pubsub/pubsub-message-ttl/</guid><description>
 &lt;h2 id="introduction">Introduction&lt;/h2>
 &lt;p>Dapr enables per-message time-to-live (TTL). This means that applications can set time-to-live per message, and subscribers do not receive those messages after expiration.&lt;/p>
-&lt;p>All Dapr &lt;a href="https://docs.dapr.io/en/operations/components/setup-pubsub/supported-pubsub/">pub/sub components&lt;/a> are compatible with message TTL, as Dapr handles the TTL logic within the runtime. Simply set the &lt;code>ttlInSeconds&lt;/code> metadata when publishing a message.&lt;/p>
+&lt;p>All Dapr &lt;a href="https://docs.dapr.io/en/reference/components-reference/supported-pubsub/">pub/sub components&lt;/a> are compatible with message TTL, as Dapr handles the TTL logic within the runtime. Simply set the &lt;code>ttlInSeconds&lt;/code> metadata when publishing a message.&lt;/p>
 &lt;p>In some components, such as Kafka, time-to-live can be configured in the topic via &lt;code>retention.ms&lt;/code> as per &lt;a href="https://kafka.apache.org/documentation/#topicconfigs_retention.ms">documentation&lt;/a>. With message TTL in Dapr, applications using Kafka can now set time-to-live per message in addition to per topic.&lt;/p>
 &lt;h2 id="native-message-ttl-support">Native message TTL support&lt;/h2>
 &lt;p>When message time-to-live has native support in the pub/sub component, Dapr simply forwards the time-to-live configuration without adding any extra logic, keeping predictable behavior. This is helpful when the expired messages are handled differently by the component. For example, with Azure Service Bus, where expired messages are stored in the dead letter queue and are not simply deleted.&lt;/p>
@@ -789,6 +789,6 @@ $publisher&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="colo
 &lt;ul>
 &lt;li>Learn about &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/pubsub/pubsub-scopes/">topic scoping&lt;/a>&lt;/li>
 &lt;li>Learn &lt;a href="https://docs.dapr.io/en/operations/components/setup-pubsub/pubsub-namespaces/">how to configure Pub/Sub components with multiple namespaces&lt;/a>&lt;/li>
-&lt;li>List of &lt;a href="https://docs.dapr.io/en/operations/components/setup-pubsub/supported-pubsub/">pub/sub components&lt;/a>&lt;/li>
+&lt;li>List of &lt;a href="https://docs.dapr.io/en/reference/components-reference/supported-pubsub/">pub/sub components&lt;/a>&lt;/li>
 &lt;li>Read the &lt;a href="https://docs.dapr.io/en/reference/api/pubsub_api/">API reference&lt;/a>&lt;/li>
 &lt;/ul></description></item></channel></rss>

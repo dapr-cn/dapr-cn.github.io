@@ -1,0 +1,863 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Dapr components reference</title><link>https://docs.dapr.io/reference/components-reference/</link><description>Recent content in Dapr components reference on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/reference/components-reference/index.xml" rel="self" type="application/rss+xml"/><item><title>Reference: State store component specs</title><link>https://docs.dapr.io/reference/components-reference/supported-state-stores/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/components-reference/supported-state-stores/</guid><description>
+&lt;p>表格标题：&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;code>Status&lt;/code>: &lt;a href="%7B%7BX%1A39X%7D%7D">组件认证&lt;/a> 状态&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>&lt;a href="%7B%7BX%1A28X%7D%7D">Alpha&lt;/a>&lt;/li>
+&lt;li>&lt;a href="%7B%7BX%1A30X%7D%7D">Beta&lt;/a>&lt;/li>
+&lt;li>&lt;a href="%7B%7BX%1A32X%7D%7D">GA&lt;/a> &amp;gt; &lt;code>自从&lt;/code>: 定义了当前组件从哪个Dapr Runtime版本开始支持&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>&lt;code>组件版本&lt;/code>：代表组件的版本&lt;/p>
+&lt;/blockquote>
+&lt;p>Dapr 状态管理组件不同程度地支持以下存储:&lt;/p>
+&lt;blockquote>
+&lt;p>如果存储引擎同时支持事务性操作和etag，则状态存储可以用于 actors。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="通用">通用&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th>CRUD&lt;/th>
+&lt;th>事务&lt;/th>
+&lt;th>ETag&lt;/th>
+&lt;th>Actors&lt;/th>
+&lt;th>状态 （Status）&lt;/th>
+&lt;th>组件版本(Component version)&lt;/th>
+&lt;th>自从(Since)&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-aerospike/">Aerospike&lt;/a>&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-cassandra/">Apache Cassandra&lt;/a>&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-cloudstate/">Cloudstate&lt;/a>&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-couchbase/">Couchbase&lt;/a>&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-consul/">Hashicorp Consul&lt;/a>&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-hazelcast/">Hazelcast&lt;/a>&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-memcached/">Memcached&lt;/a>&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-mongodb/">MongoDB&lt;/a>&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>GA&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-mysql/">MySQL&lt;/a>&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-postgresql/">PostgrSQL&lt;/a>&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-redis/">Redis&lt;/a>&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>GA&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-rethinkdb/">RethinkDB&lt;/a>&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-zookeeper/">Zookeeper&lt;/a>&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="amazon-web-services-aws">Amazon Web Services (AWS)&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th>CRUD&lt;/th>
+&lt;th>事务&lt;/th>
+&lt;th>ETag&lt;/th>
+&lt;th>Actors&lt;/th>
+&lt;th>状态 （Status）&lt;/th>
+&lt;th>组件版本(Component version)&lt;/th>
+&lt;th>自从(Since)&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-dynamodb/">AWS DynamoDB&lt;/a>&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="google-cloud-platform-gcp">Google Cloud Platform (GCP)&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th>CRUD&lt;/th>
+&lt;th>事务&lt;/th>
+&lt;th>ETag&lt;/th>
+&lt;th>Actors&lt;/th>
+&lt;th>状态 （Status）&lt;/th>
+&lt;th>组件版本(Component version)&lt;/th>
+&lt;th>自从(Since)&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-firestore/">GCP Firestore&lt;/a>&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="microsoft-azure">Microsoft Azure&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th>CRUD&lt;/th>
+&lt;th>事务&lt;/th>
+&lt;th>ETag&lt;/th>
+&lt;th>Actors&lt;/th>
+&lt;th>状态 （Status）&lt;/th>
+&lt;th>组件版本(Component version)&lt;/th>
+&lt;th>自从(Since)&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-azure-blobstorage/">Azure Blob Storage&lt;/a>&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>GA&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-azure-cosmosdb/">Azure CosmSDB&lt;/a>&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>GA&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-sqlserver/">Azure SQL Server&lt;/a>&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-azure-tablestorage/">Azure Table Storage&lt;/a>&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table></description></item><item><title>Reference: Pub/sub brokers component specs</title><link>https://docs.dapr.io/reference/components-reference/supported-pubsub/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/components-reference/supported-pubsub/</guid><description>
+&lt;p>表格标题：&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;code>状态&lt;/code>: &lt;a href="%7B%7BX%1A31X%7D%7D">组件认证&lt;/a> 状态&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>&lt;a href="%7B%7BX%1A20X%7D%7D">Alpha&lt;/a>&lt;/li>
+&lt;li>&lt;a href="%7B%7BX%1A22X%7D%7D">Beta&lt;/a>&lt;/li>
+&lt;li>&lt;a href="%7B%7BX%1A24X%7D%7D">GA&lt;/a> &amp;gt; &lt;code>自从&lt;/code>: 定义了当前组件从哪个Dapr Runtime版本开始支持&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>&lt;code>组件版本&lt;/code>：代表组件的版本&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="通用">通用&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th>状态 （Status）&lt;/th>
+&lt;th>组件版本(Component version)&lt;/th>
+&lt;th>自从(Since)&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-pubsub/setup-apache-kafka/">Apache Kafka&lt;/a>&lt;/td>
+&lt;td>Beta&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-pubsub/setup-hazelcast/">Hazelcast&lt;/a>&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-pubsub/setup-mqtt/">MQTT&lt;/a>&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-pubsub/setup-nats-streaming/">NATS Streaming&lt;/a>&lt;/td>
+&lt;td>Beta&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-pubsub/setup-pulsar/">Pulsar&lt;/a>&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-pubsub/setup-rabbitmq/">RabbitMQ&lt;/a>&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-pubsub/setup-redis-pubsub/">Redis Streams&lt;/a>&lt;/td>
+&lt;td>GA&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="amazon-web-services-aws">Amazon Web Services (AWS)&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th>状态 （Status）&lt;/th>
+&lt;th>组件版本(Component version)&lt;/th>
+&lt;th>自从(Since)&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-pubsub/setup-aws-snssqs/">AWS SNS/SQS&lt;/a>&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="google-cloud-platform-gcp">Google Cloud Platform (GCP)&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th>状态 （Status）&lt;/th>
+&lt;th>组件版本(Component version)&lt;/th>
+&lt;th>自从(Since)&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-pubsub/setup-gcp-pubsub/">GCP Pub/Sub&lt;/a>&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="microsoft-azure">Microsoft Azure&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th>状态 （Status）&lt;/th>
+&lt;th>组件版本(Component version)&lt;/th>
+&lt;th>自从(Since)&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-pubsub/setup-azure-eventhubs/">Azure Events Hub&lt;/a>&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-pubsub/setup-azure-servicebus/">Azure Service Bus&lt;/a>&lt;/td>
+&lt;td>GA&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table></description></item><item><title>Reference: Bindings component specs</title><link>https://docs.dapr.io/reference/components-reference/supported-bindings/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/components-reference/supported-bindings/</guid><description>
+&lt;p>每个绑定都有自己独特的属性集。 点击下方列出的绑定的名称链接可以看到每个绑定的组件YAML。&lt;/p>
+&lt;p>表格标题：&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;code>Status&lt;/code>: &lt;a href="%7B%7BX%1A64X%7D%7D">组件认证&lt;/a> 状态&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>&lt;a href="%7B%7BX%1A53X%7D%7D">Alpha&lt;/a>&lt;/li>
+&lt;li>&lt;a href="%7B%7BX%1A55X%7D%7D">Beta&lt;/a>&lt;/li>
+&lt;li>&lt;a href="%7B%7BX%1A57X%7D%7D">GA&lt;/a> &amp;gt; &lt;code>自从&lt;/code>: 定义了当前组件从哪个Dapr Runtime版本开始支持&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>&lt;code>组件版本&lt;/code>：代表组件的版本&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="通用">通用&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th style="text-align:center">输入&lt;br>绑定&lt;/th>
+&lt;th style="text-align:center">输出&lt;br>绑定&lt;/th>
+&lt;th>状态 （Status）&lt;/th>
+&lt;th>组件版本(Component version)&lt;/th>
+&lt;th>自从&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/apns/">Apple Push Notifications (APN)&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/cron/">Cron (scheduler)&lt;/a>&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/http/">HTTP&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>GA&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/influxdb/">InfluxDB&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/kafka/">Kafka&lt;/a>&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/kubernetes-binding/">Kubernetes 事件&lt;/a>&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/localstorage/">本地存储&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.1&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/mqtt/">MQTT&lt;/a>&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/mysql/">MySQL&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/postgres/">PostgrSQL&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/postmark/">Postmark&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/rabbitmq/">RabbitMQ&lt;/a>&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/redis/">Redis&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/smtp/">SMTP&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/twilio/">Twilio&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/twitter/">Twitter&lt;/a>&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/sendgrid/">SendGrid&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="alibaba-cloud">Alibaba Cloud&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th style="text-align:center">输入&lt;br>绑定&lt;/th>
+&lt;th style="text-align:center">输出&lt;br>绑定&lt;/th>
+&lt;th>状态 （Status）&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/alicloudoss/">Alibaba Cloud OSS&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="amazon-web-services-aws">Amazon Web Services (AWS)&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th style="text-align:center">输入&lt;br>绑定&lt;/th>
+&lt;th style="text-align:center">输出&lt;br>绑定&lt;/th>
+&lt;th>状态 （Status）&lt;/th>
+&lt;th>组件版本(Component version)&lt;/th>
+&lt;th>自从(Since)&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/dynamodb/">AWS DynamoDB&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/s3/">AWS S3&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/sns/">AWS SNS&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/sqs/">AWS SQS&lt;/a>&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/kinesis/">AWS Kinesis&lt;/a>&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="google-cloud-platform-gcp">Google Cloud Platform (GCP)&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th style="text-align:center">输入&lt;br>绑定&lt;/th>
+&lt;th style="text-align:center">输出&lt;br>绑定&lt;/th>
+&lt;th>状态 （Status）&lt;/th>
+&lt;th>组件版本(Component version)&lt;/th>
+&lt;th>自从(Since)&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/gcppubsub/">GCP Cloud Pub/Sub&lt;/a>&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/gcpbucket/">GCP Storage Bucket&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="microsoft-azure">Microsoft Azure&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th style="text-align:center">输入&lt;br>绑定&lt;/th>
+&lt;th style="text-align:center">输出&lt;br>绑定&lt;/th>
+&lt;th>状态 （Status）&lt;/th>
+&lt;th>组件版本(Component version)&lt;/th>
+&lt;th>自从(Since)&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/blobstorage/">Azure Blob Storage&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/cosmosdb/">Azure CosmSDB&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/eventgrid/">Azure Event Grid&lt;/a>&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/eventhubs/">Azure Event Hubs&lt;/a>&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/servicebusqueues/">Azure Service Bus Queues&lt;/a>&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/signalr/">Azure SignalR&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/storagequeues/">Azure Storage Queues&lt;/a>&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>GA&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table></description></item><item><title>Reference: Secret store component specs</title><link>https://docs.dapr.io/reference/components-reference/supported-secret-stores/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/components-reference/supported-secret-stores/</guid><description>
+&lt;p>表格标题：&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;code>状态&lt;/code>: &lt;a href="%7B%7BX%1A29X%7D%7D">组件认证&lt;/a> 状态&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>&lt;a href="%7B%7BX%1A18X%7D%7D">Alpha&lt;/a>&lt;/li>
+&lt;li>&lt;a href="%7B%7BX%1A20X%7D%7D">Beta&lt;/a>&lt;/li>
+&lt;li>&lt;a href="%7B%7BX%1A22X%7D%7D">GA&lt;/a> &amp;gt; &lt;code>自从&lt;/code>: 定义了当前组件从哪个Dapr Runtime版本开始支持&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>&lt;code>组件版本&lt;/code>：代表组件的版本&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="通用">通用&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th>状态 （Status）&lt;/th>
+&lt;th>组件版本(Component version)&lt;/th>
+&lt;th>自从(Since)&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-secret-stores/envvar-secret-store/">Local environment variables&lt;/a>&lt;/td>
+&lt;td>Beta&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-secret-stores/file-secret-store/">Local file&lt;/a>&lt;/td>
+&lt;td>Beta&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-secret-stores/hashicorp-vault/">HashiCorp Vault&lt;/a>&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-secret-stores/kubernetes-secret-store/">Kubernetes secrets&lt;/a>&lt;/td>
+&lt;td>GA&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="amazon-web-services-aws">Amazon Web Services (AWS)&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th>状态 （Status）&lt;/th>
+&lt;th>组件版本(Component version)&lt;/th>
+&lt;th>自从(Since)&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-secret-stores/aws-secret-manager/">AWS Secrets Manager&lt;/a>&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-secret-stores/aws-parameter-store/">AWS SSM Parameter Store&lt;/a>&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.1&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="google-cloud-platform-gcp">Google Cloud Platform (GCP)&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th>状态 （Status）&lt;/th>
+&lt;th>组件版本(Component version)&lt;/th>
+&lt;th>自从(Since)&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-secret-stores/gcp-secret-manager/">GCP Secret Manager&lt;/a>&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="microsoft-azure">Microsoft Azure&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th>状态 （Status）&lt;/th>
+&lt;th>组件版本(Component version)&lt;/th>
+&lt;th>自从(Since)&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-secret-stores/azure-keyvault-managed-identity/">Azure Key Vault w/ Managed Identity&lt;/a>&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-secret-stores/azure-keyvault/">Azure Key Vault&lt;/a>&lt;/td>
+&lt;td>GA&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table></description></item></channel></rss>

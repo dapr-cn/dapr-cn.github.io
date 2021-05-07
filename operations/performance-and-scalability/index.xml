@@ -38,7 +38,7 @@
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>Component&lt;/th>
+&lt;th>Component (组件)&lt;/th>
 &lt;th>vCPU&lt;/th>
 &lt;th>Memory&lt;/th>
 &lt;/tr>
@@ -70,7 +70,7 @@
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>Component&lt;/th>
+&lt;th>Component (组件)&lt;/th>
 &lt;th>vCPU&lt;/th>
 &lt;th>Memory&lt;/th>
 &lt;/tr>

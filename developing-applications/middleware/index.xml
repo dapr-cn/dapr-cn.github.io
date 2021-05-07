@@ -52,15 +52,15 @@
 &lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">组件schema&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/operations/configuration/configuration-overview/">配置概览&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://github.com/dapr/quickstarts/tree/master/middleware">中间件快速入门&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Developing-Applications: Supported middleware</title><link>https://docs.dapr.io/developing-applications/middleware/supported-middleware/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/middleware/supported-middleware/</guid><description>
+&lt;/ul></description></item><item><title>Developing-Applications: 支持的中间件</title><link>https://docs.dapr.io/developing-applications/middleware/supported-middleware/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/middleware/supported-middleware/</guid><description>
 &lt;h3 id="http">HTTP&lt;/h3>
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>名称&lt;/th>
+&lt;th>Name&lt;/th>
 &lt;th>描述&lt;/th>
-&lt;th>状态&lt;/th>
-&lt;th>组件版本&lt;/th>
+&lt;th>状态 （Status）&lt;/th>
+&lt;th>组件版本(Component version)&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>

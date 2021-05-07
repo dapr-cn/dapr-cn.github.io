@@ -1,10 +1,10 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – IDE 支持</title><link>https://docs.dapr.io/developing-applications/ides/</link><description>Recent content in IDE 支持 on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/developing-applications/ides/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Visual Studio Code与Dapr 集成</title><link>https://docs.dapr.io/developing-applications/ides/vscode/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/ides/vscode/</guid><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – IDE 支持</title><link>https://docs.dapr.io/developing-applications/ides/</link><description>Recent content in IDE 支持 on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/developing-applications/ides/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Visual Studio Code与 Dapr 集成</title><link>https://docs.dapr.io/developing-applications/ides/vscode/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/ides/vscode/</guid><description>
 &lt;h2 id="扩展">扩展&lt;/h2>
 &lt;p>Dapr提供了一个&lt;em>预览版&lt;/em> &lt;a href="https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-dapr">的Dapr Visual Studio Code扩展&lt;/a> ，用于您的Dapr应用程序的本地开发和调试。&lt;/p>
 &lt;p>&lt;a href="vscode:extension/ms-azuretools.vscode-dapr" class="btn btn-primary" role="button">在 VSCode 中打开&lt;/a>&lt;/p>
 &lt;h3 id="功能概述">功能概述&lt;/h3>
 &lt;ul>
-&lt;li>Scaffold Dapr task, launch, and component assets &lt;br />&lt;img src="https://docs.dapr.io/images/vscode-extension-scaffold.png" alt="Dapr VSCode 扩展 scaffold 选项的截图" width="800" />&lt;/li>
+&lt;li>脚手架Dapr任务、启动和组件资产 &lt;br />&lt;img src="https://docs.dapr.io/images/vscode-extension-scaffold.png" alt="Dapr VSCode 扩展 scaffold 选项的截图" width="800" />&lt;/li>
 &lt;li>查看正在运行的 Dapr 应用程序 &lt;br />&lt;img src="https://docs.dapr.io/images/vscode-extension-view.png" alt="Dapr VSCode 扩展视图运行应用程序选项的截图" width="800" />&lt;/li>
 &lt;li>调用 Dapr 应用的方法 &lt;br />&lt;img src="https://docs.dapr.io/images/vscode-extension-invoke.png" alt="Dapr VSCode 扩展调用选项的截图" width="800" />&lt;/li>
 &lt;li>发布事件到 Dapr 应用程序 &lt;br />&lt;img src="https://docs.dapr.io/images/vscode-extension-publish.png" alt="Dapr VSCode 扩展发布选项的截图" width="800" />&lt;/li>
@@ -15,7 +15,7 @@
 &lt;p>Visual Studio Code Remote Containers扩展允许您使用Docker容器作为功能齐全的开发环境，使您可以&lt;a href="https://code.visualstudio.com/docs/remote/containers">在容器中进行开发&lt;/a>，而无需在本地文件系统中安装任何额外的框架或包。&lt;/p>
 &lt;p>Dapr 为每种语言的 SDK 预先构建了Docker 远程容器。 您可以选择您的一个选择来选择一个随时制作的环境。 注意这些预制容器自动更新到最新的 Dapr 版本。&lt;/p>
 &lt;h3 id="设置远程开发容器">设置远程开发容器&lt;/h3>
-&lt;h4 id="前期准备">前期准备&lt;/h4>
+&lt;h4 id="先决条件">先决条件&lt;/h4>
 &lt;ul>
 &lt;li>&lt;a href="https://www.docker.com/products/docker-desktop">Docker Desktop&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://code.visualstudio.com/">Visual Studio Code&lt;/a>&lt;/li>

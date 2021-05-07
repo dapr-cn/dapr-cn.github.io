@@ -49,11 +49,11 @@
 &lt;li>在不更改代码的情况下替换绑定&lt;/li>
 &lt;li>关注业务逻辑而不是事件资源实现&lt;/li>
 &lt;/ul>
-&lt;p>For more info on bindings, read &lt;a href="%7B%7BX%1A17X%7D%7D">this overview&lt;/a>.&lt;/p>
+&lt;p>有关绑定的更多信息，请阅读 &lt;a href="%7B%7BX%1A17X%7D%7D">概述&lt;/a>。&lt;/p>
 &lt;p>有关展示绑定的快速入门示例，请访问此 &lt;a href="https://github.com/dapr/quickstarts/tree/master/bindings">链接&lt;/a>。&lt;/p>
 &lt;h2 id="1-1-创建绑定">1. 1. 创建绑定&lt;/h2>
 &lt;p>输入绑定表示 Dapr 用于读取事件并推送到应用程序的事件资源。&lt;/p>
-&lt;p>就本指南的目的，我们会使用 Kafka 绑定。 您可以在 &lt;a href="https://docs.dapr.io/operations/components/setup-bindings/supported-bindings/">此处&lt;/a> 找到不同绑定规范的列表。&lt;/p>
+&lt;p>就本指南的目的，我们会使用 Kafka 绑定。 您可以在 &lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/">此处&lt;/a> 找到不同绑定规范的列表。&lt;/p>
 &lt;p>创建以下 YAML 文件，名为 binding.yaml，并将其保存到应用程序的 &lt;code>components&lt;/code> 子文件夹中。 （使用具有 &lt;code>--components-path&lt;/code> 标记 的 &lt;code>dapr run&lt;/code> 命令来指向自定义组件目录）&lt;/p>
 &lt;p>&lt;em>注: 在 Kubernetes 中运行时，使用 &lt;code>kubectl apply -f binding.yaml&lt;/code> 将此文件应用于您的集群&lt;/em>&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
@@ -99,7 +99,7 @@
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/bindings/">绑定构建块&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/reference/api/bindings_api/">绑定 API&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/concepts/components-concept/">Components concept&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/setup-bindings/supported-bindings/">Supported bindings&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/">Supported bindings&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Developing-Applications: 使用输出绑定调用不同的资源</title><link>https://docs.dapr.io/developing-applications/building-blocks/bindings/howto-bindings/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/building-blocks/bindings/howto-bindings/</guid><description>
 &lt;p>使用绑定，可以调用外部资源，而无需绑定到特定的 SDK 或库。 有关显示输出绑定的完整示例，请访问此 &lt;a href="https://github.com/dapr/quickstarts/tree/master/bindings">链接&lt;/a>。&lt;/p>
 &lt;p>观看如何使用双向输出绑定的 &lt;a href="https://www.bilibili.com/video/BV1EA411W71L?p=3&amp;amp;t=1960">视频&lt;/a> 。 &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/ysklxm81MTs?start=1960" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark">&lt;/iframe>&lt;/p>
@@ -156,12 +156,12 @@ Kubernetes
 &lt;h2 id="2-2-发送事件">2. 2. 发送事件&lt;/h2>
 &lt;p>注: 在 Kubernetes 中运行时，使用 &lt;code>kubectl apply -f binding.yaml&lt;/code> 将此文件应用于您的集群&lt;/p>
 &lt;p>您可以使用 HTTP 来这样做：&lt;/p>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl -X POST -H http://localhost:3500/v1.0/bindings/myevent -d &lt;span style="color:#e6db74">&amp;#39;{ &amp;#34;data&amp;#34;: { &amp;#34;message&amp;#34;: &amp;#34;Hi!&amp;#34; }, &amp;#34;operation&amp;#34;: &amp;#34;create&amp;#34; }&amp;#39;&lt;/span> &lt;span style="color:#f92672">}&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;operation&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;create&amp;#34;&lt;/span> &lt;span style="color:#f92672">}&lt;/span>&lt;span style="color:#e6db74">&amp;#39; }, &amp;#34;operation&amp;#34;: &amp;#34;create&amp;#34; }&amp;#39;&lt;/span>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl -X POST -H &lt;span style="color:#e6db74">&amp;#39;Content-Type: application/json&amp;#39;&lt;/span> http://localhost:3500/v1.0/bindings/myevent -d &lt;span style="color:#e6db74">&amp;#39;{ &amp;#34;data&amp;#34;: { &amp;#34;message&amp;#34;: &amp;#34;Hi!&amp;#34; }, &amp;#34;operation&amp;#34;: &amp;#34;create&amp;#34; }&amp;#39;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>如上文所见，您使用了要调用的绑定的名称来调用 &lt;code>/binding&lt;/code> 终结点。 在我们的示例中，它的名称是 &lt;code>myevent&lt;/code> 。 有效载荷位于必需的 &lt;code>data&lt;/code> 字段中，并且可以是任何 JSON 可序列化的值。&lt;/p>
-&lt;p>您还会注意到，有一个 &lt;code>operation&lt;/code> 字段告诉绑定您需要它执行的操作。 您可以查看 &lt;a href="https://docs.dapr.io/operations/components/setup-bindings/supported-bindings/">这里&lt;/a> 查看每个输出绑定都支持的操作。&lt;/p>
+&lt;p>您还会注意到，有一个 &lt;code>operation&lt;/code> 字段告诉绑定您需要它执行的操作。 您可以查看 &lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/">这里&lt;/a> 查看每个输出绑定都支持的操作。&lt;/p>
 &lt;h2 id="参考资料">参考资料&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/reference/api/bindings_api/">Binding API&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/bindings/">绑定组件&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/setup-bindings/supported-bindings/">绑定详细规范&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/">绑定详细规范&lt;/a>&lt;/li>
 &lt;/ul></description></item></channel></rss>

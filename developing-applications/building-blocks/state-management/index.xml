@@ -1,6 +1,6 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – 状态管理</title><link>https://docs.dapr.io/developing-applications/building-blocks/state-management/</link><description>Recent content in 状态管理 on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/developing-applications/building-blocks/state-management/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: 状态管理概览</title><link>https://docs.dapr.io/developing-applications/building-blocks/state-management/state-management-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/building-blocks/state-management/state-management-overview/</guid><description>
 &lt;h2 id="介绍">介绍&lt;/h2>
-&lt;p>通过状态管理构件，你的应用程序可以将数据存储为 &lt;a href="https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/">支持的状态存储引擎&lt;/a>中的键/值对。&lt;/p>
+&lt;p>通过状态管理构件，你的应用程序可以将数据存储为 &lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/">支持的状态存储引擎&lt;/a>中的键/值对。&lt;/p>
 &lt;p>当使用状态管理时，你的应用程序可以利用一些自己构建会很复杂，容易出错的功能，比如:&lt;/p>
 &lt;ul>
 &lt;li>分布式并发和数据一致性&lt;/li>
@@ -10,7 +10,7 @@
 &lt;img src="https://docs.dapr.io/images/state-management-overview.png" width=900>
 &lt;h2 id="特性">特性&lt;/h2>
 &lt;h3 id="可插拔状态存储">可插拔状态存储&lt;/h3>
-&lt;p>Dapr数据存储被建模为组件，可以在不修改你的服务代码的情况下进行替换。 请访问 &lt;a href="https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/">支持的状态存储引擎&lt;/a>页面查看完整列表。&lt;/p>
+&lt;p>Dapr数据存储被建模为组件，可以在不修改你的服务代码的情况下进行替换。 请访问 &lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/">支持的状态存储引擎&lt;/a>页面查看完整列表。&lt;/p>
 &lt;h3 id="可配置的状态存储行为">可配置的状态存储行为&lt;/h3>
 &lt;p>Dapr允许开发人员在对于状态的操作请求中附加额外的元数据，这些元数据用以描述期望如何处理该请求。 你可以附加以下：&lt;/p>
 &lt;ul>
@@ -18,7 +18,7 @@
 &lt;li>一致性要求&lt;/li>
 &lt;/ul>
 &lt;p>默认情况下，您的应用程序应该假设数据存储是&lt;strong>最终一致&lt;/strong>的，并使用&lt;strong>last-write-wins&lt;/strong>并发模式。&lt;/p>
-&lt;p>&lt;a href="https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/">并非所有的存储引擎都一样&lt;/a>。 为了保证应用程序的可移植性，你可以了解下存储引擎的功能，使你的代码适应不同的存储引擎。&lt;/p>
+&lt;p>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/">并非所有的存储引擎都一样&lt;/a>。 为了保证应用程序的可移植性，你可以了解下存储引擎的功能，使你的代码适应不同的存储引擎。&lt;/p>
 &lt;h3 id="并发concurrency">并发（Concurrency）&lt;/h3>
 &lt;p>Dapr支持使用ETags的乐观并发控制（OCC）。 当一个发送请求操作状态时，Dapr会给返回的状态附加一个ETag属性。 当用户代码试图更新或删除一个状态时，它应该通过更新的请求体或删除的&lt;code>If-Match&lt;/code>头附加ETag。 只有当提供的ETag与状态存储中的ETag匹配时，写操作才能成功。&lt;/p>
 &lt;p>Dapr之所以选择OCC，是因为在不少应用中，数据更新冲突都是很少的，因为客户端是按业务上下文自然分割的，可以对不同的数据进行操作。 然而，如果你的应用选择使用ETags，请求可能会因为不匹配的ETags而被拒绝。 建议你在使用ETags时，使用重试策略来补偿这种冲突。&lt;/p>
@@ -63,7 +63,7 @@
 &lt;/ul>
 &lt;/li>
 &lt;li>试试 &lt;a href="https://github.com/dapr/quickstarts/blob/master/hello-world/README.md">hello world 快速入门&lt;/a> ，它会显示如何使用状态管理或试试 &lt;a href="https://docs.dapr.io/developing-applications/sdks/">Dapr SDK&lt;/a> 中的 Sample。&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/">状态存储组件&lt;/a> 列表&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/">状态存储组件&lt;/a> 列表&lt;/li>
 &lt;li>阅读 &lt;a href="https://docs.dapr.io/reference/api/state_api/">状态管理 API 引用&lt;/a>&lt;/li>
 &lt;li>阅读 &lt;a href="https://docs.dapr.io/reference/api/actors_api/">Actor API 引用&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Developing-Applications: 指南：如何保存和获取状态</title><link>https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/</guid><description>
@@ -77,7 +77,7 @@
 &lt;/ul>
 &lt;h2 id="第一步设置状态存储">第一步：设置状态存储&lt;/h2>
 &lt;p>状态存储组件代表Dapr用来与数据库进行通信的资源。&lt;/p>
-&lt;p>在本指南中，我们将使用 Redis 作为状态存储引擎，但在 &lt;a href="https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/">支持列表&lt;/a>中的任何状态存储引擎都是可以使用的。&lt;/p>
+&lt;p>在本指南中，我们将使用 Redis 作为状态存储引擎，但在 &lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/">支持列表&lt;/a>中的任何状态存储引擎都是可以使用的。&lt;/p>
 &lt;ul class="nav nav-tabs" id="tabs-3" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
 id="tabs-3-self-hosted-cli-tab" data-toggle="tab" href="#tabs-3-self-hosted-cli" role="tab"
 aria-controls="tabs-3-self-hosted-cli" aria-selected="true">
@@ -95,7 +95,7 @@ Kubernetes
 &lt;p>如果需要切换使用的状态存储引擎，用你选择的文件替换&lt;code>/components&lt;/code>下的YAML文件&lt;code>statestore.yaml&lt;/code>。&lt;/p>
 &lt;/div>
 &lt;div class="tab-pane fade" id="tabs-3-kubernetes" role="tabpanel" aria-labelled-by="tabs-3-kubernetes-tab">
-&lt;br />&lt;p>要将其部署到 Kubernetes 集群中，请在下面的 yaml 中填写你的&lt;a href="https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/">所需statestore 组件&lt;/a> 的 &lt;code>metadata&lt;/code> 连接详情，保存为 &lt;code>statestore.yaml&lt;/code>，并执行命令 &lt;code>kubectl apply -f statestore.yaml&lt;/code>。&lt;/p>
+&lt;br />&lt;p>要将其部署到 Kubernetes 集群中，请在下面的 yaml 中填写你的&lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/">所需statestore 组件&lt;/a> 的 &lt;code>metadata&lt;/code> 连接详情，保存为 &lt;code>statestore.yaml&lt;/code>，并执行命令 &lt;code>kubectl apply -f statestore.yaml&lt;/code>。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -150,9 +150,9 @@ PHP SDK
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>你也可以重启你的sidecar，然后再次尝试检索状态，看看存储的状态是否与应用状态保持一致。&lt;/p>
 &lt;/div>
 &lt;div class="tab-pane fade" id="tabs-5-http-api-powershell" role="tabpanel" aria-labelled-by="tabs-5-http-api-powershell-tab">
-&lt;br />&lt;p>首先启动一个Dapr sidecar：&lt;/p>
+&lt;br />&lt;p>首先启动Dapr sidecar:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr --app-id myapp --port &lt;span style="color:#ae81ff">3500&lt;/span> run
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后在一个单独的终端中保存一个键/值对到你的statestore中：&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后在一个单独的终端中保存一个键/值对到你的statestore中:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-powershell" data-lang="powershell">Invoke-RestMethod -Method Post -ContentType &lt;span style="color:#e6db74">&amp;#39;application/json&amp;#39;&lt;/span> -Body &lt;span style="color:#e6db74">&amp;#39;[{&amp;#34;key&amp;#34;: &amp;#34;key1&amp;#34;, &amp;#34;value&amp;#34;: &amp;#34;value1&amp;#34;}]&amp;#39;&lt;/span> -Uri &lt;span style="color:#e6db74">&amp;#39;http://localhost:3500/v1.0/state/statestore&amp;#39;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>现在获取你刚才保存的状态：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-powershell" data-lang="powershell">Invoke-RestMethod -Uri &lt;span style="color:#e6db74">&amp;#39;http://localhost:3500/v1.0/state/statestore/key1&amp;#39;&lt;/span>
@@ -180,7 +180,7 @@ Dapr sidecar is up and running.
 Updating metadata for app command: python pythonState.py
 You are up and running! Both Dapr and your app logs will appear here.
 == APP == State has been stored
-== APP == Got value: b&amp;#39;myFirstValue&amp;#39;
+== APP == Got value: b&amp;#39;myFirstValue&amp;#39; Status: Running. Init Elapsed 172.9994ms&amp;#34; app_id=Braidbald-Boot scope=dapr.
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
 &lt;div class="tab-pane fade" id="tabs-5-php-sdk" role="tabpanel" aria-labelled-by="tabs-5-php-sdk-tab">
 &lt;br />&lt;p>在&lt;code>state-example.php&lt;/code>中保存以下内容:&lt;/p>
@@ -221,11 +221,6 @@ id="tabs-6-python-sdk-tab" data-toggle="tab" href="#tabs-6-python-sdk" role="tab
 aria-controls="tabs-6-python-sdk" aria-selected="false">
 Python SDK
 &lt;/a>
-&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
-id="tabs-6-php-sdk-tab" data-toggle="tab" href="#tabs-6-php-sdk" role="tab"
-aria-controls="tabs-6-php-sdk" aria-selected="false">
-PHP SDK
-&lt;/a>
 &lt;/li>&lt;/ul>
 &lt;div class="tab-content" id="tabs-6-content">
 &lt;div class="tab-pane fade show active" id="tabs-6-http-api-bash" role="tabpanel" aria-labelled-by="tabs-6-http-api-bash-tab">
@@ -255,18 +250,16 @@ data &lt;span style="color:#f92672">=&lt;/span> d&lt;span style="color:#f92672">
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-md" data-lang="md">Starting Dapr with id Yakchocolate-Lord. HTTP Port: 59457. gRPC Port: 59458
 == DAPR == time=&amp;#34;2021-01-06T22:55:36.5570696-08:00&amp;#34; level=info msg=&amp;#34;starting Dapr Runtime -- version 0.11.3 -- commit a1a8e11&amp;#34; app_id=Yakchocolate-Lord scope=dapr.runtime type=log ver=0.11.3
 == DAPR == time=&amp;#34;2021-01-06T22:55:36.5690367-08:00&amp;#34; level=info msg=&amp;#34;standalone mode configured&amp;#34; app_id=Yakchocolate-Lord scope=dapr.runtime type=log ver=0.11.3
-== DAPR == time=&amp;#34;2021-01-06T22:55:36.7220140-08:00&amp;#34; level=info msg=&amp;#34;component loaded. name: statestore, type: state.redis&amp;#34; app_id=Yakchocolate-Lord scope=dapr.runtime type=log ver=0.11.3
-== DAPR == time=&amp;#34;2021-01-06T22:55:36.7230148-08:00&amp;#34; level=info msg=&amp;#34;API gRPC server is running on port 59458&amp;#34; app_id=Yakchocolate-Lord scope=dapr.runtime type=log ver=0.11.3
-== DAPR == time=&amp;#34;2021-01-06T22:55:36.7240207-08:00&amp;#34; level=info msg=&amp;#34;dapr initialized. Status: Running. Init Elapsed 154.984ms&amp;#34; app_id=Yakchocolate-Lord scope=dapr.runtime type=log ver=0.11.3
+== DAPR == time=&amp;#34;2021-01-06T22:55:36.7220140-08:00&amp;#34; level=info msg=&amp;#34;component loaded. Status: Running. Init Elapsed 154.984ms&amp;#34; app_id=Yakchocolate-Lord scope=dapr.runtime type=log ver=0.11.3
 Checking if Dapr sidecar is listening on GRPC port 59458
 Dapr sidecar is up and running.
 Updating metadata for app command: python pythonState.py
-You&amp;#39;re up and running! Both Dapr and your app logs will appear here.
+You&amp;#39;re up and running!
 == APP == State has been stored
 == APP == Got value: b&amp;#39;value1&amp;#39;
 == APP == Got value after delete: b&amp;#39;&amp;#39;
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
-&lt;div class="tab-pane fade" id="tabs-6-php-sdk" role="tabpanel" aria-labelled-by="tabs-6-php-sdk-tab">
+&lt;div class="tab-pane fade" id="tabs-6-" role="tabpanel" aria-labelled-by="tabs-6--tab">
 &lt;br />&lt;p>修改&lt;code>state-example.php&lt;/code>，内容如下:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
 &lt;span style="color:#66d9ef">require_once&lt;/span> &lt;span style="color:#66d9ef">__DIR__&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#e6db74">&amp;#39;/vendor/autoload.php&amp;#39;&lt;/span>;
@@ -286,7 +279,7 @@ $logger&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>现在使用以下命令运行它:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr --app-id myapp run -- php state-example.php
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>你应该会看到类似下面的输出:&lt;/p>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-md" data-lang="md">✅ You&amp;#39;re up and running! Both Dapr and your app logs will appear here.
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-md" data-lang="md">✅ You&amp;#39;re up and running!
 == APP == [2021-02-12T16:38:00.839201+01:00] APP.ALERT: State has been stored [] []
 == APP == [2021-02-12T16:38:00.841997+01:00] APP.ALERT: Got value: myFirstValue {&amp;#34;data&amp;#34;:&amp;#34;myFirstValue&amp;#34;} []
 == APP == [2021-02-12T16:38:00.845721+01:00] APP.ALERT: Got value after delete: {&amp;#34;data&amp;#34;:null} []
@@ -308,11 +301,6 @@ HTTP API (PowerShell)
 id="tabs-7-python-sdk-tab" data-toggle="tab" href="#tabs-7-python-sdk" role="tab"
 aria-controls="tabs-7-python-sdk" aria-selected="false">
 Python SDK
-&lt;/a>
-&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
-id="tabs-7-php-sdk-tab" data-toggle="tab" href="#tabs-7-php-sdk" role="tab"
-aria-controls="tabs-7-php-sdk" aria-selected="false">
-PHP SDK
 &lt;/a>
 &lt;/li>&lt;/ul>
 &lt;div class="tab-content" id="tabs-7-content">
@@ -352,11 +340,11 @@ items &lt;span style="color:#f92672">=&lt;/span> d&lt;span style="color:#f92672"
 Checking if Dapr sidecar is listening on GRPC port 60614
 Dapr sidecar is up and running.
 Updating metadata for app command: python pythonState.py
-You&amp;#39;re up and running! Both Dapr and your app logs will appear here.
+You&amp;#39;re up and running!
 == APP == States have been stored
 == APP == Got items: [b&amp;#39;value1&amp;#39;, b&amp;#39;value2&amp;#39;]
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
-&lt;div class="tab-pane fade" id="tabs-7-php-sdk" role="tabpanel" aria-labelled-by="tabs-7-php-sdk-tab">
+&lt;div class="tab-pane fade" id="tabs-7-" role="tabpanel" aria-labelled-by="tabs-7--tab">
 &lt;br />&lt;p>要用PHP批量加载和保存状态，只需创建一个 &amp;ldquo;Plain Ole' PHP对象&amp;rdquo;(POPO)，并用 StateStore注解进行声明。&lt;/p>
 &lt;p>更新&lt;code>state-example.php&lt;/code>文件:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
@@ -377,7 +365,7 @@ $logger&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>运行该应用:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr --app-id myapp run -- php state-example.php
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>并看到以下输出:&lt;/p>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-md" data-lang="md">✅ You&amp;#39;re up and running! Both Dapr and your app logs will appear here.
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-md" data-lang="md">✅ You&amp;#39;re up and running!
 == APP == [2021-02-12T16:55:02.913801+01:00] APP.ALERT: States have been stored [] []
 == APP == [2021-02-12T16:55:02.917850+01:00] APP.ALERT: Got value: [object MyState] {&amp;#34;data&amp;#34;:{&amp;#34;MyState&amp;#34;:{&amp;#34;key1&amp;#34;:&amp;#34;value1&amp;#34;,&amp;#34;key2&amp;#34;:&amp;#34;value2&amp;#34;}}} []
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
@@ -385,7 +373,7 @@ $logger&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#
 &lt;h2 id="第五步执行状态事务性操作">第五步：执行状态事务性操作&lt;/h2>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Note&lt;/h4>
-状态事务性操作需要一个支持multi-item transactions的状态存储引擎。 请访问 &lt;a href="https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/">支持的状态存储引擎&lt;/a>页面查看完整列表。 请注意，在自托管环境中创建的默认Redis容器是支持的。
+状态事务性操作需要一个支持multi-item transactions的状态存储引擎。 请访问 &lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/">支持的状态存储引擎&lt;/a>页面查看完整列表。 请注意，在自托管环境中创建的默认Redis容器是支持的。
 &lt;/div>
 &lt;ul class="nav nav-tabs" id="tabs-9" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
 id="tabs-9-http-api-bash-tab" data-toggle="tab" href="#tabs-9-http-api-bash" role="tab"
@@ -454,7 +442,7 @@ items &lt;span style="color:#f92672">=&lt;/span> d&lt;span style="color:#f92672"
 Checking if Dapr sidecar is listening on GRPC port 59534
 Dapr sidecar is up and running.
 Updating metadata for app command: python pythonState.py
-You&amp;#39;re up and running! Both Dapr and your app logs will appear here.
+You&amp;#39;re up and running!
 == APP == State transactions have been completed
 == APP == Got items: [b&amp;#39;value1&amp;#39;, b&amp;#39;&amp;#39;]
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
@@ -482,7 +470,7 @@ $logger&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>运行程序:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr --app-id myapp run -- php state-example.php
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>观察到以下输出:&lt;/p>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-md" data-lang="md">✅ You&amp;#39;re up and running! Both Dapr and your app logs will appear here.
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-md" data-lang="md">✅ You&amp;#39;re up and running!
 == APP == [2021-02-12T17:10:06.837110+01:00] APP.ALERT: Transaction committed! [] []
 == APP == [2021-02-12T17:10:06.840857+01:00] APP.ALERT: Got value: hello world, value3 {&amp;#34;key1&amp;#34;:&amp;#34;hello world&amp;#34;,&amp;#34;key2&amp;#34;:&amp;#34;value3&amp;#34;} []
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
@@ -497,11 +485,11 @@ $logger&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#
 &lt;p>这可以把开发人员从困难的状态协调、冲突解决和失败处理中解放出来，允许他们以Dapr的API形式使用这些功能。&lt;/p>
 &lt;h2 id="设置状态存储">设置状态存储&lt;/h2>
 &lt;p>状态存储组件代表Dapr用来与数据库进行通信的资源。 在本指南中，我们将使用Redis作为状态存储引擎。&lt;/p>
-&lt;p>在&lt;a href="https://docs.dapr.io/operations/components/setup-state-store/supported-state-stores/">这里&lt;/a>查看支持的状态存储引擎列表。&lt;/p>
+&lt;p>在&lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/">这里&lt;/a>查看支持的状态存储引擎列表。&lt;/p>
 &lt;h3 id="使用-dapr-cli">使用 Dapr CLI&lt;/h3>
 &lt;p>当使用&lt;code>dapr run&lt;/code>运行你的应用程序时，Dapr CLI会自动提供一个状态存储（Redis）并创建相关的YAML。 如果需要切换使用的状态存储引擎，用你选择的文件替换/components下的YAML文件``。&lt;/p>
 &lt;h3 id="kubernetes">Kubernetes&lt;/h3>
-&lt;p>See the instructions &lt;a href="%7B%7BX%1A20X%7D%7D">here&lt;/a> on how to setup different state stores on Kubernetes.&lt;/p>
+&lt;p>请参阅 &lt;a href="%7B%7BX%1A20X%7D%7D">这里&lt;/a> 的说明，了解如何在 Kubernetes 上设置不同的状态存储引擎。&lt;/p>
 &lt;h2 id="强一致性和最终一致性">强一致性和最终一致性&lt;/h2>
 &lt;p>使用强一致性时，Dapr将确保底层状态存储在写入或删除状态之前，一旦数据被写入到所有副本或收到来自quorum的ack，就会返回响应。&lt;/p>
 &lt;p>对于GET类型的请求，Dapr将确保存储引擎在副本间一致地返回最新的数据。 除非在对状态API的请求中另有指定，否则默认为最终一致性。&lt;/p>
@@ -637,4 +625,4 @@ success &lt;span style="color:#f92672">=&lt;/span> save_state(newState)
 &lt;/span>&lt;span style="color:#e6db74"> }
 &lt;/span>&lt;span style="color:#e6db74"> ]&amp;#39;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>该键将被保存为&lt;code>darth&lt;/code>。&lt;/p></description></item><item><title>Developing-Applications: 使用后端状态存储</title><link>https://docs.dapr.io/developing-applications/building-blocks/state-management/query-state-store/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/building-blocks/state-management/query-state-store/</guid><description>
-&lt;p>Explore the &lt;strong>Operations&lt;/strong> section to see a list of &lt;a href="%7B%7BX%1A1X%7D%7D">supported state stores&lt;/a> and how to setup &lt;a href="%7B%7BX%1A2X%7D%7D">state store components&lt;/a>.&lt;/p></description></item></channel></rss>
+&lt;p>查看 &lt;strong>功能操作&lt;/strong> 章节可以看到一系列&lt;a href="%7B%7BX%1A1X%7D%7D">受支持的状态存储&lt;/a> 以及如何设置&lt;a href="%7B%7BX%1A2X%7D%7D">状态存储组件&lt;/a>.&lt;/p></description></item></channel></rss>

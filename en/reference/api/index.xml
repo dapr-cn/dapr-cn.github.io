@@ -1116,7 +1116,7 @@ If &lt;code>concurrency&lt;/code> is not set, it is sent out sequential (the exa
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="invoking-output-bindings">Invoking Output Bindings&lt;/h2>
 &lt;p>This endpoint lets you invoke a Dapr output binding.
 Dapr bindings support various operations, such as &lt;code>create&lt;/code>.&lt;/p>
-&lt;p>See the &lt;a href="https://docs.dapr.io/en/operations/components/setup-bindings/supported-bindings/">different specs&lt;/a> on each binding to see the list of supported operations.&lt;/p>
+&lt;p>See the &lt;a href="https://docs.dapr.io/en/reference/components-reference/supported-bindings/">different specs&lt;/a> on each binding to see the list of supported operations.&lt;/p>
 &lt;h3 id="http-request-2">HTTP Request&lt;/h3>
 &lt;pre>&lt;code>POST/PUT http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/bindings/&amp;lt;name&amp;gt;
 &lt;/code>&lt;/pre>&lt;h3 id="http-response-codes-2">HTTP Response codes&lt;/h3>

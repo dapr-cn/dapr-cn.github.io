@@ -59,7 +59,7 @@
 &lt;h2 id="actor-state-management">Actor state management&lt;/h2>
 &lt;p>Actors can save state reliably using state management capability.&lt;/p>
 &lt;p>You can interact with Dapr through HTTP/gRPC endpoints for state management.&lt;/p>
-&lt;p>To use actors, your state store must support multi-item transactions. This means your state store &lt;a href="https://github.com/dapr/components-contrib/tree/master/state">component&lt;/a> must implement the &lt;a href="https://github.com/dapr/components-contrib/blob/master/state/transactional_store.go">TransactionalStore&lt;/a> interface. The list of components that support transactions/actors can be found here: &lt;a href="https://docs.dapr.io/en/operations/components/setup-state-store/supported-state-stores/">supported state stores&lt;/a>.&lt;/p>
+&lt;p>To use actors, your state store must support multi-item transactions. This means your state store &lt;a href="https://github.com/dapr/components-contrib/tree/master/state">component&lt;/a> must implement the &lt;a href="https://github.com/dapr/components-contrib/blob/master/state/transactional_store.go">TransactionalStore&lt;/a> interface. The list of components that support transactions/actors can be found here: &lt;a href="https://docs.dapr.io/en/reference/components-reference/supported-state-stores/">supported state stores&lt;/a>.&lt;/p>
 &lt;h2 id="actor-timers-and-reminders">Actor timers and reminders&lt;/h2>
 &lt;p>Actors can schedule periodic work on themselves by registering either timers or reminders.&lt;/p>
 &lt;h3 id="actor-timers">Actor timers&lt;/h3>

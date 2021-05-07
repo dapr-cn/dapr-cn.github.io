@@ -62,7 +62,7 @@
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl create deployment zipkin --image openzipkin/zipkin
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>Create a Kubernetes Service for the Zipkin pod:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl expose deployment zipkin --type ClusterIP --port &lt;span style="color:#ae81ff">9411&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Next, create the following YAML file locally:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>接下来，在本地创建以下YAML文件：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yml" data-lang="yml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -75,11 +75,11 @@
 &lt;span style="color:#f92672">endpointAddress&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;http://zipkin.default.svc.cluster.local:9411/api/v2/spans&amp;#34;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>Finally, deploy the Dapr configuration:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl apply -f config.yaml
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>In order to enable this configuration for your Dapr sidecar, add the following annotation to your pod spec template:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>为了启用您的 Dapr sidecar 的配置，请在您的pod spec模板中添加以下注释：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yml" data-lang="yml">&lt;span style="color:#f92672">annotations&lt;/span>:
 &lt;span style="color:#f92672">dapr.io/config&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;zipkin&amp;#34;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>That&amp;rsquo;s it! Your sidecar is now configured for use with Zipkin.&lt;/p>
-&lt;h3 id="viewing-tracing-data">Viewing Tracing Data&lt;/h3>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>就这么简单！ Your sidecar is now configured for use with Zipkin.&lt;/p>
+&lt;h3 id="查看追踪数据">查看追踪数据&lt;/h3>
 &lt;p>To view traces, connect to the Zipkin service and open the UI:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl port-forward svc/zipkin 9411:9411
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>On your browser, go to &lt;code>http://localhost:9411&lt;/code> and you should see the Zipkin UI.&lt;/p>
@@ -93,7 +93,7 @@
 &lt;h2 id="必备条件">必备条件&lt;/h2>
 &lt;ol>
 &lt;li>
-&lt;p>A installation of Dapr on Kubernetes.&lt;/p>
+&lt;p>在 Kubernetes 上安装 Dapr&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>您已经设置好了分布式追踪后端程序用以接受应用痕迹信息&lt;/p>
@@ -114,17 +114,17 @@
 &lt;/ol>
 &lt;h2 id="设置-dapr-从而将应用痕迹信息发送到-opentelemetry-collector">设置 Dapr 从而将应用痕迹信息发送到 OpenTelemetry Collector&lt;/h2>
 &lt;h3 id="在-dapr-中启用应用痕迹追踪功能">在 Dapr 中启用应用痕迹追踪功能&lt;/h3>
-&lt;p>Next, set up both a Dapr configuration file to turn on tracing and deploy a tracing exporter component that uses the OpenTelemetry Collector.&lt;/p>
+&lt;p>接下来，设置 Dapr 的配置文件以启用应用分布式追踪并部署一个使用 OpenTelemetry Collector 的应用追踪信息导出组件。&lt;/p>
 &lt;ol>
 &lt;li>
-&lt;p>创建具有&lt;a href="https://docs.dapr.io/docs/open-telemetry-collector/collector-config.yaml">此内容的&lt;/a> collector-config.yaml 文件&lt;/p>
+&lt;p>创建具有&lt;a href="https://docs.dapr.io/docs/open-telemetry-collector/collector-config.yaml">此内容的&lt;/a> 的 collector-config.yaml 文件&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>使用 &lt;code>kubectl apply -f collector-config.yaml&lt;/code>来应用配置&lt;/p>
 &lt;/li>
 &lt;/ol>
-&lt;h3 id="部署你的应用并启用应用痕迹跟踪功能">部署你的应用，并启用应用痕迹跟踪功能&lt;/h3>
-&lt;p>When running in Kubernetes mode, apply the &lt;code>appconfig&lt;/code> configuration by adding a &lt;code>dapr.io/config&lt;/code> annotation to the container that you want to participate in the distributed tracing, as shown in the following example:&lt;/p>
+&lt;h3 id="部署你的应用并启用应用跟踪功能">部署你的应用，并启用应用跟踪功能&lt;/h3>
+&lt;p>在 Kubernetes 模式下运行时，通过将&lt;code>dapr.io/config&lt;/code>注解添加到要参与分布式跟踪的容器中，从而来应用&lt;code>appconfig&lt;/code>配置，示例配置如下所示&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">apps/v1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Deployment&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -139,48 +139,48 @@
 &lt;span style="color:#f92672">dapr.io/app-id&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;MyApp&amp;#34;&lt;/span>
 &lt;span style="color:#f92672">dapr.io/app-port&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;8080&amp;#34;&lt;/span>
 &lt;span style="color:#f92672">dapr.io/config&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;appconfig&amp;#34;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Some of the quickstarts such as &lt;a href="https://github.com/dapr/quickstarts/tree/master/distributed-calculator">distributed calculator&lt;/a> already configure these settings, so if you are using those no additional settings are needed.&lt;/p>
-&lt;p>That&amp;rsquo;s it! There&amp;rsquo;s no need include any SDKs or instrument your application code. Dapr automatically handles the distributed tracing for you.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>一些快速入门案例，例如&lt;a href="https://github.com/dapr/quickstarts/tree/master/distributed-calculator">分布式计算器&lt;/a>已经配置了这些设置，因此，如果您在使用这些时，则不需要进行其他的设置&lt;/p>
+&lt;p>就这么简单！ 没有必要包含任何的 SDK 或分析您的应用程序代码来确定是否能够支持。 Dapr 自动为您的程序负责了分布式跟踪。&lt;/p>
 &lt;blockquote>
 &lt;p>&lt;strong>备注&lt;/strong>: 您可以同时注册多个的应用痕迹跟踪导出器，并且跟踪日志转发到所有已注册的导出器中。&lt;/p>
 &lt;/blockquote>
-&lt;p>Deploy and run some applications. 等待应用痕迹信息推送到您的分布式跟踪后端中，并在那里查看它们。&lt;/p>
+&lt;p>部署并运行一些应用程序。 等待应用痕迹信息推送到您的分布式跟踪后端中，并在那里查看它们。&lt;/p>
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
 &lt;li>尝试访问&lt;a href="https://github.com/dapr/quickstarts/tree/master/observability/README.md">可观察性快速入门&lt;/a>&lt;/li>
 &lt;li>如何设置&lt;a href="https://docs.dapr.io/operations/configuration/configuration-overview/#tracing">应用跟踪配置选项&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Using OpenTelemetry Collector to collect traces to send to AppInsights</title><link>https://docs.dapr.io/operations/monitoring/tracing/open-telemetry-collector-appinsights/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/monitoring/tracing/open-telemetry-collector-appinsights/</guid><description>
-&lt;p>Dapr integrates with &lt;a href="https://github.com/open-telemetry/opentelemetry-collector">OpenTelemetry Collector&lt;/a> using the Zipkin API. This guide walks through an example using Dapr to push trace events to Azure Application Insights, using the OpenTelemetry Collector.&lt;/p>
+&lt;/ul></description></item><item><title>Operations: 使用 OpenTelemetry Collector 来收集追踪信息，发送至 AppInsights</title><link>https://docs.dapr.io/operations/monitoring/tracing/open-telemetry-collector-appinsights/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/monitoring/tracing/open-telemetry-collector-appinsights/</guid><description>
+&lt;p>Dapr 使用 Zipkin API 与&lt;a href="https://github.com/open-telemetry/opentelemetry-collector">OpenTelemetry Collector &lt;/a> 进行集成。 本指南通过一个示例，使用 Dapr 通过 OpenTelemetry Collector 将跟踪事件推送到 Azure Application Insights。&lt;/p>
 &lt;h2 id="必备条件">必备条件&lt;/h2>
-&lt;p>A installation of Dapr on Kubernetes.&lt;/p>
-&lt;h2 id="how-to-configure-distributed-tracing-with-application-insights">How to configure distributed tracing with Application Insights&lt;/h2>
-&lt;h3 id="setup-application-insights">Setup Application Insights&lt;/h3>
+&lt;p>在 Kubernetes 上安装 Dapr&lt;/p>
+&lt;h2 id="如何配置分布式跟踪与-application-insights">如何配置分布式跟踪与 Application Insights&lt;/h2>
+&lt;h3 id="设置-application-insights">设置 Application Insights&lt;/h3>
 &lt;ol>
-&lt;li>First, you&amp;rsquo;ll need an Azure account. See instructions &lt;a href="https://azure.microsoft.com/free/">here&lt;/a> to apply for a &lt;strong>free&lt;/strong> Azure account.&lt;/li>
-&lt;li>Follow instructions &lt;a href="https://docs.microsoft.com/en-us/azure/azure-monitor/app/create-new-resource">here&lt;/a> to create a new Application Insights resource.&lt;/li>
-&lt;li>Get the Application Insights Intrumentation key from your Application Insights page.&lt;/li>
+&lt;li>首先，您需要一个 Azure 帐户。 请参阅 &lt;a href="https://azure.microsoft.com/free/">此处&lt;/a> 申请 &lt;strong>免费&lt;/strong> Azure 帐户的说明。&lt;/li>
+&lt;li>请按照 &lt;a href="https://docs.microsoft.com/en-us/azure/azure-monitor/app/create-new-resource">此处&lt;/a> 的说明创建新的 Application Insights 资源。&lt;/li>
+&lt;li>从 Application Insights 页面获取 Application Insights Intrumentation key。&lt;/li>
 &lt;/ol>
-&lt;h3 id="run-opentelemetry-collector-to-push-to-your-application-insights-instance">Run OpenTelemetry Collector to push to your Application Insights instance&lt;/h3>
-&lt;p>Install the OpenTelemetry Collector to your Kubernetes cluster to push events to your Application Insights instance&lt;/p>
+&lt;h3 id="运行-opentelemetry-collector-来推送到您的-application-insights-实例">运行 OpenTelemetry Collector 来推送到您的 Application Insights 实例&lt;/h3>
+&lt;p>安装 OpenTelemetry Collector 到您的 Kubernetes 集群，将事件推送到 Application Insights 实例中&lt;/p>
 &lt;ol>
 &lt;li>
-&lt;p>Check out the file &lt;a href="https://docs.dapr.io/docs/open-telemetry-collector/open-telemetry-collector-appinsights.yaml">open-telemetry-collector-appinsights.yaml&lt;/a> and replace the &lt;code>&amp;lt;INSTRUMENTATION-KEY&amp;gt;&lt;/code> placeholder with your Application Insights Instrumentation Key.&lt;/p>
+&lt;p>查看 &lt;a href="https://docs.dapr.io/docs/open-telemetry-collector/open-telemetry-collector-appinsights.yaml">open-telemetry-collector-appinsights.yaml&lt;/a>文件 ，用您的 Application Insights Instrumentation key替换 &lt;code>&amp;lt;INSTRUMENTATION-KEY&amp;gt;&lt;/code> 占位符。&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>Apply the configuration with &lt;code>kubectl apply -f open-telemetry-collector-appinsights.yaml&lt;/code>.&lt;/p>
+&lt;p>使用 &lt;code>kubectl apply -f open-telemetry-collector-appinsights.yaml&lt;/code> 来应用配置。&lt;/p>
 &lt;/li>
 &lt;/ol>
-&lt;p>Next, set up both a Dapr configuration file to turn on tracing and deploy a tracing exporter component that uses the OpenTelemetry Collector.&lt;/p>
+&lt;p>接下来，设置 Dapr 的配置文件以启用应用分布式追踪并部署一个使用 OpenTelemetry Collector 的应用追踪信息导出组件。&lt;/p>
 &lt;ol>
 &lt;li>
-&lt;p>创建具有&lt;a href="https://docs.dapr.io/docs/open-telemetry-collector/collector-config.yaml">此内容的&lt;/a> collector-config.yaml 文件&lt;/p>
+&lt;p>创建具有&lt;a href="https://docs.dapr.io/docs/open-telemetry-collector/collector-config.yaml">此内容的&lt;/a> 的 collector-config.yaml 文件&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>使用 &lt;code>kubectl apply -f collector-config.yaml&lt;/code>来应用配置&lt;/p>
 &lt;/li>
 &lt;/ol>
-&lt;h3 id="部署你的应用并启用应用痕迹跟踪功能">部署你的应用，并启用应用痕迹跟踪功能&lt;/h3>
-&lt;p>When running in Kubernetes mode, apply the &lt;code>appconfig&lt;/code> configuration by adding a &lt;code>dapr.io/config&lt;/code> annotation to the container that you want to participate in the distributed tracing, as shown in the following example:&lt;/p>
+&lt;h3 id="部署你的应用并启用应用跟踪功能">部署你的应用，并启用应用跟踪功能&lt;/h3>
+&lt;p>在 Kubernetes 模式下运行时，通过将&lt;code>dapr.io/config&lt;/code>注解添加到要参与分布式跟踪的容器中，从而来应用&lt;code>appconfig&lt;/code>配置，示例配置如下所示&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">apps/v1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Deployment&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -195,15 +195,15 @@
 &lt;span style="color:#f92672">dapr.io/app-id&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;MyApp&amp;#34;&lt;/span>
 &lt;span style="color:#f92672">dapr.io/app-port&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;8080&amp;#34;&lt;/span>
 &lt;span style="color:#f92672">dapr.io/config&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;appconfig&amp;#34;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Some of the quickstarts such as &lt;a href="https://github.com/dapr/quickstarts/tree/master/distributed-calculator">distributed calculator&lt;/a> already configure these settings, so if you are using those no additional settings are needed.&lt;/p>
-&lt;p>That&amp;rsquo;s it! There&amp;rsquo;s no need include any SDKs or instrument your application code. Dapr automatically handles the distributed tracing for you.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>一些快速入门案例，例如&lt;a href="https://github.com/dapr/quickstarts/tree/master/distributed-calculator">分布式计算器&lt;/a>已经配置了这些设置，因此，如果您在使用这些时，则不需要进行其他的设置&lt;/p>
+&lt;p>就这么简单！ 没有必要包含任何的 SDK 或分析您的应用程序代码来确定是否能够支持。 Dapr 自动为您的程序负责了分布式跟踪。&lt;/p>
 &lt;blockquote>
 &lt;p>&lt;strong>备注&lt;/strong>: 您可以同时注册多个的应用痕迹跟踪导出器，并且跟踪日志转发到所有已注册的导出器中。&lt;/p>
 &lt;/blockquote>
-&lt;p>Deploy and run some applications. After a few minutes, you should see tracing logs appearing in your Application Insights resource. You can also use the &lt;strong>Application Map&lt;/strong> to examine the topology of your services, as shown below:&lt;/p>
+&lt;p>部署并运行一些应用程序。 几分钟后，您应该看到在 Application Insights 资源中出现追踪日志。 您也可以使用 &lt;strong>Application Map&lt;/strong> 来检查您服务的拓扑，如下所示：&lt;/p>
 &lt;p>&lt;img src="https://docs.dapr.io/images/open-telemetry-app-insights.png" alt="Application map">&lt;/p>
 &lt;blockquote>
-&lt;p>&lt;strong>NOTE&lt;/strong>: Only operations going through Dapr API exposed by Dapr sidecar (e.g. service invocation or event publishing) are displayed in Application Map topology.&lt;/p>
+&lt;p>&lt;strong>注&lt;/strong>：只有通过 Dapr sidecar 暴露的 Dapr API 操作（如服务调用或事件发布）才会显示在 Application Map 拓扑中。&lt;/p>
 &lt;/blockquote>
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>

@@ -54,7 +54,7 @@ An optional payload and metadata may be sent with the request.&lt;/p>
 &lt;p>For a quickstart sample showing bindings, visit this &lt;a href="https://github.com/dapr/quickstarts/tree/master/bindings">link&lt;/a>.&lt;/p>
 &lt;h2 id="1-create-a-binding">1. Create a binding&lt;/h2>
 &lt;p>An input binding represents an event resource that Dapr uses to read events from and push to your application.&lt;/p>
-&lt;p>For the purpose of this HowTo, we&amp;rsquo;ll use a Kafka binding. You can find a list of the different binding specs &lt;a href="https://docs.dapr.io/en/operations/components/setup-bindings/supported-bindings/">here&lt;/a>.&lt;/p>
+&lt;p>For the purpose of this HowTo, we&amp;rsquo;ll use a Kafka binding. You can find a list of the different binding specs &lt;a href="https://docs.dapr.io/en/reference/components-reference/supported-bindings/">here&lt;/a>.&lt;/p>
 &lt;p>Create the following YAML file, named binding.yaml, and save this to a &lt;code>components&lt;/code> sub-folder in your application directory.
 (Use the &lt;code>--components-path&lt;/code> flag with &lt;code>dapr run&lt;/code> to point to your custom components dir)&lt;/p>
 &lt;p>&lt;em>Note: When running in Kubernetes, apply this file to your cluster using &lt;code>kubectl apply -f binding.yaml&lt;/code>&lt;/em>&lt;/p>
@@ -101,7 +101,7 @@ An optional payload and metadata may be sent with the request.&lt;/p>
 &lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/en/reference/api/bindings_api/">Bindings API&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/en/concepts/components-concept/">Components concept&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/setup-bindings/supported-bindings/">Supported bindings&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/reference/components-reference/supported-bindings/">Supported bindings&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Developing-Applications: How-To: Use output bindings to interface with external resources</title><link>https://docs.dapr.io/en/developing-applications/building-blocks/bindings/howto-bindings/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/developing-applications/building-blocks/bindings/howto-bindings/</guid><description>
 &lt;p>Output bindings enable you to invoke external resources without taking dependencies on special SDK or libraries.
 For a complete sample showing output bindings, visit this &lt;a href="https://github.com/dapr/quickstarts/tree/master/bindings">link&lt;/a>.&lt;/p>
@@ -161,14 +161,14 @@ Kubernetes
 &lt;h2 id="2-send-an-event">2. Send an event&lt;/h2>
 &lt;p>All that&amp;rsquo;s left now is to invoke the output bindings endpoint on a running Dapr instance.&lt;/p>
 &lt;p>You can do so using HTTP:&lt;/p>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl -X POST -H http://localhost:3500/v1.0/bindings/myevent -d &lt;span style="color:#e6db74">&amp;#39;{ &amp;#34;data&amp;#34;: { &amp;#34;message&amp;#34;: &amp;#34;Hi!&amp;#34; }, &amp;#34;operation&amp;#34;: &amp;#34;create&amp;#34; }&amp;#39;&lt;/span>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl -X POST -H &lt;span style="color:#e6db74">&amp;#39;Content-Type: application/json&amp;#39;&lt;/span> http://localhost:3500/v1.0/bindings/myevent -d &lt;span style="color:#e6db74">&amp;#39;{ &amp;#34;data&amp;#34;: { &amp;#34;message&amp;#34;: &amp;#34;Hi!&amp;#34; }, &amp;#34;operation&amp;#34;: &amp;#34;create&amp;#34; }&amp;#39;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>As seen above, you invoked the &lt;code>/binding&lt;/code> endpoint with the name of the binding to invoke, in our case its &lt;code>myevent&lt;/code>.
 The payload goes inside the mandatory &lt;code>data&lt;/code> field, and can be any JSON serializable value.&lt;/p>
 &lt;p>You&amp;rsquo;ll also notice that there&amp;rsquo;s an &lt;code>operation&lt;/code> field that tells the binding what you need it to do.
-You can check &lt;a href="https://docs.dapr.io/en/operations/components/setup-bindings/supported-bindings/">here&lt;/a> which operations are supported for every output binding.&lt;/p>
+You can check &lt;a href="https://docs.dapr.io/en/reference/components-reference/supported-bindings/">here&lt;/a> which operations are supported for every output binding.&lt;/p>
 &lt;h2 id="references">References&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/en/reference/api/bindings_api/">Binding API&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/bindings/">Binding components&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/setup-bindings/supported-bindings/">Binding detailed specifications&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/reference/components-reference/supported-bindings/">Binding detailed specifications&lt;/a>&lt;/li>
 &lt;/ul></description></item></channel></rss>

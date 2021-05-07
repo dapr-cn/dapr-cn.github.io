@@ -146,7 +146,7 @@
 &lt;p>In this URL, &lt;code>testing&lt;/code> is the namespace that &lt;code>mathService&lt;/code> is running in.&lt;/p>
 &lt;h2 id="下一步">下一步&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/service-invocation/howto-invoke-discover-services/">How-To: Invoke and discover services&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/service-invocation/howto-invoke-discover-services/">入门指南：发现并调用服务&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Reference: State management API reference</title><link>https://docs.dapr.io/reference/api/state_api/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/api/state_api/</guid><description>
 &lt;h2 id="component-file">Component file&lt;/h2>
 &lt;p>A Dapr State Store component yaml file has the following structure:&lt;/p>
@@ -474,7 +474,7 @@
 &lt;td>the key of the desired state&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>concurrency&lt;/td>
+&lt;td>并发（Concurrency）&lt;/td>
 &lt;td>(optional) either &lt;em>first-write&lt;/em> or &lt;em>last-write&lt;/em>, see &lt;a href="#optional-behaviors">state operation options&lt;/a>&lt;/td>
 &lt;/tr>
 &lt;tr>
@@ -538,7 +538,7 @@
 &lt;li>MongoDB&lt;/li>
 &lt;li>PostgrSQL&lt;/li>
 &lt;li>SQL Server&lt;/li>
-&lt;li>Azure CosmosDB&lt;/li>
+&lt;li>Azure CosmSDB&lt;/li>
 &lt;/ul>
 &lt;h4 id="http-请求-4">HTTP 请求&lt;/h4>
 &lt;pre>&lt;code>POST/PUT http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/state/&amp;lt;storename&amp;gt;/transaction
@@ -597,7 +597,7 @@
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
-&lt;td>operations&lt;/td>
+&lt;td>功能操作&lt;/td>
 &lt;td>A JSON array of state operation&lt;/td>
 &lt;/tr>
 &lt;tr>
@@ -853,7 +853,7 @@ curl -X DELETE -H &lt;span style="color:#e6db74">&amp;#39;If-Match: 1&amp;#39;&l
 &lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="headers">Headers&lt;/h3>
 &lt;p>The &lt;code>Content-Type&lt;/code> header tells Dapr which content type your data adheres to when constructing a CloudEvent envelope. The value of the &lt;code>Content-Type&lt;/code> header populates the &lt;code>datacontenttype&lt;/code> field in the CloudEvent. Unless specified, Dapr assumes &lt;code>text/plain&lt;/code>. If your content type is JSON, use a &lt;code>Content-Type&lt;/code> header with the value of &lt;code>application/json&lt;/code>.&lt;/p>
 &lt;p>If you want to send your own custom CloundEvent, use the &lt;code>application/cloudevents+json&lt;/code> value for the &lt;code>Content-Type&lt;/code> header.&lt;/p>
-&lt;h4 id="metadata">Metadata&lt;/h4>
+&lt;h4 id="元数据metadata">元数据（Metadata）&lt;/h4>
 &lt;p>Metadata can be sent via query parameters in the request&amp;rsquo;s URL. It must be prefixed with &lt;code>metadata.&lt;/code> as shown below.&lt;/p>
 &lt;table>
 &lt;thead>
@@ -894,7 +894,7 @@ curl -X DELETE -H &lt;span style="color:#e6db74">&amp;#39;If-Match: 1&amp;#39;&l
 &lt;/table>
 &lt;h4 id="http-response-body">HTTP Response body&lt;/h4>
 &lt;p>A json encoded array of strings.&lt;/p>
-&lt;p>Example:&lt;/p>
+&lt;p>示例:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">[
 {
 &lt;span style="color:#f92672">&amp;#34;pubsubname&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;pubsub&amp;#34;&lt;/span>,
@@ -940,7 +940,7 @@ curl -X DELETE -H &lt;span style="color:#e6db74">&amp;#39;If-Match: 1&amp;#39;&l
 &lt;/code>&lt;/pre>&lt;/div>&lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>状态&lt;/th>
+&lt;th>状态 （Status）&lt;/th>
 &lt;th>描述&lt;/th>
 &lt;/tr>
 &lt;/thead>
@@ -993,7 +993,7 @@ curl -X DELETE -H &lt;span style="color:#e6db74">&amp;#39;If-Match: 1&amp;#39;&l
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/">How to publish to and consume topics&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://github.com/dapr/quickstarts/tree/master/pub-sub">Sample for pub/sub&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Reference: 绑定API 参考</title><link>https://docs.dapr.io/reference/api/bindings_api/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/api/bindings_api/</guid><description>
+&lt;/ul></description></item><item><title>Reference: Bindings API 引用</title><link>https://docs.dapr.io/reference/api/bindings_api/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/api/bindings_api/</guid><description>
 &lt;p>Dapr provides bi-directional binding capabilities for applications and a consistent approach to interacting with different cloud/on-premise services or systems. Developers can invoke output bindings using the Dapr API, and have the Dapr runtime trigger an application with input bindings.&lt;/p>
 &lt;p>绑定的示例包括 &lt;code>Kafka&lt;/code>， &lt;code>Rabbit MQ&lt;/code>， &lt;code>Azure Event Hubs&lt;/code>， &lt;code>AWS SQS&lt;/code>和 &lt;code>GCP Storage&lt;/code>。&lt;/p>
 &lt;h2 id="bindings-结构">Bindings 结构&lt;/h2>
@@ -1144,7 +1144,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 }
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="调用输出绑定">调用输出绑定&lt;/h2>
 &lt;p>此端点允许您调用一个 Dapr 输出绑定。 Dapr bindings support various operations, such as &lt;code>create&lt;/code>.&lt;/p>
-&lt;p>请参阅 &lt;a href="https://docs.dapr.io/operations/components/setup-bindings/supported-bindings/"> 每个绑定上的不同配置&lt;/a> 以查看受支持操作的列表。&lt;/p>
+&lt;p>请参阅 &lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/"> 每个绑定上的不同配置&lt;/a> 以查看受支持操作的列表。&lt;/p>
 &lt;h3 id="http-请求-2">HTTP 请求&lt;/h3>
 &lt;pre>&lt;code>POST/PUT http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/bindings/&amp;lt;name&amp;gt;
 &lt;/code>&lt;/pre>&lt;h3 id="http-响应码-2">HTTP 响应码&lt;/h3>
@@ -1234,7 +1234,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
-&lt;td>ttlInSeconds&lt;/td>
+&lt;td>ttlInseconds&lt;/td>
 &lt;td>定义消息的生存时间 ( 以秒为单位)&lt;/td>
 &lt;td>If set in the binding definition will cause all messages to have a default time to live. 消息 ttl 覆盖绑定定义中的任何值。&lt;/td>
 &lt;td>RabbitMQ, Azure Service Bus, Azure Storage Queue&lt;/td>
@@ -1395,7 +1395,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>代码&lt;/th>
+&lt;th>Code&lt;/th>
 &lt;th>描述&lt;/th>
 &lt;/tr>
 &lt;/thead>
@@ -2405,7 +2405,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>名称&lt;/th>
+&lt;th>Name&lt;/th>
 &lt;th>数据类型&lt;/th>
 &lt;th>描述&lt;/th>
 &lt;/tr>
@@ -2427,7 +2427,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;td>List of custom attributes as key-value pairs, where key is the attribute name.&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>components&lt;/td>
+&lt;td>组件&lt;/td>
 &lt;td>&lt;a href="#metadataapiresponsecomponent">Metadata API Response Component&lt;/a>[]&lt;/td>
 &lt;td>A json encoded array of loaded components metadata.&lt;/td>
 &lt;/tr>
@@ -2437,7 +2437,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>名称&lt;/th>
+&lt;th>Name&lt;/th>
 &lt;th>数据类型&lt;/th>
 &lt;th>描述&lt;/th>
 &lt;/tr>
@@ -2459,7 +2459,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>名称&lt;/th>
+&lt;th>Name&lt;/th>
 &lt;th>数据类型&lt;/th>
 &lt;th>描述&lt;/th>
 &lt;/tr>
@@ -2478,7 +2478,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;tr>
 &lt;td>version&lt;/td>
 &lt;td>string&lt;/td>
-&lt;td>Component version.&lt;/td>
+&lt;td>组件版本.&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
@@ -2661,11 +2661,11 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;/tr>
 &lt;tr>
 &lt;td>ERR_PUBSUB_CLOUD_EVENTS_SER&lt;/td>
-&lt;td>Error serializing Pub/Sub event envelope.&lt;/td>
+&lt;td>序列化 Pub/Sub 事件信封是错误的。&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>ERR_STATE_STORE_NOT_FOUND&lt;/td>
-&lt;td>Error referencing a state store not found.&lt;/td>
+&lt;td>未找到引用状态存储的错误。&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>ERR_STATE_STORES_NOT_CONFIGURED&lt;/td>
@@ -2677,43 +2677,43 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;/tr>
 &lt;tr>
 &lt;td>ERR_STATE_GET&lt;/td>
-&lt;td>Error getting a state for state store.&lt;/td>
+&lt;td>获取状态存储的状态时出错。&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>ERR_STATE_DELETE&lt;/td>
-&lt;td>Error deleting a state from state store.&lt;/td>
+&lt;td>从状态存储中删除状态时出错。&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>ERR_STATE_SAVE&lt;/td>
-&lt;td>Error saving a state in state store.&lt;/td>
+&lt;td>在状态存储中保存状态时出错。&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>ERR_INVOKE_OUTPUT_BINDING&lt;/td>
-&lt;td>Error invoking an output binding.&lt;/td>
+&lt;td>调用输出绑定时出错。&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>ERR_MALFORMED_REQUEST&lt;/td>
-&lt;td>Error with a malformed request.&lt;/td>
+&lt;td>格式错误的请求。&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>ERR_DIRECT_INVOKE&lt;/td>
-&lt;td>Error in direct invocation.&lt;/td>
+&lt;td>直接调用错误。&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>ERR_DESERIALIZE_HTTP_BODY&lt;/td>
-&lt;td>Error deserializing an HTTP request body.&lt;/td>
+&lt;td>反序列化一个 HTTP 请求正文时出错。&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>ERR_SECRET_STORES_NOT_CONFIGURED&lt;/td>
-&lt;td>Error that no secret store is configured.&lt;/td>
+&lt;td>未配置密钥存储的错误。&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>ERR_SECRET_STORE_NOT_FOUND&lt;/td>
-&lt;td>Error that specified secret store is not found.&lt;/td>
+&lt;td>未找到指定密钥存储的错误。&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>ERR_HEALTH_NOT_READY&lt;/td>
-&lt;td>Error that Dapr is not ready.&lt;/td>
+&lt;td>Dapr 未就绪的错误。&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>ERR_METADATA_GET&lt;/td>

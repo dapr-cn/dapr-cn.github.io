@@ -25,8 +25,7 @@
 &lt;h3 id="配置-grpc-通道选项">配置 gRPC 通道选项&lt;/h3>
 &lt;p>Dapr 使用&lt;code>CancellationToken&lt;/code>来取消，依赖于 gRPC 通道选项的配置。 如果您需要自己配置这些选项，请确保启用 &lt;a href="https://grpc.github.io/grpc/csharp-dotnet/api/Grpc.Net.Client.GrpcChannelOptions.html#Grpc_Net_Client_GrpcChannelOptions_ThrowOperationCanceledOnCancellation">ThrowOperationCanceledOnCancellation 设置&lt;/a>。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-C#" data-lang="C#">&lt;span style="color:#66d9ef">var&lt;/span> daprClient = &lt;span style="color:#66d9ef">new&lt;/span> DaprClientBuilder()
-.UseGrpcChannelOptions(&lt;span style="color:#66d9ef">new&lt;/span> GrpcChannelOptions { ... ThrowOperationCanceledOnCancellation = &lt;span style="color:#66d9ef">true&lt;/span> })
-.Build();
+.UseGrpcChannelOptions(&lt;span style="color:#66d9ef">new&lt;/span> GrpcChannelOptions { ...
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="使用-daprclient-取消">使用 DaprClient 取消&lt;/h2>
 &lt;p>DaprClient 上执行异步操作的API接受一个可选的&lt;code>CancellationToken&lt;/code>参数。 这遵循了可取消操作的标准.NET习惯用法。 请注意，当取消发生时，并不能保证远程端点停止处理请求，只能保证客户端已经停止等待完成。&lt;/p>
 &lt;p>当一个操作被取消时，它将抛出一个 &lt;code>OperationCancelledException&lt;/code>。&lt;/p>

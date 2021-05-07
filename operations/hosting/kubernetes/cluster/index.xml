@@ -1,6 +1,6 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Kubernetes 集群配置</title><link>https://docs.dapr.io/operations/hosting/kubernetes/cluster/</link><description>Recent content in Kubernetes 集群配置 on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/operations/hosting/kubernetes/cluster/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: 设置 Minikube 集群</title><link>https://docs.dapr.io/operations/hosting/kubernetes/cluster/setup-minikube/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/hosting/kubernetes/cluster/setup-minikube/</guid><description>
 &lt;h1 id="设置-minikube-集群">设置 Minikube 集群&lt;/h1>
-&lt;h2 id="前期准备">前期准备&lt;/h2>
+&lt;h2 id="先决条件">先决条件&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.docker.com/install/">Docker&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/">kubectl&lt;/a>&lt;/li>
@@ -65,7 +65,7 @@ $ minikube service calculator-front-end
 🎉 Opening kubernetes service default/calculator-front-end in default browser...
 &lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Operations: 设置 Azure Kubernetes 服务集群</title><link>https://docs.dapr.io/operations/hosting/kubernetes/cluster/setup-aks/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/hosting/kubernetes/cluster/setup-aks/</guid><description>
 &lt;h1 id="设置-azure-kubernetes-服务集群">设置 Azure Kubernetes 服务集群&lt;/h1>
-&lt;h2 id="前期准备">前期准备&lt;/h2>
+&lt;h2 id="先决条件">先决条件&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.docker.com/install/">Docker&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/">kubectl&lt;/a>&lt;/li>
@@ -108,7 +108,7 @@ $ minikube service calculator-front-end
 &lt;/ol>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl create clusterrolebinding kubernetes-dashboard -n kube-system --clusterrole&lt;span style="color:#f92672">=&lt;/span>cluster-admin --serviceaccount&lt;span style="color:#f92672">=&lt;/span>kube-system:kubernetes-dashboard
 &lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Operations: Setup a Google Kubernetes Engine cluster</title><link>https://docs.dapr.io/operations/hosting/kubernetes/cluster/setup-gke/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/hosting/kubernetes/cluster/setup-gke/</guid><description>
-&lt;h3 id="前期准备">前期准备&lt;/h3>
+&lt;h3 id="先决条件">先决条件&lt;/h3>
 &lt;ul>
 &lt;li>&lt;a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/">kubectl&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://cloud.google.com/sdk">Google Cloud SDK&lt;/a>&lt;/li>
