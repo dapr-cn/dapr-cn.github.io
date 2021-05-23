@@ -547,27 +547,27 @@ nodeapp &lt;span style="color:#ae81ff">3000&lt;/span> 16h 2020-07-29 17:16.22
 &lt;li>&lt;a href="https://docs.dapr.io/getting-started/install-dapr-cli/">Dapr CLI&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://github.com/helm/helm/releases">Helm 3&lt;/a> (如果使用 Helm)&lt;/li>
 &lt;/ul>
-&lt;h2 id="upgrade-existing-cluster-to-112">Upgrade existing cluster to 1.1.2&lt;/h2>
+&lt;h2 id="将现有集群升级到-112">将现有集群升级到 1.1.2&lt;/h2>
 &lt;p>有两种方法可以使用Dapr CLI或Helm升级Kubernetes集群上的Dapr control plane。&lt;/p>
 &lt;h3 id="dapr-cli">Dapr CLI&lt;/h3>
-&lt;p>The example below shows how to upgrade to version 1.1.2:&lt;/p>
+&lt;p>下面的示例显示了如何升级到版本 1.1.2：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr upgrade -k --runtime-version&lt;span style="color:#f92672">=&lt;/span>1.1.2
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Note&lt;/h4>
-&lt;p>If you are using Dapr CLI v1.1.0 there is a known issue where mTLS will be enabled by default, even on clusters where it is disabled. If your cluster has mTLS disabled, and you would like it to stay disabled, add &lt;code>--set global.mtls.enabled=false&lt;/code> to your upgrade command:&lt;/p>
+&lt;p>如果您使用的是 Dapr CLI v1.1.0，则存在一个已知问题，默认情况下将启用 mTLS，即使在禁用的集群中也是如此。 如果您的集群已禁用 mTLS，并且希望它保持禁用状态，请在升级命令中添加 &lt;code>--set global.mtls.enabled=false&lt;/code> ：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr upgrade -k --runtime-version 1.1.1 --set global.mtls.enabled&lt;span style="color:#f92672">=&lt;/span>false
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>You can track the issue here: &lt;a href="https://github.com/dapr/cli/issues/664">#664&lt;/a>.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>您可以在此处跟踪问题： &lt;a href="https://github.com/dapr/cli/issues/664">#664&lt;/a>。&lt;/p>
 &lt;/div>
 &lt;p>您可以使用Dapr CLI提供所有可用的Helm chart配置。 请参阅 &lt;a href="https://github.com/dapr/cli#supplying-helm-values">这里&lt;/a> 以获取更多信息。&lt;/p>
-&lt;h4 id="troubleshooting-upgrade-using-the-cli">Troubleshooting upgrade using the CLI&lt;/h4>
-&lt;p>There is a known issue running upgrades on clusters that may have previously had a version prior to 1.0.0-rc.2 installed on a cluster.&lt;/p>
-&lt;p>Most users should not encounter this issue, but there are a few upgrade path edge cases that may leave an incompatible CustomResourceDefinition installed on your cluster. The error message for this case looks like this:&lt;/p>
+&lt;h4 id="使用-cli-进行故障排除升级">使用 CLI 进行故障排除升级&lt;/h4>
+&lt;p>在集群上安装 1.0.0-rc.2 之前，可能以前有一个版本，但在集群上运行升级时存在一个已知问题。&lt;/p>
+&lt;p>大多数用户不应该遇到这个问题。 但有几个升级路径边缘案例可能会在您的集群中安装不兼容的CustomResourceDefin。 此案例的错误消息看起来像这样：&lt;/p>
 &lt;pre>&lt;code>❌ Failed to upgrade Dapr: Warning: kubectl apply should be used on resource created by either kubectl create --save-config or kubectl apply
 The CustomResourceDefinition &amp;quot;configurations.dapr.io&amp;quot; is invalid: spec.preserveUnknownFields: Invalid value: true: must be false in order to use defaults in the schema
-&lt;/code>&lt;/pre>&lt;p>To resolve this issue please run the follow command to upgrade the CustomResourceDefinition to a compatible version:&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>要解决此问题，请运行以下命令，将自定义资源定义升级到兼容版本：&lt;/p>
 &lt;pre>&lt;code>kubectl replace -f https://raw.githubusercontent.com/dapr/dapr/5a15b3e0f093d2d0938b12f144c7047474a290fe/charts/dapr/crds/configuration.yaml
-&lt;/code>&lt;/pre>&lt;p>Then proceed with the &lt;code>dapr upgrade --runtime-version 1.1.2 -k&lt;/code> command as above.&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>然后继续 &lt;code>dapr upgrade --runtime-version 1.1.2 -k&lt;/code> 命令如下。&lt;/p>
 &lt;h3 id="helm">Helm&lt;/h3>
 &lt;p>从1.0.0版本开始，使用Helm升级Dapr不再是一个破坏性的动作，因为现有的证书值将自动被重新使用。&lt;/p>
 &lt;ol>

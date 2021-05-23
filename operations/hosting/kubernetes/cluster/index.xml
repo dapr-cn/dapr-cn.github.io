@@ -107,28 +107,28 @@ $ minikube service calculator-front-end
 &lt;li>如果您需要 Kubernetes 仪表板权限，(例如 configmaps is forbidden: User &amp;ldquo;system:serviceaccount:kube-system:kubernetes-dashboard&amp;rdquo; cannot list configmaps in the namespace &amp;ldquo;default&amp;rdquo; 等等），执行这个命令&lt;/li>
 &lt;/ol>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl create clusterrolebinding kubernetes-dashboard -n kube-system --clusterrole&lt;span style="color:#f92672">=&lt;/span>cluster-admin --serviceaccount&lt;span style="color:#f92672">=&lt;/span>kube-system:kubernetes-dashboard
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Operations: Setup a Google Kubernetes Engine cluster</title><link>https://docs.dapr.io/operations/hosting/kubernetes/cluster/setup-gke/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/hosting/kubernetes/cluster/setup-gke/</guid><description>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Operations: 设置 Google Kubernetes 服务集群</title><link>https://docs.dapr.io/operations/hosting/kubernetes/cluster/setup-gke/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/hosting/kubernetes/cluster/setup-gke/</guid><description>
 &lt;h3 id="先决条件">先决条件&lt;/h3>
 &lt;ul>
 &lt;li>&lt;a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/">kubectl&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://cloud.google.com/sdk">Google Cloud SDK&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;h2 id="create-a-new-cluster">Create a new cluster&lt;/h2>
+&lt;h2 id="创建新群集">创建新群集&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">$ gcloud services enable container.googleapis.com &lt;span style="color:#f92672">&amp;amp;&amp;amp;&lt;/span> &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span> gcloud container clusters create $CLUSTER_NAME &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span> --zone $ZONE &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span> --project $PROJECT_ID
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>For more options refer to the &lt;a href="https://cloud.google.com/sdk/gcloud/reference/container/clusters/create">Google Cloud SDK docs&lt;/a>, or instead create a cluster through the &lt;a href="https://console.cloud.google.com/kubernetes">Cloud Console&lt;/a> for a more interactive experience.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>更多选项请参阅 &lt;a href="https://cloud.google.com/sdk/gcloud/reference/container/clusters/create">Google 云SDK 文档&lt;/a>， 或者通过 &lt;a href="https://console.cloud.google.com/kubernetes">云控制台&lt;/a> 创建集群以获取更多交互体验。&lt;/p>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">For private GKE clusters&lt;/h4>
 &lt;p>Sidecar injection will not work for private clusters without extra steps. An automatically created firewall rule for master access does not open port 4000. This is needed for Dapr sidecar injection.&lt;/p>
-&lt;p>To review the relevant firewall rule:&lt;/p>
+&lt;p>审查相关防火墙规则：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">$ gcloud compute firewall-rules list --filter&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;name~gke-&lt;/span>&lt;span style="color:#e6db74">${&lt;/span>CLUSTER_NAME&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74">-[0-9a-z]*-master&amp;#34;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>To replace the existing rule and allow kubernetes master access to port 4000:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>要替换现有的规则并允许Kubernetes主访问端口4000：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">$ gcloud compute firewall-rules update &amp;lt;firewall-rule-name&amp;gt; --allow tcp:10250,tcp:443,tcp:4000
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;/div>
-&lt;h2 id="retrieve-your-credentials-for-kubectl">Retrieve your credentials for &lt;code>kubectl&lt;/code>&lt;/h2>
+&lt;h2 id="获取您的-kubectl-的凭据">获取您的 &lt;code>kubectl&lt;/code> 的凭据&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">$ gcloud container clusters get-credentials $CLUSTER_NAME &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span> --zone $ZONE &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span> --project $PROJECT_ID

@@ -139,7 +139,7 @@ $this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
 &lt;/div>
 &lt;h2 id="测试transactions">测试Transactions&lt;/h2>
-&lt;p>When building on transactions, you&amp;rsquo;ll likely want to test how a failed transaction is handled. In order to do that, you need to inject failures and ensure the transaction matches what you expect.&lt;/p>
+&lt;p>建立事务时，您可能需要测试如何处理失败的事务。 为此，您需要注入异常并确保事务符合您的期望。&lt;/p>
 &lt;ul class="nav nav-tabs" id="tabs-1" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
 id="tabs-1-integration-test-with-testclient-tab" data-toggle="tab" href="#tabs-1-integration-test-with-testclient" role="tab"
 aria-controls="tabs-1-integration-test-with-testclient" aria-selected="true">

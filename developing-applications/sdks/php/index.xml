@@ -119,36 +119,7 @@ $app&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e
 &lt;span style="color:#66d9ef">require_once&lt;/span> &lt;span style="color:#66d9ef">__DIR__&lt;/span> &lt;span style="color:#f92672">.&lt;/span> &lt;span style="color:#e6db74">&amp;#39;/vendor/autoload.php&amp;#39;&lt;/span>;
 $app &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">\Dapr\App&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">create&lt;/span>(&lt;span style="color:#a6e22e">configure&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#a6e22e">fn&lt;/span>(&lt;span style="color:#a6e22e">\DI\ContainerBuilder&lt;/span> $builder) &lt;span style="color:#f92672">=&amp;gt;&lt;/span> $builder&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">enableCompilation&lt;/span>(&lt;span style="color:#66d9ef">__DIR__&lt;/span>));
 $result &lt;span style="color:#f92672">=&lt;/span> $app&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">run&lt;/span>(&lt;span style="color:#a6e22e">fn&lt;/span>(&lt;span style="color:#a6e22e">\Dapr\DaprClient&lt;/span> $client) &lt;span style="color:#f92672">=&amp;gt;&lt;/span> $client&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">get&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;/invoke/other-app/method/my-method&amp;#39;&lt;/span>));
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Developing-Applications: Custom Serialization</title><link>https://docs.dapr.io/developing-applications/sdks/php/php-serialization/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/php/php-serialization/</guid><description>
-&lt;p>Dapr uses JSON serialization and thus (complex) type information is lost when sending/receiving data.&lt;/p>
-&lt;h2 id="序列化serialization">序列化（Serialization）&lt;/h2>
-&lt;p>When returning an object from a controller, passing an object to the &lt;code>DaprClient&lt;/code>, or storing an object in a state store, only public properties are scanned and serialized. You can customize this behavior by implementing &lt;code>\Dapr\Serialization\ISerialize&lt;/code>. For example, if you wanted to create an ID type that serialized to a string, you may implement it like so:&lt;/p>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
-&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">MyId&lt;/span> &lt;span style="color:#66d9ef">implements&lt;/span> &lt;span style="color:#a6e22e">\Dapr\Serialization\Serializers\ISerialize&lt;/span>
-{
-&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#a6e22e">string&lt;/span> $id;
-&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">function&lt;/span> &lt;span style="color:#a6e22e">serialize&lt;/span>(&lt;span style="color:#a6e22e">mixed&lt;/span> $value,&lt;span style="color:#a6e22e">\Dapr\Serialization\ISerializer&lt;/span> $serializer)&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#a6e22e">mixed&lt;/span>
-{
-&lt;span style="color:#75715e">// $value === $this
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">return&lt;/span> $this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">id&lt;/span>;
-}
-}
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>This works for any type that we have full ownership over, however, it doesn&amp;rsquo;t work for classes from libraries or PHP itself. For that, you need to register a custom serializer with the DI container:&lt;/p>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
-&lt;span style="color:#75715e">// in config.php
-&lt;/span>&lt;span style="color:#75715e">&lt;/span>
-&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">SerializeSomeClass&lt;/span> &lt;span style="color:#66d9ef">implements&lt;/span> &lt;span style="color:#a6e22e">\Dapr\Serialization\Serializers\ISerialize&lt;/span>
-{
-&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">function&lt;/span> &lt;span style="color:#a6e22e">serialize&lt;/span>(&lt;span style="color:#a6e22e">mixed&lt;/span> $value,&lt;span style="color:#a6e22e">\Dapr\Serialization\ISerializer&lt;/span> $serializer) &lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#a6e22e">mixed&lt;/span>
-{
-&lt;span style="color:#75715e">// serialize $value and return the result
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> }
-}
-&lt;span style="color:#66d9ef">return&lt;/span> [
-&lt;span style="color:#e6db74">&amp;#39;dapr.serializers.custom&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> [&lt;span style="color:#a6e22e">SomeClass&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">class&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> &lt;span style="color:#a6e22e">SerializeSomeClass&lt;/span>()],
-];
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="deserialization">Deserialization&lt;/h2>
-&lt;p>Deserialization works exactly the same way, except the interface is &lt;code>\Dapr\Deserialization\Deserializers\IDeserialize&lt;/code>.&lt;/p></description></item><item><title>Developing-Applications: 使用 PHP 发布和订阅</title><link>https://docs.dapr.io/developing-applications/sdks/php/php-pubsub/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/php/php-pubsub/</guid><description>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Developing-Applications: 使用 PHP 发布和订阅</title><link>https://docs.dapr.io/developing-applications/sdks/php/php-pubsub/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/php/php-pubsub/</guid><description>
 &lt;p>有了 Dapr，您可以发布包括云事件的任何内容， 有了 Dapr，您可以发布包括云事件的任何内容， SDK包含一个简单的云事件实现，但是 您也可以只传递一个符合云事件规范的数组，或者使用另一个库。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
 $app&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">post&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;/publish&amp;#39;&lt;/span>, &lt;span style="color:#66d9ef">function&lt;/span>(&lt;span style="color:#a6e22e">\DI\FactoryInterface&lt;/span> $factory) {
@@ -252,4 +223,33 @@ $stateManager&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="c
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> $stateManager&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">save_object&lt;/span>($obj, &lt;span style="color:#a6e22e">prefix&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#e6db74">&amp;#39;my-prefix-&amp;#39;&lt;/span>);
 });
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
-&lt;/div></description></item></channel></rss>
+&lt;/div></description></item><item><title>Developing-Applications: 自定义序列化</title><link>https://docs.dapr.io/developing-applications/sdks/php/php-serialization/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/php/php-serialization/</guid><description>
+&lt;p>Dapr 使用 JSON 序列化，因此发送/接收数据时会丢失(复杂) 类型信息。&lt;/p>
+&lt;h2 id="序列化serialization">序列化（Serialization）&lt;/h2>
+&lt;p>When returning an object from a controller, passing an object to the &lt;code>DaprClient&lt;/code>, or storing an object in a state store, only public properties are scanned and serialized. You can customize this behavior by implementing &lt;code>\Dapr\Serialization\ISerialize&lt;/code>. For example, if you wanted to create an ID type that serialized to a string, you may implement it like so:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
+&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">MyId&lt;/span> &lt;span style="color:#66d9ef">implements&lt;/span> &lt;span style="color:#a6e22e">\Dapr\Serialization\Serializers\ISerialize&lt;/span>
+{
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#a6e22e">string&lt;/span> $id;
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">function&lt;/span> &lt;span style="color:#a6e22e">serialize&lt;/span>(&lt;span style="color:#a6e22e">mixed&lt;/span> $value,&lt;span style="color:#a6e22e">\Dapr\Serialization\ISerializer&lt;/span> $serializer)&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#a6e22e">mixed&lt;/span>
+{
+&lt;span style="color:#75715e">// $value === $this
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">return&lt;/span> $this&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">id&lt;/span>;
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>This works for any type that we have full ownership over, however, it doesn&amp;rsquo;t work for classes from libraries or PHP itself. For that, you need to register a custom serializer with the DI container:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
+&lt;span style="color:#75715e">// in config.php
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>
+&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">SerializeSomeClass&lt;/span> &lt;span style="color:#66d9ef">implements&lt;/span> &lt;span style="color:#a6e22e">\Dapr\Serialization\Serializers\ISerialize&lt;/span>
+{
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">function&lt;/span> &lt;span style="color:#a6e22e">serialize&lt;/span>(&lt;span style="color:#a6e22e">mixed&lt;/span> $value,&lt;span style="color:#a6e22e">\Dapr\Serialization\ISerializer&lt;/span> $serializer) &lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#a6e22e">mixed&lt;/span>
+{
+&lt;span style="color:#75715e">// serialize $value and return the result
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> }
+}
+&lt;span style="color:#66d9ef">return&lt;/span> [
+&lt;span style="color:#e6db74">&amp;#39;dapr.serializers.custom&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> [&lt;span style="color:#a6e22e">SomeClass&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">class&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> &lt;span style="color:#a6e22e">SerializeSomeClass&lt;/span>()],
+];
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="deserialization">Deserialization&lt;/h2>
+&lt;p>Deserialization works exactly the same way, except the interface is &lt;code>\Dapr\Deserialization\Deserializers\IDeserialize&lt;/code>.&lt;/p></description></item></channel></rss>

@@ -14,7 +14,7 @@
 &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#66d9ef">this&lt;/span>.StateManager.GetStateAsync&amp;lt;MyData&amp;gt;(&lt;span style="color:#e6db74">&amp;#34;my_data&amp;#34;&lt;/span>);
 }
 &lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
-&lt;p>💡 For a non-dependency-injected application you can use the static methods on &lt;code>ActorProxy&lt;/code>. 当你需要配置自定义设置时，这些方法容易出错，应尽量避免。&lt;/p>
+&lt;p>💡对于一个非依赖注入的应用程序，你可以使用 &lt;code>ActorProxy&lt;/code> 上静态方法。 当你需要配置自定义设置时，这些方法容易出错，应尽量避免。&lt;/p>
 &lt;/blockquote>
 &lt;p>本文档中的指导将集中在 &lt;code>IActorProxyFactory&lt;/code> 上。 &lt;code>ActorProxy&lt;/code> 的静态方法功能是相同的，除了集中管理配置的能力。&lt;/p>
 &lt;h2 id="识别-actor">识别 actor&lt;/h2>
@@ -52,8 +52,6 @@
 &lt;/span>&lt;span style="color:#75715e">//
 &lt;/span>&lt;span style="color:#75715e">// proxy is an instance of ActorProxy.
 &lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">var&lt;/span> request = &lt;span style="color:#66d9ef">new&lt;/span> MyRequest() { Message = &lt;span style="color:#e6db74">&amp;#34;Hi, it&amp;#39;s me.&amp;#34;&lt;/span>, };
-&lt;span style="color:#66d9ef">var&lt;/span> response = &lt;span style="color:#66d9ef">await&lt;/span> proxy.InvokeMethodAsync&amp;lt;MyRequest, MyResponse&amp;gt;(&lt;span style="color:#e6db74">&amp;#34;DoSomethingGreat&amp;#34;&lt;/span>, request);
-&lt;span style="color:#66d9ef">var&lt;/span> request = &lt;span style="color:#66d9ef">new&lt;/span> MyRequest() { Message = &lt;span style="color:#e6db74">&amp;#34;Hi, it&amp;#39;s me.&amp;#34;&lt;/span>, };
 &lt;span style="color:#66d9ef">var&lt;/span> response = &lt;span style="color:#66d9ef">await&lt;/span> proxy.InvokeMethodAsync&amp;lt;MyRequest, MyResponse&amp;gt;(&lt;span style="color:#e6db74">&amp;#34;DoSomethingGreat&amp;#34;&lt;/span>, request);
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>当使用弱类型的代理时，您有责任定义正确的代理方法名称和消息类型。 当使用强类型代理时，这是为你完成的，因为名称和类型是接口定义的一部分。&lt;/p></description></item><item><title>Developing-Applications: Dapr actor .NET 使用指南</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actors-usage/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actors-usage/</guid><description>
 &lt;h2 id="编写-actors">编写 Actors&lt;/h2>
@@ -691,7 +689,7 @@ Got response: Success
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;/ol>
 &lt;blockquote>
-&lt;p>💡 This sample relies on a few assumptions. ASP.NET Core Web 项目的默认监听端口是 5000，它被传递给 &lt;code>dapr run&lt;/code> 作为 &lt;code>--app-port 5000&lt;/code>。 Dapr sidecar 的默认HTTP端口是 3500。 我们告诉 sidecar 的 &lt;code>MyActorService&lt;/code> 使用 3500，以便 &lt;code>MyActorClient&lt;/code> 可以依赖默认值。&lt;/p>
+&lt;p>💡 这个示例依赖于几个假设。 ASP.NET Core Web 项目的默认监听端口是 5000，它被传递给 &lt;code>dapr run&lt;/code> 作为 &lt;code>--app-port 5000&lt;/code>。 Dapr sidecar 的默认HTTP端口是 3500。 我们告诉 sidecar 的 &lt;code>MyActorService&lt;/code> 使用 3500，以便 &lt;code>MyActorClient&lt;/code> 可以依赖默认值。&lt;/p>
 &lt;/blockquote>
 &lt;p>现在您已经成功创建了 actor 服务和客户端。 查看相关链接部分了解更多信息。&lt;/p>
 &lt;h2 id="相关链接">相关链接&lt;/h2>

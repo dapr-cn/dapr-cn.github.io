@@ -191,14 +191,14 @@
 &lt;span style="color:#f92672">enabled&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
 &lt;span style="color:#f92672">allowedClockSkew&lt;/span>: &lt;span style="color:#ae81ff">15m&lt;/span>
 &lt;span style="color:#f92672">workloadCertTTL&lt;/span>: &lt;span style="color:#ae81ff">24h&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Operations: How-To: Control concurrency and rate limit applications</title><link>https://docs.dapr.io/operations/configuration/control-concurrency/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/configuration/control-concurrency/</guid><description>
-&lt;p>A common scenario in distributed computing is to only allow for a given number of requests to execute concurrently. Using Dapr, you can control how many requests and events will invoke your application simultaneously.&lt;/p>
-&lt;p>&lt;em>Note that this rate limiing is guaranteed for every event that&amp;rsquo;s coming from Dapr, meaning Pub/Sub events, direct invocation from other services, bindings events etc. Dapr can&amp;rsquo;t enforce the concurrency policy on requests that are coming to your app externally.&lt;/em>&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Operations: 如何：控制并发和限流</title><link>https://docs.dapr.io/operations/configuration/control-concurrency/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/configuration/control-concurrency/</guid><description>
+&lt;p>只允许通知执行给定数量的请求时分布式计算中一个常见的场景 使用Dapr，你可以控制同时有多少个应用和时间可以调用你的应用&lt;/p>
+&lt;p>&lt;em>请注意，这个速率限制对每一个来自Dapr的事件都是有保证的，这意味着Pub/Sub事件、来自其他服务的直接调用、绑定事件等等。 Dapr不能对从从Dapr外部调用你的应用程序的请求应用并发策略。&lt;/em>&lt;/p>
 &lt;p>*Note that rate limiting per second can be achieved by using the &lt;strong>middleware.http.ratelimit&lt;/strong> middleware. However, there is an imporant difference between the two approaches. The rate limit middlware is time bound and limits the number of requests per second, while the &lt;code>app-max-concurrency&lt;/code> flag specifies the number of concurrent requests (and events) at any point of time. See &lt;a href="https://docs.dapr.io/developing-applications/middleware/supported-middleware/middleware-rate-limit/">Rate limit middleware&lt;/a>. * However, there is an imporant difference between the two approaches. The rate limit middlware is time bound and limits the number of requests per second, while the &lt;code>app-max-concurrency&lt;/code> flag specifies the number of concurrent requests (and events) at any point of time. See &lt;a href="https://docs.dapr.io/developing-applications/middleware/supported-middleware/middleware-rate-limit/">Rate limit middleware&lt;/a>. *&lt;/p>
 &lt;p>Watch this &lt;a href="https://youtu.be/yRI5g6o_jp8?t=1710">video&lt;/a> on how to control concurrency and rate limiting &amp;ldquo;. &lt;iframe width="764" height="430" src="https://www.youtube.com/embed/yRI5g6o_jp8?t=1710" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark">&lt;/iframe>&lt;/p>
-&lt;h2 id="setting-app-max-concurrency">Setting app-max-concurrency&lt;/h2>
-&lt;p>Without using Dapr, a developer would need to create some sort of a semaphore in the application and take care of acquiring and releasing it. Using Dapr, there are no code changes needed to an app.&lt;/p>
-&lt;h3 id="setting-app-max-concurrency-in-kubernetes">Setting app-max-concurrency in Kubernetes&lt;/h3>
+&lt;h2 id="设置-app-max-concurrency">设置 app-max-concurrency&lt;/h2>
+&lt;p>如果不适用Dapr，开发者需要在应用中创建某种信号量，并且负责获取和释放它 使用 Dapr，应用程序不需要代码更改。&lt;/p>
+&lt;h3 id="在kubernetes中设置app-max-concurrency">在Kubernetes中设置app-max-concurrency&lt;/h3>
 &lt;p>To set app-max-concurrency in Kubernetes, add the following annotation to your pod:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">apps/v1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Deployment&lt;/span>
@@ -369,13 +369,13 @@
 - &lt;span style="color:#f92672">storeName&lt;/span>: &lt;span style="color:#ae81ff">vault&lt;/span>
 &lt;span style="color:#f92672">defaultAccess&lt;/span>: &lt;span style="color:#ae81ff">allow&lt;/span> &lt;span style="color:#75715e"># this is the default value, line can be omitted&lt;/span>
 &lt;span style="color:#f92672">deniedSecrets&lt;/span>: [&lt;span style="color:#e6db74">&amp;#34;secret1&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;secret2&amp;#34;&lt;/span>]
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>上面的配置明确禁止从名为 vault 的密钥仓库访问 &lt;code>secret1&lt;/code> 和 &lt;code>secret2&lt;/code> ，但允许访问所有其他密钥。 按照 &lt;a href="https://docs.dapr.io/operations/configuration/configuration-overview/">这些说明&lt;/a> 将配置应用到 sidecar。&lt;/p></description></item><item><title>Operations: How-To: Apply access control list configuration for service invocation</title><link>https://docs.dapr.io/operations/configuration/invoke-allowlist/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/configuration/invoke-allowlist/</guid><description>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>上面的配置明确禁止从名为 vault 的密钥仓库访问 &lt;code>secret1&lt;/code> 和 &lt;code>secret2&lt;/code> ，但允许访问所有其他密钥。 按照 &lt;a href="https://docs.dapr.io/operations/configuration/configuration-overview/">这些说明&lt;/a> 将配置应用到 sidecar。&lt;/p></description></item><item><title>Operations: 如何：将访问控制列表配置应用于服务调用</title><link>https://docs.dapr.io/operations/configuration/invoke-allowlist/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/configuration/invoke-allowlist/</guid><description>
 &lt;p>Access control enables the configuration of policies that restrict what operations &lt;em>calling&lt;/em> applications can perform, via service invocation, on the &lt;em>called&lt;/em> application. To limit access to a called applications from specific operations and HTTP verbs from the calling applications, you can define an access control policy specification in configuration.&lt;/p>
 &lt;p>An access control policy is specified in configuration and be applied to Dapr sidecar for the &lt;em>called&lt;/em> application. Example access policies are shown below and access to the called app is based on the matched policy action. You can provide a default global action for all calling applications and if no access control policy is specified, the default behavior is to allow all calling applicatons to access to the called app.&lt;/p>
 &lt;p>Watch this &lt;a href="https://youtu.be/j99RN_nxExA?t=1108">video&lt;/a> on how to apply access control list for service invocation. &lt;iframe width="688" height="430" src="https://www.youtube.com/embed/j99RN_nxExA?start=1108" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark">&lt;/iframe>&lt;/p>
 &lt;h2 id="基础概念">基础概念&lt;/h2>
 &lt;p>&lt;strong>TrustDomain&lt;/strong> - A &amp;ldquo;trust domain&amp;rdquo; is a logical group to manage trust relationships. Every application is assigned a trust domain which can be specified in the access control list policy spec. If no policy spec is defined or an empty trust domain is specified, then a default value &amp;ldquo;public&amp;rdquo; is used. This trust domain is used to generate the identity of the application in the TLS cert.&lt;/p>
-&lt;p>&lt;strong>App Identity&lt;/strong> - Dapr requests the sentry service to generate a &lt;a href="https://spiffe.io/">SPIFFE&lt;/a> id for all applications and this id is attached in the TLS cert. The SPIFFE id is of the format: &lt;code>**spiffe://\&amp;lt;trustdomain&amp;gt;/ns/\&amp;lt;namespace\&amp;gt;/\&amp;lt;appid\&amp;gt;**&lt;/code>. For matching policies, the trust domain, namespace and app ID values of the calling app are extracted from the SPIFFE id in the TLS cert of the calling app. These values are matched against the trust domain, namespace and app ID values specified in the policy spec. If all three of these match, then more specific policies are further matched. The SPIFFE id is of the format: &lt;code>**spiffe://\&amp;lt;trustdomain&amp;gt;/ns/\&amp;lt;namespace\&amp;gt;/\&amp;lt;appid\&amp;gt;**&lt;/code>. For matching policies, the trust domain, namespace and app ID values of the calling app are extracted from the SPIFFE id in the TLS cert of the calling app. These values are matched against the trust domain, namespace and app ID values specified in the policy spec. If all three of these match, then more specific policies are further matched. The SPIFFE id is of the format: &lt;code>**spiffe://\&amp;lt;trustdomain&amp;gt;/ns/\&amp;lt;namespace\&amp;gt;/\&amp;lt;appid\&amp;gt;**&lt;/code>. For matching policies, the trust domain, namespace and app ID values of the calling app are extracted from the SPIFFE id in the TLS cert of the calling app. These values are matched against the trust domain, namespace and app ID values specified in the policy spec. If all three of these match, then more specific policies are further matched.&lt;/p>
+&lt;p>&lt;strong>App Identity&lt;/strong> - Dapr requests the sentry service to generate a &lt;a href="https://spiffe.io/">SPIFFE&lt;/a> id for all applications and this id is attached in the TLS cert. The SPIFFE id is of the format: &lt;code>**spiffe://\&amp;lt;trustdomain&amp;gt;/ns/\&amp;lt;namespace\&amp;gt;/\&amp;lt;appid\&amp;gt;**&lt;/code>. For matching policies, the trust domain, namespace and app ID values of the calling app are extracted from the SPIFFE id in the TLS cert of the calling app. These values are matched against the trust domain, namespace and app ID values specified in the policy spec. If all three of these match, then more specific policies are further matched.&lt;/p>
 &lt;h2 id="configuration-properties">Configuration properties&lt;/h2>
 &lt;p>The following tables lists the different properties for access control, policies and operations:&lt;/p>
 &lt;h3 id="access-control">Access Control&lt;/h3>
@@ -621,7 +621,7 @@
 &lt;span style="color:#f92672">accessControl&lt;/span>:
 &lt;span style="color:#f92672">defaultAction&lt;/span>: &lt;span style="color:#ae81ff">allow&lt;/span>
 &lt;span style="color:#f92672">trustDomain&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;myDomain&amp;#34;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="self-hosted-mode">Self-hosted mode&lt;/h3>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="自托管模式">自托管模式&lt;/h3>
 &lt;p>This example uses the &lt;a href="https://github.com/dapr/quickstarts/tree/master/hello-world/README.md">hello world&lt;/a> quickstart.&lt;/p>
 &lt;p>The following steps run the Sentry service locally with mTLS enabled, set up necessary environment variables to access certificates, and then launch both the node app and python app each referencing the Sentry service to apply the ACLs.&lt;/p>
 &lt;ol>
@@ -735,15 +735,15 @@ $env:NAMESPACE=&lt;span style="color:#e6db74">&amp;#34;default&amp;#34;&lt;/span
 &lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Operations: 指南：配置 Dapr 来使用 gRPC</title><link>https://docs.dapr.io/operations/configuration/grpc/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/configuration/grpc/</guid><description>
 &lt;p>Dapr 为本地调用实现 HTTP 和 gRPC API 。 gRPC适用于低延迟、高性能的场景，并且使用原生客户端进行语言集成。&lt;/p>
 &lt;p>You can find a list of auto-generated clients &lt;a href="https://docs.dapr.io/developing-applications/sdks/">here&lt;/a>.&lt;/p>
-&lt;p>Dapr 运行时实现 &lt;a href="https://github.com/dapr/dapr/blob/master/dapr/proto/runtime/v1/dapr.proto">服务&lt;/a> ，应用程序可以通过 gRPC 进行通信。&lt;/p>
-&lt;p>除了通过 gRPC 调用 Dapr ， Dapr 还可以通过 gRPC 与应用程序通信。 要做到这一点，应用程序需要托管一个gRPC服务器，并实现&lt;a href="https://github.com/dapr/dapr/blob/master/dapr/proto/runtime/v1/appcallback.proto">Dapr appcallback服务&lt;/a>。&lt;/p>
-&lt;h2 id="配置-dapr-以通过-grpc-与应用程序通信">配置 dapr 以通过 gRPC 与应用程序通信&lt;/h2>
+&lt;p>Dapr 运行时实现 &lt;a href="https://github.com/dapr/dapr/blob/master/dapr/proto/runtime/v1/dapr.proto">proto服务&lt;/a> ，应用程序可以通过 gRPC 进行通信。&lt;/p>
+&lt;p>除了通过 gRPC 调用 Dapr ， Dapr 也可以通过 gRPC 与应用程序通信。 要做到这一点，应用程序需要托管一个gRPC服务器，并实现&lt;a href="https://github.com/dapr/dapr/blob/master/dapr/proto/runtime/v1/appcallback.proto">Dapr appcallback服务&lt;/a>。&lt;/p>
+&lt;h2 id="dapr-通过-grpc-与应用程序通信的配置">Dapr 通过 gRPC 与应用程序通信的配置&lt;/h2>
 &lt;h3 id="自托管">自托管&lt;/h3>
-&lt;p>当在自己托管模式下运行时，使用 &lt;code>--app-protocol&lt;/code> 标志告诉Dapr 使用 gRPC 来与应用程序对话：&lt;/p>
+&lt;p>在自托管模式下运行时，使用 &lt;code>--app-protocol&lt;/code> 标志来配置Dapr 使用 gRPC 与应用程序通信：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr run --app-protocol grpc --app-port &lt;span style="color:#ae81ff">5005&lt;/span> node app.js
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>这将告诉Dapr通过gRPC与您的应用程序通过&lt;code>5005&lt;/code>端口进行通信。&lt;/p>
 &lt;h3 id="kubernetes">Kubernetes&lt;/h3>
-&lt;p>在Kubernetes上，在你的deployment YAML中设置以下注解:&lt;/p>
+&lt;p>在Kubernetes中，需要在deployment YAML文件中设置以下注解:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">apps/v1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Deployment&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -786,7 +786,7 @@ Kubernetes
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>This tells Dapr to set maximum request body size to &lt;code>16&lt;/code> MB.&lt;/p>
 &lt;/div>
 &lt;div class="tab-pane fade" id="tabs-0-kubernetes" role="tabpanel" aria-labelled-by="tabs-0-kubernetes-tab">
-&lt;br />&lt;p>在Kubernetes上，在你的deployment YAML中设置以下注解:&lt;/p>
+&lt;br />&lt;p>在Kubernetes中，需要在deployment YAML文件中设置以下注解:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">apps/v1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Deployment&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:

@@ -122,76 +122,76 @@
 &lt;li>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-secret-stores/">支持的密钥存储&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/">Supported bindings&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-scopes/">设置组件作用域&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Certification lifecycle</title><link>https://docs.dapr.io/operations/components/certification-lifecycle/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/certification-lifecycle/</guid><description>
+&lt;/ul></description></item><item><title>Operations: 认证生命周期</title><link>https://docs.dapr.io/operations/components/certification-lifecycle/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/certification-lifecycle/</guid><description>
 &lt;h2 id="概述">概述&lt;/h2>
-&lt;p>Dapr 使用模块化设计，将功能作为组件来提供。 每个组件都有接口定义。 All of the components are pluggable so that in ideal scenarios, you can swap out one component with the same interface for another. Each component that is used in production, needs to maintain a certain set of technical requirements that ensure the functional compatibility and robustness of the component.&lt;/p>
-&lt;p>In general a component needs to be:&lt;/p>
+&lt;p>Dapr 使用模块化设计，将功能作为组件来提供。 每个组件都有接口定义。 所有的组件都是可插拔的，因此在理想的情况下，你可以用一个具有相同接口的组件换掉另一个。 用于生产的每个组件， 需要保持一套技术要求，以确保组件的功能兼容性和强度。&lt;/p>
+&lt;p>一般来说，一个组件需要是：&lt;/p>
 &lt;ul>
-&lt;li>compliant with the defined Dapr interfaces&lt;/li>
-&lt;li>functionally correct and robust&lt;/li>
-&lt;li>well documented and maintained&lt;/li>
+&lt;li>符合定义的Dapr接口&lt;/li>
+&lt;li>功能正确和强健&lt;/li>
+&lt;li>完善的文档和维护&lt;/li>
 &lt;/ul>
-&lt;p>To make sure a component conforms to the standards set by Dapr, there are a set of tests run against a component in a Dapr maintainers managed environment. Once the tests pass consistently, the maturity level can be determined for a component.&lt;/p>
-&lt;h2 id="certification-levels">Certification levels&lt;/h2>
-&lt;p>The levels are as follows:&lt;/p>
+&lt;p>为了确保一个组件符合Dapr设定的标准，在Dapr维护者管理的环境中，有一组针对组件的测试。 一旦测试持续通过，就可以确定一个组件的成熟度。&lt;/p>
+&lt;h2 id="认证级别">认证级别&lt;/h2>
+&lt;p>级别如下:&lt;/p>
 &lt;ul>
 &lt;li>&lt;a href="#alpha">Alpha&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#beta">Beta&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#general-availability-ga">General availability (GA)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#general-availability-ga">一般可用性（GA）&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h3 id="alpha">Alpha&lt;/h3>
 &lt;ul>
-&lt;li>The component implements the required interface and works as described in the specification&lt;/li>
-&lt;li>The component has documentation&lt;/li>
-&lt;li>The component might be buggy or might expose bugs on integration&lt;/li>
-&lt;li>The component may not pass all conformance tests&lt;/li>
-&lt;li>The component may not have conformance tests&lt;/li>
-&lt;li>Recommended for only non-business-critical uses because of potential for incompatible changes in subsequent releases&lt;/li>
+&lt;li>该组件实现了所需的接口，并按照规范中的描述工作。&lt;/li>
+&lt;li>该组件有文档&lt;/li>
+&lt;li>该组件可能有问题，或者在集成时可能会暴露出问题。&lt;/li>
+&lt;li>该组件可能无法通过所有的一致性测试&lt;/li>
+&lt;li>该组件可能没有符合性测试&lt;/li>
+&lt;li>建议仅用于非业务关键型用途，因为在后续版本中可能会出现不兼容的变化&lt;/li>
 &lt;/ul>
-&lt;p>All components start at the Alpha stage.&lt;/p>
+&lt;p>所有组件都在 Alpha 阶段开始。&lt;/p>
 &lt;h3 id="beta">Beta&lt;/h3>
 &lt;ul>
-&lt;li>The component must pass all the component conformance tests defined to satisfy the component specification&lt;/li>
-&lt;li>The component conformance tests have been run in a Dapr maintainers managed environment&lt;/li>
-&lt;li>The component contains a record of the conformance test result reviewed and approved by Dapr maintainers with specific components-contrib version&lt;/li>
-&lt;li>Recommended for only non-business-critical uses because of potential for incompatible changes in subsequent releases&lt;/li>
+&lt;li>该组件必须通过为满足组件规范而定义的所有组件一致性测试&lt;/li>
+&lt;li>组件的一致性测试已经在Dapr维护者管理的环境中运行&lt;/li>
+&lt;li>该组件包含了由Dapr维护者审查和批准的一致性测试结果的记录，并具有特定组件-contrib版本&lt;/li>
+&lt;li>建议仅用于非业务关键型用途，因为在后续版本中可能会出现不兼容的变化&lt;/li>
 &lt;/ul>
-&lt;h3 id="general-availability-ga">General Availability (GA)&lt;/h3>
+&lt;h3 id="一般可用性-ga">一般可用性 (GA)&lt;/h3>
 &lt;ul>
-&lt;li>Has at least two different users using the component in production&lt;/li>
-&lt;li>A GA component has a maintainer in the Dapr community or the Dapr maintainers&lt;/li>
-&lt;li>The component is well documented, tested and maintained across multiple versions of components-contrib repo&lt;/li>
+&lt;li>至少有两个不同的用户在生产中使用该组件&lt;/li>
+&lt;li>一个GA组件在Dapr社区或Dapr维护者中有一个维护者&lt;/li>
+&lt;li>该组件在多个版本的组件-contrib repo中都有良好的文档、测试和维护&lt;/li>
 &lt;/ul>
-&lt;h2 id="conformance-tests">Conformance tests&lt;/h2>
-&lt;p>Each component in the &lt;a href="https://github.com/dapr/components-contrib">components-contrib&lt;/a> repository needs to adhere to a set of interfaces defined by Dapr. Conformance tests are tests that are run on these component definitions with their associated backing services such that the component is tested to be conformant with the Dapr interface specifications and behavior.&lt;/p>
-&lt;p>The conformance tests are defined for the following building blocks:&lt;/p>
+&lt;h2 id="一致性测试">一致性测试&lt;/h2>
+&lt;p>&lt;a href="https://github.com/dapr/components-contrib">components-contrib&lt;/a>资源库中的每个组件都需要遵守由Dapr定义的一组接口。 一致性测试是对这些组件定义及其相关的支持服务运行的测试，这样组件就被测试为符合Dapr接口规范和行为。&lt;/p>
+&lt;p>符合性测试是为以下构建块定义的:&lt;/p>
 &lt;ul>
-&lt;li>State store&lt;/li>
-&lt;li>Secret store&lt;/li>
+&lt;li>状态存储&lt;/li>
+&lt;li>密钥存储&lt;/li>
 &lt;li>绑定&lt;/li>
 &lt;li>发布/订阅&lt;/li>
 &lt;/ul>
-&lt;p>To understand more about them see the readme &lt;a href="https://github.com/dapr/components-contrib/blob/master/tests/conformance/README.md">here&lt;/a>.&lt;/p>
-&lt;h3 id="test-requirements">Test requirements&lt;/h3>
+&lt;p>要了解更多关于它们的信息，请看readme &lt;a href="https://github.com/dapr/components-contrib/blob/master/tests/conformance/README.md">这里&lt;/a>。&lt;/p>
+&lt;h3 id="测试要求">测试要求&lt;/h3>
 &lt;ul>
-&lt;li>The tests should validate the functional behavior and robustness of component based on the component specification&lt;/li>
-&lt;li>All the details needed to reproduce the tests are added as part of the component conformance test documentation&lt;/li>
+&lt;li>测试应该根据组件的规范来验证组件的功能行为和稳健性&lt;/li>
+&lt;li>重现测试所需的所有细节都作为组件一致性测试文件的一部分加入&lt;/li>
 &lt;/ul>
-&lt;h2 id="component-certification-process">Component certification process&lt;/h2>
-&lt;p>For a component to be certified tests are run in an environment maintained by the Dapr team.&lt;/p>
-&lt;h3 id="new-component-certification-alpha-beta-or-beta-ga">New component certification: Alpha-&amp;gt;Beta or Beta-&amp;gt;GA&lt;/h3>
-&lt;p>For a new component requiring a certification change from Alpha to Beta or Beta to GA, a request for component certification follows these steps:&lt;/p>
+&lt;h2 id="组件认证过程">组件认证过程&lt;/h2>
+&lt;p>为了使一个部件得到认证，测试在Dapr团队维护的环境中运行。&lt;/p>
+&lt;h3 id="新的组件认证alpha-beta或beta-ga">新的组件认证。Alpha-&amp;gt;Beta或Beta-&amp;gt;GA&lt;/h3>
+&lt;p>对于一个需要从Alpha到Beta或Beta到GA的认证变更的新组件，组件认证申请遵循以下步骤:&lt;/p>
 &lt;ul>
-&lt;li>An issue is created with a request for certification of the component with the current and the new certification levels&lt;/li>
-&lt;li>A user of a component submits a PR for integrating the component to run with the defined conformance test suite&lt;/li>
-&lt;li>The user details the environment setup in the issue created, so that a Dapr maintainer can setup the service in a managed environment&lt;/li>
-&lt;li>After the environment setup is complete, Dapr maintainers review the PR and if approved merges that PR&lt;/li>
-&lt;li>Dapr maintainers review functional correctness with the test being run in an environment maintained by the Dapr team&lt;/li>
-&lt;li>Dapr maintainers update the component status document categorized by Dapr Runtime version. This is done as part of the release process in the next release of Dapr runtime&lt;/li>
+&lt;li>创建了一个issue，要求以当前和新的认证级别对组件进行认证&lt;/li>
+&lt;li>一个组件的用户提交了一个整合组件的PR，以便与定义的一致性测试套件一起运行&lt;/li>
+&lt;li>用户在创建的问题中详细说明了环境设置，以便Dapr维护者能够在受管理的环境中设置服务&lt;/li>
+&lt;li>在环境设置完成后，Dapr维护者会审查PR，如果批准，就会合并该PR&lt;/li>
+&lt;li>Dapr维护者在Dapr团队维护的环境中运行测试，审查功能是否正确&lt;/li>
+&lt;li>Dapr维护者按照Dapr Runtime版本分类更新组件状态文件。 这是在Dapr运行时的下一个版本中作为发布过程的一部分进行的&lt;/li>
 &lt;/ul>
-&lt;h3 id="existing-ga-certified-component">Existing GA certified component&lt;/h3>
-&lt;p>For an existing GA certified component, conformance test should be run against any changes made to component code or the backing service version or the client version.&lt;/p>
-&lt;p>In the scenarios where a component version is updated, the component again starts from Alpha stage and then the new component certification is followed for that.&lt;/p></description></item><item><title>Operations: How-To: 限定组件作用范围在一或多个应用</title><link>https://docs.dapr.io/operations/components/component-scopes/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/component-scopes/</guid><description>
+&lt;h3 id="现有的ga认证组件">现有的GA认证组件&lt;/h3>
+&lt;p>对于现有的GA认证的组件，一致性测试应该针对组件代码或支持服务版本或客户端版本的任何变化来运行。&lt;/p>
+&lt;p>在组件版本更新的情况下，该组件再次从Alpha阶段开始，然后按照新的组件认证来进行。&lt;/p></description></item><item><title>Operations: How-To: 限定组件作用范围在一或多个应用</title><link>https://docs.dapr.io/operations/components/component-scopes/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/component-scopes/</guid><description>
 &lt;p>Dapr 组件的名称空间（注意与 Kubernetes 名称空间概念区分），这意味着 Dapr runtime 实例只能访问已部署到同一名称空间的组件。&lt;/p>
 &lt;p>当 Dapr 运行时，它将自己的配置名称空间与其加载的组件的命名空间进行匹配，并且仅初始化与其名称空间匹配的组件。 并且不会加载不同命名空间中的所有其他组件。&lt;/p>
 &lt;h2 id="命名空间">命名空间&lt;/h2>
@@ -280,15 +280,15 @@ https://api.demo.dapr.team/v1.0/invoke/myapp.production/method/ping
 &lt;li>&lt;a href="https://docs.dapr.io/operations/components/setup-pubsub/pubsub-namespaces/">操作：配置具有多个命名空间的 Pub/Sub 组件&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/secrets/secrets-scopes/">使用密钥作用域&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/operations/configuration/secret-scope/">限制可以从密钥仓库中读取的密钥&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Operations: How-To: Reference secrets in components</title><link>https://docs.dapr.io/operations/components/component-secrets/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/component-secrets/</guid><description>
+&lt;/ul></description></item><item><title>Operations: 指南：在组件中引用密钥</title><link>https://docs.dapr.io/operations/components/component-secrets/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/component-secrets/</guid><description>
 &lt;h2 id="概述">概述&lt;/h2>
-&lt;p>Components can reference secrets for the &lt;code>spec.metadata&lt;/code> section within the components definition.&lt;/p>
-&lt;p>In order to reference a secret, you need to set the &lt;code>auth.secretStore&lt;/code> field to specify the name of the secret store that holds the secrets.&lt;/p>
-&lt;p>When running in Kubernetes, if the &lt;code>auth.secretStore&lt;/code> is empty, the Kubernetes secret store is assumed.&lt;/p>
+&lt;p>组件可以在组件定义中为 &lt;code>spec.metadata&lt;/code> 部分引用密钥。&lt;/p>
+&lt;p>为了引用密钥，您需要设置 &lt;code>auth.secretStore&lt;/code> 字段以指定密钥存储的名称。&lt;/p>
+&lt;p>在 Kubernetes 运行时，如果 &lt;code>auth.secretStore&lt;/code> 为空，则假定使用Kubernetes 密钥存储。&lt;/p>
 &lt;h3 id="支持的密钥存储">支持的密钥存储&lt;/h3>
-&lt;p>Go to &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/secrets/howto-secrets/">this&lt;/a> link to see all the secret stores supported by Dapr, along with information on how to configure and use them.&lt;/p>
-&lt;h2 id="referencing-secrets">Referencing secrets&lt;/h2>
-&lt;p>While you have the option to use plain text secrets, this is not recommended for production:&lt;/p>
+&lt;p>跳转到 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/secrets/howto-secrets/">此&lt;/a> 链接来查看Dapr 支持的所有密钥存储，以及如何配置和使用这些存储的信息。&lt;/p>
+&lt;h2 id="引用密钥">引用密钥&lt;/h2>
+&lt;p>虽然您可以选择使用纯文本密钥，但不建议用于生产：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yml" data-lang="yml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -302,7 +302,7 @@ https://api.demo.dapr.team/v1.0/invoke/myapp.production/method/ping
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">localhost:6379&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">redisPassword&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">MyPassword&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Instead create the secret in your secret store and reference it in the component definition:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>相反，在您应该在密钥存储中创建密钥，并在组件定义中引用它：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yml" data-lang="yml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -320,18 +320,18 @@ https://api.demo.dapr.team/v1.0/invoke/myapp.production/method/ping
 &lt;span style="color:#f92672">key&lt;/span>: &lt;span style="color:#ae81ff">redis-password&lt;/span>
 &lt;span style="color:#f92672">auth&lt;/span>:
 &lt;span style="color:#f92672">secretStore&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;SECRET_STORE_NAME&amp;gt;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>SECRET_STORE_NAME&lt;/code> is the name of the configured &lt;a href="https://docs.dapr.io/reference/components-reference/supported-secret-stores/">secret store component&lt;/a>. When running in Kubernetes and using a Kubernetes secret store, the field &lt;code>auth.SecretStore&lt;/code> defaults to &lt;code>kubernetes&lt;/code> and can be left empty. When running in Kubernetes and using a Kubernetes secret store, the field &lt;code>auth.SecretStore&lt;/code> defaults to &lt;code>kubernetes&lt;/code> and can be left empty.&lt;/p>
-&lt;p>The above component definition tells Dapr to extract a secret named &lt;code>redis-secret&lt;/code> from the defined secret store and assign the value of the &lt;code>redis-password&lt;/code> key in the secret to the &lt;code>redisPassword&lt;/code> field in the Component.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>SECRET_STORE_NAME&lt;/code> 是已配置的 &lt;a href="https://docs.dapr.io/reference/components-reference/supported-secret-stores/">密钥存储组件&lt;/a> 当在 Kubernetes 中运行并使用 Kubernetes 密钥存储时，字段 &lt;code>auth.SecretStore&lt;/code> 默认为 &lt;code>kubernetes&lt;/code> 并且可以留空。&lt;/p>
+&lt;p>上面的组件定义让Dapr从定义的秘密存储中提取一个名为 &lt;code>redis-secret&lt;/code> 的密钥，并将密钥的值分配给组件中的 &lt;code>redis-password&lt;/code> 密钥中的 &lt;code>redisPassword&lt;/code> 欄位。&lt;/p>
 &lt;h2 id="示例">示例&lt;/h2>
-&lt;h3 id="referencing-a-kubernetes-secret">Referencing a Kubernetes secret&lt;/h3>
-&lt;p>The following example shows you how to create a Kubernetes secret to hold the connection string for an Event Hubs binding.&lt;/p>
+&lt;h3 id="引用一个kubernetes密钥">引用一个Kubernetes密钥&lt;/h3>
+&lt;p>下面的示例向您展示如何创建 Kubernetes 密钥来保持 Event Hubs 绑定的连接字符串。&lt;/p>
 &lt;ol>
 &lt;li>
-&lt;p>First, create the Kubernetes secret:&lt;/p>
+&lt;p>首先，创建Kubernetes密钥：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash"> kubectl create secret generic eventhubs-secret --from-literal&lt;span style="color:#f92672">=&lt;/span>connectionString&lt;span style="color:#f92672">=&lt;/span>*********
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
-&lt;p>Next, reference the secret in your binding:&lt;/p>
+&lt;p>接下来，在您的绑定中引用该密钥：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -347,17 +347,17 @@ https://api.demo.dapr.team/v1.0/invoke/myapp.production/method/ping
 &lt;span style="color:#f92672">key&lt;/span>: &lt;span style="color:#ae81ff">connectionString&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
-&lt;p>Finally, apply the component to the Kubernetes cluster:&lt;/p>
+&lt;p>最后，将组件应用到 Kubernetes 集群：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl apply -f ./eventhubs.yaml
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;/ol>
-&lt;h2 id="scoping-access-to-secrets">Scoping access to secrets&lt;/h2>
-&lt;p>Dapr can restrict access to secrets in a secret store using its configuration. Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/secrets/secrets-scopes/">How To: Use secret scoping&lt;/a> and &lt;a href="https://docs.dapr.io/operations/configuration/secret-scope/">How-To: Limit the secrets that can be read from secret stores&lt;/a> for more information. This is the recommended way to limit access to secrets using Dapr.&lt;/p>
-&lt;h2 id="kubernetes-permissions">Kubernetes permissions&lt;/h2>
-&lt;h3 id="default-namespace">Default namespace&lt;/h3>
-&lt;p>When running in Kubernetes, Dapr, during installtion, defines default Role and RoleBinding for secrets access from Kubernetes secret store in the &lt;code>default&lt;/code> namespace. For Dapr enabled apps that fetch secrets from &lt;code>default&lt;/code> namespace, a secret can be defined and referenced in components as shown in the example above.&lt;/p>
-&lt;h3 id="non-default-namespaces">Non-default namespaces&lt;/h3>
-&lt;p>If your Dapr enabled apps are using components that fetch secrets from non-default namespaces, apply the following resources to that namespace:&lt;/p>
+&lt;h2 id="访问密钥的范围">访问密钥的范围&lt;/h2>
+&lt;p>Dapr 可以使用其配置限制对密钥存储中的密钥的访问。 请阅读&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/secrets/secrets-scopes/">如何：使用密钥范围&lt;/a>和&lt;a href="https://docs.dapr.io/operations/configuration/secret-scope/">如何：限制可从密钥存储中读取的密钥&lt;/a>以了解更多信息。 这是推荐的使用 Dapr 限制访问密钥的方式。&lt;/p>
+&lt;h2 id="kubernetes-权限">Kubernetes 权限&lt;/h2>
+&lt;h3 id="默认命名空间">默认命名空间&lt;/h3>
+&lt;p>当在 Kubernetes 中运行时，Dapr 在安装过程中定义了默认的 Role 和 RoleBinding ，用于在 &lt;code>default&lt;/code> 命名空间中从 Kubernetes 密钥存储中获取密钥。 对于启用了 Dapr 的应用程序，从&lt;code>default&lt;/code>命名空间获取密钥，可以在组件中定义和引用一个密钥，如上例所示。&lt;/p>
+&lt;h3 id="非默认命名空间">非默认命名空间&lt;/h3>
+&lt;p>如果您的 Dapr 启用的应用正在使用从非默认命名空间获取密钥的组件，在该命名空间应用以下资源：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">---
 &lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">rbac.authorization.k8s.io/v1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Role&lt;/span>
@@ -381,10 +381,10 @@ https://api.demo.dapr.team/v1.0/invoke/myapp.production/method/ping
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Role&lt;/span>
 &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">secret-reader&lt;/span>
 &lt;span style="color:#f92672">apiGroup&lt;/span>: &lt;span style="color:#ae81ff">rbac.authorization.k8s.io&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>These resources grant Dapr permissions to get secrets from the Kubernetes secret store for the namespace defined in the Role and RoleBinding.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这些资源给予了 Dapr 权限，从Kubernetes 密钥商店获取角色和 RoleBinding 定义的命名空间的密钥。&lt;/p>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Note&lt;/h4>
-In production scenario to limit Dapr&amp;rsquo;s access to certain secret resources alone, you can use the &lt;code>resourceNames&lt;/code> field. See this &lt;a href="https://kubernetes.io/docs/reference/access-authn-authz/rbac/#referring-to-resources">link&lt;/a> for further explanation.
+在生产场景中，仅限Dapr访问某些秘密资源时，您可以使用 &lt;code>resourceNames&lt;/code> 字段。 请参阅此 &lt;a href="https://kubernetes.io/docs/reference/access-authn-authz/rbac/#referring-to-resources">链接&lt;/a> 获取更多解释。
 &lt;/div>
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
@@ -451,7 +451,7 @@ In production scenario to limit Dapr&amp;rsquo;s access to certain secret resour
 &lt;li>阅读&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/">发布和订阅指南&lt;/a>&lt;/li>
 &lt;li>了解 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-scopes/">Topic 作用域&lt;/a>&lt;/li>
 &lt;li>了解 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-message-ttl/">消息存活时间&lt;/a>&lt;/li>
-&lt;li>您可以重写这个文件以使用另一个 Redis 实例或者另一个 &lt;a href="https://docs.dapr.io/operations/components/setup-pubsub/">pubsub component&lt;/a> ，通过创建 &lt;code>components&lt;/code> 文件夹（文件夹中包含重写的文件）并在 &lt;code>dapr run&lt;/code> 命令行界面使用 &lt;code>--components-path&lt;/code> 标志。&lt;/li>
+&lt;li>学习 &lt;a href="https://docs.dapr.io/operations/components/setup-pubsub/pubsub-namespaces/">如何配置具有多个命名空间的 Pub/Sub 组件&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-pubsub/">Pub/Sub 组件列表&lt;/a>&lt;/li>
 &lt;li>阅读 &lt;a href="https://docs.dapr.io/reference/api/pubsub_api/">API 引用&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: 密钥仓库组件</title><link>https://docs.dapr.io/operations/components/setup-secret-store/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/components/setup-secret-store/</guid><description>

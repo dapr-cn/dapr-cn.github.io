@@ -55,22 +55,22 @@
 &lt;/div>
 &lt;/div>
 &lt;br /></description></item><item><title>Developing-Applications: Dapr PHP SDK</title><link>https://docs.dapr.io/developing-applications/sdks/php/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/php/</guid><description>
-&lt;p>Dapr offers an SDK to help with the development of PHP applications. Using it, you can create PHP clients, servers, and virtual actors with Dapr.&lt;/p>
-&lt;h2 id="setting-up">Setting up&lt;/h2>
+&lt;p>Dapr提供了帮助开发 PHP 应用程序各种包。 你可以使用他们来创建 PHP 客户端、服务器和 virtual actors。&lt;/p>
+&lt;h2 id="设置">设置&lt;/h2>
 &lt;h3 id="先决条件">先决条件&lt;/h3>
 &lt;ul>
 &lt;li>&lt;a href="https://getcomposer.org/">Composer&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://www.php.net/">PHP 8&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;h3 id="optional-prerequisites">Optional Prerequisites&lt;/h3>
+&lt;h3 id="可选条件">可选条件&lt;/h3>
 &lt;ul>
 &lt;li>&lt;a href="https://www.docker.com/">Docker&lt;/a>&lt;/li>
 &lt;li>&lt;a href="http://xdebug.org/">xdebug&lt;/a> &amp;ndash; for debugging&lt;/li>
 &lt;/ul>
-&lt;h2 id="initialize-your-project">Initialize your project&lt;/h2>
-&lt;p>In a directory where you want to create your service, run &lt;code>composer init&lt;/code> and answer the questions. Install &lt;code>dapr/php-sdk&lt;/code> and any other dependencies you may wish to use.&lt;/p>
-&lt;h2 id="configure-your-service">Configure your service&lt;/h2>
-&lt;p>Create a config.php, copying the contents below:&lt;/p>
+&lt;h2 id="初始化您的项目">初始化您的项目&lt;/h2>
+&lt;p>在您想要创建服务的目录中，运行 &lt;code>composer init&lt;/code> 并确认命令执行。 安装 &lt;code>dapr/php-sdk&lt;/code> 和您可能希望使用的其他依赖项。&lt;/p>
+&lt;h2 id="配置服务">配置服务&lt;/h2>
+&lt;p>创建一个 config.php ，复制下面的内容：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
 &lt;span style="color:#66d9ef">use&lt;/span> &lt;span style="color:#a6e22e">Dapr\Actors\Generators\ProxyFactory&lt;/span>;
 &lt;span style="color:#66d9ef">use&lt;/span> &lt;span style="color:#a6e22e">Dapr\Middleware\Defaults\&lt;/span>{&lt;span style="color:#a6e22e">Response\ApplicationJson&lt;/span>,&lt;span style="color:#a6e22e">Tracing&lt;/span>};
@@ -103,8 +103,8 @@
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#e6db74">&amp;#39;dapr.http.middleware.request&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> [&lt;span style="color:#a6e22e">get&lt;/span>(&lt;span style="color:#a6e22e">Tracing&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">class&lt;/span>)],
 &lt;span style="color:#e6db74">&amp;#39;dapr.http.middleware.response&amp;#39;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> [&lt;span style="color:#a6e22e">get&lt;/span>(&lt;span style="color:#a6e22e">ApplicationJson&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">class&lt;/span>), &lt;span style="color:#a6e22e">get&lt;/span>(&lt;span style="color:#a6e22e">Tracing&lt;/span>&lt;span style="color:#f92672">::&lt;/span>&lt;span style="color:#a6e22e">class&lt;/span>)],
 ];
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="create-your-service">Create your service&lt;/h2>
-&lt;p>Create &lt;code>index.php&lt;/code> and put the following contents:&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="创建一个服务">创建一个服务&lt;/h2>
+&lt;p>修改&lt;code>index.php&lt;/code>，内容如下:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
 &lt;span style="color:#66d9ef">require_once&lt;/span> &lt;span style="color:#66d9ef">__DIR__&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#e6db74">&amp;#39;/vendor/autoload.php&amp;#39;&lt;/span>;
 &lt;span style="color:#66d9ef">use&lt;/span> &lt;span style="color:#a6e22e">Dapr\App&lt;/span>;
@@ -114,10 +114,10 @@ $app&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e
 });
 $app&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e22e">start&lt;/span>();
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="试试吧">试试吧&lt;/h2>
-&lt;p>Initialize dapr with &lt;code>dapr init&lt;/code> and then start the project with &lt;code>dapr run -a dev -p 3000 -- php -S 0.0.0.0:3000&lt;/code>.&lt;/p>
-&lt;p>You can now open a web browser and point it to &lt;a href="http://localhost:3000/hello/world">http://localhost:3000/hello/world&lt;/a> replacing &lt;code>world&lt;/code> with your name, a pet&amp;rsquo;s name, or whatever you want.&lt;/p>
-&lt;p>Congratulations, you&amp;rsquo;ve created your first Dapr service! I&amp;rsquo;m excited to see what you&amp;rsquo;ll do with it!&lt;/p>
-&lt;h2 id="more-information">More Information&lt;/h2>
+&lt;p>用&lt;code>dapr init&lt;/code>初始化dapr，然后用&lt;code>dapr run -a dev -p 3000-php -S 0.0.0.0:3000&lt;/code>启动项目。&lt;/p>
+&lt;p>现在，您可以打开网络浏览器访问&lt;a href="http://localhost:3000/hello/world"> http://localhost:3000/ hello/world &lt;/a>用您的名字，宠物的名字或您想要的任何名称替换&lt;code>world&lt;/code>。&lt;/p>
+&lt;p>恭喜，你已经建立了你的Dapr 服务！ 我很高兴看到您会怎么做！&lt;/p>
+&lt;h2 id="更多信息">更多信息&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://packagist.org/packages/dapr/php-sdk">Packagist&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/sdk-serialization/">Dapr SDK 序列化&lt;/a>&lt;/li>

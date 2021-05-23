@@ -1674,7 +1674,7 @@ Self-Hosted
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">状态管理构建块&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Reference: Redis</title><link>https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-redis/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-redis/</guid><description>
 &lt;h2 id="配置">配置&lt;/h2>
-&lt;p>To setup Redis state store create a component of type &lt;code>state.redis&lt;/code>. 请参阅&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">本指南&lt;/a>，了解如何创建和应用状态存储配置。&lt;/p>
+&lt;p>要设置 Redis 状态储存，请创建一个类型为 &lt;code>state.redis&lt;/code>的组件。 请参阅&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">本指南&lt;/a>，了解如何创建和应用状态存储配置。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -1697,24 +1697,8 @@ Self-Hosted
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">maxRetries&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#75715e"># Optional&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">maxRetryBackoff&lt;/span>
-&lt;span style="color:#f92672">value: # Optional Allowed&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>, &lt;span style="color:#66d9ef">false&lt;/span>&lt;span style="color:#ae81ff">.&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">failover&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;bool&amp;gt; # Optional. Allowed&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>, &lt;span style="color:#66d9ef">false&lt;/span>&lt;span style="color:#ae81ff">.&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">sentinelMasterName&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;string&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">maxRetries&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#75715e"># Optional&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">maxRetryBackoff&lt;/span>
-&lt;span style="color:#f92672">value: # Optional Allowed&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>, &lt;span style="color:#66d9ef">false&lt;/span>&lt;span style="color:#ae81ff">.&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">failover&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;bool&amp;gt; # Optional. Allowed&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>, &lt;span style="color:#66d9ef">false&lt;/span>&lt;span style="color:#ae81ff">.&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">sentinelMasterName&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;string&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">maxRetries&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#75715e"># Optional&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">maxRetryBackoff&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#75715e"># Optional&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>TLS:&lt;/strong> If the Redis instance supports TLS with public certificates it can be configured to enable or disable TLS &lt;code>true&lt;/code> or &lt;code>false&lt;/code>.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>TLS：&lt;/strong> 如果Redis 实例支持公开证书的TLS，它可以配置为启用或禁用 TLS &lt;code>true&lt;/code> 或 &lt;code>fals&lt;/code>&lt;/p>
 &lt;p>&lt;strong>Failover:&lt;/strong> When set to &lt;code>true&lt;/code> enables the failover feature. The redisHost should be the sentinel host address. See &lt;a href="https://redis.io/topics/sentinel">Redis Sentinel Documentation&lt;/a>&lt;/p>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
