@@ -833,6 +833,10 @@ Unless specified, Dapr assumes &lt;code>text/plain&lt;/code>. If your content ty
 &lt;td>metadata.ttlInSeconds&lt;/td>
 &lt;td>the number of seconds for the message to expire as &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/pubsub/pubsub-message-ttl/">described here&lt;/a>&lt;/td>
 &lt;/tr>
+&lt;tr>
+&lt;td>metadata.rawPayload&lt;/td>
+&lt;td>boolean to determine if Dapr should publish the event without wrapping it as CloudEvent as &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/pubsub/pubsub-raw/">described here&lt;/a>&lt;/td>
+&lt;/tr>
 &lt;/tbody>
 &lt;/table>
 &lt;blockquote>
@@ -865,12 +869,31 @@ Unless specified, Dapr assumes &lt;code>text/plain&lt;/code>. If your content ty
 {
 &lt;span style="color:#f92672">&amp;#34;pubsubname&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;pubsub&amp;#34;&lt;/span>,
 &lt;span style="color:#f92672">&amp;#34;topic&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;newOrder&amp;#34;&lt;/span>,
-&lt;span style="color:#f92672">&amp;#34;route&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;/orders&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">&amp;#34;route&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;/orders&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;metadata&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;rawPayload&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>,
+}
 }
 ]
 &lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
 &lt;p>Note, all subscription parameters are case-sensitive.&lt;/p>
 &lt;/blockquote>
+&lt;h4 id="metadata-1">Metadata&lt;/h4>
+&lt;p>Optionally, metadata can be sent via the request body.&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>rawPayload&lt;/td>
+&lt;td>boolean to subscribe to events that do not comply with CloudEvent specification, as &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/pubsub/pubsub-raw/">described here&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
 &lt;h3 id="provide-routes-for-dapr-to-deliver-topic-events">Provide route(s) for Dapr to deliver topic events&lt;/h3>
 &lt;p>In order to deliver topic events, a &lt;code>POST&lt;/code> call will be made to user code with the route specified in the subscription response.&lt;/p>
 &lt;p>The following example illustrates this point, considering a subscription for topic &lt;code>newOrder&lt;/code> with route &lt;code>orders&lt;/code> on port 3000: &lt;code>POST http://localhost:3000/orders&lt;/code>&lt;/p>

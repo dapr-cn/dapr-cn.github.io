@@ -39,12 +39,14 @@
 &lt;p>You can interact with Dapr to invoke the actor method by calling HTTP/gRPC endpoint.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">POST/GET/PUT/DELETE http://localhost:3500/v1.0/actors/&amp;lt;actorType&amp;gt;/&amp;lt;actorId&amp;gt;/&amp;lt;method/state/timers/reminders&amp;gt;
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>You can provide any data for the actor method in the request body, and the response for the request would be in the response body which is the data from actor call.&lt;/p>
-&lt;p>Refer to &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/actors/actors-overview/">Dapr Actor Features&lt;/a> for more details.&lt;/p>
+&lt;p>Refer to &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/actors/howto-actors/">Dapr Actor Features&lt;/a> for more details.&lt;/p>
 &lt;h3 id="concurrency">Concurrency&lt;/h3>
 &lt;p>The Dapr Actors runtime provides a simple turn-based access model for accessing actor methods. This means that no more than one thread can be active inside an actor object&amp;rsquo;s code at any time. Turn-based access greatly simplifies concurrent systems as there is no need for synchronization mechanisms for data access. It also means systems must be designed with special considerations for the single-threaded access nature of each actor instance.&lt;/p>
 &lt;p>A single actor instance cannot process more than one request at a time. An actor instance can cause a throughput bottleneck if it is expected to handle concurrent requests.&lt;/p>
 &lt;p>Actors can deadlock on each other if there is a circular request between two actors while an external request is made to one of the actors simultaneously. The Dapr actor runtime automatically times out on actor calls and throw an exception to the caller to interrupt possible deadlock situations.&lt;/p>
 &lt;img src="https://docs.dapr.io/images/actors_background_communication.png" width=600>
+&lt;h4 id="reentrancy">Reentrancy&lt;/h4>
+&lt;p>As an enhancement to the base actors in dapr, reentrancy can now be enabled as a preview feature. To learn more about it, see &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/actors/actor-reentrancy/">actor reentrancy&lt;/a>&lt;/p>
 &lt;h3 id="turn-based-access">Turn-based access&lt;/h3>
 &lt;p>A turn consists of the complete execution of an actor method in response to a request from other actors or clients, or the complete execution of a timer/reminder callback. Even though these methods and callbacks are asynchronous, the Dapr Actors runtime does not interleave them. A turn must be fully finished before a new turn is allowed. In other words, an actor method or timer/reminder callback that is currently executing must be fully finished before a new call to a method or callback is allowed. A method or callback is considered to have finished if the execution has returned from the method or callback and the task returned by the method or callback has finished. It is worth emphasizing that turn-based concurrency is respected even across different methods, timers, and callbacks.&lt;/p>
 &lt;p>The Dapr actors runtime enforces turn-based concurrency by acquiring a per-actor lock at the beginning of a turn and releasing the lock at the end of the turn. Thus, turn-based concurrency is enforced on a per-actor basis and not across actors. Actor methods and timer/reminder callbacks can execute simultaneously on behalf of different actors.&lt;/p>
@@ -110,4 +112,65 @@
 &lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="remove-the-actor-reminder">Remove the actor reminder&lt;/h4>
 &lt;p>You can remove the actor reminder by calling&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-md" data-lang="md">DELETE http://localhost:3500/v1.0/actors/&amp;lt;&lt;span style="color:#f92672">actorType&lt;/span>&amp;gt;/&amp;lt;&lt;span style="color:#f92672">actorId&lt;/span>&amp;gt;/reminders/&amp;lt;&lt;span style="color:#f92672">name&lt;/span>&amp;gt;
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Refer &lt;a href="https://docs.dapr.io/en/reference/api/actors_api/#invoke-reminder">api spec&lt;/a> for more details.&lt;/p></description></item></channel></rss>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Refer &lt;a href="https://docs.dapr.io/en/reference/api/actors_api/#invoke-reminder">api spec&lt;/a> for more details.&lt;/p></description></item><item><title>Developing-Applications: How-to: Enable and use actor reentrancy in Dapr</title><link>https://docs.dapr.io/en/developing-applications/building-blocks/actors/actor-reentrancy/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/developing-applications/building-blocks/actors/actor-reentrancy/</guid><description>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Preview feature&lt;/h4>
+Actor reentrancy is currently in &lt;a href="https://docs.dapr.io/en/operations/configuration/preview-features/">preview&lt;/a>.
+&lt;/div>
+&lt;h2 id="actor-reentrancy">Actor reentrancy&lt;/h2>
+&lt;p>A core tenet of the virtual actor pattern is the single-threaded nature of actor execution. Before reentrancy, this caused the Dapr runtime to lock an actor on any given request. A second request could not start until the first had completed. This behavior means an actor cannot call itself, or have another actor call into it even if it is part of the same chain. Reentrancy solves this by allowing requests from the same chain or context to re-enter into an already locked actor. Examples of chains that reentrancy allows can be seen below:&lt;/p>
+&lt;pre>&lt;code>Actor A -&amp;gt; Actor A
+ActorA -&amp;gt; Actor B -&amp;gt; Actor A
+&lt;/code>&lt;/pre>&lt;p>With reentrancy, there can be more complex actor calls without sacrificing the single-threaded behavior of virtual actors.&lt;/p>
+&lt;h2 id="enabling-actor-reentrancy">Enabling actor reentrancy&lt;/h2>
+&lt;p>Actor reentrancy is currently in preview, so enabling it is a two step process.&lt;/p>
+&lt;h3 id="preview-feature-configuration">Preview feature configuration&lt;/h3>
+&lt;p>Before using reentrancy, the feature must be enabled in Dapr. For more information on preview configurations, see &lt;a href="https://docs.dapr.io/en/operations/configuration/preview-features/">the full guide on opting into preview features in Dapr&lt;/a>. Below is an example of the configuration for actor reentrancy:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">reentrantconfig&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">features&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">Actor.Reentrancy&lt;/span>
+&lt;span style="color:#f92672">enabled&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="actor-runtime-configuration">Actor runtime configuration&lt;/h3>
+&lt;p>Once actor reentrancy is enabled as an opt-in preview feature, the actor that will be reentrant must also provide the appropriate configuration to use reentrancy. This is done by the actor&amp;rsquo;s endpoint for &lt;code>GET /dapr/config&lt;/code>, similar to other actor configuration elements. Here is a snipet of an actor written in Golang providing the configuration:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#66d9ef">type&lt;/span> &lt;span style="color:#a6e22e">daprConfig&lt;/span> &lt;span style="color:#66d9ef">struct&lt;/span> {
+&lt;span style="color:#a6e22e">Entities&lt;/span> []&lt;span style="color:#66d9ef">string&lt;/span> &lt;span style="color:#e6db74">`json:&amp;#34;entities,omitempty&amp;#34;`&lt;/span>
+&lt;span style="color:#a6e22e">ActorIdleTimeout&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span> &lt;span style="color:#e6db74">`json:&amp;#34;actorIdleTimeout,omitempty&amp;#34;`&lt;/span>
+&lt;span style="color:#a6e22e">ActorScanInterval&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span> &lt;span style="color:#e6db74">`json:&amp;#34;actorScanInterval,omitempty&amp;#34;`&lt;/span>
+&lt;span style="color:#a6e22e">DrainOngoingCallTimeout&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span> &lt;span style="color:#e6db74">`json:&amp;#34;drainOngoingCallTimeout,omitempty&amp;#34;`&lt;/span>
+&lt;span style="color:#a6e22e">DrainRebalancedActors&lt;/span> &lt;span style="color:#66d9ef">bool&lt;/span> &lt;span style="color:#e6db74">`json:&amp;#34;drainRebalancedActors,omitempty&amp;#34;`&lt;/span>
+&lt;span style="color:#a6e22e">Reentrancy&lt;/span> &lt;span style="color:#a6e22e">config&lt;/span>.&lt;span style="color:#a6e22e">ReentrancyConfig&lt;/span> &lt;span style="color:#e6db74">`json:&amp;#34;reentrancy,omitempty&amp;#34;`&lt;/span>
+}
+&lt;span style="color:#66d9ef">var&lt;/span> &lt;span style="color:#a6e22e">daprConfigResponse&lt;/span> = &lt;span style="color:#a6e22e">daprConfig&lt;/span>{
+[]&lt;span style="color:#66d9ef">string&lt;/span>{&lt;span style="color:#a6e22e">defaultActorType&lt;/span>},
+&lt;span style="color:#a6e22e">actorIdleTimeout&lt;/span>,
+&lt;span style="color:#a6e22e">actorScanInterval&lt;/span>,
+&lt;span style="color:#a6e22e">drainOngoingCallTimeout&lt;/span>,
+&lt;span style="color:#a6e22e">drainRebalancedActors&lt;/span>,
+&lt;span style="color:#a6e22e">config&lt;/span>.&lt;span style="color:#a6e22e">ReentrancyConfig&lt;/span>{&lt;span style="color:#a6e22e">Enabled&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>, &lt;span style="color:#a6e22e">MaxStackDepth&lt;/span>: &lt;span style="color:#f92672">&amp;amp;&lt;/span>&lt;span style="color:#a6e22e">maxStackDepth&lt;/span>},
+}
+&lt;span style="color:#66d9ef">func&lt;/span> &lt;span style="color:#a6e22e">configHandler&lt;/span>(&lt;span style="color:#a6e22e">w&lt;/span> &lt;span style="color:#a6e22e">http&lt;/span>.&lt;span style="color:#a6e22e">ResponseWriter&lt;/span>, &lt;span style="color:#a6e22e">r&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">http&lt;/span>.&lt;span style="color:#a6e22e">Request&lt;/span>) {
+&lt;span style="color:#a6e22e">w&lt;/span>.&lt;span style="color:#a6e22e">Header&lt;/span>().&lt;span style="color:#a6e22e">Set&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;Content-Type&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;application/json&amp;#34;&lt;/span>)
+&lt;span style="color:#a6e22e">w&lt;/span>.&lt;span style="color:#a6e22e">WriteHeader&lt;/span>(&lt;span style="color:#a6e22e">http&lt;/span>.&lt;span style="color:#a6e22e">StatusOK&lt;/span>)
+&lt;span style="color:#a6e22e">json&lt;/span>.&lt;span style="color:#a6e22e">NewEncoder&lt;/span>(&lt;span style="color:#a6e22e">w&lt;/span>).&lt;span style="color:#a6e22e">Encode&lt;/span>(&lt;span style="color:#a6e22e">daprConfigResponse&lt;/span>)
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="handling-reentrant-requests">Handling reentrant requests&lt;/h3>
+&lt;p>The key to a reentrant request is the &lt;code>Dapr-Reentrancy-Id&lt;/code> header. The value of this header is used to match requests to their call chain and allow them to bypass the actor&amp;rsquo;s lock.&lt;/p>
+&lt;p>The header is generated by the Dapr runtime for any actor request that has a reentrant config specified. Once it is generated, it is used to lock the actor and must be passed to all future requests. Below is a snippet of code from an actor handling this is Golang:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#66d9ef">func&lt;/span> &lt;span style="color:#a6e22e">reentrantCallHandler&lt;/span>(&lt;span style="color:#a6e22e">w&lt;/span> &lt;span style="color:#a6e22e">http&lt;/span>.&lt;span style="color:#a6e22e">ResponseWriter&lt;/span>, &lt;span style="color:#a6e22e">r&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">http&lt;/span>.&lt;span style="color:#a6e22e">Request&lt;/span>) {
+&lt;span style="color:#75715e">/*
+&lt;/span>&lt;span style="color:#75715e"> * Omitted.
+&lt;/span>&lt;span style="color:#75715e"> */&lt;/span>
+&lt;span style="color:#a6e22e">req&lt;/span>, &lt;span style="color:#a6e22e">_&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">http&lt;/span>.&lt;span style="color:#a6e22e">NewRequest&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;PUT&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">url&lt;/span>, &lt;span style="color:#a6e22e">bytes&lt;/span>.&lt;span style="color:#a6e22e">NewReader&lt;/span>(&lt;span style="color:#a6e22e">nextBody&lt;/span>))
+&lt;span style="color:#a6e22e">reentrancyID&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">r&lt;/span>.&lt;span style="color:#a6e22e">Header&lt;/span>.&lt;span style="color:#a6e22e">Get&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;Dapr-Reentrancy-Id&amp;#34;&lt;/span>)
+&lt;span style="color:#a6e22e">req&lt;/span>.&lt;span style="color:#a6e22e">Header&lt;/span>.&lt;span style="color:#a6e22e">Add&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;Dapr-Reentrancy-Id&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">reentrancyID&lt;/span>)
+&lt;span style="color:#a6e22e">client&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">http&lt;/span>.&lt;span style="color:#a6e22e">Client&lt;/span>{}
+&lt;span style="color:#a6e22e">resp&lt;/span>, &lt;span style="color:#a6e22e">err&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">client&lt;/span>.&lt;span style="color:#a6e22e">Do&lt;/span>(&lt;span style="color:#a6e22e">req&lt;/span>)
+&lt;span style="color:#75715e">/*
+&lt;/span>&lt;span style="color:#75715e"> * Omitted.
+&lt;/span>&lt;span style="color:#75715e"> */&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Currently, no SDK supports actor reentrancy. In the future, the method for handling the reentrancy id may be different based on the SDK that is being used.&lt;/p></description></item></channel></rss>

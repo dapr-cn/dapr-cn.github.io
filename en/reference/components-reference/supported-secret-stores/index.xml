@@ -568,13 +568,13 @@ kubectl apply -f https://raw.githubusercontent.com/Azure/aad-pod-identity/master
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">client_id&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;replace-with-client-id&amp;gt;&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">auth_uri&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;replace-with-auth-uri&amp;gt; &lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;replace-with-auth-uri&amp;gt;&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">token_uri&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;replace-with-token-uri&amp;gt; &lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;replace-with-token-uri&amp;gt;&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">auth_provider_x509_cert_url&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;replace-with-auth-provider-cert-url&amp;gt; &lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;replace-with-auth-provider-cert-url&amp;gt;&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">client_x509_cert_url&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;replace-with-client-cert-url&amp;gt; &lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;replace-with-client-cert-url&amp;gt;&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">private_key&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;replace-with-private-key&amp;gt;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>
@@ -687,7 +687,9 @@ The above example uses secrets as plain strings. It is recommended to use a loca
 &lt;span style="color:#f92672">value &lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[skip_tls_verification]&amp;#34;&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">tlsServerName&lt;/span> &lt;span style="color:#75715e"># Optional.&lt;/span>
 &lt;span style="color:#f92672">value &lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[tls_config_server_name]&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">vaultTokenMountPath&lt;/span> &lt;span style="color:#75715e"># Required. Path to token file.&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">vaultTokenMountPath&lt;/span> &lt;span style="color:#75715e"># Required if vaultToken not provided. Path to token file.&lt;/span>
+&lt;span style="color:#f92672">value &lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[path_to_file_containing_token]&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">vaultToken&lt;/span> &lt;span style="color:#75715e"># Required if vaultTokenMountPath not provided. Token value.&lt;/span>
 &lt;span style="color:#f92672">value &lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[path_to_file_containing_token]&amp;#34;&lt;/span>
 - &lt;span style="color:#f92672">name: vaultKVPrefix # Optional. Default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;dapr&amp;#34;&lt;/span>
 &lt;span style="color:#f92672">value &lt;/span>: &lt;span style="color:#e6db74">&amp;#34;[vault_prefix]&amp;#34;&lt;/span>
@@ -748,6 +750,12 @@ The above example uses secrets as plain strings. It is recommended to use a loca
 &lt;td style="text-align:center">Y&lt;/td>
 &lt;td>Path to file containing token&lt;/td>
 &lt;td>&lt;code>&amp;quot;path/to/file&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>vaultToken&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>&lt;a href="https://learn.hashicorp.com/tutorials/vault/tokens">Token&lt;/a> for authentication within Vault.&lt;/td>
+&lt;td>&lt;code>&amp;quot;tokenValue&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>vaultKVPrefix&lt;/td>

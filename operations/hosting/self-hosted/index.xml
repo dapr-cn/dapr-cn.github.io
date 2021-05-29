@@ -2,16 +2,16 @@
 &lt;h2 id="概述">概述&lt;/h2>
 &lt;p>Dapr 可以配置为在本地开发者机器或生产VM上以自托管模式运行。 每个运行的服务都有一个 Dapr 运行时进程 (或 sidecar) ，配置为使用状态存储， pub/sub，绑定组件和其他构建块。&lt;/p>
 &lt;h2 id="初始化">初始化&lt;/h2>
-&lt;p>Dapr 可以初始化为 &lt;a href="https://docs.dapr.io/operations/hosting/self-hosted/self-hosted-with-docker/">使用 Docker 模式&lt;/a> (默认) 或 &lt;a href="https://docs.dapr.io/operations/hosting/self-hosted/self-hosted-no-docker/"> slim-init 模式&lt;/a>。 默认的 Docker 初始通过以下容器和配置提供了开箱即用功能：&lt;/p>
+&lt;p>Dapr can be initialized &lt;a href="https://docs.dapr.io/operations/hosting/self-hosted/self-hosted-with-docker/">with Docker&lt;/a> (default) or in &lt;a href="https://docs.dapr.io/operations/hosting/self-hosted/self-hosted-no-docker/">slim-init mode&lt;/a>. 默认的 Docker 初始通过以下容器和配置提供了开箱即用功能：&lt;/p>
 &lt;ul>
 &lt;li>一个为状态管理和发布/订阅配置的默认组件的 Redis 容器。&lt;/li>
 &lt;li>一个用于诊断和追踪的Zipkin容器。&lt;/li>
 &lt;li>默认的 Dapr 配置和组件安装在 &lt;code>$HOME/.dapr/&lt;/code> (Mac/Linux) 或&lt;code>%USERPROFILE%\.dapr\&lt;/code> (Windows)。&lt;/li>
 &lt;/ul>
-&lt;p>&lt;code>dapr-placement&lt;/code> 服务负责管理 actor 分布方案和关键范围设置。 此服务不是作为容器启动的，仅当你使用 Dapr actor 功能时才需要。 有关 actor &lt;code>放置&lt;/code> 服务的更多信息，请阅读 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/actors/actors-overview/">actor 概述&lt;/a>。&lt;/p>
+&lt;p>&lt;code>dapr-placement&lt;/code> 服务负责管理 actor 分布方案和关键范围设置。 此服务不是作为容器启动的，仅当你使用 Dapr actor 功能时才需要。 For more information on the actor &lt;code>Placement&lt;/code> service read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/actors/actors-overview/">actor overview&lt;/a>.&lt;/p>
 &lt;p>&lt;img src="https://docs.dapr.io/images/overview-standalone-docker.png" width=1000 alt="Diagram of Dapr in self-hosted Docker mode" />&lt;/p>
 &lt;h2 id="使用-dapr-启动应用程序">使用 Dapr 启动应用程序&lt;/h2>
-&lt;p>您可以使用 &lt;a href="https://docs.dapr.io/reference/cli/dapr-run/">&lt;code>dapr run&lt;/code> CLI 命令&lt;/a> 运行 Dapr sidecar 程序以及您的应用程序。&lt;/p></description></item><item><title>Operations: 入门指南: 使用 Docker 在自托管模式下运行 Dapr</title><link>https://docs.dapr.io/operations/hosting/self-hosted/self-hosted-with-docker/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/hosting/self-hosted/self-hosted-with-docker/</guid><description>
+&lt;p>You can use the &lt;a href="https://docs.dapr.io/reference/cli/dapr-run/">&lt;code>dapr run&lt;/code> CLI command&lt;/a> to a Dapr sidecar process along with your application.&lt;/p></description></item><item><title>Operations: 入门指南: 使用 Docker 在自托管模式下运行 Dapr</title><link>https://docs.dapr.io/operations/hosting/self-hosted/self-hosted-with-docker/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/hosting/self-hosted/self-hosted-with-docker/</guid><description>
 &lt;p>This article provides guidance on running Dapr with Docker on a Windows/Linux/macOS machine or VM.&lt;/p>
 &lt;h2 id="先决条件">先决条件&lt;/h2>
 &lt;ul>
@@ -116,7 +116,7 @@ The host networking driver for Docker is only supported on Linux hosts.
 &lt;p>If your deployment target is Kubernetes please use Dapr&amp;rsquo;s first-class integration. Refer to the &lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-overview/">Dapr on Kubernetes docs&lt;/a>.&lt;/p>
 &lt;h2 id="docker-images">Docker images&lt;/h2>
 &lt;p>Dapr 为不同的组件提供了许多预构建的 Docker 镜像，您应该为所需的二进制、架构和 标签/版本 选择相关镜像。&lt;/p>
-&lt;h3 id="图片">图片&lt;/h3>
+&lt;h3 id="images">Images&lt;/h3>
 &lt;p>&lt;a href="https://hub.docker.com/u/daprio">Docker Hub&lt;/a>上，每个 Dapr 组件都有已发布的 Docker 镜像。&lt;/p>
 &lt;ul>
 &lt;li>&lt;a href="https://hub.docker.com/r/daprio/dapr">daprio/dapr&lt;/a> (包含所有Dapr binaries)&lt;/li>
@@ -125,7 +125,7 @@ The host networking driver for Docker is only supported on Linux hosts.
 &lt;li>&lt;a href="https://hub.docker.com/r/daprio/sentry">daprio/sentry&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://hub.docker.com/r/daprio/dapr-dev">daprio/dapr-dev&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;h3 id="标签">标签&lt;/h3>
+&lt;h3 id="tags">Tags&lt;/h3>
 &lt;h4 id="linuxamd64">Linux/amd64&lt;/h4>
 &lt;ul>
 &lt;li>&lt;code>latest&lt;/code>：最新版本，&lt;strong>仅&lt;/strong> 用于开发目的。&lt;/li>
@@ -159,17 +159,17 @@ The host networking driver for Docker is only supported on Linux hosts.
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr uninstall --all
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
-&lt;p>下载和安装最新的CLI访问 &lt;a href="https://docs.dapr.io/getting-started/install-dapr-cli/">这个指南&lt;/a>。&lt;/p>
+&lt;p>Download and install the latest CLI by visiting &lt;a href="https://docs.dapr.io/getting-started/install-dapr-cli/">this guide&lt;/a>.&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>初始化 Dapr 运行时：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr init
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;li>
-&lt;p>Ensure you are using the latest version of Dapr (v1.1.2) with:&lt;/p>
+&lt;p>Ensure you are using the latest version of Dapr (v1.2) with:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">$ dapr --version
-CLI version: 1.1.0
-Runtime version: 1.1.2
+CLI version: 1.2
+Runtime version: 1.2
 &lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;/ol></description></item><item><title>Operations: 入门指南: 不使用 Docker 在自托管模式下运行 Dapr</title><link>https://docs.dapr.io/operations/hosting/self-hosted/self-hosted-no-docker/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/hosting/self-hosted/self-hosted-no-docker/</guid><description>
 &lt;p>本文提供了在没有 Docker 的自托管模式下运行 Dapr 的指导。&lt;/p>
@@ -180,14 +180,14 @@ Runtime version: 1.1.2
 &lt;h2 id="无需容器初始化-dapr">无需容器初始化 Dapr&lt;/h2>
 &lt;p>Dapr CLI 提供了使用 slim init 初始化 Dapr 的选项，而无需默认创建依赖于 Docker 的开发环境。 要使用 slim init 初始化 Dapr ，请在安装 Dapr CLI 后使用以下命令:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr init --slim
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>在此模式下安装了两个不同的二进制文件 &lt;code>daprd&lt;/code> 和 &lt;code>placement&lt;/code>。 &lt;code>placement&lt;/code> 需要在 Dapr 自托管安装中用于启动 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/actors/actors-overview/">actors&lt;/a> 。&lt;/p>
-&lt;p>在此模式下，不会为状态管理或发布/订阅安装任何默认组件（如 Redis）。 这意味着，除了 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/service-invocation/service-invocation-overview/">服务调用&lt;/a>，在现成可用的情况下，没有其他构建块功能可用。 用户可以自由设置自己的环境和自定义组件。 此外，如果按照以下部分所述配置状态存储，基于 actor 的服务就可以调用。&lt;/p>
-&lt;h2 id="服务调用">服务调用&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>在此模式下安装了两个不同的二进制文件 &lt;code>daprd&lt;/code> 和 &lt;code>placement&lt;/code>。 The &lt;code>placement&lt;/code> binary is needed to enable &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/actors/actors-overview/">actors&lt;/a> in a Dapr self-hosted installation.&lt;/p>
+&lt;p>在此模式下，不会为状态管理或发布/订阅安装任何默认组件（如 Redis）。 This means, that aside from &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/service-invocation/service-invocation-overview/">Service Invocation&lt;/a>, no other building block functionality is available on install out of the box. 用户可以自由设置自己的环境和自定义组件。 此外，如果按照以下部分所述配置状态存储，基于 actor 的服务就可以调用。&lt;/p>
+&lt;h2 id="调用逻辑">调用逻辑&lt;/h2>
 &lt;p>有关如何在此方式下执行服务调用的示例，请参阅 &lt;a href="https://github.com/dapr/samples/tree/master/hello-dapr-slim">此示例&lt;/a>。&lt;/p>
 &lt;h2 id="启用状态管理或发布订阅">启用状态管理或发布/订阅&lt;/h2>
-&lt;p>请参阅 &amp;quot; 以自托管方式 &lt;a href="https://redis.io/topics/quickstart">配置 Redis (不使用 docker&lt;/a>) &amp;quot; 启用本地状态存储或发布/订阅代理以通信。&lt;/p>
+&lt;p>See configuring Redis in self-hosted mode &lt;a href="https://redis.io/topics/quickstart">without docker&lt;/a> to enable a local state store or pub/sub broker for messaging.&lt;/p>
 &lt;h2 id="启用-actors">启用 actors&lt;/h2>
-&lt;p>placement 服务必须在本地运行才能启动 actor。 还必须为 actors 启用 &lt;a href="#Enabling-state-management-or-pub/sub">事务型状态存储&lt;/a>。&lt;/p>
+&lt;p>placement 服务必须在本地运行才能启动 actor。 Also, a &lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/">transactional state store that supports ETags&lt;/a> must be enabled to use actors, for example, &lt;a href="https://redis.io/topics/quickstart">Redis configured in self-hosted mode&lt;/a>.&lt;/p>
 &lt;p>Linux/MacOS 默认情况下， &lt;code>placement&lt;/code> 二进制文件安装在 &lt;code>/$HOME/. dapr/bin&lt;/code> 目录下， Windows 在 &lt;code>%USERPROFILE%\.dapr\bin&lt;/code> 目录下。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">$ $HOME/.dapr/bin/placement
 INFO&lt;span style="color:#f92672">[&lt;/span>0000&lt;span style="color:#f92672">]&lt;/span> starting Dapr Placement Service -- version 1.0.0-rc.1 -- commit 13ae49d instance&lt;span style="color:#f92672">=&lt;/span>Nicoletaz-L10.redmond.corp.microsoft.com scope&lt;span style="color:#f92672">=&lt;/span>dapr.placement type&lt;span style="color:#f92672">=&lt;/span>log ver&lt;span style="color:#f92672">=&lt;/span>1.0.0-rc.1
@@ -197,10 +197,10 @@ INFO&lt;span style="color:#f92672">[&lt;/span>0000&lt;span style="color:#f92672"
 INFO&lt;span style="color:#f92672">[&lt;/span>0000&lt;span style="color:#f92672">]&lt;/span> placement service started on port &lt;span style="color:#ae81ff">50005&lt;/span> instance&lt;span style="color:#f92672">=&lt;/span>Nicoletaz-L10.redmond.corp.microsoft.com scope&lt;span style="color:#f92672">=&lt;/span>dapr.placement type&lt;span style="color:#f92672">=&lt;/span>log ver&lt;span style="color:#f92672">=&lt;/span>1.0.0-rc.1
 INFO&lt;span style="color:#f92672">[&lt;/span>0000&lt;span style="color:#f92672">]&lt;/span> Healthz server is listening on :8080 instance&lt;span style="color:#f92672">=&lt;/span>Nicoletaz-L10.redmond.corp.microsoft.com scope&lt;span style="color:#f92672">=&lt;/span>dapr.placement type&lt;span style="color:#f92672">=&lt;/span>log ver&lt;span style="color:#f92672">=&lt;/span>1.0.0-rc.1
 INFO&lt;span style="color:#f92672">[&lt;/span>0001&lt;span style="color:#f92672">]&lt;/span> cluster leadership acquired instance&lt;span style="color:#f92672">=&lt;/span>Nicoletaz-L10.redmond.corp.microsoft.com scope&lt;span style="color:#f92672">=&lt;/span>dapr.placement type&lt;span style="color:#f92672">=&lt;/span>log ver&lt;span style="color:#f92672">=&lt;/span>1.0.0-rc.1
-INFO&lt;span style="color:#f92672">[&lt;/span>0001&lt;span style="color:#f92672">]&lt;/span> leader is established. instance&lt;span style="color:#f92672">=&lt;/span>Nicoletaz-L10.redmond.corp.microsoft.com scope&lt;span style="color:#f92672">=&lt;/span>dapr.placement type&lt;span style="color:#f92672">=&lt;/span>log ver&lt;span style="color:#f92672">=&lt;/span>1.0.0-rc.1 instance&lt;span style="color:#f92672">=&lt;/span>Nicoletaz-L10.redmond.corp.microsoft.com scope&lt;span style="color:#f92672">=&lt;/span>dapr.placement type&lt;span style="color:#f92672">=&lt;/span>log ver&lt;span style="color:#f92672">=&lt;/span>1.0.0-rc.1 instance&lt;span style="color:#f92672">=&lt;/span>Nicoletaz-L10.redmond.corp.microsoft.com scope&lt;span style="color:#f92672">=&lt;/span>dapr.placement type&lt;span style="color:#f92672">=&lt;/span>log ver&lt;span style="color:#f92672">=&lt;/span>1.0.0-rc.1
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>至此，您可以跟随为 &lt;a href="https://github.com/dapr/java-sdk/tree/master/examples/src/main/java/io/dapr/examples/actors">java-sdk&lt;/a>， &lt;a href="https://github.com/dapr/python-sdk/tree/master/examples/demo_actor">python-sdk&lt;/a> 或 &lt;a href="https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actors-howto/">dotne-sdk&lt;/a> 创建的样本示例，在启用了 Actors 的情况下运行应用程序。&lt;/p>
+INFO&lt;span style="color:#f92672">[&lt;/span>0001&lt;span style="color:#f92672">]&lt;/span> leader is established. instance&lt;span style="color:#f92672">=&lt;/span>Nicoletaz-L10.redmond.corp.microsoft.com scope&lt;span style="color:#f92672">=&lt;/span>dapr.placement type&lt;span style="color:#f92672">=&lt;/span>log ver&lt;span style="color:#f92672">=&lt;/span>1.0.0-rc.1
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>From here on you can follow the sample example created for the &lt;a href="https://github.com/dapr/java-sdk/tree/master/examples/src/main/java/io/dapr/examples/actors">java-sdk&lt;/a>, &lt;a href="https://github.com/dapr/python-sdk/tree/master/examples/demo_actor">python-sdk&lt;/a> or &lt;a href="https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actors-howto/">dotnet-sdk&lt;/a> for running an application with Actors enabled.&lt;/p>
 &lt;p>更新状态存储配置文件使 Redis host 地址和密码和您的设置相同。 此外，为了使它能够作为一个actor状态存储，还添加了类似于&lt;a href="https://github.com/dapr/java-sdk/blob/master/examples/components/state/redis.yaml">示例Java Redis组件&lt;/a>定义的元数据部分。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml"> - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">actorStateStore&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="清理">清理&lt;/h2>
-&lt;p>按照卸载 &lt;a href="https://docs.dapr.io/getting-started/install-dapr-selfhost/#uninstall-dapr-in-a-self-hosted-mode">说明&lt;/a> 来移除二进制文件。&lt;/p></description></item></channel></rss>
+&lt;p>Follow the uninstall &lt;a href="https://docs.dapr.io/getting-started/install-dapr-selfhost/#uninstall-dapr-in-a-self-hosted-mode">instructions&lt;/a> to remove the binaries.&lt;/p></description></item></channel></rss>

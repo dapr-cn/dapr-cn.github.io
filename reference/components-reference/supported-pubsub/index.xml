@@ -1,6 +1,6 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Pub/sub brokers component specs</title><link>https://docs.dapr.io/reference/components-reference/supported-pubsub/</link><description>Recent content in Pub/sub brokers component specs on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/reference/components-reference/supported-pubsub/index.xml" rel="self" type="application/rss+xml"/><item><title>Reference: Apache Kafka</title><link>https://docs.dapr.io/reference/components-reference/supported-pubsub/setup-apache-kafka/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/components-reference/supported-pubsub/setup-apache-kafka/</guid><description>
 &lt;h2 id="配置">配置&lt;/h2>
-&lt;p>要设置Apache Kafka pubsub，请创建一个&lt;code>pubsub.kafka&lt;/code>类型的组件。 请参阅&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-1-setup-the-pubsub-component">本指南&lt;/a>，了解如何创建和应用 pubsub 配置。&lt;/p>
+&lt;p>要设置Apache Kafka pubsub，请创建一个&lt;code>pubsub.kafka&lt;/code>类型的组件。 See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-1-setup-the-pubsub-component">this guide&lt;/a> on how to create and apply a pubsub configuration.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -24,7 +24,7 @@
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
+以上示例将密钥明文存储， It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
@@ -33,7 +33,7 @@
 &lt;th>字段&lt;/th>
 &lt;th style="text-align:center">必填&lt;/th>
 &lt;th>详情&lt;/th>
-&lt;th>示例&lt;/th>
+&lt;th>Example&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -58,7 +58,7 @@
 &lt;tr>
 &lt;td>saslPassword&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>用于认证的密码。 可以用&lt;code>secretKeyRef&lt;/code>来引用密钥。 只有当 authRequired 设置为 true 时才需要。 可以用&lt;code>secretKeyRef&lt;/code>来&lt;a href="https://docs.dapr.io/operations/components/component-secrets/">引用密钥&lt;/a>。&lt;/td>
+&lt;td>用于认证的密码。 可以用&lt;code>secretKeyRef&lt;/code>来引用密钥。 只有当 authRequired 设置为 true 时才需要。 Can be &lt;code>secretKeyRef&lt;/code> to use a &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">secret reference&lt;/a>&lt;/td>
 &lt;td>&lt;code>&amp;quot;&amp;quot;&lt;/code>, &lt;code>&amp;quot;KeFg23!&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
@@ -73,7 +73,7 @@
 &lt;h3 id="分区键">分区键&lt;/h3>
 &lt;p>当调用Kafka 发布/订阅时，可以通过在请求url中使用&lt;code>metadata&lt;/code>查询参数来提供一个可选的分区键。&lt;/p>
 &lt;p>参数名是&lt;code>partitionKey&lt;/code>。&lt;/p>
-&lt;p>示例:&lt;/p>
+&lt;p>You can run Kafka locally using &lt;a href="https://github.com/wurstmeister/kafka-docker">this&lt;/a> Docker image. To run without Docker, see the getting started guide &lt;a href="https://kafka.apache.org/quickstart">here&lt;/a>.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X POST http://localhost:3500/v1.0/publish/myKafka/myTopic?metadata.partitionKey&lt;span style="color:#f92672">=&lt;/span>key1 &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span> &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -d &lt;span style="color:#e6db74">&amp;#39;{
@@ -104,11 +104,11 @@ Kubernetes
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Dapr组件的基本格式&lt;/a>&lt;/li>
-&lt;li>阅读 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/##step-1-setup-the-pubsub-component">本指南&lt;/a>，了解配置 发布/订阅组件的说明&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/##step-1-setup-the-pubsub-component">this guide&lt;/a> for instructions on configuring pub/sub components&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/">发布/订阅构建块&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Reference: AWS SNS/SQS</title><link>https://docs.dapr.io/reference/components-reference/supported-pubsub/setup-aws-snssqs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/components-reference/supported-pubsub/setup-aws-snssqs/</guid><description>
 &lt;h2 id="配置">配置&lt;/h2>
-&lt;p>要为 发布/订阅设置 AWS SNS/SQS，您需要创建一个类型为 &lt;code>pubsub.snssqs&lt;/code> 的组件。 请参阅&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-1-setup-the-pubsub-component">本指南&lt;/a>，了解如何创建和应用 pubsub 配置。&lt;/p>
+&lt;p>要为 发布/订阅设置 AWS SNS/SQS，您需要创建一个类型为 &lt;code>pubsub.snssqs&lt;/code> 的组件。 See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-1-setup-the-pubsub-component">this guide&lt;/a> on how to create and apply a pubsub configuration.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -137,7 +137,7 @@ Kubernetes
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
+以上示例将密钥明文存储， It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
@@ -146,7 +146,7 @@ Kubernetes
 &lt;th>字段&lt;/th>
 &lt;th style="text-align:center">必填&lt;/th>
 &lt;th>详情&lt;/th>
-&lt;th>示例&lt;/th>
+&lt;th>Example&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -159,7 +159,7 @@ Kubernetes
 &lt;tr>
 &lt;td>secretKey&lt;/td>
 &lt;td style="text-align:center">Y&lt;/td>
-&lt;td>AWS用户的密钥。 可以用&lt;code>secretKeyRef&lt;/code>来引用&lt;/td>
+&lt;td>AWS用户的密钥。 可以用&lt;code>secretKeyRef&lt;/code>来引用密钥。&lt;/td>
 &lt;td>&lt;code>&amp;quot;wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
@@ -226,8 +226,8 @@ AWS
 &lt;div class="tab-content" id="tabs-2-content">
 &lt;div class="tab-pane fade show active" id="tabs-2-self-hosted" role="tabpanel" aria-labelled-by="tabs-2-self-hosted-tab">
 &lt;br />&lt;p>对于本地开发来说，可以用&lt;a href="https://github.com/localstack/localstack">localstack项目&lt;/a>集成AWS SNS/SQS。 按照&lt;a href="https://github.com/localstack/localstack#installing">这里&lt;/a>的说明安装localstack CLI。&lt;/p>
-&lt;p>为了将localstack与你的pubsub绑定在一起，你需要提供&lt;code>endpoint&lt;/code>配置。 当在AWS生产环境上运行时，&lt;code>endpoint&lt;/code>是不需要的。&lt;/p>
-&lt;p>关于身份验证相关属性的信息，请参阅 &lt;a href="https://docs.dapr.io/developing-applications/integrations/cloud-providers/authenticating-aws/">认证到 AWS&lt;/a>&lt;/p>
+&lt;p>In order to use localstack with your pubsub binding, you need to provide the &lt;code>endpoint&lt;/code> configuration in the component metadata. 当在AWS生产环境上运行时，&lt;code>endpoint&lt;/code>是不需要的。&lt;/p>
+&lt;p>See &lt;a href="https://docs.dapr.io/developing-applications/integrations/cloud-providers/authenticating-aws/">Authenticating to AWS&lt;/a> for information about authentication-related attributes&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -243,7 +243,7 @@ AWS
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">us-east-1&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
 &lt;div class="tab-pane fade" id="tabs-2-kubernetes" role="tabpanel" aria-labelled-by="tabs-2-kubernetes-tab">
-&lt;br />&lt;p>要在Kubernetes上运行localstack，可以应用以下配置。 然后，Localstack可以通过DNS名称&lt;code>http://localstack.default.svc.cluster.local:4566&lt;/code>发现。 (假设这被应用于默认的命名空间)，这应该被用作&lt;code>端点&lt;/code>。&lt;/p>
+&lt;br />&lt;p>要在Kubernetes上运行localstack，可以应用以下配置。 Localstack is then reachable at the DNS name &lt;code>http://localstack.default.svc.cluster.local:4566&lt;/code> (assuming this was applied to the default namespace) and this should be used as the &lt;code>endpoint&lt;/code>&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">apps/v1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Deployment&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -291,14 +291,14 @@ AWS
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Dapr组件的基本格式&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/">发布/订阅构建块&lt;/a>&lt;/li>
-&lt;li>请访问 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">本指南&lt;/a> ，了解如何配置 pub/sub 组件&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components&lt;/li>
 &lt;li>&lt;a href="https://docs.aws.amazon.com/sns/latest/dg/sns-sqs-as-subscriber.html">将AWS SQS作为SNS的订阅者&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.aws.amazon.com/sns/latest/api/Welcome.html">AWS SNS API reference&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/Welcome.html">AWS SQS API reference&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/integrations/cloud-providers/authenticating-aws/">AWS认证&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Reference: Azure Events Hub</title><link>https://docs.dapr.io/reference/components-reference/supported-pubsub/setup-azure-eventhubs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/components-reference/supported-pubsub/setup-azure-eventhubs/</guid><description>
 &lt;h2 id="配置">配置&lt;/h2>
-&lt;p>要安装 Azure Event Hubs pubsub，请创建一个类型为 &lt;code>pubsub.azure.eventhubs&lt;/code> 的组件。 请参阅&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-1-setup-the-pubsub-component">本指南&lt;/a>，了解如何创建和应用 pubsub 配置。&lt;/p>
+&lt;p>要安装 Azure Event Hubs pubsub，请创建一个类型为 &lt;code>pubsub.azure.eventhubs&lt;/code> 的组件。 See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-1-setup-the-pubsub-component">this guide&lt;/a> on how to create and apply a pubsub configuration.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -319,7 +319,7 @@ AWS
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
+以上示例将密钥明文存储， It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
@@ -328,7 +328,7 @@ AWS
 &lt;th>字段&lt;/th>
 &lt;th style="text-align:center">必填&lt;/th>
 &lt;th>详情&lt;/th>
-&lt;th>示例&lt;/th>
+&lt;th>Example&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -367,11 +367,11 @@ AWS
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Dapr组件的基本格式&lt;/a>&lt;/li>
-&lt;li>请访问 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">本指南&lt;/a> ，了解如何配置 pub/sub 组件&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/">发布/订阅构建块&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Reference: Azure Service Bus</title><link>https://docs.dapr.io/reference/components-reference/supported-pubsub/setup-azure-servicebus/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/components-reference/supported-pubsub/setup-azure-servicebus/</guid><description>
 &lt;h2 id="配置">配置&lt;/h2>
-&lt;p>To setup Azure Service Bus pubsub create a component of type &lt;code>pubsub.azure.servicebus&lt;/code>. 请参阅&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-1-setup-the-pubsub-component">本指南&lt;/a>，了解如何创建和应用 pubsub 配置。&lt;/p>
+&lt;p>To setup Azure Service Bus pubsub create a component of type &lt;code>pubsub.azure.servicebus&lt;/code>. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-1-setup-the-pubsub-component">this guide&lt;/a> on how to create and apply a pubsub configuration.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -420,7 +420,7 @@ AWS
 &lt;/blockquote>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
+以上示例将密钥明文存储， It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
@@ -429,7 +429,7 @@ AWS
 &lt;th>字段&lt;/th>
 &lt;th style="text-align:center">必填&lt;/th>
 &lt;th>详情&lt;/th>
-&lt;th>示例&lt;/th>
+&lt;th>Example&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -514,7 +514,7 @@ AWS
 &lt;tr>
 &lt;td>maxReconnectionAttempts&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Defines the maximum number of reconnect attempts. Default: &lt;code>30&lt;/code>&lt;/td>
+&lt;td>Defines the maximum number of reconnect attempts. 默认值：&lt;code>30&lt;/code>&lt;/td>
 &lt;td>&lt;code>30&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
@@ -543,10 +543,10 @@ AWS
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Dapr组件的基本格式&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/">发布/订阅构建块&lt;/a>&lt;/li>
-&lt;li>请访问 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">本指南&lt;/a> ，了解如何配置 pub/sub 组件&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components&lt;/li>
 &lt;/ul></description></item><item><title>Reference: GCP Pub/Sub</title><link>https://docs.dapr.io/reference/components-reference/supported-pubsub/setup-gcp-pubsub/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/components-reference/supported-pubsub/setup-gcp-pubsub/</guid><description>
 &lt;h2 id="创建-dapr-组件">创建 Dapr 组件&lt;/h2>
-&lt;p>要安装GCP pubsub，请创建一个类型为&lt;code>pubsub.gcp.pubsub&lt;/code>的组件。 请参阅 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-1-setup-the-pubsub-component">本指南&lt;/a>，了解如何创建和应用 pubsub 配置。&lt;/p>
+&lt;p>要安装GCP pubsub，请创建一个类型为&lt;code>pubsub.gcp.pubsub&lt;/code>的组件。 See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-1-setup-the-pubsub-component">this guide&lt;/a> on how to create and apply a pubsub configuration&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -577,13 +577,13 @@ AWS
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">clientX509CertUrl&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">https://www.googleapis.com/robot/v1/metadata/x509/&amp;lt;PROJECT_NAME&amp;gt;.iam.gserviceaccount.com&lt;/span> &lt;span style="color:#75715e">#replace PROJECT_NAME&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">privateKey&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;PRIVATE_KEY&amp;gt;&lt;/span> &lt;span style="color:#75715e"># replace x509 cert &lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;PRIVATE_KEY&amp;gt;&lt;/span> &lt;span style="color:#75715e"># replace x509 cert&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">disableEntityManagement&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;false&amp;#34;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
+以上示例将密钥明文存储， It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
@@ -592,14 +592,14 @@ AWS
 &lt;th>字段&lt;/th>
 &lt;th style="text-align:center">必填&lt;/th>
 &lt;th>详情&lt;/th>
-&lt;th>示例&lt;/th>
+&lt;th>Example&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
 &lt;td>type&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>GCP credentials type. Only &lt;code>service_account&lt;/code> is supported. Defaults to &lt;code>service_account&lt;/code>&lt;/td>
+&lt;td>GCP 凭证类型. Only &lt;code>service_account&lt;/code> is supported. Defaults to &lt;code>service_account&lt;/code>&lt;/td>
 &lt;td>&lt;code>service_account&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
@@ -671,16 +671,16 @@ AWS
 &lt;/tbody>
 &lt;/table>
 &lt;h2 id="创建-gcp-pubsub">创建 GCP Pub/Sub&lt;/h2>
-&lt;p>You can use either &amp;ldquo;explicit&amp;rdquo; or &amp;ldquo;implicit&amp;rdquo; credentials to configure access to your GCP pubsub instance. If using explicit, most fields are required. Implicit relies on dapr running under a Kubernetes service acccount (KSA) mapped to a Google service account (GSA) which has the necessary permissions to access pubsub. In implicit mode, only the &lt;code>projectId&lt;/code> attribute is needed, all other are optional.&lt;/p>
+&lt;p>You can use either &amp;ldquo;explicit&amp;rdquo; or &amp;ldquo;implicit&amp;rdquo; credentials to configure access to your GCP pubsub instance. If using explicit, most fields are required. Implicit relies on dapr running under a Kubernetes service account (KSA) mapped to a Google service account (GSA) which has the necessary permissions to access pubsub. In implicit mode, only the &lt;code>projectId&lt;/code> attribute is needed, all other are optional.&lt;/p>
 &lt;p>按照&lt;a href="https://cloud.google.com/pubsub/docs/quickstart-console">这里&lt;/a>的说明设置Google Cloud Pub/Sub系统。&lt;/p>
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Dapr组件的基本格式&lt;/a>&lt;/li>
-&lt;li>请访问 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">本指南&lt;/a> ，了解如何配置 pub/sub 组件&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/">发布/订阅构建块&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Reference: Hazelcast</title><link>https://docs.dapr.io/reference/components-reference/supported-pubsub/setup-hazelcast/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/components-reference/supported-pubsub/setup-hazelcast/</guid><description>
 &lt;h2 id="配置">配置&lt;/h2>
-&lt;p>要安装 hazelcast pubsub ，请创建一个类型为 &lt;code>pubsub.hazelcast&lt;/code> 的组件。 请参阅&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-1-setup-the-pubsub-component">本指南&lt;/a>，了解如何创建和应用 pubsub 配置。&lt;/p>
+&lt;p>要安装 hazelcast pubsub ，请创建一个类型为 &lt;code>pubsub.hazelcast&lt;/code> 的组件。 See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-1-setup-the-pubsub-component">this guide&lt;/a> on how to create and apply a pubsub configuration.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -695,7 +695,7 @@ AWS
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
+以上示例将密钥明文存储， It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
@@ -704,7 +704,7 @@ AWS
 &lt;th>字段&lt;/th>
 &lt;th style="text-align:center">必填&lt;/th>
 &lt;th>详情&lt;/th>
-&lt;th>示例&lt;/th>
+&lt;th>Example&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -747,11 +747,11 @@ Kubernetes
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Dapr组件的基本格式&lt;/a>&lt;/li>
-&lt;li>请访问 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">本指南&lt;/a> ，了解如何配置 pub/sub 组件&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/">发布/订阅构建块&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Reference: MQTT</title><link>https://docs.dapr.io/reference/components-reference/supported-pubsub/setup-mqtt/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/components-reference/supported-pubsub/setup-mqtt/</guid><description>
 &lt;h2 id="配置">配置&lt;/h2>
-&lt;p>要安装MQTT pubsub，请创建一个类型为&lt;code>pubsub.mqtt&lt;/code>的组件。 请参阅 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-1-setup-the-pubsub-component">本指南&lt;/a>，了解如何创建和应用 pubsub 配置。&lt;/p>
+&lt;p>要安装MQTT pubsub，请创建一个类型为&lt;code>pubsub.mqtt&lt;/code>的组件。 See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-1-setup-the-pubsub-component">this guide&lt;/a> on how to create and apply a pubsub configuration&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -776,7 +776,7 @@ Kubernetes
 &lt;th>字段&lt;/th>
 &lt;th style="text-align:center">必填&lt;/th>
 &lt;th>详情&lt;/th>
-&lt;th>示例&lt;/th>
+&lt;th>Example&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -879,7 +879,7 @@ Kubernetes
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
+以上示例将密钥明文存储， It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="创建一个-mqtt-broker">创建一个 MQTT broker&lt;/h2>
 &lt;ul class="nav nav-tabs" id="tabs-2" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
@@ -954,11 +954,11 @@ Kubernetes
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Dapr组件的基本格式&lt;/a>&lt;/li>
-&lt;li>请访问 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">本指南&lt;/a> ，了解如何配置 pub/sub 组件&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/">发布/订阅构建块&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Reference: NATS Streaming</title><link>https://docs.dapr.io/reference/components-reference/supported-pubsub/setup-nats-streaming/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/components-reference/supported-pubsub/setup-nats-streaming/</guid><description>
 &lt;h2 id="配置">配置&lt;/h2>
-&lt;p>要设置NATS Streaming pubsub，请创建类型为 &lt;code>pubsub.natsstreaming&lt;/code> 的组件。 请参阅&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-1-setup-the-pubsub-component">本指南&lt;/a>，了解如何创建和应用 pubsub 配置。&lt;/p>
+&lt;p>要设置NATS Streaming pubsub，请创建类型为 &lt;code>pubsub.natsstreaming&lt;/code> 的组件。 See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-1-setup-the-pubsub-component">this guide&lt;/a> on how to create and apply a pubsub configuration.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -976,7 +976,7 @@ Kubernetes
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">subscriptionType&lt;/span>
 &lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-SUBSCRIPTION-TYPE&amp;gt; # Required. Allowed values&lt;/span>: &lt;span style="color:#ae81ff">topic, queue.&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">ackWaitTime&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span> &lt;span style="color:#75715e"># Optional. &lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span> &lt;span style="color:#75715e"># Optional.&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">maxInFlight&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span> &lt;span style="color:#75715e"># Optional.&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">durableSubscriptionName&lt;/span>
@@ -999,7 +999,7 @@ Kubernetes
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
+以上示例将密钥明文存储， It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
@@ -1008,7 +1008,7 @@ Kubernetes
 &lt;th>字段&lt;/th>
 &lt;th style="text-align:center">必填&lt;/th>
 &lt;th>详情&lt;/th>
-&lt;th>示例&lt;/th>
+&lt;th>Example&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -1123,11 +1123,11 @@ kubectl apply -f https://raw.githubusercontent.com/nats-io/k8s/master/nats-strea
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Dapr组件的基本格式&lt;/a>&lt;/li>
-&lt;li>请访问 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">本指南&lt;/a> ，了解如何配置 pub/sub 组件&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/">发布/订阅构建块&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Reference: Pulsar</title><link>https://docs.dapr.io/reference/components-reference/supported-pubsub/setup-pulsar/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/components-reference/supported-pubsub/setup-pulsar/</guid><description>
 &lt;h2 id="配置">配置&lt;/h2>
-&lt;p>要设置Pulsar pubsub，请创建一个&lt;code>pubsub.pulsar&lt;/code>类型的组件。 请参阅&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-1-setup-the-pubsub-component">本指南&lt;/a>，了解如何创建和应用 pubsub 配置。&lt;/p>
+&lt;p>要设置Pulsar pubsub，请创建一个&lt;code>pubsub.pulsar&lt;/code>类型的组件。 See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-1-setup-the-pubsub-component">this guide&lt;/a> on how to create and apply a pubsub configuration.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -1148,7 +1148,7 @@ kubectl apply -f https://raw.githubusercontent.com/nats-io/k8s/master/nats-strea
 &lt;th>字段&lt;/th>
 &lt;th style="text-align:center">必填&lt;/th>
 &lt;th>详情&lt;/th>
-&lt;th>示例&lt;/th>
+&lt;th>Example&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -1195,7 +1195,7 @@ bin/pulsar standalone
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Dapr组件的基本格式&lt;/a>&lt;/li>
-&lt;li>请访问 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">本指南&lt;/a> ，了解如何配置 pub/sub 组件&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/">发布/订阅构建块&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Reference: RabbitMQ</title><link>https://docs.dapr.io/reference/components-reference/supported-pubsub/setup-rabbitmq/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/components-reference/supported-pubsub/setup-rabbitmq/</guid><description>
 &lt;h2 id="配置">配置&lt;/h2>
@@ -1229,7 +1229,7 @@ bin/pulsar standalone
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
+以上示例将密钥明文存储， It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
@@ -1238,7 +1238,7 @@ bin/pulsar standalone
 &lt;th>字段&lt;/th>
 &lt;th style="text-align:center">必填&lt;/th>
 &lt;th>详情&lt;/th>
-&lt;th>示例&lt;/th>
+&lt;th>Example&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -1257,7 +1257,7 @@ bin/pulsar standalone
 &lt;tr>
 &lt;td>deletedWhenUnused&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>是否将队列配置为&lt;a href="https://www.rabbitmq.com/queues.html">auto-delete&lt;/a> 默认为&lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
+&lt;td>Whether or not the queue sohuld be configured to &lt;a href="https://www.rabbitmq.com/queues.html">auto-delete&lt;/a> Defaults to &lt;code>&amp;quot;true&amp;quot;&lt;/code>&lt;/td>
 &lt;td>&lt;code>&amp;quot;true&amp;quot;&lt;/code>, &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
@@ -1327,12 +1327,12 @@ Kubernetes
 &lt;/div>
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>相关链接部分中的&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Dapr组件的基本格式&lt;/a>&lt;/li>
-&lt;li>请访问 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">本指南&lt;/a> ，了解如何配置 pub/sub 组件&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a> in the Related links section&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/">发布/订阅构建块&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Reference: Redis Streams</title><link>https://docs.dapr.io/reference/components-reference/supported-pubsub/setup-redis-pubsub/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/components-reference/supported-pubsub/setup-redis-pubsub/</guid><description>
 &lt;h2 id="配置">配置&lt;/h2>
-&lt;p>要设置Redis Streams pubsub，请创建一个类型为&lt;code>pubsub.redis&lt;/code>的组件。 请参阅&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-1-setup-the-pubsub-component">本指南&lt;/a>，了解如何创建和应用 pubsub 配置。&lt;/p>
+&lt;p>要设置Redis Streams pubsub，请创建一个类型为&lt;code>pubsub.redis&lt;/code>的组件。 See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-1-setup-the-pubsub-component">this guide&lt;/a> on how to create and apply a pubsub configuration.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -1353,7 +1353,7 @@ Kubernetes
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
+以上示例将密钥明文存储， It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
@@ -1362,14 +1362,14 @@ Kubernetes
 &lt;th>字段&lt;/th>
 &lt;th style="text-align:center">必填&lt;/th>
 &lt;th>详情&lt;/th>
-&lt;th>示例&lt;/th>
+&lt;th>Example&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
 &lt;td>redisHost&lt;/td>
 &lt;td style="text-align:center">Y&lt;/td>
-&lt;td>Redis的连接地址&lt;/td>
+&lt;td>Redis的连接地址. If &lt;code>&amp;quot;redisType&amp;quot;&lt;/code> is &lt;code>&amp;quot;cluster&amp;quot;&lt;/code> it can be multiple hosts separated by commas or just a single host&lt;/td>
 &lt;td>&lt;code>localhost:6379&lt;/code>, &lt;code>redis-master.default.svc.cluster.local:6379&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
@@ -1413,6 +1413,96 @@ Kubernetes
 &lt;td style="text-align:center">N&lt;/td>
 &lt;td>The number of concurrent workers that are processing messages. 默认值为 &lt;code>&amp;quot;10&amp;quot;&lt;/code>.&lt;/td>
 &lt;td>&lt;code>&amp;quot;15&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>redisType&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The type of redis. There are two valid values, one is &lt;code>&amp;quot;node&amp;quot;&lt;/code> for single node mode, the other is &lt;code>&amp;quot;cluster&amp;quot;&lt;/code> for redis cluster mode. Defaults to &lt;code>&amp;quot;node&amp;quot;&lt;/code>.&lt;/td>
+&lt;td>&lt;code>&amp;quot;cluster&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>redisDB&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Database selected after connecting to redis. If &lt;code>&amp;quot;redisType&amp;quot;&lt;/code> is &lt;code>&amp;quot;cluster&amp;quot;&lt;/code> this option is ignored. 默认值为 &lt;code>&amp;quot;0&amp;quot;&lt;/code>.&lt;/td>
+&lt;td>&lt;code>&amp;quot;0&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>redisMaxRetries&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Maximum number of times to retry commands before giving up. Default is to not retry failed commands.&lt;/td>
+&lt;td>&lt;code>&amp;quot;5&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>redisMinRetryInterval&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Minimum backoff for redis commands between each retry. Default is &lt;code>&amp;quot;8ms&amp;quot;&lt;/code>; &lt;code>&amp;quot;-1&amp;quot;&lt;/code> disables backoff.&lt;/td>
+&lt;td>&lt;code>&amp;quot;8ms&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>redisMaxRetryInterval&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Maximum backoff for redis commands between each retry. Default is &lt;code>&amp;quot;512ms&amp;quot;&lt;/code>;&lt;code>&amp;quot;-1&amp;quot;&lt;/code> disables backoff.&lt;/td>
+&lt;td>&lt;code>&amp;quot;5s&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>dialTimeout&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Dial timeout for establishing new connections. Defaults to &lt;code>&amp;quot;5s&amp;quot;&lt;/code>.&lt;/td>
+&lt;td>&lt;code>&amp;quot;5s&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>readTimeout&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Timeout for socket reads. If reached, redis commands will fail with a timeout instead of blocking. Defaults to &lt;code>&amp;quot;3s&amp;quot;&lt;/code>, &lt;code>&amp;quot;-1&amp;quot;&lt;/code> for no timeout.&lt;/td>
+&lt;td>&lt;code>&amp;quot;3s&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>writeTimeout&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Timeout for socket writes. If reached, redis commands will fail with a timeout instead of blocking. Defaults is readTimeout.&lt;/td>
+&lt;td>&lt;code>&amp;quot;3s&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>poolSize&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Maximum number of socket connections. Default is 10 connections per every CPU as reported by runtime.NumCPU.&lt;/td>
+&lt;td>&lt;code>&amp;quot;20&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>poolTimeout&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Amount of time client waits for a connection if all connections are busy before returning an error. Default is readTimeout + 1 second.&lt;/td>
+&lt;td>&lt;code>&amp;quot;5s&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>maxConnAge&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Connection age at which the client retires (closes) the connection. Default is to not close aged connections.&lt;/td>
+&lt;td>&lt;code>&amp;quot;30m&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>minIdleConns&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Minimum number of idle connections to keep open in order to avoid the performance degradation associated with creating new connections. 默认值为 &lt;code>&amp;quot;0&amp;quot;&lt;/code>.&lt;/td>
+&lt;td>&lt;code>&amp;quot;2&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>idleCheckFrequency&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Frequency of idle checks made by idle connections reaper. Default is &lt;code>&amp;quot;1m&amp;quot;&lt;/code>. &lt;code>&amp;quot;-1&amp;quot;&lt;/code> disables idle connections reaper.&lt;/td>
+&lt;td>&lt;code>&amp;quot;-1&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>idleTimeout&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Amount of time after which the client closes idle connections. Should be less than server&amp;rsquo;s timeout. Default is &lt;code>&amp;quot;5m&amp;quot;&lt;/code>. &lt;code>&amp;quot;-1&amp;quot;&lt;/code> disables idle timeout check.&lt;/td>
+&lt;td>&lt;code>&amp;quot;10m&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>maxLenApprox&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Maximum number of items inside a stream.The old entries are automatically evicted when the specified length is reached, so that the stream is left at a constant size. Defaults to unlimited.&lt;/td>
+&lt;td>&lt;code>&amp;quot;10000&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
@@ -1498,6 +1588,6 @@ helm install redis bitnami/redis
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Dapr组件的基本格式&lt;/a>&lt;/li>
-&lt;li>请访问 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">本指南&lt;/a> ，了解如何配置 pub/sub 组件&lt;/li>
+&lt;li>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/#step-2-publish-a-topic">this guide&lt;/a> for instructions on configuring pub/sub components&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/">发布/订阅构建块&lt;/a>&lt;/li>
 &lt;/ul></description></item></channel></rss>

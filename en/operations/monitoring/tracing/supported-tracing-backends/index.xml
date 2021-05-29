@@ -72,10 +72,10 @@ Jaeger.&lt;/p>
 &lt;p>The simplest way to start Jaeger is to use the pre-built all-in-one
 Jaeger image published to DockerHub:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">docker run -d --name jaeger &lt;span style="color:#ae81ff">\
-&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -e COLLECTOR_ZIPKIN_HTTP_PORT&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">9412&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -e COLLECTOR_ZIPKIN_HOST_PORT&lt;span style="color:#f92672">=&lt;/span>:9412 &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -p 16686:16686 &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -p 9412:9412 &lt;span style="color:#ae81ff">\
-&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> jaegertracing/all-in-one:1.21
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> jaegertracing/all-in-one:1.22
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>Next, create the following YAML files locally:&lt;/p>
 &lt;ul>
 &lt;li>&lt;strong>config.yaml&lt;/strong>: Note that because we are using the Zipkin protocol
@@ -114,7 +114,7 @@ instance.&lt;/li>
 &lt;span style="color:#f92672">ingress&lt;/span>:
 &lt;span style="color:#f92672">enabled&lt;/span>: &lt;span style="color:#66d9ef">false&lt;/span>
 &lt;span style="color:#f92672">allInOne&lt;/span>:
-&lt;span style="color:#f92672">image&lt;/span>: &lt;span style="color:#ae81ff">jaegertracing/all-in-one:1.13&lt;/span>
+&lt;span style="color:#f92672">image&lt;/span>: &lt;span style="color:#ae81ff">jaegertracing/all-in-one:1.22&lt;/span>
 &lt;span style="color:#f92672">options&lt;/span>:
 &lt;span style="color:#f92672">query&lt;/span>:
 &lt;span style="color:#f92672">base-path&lt;/span>: &lt;span style="color:#ae81ff">/jaeger&lt;/span>

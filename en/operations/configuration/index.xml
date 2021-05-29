@@ -115,8 +115,12 @@ The &lt;code>httpPipeline&lt;/code> section under the &lt;code>Configuration&lt;
 &lt;p>See &lt;a href="https://docs.dapr.io/en/concepts/middleware-concept/">Middleware pipelines&lt;/a> for more information&lt;/p>
 &lt;h4 id="scope-secret-store-access">Scope secret store access&lt;/h4>
 &lt;p>See the &lt;a href="https://docs.dapr.io/en/operations/configuration/secret-scope/">Scoping secrets&lt;/a> guide for information and examples on how to scope secrets to an application.&lt;/p>
-&lt;h4 id="access-control-allow-lists-for-service-invocation">Access Control allow lists for service invocation&lt;/h4>
-&lt;p>See the &lt;a href="https://docs.dapr.io/en/operations/configuration/invoke-allowlist/">Allow lists for service invocation&lt;/a> guide for information and examples on how to set allow lists.&lt;/p>
+&lt;h4 id="access-control-allow-lists-for-building-block-apis">Access Control allow lists for building block APIs&lt;/h4>
+&lt;p>See the &lt;a href="https://docs.dapr.io/en/operations/configuration/api-allowlist/">selectively enable Dapr APIs on the Dapr sidecar&lt;/a> guide for information and examples on how to set ACLs on the building block APIs lists.&lt;/p>
+&lt;h4 id="access-control-allow-lists-for-service-invocation-api">Access Control allow lists for service invocation API&lt;/h4>
+&lt;p>See the &lt;a href="https://docs.dapr.io/en/operations/configuration/invoke-allowlist/">Allow lists for service invocation&lt;/a> guide for information and examples on how to set allow lists with ACLs which using service invocation API.&lt;/p>
+&lt;h4 id="turning-on-preview-features">Turning on preview features&lt;/h4>
+&lt;p>See the &lt;a href="https://docs.dapr.io/en/operations/configuration/preview-features/">preview features&lt;/a> guide for information and examples on how to opt-in to preview features for a release. Preview feature enable new capabilities to be added that still need more time until they become generally available (GA) in the runtime.&lt;/p>
 &lt;h3 id="example-sidecar-configuration">Example sidecar configuration&lt;/h3>
 &lt;p>The following yaml shows an example configuration file that can be applied to an applications' Dapr sidecar.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yml" data-lang="yml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
@@ -741,7 +745,88 @@ Do the same for the nodeapp deployment and then look at the logs for the pythona
 &lt;span style="color:#f92672">containers&lt;/span>:
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">python&lt;/span>
 &lt;span style="color:#f92672">image&lt;/span>: &lt;span style="color:#ae81ff">dapriosamples/hello-k8s-python:edge&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Operations: How-To: Configure Dapr to use gRPC</title><link>https://docs.dapr.io/en/operations/configuration/grpc/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/operations/configuration/grpc/</guid><description>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Operations: How-To: Selectively enable Dapr APIs on the Dapr sidecar</title><link>https://docs.dapr.io/en/operations/configuration/api-allowlist/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/operations/configuration/api-allowlist/</guid><description>
+&lt;p>In certain scenarios such as zero trust networks or when exposing the Dapr sidecar to external traffic through a frontend, it&amp;rsquo;s recommended to only enable the Dapr sidecar APIs that are being used by the app. Doing so reduces the attack surface and helps keep the Dapr APIs scoped to the actual needs of the application.&lt;/p>
+&lt;p>Dapr allows developers to control which APIs are accessible to the application by setting an API allow list using a &lt;a href="(https://docs.dapr.io/en/operations/configuration/configuration-overview/)">Dapr Configuration&lt;/a>.&lt;/p>
+&lt;h3 id="default-behavior">Default behavior&lt;/h3>
+&lt;p>If an API allow list section is not specified, the default behavior is to allow access to all Dapr APIs.
+Once an allow list is set, only the specified APIs are accessible.&lt;/p>
+&lt;p>For example, the following configuration enables all APIs for both HTTP and gRPC:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">myappconfig&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">tracing&lt;/span>:
+&lt;span style="color:#f92672">samplingRate&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="enabling-specific-http-apis">Enabling specific HTTP APIs&lt;/h3>
+&lt;p>The following example enables the state &lt;code>v1.0&lt;/code> HTTP API and block all the rest:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">myappconfig&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">api&lt;/span>:
+&lt;span style="color:#f92672">allowed&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">state&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1.0&lt;/span>
+&lt;span style="color:#f92672">protocol&lt;/span>: &lt;span style="color:#ae81ff">http&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="enabling-specific-grpc-apis">Enabling specific gRPC APIs&lt;/h3>
+&lt;p>The following example enables the state &lt;code>v1&lt;/code> gRPC API and block all the rest:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">myappconfig&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">api&lt;/span>:
+&lt;span style="color:#f92672">allowed&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">state&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">protocol&lt;/span>: &lt;span style="color:#ae81ff">grpc&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="list-of-dapr-apis">List of Dapr APIs&lt;/h3>
+&lt;p>The &lt;code>name&lt;/code> field takes the name of the Dapr API you would like to enable.&lt;/p>
+&lt;p>See this list of values corresponding to the different Dapr APIs:&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th>Dapr API&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>state&lt;/td>
+&lt;td>&lt;a href="https://docs.dapr.io/en/reference/api/state_api/">State&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>invoke&lt;/td>
+&lt;td>&lt;a href="https://docs.dapr.io/en/reference/api/service_invocation_api/">Service Invocation&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>secrets&lt;/td>
+&lt;td>&lt;a href="https://docs.dapr.io/en/reference/api/secrets_api/">Secrets&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>bindings&lt;/td>
+&lt;td>&lt;a href="https://docs.dapr.io/en/reference/api/bindings_api/">Output Bindings&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>publish&lt;/td>
+&lt;td>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/pubsub/">Pub/Sub&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>actors&lt;/td>
+&lt;td>&lt;a href="https://docs.dapr.io/en/reference/api/actors_api/">Actors&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>metadata&lt;/td>
+&lt;td>&lt;a href="https://docs.dapr.io/en/reference/api/metadata_api/">Metadata&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table></description></item><item><title>Operations: How-To: Configure Dapr to use gRPC</title><link>https://docs.dapr.io/en/operations/configuration/grpc/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/operations/configuration/grpc/</guid><description>
 &lt;p>Dapr implements both an HTTP and a gRPC API for local calls. gRPC is useful for low-latency, high performance scenarios and has language integration using the proto clients.&lt;/p>
 &lt;p>You can find a list of auto-generated clients &lt;a href="https://docs.dapr.io/en/developing-applications/sdks/">here&lt;/a>.&lt;/p>
 &lt;p>The Dapr runtime implements a &lt;a href="https://github.com/dapr/dapr/blob/master/dapr/proto/runtime/v1/dapr.proto">proto service&lt;/a> that apps can communicate with via gRPC.&lt;/p>
@@ -823,4 +908,92 @@ Kubernetes
 &lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/en/operations/hosting/kubernetes/kubernetes-annotations/">Dapr Kubernetes pod annotations spec&lt;/a>&lt;/li>
-&lt;/ul></description></item></channel></rss>
+&lt;/ul></description></item><item><title>Operations: How-To: Enable preview features</title><link>https://docs.dapr.io/en/operations/configuration/preview-features/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/operations/configuration/preview-features/</guid><description>
+&lt;h2 id="overview">Overview&lt;/h2>
+&lt;p>Some features in Dapr are considered experimental when they are first released. These features require explicit opt-in in order to be used. The opt-in is specified in Dapr&amp;rsquo;s configuration.&lt;/p>
+&lt;p>Currently, preview features are enabled on a per application basis when running on Kubernetes. A global scope may be introduced in the future should there be a use case for it.&lt;/p>
+&lt;h3 id="current-preview-features">Current preview features&lt;/h3>
+&lt;p>Below is a list of existing preview features:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/actors/actor-reentrancy/">Actor Reentrancy&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="configuration-properties">Configuration properties&lt;/h2>
+&lt;p>The &lt;code>features&lt;/code> section under the &lt;code>Configuration&lt;/code> spec contains the following properties:&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Property&lt;/th>
+&lt;th>Type&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>name&lt;/td>
+&lt;td>string&lt;/td>
+&lt;td>The name of the preview feature that will be enabled/disabled&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>enabled&lt;/td>
+&lt;td>bool&lt;/td>
+&lt;td>Boolean specifying if the feature is enabled or disabled&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="enabling-a-preview-feature">Enabling a preview feature&lt;/h2>
+&lt;p>Preview features are specified in the configuration. Here is an example of a full configuration that contains multiple features:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">featureconfig&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">tracing&lt;/span>:
+&lt;span style="color:#f92672">samplingRate&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">zipkin&lt;/span>:
+&lt;span style="color:#f92672">endpointAddress&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;http://zipkin.default.svc.cluster.local:9411/api/v2/spans&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">features&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">Feature1&lt;/span>
+&lt;span style="color:#f92672">enabled&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">Feature2&lt;/span>
+&lt;span style="color:#f92672">enabled&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="standalone">Standalone&lt;/h3>
+&lt;p>To enable preview features when running Dapr locally, either update the default configuration or specify a separate config file using &lt;code>dapr run&lt;/code>.&lt;/p>
+&lt;p>The default Dapr config is created when you run &lt;code>dapr init&lt;/code>, and is located at:&lt;/p>
+&lt;ul>
+&lt;li>Windows: &lt;code>%USERPROFILE%\.dapr\config.yaml&lt;/code>&lt;/li>
+&lt;li>Linux/macOS: &lt;code>~/.dapr/config.yaml&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>Alternately, you can update preview features on all apps run locally by specifying the &lt;code>--config&lt;/code> flag in &lt;code>dapr run&lt;/code> and pointing to a separate Dapr config file:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr run --app-id myApp --config ./previewConfig.yaml ./app
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="kubernetes">Kubernetes&lt;/h3>
+&lt;p>In Kubernetes mode, the configuration must be provided via a configuration component. Using the same configuration as above, apply it via &lt;code>kubectl&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl apply -f previewConfig.yaml
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>This configuration component can then be referenced in any application by modifying the application&amp;rsquo;s configuration to reference that specific configuration component via the &lt;code>dapr.io/config&lt;/code> element. For example:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">apps/v1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Deployment&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">nodeapp&lt;/span>
+&lt;span style="color:#f92672">labels&lt;/span>:
+&lt;span style="color:#f92672">app&lt;/span>: &lt;span style="color:#ae81ff">node&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">replicas&lt;/span>: &lt;span style="color:#ae81ff">1&lt;/span>
+&lt;span style="color:#f92672">selector&lt;/span>:
+&lt;span style="color:#f92672">matchLabels&lt;/span>:
+&lt;span style="color:#f92672">app&lt;/span>: &lt;span style="color:#ae81ff">node&lt;/span>
+&lt;span style="color:#f92672">template&lt;/span>:
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">labels&lt;/span>:
+&lt;span style="color:#f92672">app&lt;/span>: &lt;span style="color:#ae81ff">node&lt;/span>
+&lt;span style="color:#f92672">annotations&lt;/span>:
+&lt;span style="color:#f92672">dapr.io/enabled&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">dapr.io/app-id&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;nodeapp&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">dapr.io/app-port&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;3000&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">dapr.io/config&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;featureconfig&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">containers&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">node&lt;/span>
+&lt;span style="color:#f92672">image&lt;/span>: &lt;span style="color:#ae81ff">dapriosamples/hello-k8s-node:latest&lt;/span>
+&lt;span style="color:#f92672">ports&lt;/span>:
+- &lt;span style="color:#f92672">containerPort&lt;/span>: &lt;span style="color:#ae81ff">3000&lt;/span>
+&lt;span style="color:#f92672">imagePullPolicy&lt;/span>: &lt;span style="color:#ae81ff">Always&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div></description></item></channel></rss>

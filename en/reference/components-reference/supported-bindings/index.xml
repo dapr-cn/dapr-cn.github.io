@@ -1,4 +1,100 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr Docs – Bindings component specs</title><link>https://docs.dapr.io/en/reference/components-reference/supported-bindings/</link><description>Recent content in Bindings component specs on Dapr Docs</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/en/reference/components-reference/supported-bindings/index.xml" rel="self" type="application/rss+xml"/><item><title>Reference: Alibaba Cloud Object Storage Service binding spec</title><link>https://docs.dapr.io/en/reference/components-reference/supported-bindings/alicloudoss/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/reference/components-reference/supported-bindings/alicloudoss/</guid><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr Docs – Bindings component specs</title><link>https://docs.dapr.io/en/reference/components-reference/supported-bindings/</link><description>Recent content in Bindings component specs on Dapr Docs</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/en/reference/components-reference/supported-bindings/index.xml" rel="self" type="application/rss+xml"/><item><title>Reference: Alibaba Cloud DingTalk binding spec</title><link>https://docs.dapr.io/en/reference/components-reference/supported-bindings/alicloud-dingtalk/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/reference/components-reference/supported-bindings/alicloud-dingtalk/</guid><description>
+&lt;h2 id="setup-dapr-component">Setup Dapr component&lt;/h2>
+&lt;p>To setup an Alibaba Cloud DingTalk binding create a component of type &lt;code>bindings.dingtalk.webhook&lt;/code>. See &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/bindings/howto-bindings/#1-create-a-binding">this guide&lt;/a> on how to create and apply a secretstore configuration. See this guide on &lt;a href="https://docs.dapr.io/en/operations/components/component-secrets/">referencing secrets&lt;/a> to retrieve and use the secret with Dapr components.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">bindings.dingtalk.webhook&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">id&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;test_webhook_id&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">url&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;https://oapi.dingtalk.com/robot/send?access_token=******&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">secret&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;****************&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/en/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
+&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Field&lt;/th>
+&lt;th style="text-align:center">Required&lt;/th>
+&lt;th>Binding support&lt;/th>
+&lt;th>Details&lt;/th>
+&lt;th>Example&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>id&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>Input/Output&lt;/td>
+&lt;td>unique id&lt;/td>
+&lt;td>&lt;code>&amp;quot;test_webhook_id&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>url&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>Input/Output&lt;/td>
+&lt;td>DingTalk&amp;rsquo;s Webhook url&lt;/td>
+&lt;td>&lt;code>&amp;quot;https://oapi.dingtalk.com/robot/send?access_token=******&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>secret&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Input/Output&lt;/td>
+&lt;td>the secret of DingTalk&amp;rsquo;s Webhook&lt;/td>
+&lt;td>&lt;code>&amp;quot;****************&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="binding-support">Binding support&lt;/h2>
+&lt;p>This component supports both &lt;strong>input and output&lt;/strong> binding interfaces.&lt;/p>
+&lt;p>This component supports &lt;strong>output binding&lt;/strong> with the following operations:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>create&lt;/code>&lt;/li>
+&lt;li>&lt;code>get&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h2 id="specifying-a-partition-key">Specifying a partition key&lt;/h2>
+&lt;p>Example: Follow the instructions &lt;a href="https://developers.dingtalk.com/document/app/custom-robot-access">here&lt;/a> on setting the data of payload&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X POST http://localhost:3500/v1.0/bindings/myDingTalk &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -d &lt;span style="color:#e6db74">&amp;#39;{
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;data&amp;#34;: {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;msgtype&amp;#34;: &amp;#34;text&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;text&amp;#34;: {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;content&amp;#34;: &amp;#34;Hi&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74"> },
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;operation&amp;#34;: &amp;#34;create&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X POST http://localhost:3500/v1.0/bindings/myDingTalk &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span> &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -d &lt;span style="color:#e6db74">&amp;#39;{
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;data&amp;#34;: {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;msgtype&amp;#34;: &amp;#34;text&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;text&amp;#34;: {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;content&amp;#34;: &amp;#34;Hi&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74"> },
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;operation&amp;#34;: &amp;#34;get&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> }&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Reference: Alibaba Cloud Object Storage Service binding spec</title><link>https://docs.dapr.io/en/reference/components-reference/supported-bindings/alicloudoss/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/reference/components-reference/supported-bindings/alicloudoss/</guid><description>
 &lt;h2 id="component-format">Component format&lt;/h2>
 &lt;p>To setup an Alibaba Cloud Object Storage binding create a component of type &lt;code>bindings.alicloud.oss&lt;/code>. See &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/bindings/howto-bindings/#1-create-a-binding">this guide&lt;/a> on how to create and apply a secretstore configuration. See this guide on &lt;a href="https://docs.dapr.io/en/operations/components/component-secrets/">referencing secrets&lt;/a> to retrieve and use the secret with Dapr components.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
@@ -388,8 +484,8 @@ See &lt;a href="https://docs.dapr.io/en/developing-applications/integrations/clo
 &lt;span style="color:#f92672">metadata&lt;/span>:
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">streamName&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">KINESIS_STREAM_NAME&lt;/span> &lt;span style="color:#75715e"># Kinesis stream name&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">consumerName &lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">KINESIS_CONSUMER_NAME&lt;/span> &lt;span style="color:#75715e"># Kinesis consumer name &lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">consumerName&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">KINESIS_CONSUMER_NAME&lt;/span> &lt;span style="color:#75715e"># Kinesis consumer name&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">mode&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">shared&lt;/span> &lt;span style="color:#75715e"># shared - Shared throughput or extended - Extended/Enhanced fanout&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">region&lt;/span>
@@ -1499,7 +1595,7 @@ $ kubectl logs nginx-nginx-ingress-controller-649df94867-fp6mg nginx-ingress-con
 &lt;span style="color:#75715e"># ..&amp;#34;OPTIONS /api/events HTTP/1.1&amp;#34; 503..&lt;/span>
 $ kubectl delete pod nginx-nginx-ingress-controller-649df94867-fp6mg
 &lt;span style="color:#75715e"># Check the logs again - it should start returning 200&lt;/span>
-&lt;span style="color:#75715e"># ..&amp;#34;OPTIONS /api/events HTTP/1.1&amp;#34; 200.. &lt;/span>
+&lt;span style="color:#75715e"># ..&amp;#34;OPTIONS /api/events HTTP/1.1&amp;#34; 200..&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
@@ -1894,7 +1990,7 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">schedule&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;@every 15m&amp;#34;&lt;/span> &lt;span style="color:#75715e"># valid cron schedule &lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;@every 15m&amp;#34;&lt;/span> &lt;span style="color:#75715e"># valid cron schedule&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
 &lt;table>
 &lt;thead>
@@ -3141,9 +3237,15 @@ Linux
 &lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">url&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">mqtt[s]://[username][:password]@host.domain[:port]&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;tcp://[username][:password]@host.domain[:port]&amp;#34;&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">topic&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">topic1&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;topic1&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">qos&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">1&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">retain&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;false&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">cleanSession&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;false&amp;#34;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
@@ -3165,8 +3267,8 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;td>url&lt;/td>
 &lt;td style="text-align:center">Y&lt;/td>
 &lt;td>Input/Output&lt;/td>
-&lt;td>The MQTT broker url&lt;/td>
-&lt;td>&lt;code>&amp;quot;mqtt[s]://[username][:password]@host.domain[:port]&amp;quot;&lt;/code>&lt;/td>
+&lt;td>Address of the MQTT broker&lt;/td>
+&lt;td>Use &lt;code>**tcp://**&lt;/code> scheme for non-TLS communication. Use&lt;code>**ssl://**&lt;/code> scheme for TLS communication. &lt;br> &amp;ldquo;tcp://[username][:password]@host.domain[:port]&amp;rdquo;&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>topic&lt;/td>
@@ -3175,8 +3277,107 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;td>The topic to listen on or send events to&lt;/td>
 &lt;td>&lt;code>&amp;quot;mytopic&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
+&lt;tr>
+&lt;td>qos&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Input/Output&lt;/td>
+&lt;td>Indicates the Quality of Service Level (QoS) of the message. Default 0&lt;/td>
+&lt;td>&lt;code>1&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>retain&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Input/Output&lt;/td>
+&lt;td>Defines whether the message is saved by the broker as the last known good value for a specified topic. Default &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
+&lt;td>&lt;code>&amp;quot;true&amp;quot;&lt;/code>, &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>cleanSession&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Input/Output&lt;/td>
+&lt;td>will set the &amp;ldquo;clean session&amp;rdquo; in the connect message when client connects to an MQTT broker. Default &lt;code>&amp;quot;true&amp;quot;&lt;/code>&lt;/td>
+&lt;td>&lt;code>&amp;quot;true&amp;quot;&lt;/code>, &lt;code>&amp;quot;false&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>caCert&lt;/td>
+&lt;td style="text-align:center">Required for using TLS&lt;/td>
+&lt;td>Input/Output&lt;/td>
+&lt;td>Certificate authority certificate. Can be &lt;code>secretKeyRef&lt;/code> to use a secret reference&lt;/td>
+&lt;td>&lt;code>0123456789-0123456789&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>clientCert&lt;/td>
+&lt;td style="text-align:center">Required for using TLS&lt;/td>
+&lt;td>Input/Output&lt;/td>
+&lt;td>Client certificate. Can be &lt;code>secretKeyRef&lt;/code> to use a secret reference&lt;/td>
+&lt;td>&lt;code>0123456789-0123456789&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>clientKey&lt;/td>
+&lt;td style="text-align:center">Required for using TLS&lt;/td>
+&lt;td>Input/Output&lt;/td>
+&lt;td>Client key. Can be &lt;code>secretKeyRef&lt;/code> to use a secret reference&lt;/td>
+&lt;td>&lt;code>012345&lt;/code>&lt;/td>
+&lt;/tr>
 &lt;/tbody>
 &lt;/table>
+&lt;h3 id="communication-using-tls">Communication using TLS&lt;/h3>
+&lt;p>To configure communication using TLS, ensure mosquitto broker is configured to support certificates.
+Pre-requisite includes &lt;code>certficate authority certificate&lt;/code>, &lt;code>ca issued client certificate&lt;/code>, &lt;code>client private key&lt;/code>.
+Here is an example.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">mqtt-binding&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">bindings.mqtt&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">url&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;ssl://host.domain[:port]&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">topic&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;topic1&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">qos&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">1&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">retain&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;false&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">cleanSession&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;false&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">caCert&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#39;&amp;#39;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">clientCert&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#39;&amp;#39;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">clientKey&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#39;&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="consuming-a-shared-topic">Consuming a shared topic&lt;/h3>
+&lt;p>When consuming a shared topic, each consumer must have a unique identifier. By default, the application Id is used to uniquely identify each consumer and publisher. In self-hosted mode, running each Dapr run with a different application Id is sufficient to have them consume from the same shared topic. However on Kubernetes, a pod with multiple application instances shares the same application Id, prohibiting all instances from consuming the same topic. To overcome this, configure the component&amp;rsquo;s &lt;code>ConsumerID&lt;/code> metadata with a &lt;code>{uuid}&lt;/code> tag, making each instance to have a randomly generated &lt;code>ConsumerID&lt;/code> value on start up. For example:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">messagebus&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">default&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">bindings.mqtt&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">consumerID&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;{uuid}&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">url&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;tcp://admin:public@localhost:1883&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">topic&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;topic1&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">qos&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">1&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">retain&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;false&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">cleanSession&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;false&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Warning&lt;/h4>
+The above example uses secrets as plain strings. It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/en/operations/components/component-secrets/">here&lt;/a>.
+&lt;/div>
 &lt;h2 id="binding-support">Binding support&lt;/h2>
 &lt;p>This component supports both &lt;strong>input and output&lt;/strong> binding interfaces.&lt;/p>
 &lt;p>This component supports &lt;strong>output binding&lt;/strong> with the following operations:&lt;/p>
@@ -4157,11 +4358,11 @@ The example configuration shown above, contain a username and password as plain-
 &lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">emailFrom&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;testapp@dapr.io&amp;#34;&lt;/span> &lt;span style="color:#75715e"># optional &lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;testapp@dapr.io&amp;#34;&lt;/span> &lt;span style="color:#75715e"># optional&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">emailTo&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;dave@dapr.io&amp;#34;&lt;/span> &lt;span style="color:#75715e"># optional &lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;dave@dapr.io&amp;#34;&lt;/span> &lt;span style="color:#75715e"># optional&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">subject&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;Hello!&amp;#34;&lt;/span> &lt;span style="color:#75715e"># optional &lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;Hello!&amp;#34;&lt;/span> &lt;span style="color:#75715e"># optional&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">apiKey&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;YOUR_API_KEY&amp;#34;&lt;/span> &lt;span style="color:#75715e"># required, this is your SendGrid key&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>
@@ -4401,7 +4602,7 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;h3 id="input-binding">Input binding&lt;/h3>
 &lt;p>For input binding, where the query matching Tweets are streamed to the user service, the above component has to also include a query:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml"> - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">query&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;dapr&amp;#34;&lt;/span> &lt;span style="color:#75715e"># your search query, required &lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;dapr&amp;#34;&lt;/span> &lt;span style="color:#75715e"># your search query, required&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="output-binding">Output binding&lt;/h3>
 &lt;h4 id="get">get&lt;/h4>
 &lt;p>For output binding invocation the user code has to invoke the binding:&lt;/p>
@@ -4430,6 +4631,657 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;/ul>
 &lt;p>You can see the example of the JSON data that Twitter binding returns &lt;a href="https://developer.twitter.com/en/docs/tweets/search/api-reference/get-search-tweets">here&lt;/a>&lt;/p>
 &lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Reference: Zeebe command binding spec</title><link>https://docs.dapr.io/en/reference/components-reference/supported-bindings/zeebe-command/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/reference/components-reference/supported-bindings/zeebe-command/</guid><description>
+&lt;h2 id="component-format">Component format&lt;/h2>
+&lt;p>To setup Zeebe command binding create a component of type &lt;code>bindings.zeebe.command&lt;/code>. See &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/bindings/howto-bindings/#1-create-a-binding">this guide&lt;/a> on how to create and apply a binding configuration.&lt;/p>
+&lt;p>See &lt;a href="https://docs.camunda.io/docs/product-manuals/zeebe/zeebe-overview/">this&lt;/a> for Zeebe documentation.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">bindings.zeebe.command&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">gatewayAddr&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;host&amp;gt;:&amp;lt;port&amp;gt;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">gatewayKeepAlive&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">45s&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">usePlainTextConnection&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">caCertificatePath&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">/path/to/ca-cert&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Field&lt;/th>
+&lt;th style="text-align:center">Required&lt;/th>
+&lt;th>Binding support&lt;/th>
+&lt;th>Details&lt;/th>
+&lt;th>Example&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>gatewayAddr&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>Output&lt;/td>
+&lt;td>Zeebe gateway address&lt;/td>
+&lt;td>&lt;code>localhost:26500&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>gatewayKeepAlive&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Output&lt;/td>
+&lt;td>Sets how often keep alive messages should be sent to the gateway. Defaults to 45 seconds&lt;/td>
+&lt;td>&lt;code>45s&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>usePlainTextConnection&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Output&lt;/td>
+&lt;td>Whether to use a plain text connection or not&lt;/td>
+&lt;td>&lt;code>true,false&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>caCertificatePath&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Output&lt;/td>
+&lt;td>The path to the CA cert&lt;/td>
+&lt;td>&lt;code>/path/to/ca-cert&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="binding-support">Binding support&lt;/h2>
+&lt;p>This component supports &lt;strong>output binding&lt;/strong> with the following operations:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>topology&lt;/code>&lt;/li>
+&lt;li>&lt;code>deploy-workflow&lt;/code>&lt;/li>
+&lt;li>&lt;code>create-instance&lt;/code>&lt;/li>
+&lt;li>&lt;code>cancel-instance&lt;/code>&lt;/li>
+&lt;li>&lt;code>set-variables&lt;/code>&lt;/li>
+&lt;li>&lt;code>resolve-incident&lt;/code>&lt;/li>
+&lt;li>&lt;code>publish-message&lt;/code>&lt;/li>
+&lt;li>&lt;code>activate-jobs&lt;/code>&lt;/li>
+&lt;li>&lt;code>complete-job&lt;/code>&lt;/li>
+&lt;li>&lt;code>fail-job&lt;/code>&lt;/li>
+&lt;li>&lt;code>update-job-retries&lt;/code>&lt;/li>
+&lt;li>&lt;code>throw-error&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h3 id="output-binding">Output binding&lt;/h3>
+&lt;p>Zeebe uses gRPC under the hood for the Zeebe client we use in this binding. Please consult the gRPC API reference for more information:
+&lt;a href="https://stage.docs.zeebe.io/reference/grpc.html">https://stage.docs.zeebe.io/reference/grpc.html&lt;/a>&lt;/p>
+&lt;h4 id="topology">topology&lt;/h4>
+&lt;p>The &lt;code>topology&lt;/code> operation obtains the current topology of the cluster the gateway is part of.&lt;/p>
+&lt;p>To perform a &lt;code>topology&lt;/code> operation, invoke the Zeebe command binding with a &lt;code>POST&lt;/code> method and the following JSON body:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;data&amp;#34;&lt;/span>: {},
+&lt;span style="color:#f92672">&amp;#34;operation&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;topology&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h5 id="response">Response&lt;/h5>
+&lt;p>The binding returns a JSON with the following response:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;brokers&amp;#34;&lt;/span>: [
+{
+&lt;span style="color:#f92672">&amp;#34;nodeId&amp;#34;&lt;/span>: &lt;span style="color:#66d9ef">null&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;host&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;172.18.0.5&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;port&amp;#34;&lt;/span>: &lt;span style="color:#ae81ff">26501&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;partitions&amp;#34;&lt;/span>: [
+{
+&lt;span style="color:#f92672">&amp;#34;partitionId&amp;#34;&lt;/span>: &lt;span style="color:#ae81ff">1&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;role&amp;#34;&lt;/span>: &lt;span style="color:#66d9ef">null&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;health&amp;#34;&lt;/span>: &lt;span style="color:#66d9ef">null&lt;/span>
+}
+],
+&lt;span style="color:#f92672">&amp;#34;version&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;0.26.0&amp;#34;&lt;/span>
+}
+],
+&lt;span style="color:#f92672">&amp;#34;clusterSize&amp;#34;&lt;/span>: &lt;span style="color:#ae81ff">1&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;partitionsCount&amp;#34;&lt;/span>: &lt;span style="color:#ae81ff">1&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;replicationFactor&amp;#34;&lt;/span>: &lt;span style="color:#ae81ff">1&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;gatewayVersion&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;0.26.0&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The response values are:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>brokers&lt;/code> - list of brokers part of this cluster
+&lt;ul>
+&lt;li>&lt;code>nodeId&lt;/code> - unique (within a cluster) node ID for the broker&lt;/li>
+&lt;li>&lt;code>host&lt;/code> - hostname of the broker&lt;/li>
+&lt;li>&lt;code>port&lt;/code> - port for the broker&lt;/li>
+&lt;li>&lt;code>port&lt;/code> - port for the broker&lt;/li>
+&lt;li>&lt;code>partitions&lt;/code> - list of partitions managed or replicated on this broker
+&lt;ul>
+&lt;li>&lt;code>partitionId&lt;/code> - the unique ID of this partition&lt;/li>
+&lt;li>&lt;code>role&lt;/code> - the role of the broker for this partition&lt;/li>
+&lt;li>&lt;code>health&lt;/code> - the health of this partition&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;code>version&lt;/code> - broker version&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;code>clusterSize&lt;/code> - how many nodes are in the cluster&lt;/li>
+&lt;li>&lt;code>partitionsCount&lt;/code> - how many partitions are spread across the cluster&lt;/li>
+&lt;li>&lt;code>replicationFactor&lt;/code> - configured replication factor for this cluster&lt;/li>
+&lt;li>&lt;code>gatewayVersion&lt;/code> - gateway version&lt;/li>
+&lt;/ul>
+&lt;h4 id="deploy-workflow">deploy-workflow&lt;/h4>
+&lt;p>The &lt;code>deploy-workflow&lt;/code> operation deploys a single workflow to Zeebe.&lt;/p>
+&lt;p>To perform a &lt;code>deploy-workflow&lt;/code> operation, invoke the Zeebe command binding with a &lt;code>POST&lt;/code> method and the following JSON body:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;data&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;YOUR_FILE_CONTENT&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;metadata&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;fileName&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;products-process.bpmn&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;fileType&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;bpmn&amp;#34;&lt;/span>
+},
+&lt;span style="color:#f92672">&amp;#34;operation&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;deploy-workflow&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The metadata parameters are:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>fileName&lt;/code> - the name of the workflow file&lt;/li>
+&lt;li>&lt;code>fileType&lt;/code> - (optional) the type of the file &amp;lsquo;bpmn&amp;rsquo; or &amp;lsquo;file&amp;rsquo;. If no type was given, the default will be recognized based on the file extension
+&amp;lsquo;bpmn&amp;rsquo; for file extension .bpmn, for all other files it will be set to &amp;lsquo;file&amp;rsquo;&lt;/li>
+&lt;/ul>
+&lt;h5 id="response-1">Response&lt;/h5>
+&lt;p>The binding returns a JSON with the following response:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;key&amp;#34;&lt;/span>: &lt;span style="color:#ae81ff">2251799813687320&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;workflows&amp;#34;&lt;/span>: [
+{
+&lt;span style="color:#f92672">&amp;#34;bpmnProcessId&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;products-process&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;version&amp;#34;&lt;/span>: &lt;span style="color:#ae81ff">3&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;workflowKey&amp;#34;&lt;/span>: &lt;span style="color:#ae81ff">2251799813685895&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;resourceName&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;products-process.bpmn&amp;#34;&lt;/span>
+}
+]
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The response values are:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>key&lt;/code> - the unique key identifying the deployment&lt;/li>
+&lt;li>&lt;code>workflows&lt;/code> - a list of deployed workflows
+&lt;ul>
+&lt;li>&lt;code>bpmnProcessId&lt;/code> - the bpmn process ID, as parsed during deployment; together with the version forms a unique identifier for a specific
+workflow definition&lt;/li>
+&lt;li>&lt;code>version&lt;/code> - the assigned process version&lt;/li>
+&lt;li>&lt;code>workflowKey&lt;/code> - the assigned key, which acts as a unique identifier for this workflow&lt;/li>
+&lt;li>&lt;code>resourceName&lt;/code> - the resource name from which this workflow was parsed&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h4 id="create-instance">create-instance&lt;/h4>
+&lt;p>The &lt;code>create-instance&lt;/code> operation creates and starts an instance of the specified workflow. The workflow definition to use to create the instance can be
+specified either using its unique key (as returned by the &lt;code>deploy-workflow&lt;/code> operation), or using the BPMN process ID and a version.&lt;/p>
+&lt;p>Note that only workflows with none start events can be started through this command.&lt;/p>
+&lt;h5 id="by-bpmn-process-id">By BPMN process ID&lt;/h5>
+&lt;p>To perform a &lt;code>create-instance&lt;/code> operation, invoke the Zeebe command binding with a &lt;code>POST&lt;/code> method and the following JSON body:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;data&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;bpmnProcessId&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;products-process&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;variables&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;productId&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;some-product-id&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;productName&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;some-product-name&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;productKey&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;some-product-key&amp;#34;&lt;/span>
+}
+},
+&lt;span style="color:#f92672">&amp;#34;operation&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;create-instance&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The data parameters are:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>bpmnProcessId&lt;/code> - the BPMN process ID of the workflow definition to instantiate&lt;/li>
+&lt;li>&lt;code>version&lt;/code> - (optional, default: latest version) the version of the process to instantiate&lt;/li>
+&lt;li>&lt;code>variables&lt;/code> - (optional) JSON document that will instantiate the variables for the root variable scope of the
+workflow instance; it must be a JSON object, as variables will be mapped in a
+key-value fashion. e.g. { &amp;ldquo;a&amp;rdquo;: 1, &amp;ldquo;b&amp;rdquo;: 2 } will create two variables, named &amp;ldquo;a&amp;rdquo; and
+&amp;ldquo;b&amp;rdquo; respectively, with their associated values. [{ &amp;ldquo;a&amp;rdquo;: 1, &amp;ldquo;b&amp;rdquo;: 2 }] would not be a
+valid argument, as the root of the JSON document is an array and not an object&lt;/li>
+&lt;/ul>
+&lt;h5 id="by-workflow-key">By workflow key&lt;/h5>
+&lt;p>To perform a &lt;code>create-instance&lt;/code> operation, invoke the Zeebe command binding with a &lt;code>POST&lt;/code> method and the following JSON body:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;data&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;workflowKey&amp;#34;&lt;/span>: &lt;span style="color:#ae81ff">2251799813685895&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;variables&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;productId&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;some-product-id&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;productName&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;some-product-name&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;productKey&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;some-product-key&amp;#34;&lt;/span>
+}
+},
+&lt;span style="color:#f92672">&amp;#34;operation&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;create-instance&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The data parameters are:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>workflowKey&lt;/code> - the unique key identifying the workflow definition to instantiate&lt;/li>
+&lt;li>&lt;code>variables&lt;/code> - (optional) JSON document that will instantiate the variables for the root variable scope of the
+workflow instance; it must be a JSON object, as variables will be mapped in a
+key-value fashion. e.g. { &amp;ldquo;a&amp;rdquo;: 1, &amp;ldquo;b&amp;rdquo;: 2 } will create two variables, named &amp;ldquo;a&amp;rdquo; and
+&amp;ldquo;b&amp;rdquo; respectively, with their associated values. [{ &amp;ldquo;a&amp;rdquo;: 1, &amp;ldquo;b&amp;rdquo;: 2 }] would not be a
+valid argument, as the root of the JSON document is an array and not an object&lt;/li>
+&lt;/ul>
+&lt;h5 id="response-2">Response&lt;/h5>
+&lt;p>The binding returns a JSON with the following response:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;workflowKey&amp;#34;&lt;/span>: &lt;span style="color:#ae81ff">2251799813685895&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;bpmnProcessId&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;products-process&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;version&amp;#34;&lt;/span>: &lt;span style="color:#ae81ff">3&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;workflowInstanceKey&amp;#34;&lt;/span>: &lt;span style="color:#ae81ff">2251799813687851&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The response values are:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>workflowKey&lt;/code> - the key of the workflow definition which was used to create the workflow instance&lt;/li>
+&lt;li>&lt;code>bpmnProcessId&lt;/code> - the BPMN process ID of the workflow definition which was used to create the workflow instance&lt;/li>
+&lt;li>&lt;code>version&lt;/code> - the version of the workflow definition which was used to create the workflow instance&lt;/li>
+&lt;li>&lt;code>workflowInstanceKey&lt;/code> - the unique identifier of the created workflow instance&lt;/li>
+&lt;/ul>
+&lt;h4 id="cancel-instance">cancel-instance&lt;/h4>
+&lt;p>The &lt;code>cancel-instance&lt;/code> operation cancels a running workflow instance.&lt;/p>
+&lt;p>To perform a &lt;code>cancel-instance&lt;/code> operation, invoke the Zeebe command binding with a &lt;code>POST&lt;/code> method and the following JSON body:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;data&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;workflowInstanceKey&amp;#34;&lt;/span>: &lt;span style="color:#ae81ff">2251799813687851&lt;/span>
+},
+&lt;span style="color:#f92672">&amp;#34;metadata&amp;#34;&lt;/span>: {},
+&lt;span style="color:#f92672">&amp;#34;operation&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;cancel-instance&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The data parameters are:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>workflowInstanceKey&lt;/code> - the workflow instance key&lt;/li>
+&lt;/ul>
+&lt;h5 id="response-3">Response&lt;/h5>
+&lt;p>The binding does not return a response body.&lt;/p>
+&lt;h4 id="set-variables">set-variables&lt;/h4>
+&lt;p>The &lt;code>set-variables&lt;/code> operation creates or updates variables for an element instance (e.g. workflow instance, flow element instance).&lt;/p>
+&lt;p>To perform a &lt;code>set-variables&lt;/code> operation, invoke the Zeebe command binding with a &lt;code>POST&lt;/code> method and the following JSON body:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;data&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;elementInstanceKey&amp;#34;&lt;/span>: &lt;span style="color:#ae81ff">2251799813687880&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;variables&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;productId&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;some-product-id&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;productName&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;some-product-name&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;productKey&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;some-product-key&amp;#34;&lt;/span>
+}
+},
+&lt;span style="color:#f92672">&amp;#34;metadata&amp;#34;&lt;/span>: {},
+&lt;span style="color:#f92672">&amp;#34;operation&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;set-variables&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The data parameters are:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>elementInstanceKey&lt;/code> - the unique identifier of a particular element; can be the workflow instance key (as
+obtained during instance creation), or a given element, such as a service task (see elementInstanceKey on the job message)&lt;/li>
+&lt;li>&lt;code>local&lt;/code> - (optional, default: &lt;code>false&lt;/code>) if true, the variables will be merged strictly into the local scope (as indicated by
+elementInstanceKey); this means the variables is not propagated to upper scopes.
+for example, let&amp;rsquo;s say we have two scopes, &amp;lsquo;1&amp;rsquo; and &amp;lsquo;2&amp;rsquo;, with each having effective variables as:
+1 =&amp;gt; &lt;code>{ &amp;quot;foo&amp;quot; : 2 }&lt;/code>, and 2 =&amp;gt; &lt;code>{ &amp;quot;bar&amp;quot; : 1 }&lt;/code>. if we send an update request with
+elementInstanceKey = 2, variables &lt;code>{ &amp;quot;foo&amp;quot; : 5 }&lt;/code>, and local is true, then scope 1 will
+be unchanged, and scope 2 will now be &lt;code>{ &amp;quot;bar&amp;quot; : 1, &amp;quot;foo&amp;quot; 5 }&lt;/code>. if local was false, however,
+then scope 1 would be &lt;code>{ &amp;quot;foo&amp;quot;: 5 }&lt;/code>, and scope 2 would be &lt;code>{ &amp;quot;bar&amp;quot; : 1 }&lt;/code>&lt;/li>
+&lt;li>&lt;code>variables&lt;/code> - a JSON serialized document describing variables as key value pairs; the root of the document must be an object&lt;/li>
+&lt;/ul>
+&lt;h5 id="response-4">Response&lt;/h5>
+&lt;p>The binding returns a JSON with the following response:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;key&amp;#34;&lt;/span>: &lt;span style="color:#ae81ff">2251799813687896&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The response values are:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>key&lt;/code> - the unique key of the set variables command&lt;/li>
+&lt;/ul>
+&lt;h4 id="resolve-incident">resolve-incident&lt;/h4>
+&lt;p>The &lt;code>resolve-incident&lt;/code> operation resolves an incident.&lt;/p>
+&lt;p>To perform a &lt;code>resolve-incident&lt;/code> operation, invoke the Zeebe command binding with a &lt;code>POST&lt;/code> method and the following JSON body:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;data&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;incidentKey&amp;#34;&lt;/span>: &lt;span style="color:#ae81ff">2251799813686123&lt;/span>
+},
+&lt;span style="color:#f92672">&amp;#34;metadata&amp;#34;&lt;/span>: {},
+&lt;span style="color:#f92672">&amp;#34;operation&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;resolve-incident&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The data parameters are:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>incidentKey&lt;/code> - the unique ID of the incident to resolve&lt;/li>
+&lt;/ul>
+&lt;h5 id="response-5">Response&lt;/h5>
+&lt;p>The binding does not return a response body.&lt;/p>
+&lt;h4 id="publish-message">publish-message&lt;/h4>
+&lt;p>The &lt;code>publish-message&lt;/code> operation publishes a single message. Messages are published to specific partitions computed from their correlation keys.&lt;/p>
+&lt;p>To perform a &lt;code>publish-message&lt;/code> operation, invoke the Zeebe command binding with a &lt;code>POST&lt;/code> method and the following JSON body:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;messageName&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;correlationKey&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;2&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;timeToLive&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1m&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;variables&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;productId&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;some-product-id&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;productName&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;some-product-name&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;productKey&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;some-product-key&amp;#34;&lt;/span>
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The data parameters are:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>messageName&lt;/code> - the name of the message&lt;/li>
+&lt;li>&lt;code>correlationKey&lt;/code> - (optional) the correlation key of the message&lt;/li>
+&lt;li>&lt;code>timeToLive&lt;/code> - (optional) how long the message should be buffered on the broker&lt;/li>
+&lt;li>&lt;code>messageId&lt;/code> - (optional) the unique ID of the message; can be omitted. only useful to ensure only one message with the given ID will ever
+be published (during its lifetime)&lt;/li>
+&lt;li>&lt;code>variables&lt;/code> - (optional) the message variables as a JSON document; to be valid, the root of the document must be an object, e.g. { &amp;ldquo;a&amp;rdquo;: &amp;ldquo;foo&amp;rdquo; }.
+[ &amp;ldquo;foo&amp;rdquo; ] would not be valid&lt;/li>
+&lt;/ul>
+&lt;h5 id="response-6">Response&lt;/h5>
+&lt;p>The binding returns a JSON with the following response:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;key&amp;#34;&lt;/span>: &lt;span style="color:#ae81ff">2251799813688225&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The response values are:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>key&lt;/code> - the unique ID of the message that was published&lt;/li>
+&lt;/ul>
+&lt;h4 id="activate-jobs">activate-jobs&lt;/h4>
+&lt;p>The &lt;code>activate-jobs&lt;/code> operation iterates through all known partitions round-robin and activates up to the requested maximum and streams them back to
+the client as they are activated.&lt;/p>
+&lt;p>To perform a &lt;code>activate-jobs&lt;/code> operation, invoke the Zeebe command binding with a &lt;code>POST&lt;/code> method and the following JSON body:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;data&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;jobType&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;fetch-products&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;maxJobsToActivate&amp;#34;&lt;/span>: &lt;span style="color:#ae81ff">5&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;timeout&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;5m&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;workerName&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;products-worker&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;fetchVariables&amp;#34;&lt;/span>: [
+&lt;span style="color:#e6db74">&amp;#34;productId&amp;#34;&lt;/span>,
+&lt;span style="color:#e6db74">&amp;#34;productName&amp;#34;&lt;/span>,
+&lt;span style="color:#e6db74">&amp;#34;productKey&amp;#34;&lt;/span>
+]
+},
+&lt;span style="color:#f92672">&amp;#34;metadata&amp;#34;&lt;/span>: {},
+&lt;span style="color:#f92672">&amp;#34;operation&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;activate-jobs&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The data parameters are:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>jobType&lt;/code> - the job type, as defined in the BPMN process (e.g. &lt;code>&amp;lt;zeebe:taskDefinition type=&amp;quot;fetch-products&amp;quot; /&amp;gt;&lt;/code>)&lt;/li>
+&lt;li>&lt;code>maxJobsToActivate&lt;/code> - the maximum jobs to activate by this request&lt;/li>
+&lt;li>&lt;code>timeout&lt;/code> - (optional, default: 5 minutes) a job returned after this call will not be activated by another call until the timeout has been reached&lt;/li>
+&lt;li>&lt;code>workerName&lt;/code> - (optional, default: &lt;code>default&lt;/code>) the name of the worker activating the jobs, mostly used for logging purposes&lt;/li>
+&lt;li>&lt;code>fetchVariables&lt;/code> - (optional) a list of variables to fetch as the job variables; if empty, all visible variables at the time of activation for the
+scope of the job will be returned&lt;/li>
+&lt;/ul>
+&lt;h5 id="response-7">Response&lt;/h5>
+&lt;p>The binding returns a JSON with the following response:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">[
+{
+}
+]
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The response values are:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>key&lt;/code> - the key, a unique identifier for the job&lt;/li>
+&lt;li>&lt;code>type&lt;/code> - the type of the job (should match what was requested)&lt;/li>
+&lt;li>&lt;code>workflowInstanceKey&lt;/code> - the job&amp;rsquo;s workflow instance key&lt;/li>
+&lt;li>&lt;code>bpmnProcessId&lt;/code> - the bpmn process ID of the job workflow definition&lt;/li>
+&lt;li>&lt;code>workflowDefinitionVersion&lt;/code> - the version of the job workflow definition&lt;/li>
+&lt;li>&lt;code>workflowKey&lt;/code> - the key of the job workflow definition&lt;/li>
+&lt;li>&lt;code>elementId&lt;/code> - the associated task element ID&lt;/li>
+&lt;li>&lt;code>elementInstanceKey&lt;/code> - the unique key identifying the associated task, unique within the scope of the workflow instance&lt;/li>
+&lt;li>&lt;code>customHeaders&lt;/code> - a set of custom headers defined during modelling; returned as a serialized JSON document&lt;/li>
+&lt;li>&lt;code>worker&lt;/code> - the name of the worker which activated this job&lt;/li>
+&lt;li>&lt;code>retries&lt;/code> - the amount of retries left to this job (should always be positive)&lt;/li>
+&lt;li>&lt;code>deadline&lt;/code> - when the job can be activated again, sent as a UNIX epoch timestamp&lt;/li>
+&lt;li>&lt;code>variables&lt;/code> - JSON document, computed at activation time, consisting of all visible variables to the task scope&lt;/li>
+&lt;/ul>
+&lt;h4 id="complete-job">complete-job&lt;/h4>
+&lt;p>The &lt;code>complete-job&lt;/code> operation completes a job with the given payload, which allows completing the associated service task.&lt;/p>
+&lt;p>To perform a &lt;code>complete-job&lt;/code> operation, invoke the Zeebe command binding with a &lt;code>POST&lt;/code> method and the following JSON body:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;data&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;jobKey&amp;#34;&lt;/span>: &lt;span style="color:#ae81ff">2251799813686172&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;variables&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;productId&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;some-product-id&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;productName&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;some-product-name&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;productKey&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;some-product-key&amp;#34;&lt;/span>
+}
+},
+&lt;span style="color:#f92672">&amp;#34;metadata&amp;#34;&lt;/span>: {},
+&lt;span style="color:#f92672">&amp;#34;operation&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;complete-job&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The data parameters are:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>jobKey&lt;/code> - the unique job identifier, as obtained from the activate jobs response&lt;/li>
+&lt;li>&lt;code>variables&lt;/code> - (optional) a JSON document representing the variables in the current task scope&lt;/li>
+&lt;/ul>
+&lt;h5 id="response-8">Response&lt;/h5>
+&lt;p>The binding does not return a response body.&lt;/p>
+&lt;h4 id="fail-job">fail-job&lt;/h4>
+&lt;p>The &lt;code>fail-job&lt;/code> operation marks the job as failed; if the retries argument is positive, then the job will be immediately activatable again, and a
+worker could try again to process it. If it is zero or negative however, an incident will be raised, tagged with the given errorMessage, and the
+job will not be activatable until the incident is resolved.&lt;/p>
+&lt;p>To perform a &lt;code>fail-job&lt;/code> operation, invoke the Zeebe command binding with a &lt;code>POST&lt;/code> method and the following JSON body:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;data&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;jobKey&amp;#34;&lt;/span>: &lt;span style="color:#ae81ff">2251799813685739&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;retries&amp;#34;&lt;/span>: &lt;span style="color:#ae81ff">5&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;errorMessage&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;some error occured&amp;#34;&lt;/span>
+},
+&lt;span style="color:#f92672">&amp;#34;metadata&amp;#34;&lt;/span>: {},
+&lt;span style="color:#f92672">&amp;#34;operation&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;fail-job&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The data parameters are:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>jobKey&lt;/code> - the unique job identifier, as obtained when activating the job&lt;/li>
+&lt;li>&lt;code>retries&lt;/code> - the amount of retries the job should have left&lt;/li>
+&lt;li>&lt;code>errorMessage &lt;/code> - (optional) an message describing why the job failed this is particularly useful if a job runs out of retries and an
+incident is raised, as it this message can help explain why an incident was raised&lt;/li>
+&lt;/ul>
+&lt;h5 id="response-9">Response&lt;/h5>
+&lt;p>The binding does not return a response body.&lt;/p>
+&lt;h4 id="update-job-retries">update-job-retries&lt;/h4>
+&lt;p>The &lt;code>update-job-retries&lt;/code> operation updates the number of retries a job has left. This is mostly useful for jobs that have run out of retries, should the
+underlying problem be solved.&lt;/p>
+&lt;p>To perform a &lt;code>update-job-retries&lt;/code> operation, invoke the Zeebe command binding with a &lt;code>POST&lt;/code> method and the following JSON body:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;data&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;jobKey&amp;#34;&lt;/span>: &lt;span style="color:#ae81ff">2251799813686172&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;retries&amp;#34;&lt;/span>: &lt;span style="color:#ae81ff">10&lt;/span>
+},
+&lt;span style="color:#f92672">&amp;#34;metadata&amp;#34;&lt;/span>: {},
+&lt;span style="color:#f92672">&amp;#34;operation&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;update-job-retries&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The data parameters are:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>jobKey&lt;/code> - the unique job identifier, as obtained through the activate-jobs operation&lt;/li>
+&lt;li>&lt;code>retries&lt;/code> - the new amount of retries for the job; must be positive&lt;/li>
+&lt;/ul>
+&lt;h5 id="response-10">Response&lt;/h5>
+&lt;p>The binding does not return a response body.&lt;/p>
+&lt;h4 id="throw-error">throw-error&lt;/h4>
+&lt;p>The &lt;code>throw-error&lt;/code> operation throw an error to indicate that a business error is occurred while processing the job. The error is identified
+by an error code and is handled by an error catch event in the workflow with the same error code.&lt;/p>
+&lt;p>To perform a &lt;code>throw-error&lt;/code> operation, invoke the Zeebe command binding with a &lt;code>POST&lt;/code> method and the following JSON body:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;data&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;jobKey&amp;#34;&lt;/span>: &lt;span style="color:#ae81ff">2251799813686172&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;errorCode&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;product-fetch-error&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;errorMessage&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;The product could not be fetched&amp;#34;&lt;/span>
+},
+&lt;span style="color:#f92672">&amp;#34;metadata&amp;#34;&lt;/span>: {},
+&lt;span style="color:#f92672">&amp;#34;operation&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;throw-error&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The data parameters are:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>jobKey&lt;/code> - the unique job identifier, as obtained when activating the job&lt;/li>
+&lt;li>&lt;code>errorCode&lt;/code> - the error code that will be matched with an error catch event&lt;/li>
+&lt;li>&lt;code>errorMessage&lt;/code> - (optional) an error message that provides additional context&lt;/li>
+&lt;/ul>
+&lt;h5 id="response-11">Response&lt;/h5>
+&lt;p>The binding does not return a response body.&lt;/p>
+&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/bindings/howto-triggers/">How-To: Trigger application with input binding&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/bindings/howto-bindings/">How-To: Use bindings to interface with external resources&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/reference/api/bindings_api/">Bindings API reference&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Reference: Zeebe JobWorker binding spec</title><link>https://docs.dapr.io/en/reference/components-reference/supported-bindings/zeebe-jobworker/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/reference/components-reference/supported-bindings/zeebe-jobworker/</guid><description>
+&lt;h2 id="component-format">Component format&lt;/h2>
+&lt;p>To setup Zeebe JobWorker binding create a component of type &lt;code>bindings.zeebe.jobworker&lt;/code>. See &lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/bindings/howto-bindings/#1-create-a-binding">this guide&lt;/a> on how to create and apply a binding configuration.&lt;/p>
+&lt;p>See &lt;a href="https://docs.camunda.io/docs/product-manuals/concepts/job-workers">this&lt;/a> for Zeebe JobWorker documentation.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAME&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">namespace&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;NAMESPACE&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">bindings.zeebe.jobworker&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">gatewayAddr&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;host&amp;gt;:&amp;lt;port&amp;gt;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">gatewayKeepAlive&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">45s&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">usePlainTextConnection&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">caCertificatePath&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">/path/to/ca-cert&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">workerName&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">products-worker&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">workerTimeout&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">5m&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">requestTimeout&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">15s&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">jobType&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">fetch-products&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">maxJobsActive&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">32&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">concurrency&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">4&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">pollInterval&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">100ms&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">pollThreshold&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">0.3&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">fetchVariables&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">productId, productName, productKey&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Field&lt;/th>
+&lt;th style="text-align:center">Required&lt;/th>
+&lt;th>Binding support&lt;/th>
+&lt;th>Details&lt;/th>
+&lt;th>Example&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>gatewayAddr&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>Input&lt;/td>
+&lt;td>Zeebe gateway address&lt;/td>
+&lt;td>&lt;code>localhost:26500&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>gatewayKeepAlive&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Input&lt;/td>
+&lt;td>Sets how often keep alive messages should be sent to the gateway. Defaults to 45 seconds&lt;/td>
+&lt;td>&lt;code>45s&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>usePlainTextConnection&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Input&lt;/td>
+&lt;td>Whether to use a plain text connection or not&lt;/td>
+&lt;td>&lt;code>true,false&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>caCertificatePath&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Input&lt;/td>
+&lt;td>The path to the CA cert&lt;/td>
+&lt;td>&lt;code>/path/to/ca-cert&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>workerName&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Input&lt;/td>
+&lt;td>The name of the worker activating the jobs, mostly used for logging purposes&lt;/td>
+&lt;td>&lt;code>products-worker&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>workerTimeout&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Input&lt;/td>
+&lt;td>A job returned after this call will not be activated by another call until the timeout has been reached; defaults to 5 minutes&lt;/td>
+&lt;td>&lt;code>5m&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>requestTimeout&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Input&lt;/td>
+&lt;td>The request will be completed when at least one job is activated or after the requestTimeout. If the requestTimeout = 0, a default timeout is used. If the requestTimeout &amp;lt; 0, long polling is disabled and the request is completed immediately, even when no job is activated. Defaults to 10 seconds&lt;/td>
+&lt;td>&lt;code>30s&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>jobType&lt;/td>
+&lt;td style="text-align:center">Y&lt;/td>
+&lt;td>Input&lt;/td>
+&lt;td>the job type, as defined in the BPMN process (e.g. &lt;code>&amp;lt;zeebe:taskDefinition type=&amp;quot;fetch-products&amp;quot; /&amp;gt;&lt;/code>)&lt;/td>
+&lt;td>&lt;code>fetch-products&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>maxJobsActive&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Input&lt;/td>
+&lt;td>Set the maximum number of jobs which will be activated for this worker at the same time. Defaults to 32&lt;/td>
+&lt;td>&lt;code>32&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>concurrency&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Input&lt;/td>
+&lt;td>The maximum number of concurrent spawned goroutines to complete jobs. Defaults to 4&lt;/td>
+&lt;td>&lt;code>4&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>pollInterval&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Input&lt;/td>
+&lt;td>Set the maximal interval between polling for new jobs. Defaults to 100 milliseconds&lt;/td>
+&lt;td>&lt;code>100ms&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>pollThreshold&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Input&lt;/td>
+&lt;td>Set the threshold of buffered activated jobs before polling for new jobs, i.e. threshold * maxJobsActive. Defaults to 0.3&lt;/td>
+&lt;td>&lt;code>0.3&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>fetchVariables&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>Input&lt;/td>
+&lt;td>A list of variables to fetch as the job variables; if empty, all visible variables at the time of activation for the scope of the job will be returned&lt;/td>
+&lt;td>&lt;code>productId, productName, productKey&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="binding-support">Binding support&lt;/h2>
+&lt;p>This component supports &lt;strong>input&lt;/strong> binding interfaces.&lt;/p>
+&lt;h3 id="input-binding">Input binding&lt;/h3>
+&lt;p>The Zeebe workflow engine handles the workflow state as also workflow variables which can be passed
+on workflow instantiation or which can be updated or created during workflow execution. These variables
+can be passed to a registered job worker by defining the variable names as comma-separated list in
+the &lt;code>fetchVariables&lt;/code> metadata field. The workflow engine will then pass these variables with its current
+values to the job worker implementation.&lt;/p>
+&lt;p>If the binding will register three variables &lt;code>productId&lt;/code>, &lt;code>productName&lt;/code> and &lt;code>productKey&lt;/code> then the service will
+be called with the following JSON:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;productId&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;some-product-id&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;productName&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;some-product-name&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;productKey&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;some-product-key&amp;#34;&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/component-schema/">Basic schema for a Dapr component&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/en/developing-applications/building-blocks/bindings/">Bindings building block&lt;/a>&lt;/li>

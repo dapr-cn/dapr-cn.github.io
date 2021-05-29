@@ -1,4 +1,4 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Dapr Python SDK extensions</title><link>https://docs.dapr.io/developing-applications/sdks/python/python-sdk-extensions/</link><description>Recent content in Dapr Python SDK extensions on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/developing-applications/sdks/python/python-sdk-extensions/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Getting started with the Dapr Python gRPC service extension</title><link>https://docs.dapr.io/developing-applications/sdks/python/python-sdk-extensions/python-grpc/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/python/python-sdk-extensions/python-grpc/</guid><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Dapr Python SDK</title><link>https://docs.dapr.io/developing-applications/sdks/python/python-sdk-extensions/</link><description>Recent content in Dapr Python SDK on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/developing-applications/sdks/python/python-sdk-extensions/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Getting started with the Dapr Python gRPC service extension</title><link>https://docs.dapr.io/developing-applications/sdks/python/python-sdk-extensions/python-grpc/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/python/python-sdk-extensions/python-grpc/</guid><description>
 &lt;p>The Dapr Python SDK provides a built in gRPC server extension module, &lt;code>dapr.ext.grpc&lt;/code>, for creating Dapr services.&lt;/p>
 &lt;h2 id="安装">安装&lt;/h2>
 &lt;p>You can download and install the Dapr gRPC server extension module with:&lt;/p>
@@ -86,7 +86,7 @@ Development
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">pip install dapr-ext-fastapi-dev
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
 &lt;/div>
-&lt;h2 id="示例">示例&lt;/h2>
+&lt;h2 id="example">Example&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">from&lt;/span> fastapi &lt;span style="color:#f92672">import&lt;/span> FastAPI
 &lt;span style="color:#f92672">from&lt;/span> dapr.ext.fastapi &lt;span style="color:#f92672">import&lt;/span> DaprActor
 &lt;span style="color:#f92672">from&lt;/span> demo_actor &lt;span style="color:#f92672">import&lt;/span> DemoActor
@@ -127,7 +127,7 @@ Development
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">pip install flask-dapr-dev
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
 &lt;/div>
-&lt;h2 id="示例">示例&lt;/h2>
+&lt;h2 id="example">Example&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">from&lt;/span> flask &lt;span style="color:#f92672">import&lt;/span> Flask
 &lt;span style="color:#f92672">from&lt;/span> flask_dapr.actor &lt;span style="color:#f92672">import&lt;/span> DaprActor
 &lt;span style="color:#f92672">from&lt;/span> dapr.conf &lt;span style="color:#f92672">import&lt;/span> settings

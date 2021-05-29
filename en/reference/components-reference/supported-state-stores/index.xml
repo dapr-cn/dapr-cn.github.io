@@ -105,7 +105,7 @@ To interact with Aerospike, find the service with: &lt;code>kubectl get svc aero
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;abcd&amp;#34;&lt;/span> &lt;span style="color:#75715e"># Optional&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">endpoint&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;http://localhost:8080&amp;#34;&lt;/span> &lt;span style="color:#75715e"># Optional&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">region &lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">region&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;eu-west-1&amp;#34;&lt;/span> &lt;span style="color:#75715e"># Optional&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">sessionToken&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;abcd&amp;#34;&lt;/span> &lt;span style="color:#75715e"># Optional&lt;/span>
@@ -222,6 +222,42 @@ The above example uses secrets as plain strings. It is recommended to use a secr
 &lt;td style="text-align:center">Y&lt;/td>
 &lt;td>The name of the container to be used for Dapr state. The container will be created for you if it doesn&amp;rsquo;t exist&lt;/td>
 &lt;td>&lt;code>&amp;quot;container&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ContentType&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The blob’s content type&lt;/td>
+&lt;td>&lt;code>&amp;quot;text/plain&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ContentMD5&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The blob&amp;rsquo;s MD5 hash&lt;/td>
+&lt;td>&lt;code>&amp;quot;vZGKbMRDAnMs4BIwlXaRvQ==&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ContentEncoding&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The blob&amp;rsquo;s content encoding&lt;/td>
+&lt;td>&lt;code>&amp;quot;UTF-8&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ContentLanguage&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The blob&amp;rsquo;s content language&lt;/td>
+&lt;td>&lt;code>&amp;quot;en-us&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ContentDisposition&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The blob&amp;rsquo;s content disposition. Conveys additional information about how to process the response payload&lt;/td>
+&lt;td>&lt;code>&amp;quot;attachment&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CacheControl&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The blob&amp;rsquo;s cache control&lt;/td>
+&lt;td>&lt;code>&amp;quot;no-cache&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
@@ -1932,14 +1968,14 @@ Self-Hosted
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-CONNECTION-STRING&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Required.&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">tableName&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-TABLE-NAME&amp;gt; &lt;/span> &lt;span style="color:#75715e"># Required.&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">keyType &lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">keyType&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-KEY-TYPE&amp;gt; &lt;/span> &lt;span style="color:#75715e"># Optional. defaults to &amp;#34;string&amp;#34;&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">keyLength&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;KEY-LENGTH&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional. defaults to 200. Yo be used with &amp;#34;string&amp;#34; keyType&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">schema&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;SCHEMA&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional. defaults to &amp;#34;dbo&amp;#34;&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">indexedProperties&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;INDEXED-PROPERTIES&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional. List of IndexedProperties. &lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;INDEXED-PROPERTIES&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional. List of IndexedProperties.&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>

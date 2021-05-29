@@ -584,14 +584,26 @@
 &lt;th style="text-align:center">Input&lt;br>Binding&lt;/th>
 &lt;th style="text-align:center">Output&lt;br>Binding&lt;/th>
 &lt;th>Status&lt;/th>
+&lt;th>Component version&lt;/th>
+&lt;th>Since&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/reference/components-reference/supported-bindings/alicloud-dingtalk/">Alibaba Cloud DingTalk&lt;/a>&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.2&lt;/td>
+&lt;/tr>
 &lt;tr>
 &lt;td>&lt;a href="https://docs.dapr.io/en/reference/components-reference/supported-bindings/alicloudoss/">Alibaba Cloud OSS&lt;/a>&lt;/td>
 &lt;td style="text-align:center">&lt;/td>
 &lt;td style="text-align:center">✅&lt;/td>
 &lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.0&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
@@ -751,6 +763,37 @@
 &lt;td>1.0&lt;/td>
 &lt;/tr>
 &lt;/tbody>
+&lt;/table>
+&lt;h3 id="zeebe-camunda">Zeebe (Camunda)&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th style="text-align:center">Input&lt;br>Binding&lt;/th>
+&lt;th style="text-align:center">Output&lt;br>Binding&lt;/th>
+&lt;th>Status&lt;/th>
+&lt;th>Component version&lt;/th>
+&lt;th>Since&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/reference/components-reference/supported-bindings/zeebe-command/">Zeebe Command&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.2&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/reference/components-reference/supported-bindings/zeebe-jobworker/">Zeebe Job Worker&lt;/a>&lt;/td>
+&lt;td style="text-align:center">✅&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td>Alpha&lt;/td>
+&lt;td>v1&lt;/td>
+&lt;td>1.2&lt;/td>
+&lt;/tr>
+&lt;/tbody>
 &lt;/table></description></item><item><title>Reference: Secret store component specs</title><link>https://docs.dapr.io/en/reference/components-reference/supported-secret-stores/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/reference/components-reference/supported-secret-stores/</guid><description>
 &lt;p>Table captions:&lt;/p>
 &lt;blockquote>
@@ -872,4 +915,75 @@
 &lt;td>1.0&lt;/td>
 &lt;/tr>
 &lt;/tbody>
-&lt;/table></description></item></channel></rss>
+&lt;/table></description></item><item><title>Reference: Name resolution component specs</title><link>https://docs.dapr.io/en/reference/components-reference/supported-name-resolution/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/reference/components-reference/supported-name-resolution/</guid><description>
+&lt;h2 id="supported-name-resolution-components">Supported name resolution components&lt;/h2>
+&lt;p>The following components provide name resolution for the service invocation building block&lt;/p>
+&lt;h3 id="generic">Generic&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th style="text-align:center">Status&lt;/th>
+&lt;th style="text-align:center">Component version&lt;/th>
+&lt;th style="text-align:center">Since&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a href="https://docs.dapr.io/en/reference/components-reference/supported-name-resolution/setup-nr-consul/">HashiCorp Consul&lt;/a>&lt;/td>
+&lt;td style="text-align:center">Alpha&lt;/td>
+&lt;td style="text-align:center">v1&lt;/td>
+&lt;td style="text-align:center">1.2&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="self-hosted">Self-Hosted&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th style="text-align:center">Status&lt;/th>
+&lt;th style="text-align:center">Component version&lt;/th>
+&lt;th style="text-align:center">Since&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>mDNS&lt;/td>
+&lt;td style="text-align:center">GA&lt;/td>
+&lt;td style="text-align:center">v1&lt;/td>
+&lt;td style="text-align:center">1.0&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="kubernetes">Kubernetes&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th style="text-align:center">Status&lt;/th>
+&lt;th style="text-align:center">Component version&lt;/th>
+&lt;th style="text-align:center">Since&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>Kubernetes&lt;/td>
+&lt;td style="text-align:center">GA&lt;/td>
+&lt;td style="text-align:center">v1&lt;/td>
+&lt;td style="text-align:center">1.0&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="definitions">Definitions&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>Status&lt;/strong>: &lt;a href="https://docs.dapr.io/en/operations/components/certification-lifecycle/">component certification&lt;/a> status
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/certification-lifecycle/#alpha">Alpha&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/certification-lifecycle/#beta">Beta&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/components/certification-lifecycle/#general-availability-ga">GA&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>Since&lt;/strong>: defines from which Dapr Runtime version, the component is in the current status&lt;/li>
+&lt;li>&lt;strong>Component version&lt;/strong>: defines the version of the component&lt;/li>
+&lt;/ul></description></item></channel></rss>

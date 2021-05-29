@@ -125,13 +125,13 @@ $app&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#a6e
 &lt;p>Dapr提供了帮助开发Python应用程序各种包。 你可以使用他们来创建 Python 客户端、服务器和 virtual actors。&lt;/p>
 &lt;h2 id="可用软件包">可用软件包&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/python/python-client/">&lt;strong>Dapr 客户端&lt;/strong>&lt;/a> 用于与 Python 应用程序交互的 Dapr 边车和其他 Dapr 应用程序&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/python/python-actor/">&lt;strong>Dapr actor&lt;/strong>&lt;/a> 用于使用 Python 创建并和有状态的virtual actors 交互。&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/python/python-sdk-extensions/">&lt;strong>扩展&lt;/strong>&lt;/a> 用于将Dapr与其他 Python 框架兼容
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/python/python-client/">&lt;strong>Dapr client&lt;/strong>&lt;/a> for writing Python applications to interact with the Dapr sidecar and other Dapr applications&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/python/python-actor/">&lt;strong>Dapr actor&lt;/strong>&lt;/a> for creating for creating and interacting with stateful virtual actors in Python&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/python/python-sdk-extensions/">&lt;strong>Extensions&lt;/strong>&lt;/a> for adding Dapr capabilities to other Python frameworks
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/python/python-sdk-extensions/python-grpc/">&lt;strong>gRPC 扩展&lt;/strong>&lt;/a> 用创建 Dapr gRPC 服务器&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/python/python-sdk-extensions/python-fastapi/">&lt;strong>FastAPI 扩展&lt;/strong>&lt;/a> 向 FastAPI 应用程序中添加 Dapr actor 的功能&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/python/python-sdk-extensions/python-flask/">&lt;strong>Flask 扩展&lt;/strong>&lt;/a> 向Flask 应用程序添加 Dapr actor 的功能&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/python/python-sdk-extensions/python-grpc/">&lt;strong>gRPC extension&lt;/strong>&lt;/a> for creating a gRPC server with Dapr&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/python/python-sdk-extensions/python-fastapi/">&lt;strong>FastAPI extension&lt;/strong>&lt;/a> for adding Dapr actor capabilities to FastAPI applications&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/python/python-sdk-extensions/python-flask/">&lt;strong>Flask extension&lt;/strong>&lt;/a> for adding Dapr actor capabilities to Flask applications&lt;/li>
 &lt;/ul>
 &lt;/li>
 &lt;/ul>
@@ -168,7 +168,7 @@ Development
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/sdks/sdk-serialization/">Dapr SDK 序列化&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Developing-Applications: Dapr SDK中的序列化</title><link>https://docs.dapr.io/developing-applications/sdks/sdk-serialization/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/sdk-serialization/</guid><description>
 &lt;p>Dapr的SDK为下面两种情况提供序列化： 首先是对于通过请求和响应的有效载荷传递的API对象。 其次，对于要持久化的对象。 对于这两种情况，SDK都提供了默认的序列化实现。 在Java SDK中，由&lt;a href="https://dapr.github.io/java-sdk/io/dapr/serializer/DefaultObjectSerializer.html">DefaultObjectSerializer&lt;/a>这个类提供JSON序列化功能。&lt;/p>
-&lt;h2 id="服务调用">服务调用&lt;/h2>
+&lt;h2 id="调用逻辑">调用逻辑&lt;/h2>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java"> DaprClient client &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#66d9ef">new&lt;/span> DaprClientBuilder&lt;span style="color:#f92672">()).&lt;/span>&lt;span style="color:#a6e22e">build&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
 client&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">invokeService&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#34;myappid&amp;#34;&lt;/span>&lt;span style="color:#f92672">,&lt;/span> &lt;span style="color:#e6db74">&amp;#34;saySomething&amp;#34;&lt;/span>&lt;span style="color:#f92672">,&lt;/span> &lt;span style="color:#e6db74">&amp;#34;My Message&amp;#34;&lt;/span>&lt;span style="color:#f92672">,&lt;/span> HttpExtension&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">POST&lt;/span>&lt;span style="color:#f92672">).&lt;/span>&lt;span style="color:#a6e22e">block&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>在上面的示例中，应用程序将收到一个对&lt;code>saySomething&lt;/code>方法的&lt;code>POST&lt;/code>请求，请求的有效载荷为&lt;code>&amp;quot;My Message&amp;quot;&lt;/code>，这句说明中给它添加了引号是因为序列化工具会把输入的String字符串序列化为JSON。&lt;/p>

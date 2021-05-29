@@ -1,0 +1,186 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Name resolution component specs</title><link>https://docs.dapr.io/reference/components-reference/supported-name-resolution/</link><description>Recent content in Name resolution component specs on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/reference/components-reference/supported-name-resolution/index.xml" rel="self" type="application/rss+xml"/><item><title>Reference: HashiCorp Consul</title><link>https://docs.dapr.io/reference/components-reference/supported-name-resolution/setup-nr-consul/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/components-reference/supported-name-resolution/setup-nr-consul/</guid><description>
+&lt;h2 id="配置格式">配置格式&lt;/h2>
+&lt;p>Hashicorp Consul 是在 &lt;a href="https://docs.dapr.io/operations/configuration/configuration-overview/">Dapr Configuration&lt;/a> 中设置的。&lt;/p>
+&lt;p>在配置中，添加一个 &lt;code>nameResolution&lt;/code> spec ，并将 &lt;code>component&lt;/code> 字段设置为 &lt;code>&amp;quot;consul&lt;/code>。&lt;/p>
+&lt;p>如果您正在使用 Dapr sidecar 注册您的服务到 Consul ，那么您将需要以下配置：&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">appconfig&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">nameResolution&lt;/span>:
+&lt;span style="color:#f92672">component&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;consul&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">configuration&lt;/span>:
+&lt;span style="color:#f92672">selfRegister&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果 Consul 服务注册由 Dapr 外部管理，则需要确保将 Dapr-to-Dapr 内部 gRPC 端口添加到 &lt;code>DAPR_PORT&lt;/code> 下的服务元数据中（此项是可配置的），并且 Consul 服务 ID 与 Dapr 应用 ID 匹配。 然后，您可以从上面的配置中省略 &lt;code>selfRegister&lt;/code> 。&lt;/p>
+&lt;h2 id="行为">行为&lt;/h2>
+&lt;p>在启动时，Consul组件将验证与配置的（或默认的）代理的连接，或者如果配置了服务，则注册该服务。 名称解析接口不能满足 &amp;ldquo;shutdown &amp;ldquo;的模式，所以如果使用 Dapr 向 Consul 注册服务，请考虑它不会取消注册服务。&lt;/p>
+&lt;p>该组件通过过滤健康的服务来解决目标应用程序，并在元数据中寻找&lt;code>DAPR_PORT&lt;/code>，以检索Dapr sidecar端口（该项是可配置的）。 Consul &lt;code>service.meta&lt;/code>在&lt;code>service.port&lt;/code>之上使用，以便不干扰现有的Consul数据。&lt;/p>
+&lt;h2 id="spec-配置字段">Spec 配置字段&lt;/h2>
+&lt;p>截至发稿时，配置规格已固定为Consul api的v1.3.0版本&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>字段&lt;/th>
+&lt;th style="text-align:center">必填&lt;/th>
+&lt;th style="text-align:right">数据类型&lt;/th>
+&lt;th style="text-align:left">详情&lt;/th>
+&lt;th>示例&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>Client&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td style="text-align:right">&lt;a href="https://pkg.go.dev/github.com/hashicorp/consul/api@v1.3.0#Config">*api.Config&lt;/a>&lt;/td>
+&lt;td style="text-align:left">配置客户端与 Consul 代理的连接。 如果留空，它将使用 sdk 默认值，在这种情况下这只是 &lt;code>127.0.0.1:8500&lt;/code>&lt;/td>
+&lt;td>&lt;code>10.0.4.4:8500&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>QueryOptions&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td style="text-align:right">&lt;a href="https://pkg.go.dev/github.com/hashicorp/consul/api@v1.3.0#QueryOptions">*api.QueryOptions&lt;/a>&lt;/td>
+&lt;td style="text-align:left">配置用于解决健康服务的查询，如果为空白，它将默认为 &lt;code>UseCache:true&lt;/code>&lt;/td>
+&lt;td>&lt;code>UseCache: false&lt;/code>, &lt;code>Datacenter: &amp;quot;myDC&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Checks&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td style="text-align:right">&lt;a href="https://pkg.go.dev/github.com/hashicorp/consul/api@v1.3.0#AgentServiceCheck">[]*api.AgentServiceCheck&lt;/a>&lt;/td>
+&lt;td style="text-align:left">当进行注册服务时，配置健康检查。 如果为空白，它将默认到 Dapr sidecar 健康端点&lt;/td>
+&lt;td>查看 &lt;a href="#sample-configurations">示例配置&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Tags&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td style="text-align:right">&lt;code>[]string&lt;/code>&lt;/td>
+&lt;td style="text-align:left">在注册服务服务时包含的额外标签&lt;/td>
+&lt;td>&lt;code>- &amp;quot;dapr&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Meta&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td style="text-align:right">&lt;code>map[string]string&lt;/code>&lt;/td>
+&lt;td style="text-align:left">在注册服务服务时包含的额外 metadata&lt;/td>
+&lt;td>&lt;code>DAPR_METRICS_PORT: &amp;quot;${DAPR_METRICS_PORT}&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>DaprPortMetaKey&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td style="text-align:right">&lt;code>string&lt;/code>&lt;/td>
+&lt;td style="text-align:left">用于在服务解析过程中从Consul服务元数据中获取Dapr sidecar 端口的 key，它也将用于在注册时在元数据中设置Dapr sidecar 端口。 如果留空，它将默认为 &lt;code>DAPR_PORT&lt;/code>&lt;/td>
+&lt;td>&lt;code>&amp;quot;DAPR_TO_DAPR_PORT&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>SelfRegister&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td style="text-align:right">&lt;code>bool&lt;/code>&lt;/td>
+&lt;td style="text-align:left">控制 Dapr 是否会向 Consul 注册服务。 名称解析接口不能满足 &amp;ldquo;shutdown &amp;ldquo;的模式，所以如果使用 Dapr 向 Consul 注册服务，请考虑它不会取消注册服务。 如果留空，它将默认为 &lt;code>false&lt;/code>&lt;/td>
+&lt;td>&lt;code>true&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>AdvancedRegistration&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td style="text-align:right">&lt;a href="https://pkg.go.dev/github.com/hashicorp/consul/api@v1.3.0#AgentServiceRegistration">*api.AgentServiceRegistration&lt;/a>&lt;/td>
+&lt;td style="text-align:left">通过配置完全控制服务注册结果。 如果配置此项，组件将忽略Checks、 Tags、 Meta 和 SelfRegister的任何配置。&lt;/td>
+&lt;td>查看 &lt;a href="#sample-configurations">示例配置&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="示例配置">示例配置&lt;/h2>
+&lt;h3 id="基础">基础&lt;/h3>
+&lt;p>所需的最小配置如下：&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">appconfig&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">nameResolution&lt;/span>:
+&lt;span style="color:#f92672">component&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;consul&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="注册时进行小部分定制">注册时进行小部分定制&lt;/h3>
+&lt;p>启用 &lt;code>SelfRegister&lt;/code> 然后可以自定义 checks, tags 和 meta&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">appconfig&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">nameResolution&lt;/span>:
+&lt;span style="color:#f92672">component&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;consul&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">configuration&lt;/span>:
+&lt;span style="color:#f92672">client&lt;/span>:
+&lt;span style="color:#f92672">address&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;127.0.0.1:8500&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">selfRegister&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;span style="color:#f92672">checks&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;Dapr Health Status&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">checkID&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;daprHealth:${APP_ID}&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">interval&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;15s&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">http&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;http://${HOST_ADDRESS}:${DAPR_HTTP_PORT}/v1.0/healthz&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;Service Health Status&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">checkID&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;serviceHealth:${APP_ID}&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">interval&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;15s&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">http&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;http://${HOST_ADDRESS}:${APP_PORT}/health&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">tags&lt;/span>:
+- &lt;span style="color:#e6db74">&amp;#34;dapr&amp;#34;&lt;/span>
+- &lt;span style="color:#e6db74">&amp;#34;v1&amp;#34;&lt;/span>
+- &lt;span style="color:#e6db74">&amp;#34;${OTHER_ENV_VARIABLE}&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">meta&lt;/span>:
+&lt;span style="color:#f92672">DAPR_METRICS_PORT&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;${DAPR_METRICS_PORT}&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">DAPR_PROFILE_PORT&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;${DAPR_PROFILE_PORT}&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">daprPortMetaKey&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;DAPR_PORT&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">queryOptions&lt;/span>:
+&lt;span style="color:#f92672">useCache&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;span style="color:#f92672">filter&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;Checks.ServiceTags contains dapr&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="高级注册">高级注册&lt;/h3>
+&lt;p>配置高级注册后，您可以完全控制注册时可能的所有属性。&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">appconfig&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">nameResolution&lt;/span>:
+&lt;span style="color:#f92672">component&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;consul&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">configuration&lt;/span>:
+&lt;span style="color:#f92672">client&lt;/span>:
+&lt;span style="color:#f92672">address&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;127.0.0.1:8500&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">selfRegister&lt;/span>: &lt;span style="color:#66d9ef">false&lt;/span>
+&lt;span style="color:#f92672">queryOptions&lt;/span>:
+&lt;span style="color:#f92672">useCache&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;span style="color:#f92672">daprPortMetaKey&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;DAPR_PORT&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">advancedRegistration&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;${APP_ID}&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">port&lt;/span>: &lt;span style="color:#ae81ff">${APP_PORT}&lt;/span>
+&lt;span style="color:#f92672">address&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;${HOST_ADDRESS}&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">check&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;Dapr Health Status&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">checkID&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;daprHealth:${APP_ID}&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">interval&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;15s&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">http&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;http://${HOST_ADDRESS}:${DAPR_HTTP_PORT}/v1.0/healthz&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">meta&lt;/span>:
+&lt;span style="color:#f92672">DAPR_METRICS_PORT&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;${DAPR_METRICS_PORT}&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">DAPR_PROFILE_PORT&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;${DAPR_PROFILE_PORT}&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">tags&lt;/span>:
+- &lt;span style="color:#e6db74">&amp;#34;dapr&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="搭建-hashicorp-consul">搭建 Hashicorp Consul&lt;/h2>
+&lt;ul class="nav nav-tabs" id="tabs-1" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-1-self-hosted-tab" data-toggle="tab" href="#tabs-1-self-hosted" role="tab"
+aria-controls="tabs-1-self-hosted" aria-selected="true">
+Self-Hosted
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-1-kubernetes-tab" data-toggle="tab" href="#tabs-1-kubernetes" role="tab"
+aria-controls="tabs-1-kubernetes" aria-selected="false">
+Kubernetes
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-1-content">
+&lt;div class="tab-pane fade show active" id="tabs-1-self-hosted" role="tabpanel" aria-labelled-by="tabs-1-self-hosted-tab">
+&lt;br />&lt;p>HashiCorp提供了关于如何为不同主机模型搭建 Consul 的深度指南。 请查看此处的 &lt;a href="https://learn.hashicorp.com/collections/consul/getting-started">自托管指南&lt;/a>&lt;/p>
+&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-1-kubernetes" role="tabpanel" aria-labelled-by="tabs-1-kubernetes-tab">
+&lt;br />&lt;p>HashiCorp提供了关于如何为不同主机模型搭建 Consul 的深度指南。 请在此查看 &lt;a href="https://learn.hashicorp.com/collections/consul/gs-consul-service-mesh">Kubernetes 指南&lt;/a>&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/service-invocation/">服务调用构建块&lt;/a>&lt;/li>
+&lt;/ul></description></item></channel></rss>

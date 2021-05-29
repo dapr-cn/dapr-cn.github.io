@@ -1,0 +1,117 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Debug Dapr in Kubernetes mode</title><link>https://docs.dapr.io/developing-applications/debugging/debug-k8s/</link><description>Recent content in Debug Dapr in Kubernetes mode on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/developing-applications/debugging/debug-k8s/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: Debug Dapr control plane on Kubernetes</title><link>https://docs.dapr.io/developing-applications/debugging/debug-k8s/debug-dapr-services/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/debugging/debug-k8s/debug-dapr-services/</guid><description>
+&lt;h2 id="概述">概述&lt;/h2>
+&lt;p>Sometimes it is necessary to understand what&amp;rsquo;s going on in Dapr control plane (aka, Kubernetes services), including &lt;code>dapr-sidecar-injector&lt;/code>, &lt;code>dapr-operator&lt;/code>, &lt;code>dapr-placement&lt;/code>, and &lt;code>dapr-sentry&lt;/code>, especially when you diagnose your Dapr application and wonder if there&amp;rsquo;s something wrong in Dapr itself. Additionally, you may be developing a new feature for Dapr on Kubernetes and want to debug your code.&lt;/p>
+&lt;p>This guide will cover how to use Dapr debugging binaries to debug the Dapr services on your Kubernetes cluster.&lt;/p>
+&lt;h2 id="debugging-dapr-kubernetes-services">Debugging Dapr Kubernetes services&lt;/h2>
+&lt;h3 id="前提">前提&lt;/h3>
+&lt;ul>
+&lt;li>Familiarize yourself with &lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-deploy/">this guide&lt;/a> to learn how to deploy Dapr to your Kubernetes cluster.&lt;/li>
+&lt;li>Setup your &lt;a href="https://github.com/dapr/dapr/blob/master/docs/development/developing-dapr.md">dev environment&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/helm/helm/releases">Helm&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h3 id="1-build-dapr-debugging-binaries">1. Build Dapr debugging binaries&lt;/h3>
+&lt;p>In order to debug Dapr Kubernetes services, it&amp;rsquo;s required to rebuild all Dapr binaries and Docker images to disable compiler optimization. To do this, execute the following commands:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">git clone https://github.com/dapr/dapr.git
+cd dapr
+make release GOOS&lt;span style="color:#f92672">=&lt;/span>linux GOARCH&lt;span style="color:#f92672">=&lt;/span>amd64 DEBUG&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>On Windows download &lt;a href="https://sourceforge.net/projects/mingw/files/MinGW/Extension/make/mingw32-make-3.80-3/">MingGW&lt;/a> and use &lt;code>ming32-make.exe&lt;/code> instead of &lt;code>make&lt;/code>. On Windows download &lt;a href="https://sourceforge.net/projects/mingw/files/MinGW/Extension/make/mingw32-make-3.80-3/">MingGW&lt;/a> and use &lt;code>ming32-make.exe&lt;/code> instead of &lt;code>make&lt;/code>.&lt;/p>
+&lt;/blockquote>
+&lt;p>In the above command, &amp;lsquo;DEBUG&amp;rsquo; is specified to &amp;lsquo;1&amp;rsquo; to disable compiler optimization. &amp;lsquo;GOOS=linux&amp;rsquo; and &amp;lsquo;GOARCH=amd64&amp;rsquo; are also necessary since the binaries will be packaged into Linux-based Docker image in the next step.&lt;/p>
+&lt;p>The binaries could be found under &amp;lsquo;dist/linux_amd64/debug&amp;rsquo; sub-directory under the &amp;lsquo;dapr&amp;rsquo; directory.&lt;/p>
+&lt;h3 id="2-build-dapr-debugging-docker-images">2. Build Dapr debugging Docker images&lt;/h3>
+&lt;p>Use the following commands to package the debugging binaries into Docker images. Before this, you need to login your docker.io account, and if you don&amp;rsquo;t have it yet, you may need to consider registering one from &amp;ldquo;&lt;a href="https://hub.docker.com/%22">https://hub.docker.com/&amp;quot;&lt;/a>.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">export DAPR_TAG&lt;span style="color:#f92672">=&lt;/span>dev
+export DAPR_REGISTRY&lt;span style="color:#f92672">=&lt;/span>&amp;lt;your docker.io id&amp;gt;
+docker login
+make docker-push DEBUG&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Once the Dapr Docker images are built and pushed onto Docker hub, then you are ready to re-install Dapr in your Kubernetes cluster.&lt;/p>
+&lt;h3 id="3-install-dapr-debugging-binaries">3. Install Dapr debugging binaries&lt;/h3>
+&lt;p>If Dapr has already been installed in your Kubernetes cluster, uninstall it first:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr uninstall -k
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>We will use &amp;lsquo;helm&amp;rsquo; to install Dapr debugging binaries. In the following sections, we will use Dapr operator as an example to demonstrate how to configure, install, and debug Dapr services in a Kubernetes environment.&lt;/p>
+&lt;p>First configure a values file with these options:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">global&lt;/span>:
+&lt;span style="color:#f92672">registry&lt;/span>: &lt;span style="color:#ae81ff">docker.io/&amp;lt;your docker.io id&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">tag&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;dev-linux-amd64&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">dapr_operator&lt;/span>:
+&lt;span style="color:#f92672">debug&lt;/span>:
+&lt;span style="color:#f92672">enabled&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;span style="color:#f92672">initialDelaySeconds&lt;/span>: &lt;span style="color:#ae81ff">3000&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;div class="alert alert-primary" role="alert">
+&lt;h4 class="alert-heading">Notice&lt;/h4>
+If you need to debug the startup time of Dapr services, you need to consider configuring &lt;code>initialDelaySeconds&lt;/code> to a very long time value, e.g. &amp;ldquo;3000&amp;rdquo; seconds. If this is not the case, configure it to a short time value, e.g. &amp;ldquo;3&amp;rdquo; seconds.
+&lt;/div>
+&lt;p>Then step into &amp;lsquo;dapr&amp;rsquo; directory which&amp;rsquo;s cloned from GitHub in the beginning of this guide if you haven&amp;rsquo;t, and execute the following command:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm install dapr charts/dapr --namespace dapr-system --values values.yml --wait
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="4-forward-debugging-port">4. Forward debugging port&lt;/h3>
+&lt;p>To debug the target Dapr service (Dapr operator in this case), its pre-configured debug port needs to be visible to your IDE. In order to achieve this, we need to find the target Dapr service&amp;rsquo;s pod first:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">$ kubectl get pods -n dapr-system -o wide
+NAME READY STATUS RESTARTS AGE IP NODE NOMINATED NODE READINESS GATES
+dapr-dashboard-64b46f98b6-dl2n9 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 61s 172.17.0.9 minikube &amp;lt;none&amp;gt; &amp;lt;none&amp;gt;
+dapr-operator-7878f94fcd-6bfx9 1/1 Running &lt;span style="color:#ae81ff">1&lt;/span> 61s 172.17.0.7 minikube &amp;lt;none&amp;gt; &amp;lt;none&amp;gt;
+dapr-placement-server-0 1/1 Running &lt;span style="color:#ae81ff">1&lt;/span> 61s 172.17.0.8 minikube &amp;lt;none&amp;gt; &amp;lt;none&amp;gt;
+dapr-sentry-68c7d4c7df-sc47x 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 61s 172.17.0.6 minikube &amp;lt;none&amp;gt; &amp;lt;none&amp;gt;
+dapr-sidecar-injector-56c8f489bb-t2st9 1/1 Running &lt;span style="color:#ae81ff">0&lt;/span> 61s 172.17.0.10 minikube &amp;lt;none&amp;gt; &amp;lt;none&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Then use kubectl&amp;rsquo;s &lt;code>port-forward&lt;/code> command to expose the internal debug port to the external IDE:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">$ kubectl port-forward dapr-operator-7878f94fcd-6bfx9 40000:40000 -n dapr-system
+Forwarding from 127.0.0.1:40000 -&amp;gt; &lt;span style="color:#ae81ff">40000&lt;/span>
+Forwarding from &lt;span style="color:#f92672">[&lt;/span>::1&lt;span style="color:#f92672">]&lt;/span>:40000 -&amp;gt; &lt;span style="color:#ae81ff">40000&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>All done. Now you can point to port 40000 and start a remote debug session from your favorite IDE.&lt;/p>
+&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-overview/">Kubernetes上的 Dapr 概述&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-deploy/">将 dapr 部署到 Kubernetes 集群&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/dapr/quickstarts/tree/master/hello-kubernetes">Dapr Kubernetes 快速入门&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Developing-Applications: Debug daprd on Kubernetes</title><link>https://docs.dapr.io/developing-applications/debugging/debug-k8s/debug-daprd/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/debugging/debug-k8s/debug-daprd/</guid><description>
+&lt;h2 id="概述">概述&lt;/h2>
+&lt;p>Sometimes it is necessary to understand what&amp;rsquo;s going on in the Dapr sidecar (daprd), which runs as a sidecar next to your application, especially when you diagnose your Dapr application and wonder if there&amp;rsquo;s something wrong in Dapr itself. Additionally, you may be developing a new feature for Dapr on Kubernetes and want to debug your code.&lt;/p>
+&lt;p>his guide will cover how to use built-in Dapr debugging to debug the Dapr sidecar in your Kubernetes pods.&lt;/p>
+&lt;h2 id="前提">前提&lt;/h2>
+&lt;ul>
+&lt;li>Refer to &lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-deploy/">this guide&lt;/a> to learn how to deploy Dapr to your Kubernetes cluster.&lt;/li>
+&lt;li>Follow &lt;a href="https://docs.dapr.io/developing-applications/debugging/debug-k8s/debug-dapr-services/">this guide&lt;/a> to build the Dapr debugging binaries you will be deploying in the next step.&lt;/li>
+&lt;/ul>
+&lt;h2 id="initialize-dapr-in-debug-mode">Initialize Dapr in debug mode&lt;/h2>
+&lt;p>If Dapr has already been installed in your Kubernetes cluster, uninstall it first:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr uninstall -k
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>We will use &amp;lsquo;helm&amp;rsquo; to install Dapr debugging binaries. For more information refer to &lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-deploy/#install-with-helm-advanced">Install with Helm&lt;/a>.&lt;/p>
+&lt;p>First configure a values file named &lt;code>values.yml&lt;/code> with these options:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">global&lt;/span>:
+&lt;span style="color:#f92672">registry&lt;/span>: &lt;span style="color:#ae81ff">docker.io/&amp;lt;your docker.io id&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">tag&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;dev-linux-amd64&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Then step into &amp;lsquo;dapr&amp;rsquo; directory from your cloned &lt;a href="https://github.com/dapr/dapr">dapr/dapr repository&lt;/a> and execute the following command:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm install dapr charts/dapr --namespace dapr-system --values values.yml --wait
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>To enable debug mode for daprd, you need to put an extra annotation &lt;code>dapr.io/enable-debug&lt;/code> in your application&amp;rsquo;s deployment file. Let&amp;rsquo;s use &lt;a href="https://github.com/dapr/quickstarts/tree/master/hello-kubernetes">quickstarts/hello-kubernetes&lt;/a> as an example. Modify &amp;lsquo;deploy/node.yaml&amp;rsquo; like below:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-diff" data-lang="diff">diff --git a/hello-kubernetes/deploy/node.yaml b/hello-kubernetes/deploy/node.yaml
+index 23185a6..6cdb0ae 100644
+&lt;span style="color:#f92672">--- a/hello-kubernetes/deploy/node.yaml
+&lt;/span>&lt;span style="color:#f92672">&lt;/span>&lt;span style="color:#a6e22e">+++ b/hello-kubernetes/deploy/node.yaml
+&lt;/span>&lt;span style="color:#a6e22e">&lt;/span>&lt;span style="color:#75715e">@@ -33,6 +33,7 @@ spec:
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> dapr.io/enabled: &amp;#34;true&amp;#34;
+dapr.io/app-id: &amp;#34;nodeapp&amp;#34;
+dapr.io/app-port: &amp;#34;3000&amp;#34;
+&lt;span style="color:#a6e22e">+ dapr.io/enable-debug: &amp;#34;true&amp;#34;
+&lt;/span>&lt;span style="color:#a6e22e">&lt;/span> spec:
+containers:
+- name: node
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The annotation &lt;code>dapr.io/enable-debug&lt;/code> will hint Dapr injector to inject Dapr sidecar into the debug mode. You can also specify the debug port with annotation &lt;code>dapr.io/debug-port&lt;/code>, otherwise the default port will be &amp;ldquo;40000&amp;rdquo;.&lt;/p>
+&lt;p>Deploy the application with the following command. For the complete guide refer to the &lt;a href="https://github.com/dapr/quickstarts/tree/master/hello-kubernetes">Dapr Kubernetes Quickstart&lt;/a>:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl apply -f ./deploy/node.yaml
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Figure out the target application&amp;rsquo;s pod name with the following command:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">$ kubectl get pods
+NAME READY STATUS RESTARTS AGE
+nodeapp-78866448f5-pqdtr 1/2 Running &lt;span style="color:#ae81ff">0&lt;/span> 14s
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Then use kubectl&amp;rsquo;s &lt;code>port-forward&lt;/code> command to expose the internal debug port to the external IDE:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">$ kubectl port-forward nodeapp-78866448f5-pqdtr 40000:40000
+Forwarding from 127.0.0.1:40000 -&amp;gt; &lt;span style="color:#ae81ff">40000&lt;/span>
+Forwarding from &lt;span style="color:#f92672">[&lt;/span>::1&lt;span style="color:#f92672">]&lt;/span>:40000 -&amp;gt; &lt;span style="color:#ae81ff">40000&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>All done. Now you can point to port 40000 and start a remote debug session to daprd from your favorite IDE.&lt;/p>
+&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-overview/">Kubernetes上的 Dapr 概述&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-deploy/">将 dapr 部署到 Kubernetes 集群&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/debugging/debug-k8s/debug-dapr-services/">Debug Dapr services on Kubernetes&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/dapr/quickstarts/tree/master/hello-kubernetes">Dapr Kubernetes 快速入门&lt;/a>&lt;/li>
+&lt;/ul></description></item></channel></rss>

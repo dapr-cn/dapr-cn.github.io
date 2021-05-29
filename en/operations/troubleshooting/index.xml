@@ -119,7 +119,19 @@ If you still can&amp;rsquo;t find the issue, try enabling &lt;code>debug&lt;/cod
 &lt;li>You may have defined the &lt;code>NAMESPACE&lt;/code> environment variable locally or deployed your components into a different namespace in Kubernetes. Check which namespace your app and the components are deployed to. Read &lt;a href="https://docs.dapr.io/en/operations/components/component-scopes/">scoping components to one or more applications&lt;/a> for more information.&lt;/li>
 &lt;li>You may have not provided a &lt;code>--components-path&lt;/code> with the Dapr &lt;code>run&lt;/code> commands or not placed your components into the default components folder for your OS. Read &lt;a href="https://docs.dapr.io/en/getting-started/get-started-component/">define a component&lt;/a> for more information.&lt;/li>
 &lt;li>You may have a syntax issue in component YAML file. Check your component YAML with the component &lt;a href="https://docs.dapr.io/en/operations/components/">YAML samples&lt;/a>.&lt;/li>
-&lt;/ul></description></item><item><title>Operations: Configure and view Dapr Logs</title><link>https://docs.dapr.io/en/operations/troubleshooting/logs-troubleshooting/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/operations/troubleshooting/logs-troubleshooting/</guid><description>
+&lt;/ul>
+&lt;h2 id="service-invocation-is-failing-and-my-dapr-service-is-missing-an-appid-macos">Service invocation is failing and my Dapr service is missing an appId (macOS)&lt;/h2>
+&lt;p>Some organizations will implement software that filters out all UPD traffic, which is what mDNS is based on. Mostly commonly, on MacOS, &lt;code>Microsoft Content Filter&lt;/code> is the culprit.&lt;/p>
+&lt;p>In order for mDNS to function properly, ensure &lt;code>Micorosft Content Filter&lt;/code> is inactive.&lt;/p>
+&lt;ul>
+&lt;li>Open a terminal shell.&lt;/li>
+&lt;li>Type &lt;code>mdatp system-extension network-filter disable&lt;/code> and hit enter.&lt;/li>
+&lt;li>Enter your account password.&lt;/li>
+&lt;/ul>
+&lt;p>Microsoft Content Filter is disbaled when the output is &amp;ldquo;Success&amp;rdquo;.&lt;/p>
+&lt;blockquote>
+&lt;p>Some organizations will re-enable the filter from time to time. If you repeatedly encounter app-id values missing, first check to see if the filter has been re-enabled before doing more extensive troubleshooting.&lt;/p>
+&lt;/blockquote></description></item><item><title>Operations: Configure and view Dapr Logs</title><link>https://docs.dapr.io/en/operations/troubleshooting/logs-troubleshooting/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/operations/troubleshooting/logs-troubleshooting/</guid><description>
 &lt;p>This section will assist you in understanding how logging works in Dapr, configuring and viewing logs.&lt;/p>
 &lt;h2 id="overview">Overview&lt;/h2>
 &lt;p>Logs have different, configurable verbosity levels.

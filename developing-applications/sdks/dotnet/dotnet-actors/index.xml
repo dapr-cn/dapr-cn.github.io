@@ -43,7 +43,7 @@
 &lt;span style="color:#75715e">// Invoke a method by name to invoke the actor
 &lt;/span>&lt;span style="color:#75715e">//
 &lt;/span>&lt;span style="color:#75715e">// proxy is an instance of ActorProxy.
-&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">await&lt;/span> proxy.InvokeMethodAsync(&lt;span style="color:#e6db74">&amp;#34;DoSomethingGreat&amp;#34;&lt;/span>);
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>由于 &lt;code>ActorProxy&lt;/code> 是一个弱类型的代理，你需要将 actor 方法名作为一个字符串传入。&lt;/p>
 &lt;p>您也可以使用 &lt;code>ActorProxy&lt;/code> 来调用带有请求消息和响应消息的方法。 请求和响应消息将使用 &lt;code>System.Text.Json&lt;/code> 序列化器序列化。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-csharp" data-lang="csharp">&lt;span style="color:#75715e">// Create a proxy for type OtherActor with a random id
@@ -51,8 +51,7 @@
 &lt;span style="color:#75715e">// Invoke a method on the proxy to invoke the actor
 &lt;/span>&lt;span style="color:#75715e">//
 &lt;/span>&lt;span style="color:#75715e">// proxy is an instance of ActorProxy.
-&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">var&lt;/span> request = &lt;span style="color:#66d9ef">new&lt;/span> MyRequest() { Message = &lt;span style="color:#e6db74">&amp;#34;Hi, it&amp;#39;s me.&amp;#34;&lt;/span>, };
-&lt;span style="color:#66d9ef">var&lt;/span> response = &lt;span style="color:#66d9ef">await&lt;/span> proxy.InvokeMethodAsync&amp;lt;MyRequest, MyResponse&amp;gt;(&lt;span style="color:#e6db74">&amp;#34;DoSomethingGreat&amp;#34;&lt;/span>, request);
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>当使用弱类型的代理时，您有责任定义正确的代理方法名称和消息类型。 当使用强类型代理时，这是为你完成的，因为名称和类型是接口定义的一部分。&lt;/p></description></item><item><title>Developing-Applications: Dapr actor .NET 使用指南</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actors-usage/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actors-usage/</guid><description>
 &lt;h2 id="编写-actors">编写 Actors&lt;/h2>
 &lt;h3 id="actorhost">ActorHost&lt;/h3>
@@ -85,8 +84,6 @@
 ...
 &lt;span style="color:#75715e">// Register additional types with dependency injection.
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> services.AddSingleton&amp;lt;BankService&amp;gt;();
-}
-services.AddSingleton&amp;lt;BankService&amp;gt;();
 }
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>每个actor实例都有自己的依赖注入范围。 每个 actor 在执行完一个操作后，都会在内存中保留一段时间，在这段时间内，与 actor 相关的依赖注入作用域也被认为是活的。 当演员被停用时，该范围将被释放。&lt;/p>
 &lt;p>如果一个actor在构造函数中注入一个 &lt;code>IServiceProvider&lt;/code> ，该actor将收到一个与它的作用域相关联的 &lt;code>IServiceProvider&lt;/code> 的引用。 &lt;code>IServiceProvider&lt;/code> 可以用来在将来动态地解析服务。&lt;/p>
@@ -165,8 +162,6 @@ services.AddActors(options =&amp;gt;
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> options.JsonSerializerOptions = ...
 });
 }
-});
-}
 &lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="actors-和-路由">Actors 和 路由&lt;/h3>
 &lt;p>ASP.NET Core 托管支持对 actors 使用[终结点路由](&lt;a href="https://docs.microsoft.com/en-us/aspnet/core/fundamenta">https://docs.microsoft.com/en-us/aspnet/core/fundamenta&lt;/a> ls/routing) 系统。 .NET SDK 不提供支持托管 Actors 的早期 ASP.NET Core版本的遗留路由系统。&lt;/p>
 &lt;p>由于 actors 使用终结点路由，Actors HTTP处理程序是中间件管道的一部分。 下面是一个 &lt;code>Configure&lt;/code> 方法与 actors一起设置中间件管道的最小示例。&lt;/p>
@@ -181,9 +176,7 @@ app.UseRouting();
 app.UseEndpoints(endpoints =&amp;gt;
 {
 &lt;span style="color:#75715e">// Register actors handlers that interface with the Dapr runtime.
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> endpoints.MapActorsHandlers();
-});
-}
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>UseRouting&lt;/code> 和 &lt;code>UseEndpoints&lt;/code> 调用是配置路由所必需的。 在终结点中间件中添加 &lt;code>MapActorsHandlers&lt;/code> 就是将 actors 配置为管道的一部分。&lt;/p>
 &lt;p>这只是一个最小的例子，它对 Actor 功能并存是有效的：&lt;/p>
 &lt;ul>
@@ -211,15 +204,13 @@ app.UseRouting();
 app.UseEndpoints(endpoints =&amp;gt;
 {
 &lt;span style="color:#75715e">// Register actors handlers that interface with the Dapr runtime.
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> endpoints.MapActorsHandlers();
-});
-}
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Developing-Applications: 在.NET SDK中运行和使用 virtual actors 的例子。</title><link>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actors-howto/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-actors/dotnet-actors-howto/</guid><description>
 &lt;p>通过Dapr actor 程序包，您可以与.NET应用程序中的Dapr虚拟actor进行交互。&lt;/p>
 &lt;h2 id="先决条件">先决条件&lt;/h2>
 &lt;ul>
-&lt;li>安装 &lt;a href="https://docs.dapr.io/getting-started/install-dapr-cli/">Dapr CLI&lt;/a>&lt;/li>
-&lt;li>初始化的 &lt;a href="https://docs.dapr.io/getting-started/install-dapr-selfhost/">Dapr 环境&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/getting-started/install-dapr-cli/">Dapr CLI&lt;/a> installed&lt;/li>
+&lt;li>Initialized &lt;a href="https://docs.dapr.io/getting-started/install-dapr-selfhost/">Dapr environment&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://dotnet.microsoft.com/download">.NET Core 3.1 或 .NET 5+&lt;/a> 已安装&lt;/li>
 &lt;/ul>
 &lt;h2 id="概述">概述&lt;/h2>
@@ -280,6 +271,11 @@ Task UnregisterTimer();
 &lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">override&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span> ToString()
 {
 &lt;span style="color:#66d9ef">var&lt;/span> propAValue = &lt;span style="color:#66d9ef">this&lt;/span>.PropertyA == &lt;span style="color:#66d9ef">null&lt;/span> ? &lt;span style="color:#e6db74">&amp;#34;null&amp;#34;&lt;/span> : &lt;span style="color:#66d9ef">this&lt;/span>.PropertyA;
+&lt;span style="color:#66d9ef">var&lt;/span> propBValue = &lt;span style="color:#66d9ef">this&lt;/span>.PropertyB == &lt;span style="color:#66d9ef">null&lt;/span> ? &lt;span style="color:#e6db74">&amp;#34;null&amp;#34;&lt;/span> : &lt;span style="color:#66d9ef">this&lt;/span>.PropertyB;
+&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#e6db74">$&amp;#34;PropertyA: {propAValue}, PropertyB: {propBValue}&amp;#34;&lt;/span>;
+}
+}
+} &lt;span style="color:#e6db74">&amp;#34;null&amp;#34;&lt;/span> : &lt;span style="color:#66d9ef">this&lt;/span>.PropertyA;
 &lt;span style="color:#66d9ef">var&lt;/span> propBValue = &lt;span style="color:#66d9ef">this&lt;/span>.PropertyB == &lt;span style="color:#66d9ef">null&lt;/span> ? &lt;span style="color:#e6db74">&amp;#34;null&amp;#34;&lt;/span> : &lt;span style="color:#66d9ef">this&lt;/span>.PropertyB;
 &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#e6db74">$&amp;#34;PropertyA: {propAValue}, PropertyB: {propBValue}&amp;#34;&lt;/span>;
 }
@@ -419,91 +415,21 @@ Console.WriteLine(&lt;span style="color:#e6db74">&amp;#34;OnTimerCallBack is cal
 }
 }
 }
-&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#66d9ef">this&lt;/span>.StateManager.GetStateAsync&amp;lt;MyData&amp;gt;(&lt;span style="color:#e6db74">&amp;#34;my_data&amp;#34;&lt;/span>);
-}
-&lt;span style="color:#75715e">/// &amp;lt;summary&amp;gt;
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// Register MyReminder reminder with the actor
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// &amp;lt;/summary&amp;gt;
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">async&lt;/span> Task RegisterReminder()
-{
-&lt;span style="color:#66d9ef">await&lt;/span> &lt;span style="color:#66d9ef">this&lt;/span>.RegisterReminderAsync(
-&lt;span style="color:#e6db74">&amp;#34;MyReminder&amp;#34;&lt;/span>, &lt;span style="color:#75715e">// The name of the reminder
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">null&lt;/span>, &lt;span style="color:#75715e">// User state passed to IRemindable.ReceiveReminderAsync()
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> TimeSpan.FromSeconds(&lt;span style="color:#ae81ff">5&lt;/span>), &lt;span style="color:#75715e">// Time to delay before invoking the reminder for the first time
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> TimeSpan.FromSeconds(&lt;span style="color:#ae81ff">5&lt;/span>)); &lt;span style="color:#75715e">// Time interval between reminder invocations after the first invocation
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> }
-&lt;span style="color:#75715e">/// &amp;lt;summary&amp;gt;
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// Unregister MyReminder reminder with the actor
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// &amp;lt;/summary&amp;gt;
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">public&lt;/span> Task UnregisterReminder()
-{
-Console.WriteLine(&lt;span style="color:#e6db74">&amp;#34;Unregistering MyReminder...&amp;#34;&lt;/span>);
-&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#66d9ef">this&lt;/span>.UnregisterReminderAsync(&lt;span style="color:#e6db74">&amp;#34;MyReminder&amp;#34;&lt;/span>);
-}
-&lt;span style="color:#75715e">// &amp;lt;summary&amp;gt;
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">// Implement IRemindeable.ReceiveReminderAsync() which is call back invoked when an actor reminder is triggered.
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">using&lt;/span> Dapr.Actors;
-&lt;span style="color:#66d9ef">using&lt;/span> Dapr.Actors.Runtime;
-&lt;span style="color:#66d9ef">using&lt;/span> MyActor.Interfaces;
-&lt;span style="color:#66d9ef">using&lt;/span> System;
-&lt;span style="color:#66d9ef">using&lt;/span> System.Threading.Tasks;
-&lt;span style="color:#66d9ef">namespace&lt;/span> MyActorService
-{
-&lt;span style="color:#66d9ef">internal&lt;/span> &lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">MyActor&lt;/span> : Actor, IMyActor, IRemindable
-{
-&lt;span style="color:#75715e">// The constructor must accept ActorHost as a parameter, and can also accept additional
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">// parameters that will be retrieved from the dependency injection container
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">//
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// &amp;lt;summary&amp;gt;
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// Initializes a new instance of MyActor
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// &amp;lt;/summary&amp;gt;
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">///
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">public&lt;/span> MyActor(ActorHost host)
-: &lt;span style="color:#66d9ef">base&lt;/span>(host)
-{
-}
-&lt;span style="color:#75715e">/// &amp;lt;summary&amp;gt;
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// This method is called whenever an actor is activated.
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// An actor is activated the first time any of its methods are invoked.
+&lt;span style="color:#75715e">/// An actor is activated the first time any of its methods are invoked.
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// &amp;lt;/summary&amp;gt;
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">protected&lt;/span> &lt;span style="color:#66d9ef">override&lt;/span> Task OnActivateAsync()
 {
 &lt;span style="color:#75715e">// Provides opportunity to perform some optional setup.
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> Console.WriteLine(&lt;span style="color:#e6db74">$&amp;#34;Activating actor id: {this.Id}&amp;#34;&lt;/span>);
-&lt;span style="color:#66d9ef">return&lt;/span> Task.CompletedTask;
-}
-&lt;span style="color:#75715e">/// &amp;lt;summary&amp;gt;
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// This method is called whenever an actor is deactivated after a period of inactivity.
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// &amp;lt;/summary&amp;gt;
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>
+&lt;span style="color:#75715e">/// &amp;lt;/summary&amp;gt;
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">protected&lt;/span> &lt;span style="color:#66d9ef">override&lt;/span> Task OnDeactivateAsync()
 {
 &lt;span style="color:#75715e">// Provides Opporunity to perform optional cleanup.
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> Console.WriteLine(&lt;span style="color:#e6db74">$&amp;#34;Deactivating actor id: {this.Id}&amp;#34;&lt;/span>);
-&lt;span style="color:#66d9ef">return&lt;/span> Task.CompletedTask;
-}
-&lt;span style="color:#75715e">/// &amp;lt;summary&amp;gt;
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// Set MyData into actor&amp;#39;s private state store
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// &amp;lt;/summary&amp;gt;
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">///
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">async&lt;/span> Task&amp;lt;&lt;span style="color:#66d9ef">string&lt;/span>&amp;gt; SetDataAsync(MyData data)
-{
-&lt;span style="color:#75715e">// Data is saved to configured state store implicitly after each method execution by Actor&amp;#39;s runtime.
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">// Data can also be saved explicitly by calling this.StateManager.SaveStateAsync();
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">// State to be saved must be DataContract serializable.
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">await&lt;/span> &lt;span style="color:#66d9ef">this&lt;/span>.StateManager.SetStateAsync&amp;lt;MyData&amp;gt;(
-&lt;span style="color:#e6db74">&amp;#34;my_data&amp;#34;&lt;/span>, &lt;span style="color:#75715e">// state name
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> data); &lt;span style="color:#75715e">// data saved for the named state &amp;#34;my_data&amp;#34;
 &lt;/span>&lt;span style="color:#75715e">&lt;/span>
-&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Success&amp;#34;&lt;/span>;
-}
-&lt;span style="color:#75715e">/// &amp;lt;summary&amp;gt;
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// Get MyData from actor&amp;#39;s private state store
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// &amp;lt;/summary&amp;gt;
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// &amp;lt;return&amp;gt;the user-defined MyData which is stored into state store as &amp;#34;my_data&amp;#34; state&amp;lt;/return&amp;gt;
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">public&lt;/span> Task&amp;lt;MyData&amp;gt; GetDataAsync()
-{
-&lt;span style="color:#75715e">// Gets state from the state store.
-&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#66d9ef">this&lt;/span>.StateManager.GetStateAsync&amp;lt;MyData&amp;gt;(&lt;span style="color:#e6db74">&amp;#34;my_data&amp;#34;&lt;/span>);
+&lt;span style="color:#75715e">// Data can also be saved explicitly by calling this.StateManager.SaveStateAsync();
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">// State to be saved must be DataContract serializable.
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>
+&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#66d9ef">this&lt;/span>.StateManager.GetStateAsync&amp;lt;MyData&amp;gt;(&lt;span style="color:#e6db74">&amp;#34;my_data&amp;#34;&lt;/span>);
 }
 &lt;span style="color:#75715e">/// &amp;lt;summary&amp;gt;
 &lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">/// Register MyReminder reminder with the actor

@@ -15,15 +15,11 @@
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">namespace&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-NAMESPACE&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Required. The aerospike namespace.&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">set&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-SET&amp;gt; # Optional 逗号分隔的服务器地址 Example&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;aerospike:3000,aerospike2:3000&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">namespace&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-NAMESPACE&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Required. The aerospike namespace.&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">set&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-SET&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
+以上示例将密钥明文存储， It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
@@ -32,7 +28,7 @@
 &lt;th>字段&lt;/th>
 &lt;th style="text-align:center">必填&lt;/th>
 &lt;th>详情&lt;/th>
-&lt;th>示例&lt;/th>
+&lt;th>Example&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -108,14 +104,14 @@ helm install --name my-aerospike --namespace aerospike stable/aerospike
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;abcd&amp;#34;&lt;/span> &lt;span style="color:#75715e"># Optional&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">endpoint&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;http://localhost:8080&amp;#34;&lt;/span> &lt;span style="color:#75715e"># Optional&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">region &lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">region&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;eu-west-1&amp;#34;&lt;/span> &lt;span style="color:#75715e"># Optional&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">sessionToken&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;abcd&amp;#34;&lt;/span> &lt;span style="color:#75715e"># Optional&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
+以上示例将密钥明文存储， It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
@@ -124,7 +120,7 @@ helm install --name my-aerospike --namespace aerospike stable/aerospike
 &lt;th>字段&lt;/th>
 &lt;th style="text-align:center">必填&lt;/th>
 &lt;th>详情&lt;/th>
-&lt;th>示例&lt;/th>
+&lt;th>Example&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -167,7 +163,7 @@ helm install --name my-aerospike --namespace aerospike stable/aerospike
 &lt;/tbody>
 &lt;/table>
 &lt;h2 id="setup-aws-dynamodb">Setup AWS DynamoDB&lt;/h2>
-&lt;p>关于身份验证相关属性的信息，请参阅 &lt;a href="https://docs.dapr.io/developing-applications/integrations/cloud-providers/authenticating-aws/">认证到 AWS&lt;/a>&lt;/p>
+&lt;p>See &lt;a href="https://docs.dapr.io/developing-applications/integrations/cloud-providers/authenticating-aws/">Authenticating to AWS&lt;/a> for information about authentication-related attributes&lt;/p>
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Dapr组件的基本格式&lt;/a>&lt;/li>
@@ -195,7 +191,7 @@ helm install --name my-aerospike --namespace aerospike stable/aerospike
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
+以上示例将密钥明文存储， It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
@@ -204,7 +200,7 @@ helm install --name my-aerospike --namespace aerospike stable/aerospike
 &lt;th>字段&lt;/th>
 &lt;th style="text-align:center">必填&lt;/th>
 &lt;th>详情&lt;/th>
-&lt;th>示例&lt;/th>
+&lt;th>Example&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -225,6 +221,42 @@ helm install --name my-aerospike --namespace aerospike stable/aerospike
 &lt;td style="text-align:center">Y&lt;/td>
 &lt;td>Dapr 状态的容器名称， 如果容器不存在，将会自动创建.&lt;/td>
 &lt;td>&lt;code>&amp;quot;container&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ContentType&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The blob’s content type&lt;/td>
+&lt;td>&lt;code>&amp;quot;text/plain&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ContentMD5&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The blob&amp;rsquo;s MD5 hash&lt;/td>
+&lt;td>&lt;code>&amp;quot;vZGKbMRDAnMs4BIwlXaRvQ==&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ContentEncoding&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The blob&amp;rsquo;s content encoding&lt;/td>
+&lt;td>&lt;code>&amp;quot;UTF-8&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ContentLanguage&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The blob&amp;rsquo;s content language&lt;/td>
+&lt;td>&lt;code>&amp;quot;en-us&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ContentDisposition&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The blob&amp;rsquo;s content disposition. Conveys additional information about how to process the response payload&lt;/td>
+&lt;td>&lt;code>&amp;quot;attachment&amp;quot;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CacheControl&lt;/td>
+&lt;td style="text-align:center">N&lt;/td>
+&lt;td>The blob&amp;rsquo;s cache control&lt;/td>
+&lt;td>&lt;code>&amp;quot;no-cache&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
@@ -284,7 +316,7 @@ helm install --name my-aerospike --namespace aerospike stable/aerospike
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
+以上示例将密钥明文存储， It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;p>如果您想要使用 CosmosDb 作为 Actor 存储，请在 yaml 上附上以下内容。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml"> - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">actorStateStore&lt;/span>
@@ -296,7 +328,7 @@ helm install --name my-aerospike --namespace aerospike stable/aerospike
 &lt;th>字段&lt;/th>
 &lt;th style="text-align:center">必填&lt;/th>
 &lt;th>详情&lt;/th>
-&lt;th>示例&lt;/th>
+&lt;th>Example&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -396,7 +428,7 @@ helm install --name my-aerospike --namespace aerospike stable/aerospike
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
+以上示例将密钥明文存储， It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
@@ -405,7 +437,7 @@ helm install --name my-aerospike --namespace aerospike stable/aerospike
 &lt;th>字段&lt;/th>
 &lt;th style="text-align:center">必填&lt;/th>
 &lt;th>详情&lt;/th>
-&lt;th>示例&lt;/th>
+&lt;th>Example&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -436,7 +468,7 @@ helm install --name my-aerospike --namespace aerospike stable/aerospike
 &lt;ul>
 &lt;li>&lt;strong>AccountName&lt;/strong>：存储账户名称 举例：&lt;strong>mystorageaccount&lt;/strong> 举例：&lt;strong>mystorageaccount&lt;/strong>&lt;/li>
 &lt;li>&lt;strong>AccountKey&lt;/strong>：主要或次要存储密钥。&lt;/li>
-&lt;li>&lt;strong>TableName&lt;/strong>：用于Dapr状态的表名称。 如果表不存在，将会自动创建.&lt;/li>
+&lt;li>&lt;strong>TableName&lt;/strong>：用于Dapr状态的表名称。 The name of the table to be used for Dapr state. The table will be created for you if it doesn&amp;rsquo;t exist 如果表不存在，将会自动创建&lt;/li>
 &lt;/ul>
 &lt;h2 id="分区">分区&lt;/h2>
 &lt;p>Azure Table Storage状态存储使用在 Dapr API 请求中提供的 &lt;code>key&lt;/code> 属性来确定 &lt;code>行键&lt;/code>。 服务名称用于&lt;code>分区键&lt;/code>。 这提供了最好的性能，因为每个服务类型将状态存储在它自己的表分区中。&lt;/p>
@@ -501,39 +533,11 @@ helm install --name my-aerospike --namespace aerospike stable/aerospike
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">protoVersion&lt;/span>
 &lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-PROTO-VERSION&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;4&amp;#34;&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">replicationFactor&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-REPLICATION-FACTOR&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span> &lt;span style="color:#f92672">Example&lt;/span>: &lt;span style="color:#ae81ff">cassandra.cassandra.svc.cluster.local&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">username&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-PASSWORD&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">password&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-PASSWORD&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">consistency&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-CONSISTENCY&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;All&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">table&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-TABLE&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;items&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">keyspace&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-KEYSPACE&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;dapr&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">protoVersion&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-PROTO-VERSION&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;4&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">replicationFactor&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-REPLICATION-FACTOR&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span> &lt;span style="color:#f92672">Example&lt;/span>: &lt;span style="color:#ae81ff">cassandra.cassandra.svc.cluster.local&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">username&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-PASSWORD&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">password&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-PASSWORD&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">consistency&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-CONSISTENCY&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;All&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">table&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-TABLE&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;items&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">keyspace&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-KEYSPACE&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;dapr&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">protoVersion&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-PROTO-VERSION&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;4&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">replicationFactor&lt;/span>
 &lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-REPLICATION-FACTOR&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
+以上示例将密钥明文存储， It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
@@ -542,7 +546,7 @@ helm install --name my-aerospike --namespace aerospike stable/aerospike
 &lt;th>字段&lt;/th>
 &lt;th style="text-align:center">必填&lt;/th>
 &lt;th>详情&lt;/th>
-&lt;th>示例&lt;/th>
+&lt;th>Example&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -657,7 +661,7 @@ helm install cassandra incubator/cassandra --namespace cassandra
 &lt;th>字段&lt;/th>
 &lt;th style="text-align:center">必填&lt;/th>
 &lt;th>详情&lt;/th>
-&lt;th>示例&lt;/th>
+&lt;th>Example&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -810,23 +814,11 @@ kubectl apply -n cloudstate -f https://github.com/cloudstateio/cloudstate/releas
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">password&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-PASSWORD&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Required.&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">bucketName&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-BUCKET&amp;gt; # Required. Example&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;http://localhost:8091&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">username&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-USERNAME&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Required.&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">password&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-PASSWORD&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Required.&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">bucketName&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-BUCKET&amp;gt; # Required. Example&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;http://localhost:8091&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">username&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-USERNAME&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Required.&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">password&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-PASSWORD&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Required.&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">bucketName&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-BUCKET&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Required.&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
+以上示例将密钥明文存储， It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
@@ -835,7 +827,7 @@ kubectl apply -n cloudstate -f https://github.com/cloudstateio/cloudstate/releas
 &lt;th>字段&lt;/th>
 &lt;th style="text-align:center">必填&lt;/th>
 &lt;th>详情&lt;/th>
-&lt;th>示例&lt;/th>
+&lt;th>Example&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -932,7 +924,7 @@ helm install couchbase/couchbase-cluster
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
+以上示例将密钥明文存储， It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
@@ -941,7 +933,7 @@ helm install couchbase/couchbase-cluster
 &lt;th>字段&lt;/th>
 &lt;th style="text-align:center">必填&lt;/th>
 &lt;th>详情&lt;/th>
-&lt;th>示例&lt;/th>
+&lt;th>Example&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -1035,7 +1027,7 @@ Google Cloud
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">状态管理构建块&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Reference: HashiCorp Consul</title><link>https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-consul/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-consul/</guid><description>
 &lt;h2 id="配置">配置&lt;/h2>
-&lt;p>To setup Hashicorp Consul state store create a component of type &lt;code>state.consul&lt;/code>. 请参阅&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">本指南&lt;/a>，了解如何创建和应用状态存储配置。&lt;/p>
+&lt;p>要设置HashiCorp Vault状态存储，请创建一个类型为&lt;code>state.consul&lt;/code>的组件。 请参阅&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-1-setup-a-state-store">本指南&lt;/a>，了解如何创建和应用状态存储配置。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -1054,27 +1046,11 @@ Google Cloud
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">scheme&lt;/span>
 &lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-SCHEME&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;http&amp;#34;&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">keyPrefixPath&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-TABLE&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span> &lt;span style="color:#f92672">Example&lt;/span>: &lt;span style="color:#ae81ff">dc1&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">httpAddr&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-CONSUL-HTTP-ADDRESS&amp;gt; # Required. Example&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;consul.default.svc.cluster.local:8500&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">aclToken&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-ACL-TOKEN&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">scheme&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-SCHEME&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;http&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">keyPrefixPath&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-TABLE&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span> &lt;span style="color:#f92672">Example&lt;/span>: &lt;span style="color:#ae81ff">dc1&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">httpAddr&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-CONSUL-HTTP-ADDRESS&amp;gt; # Required. Example&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;consul.default.svc.cluster.local:8500&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">aclToken&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-ACL-TOKEN&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">scheme&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-SCHEME&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;http&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">keyPrefixPath&lt;/span>
 &lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-TABLE&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
+以上示例将密钥明文存储， It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
@@ -1083,43 +1059,43 @@ Google Cloud
 &lt;th>字段&lt;/th>
 &lt;th style="text-align:center">必填&lt;/th>
 &lt;th>详情&lt;/th>
-&lt;th>示例&lt;/th>
+&lt;th>Example&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
 &lt;td>datacenter&lt;/td>
 &lt;td style="text-align:center">Y&lt;/td>
-&lt;td>Datacenter to use&lt;/td>
+&lt;td>Datacenter&lt;/td>
 &lt;td>&lt;code>&amp;quot;dc1&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>httpAddr&lt;/td>
 &lt;td style="text-align:center">Y&lt;/td>
-&lt;td>Address of the Consul server&lt;/td>
+&lt;td>Consul 服务器地址&lt;/td>
 &lt;td>&lt;code>&amp;quot;consul.default.svc.cluster.local:8500&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>aclToken&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Per Request ACL Token. Default is &lt;code>&amp;quot;&amp;quot;&lt;/code>&lt;/td>
+&lt;td>请求 ACL 令牌。 默认值 &lt;code>&amp;quot;&amp;quot;&lt;/code>&lt;/td>
 &lt;td>&lt;code>&amp;quot;token&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>scheme&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Scheme is the URI scheme for the Consul server. Default is &lt;code>&amp;quot;http&amp;quot;&lt;/code>&lt;/td>
+&lt;td>Scheme 是Consul服务器的 URI 方案。 默认值 &lt;code>&amp;quot;http&amp;quot;&lt;/code>&lt;/td>
 &lt;td>&lt;code>&amp;quot;http&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>keyPrefixPath&lt;/td>
 &lt;td style="text-align:center">N&lt;/td>
-&lt;td>Key prefix path in Consul. Default is &lt;code>&amp;quot;&amp;quot;&lt;/code>&lt;/td>
+&lt;td>Consul中的密钥前缀路径. 默认值 &lt;code>&amp;quot;&amp;quot;&lt;/code>&lt;/td>
 &lt;td>&lt;code>&amp;quot;dapr&amp;quot;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="setup-hashicorp-consul">Setup HashiCorp Consul&lt;/h2>
+&lt;h2 id="搭建-hashicorp-consul">搭建 Hashicorp Consul&lt;/h2>
 &lt;ul class="nav nav-tabs" id="tabs-2" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
 id="tabs-2-self-hosted-tab" data-toggle="tab" href="#tabs-2-self-hosted" role="tab"
 aria-controls="tabs-2-self-hosted" aria-selected="true">
@@ -1133,7 +1109,7 @@ Kubernetes
 &lt;/li>&lt;/ul>
 &lt;div class="tab-content" id="tabs-2-content">
 &lt;div class="tab-pane fade show active" id="tabs-2-self-hosted" role="tabpanel" aria-labelled-by="tabs-2-self-hosted-tab">
-&lt;br />&lt;p>You can run Consul locally using Docker:&lt;/p>
+&lt;br />&lt;p>您可以使用 Docker 在本地运行Consul：&lt;/p>
 &lt;pre>&lt;code>docker run -d --name=dev-consul -e CONSUL_BIND_INTERFACE=eth0 consul
 &lt;/code>&lt;/pre>&lt;p>然后您可以使用 &lt;code>localhost:8500&lt;/code> 与服务器交互。&lt;/p>
 &lt;/div>
@@ -1169,7 +1145,7 @@ Kubernetes
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
+以上示例将密钥明文存储， It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
@@ -1178,7 +1154,7 @@ Kubernetes
 &lt;th>字段&lt;/th>
 &lt;th style="text-align:center">必填&lt;/th>
 &lt;th>详情&lt;/th>
-&lt;th>示例&lt;/th>
+&lt;th>Example&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -1240,19 +1216,11 @@ Kubernetes
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">maxIdleConnections&lt;/span>
 &lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-MAX-IDLE-CONNECTIONS&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;2&amp;#34;&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">timeout&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-TIMEOUT&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1000ms&amp;#34;&lt;/span> &lt;span style="color:#f92672">Example&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;memcached.default.svc.cluster.local:11211&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">maxIdleConnections&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-MAX-IDLE-CONNECTIONS&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;2&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">timeout&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-TIMEOUT&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1000ms&amp;#34;&lt;/span> &lt;span style="color:#f92672">Example&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;memcached.default.svc.cluster.local:11211&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">maxIdleConnections&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-MAX-IDLE-CONNECTIONS&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;2&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">timeout&lt;/span>
 &lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-TIMEOUT&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1000ms&amp;#34;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
+以上示例将密钥明文存储， It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
@@ -1261,7 +1229,7 @@ Kubernetes
 &lt;th>字段&lt;/th>
 &lt;th style="text-align:center">必填&lt;/th>
 &lt;th>详情&lt;/th>
-&lt;th>示例&lt;/th>
+&lt;th>Example&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -1347,7 +1315,7 @@ Kubernetes
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
+以上示例将密钥明文存储， It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;p>如果您想要使用 MongoDB 作为 Actor 存储，请在 yaml 上附上以下内容。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml"> - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">actorStateStore&lt;/span>
@@ -1359,7 +1327,7 @@ Kubernetes
 &lt;th>字段&lt;/th>
 &lt;th style="text-align:center">必填&lt;/th>
 &lt;th>详情&lt;/th>
-&lt;th>示例&lt;/th>
+&lt;th>Example&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -1468,7 +1436,7 @@ Kubernetes
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
+以上示例将密钥明文存储， It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;p>如果您想要使用 MySQL 作为 Actor 存储，请在 yaml 上附上以下内容。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml"> - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">actorStateStore&lt;/span>
@@ -1480,7 +1448,7 @@ Kubernetes
 &lt;th>字段&lt;/th>
 &lt;th style="text-align:center">必填&lt;/th>
 &lt;th>详情&lt;/th>
-&lt;th>示例&lt;/th>
+&lt;th>Example&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -1596,7 +1564,7 @@ helm install dapr-mysql bitnami/mysql
 &lt;li>&lt;a href="https://docs.dapr.io/operations/components/component-schema/">Dapr组件的基本格式&lt;/a>&lt;/li>
 &lt;li>阅读 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/#step-2-save-and-retrieve-a-single-state">本指南&lt;/a> 以获取配置状态存储组件的说明&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">状态管理构建块&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Reference: PostgrSQL</title><link>https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-postgresql/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-postgresql/</guid><description>
+&lt;/ul></description></item><item><title>Reference: PostgreSQL</title><link>https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-postgresql/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-postgresql/</guid><description>
 &lt;h2 id="创建-dapr-组件">创建 Dapr 组件&lt;/h2>
 &lt;p>创建一个名为 &lt;code>postgres.yaml&lt;/code>的文件，粘贴以下文件并用您的连接字符串替换 &lt;code>&amp;lt;CONNECTION STRING&amp;gt;&lt;/code> 值。 连接字符串是一个标准 PostgreSQL 连接字符串。 例如， &lt;code>&amp;quot;host=localhost user=postgres password=example port=5432 connect_timeout=10 database=dapr_test&amp;quot;&lt;/code>。 查看 PostgreSQL 的&lt;a href="https://www.postgresql.org/docs/current/libpq-connect.html">数据库连接文档&lt;/a> ，特别是关键字/值连接字符串，了解如何定义连接字符串的信息。&lt;/p>
 &lt;p>如果您也想要配置 PostgreSQL 来存储 Actor，请在下面添加 &lt;code>actorStateStore&lt;/code> 配置元素。&lt;/p>
@@ -1614,7 +1582,7 @@ helm install dapr-mysql bitnami/mysql
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
+以上示例将密钥明文存储， It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
@@ -1623,7 +1591,7 @@ helm install dapr-mysql bitnami/mysql
 &lt;th>字段&lt;/th>
 &lt;th style="text-align:center">必填&lt;/th>
 &lt;th>详情&lt;/th>
-&lt;th>示例&lt;/th>
+&lt;th>Example&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -1702,7 +1670,7 @@ Self-Hosted
 &lt;p>&lt;strong>Failover:&lt;/strong> When set to &lt;code>true&lt;/code> enables the failover feature. The redisHost should be the sentinel host address. See &lt;a href="https://redis.io/topics/sentinel">Redis Sentinel Documentation&lt;/a>&lt;/p>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
+以上示例将密钥明文存储， It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;p>If you wish to use Redis as an actor store, append the following to the yaml.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml"> - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">actorStateStore&lt;/span>
@@ -1714,7 +1682,7 @@ Self-Hosted
 &lt;th>字段&lt;/th>
 &lt;th style="text-align:center">必填&lt;/th>
 &lt;th>详情&lt;/th>
-&lt;th>示例&lt;/th>
+&lt;th>Example&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -1901,7 +1869,7 @@ helm install redis bitnami/redis
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
+以上示例将密钥明文存储， It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;p>If you wish to use Redis as an actor store, append the following to the yaml.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml"> - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">actorStateStore&lt;/span>
@@ -1915,7 +1883,7 @@ helm install redis bitnami/redis
 &lt;th>字段&lt;/th>
 &lt;th style="text-align:center">必填&lt;/th>
 &lt;th>详情&lt;/th>
-&lt;th>示例&lt;/th>
+&lt;th>Example&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -1993,7 +1961,7 @@ Self-Hosted
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-CONNECTION-STRING&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Required.&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">tableName&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-TABLE-NAME&amp;gt; &lt;/span> &lt;span style="color:#75715e"># Required.&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">keyType &lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">keyType&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-KEY-TYPE&amp;gt; &lt;/span> &lt;span style="color:#75715e"># Optional. defaults to &amp;#34;string&amp;#34;&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">keyLength&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;KEY-LENGTH&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional. defaults to 200. Yo be used with &amp;#34;string&amp;#34; keyType&lt;/span>
@@ -2001,30 +1969,10 @@ Self-Hosted
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;SCHEMA&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional. defaults to &amp;#34;dbo&amp;#34;&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">indexedProperties&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;INDEXED-PROPERTIES&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional. List of IndexedProperties.&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">tableName&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-TABLE-NAME&amp;gt; &lt;/span> &lt;span style="color:#75715e"># Required.&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">keyType &lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-KEY-TYPE&amp;gt; &lt;/span> &lt;span style="color:#75715e"># Optional. defaults to &amp;#34;string&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">keyLength&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;KEY-LENGTH&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional. defaults to 200. Yo be used with &amp;#34;string&amp;#34; keyType&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">schema&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;SCHEMA&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional. defaults to &amp;#34;dbo&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">indexedProperties&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;INDEXED-PROPERTIES&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional. List of IndexedProperties.&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">tableName&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-TABLE-NAME&amp;gt; &lt;/span> &lt;span style="color:#75715e"># Required.&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">keyType &lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-KEY-TYPE&amp;gt; &lt;/span> &lt;span style="color:#75715e"># Optional. defaults to &amp;#34;string&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">keyLength&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;KEY-LENGTH&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional. defaults to 200. Yo be used with &amp;#34;string&amp;#34; keyType&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">schema&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;SCHEMA&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional. defaults to &amp;#34;dbo&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">indexedProperties&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;INDEXED-PROPERTIES&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional. List of IndexedProperties. &lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
+以上示例将密钥明文存储， It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;p>If you wish to use Redis as an &lt;a href="https://docs.dapr.io/reference/api/state_api/#configuring-state-store-for-actors">actor state store&lt;/a>, append the following to the yaml.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml"> - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">actorStateStore&lt;/span>
@@ -2036,7 +1984,7 @@ Self-Hosted
 &lt;th>字段&lt;/th>
 &lt;th style="text-align:center">必填&lt;/th>
 &lt;th>详情&lt;/th>
-&lt;th>示例&lt;/th>
+&lt;th>Example&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -2126,27 +2074,11 @@ Self-Hosted
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">maxConnBufferSize&lt;/span>
 &lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-MAX-CONN-BUFFER-SIZE&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1048576&amp;#34;&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">keyPrefixPath&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-KEY-PREFIX-PATH&amp;gt; # Optional. Example&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;zookeeper.default.svc.cluster.local:2181&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">sessionTimeout&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-SESSION-TIMEOUT&amp;gt; # Required. Example&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;5s&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">maxBufferSize&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-MAX-BUFFER-SIZE&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1048576&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">maxConnBufferSize&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-MAX-CONN-BUFFER-SIZE&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1048576&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">keyPrefixPath&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-KEY-PREFIX-PATH&amp;gt; # Optional. Example&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;zookeeper.default.svc.cluster.local:2181&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">sessionTimeout&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-SESSION-TIMEOUT&amp;gt; # Required. Example&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;5s&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">maxBufferSize&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-MAX-BUFFER-SIZE&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1048576&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">maxConnBufferSize&lt;/span>
-&lt;span style="color:#f92672">value: &amp;lt;REPLACE-WITH-MAX-CONN-BUFFER-SIZE&amp;gt; # Optional. default&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;1048576&amp;#34;&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">keyPrefixPath&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">&amp;lt;REPLACE-WITH-KEY-PREFIX-PATH&amp;gt;&lt;/span> &lt;span style="color:#75715e"># Optional.&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Warning&lt;/h4>
-以上示例将 Secret 明文存储。 更推荐的方式是使用 Secret 组件， &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">这里&lt;/a>。
+以上示例将密钥明文存储， It is recommended to use a secret store for the secrets as described &lt;a href="https://docs.dapr.io/operations/components/component-secrets/">here&lt;/a>.
 &lt;/div>
 &lt;h2 id="元数据字段规范">元数据字段规范&lt;/h2>
 &lt;table>
@@ -2155,7 +2087,7 @@ Self-Hosted
 &lt;th>字段&lt;/th>
 &lt;th style="text-align:center">必填&lt;/th>
 &lt;th>详情&lt;/th>
-&lt;th>示例&lt;/th>
+&lt;th>Example&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>

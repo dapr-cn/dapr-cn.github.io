@@ -1,4 +1,4 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – Tracing（调用链追踪）</title><link>https://docs.dapr.io/operations/monitoring/tracing/</link><description>Recent content in Tracing（调用链追踪） on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/operations/monitoring/tracing/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: Configure Dapr to send distributed tracing data</title><link>https://docs.dapr.io/operations/monitoring/tracing/setup-tracing/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/monitoring/tracing/setup-tracing/</guid><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – 追踪</title><link>https://docs.dapr.io/operations/monitoring/tracing/</link><description>Recent content in 追踪 on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/operations/monitoring/tracing/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: Configure Dapr to send distributed tracing data</title><link>https://docs.dapr.io/operations/monitoring/tracing/setup-tracing/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/monitoring/tracing/setup-tracing/</guid><description>
 &lt;p>It is recommended to run Dapr with tracing enabled for any production scenario. You can configure Dapr to send tracing and telemetry data to many backends based on your environment, whether it is running in the cloud or on-premises.&lt;/p>
 &lt;h2 id="tracing-configuration">Tracing configuration&lt;/h2>
 &lt;p>&lt;code>Configuration&lt;/code> sepc下的 &lt;code>tracing&lt;/code> 部分包含以下属性：&lt;/p>
@@ -13,7 +13,7 @@
 &lt;tr>
 &lt;th>属性&lt;/th>
 &lt;th>数据类型&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -148,7 +148,7 @@
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
 &lt;li>尝试访问&lt;a href="https://github.com/dapr/quickstarts/tree/master/observability/README.md">可观察性快速入门&lt;/a>&lt;/li>
-&lt;li>如何设置&lt;a href="https://docs.dapr.io/operations/configuration/configuration-overview/#tracing">应用跟踪配置选项&lt;/a>&lt;/li>
+&lt;li>How to set &lt;a href="https://docs.dapr.io/operations/configuration/configuration-overview/#tracing">tracing configuration options&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: 使用 OpenTelemetry Collector 来收集追踪信息，发送至 AppInsights</title><link>https://docs.dapr.io/operations/monitoring/tracing/open-telemetry-collector-appinsights/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/monitoring/tracing/open-telemetry-collector-appinsights/</guid><description>
 &lt;p>Dapr 使用 Zipkin API 与&lt;a href="https://github.com/open-telemetry/opentelemetry-collector">OpenTelemetry Collector &lt;/a> 进行集成。 本指南通过一个示例，使用 Dapr 通过 OpenTelemetry Collector 将跟踪事件推送到 Azure Application Insights。&lt;/p>
 &lt;h2 id="必备条件">必备条件&lt;/h2>
@@ -208,5 +208,5 @@
 &lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
 &lt;li>尝试访问&lt;a href="https://github.com/dapr/quickstarts/tree/master/observability/README.md">可观察性快速入门&lt;/a>&lt;/li>
-&lt;li>如何设置&lt;a href="https://docs.dapr.io/operations/configuration/configuration-overview/#tracing">应用跟踪配置选项&lt;/a>&lt;/li>
+&lt;li>How to set &lt;a href="https://docs.dapr.io/operations/configuration/configuration-overview/#tracing">tracing configuration options&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: 常见追踪后端</title><link>https://docs.dapr.io/operations/monitoring/tracing/supported-tracing-backends/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/monitoring/tracing/supported-tracing-backends/</guid><description/></item></channel></rss>

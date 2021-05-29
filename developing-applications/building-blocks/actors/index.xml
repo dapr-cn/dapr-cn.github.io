@@ -34,32 +34,34 @@
 &lt;li>默认情况下，Actors 被随机放入分区中，从而形成均匀的分布。&lt;/li>
 &lt;li>由于 Actors 是随机放置的，因此可知，执行操作始终需要网络通信，包括方法调用数据的序列化和去序列化，产生延迟和开销。&lt;/li>
 &lt;/ul>
-&lt;p>注: Dapr actor Placement 服务仅用于 actor 安置，因此，如果您的服务未使用 Dapr Actors，那么不需要。 Placement 服务可以在所有 &lt;a href="https://docs.dapr.io/operations/hosting/"> 托管环境中&lt;/a>&lt;/a> ，包括自托管和 Kubernetes。&lt;/p>
+&lt;p>注: Dapr actor Placement 服务仅用于 actor 安置，因此，如果您的服务未使用 Dapr Actors，那么不需要。 The Placement service can run in all &lt;a href="https://docs.dapr.io/operations/hosting/">hosting environments&lt;/a>, including self-hosted and Kubernetes.&lt;/p>
 &lt;h2 id="actor-通信">Actor 通信&lt;/h2>
 &lt;p>您可以通过 HTTP/gRPC 来与 Dapr 交互以调用 actor 方法.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">POST/GET/PUT/DELETE http://localhost:3500/v1.0/actors/&amp;lt;actorType&amp;gt;/&amp;lt;actorId&amp;gt;/&amp;lt;method/state/timers/reminders&amp;gt;
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>您可以在请求主体中为 actor 方法提供任何数据，并且请求的响应在响应主体中，这是来自 actor 方法调用的数据。&lt;/p>
-&lt;p>请参阅 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/actors/actors-overview/">Dapr Actor 功能部件&lt;/a> ，以获取更多详细信息。&lt;/p>
+&lt;p>Refer to &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/actors/howto-actors/">Dapr Actor Features&lt;/a> for more details.&lt;/p>
 &lt;h3 id="并发concurrency">并发（Concurrency）&lt;/h3>
 &lt;p>Dapr Actors 运行时提供了一个简单的基于回合的访问模型，用于访问 Actors 方法。 这意味着任何时候都不能有一个以上的线程在一个 actor 对象的代码内活动。 基于回合的访问大大简化了并发系统，因为不需要同步数据访问机制。 这也意味着系统的设计必须考虑到每个 actor 实例的单线程访问性质。&lt;/p>
 &lt;p>单个 actor 实例一次无法处理多个请求。 如果 actor 实例预期要处理并发请求，可能会导致吞吐量瓶颈。&lt;/p>
 &lt;p>如果两个 Actors 之间存在循环请求，而外部请求同时向其中一个 Actors 发出外部请求，那么 Actors 可以相互死锁。 Dapr actor 运行时会自动分出 actor 调用，并向调用方引发异常以中断可能死锁的情况。&lt;/p>
 &lt;img src="https://docs.dapr.io/images/actors_background_communication.png" width=600>
+&lt;h4 id="reentrancy">Reentrancy&lt;/h4>
+&lt;p>As an enhancement to the base actors in dapr, reentrancy can now be enabled as a preview feature. To learn more about it, see &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/actors/actor-reentrancy/">actor reentrancy&lt;/a>&lt;/p>
 &lt;h3 id="基于回合的访问">基于回合的访问&lt;/h3>
 &lt;p>一个回合包括执行 actor 方法以响应来自其他 Actors 或客户端的请求，或执行 timer/reminders 回调。 即使这些方法和回调是异步的，但 Dapr Actors 运行时并没有将它们交错（Interleave ，即并发调用它们）。 在允许新回合之前，必须完全结束之前的回合。 换句话说，在允许对方法或回调进行新调用之前，必须完全完成当前正在执行的 actor 方法或 timer/reminders 回调。 如果执行从方法或回调返回结果，并且方法或回调返回的任务已完成，则方法或回调将被视为已完成。 值得强调的是，即使在不同方法、timer和回调中，基于回合的并发也一样起作用。&lt;/p>
 &lt;p>Dapr Actors 运行时通过在回合开始时获取每个 Actors 的锁定并在该回合结束时释放锁定来实施基于回合的并行。 因此，基于回合的并发性是按每个 actor 执行的，而不是跨 Actors 执行的。 Actor 方法和 timer/reminders 回调可以代表不同的 Actors 同时执行。&lt;/p>
 &lt;p>下面的示例演示了上述概念。 现在有一个实现了两个异步方法（例如，方法 1 和方法 2）、timer 和 reminders 的 actor。 下图显示了执行这些方法的时间线的示例，并代表属于此 Actors 类型的两个 Actors ( ActorId1 和 ActorId2) 的回调。&lt;/p>
 &lt;img src="https://docs.dapr.io/images/actors_background_concurrency.png" width=600></description></item><item><title>Developing-Applications: How-to: 在 Dapr 中使用 virtual actors</title><link>https://docs.dapr.io/developing-applications/building-blocks/actors/howto-actors/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/building-blocks/actors/howto-actors/</guid><description>
-&lt;p>Dapr Actors 运行时通过以下功能为 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/actors/actors-overview/">virtual actors&lt;/a> 提供支持:&lt;/p>
+&lt;p>The Dapr actors runtime provides support for &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/actors/actors-overview/">virtual actors&lt;/a> through following capabilities:&lt;/p>
 &lt;h2 id="调用-actor-方法">调用 Actor 方法&lt;/h2>
 &lt;p>您可以通过 HTTP/gRPC 来与 Dapr 交互以调用 actor 方法&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-html" data-lang="html">POST/GET/PUT/DELETE http://localhost:3500/v1.0/actors/&amp;lt;&lt;span style="color:#f92672">actorType&lt;/span>&amp;gt;/&amp;lt;&lt;span style="color:#f92672">actorId&lt;/span>&amp;gt;/method/&amp;lt;&lt;span style="color:#f92672">method&lt;/span>&amp;gt;
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>您可以在请求主体中为 actor 方法提供任何数据，并且请求的响应在响应主体中，这是来自 actor 方法调用的数据。&lt;/p>
-&lt;p>参阅&lt;a href="https://docs.dapr.io/reference/api/actors_api/#invoke-actor-method">api spec&lt;/a> 获取更多信息。&lt;/p>
+&lt;p>Refer &lt;a href="https://docs.dapr.io/reference/api/actors_api/#invoke-actor-method">api spec&lt;/a> for more details.&lt;/p>
 &lt;h2 id="actor-状态管理">Actor 状态管理&lt;/h2>
 &lt;p>Actor 可以使用状态管理功能可靠地保存状态。&lt;/p>
 &lt;p>您可以通过 HTTP/GRPC 端点与 Dapr 进行状态管理。&lt;/p>
-&lt;p>要使用Actor，您的状态存储必须支持多项目事务。 这意味着您的状态存储 &lt;a href="https://github.com/dapr/components-contrib/tree/master/state">component&lt;/a> 必须实现 &lt;a href="https://github.com/dapr/components-contrib/blob/master/state/transactional_store.go">TransactionalStore&lt;/a> 接口。 支持 事务/actors 的组件列表如下: &lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/">受支持的状态存储&lt;/a>。&lt;/p>
+&lt;p>要使用Actor，您的状态存储必须支持多项目事务。 这意味着您的状态存储 &lt;a href="https://github.com/dapr/components-contrib/tree/master/state">component&lt;/a> 必须实现 &lt;a href="https://github.com/dapr/components-contrib/blob/master/state/transactional_store.go">TransactionalStore&lt;/a> 接口。 The list of components that support transactions/actors can be found here: &lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/">supported state stores&lt;/a>.&lt;/p>
 &lt;h2 id="actor-timers-和-reminders">Actor timers 和 reminders&lt;/h2>
 &lt;p>Actors 可以通过 timer 或者 remider 自行注册周期性的任务.&lt;/p>
 &lt;h3 id="actor-计时器">Actor 计时器&lt;/h3>
@@ -83,7 +85,7 @@
 }
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>您可以通过调用来除去 Actor timers&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-md" data-lang="md">DELETE http://localhost:3500/v1.0/actors/&amp;lt;&lt;span style="color:#f92672">actorType&lt;/span>&amp;gt;/&amp;lt;&lt;span style="color:#f92672">actorId&lt;/span>&amp;gt;/timers/&amp;lt;&lt;span style="color:#f92672">name&lt;/span>&amp;gt;
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>参阅&lt;a href="https://docs.dapr.io/reference/api/actors_api/#invoke-timer">api spec&lt;/a> 获取更多信息。&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Refer &lt;a href="https://docs.dapr.io/reference/api/actors_api/#invoke-timer">api spec&lt;/a> for more details.&lt;/p>
 &lt;h3 id="actor-reminders">Actor reminders&lt;/h3>
 &lt;p>Reminders 是一种在指定时间内触发 &lt;em>persistent&lt;/em> 回调的机制。 它们的功能类似于 timer。 但与 timer 不同，在所有情况下 reminders 都会触发，直到 actor 显式取消注册 reminders 或删除 actor 。 具体而言， reminders 会在所有 actor 失活和故障时也会触发触发，因为Dapr Actors 运行时会将 reminders 信息持久化到 Dapr Actors 状态提供者中。&lt;/p>
 &lt;p>您可以通过将 HTTP/gRPC 请求调用 Dapr 来为 actor 创建 reminders。&lt;/p>
@@ -110,4 +112,65 @@
 &lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="删除-actor-reminders">删除 actor reminders&lt;/h4>
 &lt;p>您可以通过调用来除去 Actor timers&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-md" data-lang="md">DELETE http://localhost:3500/v1.0/actors/&amp;lt;&lt;span style="color:#f92672">actorType&lt;/span>&amp;gt;/&amp;lt;&lt;span style="color:#f92672">actorId&lt;/span>&amp;gt;/reminders/&amp;lt;&lt;span style="color:#f92672">name&lt;/span>&amp;gt;
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>请参阅 &lt;a href="https://docs.dapr.io/reference/api/actors_api/#invoke-reminder">Api 描述&lt;/a> 以获取更多详细信息。&lt;/p></description></item></channel></rss>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Refer &lt;a href="https://docs.dapr.io/reference/api/actors_api/#invoke-reminder">api spec&lt;/a> for more details.&lt;/p></description></item><item><title>Developing-Applications: How-to: Enable and use actor reentrancy in Dapr</title><link>https://docs.dapr.io/developing-applications/building-blocks/actors/actor-reentrancy/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/building-blocks/actors/actor-reentrancy/</guid><description>
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Preview feature&lt;/h4>
+Actor reentrancy is currently in &lt;a href="https://docs.dapr.io/operations/configuration/preview-features/">preview&lt;/a>.
+&lt;/div>
+&lt;h2 id="actor-reentrancy">Actor reentrancy&lt;/h2>
+&lt;p>A core tenet of the virtual actor pattern is the single-threaded nature of actor execution. Before reentrancy, this caused the Dapr runtime to lock an actor on any given request. A second request could not start until the first had completed. This behavior means an actor cannot call itself, or have another actor call into it even if it is part of the same chain. Reentrancy solves this by allowing requests from the same chain or context to re-enter into an already locked actor. Examples of chains that reentrancy allows can be seen below:&lt;/p>
+&lt;pre>&lt;code>Actor A -&amp;gt; Actor A
+ActorA -&amp;gt; Actor B -&amp;gt; Actor A
+&lt;/code>&lt;/pre>&lt;p>With reentrancy, there can be more complex actor calls without sacrificing the single-threaded behavior of virtual actors.&lt;/p>
+&lt;h2 id="enabling-actor-reentrancy">Enabling actor reentrancy&lt;/h2>
+&lt;p>Actor reentrancy is currently in preview, so enabling it is a two step process.&lt;/p>
+&lt;h3 id="preview-feature-configuration">Preview feature configuration&lt;/h3>
+&lt;p>Before using reentrancy, the feature must be enabled in Dapr. For more information on preview configurations, see &lt;a href="https://docs.dapr.io/operations/configuration/preview-features/">the full guide on opting into preview features in Dapr&lt;/a>. Below is an example of the configuration for actor reentrancy:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">reentrantconfig&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">features&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">Actor.Reentrancy&lt;/span>
+&lt;span style="color:#f92672">enabled&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="actor-runtime-configuration">Actor runtime configuration&lt;/h3>
+&lt;p>Once actor reentrancy is enabled as an opt-in preview feature, the actor that will be reentrant must also provide the appropriate configuration to use reentrancy. This is done by the actor&amp;rsquo;s endpoint for &lt;code>GET /dapr/config&lt;/code>, similar to other actor configuration elements. Here is a snipet of an actor written in Golang providing the configuration:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#66d9ef">type&lt;/span> &lt;span style="color:#a6e22e">daprConfig&lt;/span> &lt;span style="color:#66d9ef">struct&lt;/span> {
+&lt;span style="color:#a6e22e">Entities&lt;/span> []&lt;span style="color:#66d9ef">string&lt;/span> &lt;span style="color:#e6db74">`json:&amp;#34;entities,omitempty&amp;#34;`&lt;/span>
+&lt;span style="color:#a6e22e">ActorIdleTimeout&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span> &lt;span style="color:#e6db74">`json:&amp;#34;actorIdleTimeout,omitempty&amp;#34;`&lt;/span>
+&lt;span style="color:#a6e22e">ActorScanInterval&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span> &lt;span style="color:#e6db74">`json:&amp;#34;actorScanInterval,omitempty&amp;#34;`&lt;/span>
+&lt;span style="color:#a6e22e">DrainOngoingCallTimeout&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span> &lt;span style="color:#e6db74">`json:&amp;#34;drainOngoingCallTimeout,omitempty&amp;#34;`&lt;/span>
+&lt;span style="color:#a6e22e">DrainRebalancedActors&lt;/span> &lt;span style="color:#66d9ef">bool&lt;/span> &lt;span style="color:#e6db74">`json:&amp;#34;drainRebalancedActors,omitempty&amp;#34;`&lt;/span>
+&lt;span style="color:#a6e22e">Reentrancy&lt;/span> &lt;span style="color:#a6e22e">config&lt;/span>.&lt;span style="color:#a6e22e">ReentrancyConfig&lt;/span> &lt;span style="color:#e6db74">`json:&amp;#34;reentrancy,omitempty&amp;#34;`&lt;/span>
+}
+&lt;span style="color:#66d9ef">var&lt;/span> &lt;span style="color:#a6e22e">daprConfigResponse&lt;/span> = &lt;span style="color:#a6e22e">daprConfig&lt;/span>{
+[]&lt;span style="color:#66d9ef">string&lt;/span>{&lt;span style="color:#a6e22e">defaultActorType&lt;/span>},
+&lt;span style="color:#a6e22e">actorIdleTimeout&lt;/span>,
+&lt;span style="color:#a6e22e">actorScanInterval&lt;/span>,
+&lt;span style="color:#a6e22e">drainOngoingCallTimeout&lt;/span>,
+&lt;span style="color:#a6e22e">drainRebalancedActors&lt;/span>,
+&lt;span style="color:#a6e22e">config&lt;/span>.&lt;span style="color:#a6e22e">ReentrancyConfig&lt;/span>{&lt;span style="color:#a6e22e">Enabled&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>, &lt;span style="color:#a6e22e">MaxStackDepth&lt;/span>: &lt;span style="color:#f92672">&amp;amp;&lt;/span>&lt;span style="color:#a6e22e">maxStackDepth&lt;/span>},
+}
+&lt;span style="color:#66d9ef">func&lt;/span> &lt;span style="color:#a6e22e">configHandler&lt;/span>(&lt;span style="color:#a6e22e">w&lt;/span> &lt;span style="color:#a6e22e">http&lt;/span>.&lt;span style="color:#a6e22e">ResponseWriter&lt;/span>, &lt;span style="color:#a6e22e">r&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">http&lt;/span>.&lt;span style="color:#a6e22e">Request&lt;/span>) {
+&lt;span style="color:#a6e22e">w&lt;/span>.&lt;span style="color:#a6e22e">Header&lt;/span>().&lt;span style="color:#a6e22e">Set&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;Content-Type&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;application/json&amp;#34;&lt;/span>)
+&lt;span style="color:#a6e22e">w&lt;/span>.&lt;span style="color:#a6e22e">WriteHeader&lt;/span>(&lt;span style="color:#a6e22e">http&lt;/span>.&lt;span style="color:#a6e22e">StatusOK&lt;/span>)
+&lt;span style="color:#a6e22e">json&lt;/span>.&lt;span style="color:#a6e22e">NewEncoder&lt;/span>(&lt;span style="color:#a6e22e">w&lt;/span>).&lt;span style="color:#a6e22e">Encode&lt;/span>(&lt;span style="color:#a6e22e">daprConfigResponse&lt;/span>)
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="handling-reentrant-requests">Handling reentrant requests&lt;/h3>
+&lt;p>The key to a reentrant request is the &lt;code>Dapr-Reentrancy-Id&lt;/code> header. The value of this header is used to match requests to their call chain and allow them to bypass the actor&amp;rsquo;s lock.&lt;/p>
+&lt;p>The header is generated by the Dapr runtime for any actor request that has a reentrant config specified. Once it is generated, it is used to lock the actor and must be passed to all future requests. Below is a snippet of code from an actor handling this is Golang:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#66d9ef">func&lt;/span> &lt;span style="color:#a6e22e">reentrantCallHandler&lt;/span>(&lt;span style="color:#a6e22e">w&lt;/span> &lt;span style="color:#a6e22e">http&lt;/span>.&lt;span style="color:#a6e22e">ResponseWriter&lt;/span>, &lt;span style="color:#a6e22e">r&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">http&lt;/span>.&lt;span style="color:#a6e22e">Request&lt;/span>) {
+&lt;span style="color:#75715e">/*
+&lt;/span>&lt;span style="color:#75715e"> * Omitted.
+&lt;/span>&lt;span style="color:#75715e"> */&lt;/span>
+&lt;span style="color:#a6e22e">req&lt;/span>, &lt;span style="color:#a6e22e">_&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">http&lt;/span>.&lt;span style="color:#a6e22e">NewRequest&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;PUT&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">url&lt;/span>, &lt;span style="color:#a6e22e">bytes&lt;/span>.&lt;span style="color:#a6e22e">NewReader&lt;/span>(&lt;span style="color:#a6e22e">nextBody&lt;/span>))
+&lt;span style="color:#a6e22e">reentrancyID&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">r&lt;/span>.&lt;span style="color:#a6e22e">Header&lt;/span>.&lt;span style="color:#a6e22e">Get&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;Dapr-Reentrancy-Id&amp;#34;&lt;/span>)
+&lt;span style="color:#a6e22e">req&lt;/span>.&lt;span style="color:#a6e22e">Header&lt;/span>.&lt;span style="color:#a6e22e">Add&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;Dapr-Reentrancy-Id&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">reentrancyID&lt;/span>)
+&lt;span style="color:#a6e22e">client&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">http&lt;/span>.&lt;span style="color:#a6e22e">Client&lt;/span>{}
+&lt;span style="color:#a6e22e">resp&lt;/span>, &lt;span style="color:#a6e22e">err&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">client&lt;/span>.&lt;span style="color:#a6e22e">Do&lt;/span>(&lt;span style="color:#a6e22e">req&lt;/span>)
+&lt;span style="color:#75715e">/*
+&lt;/span>&lt;span style="color:#75715e"> * Omitted.
+&lt;/span>&lt;span style="color:#75715e"> */&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Currently, no SDK supports actor reentrancy. In the future, the method for handling the reentrancy id may be different based on the SDK that is being used.&lt;/p></description></item></channel></rss>

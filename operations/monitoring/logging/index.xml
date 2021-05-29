@@ -77,7 +77,7 @@ helm install dapr dapr/dapr --namespace dapr-system --set global.logAsJson&lt;sp
 &lt;/li>
 &lt;/ol>
 &lt;p>添加 &lt;code>dapr.io/log-as-json: &amp;quot;true&amp;quot;&lt;/code> annotation 到你的部署yaml.&lt;/p>
-&lt;p>示例:&lt;/p>
+&lt;p>You can run Kafka locally using &lt;a href="https://github.com/wurstmeister/kafka-docker">this&lt;/a> Docker image. To run without Docker, see the getting started guide &lt;a href="https://kafka.apache.org/quickstart">here&lt;/a>.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">apps/v1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Deployment&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -230,8 +230,8 @@ curl https://raw.githubusercontent.com/newrelic/helm-charts/master/charts/newrel
 &lt;thead>
 &lt;tr>
 &lt;th>字段&lt;/th>
-&lt;th>描述&lt;/th>
-&lt;th>示例&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;th>Example&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -323,7 +323,7 @@ time&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&am
 &lt;p>如果您在 Kubernetes 集群中运行 Dapr ，那么 &lt;a href="https://www.fluentd.org/">Fluentd&lt;/a> 是一个受欢迎的容器日志收集器。 您可以将 Fluentd 与 &lt;a href="https://docs.fluentd.org/parser/json">json 解析器插件&lt;/a> 一起使用，以解析 Dapr JSON 格式的日志。 This &lt;a href="https://docs.dapr.io/operations/monitoring/logging/fluentd/">how-to&lt;/a> shows how to configure the Fluentd in your cluster.&lt;/p>
 &lt;p>如果您使用 Azure Kubernetes 服务 您可以使用默认OMS Agent和 Azure Monitor收集日志，而不需要安装 Fluentd。&lt;/p>
 &lt;h2 id="搜索引擎">搜索引擎&lt;/h2>
-&lt;p>如果使用 &lt;a href="https://www.fluentd.org/">Fluentd&lt;/a>，我们建议使用 Elastic Search 和 Kibana。 此 &lt;a href="https://docs.dapr.io/operations/monitoring/logging/fluentd/">how-to&lt;/a> 演示如何在 Kubernetes 集群中设置 Elastic Search 和 Kibana 。&lt;/p>
+&lt;p>如果使用 &lt;a href="https://www.fluentd.org/">Fluentd&lt;/a>，我们建议使用 Elastic Search 和 Kibana。 This &lt;a href="https://docs.dapr.io/operations/monitoring/logging/fluentd/">how-to&lt;/a> shows how to set up Elastic Search and Kibana in your Kubernetes cluster.&lt;/p>
 &lt;p>如果您正在使用 Azure Kubernetes 服务，您可以使用 &lt;a href="https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-overview">针对容器的Azure monitor&lt;/a> 而不会安装任何额外的监视工具。 也可以阅读 &lt;a href="https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-onboard">如何为容器启用 Azure Monitor&lt;/a>&lt;/p>
 &lt;h2 id="参考资料">参考资料&lt;/h2>
 &lt;ul>

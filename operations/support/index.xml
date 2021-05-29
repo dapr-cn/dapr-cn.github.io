@@ -19,7 +19,7 @@
 &lt;li>Dapr &lt;code>Manifests&lt;/code> with &lt;code>MAJOR.MINOR&lt;/code>. These include subscriptions and configurations. These include subscriptions and configurations. These include subscriptions and configurations.&lt;/li>
 &lt;/ul>
 &lt;p>Note that the Dapr APIs, binaries releases (runtime, CLI, SDKs) and components are all independent from one another.&lt;/p>
-&lt;h2 id="dapr-api">Dapr API&lt;/h2>
+&lt;h2 id="dapr-http-api">Dapr HTTP API&lt;/h2>
 &lt;p>The Dapr HTTP API is versioned according to these &lt;a href="https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#71-url-structure">REST API guidelines&lt;/a>.&lt;/p>
 &lt;p>Based to the these guidelines;&lt;/p>
 &lt;ul>
@@ -40,8 +40,8 @@
 &lt;p>The &lt;a href="https://github.com/dapr/components-contrib/">components-contrib&lt;/a> repo release is a flat version across all components inside. That is, a version for the components-contrib repo release is made up of all the schemas for the components inside it. A new version of Dapr does not mean there is a new release of components-contrib if there are no component changes.&lt;/p>
 &lt;p>Note: Components have a production usage lifecycle status: Alpha, Beta and GA (stable). These statuses are not related to their versioning. The tables of supported components shows both their versions and their status.&lt;/p>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/">状态存储组件&lt;/a> 列表&lt;/li>
-&lt;li>可用发布/订阅实现的完整列表 &lt;a href="https://docs.dapr.io/reference/components-reference/supported-pubsub/">在这&lt;/a>。&lt;/li>
+&lt;li>List of &lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/">state store components&lt;/a>&lt;/li>
+&lt;li>List of &lt;a href="https://docs.dapr.io/reference/components-reference/supported-pubsub/">pub/sub components&lt;/a>&lt;/li>
 &lt;li>List of &lt;a href="https://docs.dapr.io/reference/components-reference/supported-secret-stores/">secret store components&lt;/a>&lt;/li>
 &lt;li>List of &lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/">binding components&lt;/a>&lt;/li>
 &lt;/ul>
@@ -105,7 +105,7 @@
 &lt;th style="text-align:left">CLI&lt;/th>
 &lt;th>SDKs&lt;/th>
 &lt;th>Dashboard&lt;/th>
-&lt;th>状态 （Status）&lt;/th>
+&lt;th>状态&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -115,7 +115,7 @@
 &lt;td style="text-align:left">1.0.0&lt;/td>
 &lt;td>Java 1.0.0 &lt;/br>Go 1.0.0 &lt;/br>PHP 1.0.0 &lt;/br>Python 1.0.0 &lt;/br>.NET 1.0.0&lt;/td>
 &lt;td>0.6.0&lt;/td>
-&lt;td>Supported&lt;/td>
+&lt;td>Unsupported&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>Mar 4th 2021&lt;/td>
@@ -123,7 +123,7 @@
 &lt;td style="text-align:left">1.0.1&lt;/td>
 &lt;td>Java 1.0.2 &lt;/br>Go 1.0.0 &lt;/br>PHP 1.0.0 &lt;/br>Python 1.0.0 &lt;/br>.NET 1.0.0&lt;/td>
 &lt;td>0.6.0&lt;/td>
-&lt;td>Supported&lt;/td>
+&lt;td>Unsupported&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>Apr 1st 2021&lt;/td>
@@ -139,13 +139,21 @@
 &lt;td style="text-align:left">1.1.0&lt;/td>
 &lt;td>Java 1.0.2 &lt;/br>Go 1.1.0 &lt;/br>PHP 1.0.0 &lt;/br>Python 1.1.0 &lt;/br>.NET 1.1.0&lt;/td>
 &lt;td>0.6.0&lt;/td>
-&lt;td>Supported (current)&lt;/td>
+&lt;td>Supported&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>Apr 16th 2021&lt;/td>
 &lt;td style="text-align:center">1.1.2&lt;/br>&lt;/td>
 &lt;td style="text-align:left">1.1.0&lt;/td>
 &lt;td>Java 1.0.2 &lt;/br>Go 1.1.0 &lt;/br>PHP 1.0.0 &lt;/br>Python 1.1.0 &lt;/br>.NET 1.1.0&lt;/td>
+&lt;td>0.6.0&lt;/td>
+&lt;td>Supported&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>May 26th 2021&lt;/td>
+&lt;td style="text-align:center">1.2.0&lt;/br>&lt;/td>
+&lt;td style="text-align:left">1.2.0&lt;/td>
+&lt;td>Java 1.1.0 &lt;/br>Go 1.1.0 &lt;/br>PHP 1.1.0 &lt;/br>Python 1.1.0 &lt;/br>.NET 1.2.0&lt;/td>
 &lt;td>0.6.0&lt;/td>
 &lt;td>Supported (current)&lt;/td>
 &lt;/tr>
@@ -154,7 +162,7 @@
 &lt;h2 id="upgrade-paths">Upgrade paths&lt;/h2>
 &lt;p>After the 1.0 release of the runtime there may be situations where it is necessary to explicitly upgrade through an additional release to reach the desired target. For example an upgrade from v1.0 to v1.2 may need go pass through v1.1&lt;/p>
 &lt;p>The table below shows the tested upgrade paths for the Dapr runtime. For example you are able to upgrade from 1.0-rc4 to the 1.0 release. Any other combinations of upgrades have not been tested.&lt;/p>
-&lt;p>General guidance on upgrading can be found for &lt;a href="%7B%7BX%1A52X%7D%7D">self hosted mode&lt;/a> and &lt;a href="%7B%7BX%1A53X%7D%7D">Kubernetes&lt;/a> deployments. It is best to review the target version release notes for specific guidance.&lt;/p>
+&lt;p>General guidance on upgrading can be found for &lt;a href="https://docs.dapr.io/operations/hosting/self-hosted/self-hosted-upgrade/">self hosted mode&lt;/a> and &lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-upgrade/">Kubernetes&lt;/a> deployments. It is best to review the target version release notes for specific guidance.&lt;/p>
 &lt;table>
 &lt;thead>
 &lt;tr>
@@ -189,6 +197,16 @@
 &lt;td>N/A&lt;/td>
 &lt;td>1.1.2&lt;/td>
 &lt;/tr>
+&lt;tr>
+&lt;td>1.0.0 or 1.0.1&lt;/td>
+&lt;td>1.1.2&lt;/td>
+&lt;td>1.2.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>1.1.0 to 1.1.2&lt;/td>
+&lt;td>N/A&lt;/td>
+&lt;td>1.2.0&lt;/td>
+&lt;/tr>
 &lt;/tbody>
 &lt;/table>
 &lt;h2 id="feature-and-deprecations">Feature and deprecations&lt;/h2>
@@ -199,20 +217,20 @@
 &lt;li>Document any steps the user must take to modify their code, operations, etc if applicable in the release notes.&lt;/li>
 &lt;/ul>
 &lt;p>After announcing a future breaking change, the change will happen in 2 releases or 6 months, whichever is greater. Deprecated features should respond with warning but do nothing otherwise.&lt;/p>
-&lt;p>Here is an example, using a hypothetical 1.1.0 as the deprecation announcement release.&lt;/p>
+&lt;h3 id="announced-deprecations">Announced deprecations&lt;/h3>
 &lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th>Feature&lt;/th>
 &lt;th>Deprecation announcement&lt;/th>
-&lt;th>Deprecation&lt;/th>
+&lt;th>Removal&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
-&lt;td>Feature X&lt;/td>
-&lt;td>1.1.0&lt;/td>
-&lt;td>1.3.0&lt;/td>
+&lt;td>GET /v1.0/shutdown API (Users should use &lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-job/">POST API&lt;/a> instead)&lt;/td>
+&lt;td>1.2.0&lt;/td>
+&lt;td>1.4.0&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>

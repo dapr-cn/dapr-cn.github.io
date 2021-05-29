@@ -11,8 +11,8 @@
 &lt;/ul>
 &lt;h2 id="w3c-correlation-id">W3C Correlation ID&lt;/h2>
 &lt;p>Dapr 使用标准的 W3C 跟踪上下文标头。 对于 HTTP 请求，Dapr 使用 &lt;code>traceparent&lt;/code> 标头。 对于 gRPC 请求，Dapr 使用 &lt;code>grpc-trace-bin&lt;/code> 标头。 当请求到达时，如果没有跟踪 ID ，Dapr 将创建一个新的跟踪 ID。 否则，它将沿调用链传递跟踪 ID。&lt;/p>
-&lt;p>阅读 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/observability/w3c-tracing/">W3C 分布式跟踪&lt;/a> ，了解更多关于 W3C Trace Context 的背景.&lt;/p>
-&lt;h2 id="配置">配置&lt;/h2>
+&lt;p>Read &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/observability/w3c-tracing/">W3C distributed tracing&lt;/a> for more background on W3C Trace Context.&lt;/p>
+&lt;h2 id="configuration-配置">Configuration (配置)&lt;/h2>
 &lt;p>Dapr uses probabilistic sampling. 采样率定义跟踪 Span 采样的概率，其值可以在0和1之间（包括）。 采样率定义跟踪 Span 采样的概率，其值可以在0和1之间（包括）。 默认采样率是0.0001（即每10000个span中采样一个）。&lt;/p>
 &lt;p>若要更改默认的跟踪行为，请使用配置文件（在自托管模式下）或 Kubernetes 配置对象（在 Kubernetes 模式下）。 例如，以下配置对象将采样率更改为 1（即每个Span都采样），并使用 Zipkin 协议将跟踪发送到位于 &lt;a href="http://zipkin.default.svc.cluster.local">http://zipkin.default.svc.cluster.local&lt;/a> 的 Zipkin 服务器：&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
@@ -33,10 +33,10 @@
 &lt;li>&lt;a href="https://docs.dapr.io/operations/monitoring/tracing/supported-tracing-backends/zipkin/">操作方法: 为分布式跟踪安装 Zipkin&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/observability/w3c-tracing/">W3C 分布式跟踪&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Developing-Applications: Sidecar 运行状况</title><link>https://docs.dapr.io/developing-applications/building-blocks/observability/sidecar-health/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/building-blocks/observability/sidecar-health/</guid><description>
-&lt;p>Dapr 提供了一种使用 HTTP /healthz 端点来确定其健康状况的方法。 通过此端点，对Dapr 进程或 sidecar进行探测，可以确定其运行状况，从而确定其就绪程度和活跃度。 请参阅 &lt;a href="https://docs.dapr.io/reference/api/health_api/">health API &lt;/a>&lt;/p>
+&lt;p>Dapr 提供了一种使用 HTTP /healthz 端点来确定其健康状况的方法。 通过此端点，对Dapr 进程或 sidecar进行探测，可以确定其运行状况，从而确定其就绪程度和活跃度。 See &lt;a href="https://docs.dapr.io/reference/api/health_api/">health API &lt;/a>&lt;/p>
 &lt;p>The Dapr &lt;code>/healthz&lt;/code> endpoint can be used by health probes from the application hosting platform. 本主题描述 Dapr 如何与来自不同托管平台的探测器集成。 本主题描述 Dapr 如何与来自不同托管平台的探测器集成。&lt;/p>
 &lt;p>作为用户，在将Dapr部署到主机平台时(例如Kubernetes)，Dapr健康端点会自动为您配置。 您无需配置任何内容。&lt;/p>
-&lt;p>注意：Dapr actors还有一个健康 API 终点，Dapr 会探测对 Dapr 信号的响应申请，该信号表示actor应用程序是健康且运行的。 请参阅 &lt;a href="https://docs.dapr.io/reference/api/health_api/">health API &lt;/a>&lt;/p>
+&lt;p>注意：Dapr actors还有一个健康 API 终点，Dapr 会探测对 Dapr 信号的响应申请，该信号表示actor应用程序是健康且运行的。 See &lt;a href="https://docs.dapr.io/reference/api/actors_api/#health-check">actor health API&lt;/a>&lt;/p>
 &lt;h2 id="运行状况终结点与kubernetes集成">运行状况终结点：与Kubernetes集成&lt;/h2>
 &lt;p>Kubernetes使用 * 准备就绪 * 和 * 活跃程度 * 探测器来确定容器的运行状况。&lt;/p>
 &lt;p>The kubelet uses liveness probes to know when to restart a container. 例如，活跃探针可捕获应用程序正在运行但无法进行处理的死锁。 例如，活跃探针可捕获应用程序正在运行但无法进行处理的死锁。 在这种状态下重新启动容器有助于使应用程序在具有错误的情况下更可用。&lt;/p>

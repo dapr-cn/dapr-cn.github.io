@@ -1,6 +1,6 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr Docs – Deploy and run Dapr in Kubernetes mode</title><link>https://docs.dapr.io/en/operations/hosting/kubernetes/</link><description>Recent content in Deploy and run Dapr in Kubernetes mode on Dapr Docs</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/en/operations/hosting/kubernetes/index.xml" rel="self" type="application/rss+xml"/><item><title>Operations: Overview of Dapr on Kubernetes</title><link>https://docs.dapr.io/en/operations/hosting/kubernetes/kubernetes-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/operations/hosting/kubernetes/kubernetes-overview/</guid><description>
 &lt;h2 id="dapr-on-kubernetes">Dapr on Kubernetes&lt;/h2>
-&lt;p>Dapr can be configured to run on any Kubernetes cluster. To achieve this, Dapr begins by deploying the &lt;code>dapr-sidecar-injector&lt;/code>, &lt;code>dapr-operator&lt;/code>, &lt;code>dapr-placement&lt;/code>, and &lt;code>dapr-sentry&lt;/code> Kubernetes services. These provide first-class integration to make running applications with Dapr easy.&lt;/p>
+&lt;p>Dapr can be configured to run on any supported versions of Kubernetes. To achieve this, Dapr begins by deploying the &lt;code>dapr-sidecar-injector&lt;/code>, &lt;code>dapr-operator&lt;/code>, &lt;code>dapr-placement&lt;/code>, and &lt;code>dapr-sentry&lt;/code> Kubernetes services. These provide first-class integration to make running applications with Dapr easy.&lt;/p>
 &lt;ul>
 &lt;li>&lt;strong>dapr-operator:&lt;/strong> Manages &lt;a href="https://docs.dapr.io/en/operations/components/">component&lt;/a> updates and Kubernetes services endpoints for Dapr (state stores, pub/subs, etc.)&lt;/li>
 &lt;li>&lt;strong>dapr-sidecar-injector:&lt;/strong> Injects Dapr into &lt;a href="#adding-dapr-to-a-kubernetes-deployment">annotated&lt;/a> deployment pods and adds the environment variables &lt;code>DAPR_HTTP_PORT&lt;/code> and &lt;code>DAPR_GRPC_PORT&lt;/code> to enable user-defined applications to easily communicate with Dapr without hard-coding Dapr port values.&lt;/li>
@@ -19,6 +19,20 @@
 &lt;span style="color:#f92672">dapr.io/config&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;tracing&amp;#34;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="quickstart">Quickstart&lt;/h2>
 &lt;p>You can see some examples &lt;a href="https://github.com/dapr/quickstarts/tree/master/hello-kubernetes">here&lt;/a> in the Kubernetes getting started quickstart.&lt;/p>
+&lt;h2 id="supported-versions">Supported versions&lt;/h2>
+&lt;p>Dapr is tested and supported on the following versions of Kubernetes.&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Supported Kubernetes versions&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>1.17.x and above&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
 &lt;h2 id="related-links">Related links&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/en/operations/hosting/kubernetes/kubernetes-deploy/">Deploy Dapr to a Kubernetes cluster&lt;/a>&lt;/li>
@@ -96,13 +110,13 @@ helm search repo dapr --devel --versions
 &lt;li>
 &lt;p>Install the Dapr chart on your cluster in the &lt;code>dapr-system&lt;/code> namespace.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm upgrade --install dapr dapr/dapr &lt;span style="color:#ae81ff">\
-&lt;/span>&lt;span style="color:#ae81ff">&lt;/span>--version&lt;span style="color:#f92672">=&lt;/span>1.1.2 &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span>--version&lt;span style="color:#f92672">=&lt;/span>1.2 &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span>--namespace dapr-system &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span>--create-namespace &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span>--wait
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>To install in high availability mode:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm upgrade --install dapr dapr/dapr &lt;span style="color:#ae81ff">\
-&lt;/span>&lt;span style="color:#ae81ff">&lt;/span>--version&lt;span style="color:#f92672">=&lt;/span>1.1.2 &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span>--version&lt;span style="color:#f92672">=&lt;/span>1.2 &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span>--namespace dapr-system &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span>--create-namespace &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span>--set global.ha.enabled&lt;span style="color:#f92672">=&lt;/span>true &lt;span style="color:#ae81ff">\
@@ -135,19 +149,12 @@ dapr-sentry-9435776c7f-8f7yd 1/1 Running &lt;span style="color:#ae81ff">0&lt;/sp
 &lt;li>&lt;a href="https://docs.dapr.io/en/getting-started/install-dapr-cli/">Dapr CLI&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://github.com/helm/helm/releases">Helm 3&lt;/a> (if using Helm)&lt;/li>
 &lt;/ul>
-&lt;h2 id="upgrade-existing-cluster-to-112">Upgrade existing cluster to 1.1.2&lt;/h2>
+&lt;h2 id="upgrade-existing-cluster-to-120">Upgrade existing cluster to 1.2.0&lt;/h2>
 &lt;p>There are two ways to upgrade the Dapr control plane on a Kubernetes cluster using either the Dapr CLI or Helm.&lt;/p>
 &lt;h3 id="dapr-cli">Dapr CLI&lt;/h3>
-&lt;p>The example below shows how to upgrade to version 1.1.2:&lt;/p>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr upgrade -k --runtime-version&lt;span style="color:#f92672">=&lt;/span>1.1.2
-&lt;/code>&lt;/pre>&lt;/div>
-&lt;div class="alert alert-warning" role="alert">
-&lt;h4 class="alert-heading">Note&lt;/h4>
-&lt;p>If you are using Dapr CLI v1.1.0 there is a known issue where mTLS will be enabled by default, even on clusters where it is disabled. If your cluster has mTLS disabled, and you would like it to stay disabled, add &lt;code>--set global.mtls.enabled=false&lt;/code> to your upgrade command:&lt;/p>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr upgrade -k --runtime-version 1.1.1 --set global.mtls.enabled&lt;span style="color:#f92672">=&lt;/span>false
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>You can track the issue here: &lt;a href="https://github.com/dapr/cli/issues/664">#664&lt;/a>.&lt;/p>
-&lt;/div>
-&lt;p>You can provide all the available Helm chart configurations using the Dapr CLI.
+&lt;p>The example below shows how to upgrade to version 1.2.0:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr upgrade -k --runtime-version&lt;span style="color:#f92672">=&lt;/span>1.2.0
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>You can provide all the available Helm chart configurations using the Dapr CLI.
 See &lt;a href="https://github.com/dapr/cli#supplying-helm-values">here&lt;/a> for more info.&lt;/p>
 &lt;h4 id="troubleshooting-upgrade-using-the-cli">Troubleshooting upgrade using the CLI&lt;/h4>
 &lt;p>There is a known issue running upgrades on clusters that may have previously had a version prior to 1.0.0-rc.2 installed on a cluster.&lt;/p>
@@ -156,7 +163,7 @@ See &lt;a href="https://github.com/dapr/cli#supplying-helm-values">here&lt;/a> f
 The CustomResourceDefinition &amp;quot;configurations.dapr.io&amp;quot; is invalid: spec.preserveUnknownFields: Invalid value: true: must be false in order to use defaults in the schema
 &lt;/code>&lt;/pre>&lt;p>To resolve this issue please run the follow command to upgrade the CustomResourceDefinition to a compatible version:&lt;/p>
 &lt;pre>&lt;code>kubectl replace -f https://raw.githubusercontent.com/dapr/dapr/5a15b3e0f093d2d0938b12f144c7047474a290fe/charts/dapr/crds/configuration.yaml
-&lt;/code>&lt;/pre>&lt;p>Then proceed with the &lt;code>dapr upgrade --runtime-version 1.1.2 -k&lt;/code> command as above.&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>Then proceed with the &lt;code>dapr upgrade --runtime-version 1.2.0 -k&lt;/code> command as above.&lt;/p>
 &lt;h3 id="helm">Helm&lt;/h3>
 &lt;p>From version 1.0.0 onwards, upgrading Dapr using Helm is no longer a disruptive action since existing certificate values will automatically be re-used.&lt;/p>
 &lt;ol>
@@ -268,7 +275,7 @@ The specific annotations related to resource constraints are:&lt;/p>
 &lt;p>The CPU and memory limits above account for the fact that Dapr is intended to a high number of I/O bound operations. It is strongly recommended that you use a monitoring tool to baseline the sidecar (and app) containers and tune these settings based on those baselines.&lt;/p>
 &lt;h2 id="highly-available-mode">Highly-available mode&lt;/h2>
 &lt;p>When deploying Dapr in a production-ready configuration, it&amp;rsquo;s recommended to deploy with a highly available (HA) configuration of the control plane, which creates 3 replicas of each control plane pod in the dapr-system namespace. This configuration allows for the Dapr control plane to survive node failures and other outages.&lt;/p>
-&lt;p>HA mode can be enabled with both the [Dapr CLI](https://docs.dapr.io/en/operations/hosting/kubernetes/kubernetes-deploy/#install-in-highly-available-mode and with &lt;a href="https://docs.dapr.io/en/operations/hosting/kubernetes/kubernetes-deploy/#add-and-install-dapr-helm-chart">Helm charts&lt;/a>.&lt;/p>
+&lt;p>HA mode can be enabled with both the &lt;a href="https://docs.dapr.io/en/operations/hosting/kubernetes/kubernetes-deploy/#install-in-highly-available-mode">Dapr CLI&lt;/a> and with &lt;a href="https://docs.dapr.io/en/operations/hosting/kubernetes/kubernetes-deploy/#add-and-install-dapr-helm-chart">Helm charts&lt;/a>.&lt;/p>
 &lt;h2 id="deploying-dapr-with-helm">Deploying Dapr with Helm&lt;/h2>
 &lt;p>For a full guide on deploying Dapr with Helm visit &lt;a href="https://docs.dapr.io/en/operations/hosting/kubernetes/kubernetes-deploy/#install-with-helm-advanced">this guide&lt;/a>.&lt;/p>
 &lt;h3 id="parameters-file">Parameters file&lt;/h3>

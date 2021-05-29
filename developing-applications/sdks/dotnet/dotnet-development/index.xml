@@ -10,7 +10,7 @@
 &lt;h3 id="使用docker-compose">使用Docker-Compose&lt;/h3>
 &lt;p>在.Net中使用&lt;code>docker-compose&lt;/code>配合Dapr并不需要专门的指导。 &lt;code>docker-compose&lt;/code> 运行容器，一旦您的服务放在容器中，它的配置与其他任何编程技术都是相似的。&lt;/p>
 &lt;div class="alert alert-primary" role="alert">
-&lt;h4 class="alert-heading">💡 应用端口&lt;/h4>
+&lt;h4 class="alert-heading">💡 App Port&lt;/h4>
 在容器中，ASP.NET Core应用默认监听80端口。 必要时，可以对&lt;code>--app-port&lt;/code>配置项进行修改。
 &lt;/div>
 &lt;p>总结一下：&lt;/p>
@@ -75,7 +75,7 @@
 &lt;p>&lt;em>这篇文章是一篇与 .NET 相关的文章，另见 [使用 Docker 进行 Dapr 自托管]({{ ref self-hosted-overview.md }})&lt;/em>&lt;/p>
 &lt;p>Dapr CLI 为您提供了一个很好的工作基础，通过初始化本地重新分配容器、拉取容器、放置服务和用于重新分配的组件清单。 这将使您能够在没有额外设置的新安装中处理以下构建块：&lt;/p>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/service-invocation/">服务调用&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/service-invocation/">调用逻辑&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/">状态存储&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/">发布/订阅&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/actors/">Actors&lt;/a>&lt;/li>

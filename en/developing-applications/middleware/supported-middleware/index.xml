@@ -476,6 +476,101 @@
 &lt;li>&lt;a href="https://docs.dapr.io/en/concepts/middleware-concept/">Middleware concept&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/en/concepts/configuration-concept/">Configuration concept&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/en/operations/configuration/configuration-overview/">Configuration overview&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Developing-Applications: Sentinel fault-tolerance middleware component</title><link>https://docs.dapr.io/en/developing-applications/middleware/supported-middleware/middleware-sentinel/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/developing-applications/middleware/supported-middleware/middleware-sentinel/</guid><description>
+&lt;p>&lt;a href="https://github.com/alibaba/sentinel-golang">Sentinel&lt;/a> is a powerful fault-tolerance component that takes &amp;ldquo;flow&amp;rdquo; as the breakthrough point and covers multiple fields including flow control, traffic shaping, concurrency limiting, circuit breaking, and adaptive system protection to guarantee the reliability and resiliency of microservices.&lt;/p>
+&lt;p>The Sentinel &lt;a href="https://docs.dapr.io/en/concepts/middleware-concept/">HTTP middleware&lt;/a> enables Dapr to facilitate Sentinel&amp;rsquo;s powerful abilities to protect your application. You can refer to &lt;a href="https://github.com/alibaba/sentinel-golang/wiki">Sentinel Wiki&lt;/a> for more details on Sentinel.&lt;/p>
+&lt;h2 id="component-format">Component format&lt;/h2>
+&lt;p>In the following definition, the maximum requests per second are set to 10:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">sentinel&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">middleware.http.sentinel&lt;/span>
+&lt;span style="color:#f92672">version&lt;/span>: &lt;span style="color:#ae81ff">v1&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">appName&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;nodeapp&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">logDir&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;/var/tmp&amp;#34;&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">flowRules&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &amp;gt;-&lt;span style="color:#e6db74">
+&lt;/span>&lt;span style="color:#e6db74"> [
+&lt;/span>&lt;span style="color:#e6db74"> {
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;resource&amp;#34;: &amp;#34;POST:/v1.0/invoke/nodeapp/method/neworder&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;threshold&amp;#34;: 10,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;tokenCalculateStrategy&amp;#34;: 0,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;controlBehavior&amp;#34;: 0
+&lt;/span>&lt;span style="color:#e6db74"> }
+&lt;/span>&lt;span style="color:#e6db74"> ]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="spec-metadata-fields">Spec metadata fields&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Field&lt;/th>
+&lt;th>Details&lt;/th>
+&lt;th>Example&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>appName&lt;/td>
+&lt;td>the name of current running service&lt;/td>
+&lt;td>&lt;code>nodeapp&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>logDir&lt;/td>
+&lt;td>the log directory path&lt;/td>
+&lt;td>&lt;code>/var/tmp/sentinel&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>flowRules&lt;/td>
+&lt;td>json array of sentinel flow control rules&lt;/td>
+&lt;td>&lt;a href="https://github.com/alibaba/sentinel-golang/blob/master/core/flow/rule.go">flow control rule&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>circuitBreakerRules&lt;/td>
+&lt;td>json array of sentinel circuit breaker rules&lt;/td>
+&lt;td>&lt;a href="https://github.com/alibaba/sentinel-golang/blob/master/core/circuitbreaker/rule.go">circuit breaker rule&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>hotSpotParamRules&lt;/td>
+&lt;td>json array of sentinel hotspot parameter flow control rules&lt;/td>
+&lt;td>&lt;a href="https://github.com/alibaba/sentinel-golang/blob/master/core/hotspot/rule.go">hotspot rule&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>isolationRules&lt;/td>
+&lt;td>json array of sentinel isolation rules&lt;/td>
+&lt;td>&lt;a href="https://github.com/alibaba/sentinel-golang/blob/master/core/isolation/rule.go">isolation rule&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>systemRules&lt;/td>
+&lt;td>json array of sentinel system rules&lt;/td>
+&lt;td>&lt;a href="https://github.com/alibaba/sentinel-golang/blob/master/core/system/rule.go">system rule&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>Once the limit is reached, the request will return &lt;em>HTTP Status code 429: Too Many Requests&lt;/em>.&lt;/p>
+&lt;p>Special note to &lt;code>resource&lt;/code> field in each rule&amp;rsquo;s definition. In Dapr, it follows the following format:&lt;/p>
+&lt;pre>&lt;code>POST/GET/PUT/DELETE:Dapr HTTP API Request Path
+&lt;/code>&lt;/pre>&lt;p>All concrete HTTP API information can be found from [Dapr API Reference]https://docs.dapr.io/en/reference/api/. In the above sample config, the &lt;code>resource&lt;/code> field is set to &lt;strong>POST:/v1.0/invoke/nodeapp/method/neworder&lt;/strong>.&lt;/p>
+&lt;h2 id="dapr-configuration">Dapr configuration&lt;/h2>
+&lt;p>To be applied, the middleware must be referenced in &lt;a href="https://docs.dapr.io/en/concepts/configuration-concept/">configuration&lt;/a>. See &lt;a href="https://docs.dapr.io/en/concepts/middleware-concept/#customize-processing-pipeline">middleware pipelines&lt;/a>.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Configuration&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">daprConfig&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">httpPipeline&lt;/span>:
+&lt;span style="color:#f92672">handlers&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">sentinel&lt;/span>
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">middleware.http.sentinel&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="related-links">Related links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/alibaba/sentinel-golang">Sentinel Github&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/concepts/middleware-concept/">Middleware concept&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/concepts/configuration-concept/">Dapr configuration&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/en/operations/configuration/configuration-overview/">Configuration overview&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Developing-Applications: Uppercase request body</title><link>https://docs.dapr.io/en/developing-applications/middleware/supported-middleware/middleware-uppercase/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/en/developing-applications/middleware/supported-middleware/middleware-uppercase/</guid><description>
 &lt;p>The uppercase &lt;a href="https://docs.dapr.io/en/concepts/middleware-concept/">HTTP middleware&lt;/a> converts the body of the request to uppercase letters and is used for testing that the pipeline is functioning. It should only be used for local development.&lt;/p>
 &lt;h2 id="component-format">Component format&lt;/h2>

@@ -1,6 +1,6 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dapr 文档库 – 状态管理</title><link>https://docs.dapr.io/developing-applications/building-blocks/state-management/</link><description>Recent content in 状态管理 on Dapr 文档库</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://docs.dapr.io/developing-applications/building-blocks/state-management/index.xml" rel="self" type="application/rss+xml"/><item><title>Developing-Applications: 状态管理概览</title><link>https://docs.dapr.io/developing-applications/building-blocks/state-management/state-management-overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/building-blocks/state-management/state-management-overview/</guid><description>
 &lt;h2 id="介绍">介绍&lt;/h2>
-&lt;p>通过状态管理构件，你的应用程序可以将数据存储为 &lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/">支持的状态存储引擎&lt;/a>中的键/值对。&lt;/p>
+&lt;p>Using state management, your application can store data as key/value pairs in the &lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/">supported state stores&lt;/a>.&lt;/p>
 &lt;p>当使用状态管理时，你的应用程序可以利用一些自己构建会很复杂，容易出错的功能，比如:&lt;/p>
 &lt;ul>
 &lt;li>分布式并发和数据一致性&lt;/li>
@@ -10,7 +10,7 @@
 &lt;img src="https://docs.dapr.io/images/state-management-overview.png" width=900>
 &lt;h2 id="特性">特性&lt;/h2>
 &lt;h3 id="可插拔状态存储">可插拔状态存储&lt;/h3>
-&lt;p>Dapr数据存储被建模为组件，可以在不修改你的服务代码的情况下进行替换。 请访问 &lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/">支持的状态存储引擎&lt;/a>页面查看完整列表。&lt;/p>
+&lt;p>Dapr数据存储被建模为组件，可以在不修改你的服务代码的情况下进行替换。 See &lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/">supported state stores&lt;/a> to see the list.&lt;/p>
 &lt;h3 id="可配置的状态存储行为">可配置的状态存储行为&lt;/h3>
 &lt;p>Dapr允许开发人员在对于状态的操作请求中附加额外的元数据，这些元数据用以描述期望如何处理该请求。 你可以附加以下：&lt;/p>
 &lt;ul>
@@ -18,7 +18,7 @@
 &lt;li>一致性要求&lt;/li>
 &lt;/ul>
 &lt;p>默认情况下，您的应用程序应该假设数据存储是&lt;strong>最终一致&lt;/strong>的，并使用&lt;strong>last-write-wins&lt;/strong>并发模式。&lt;/p>
-&lt;p>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/">并非所有的存储引擎都一样&lt;/a>。 为了保证应用程序的可移植性，你可以了解下存储引擎的功能，使你的代码适应不同的存储引擎。&lt;/p>
+&lt;p>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/">Not all stores are created equal&lt;/a>. 为了保证应用程序的可移植性，你可以了解下存储引擎的功能，使你的代码适应不同的存储引擎。&lt;/p>
 &lt;h3 id="并发concurrency">并发（Concurrency）&lt;/h3>
 &lt;p>Dapr支持使用ETags的乐观并发控制（OCC）。 当一个发送请求操作状态时，Dapr会给返回的状态附加一个ETag属性。 当用户代码试图更新或删除一个状态时，它应该通过更新的请求体或删除的&lt;code>If-Match&lt;/code>头附加ETag。 只有当提供的ETag与状态存储中的ETag匹配时，写操作才能成功。&lt;/p>
 &lt;p>Dapr之所以选择OCC，是因为在不少应用中，数据更新冲突都是很少的，因为客户端是按业务上下文自然分割的，可以对不同的数据进行操作。 然而，如果你的应用选择使用ETags，请求可能会因为不匹配的ETags而被拒绝。 建议你在使用ETags时，使用重试策略来补偿这种冲突。&lt;/p>
@@ -27,18 +27,18 @@
 &lt;h4 class="alert-heading">Note on ETags&lt;/h4>
 对于原生不支持ETags的存储引擎，要求相应的Dapr状态存储实现能够模拟ETags，并在处理状态时遵循Dapr状态管理API规范。 由于Dapr状态存储实现在技术上是底层数据存储引擎的客户端，所以这种模拟应该直接使用存储引擎提供的并发控制机制。
 &lt;/div>
-&lt;p>阅读&lt;a href="https://docs.dapr.io/reference/api/state_api/">API参考&lt;/a>，了解如何设置并发选项。&lt;/p>
+&lt;p>Read the &lt;a href="https://docs.dapr.io/reference/api/state_api/">API reference&lt;/a> to learn how to set concurrency options.&lt;/p>
 &lt;h3 id="一致性">一致性&lt;/h3>
 &lt;p>Dapr同时支持&lt;strong>强一致性&lt;/strong>和&lt;strong>最终一致性&lt;/strong>，其中最终一致性为默认行为。&lt;/p>
 &lt;p>当使用强一致性时，Dapr会等待所有副本（或指定的quorums）确认后才会确认写入请求。 当最终使用一致性时，Dapr 将在基本数据存储接受写入请求后立即返回，即使这是单个副本。&lt;/p>
-&lt;p>阅读&lt;a href="https://docs.dapr.io/reference/api/state_api/">API参考&lt;/a>，了解如何设置一致性选项。&lt;/p>
+&lt;p>Read the &lt;a href="https://docs.dapr.io/reference/api/state_api/">API reference&lt;/a> to learn how to set consistency options.&lt;/p>
 &lt;h3 id="批量操作">批量操作&lt;/h3>
 &lt;p>Dapr 支持两种类型的批量操作 - &lt;strong>bulk&lt;/strong> 或 &lt;strong>multi&lt;/strong>。 您可以将几个相同类型的请求分组成批量(或批次)。 Dapr将请求作为单个请求批量提交给基础数据存储。 换句话说，批量（bulk）操作不是事务性的。 另一方面，您可以将不同类型的请求分组为多操作，作为原子事务处理。&lt;/p>
-&lt;p>阅读 &lt;a href="https://docs.dapr.io/reference/api/state_api/">API 参考&lt;/a> 以了解如何使用批量（bulk）选项和批次（multi）选项。&lt;/p>
+&lt;p>Read the &lt;a href="https://docs.dapr.io/reference/api/state_api/">API reference&lt;/a> to learn how use bulk and multi options.&lt;/p>
 &lt;h3 id="actor-状态">Actor 状态&lt;/h3>
-&lt;p>事务性状态存储可用于存储 Actor 状态。 指定 Actor 要使用哪个状态存储， 在状态存储组件的元数据部分中指定属性 &lt;code>actorStateStore&lt;/code> as &lt;code>true&lt;/code> Actor 状态与事务状态库中的具体计划一起储存，这样可以进行一致的查询。 Actor 状态与事务状态库中的具体计划一起储存，这样可以进行一致的查询。 阅读 &lt;a href="https://docs.dapr.io/reference/api/state_api/">API 参考&lt;/a> 以了解更多关于 Actor 中的状态存储 和 &lt;a href="https://docs.dapr.io/reference/api/actors_api/">Actor API 参考&lt;/a>&lt;/p>
+&lt;p>事务性状态存储可用于存储 Actor 状态。 指定 Actor 要使用哪个状态存储， 在状态存储组件的元数据部分中指定属性 &lt;code>actorStateStore&lt;/code> as &lt;code>true&lt;/code> Actor 状态与事务状态库中的具体计划一起储存，这样可以进行一致的查询。 Actor 状态与事务状态库中的具体计划一起储存，这样可以进行一致的查询。 Read the &lt;a href="https://docs.dapr.io/reference/api/state_api/">API reference&lt;/a> to learn more about state stores for actors and the &lt;a href="https://docs.dapr.io/reference/api/actors_api/">actors API reference&lt;/a>&lt;/p>
 &lt;h3 id="直接查询状态存储">直接查询状态存储&lt;/h3>
-&lt;p>Dapr保存和检索状态值，而不进行任何转换。 您可以直接从 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/query-state-store/">基础状态存储&lt;/a> 中查询并聚合状态。&lt;/p>
+&lt;p>Dapr保存和检索状态值，而不进行任何转换。 You can query and aggregate state directly from the &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/query-state-store/">underlying state store&lt;/a>.&lt;/p>
 &lt;p>例如，要在 Redis 中获取与 app ID“myApp”相关的所有状态 key，可以使用:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">KEYS &lt;span style="color:#e6db74">&amp;#34;myApp*&amp;#34;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="查询-actor-状态">查询 Actor 状态&lt;/h4>
@@ -52,7 +52,7 @@
 对状态存储的直接查询不受 Dapr 并发控制，毕竟您没有通过 Dapr 运行时调用。 您看到的是提交数据的快照，对于跨多个 Actor 的只读查询是可以接受的，当然写操作应该通过 Dapr 状态管理或 Actor api 来执行。
 &lt;/div>
 &lt;h3 id="状态管理-api">状态管理 API&lt;/h3>
-&lt;p>状态管理API可以在 &lt;a href="https://docs.dapr.io/reference/api/state_api/">状态管理 API 参考&lt;/a> 中找到。它描述了如何根据 key 来查询、保存和删除状态。&lt;/p>
+&lt;p>The API for state management can be found in the &lt;a href="https://docs.dapr.io/reference/api/state_api/">state management API reference&lt;/a> which describes how to retrieve, save and delete state values by providing keys.&lt;/p>
 &lt;h2 id="下一步">下一步&lt;/h2>
 &lt;ul>
 &lt;li>遵循这些指南：
@@ -62,10 +62,10 @@
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-share-state/">指南：如何在应用程序之间共享状态&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;/li>
-&lt;li>试试 &lt;a href="https://github.com/dapr/quickstarts/blob/master/hello-world/README.md">hello world 快速入门&lt;/a> ，它会显示如何使用状态管理或试试 &lt;a href="https://docs.dapr.io/developing-applications/sdks/">Dapr SDK&lt;/a> 中的 Sample。&lt;/li>
-&lt;li>&lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/">状态存储组件&lt;/a> 列表&lt;/li>
-&lt;li>阅读 &lt;a href="https://docs.dapr.io/reference/api/state_api/">状态管理 API 引用&lt;/a>&lt;/li>
-&lt;li>阅读 &lt;a href="https://docs.dapr.io/reference/api/actors_api/">Actor API 引用&lt;/a>&lt;/li>
+&lt;li>Try out the &lt;a href="https://github.com/dapr/quickstarts/blob/master/hello-world/README.md">hello world quickstart&lt;/a> which shows how to use state management or try the samples in the &lt;a href="https://docs.dapr.io/developing-applications/sdks/">Dapr SDKs&lt;/a>&lt;/li>
+&lt;li>List of &lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/">state store components&lt;/a>&lt;/li>
+&lt;li>Read the &lt;a href="https://docs.dapr.io/reference/api/state_api/">state management API reference&lt;/a>&lt;/li>
+&lt;li>Read the &lt;a href="https://docs.dapr.io/reference/api/actors_api/">actors API reference&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Developing-Applications: 指南：如何保存和获取状态</title><link>https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-get-save-state/</guid><description>
 &lt;h2 id="介绍">介绍&lt;/h2>
 &lt;p>状态管理是任何应用程序最常见的需求之一：无论是新是旧，是单体还是微服务。 与不同的数据库库打交道，进行测试，处理重试和故障是很费时费力的。&lt;/p>
@@ -73,11 +73,11 @@
 &lt;h2 id="前提">前提&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/getting-started/install-dapr-cli/">Dapr CLI&lt;/a>&lt;/li>
-&lt;li>初始化的 &lt;a href="https://docs.dapr.io/getting-started/install-dapr-selfhost/">Dapr 环境&lt;/a>&lt;/li>
+&lt;li>Initialized &lt;a href="https://docs.dapr.io/getting-started/install-dapr-selfhost/">Dapr environment&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h2 id="第一步设置状态存储">第一步：设置状态存储&lt;/h2>
 &lt;p>状态存储组件代表Dapr用来与数据库进行通信的资源。&lt;/p>
-&lt;p>在本指南中，我们将使用 Redis 作为状态存储引擎，但在 &lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/">支持列表&lt;/a>中的任何状态存储引擎都是可以使用的。&lt;/p>
+&lt;p>For the purpose of this guide we&amp;rsquo;ll use a Redis state store, but any state store from the &lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/">supported list&lt;/a> will work.&lt;/p>
 &lt;ul class="nav nav-tabs" id="tabs-3" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
 id="tabs-3-self-hosted-cli-tab" data-toggle="tab" href="#tabs-3-self-hosted-cli" role="tab"
 aria-controls="tabs-3-self-hosted-cli" aria-selected="true">
@@ -95,7 +95,7 @@ Kubernetes
 &lt;p>如果需要切换使用的状态存储引擎，用你选择的文件替换&lt;code>/components&lt;/code>下的YAML文件&lt;code>statestore.yaml&lt;/code>。&lt;/p>
 &lt;/div>
 &lt;div class="tab-pane fade" id="tabs-3-kubernetes" role="tabpanel" aria-labelled-by="tabs-3-kubernetes-tab">
-&lt;br />&lt;p>要将其部署到 Kubernetes 集群中，请在下面的 yaml 中填写你的&lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/">所需statestore 组件&lt;/a> 的 &lt;code>metadata&lt;/code> 连接详情，保存为 &lt;code>statestore.yaml&lt;/code>，并执行命令 &lt;code>kubectl apply -f statestore.yaml&lt;/code>。&lt;/p>
+&lt;br />&lt;p>To deploy this into a Kubernetes cluster, fill in the &lt;code>metadata&lt;/code> connection details of your &lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/">desired statestore component&lt;/a> in the yaml below, save as &lt;code>statestore.yaml&lt;/code>, and run &lt;code>kubectl apply -f statestore.yaml&lt;/code>.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
 &lt;span style="color:#f92672">metadata&lt;/span>:
@@ -109,7 +109,7 @@ Kubernetes
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">localhost:6379&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">redisPassword&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>请参阅 &lt;a href="https://docs.dapr.io/operations/components/setup-state-store/">这里&lt;/a>的说明，了解如何在 Kubernetes 上设置不同的状态存储引擎。&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>See the instructions &lt;a href="https://docs.dapr.io/operations/components/setup-state-store/">here&lt;/a> on how to setup different state stores on Kubernetes.&lt;/p>
 &lt;/div>
 &lt;/div>
 &lt;h2 id="第二步保存和检索单个状态">第二步：保存和检索单个状态&lt;/h2>
@@ -373,7 +373,7 @@ $logger&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#
 &lt;h2 id="第五步执行状态事务性操作">第五步：执行状态事务性操作&lt;/h2>
 &lt;div class="alert alert-warning" role="alert">
 &lt;h4 class="alert-heading">Note&lt;/h4>
-状态事务性操作需要一个支持multi-item transactions的状态存储引擎。 请访问 &lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/">支持的状态存储引擎&lt;/a>页面查看完整列表。 请注意，在自托管环境中创建的默认Redis容器是支持的。
+状态事务性操作需要一个支持multi-item transactions的状态存储引擎。 Visit the &lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/">supported state stores page&lt;/a> page for a full list. 请注意，在自托管环境中创建的默认Redis容器是支持的。
 &lt;/div>
 &lt;ul class="nav nav-tabs" id="tabs-9" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
 id="tabs-9-http-api-bash-tab" data-toggle="tab" href="#tabs-9-http-api-bash" role="tab"
@@ -389,11 +389,6 @@ HTTP API (PowerShell)
 id="tabs-9-python-sdk-tab" data-toggle="tab" href="#tabs-9-python-sdk" role="tab"
 aria-controls="tabs-9-python-sdk" aria-selected="false">
 Python SDK
-&lt;/a>
-&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
-id="tabs-9-php-sdk-tab" data-toggle="tab" href="#tabs-9-php-sdk" role="tab"
-aria-controls="tabs-9-php-sdk" aria-selected="false">
-PHP SDK
 &lt;/a>
 &lt;/li>&lt;/ul>
 &lt;div class="tab-content" id="tabs-9-content">
@@ -446,7 +441,7 @@ You&amp;#39;re up and running!
 == APP == State transactions have been completed
 == APP == Got items: [b&amp;#39;value1&amp;#39;, b&amp;#39;&amp;#39;]
 &lt;/code>&lt;/pre>&lt;/div>&lt;/div>
-&lt;div class="tab-pane fade" id="tabs-9-php-sdk" role="tabpanel" aria-labelled-by="tabs-9-php-sdk-tab">
+&lt;div class="tab-pane fade" id="tabs-9-" role="tabpanel" aria-labelled-by="tabs-9--tab">
 &lt;br />&lt;p>事务性状态通过扩展&lt;code>TransactionalState&lt;/code>基础对象来支持，它挂接到你的 对象，然后通过setters和getters来提供事务。 而你可能会希望依赖注入框架来替你创建一个事务对象:&lt;/p>
 &lt;p>再次修改&lt;code>state-example.php&lt;/code>文件:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-php" data-lang="php">&lt;span style="color:#f92672">&amp;lt;?&lt;/span>&lt;span style="color:#a6e22e">php&lt;/span>
@@ -477,19 +472,19 @@ $logger&lt;span style="color:#f92672">-&amp;gt;&lt;/span>&lt;span style="color:#
 &lt;/div>
 &lt;h2 id="下一步">下一步&lt;/h2>
 &lt;ul>
-&lt;li>阅读完整的 &lt;a href="https://docs.dapr.io/reference/api/state_api/">状态 API 参考&lt;/a>&lt;/li>
-&lt;li>试试其中一个 &lt;a href="https://docs.dapr.io/developing-applications/sdks/">Dapr SDK&lt;/a>&lt;/li>
-&lt;li>构建一个 &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-stateful-service/">状态服务&lt;/a>&lt;/li>
+&lt;li>Read the full &lt;a href="https://docs.dapr.io/reference/api/state_api/">State API reference&lt;/a>&lt;/li>
+&lt;li>Try one of the &lt;a href="https://docs.dapr.io/developing-applications/sdks/">Dapr SDKs&lt;/a>&lt;/li>
+&lt;li>Build a &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-stateful-service/">stateful service&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Developing-Applications: 指南：如何创建一个有状态的服务</title><link>https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-stateful-service/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-stateful-service/</guid><description>
 &lt;p>在这篇文章中，你将了解到如何使用选入(opt-in) 并发和一致性模型来创建一个可以水平扩展的有状态服务。&lt;/p>
 &lt;p>这可以把开发人员从困难的状态协调、冲突解决和失败处理中解放出来，允许他们以Dapr的API形式使用这些功能。&lt;/p>
 &lt;h2 id="设置状态存储">设置状态存储&lt;/h2>
 &lt;p>状态存储组件代表Dapr用来与数据库进行通信的资源。 在本指南中，我们将使用Redis作为状态存储引擎。&lt;/p>
-&lt;p>在&lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/">这里&lt;/a>查看支持的状态存储引擎列表。&lt;/p>
+&lt;p>See a list of supported state stores &lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/">here&lt;/a>&lt;/p>
 &lt;h3 id="使用-dapr-cli">使用 Dapr CLI&lt;/h3>
 &lt;p>当使用&lt;code>dapr run&lt;/code>运行你的应用程序时，Dapr CLI会自动提供一个状态存储（Redis）并创建相关的YAML。 如果需要切换使用的状态存储引擎，用你选择的文件替换/components下的YAML文件``。&lt;/p>
 &lt;h3 id="kubernetes">Kubernetes&lt;/h3>
-&lt;p>请参阅 &lt;a href="%7B%7BX%1A20X%7D%7D">这里&lt;/a> 的说明，了解如何在 Kubernetes 上设置不同的状态存储引擎。&lt;/p>
+&lt;p>See the instructions &lt;a href="https://docs.dapr.io/operations/components/setup-state-store/">here&lt;/a> on how to setup different state stores on Kubernetes.&lt;/p>
 &lt;h2 id="强一致性和最终一致性">强一致性和最终一致性&lt;/h2>
 &lt;p>使用强一致性时，Dapr将确保底层状态存储在写入或删除状态之前，一旦数据被写入到所有副本或收到来自quorum的ack，就会返回响应。&lt;/p>
 &lt;p>对于GET类型的请求，Dapr将确保存储引擎在副本间一致地返回最新的数据。 除非在对状态API的请求中另有指定，否则默认为最终一致性。&lt;/p>
@@ -625,4 +620,4 @@ success &lt;span style="color:#f92672">=&lt;/span> save_state(newState)
 &lt;/span>&lt;span style="color:#e6db74"> }
 &lt;/span>&lt;span style="color:#e6db74"> ]&amp;#39;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>该键将被保存为&lt;code>darth&lt;/code>。&lt;/p></description></item><item><title>Developing-Applications: 使用后端状态存储</title><link>https://docs.dapr.io/developing-applications/building-blocks/state-management/query-state-store/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/building-blocks/state-management/query-state-store/</guid><description>
-&lt;p>查看 &lt;strong>功能操作&lt;/strong> 章节可以看到一系列&lt;a href="%7B%7BX%1A1X%7D%7D">受支持的状态存储&lt;/a> 以及如何设置&lt;a href="%7B%7BX%1A2X%7D%7D">状态存储组件&lt;/a>.&lt;/p></description></item></channel></rss>
+&lt;p>Explore the &lt;strong>Operations&lt;/strong> section to see a list of &lt;a href="https://docs.dapr.io/reference/components-reference/supported-state-stores/">supported state stores&lt;/a> and how to setup &lt;a href="https://docs.dapr.io/operations/components/setup-state-store/">state store components&lt;/a>.&lt;/p></description></item></channel></rss>

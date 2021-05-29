@@ -171,7 +171,7 @@ Executing endpoint &amp;#39;ControllerSample.Controllers.SampleController.Withdr
 &lt;p>现在你已经掌握了解决这个问题所需的信息。&lt;/p>
 &lt;h3 id="选项0路由选择正确的终结点">选项0：路由选择正确的终结点&lt;/h3>
 &lt;p>如果路由日志条目中的信息是正确的，那么这意味着您的应用程序的行为是正确的。&lt;/p>
-&lt;p>示例:&lt;/p>
+&lt;p>You can run Kafka locally using &lt;a href="https://github.com/wurstmeister/kafka-docker">this&lt;/a> Docker image. To run without Docker, see the getting started guide &lt;a href="https://kafka.apache.org/quickstart">here&lt;/a>.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-txt" data-lang="txt">info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
 Executing endpoint &amp;#39;ControllerSample.Controllers.SampleController.Withdraw (ControllerSample)&amp;#39;
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>您可能想尝试使用 Dapr cli 执行直接发送 发布/订阅 消息并比较日志输出。&lt;/p>

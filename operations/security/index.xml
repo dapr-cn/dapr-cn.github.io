@@ -41,19 +41,43 @@ helm install &lt;span style="color:#ae81ff">\
 &lt;p>In order to view Sentry logs, run the following command:&lt;/p>
 &lt;pre>&lt;code>kubectl logs --selector=app=dapr-sentry --namespace &amp;lt;DAPR_NAMESPACE&amp;gt;
 &lt;/code>&lt;/pre>&lt;h3 id="bringing-your-own-certificates">Bringing your own certificates&lt;/h3>
-&lt;p>Using Helm, you can provide the PEM encoded root cert, issuer cert and private key that will be populated into the Kubernetes secret.&lt;/p>
-&lt;p>&lt;em>Note: This example uses the step tool to create the certificates. You can install step tool from &lt;a href="https://smallstep.com/docs/getting-started/">here&lt;/a>. Windows binaries available &lt;a href="https://github.com/smallstep/cli/releases">here&lt;/a>&lt;/em>&lt;/p>
-&lt;p>Create the root certificate:&lt;/p>
-&lt;pre>&lt;code>step certificate create cluster.local ca.crt ca.key --profile root-ca --no-password --insecure
-&lt;/code>&lt;/pre>&lt;p>Create the issuer certificate:&lt;/p>
-&lt;pre>&lt;code>step certificate create cluster.local issuer.crt issuer.key --ca ca.crt --ca-key ca.key --profile intermediate-ca --not-after 8760h --no-password --insecure
-&lt;/code>&lt;/pre>&lt;p>This creates the root and issuer certs and keys.&lt;/p>
-&lt;p>Install Helm and pass the root cert, issuer cert and issuer key to Sentry via configuration:&lt;/p>
+&lt;p>Using Helm, you can provide the PEM encoded root cert, issuer cert and private key that will be populated into the Kubernetes secret used by Sentry.&lt;/p>
+&lt;p>&lt;em>Note: This example uses the OpenSSL command line tool, this is a widely distributed package, easily installed on Linux via the package manager. On Windows OpenSSL can be installed &lt;a href="https://community.chocolatey.org/packages/openssl">using chocolatey&lt;/a>. On MacOS it can be installed using brew &lt;code>brew install openssl&lt;/code>&lt;/em>&lt;/p>
+&lt;p>Create config files for generating the certificates, this is necessary for generating v3 certificates with the SAN (Subject Alt Name) extension fields. First save the following to a file named &lt;code>root.conf&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-ini" data-lang="ini">&lt;span style="color:#66d9ef">[req]&lt;/span>
+&lt;span style="color:#a6e22e">distinguished_name&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">req_distinguished_name&lt;/span>
+&lt;span style="color:#a6e22e">x509_extensions&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">v3_req&lt;/span>
+&lt;span style="color:#a6e22e">prompt&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">no&lt;/span>
+&lt;span style="color:#66d9ef">[req_distinguished_name]&lt;/span>
+&lt;span style="color:#a6e22e">C&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">US&lt;/span>
+&lt;span style="color:#a6e22e">ST&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">VA&lt;/span>
+&lt;span style="color:#a6e22e">L&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">Daprville&lt;/span>
+&lt;span style="color:#a6e22e">O&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">dapr.io/sentry&lt;/span>
+&lt;span style="color:#a6e22e">OU&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">dapr.io/sentry&lt;/span>
+&lt;span style="color:#a6e22e">CN&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">cluster.local&lt;/span>
+&lt;span style="color:#66d9ef">[v3_req]&lt;/span>
+&lt;span style="color:#a6e22e">basicConstraints&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">critical, CA:true&lt;/span>
+&lt;span style="color:#a6e22e">keyUsage&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">critical, digitalSignature, cRLSign, keyCertSign&lt;/span>
+&lt;span style="color:#a6e22e">extendedKeyUsage&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">serverAuth, clientAuth&lt;/span>
+&lt;span style="color:#a6e22e">subjectAltName&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">@alt_names&lt;/span>
+&lt;span style="color:#66d9ef">[alt_names]&lt;/span>
+&lt;span style="color:#a6e22e">DNS.1&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">cluster.local&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Repeat this for &lt;code>issuer.conf&lt;/code>, paste the same contents into the file, but add &lt;code>pathlen:0&lt;/code> to the end of the basicConstraints line, as shown below:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-ini" data-lang="ini">&lt;span style="color:#a6e22e">basicConstraints&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">critical, CA:true, pathlen:0&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Run the following to generate the root cert and key&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">openssl ecparam -genkey -name prime256v1 | openssl ec -out root.key
+openssl req -new -nodes -sha256 -key root.key -out root.csr -config root.conf -extensions v3_req
+openssl x509 -req -sha256 -days &lt;span style="color:#ae81ff">365&lt;/span> -in root.csr -signkey root.key -outform PEM -out root.pem -extfile root.conf -extensions v3_req
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Next run the following to generate the issuer cert and key:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">openssl ecparam -genkey -name prime256v1 | openssl ec -out issuer.key
+openssl req -new -sha256 -key issuer.key -out issuer.csr -config issuer.conf -extensions v3_req
+openssl x509 -req -in issuer.csr -CA root.pem -CAkey root.key -CAcreateserial -outform PEM -out issuer.pem -days &lt;span style="color:#ae81ff">365&lt;/span> -sha256 -extfile issuer.conf -extensions v3_req
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Install Helm and pass the root cert, issuer cert and issuer key to Sentry via configuration:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl create ns dapr-system
 helm install &lt;span style="color:#ae81ff">\
-&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> --set-file dapr_sentry.tls.issuer.certPEM&lt;span style="color:#f92672">=&lt;/span>issuer.crt &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> --set-file dapr_sentry.tls.issuer.certPEM&lt;span style="color:#f92672">=&lt;/span>issuer.pem &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span> --set-file dapr_sentry.tls.issuer.keyPEM&lt;span style="color:#f92672">=&lt;/span>issuer.key &lt;span style="color:#ae81ff">\
-&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> --set-file dapr_sentry.tls.root.certPEM&lt;span style="color:#f92672">=&lt;/span>ca.crt &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;span style="color:#ae81ff">&lt;/span> --set-file dapr_sentry.tls.root.certPEM&lt;span style="color:#f92672">=&lt;/span>root.pem &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span> --namespace dapr-system &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span> dapr &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span> dapr/dapr
@@ -197,14 +221,8 @@ helm install &lt;span style="color:#ae81ff">\
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">authHeaderName&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;lt;header name under which the secret token is saved&amp;gt;&amp;#34;&lt;/span>
 &lt;span style="color:#75715e"># forceHTTPS:&lt;/span>
-&lt;span style="color:#75715e"># This key is used to set HTTPS schema on redirect to your API method &lt;/span>
-&lt;span style="color:#75715e"># after Dapr successfully received Access Token from Identity Provider. &lt;/span>
-&lt;span style="color:#75715e"># By default, Dapr will use HTTP on this redirect.&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">forceHTTPS&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;lt;set to true if you invoke an API method through Dapr from https origin&amp;gt;&amp;#34;&lt;/span>
-&lt;span style="color:#75715e"># By default, Dapr will use HTTP on this redirect.&lt;/span>
-- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">forceHTTPS&lt;/span>
-&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;lt;set to true if you invoke an API method through Dapr from https origin&amp;gt;&amp;#34;&lt;/span>
+&lt;span style="color:#75715e"># This key is used to set HTTPS schema on redirect to your API method&lt;/span>
+&lt;span style="color:#75715e"># after Dapr successfully received Access Token from Identity Provider.&lt;/span>
 &lt;span style="color:#75715e"># By default, Dapr will use HTTP on this redirect.&lt;/span>
 - &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">forceHTTPS&lt;/span>
 &lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;&amp;lt;set to true if you invoke an API method through Dapr from https origin&amp;gt;&amp;#34;&lt;/span>
@@ -353,8 +371,8 @@ name: dapr-api-token
 &lt;pre>&lt;code>export DAPR_API_TOKEN=&amp;lt;my-dapr-token&amp;gt;
 &lt;/code>&lt;/pre>&lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>了解 &lt;a href="https://docs.dapr.io/concepts/security-concept/">Dapr 安全概念&lt;/a>&lt;/li>
-&lt;li>学习 &lt;a href="https://docs.dapr.io/operations/security/app-api-token/">如何通过令牌认证 来自 Dapr 的请求&lt;/a>&lt;/li>
+&lt;li>Learn about &lt;a href="https://docs.dapr.io/concepts/security-concept/">Dapr security concepts&lt;/a>&lt;/li>
+&lt;li>Learn &lt;a href="https://docs.dapr.io/operations/security/app-api-token/">HowTo authenticate requests from Dapr using token authentication&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Operations: Authenticate requests from Dapr using token authentication</title><link>https://docs.dapr.io/operations/security/app-api-token/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/operations/security/app-api-token/</guid><description>
 &lt;p>For some building blocks such as pub/sub, service invocation and input bindings, Dapr communicates with an app over HTTP or gRPC. To enable the application to authenticate requests that are arriving from the Dapr sidecar, you can configure Dapr to send an API token as a header (in HTTP requests) or metadata (in gRPC requests).&lt;/p>
 &lt;h2 id="创建令牌">创建令牌&lt;/h2>
@@ -424,6 +442,6 @@ name: app-api-token
 &lt;pre>&lt;code>export APP_API_TOKEN=&amp;lt;my-app-token&amp;gt;
 &lt;/code>&lt;/pre>&lt;h2 id="相关链接">相关链接&lt;/h2>
 &lt;ul>
-&lt;li>了解 &lt;a href="https://docs.dapr.io/concepts/security-concept/">Dapr 安全概念&lt;/a>&lt;/li>
+&lt;li>Learn about &lt;a href="https://docs.dapr.io/concepts/security-concept/">Dapr security concepts&lt;/a>&lt;/li>
 &lt;li>Learn &lt;a href="https://docs.dapr.io/operations/security/api-token/">HowTo Enable API token authentication in Dapr&lt;/a>&lt;/li>
 &lt;/ul></description></item></channel></rss>

@@ -9,7 +9,7 @@
 &lt;li>调用 Dapr 应用的方法 &lt;br />&lt;img src="https://docs.dapr.io/images/vscode-extension-invoke.png" alt="Dapr VSCode 扩展调用选项的截图" width="800" />&lt;/li>
 &lt;li>发布事件到 Dapr 应用程序 &lt;br />&lt;img src="https://docs.dapr.io/images/vscode-extension-publish.png" alt="Dapr VSCode 扩展发布选项的截图" width="800" />&lt;/li>
 &lt;/ul>
-&lt;h4 id="示例">示例&lt;/h4>
+&lt;h4 id="example">Example&lt;/h4>
 &lt;p>观看有关如何使用 Dapr VS 代码扩展的 &lt;a href="https://www.bilibili.com/video/BV1QK4y1p7fn?p=9&amp;amp;t=85">视频&lt;/a>: &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/OtbYCBt9C34?start=85" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark">&lt;/iframe>&lt;/p>
 &lt;h2 id="远程开发容器">远程开发容器&lt;/h2>
 &lt;p>Visual Studio Code Remote Containers扩展允许您使用Docker容器作为功能齐全的开发环境，使您可以&lt;a href="https://code.visualstudio.com/docs/remote/containers">在容器中进行开发&lt;/a>，而无需在本地文件系统中安装任何额外的框架或包。&lt;/p>
@@ -26,9 +26,9 @@
 &lt;li>在 VS 代码中打开您的应用程序工作区（workspace）&lt;/li>
 &lt;li>在 command palette 中 (ctrl+shift+p) 输入并选择 &lt;code>Remote-Containers: Add Development Container Configuration Files...&lt;/code> &lt;br />&lt;img src="https://docs.dapr.io/images/vscode-remotecontainers-addcontainer.png" alt="添加远程容器的截图" width="700" />&lt;/li>
 &lt;li>输入 &lt;code>dapr&lt;/code> 来过滤列表到可用的 Dapr 远程容器，并选择符合您应用程序的语言容器。 请注意，您可能需要选择 &lt;code>Show All Definitions...&lt;/code> &lt;br />&lt;img src="https://docs.dapr.io/images/vscode-remotecontainers-daprcontainers.png" alt="添加 dapr 容器的截图" width="700" />&lt;/li>
-&lt;li>按照提示重建您在容器中的应用程序。 &lt;br />&lt;img src="https://docs.dapr.io/images/vscode-remotecontainers-reopen.png" alt="在开发容器中重新打开应用程序的截图" width="700" />&lt;/li>
+&lt;li>Follow the prompts to rebuild your application in container. &lt;br />&lt;img src="https://docs.dapr.io/images/vscode-remotecontainers-reopen.png" alt="在开发容器中重新打开应用程序的截图" width="700" />&lt;/li>
 &lt;/ol>
-&lt;h4 id="示例-1">示例&lt;/h4>
+&lt;h4 id="example-1">Example&lt;/h4>
 &lt;p>观看有关如何使用应用程序的 Dapr VS 代码远程容器的 &lt;a href="https://www.bilibili.com/video/BV1QK4y1p7fn?p=8&amp;amp;t=120">视频&lt;/a>。 &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/D2dO4aGpHcg?start=120" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark">&lt;/iframe>&lt;/p>
 &lt;h2 id="疑难解答">疑难解答&lt;/h2>
 &lt;h3 id="同时调试多个dapr应用程序">同时调试多个Dapr应用程序&lt;/h3>

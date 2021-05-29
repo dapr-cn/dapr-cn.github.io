@@ -65,6 +65,9 @@
 Connection establishment via gRPC to the target sidecar has a timeout of 5 seconds.&lt;/p>
 &lt;h3 id="pluggable-service-discovery">Pluggable service discovery&lt;/h3>
 &lt;p>Dapr can run on any &lt;a href="https://docs.dapr.io/en/operations/hosting/">hosting platform&lt;/a>. For the supported hosting platforms this means they have a &lt;a href="https://github.com/dapr/components-contrib/tree/master/nameresolution">name resolution component&lt;/a> developed for them that enables service discovery. For example, the Kubernetes name resolution component uses the Kubernetes DNS service to resolve the location of other applications running in the cluster. For local and multiple physical machines this uses the mDNS protocol.&lt;/p>
+&lt;blockquote>
+&lt;p>Note: &lt;a href="https://docs.dapr.io/en/operations/troubleshooting/common_issues/#service-invocation-is-failing-and-my-dapr-service-is-missing-an-appId-macos">For local and physical machines, ensure mDNS is functioning properly.&lt;/a>&lt;/p>
+&lt;/blockquote>
 &lt;h3 id="round-robin-load-balancing-with-mdns">Round robin load balancing with mDNS&lt;/h3>
 &lt;p>Dapr provides round robin load balancing of service invocation requests with the mDNS protocol, for example with a single machine or with multiple, networked, physical machines.&lt;/p>
 &lt;p>The diagram below shows an example of how this works. If you have 1 instance of an application with app ID &lt;code>FrontEnd&lt;/code> and 3 instances of application with app ID &lt;code>Cart&lt;/code> and you call from &lt;code>FrontEnd&lt;/code> app to &lt;code>Cart&lt;/code> app, Dapr round robins' between the 3 instances. These instance can be on the same machine or on different machines. .&lt;/p>

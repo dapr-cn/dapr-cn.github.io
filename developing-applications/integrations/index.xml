@@ -167,7 +167,7 @@
 &lt;li>&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/service-invocation/">服务调用构建块&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.dapr.io/reference/api/service_invocation_api/">服务调用 API 规范&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Developing-Applications: 使用KEDA对Dapr应用进行自动缩放</title><link>https://docs.dapr.io/developing-applications/integrations/autoscale-keda/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/integrations/autoscale-keda/</guid><description>
-&lt;p>Dapr采用模块化的构件方法，加上10多个不同的&lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/">pub/sub组件&lt;/a>，简化了消息处理程序的编写工作。 由于Dapr可以在许多环境中运行（如虚拟机、裸机、云或边缘），因此Dapr应用的自动伸缩是由宿主管理的。&lt;/p>
+&lt;p>Dapr, with its modular building-block approach, along with the 10+ different &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/">pub/sub components&lt;/a>, make it easy to write message processing applications. 由于Dapr可以在许多环境中运行（如虚拟机、裸机、云或边缘），因此Dapr应用的自动伸缩是由宿主管理的。&lt;/p>
 &lt;p>对于Kubernetes，Dapr集成了&lt;a href="https://github.com/kedacore/keda">KEDA&lt;/a>，这是一个用于Kubernetes的事件驱动的自动伸缩组件。 Dapr的许多pub/sub组件与&lt;a href="https://github.com/kedacore/keda">KEDA&lt;/a>提供的扩展器重叠，因此很容易在Kubernetes上配置Dapr的deployment，以使用KEDA根据背压自动扩展。&lt;/p>
 &lt;p>This how-to walks through the configuration of a scalable Dapr application along with the back pressure on Kafka topic, however you can apply this approach to any &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/">pub/sub components&lt;/a> offered by Dapr.&lt;/p>
 &lt;h2 id="安装keda">安装KEDA&lt;/h2>
@@ -257,6 +257,219 @@ kubectl wait -n kafka --for&lt;span style="color:#f92672">=&lt;/span>condition&l
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl apply -f kafka_scaler.yaml
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>全部完成！&lt;/p>
 &lt;p>现在，&lt;code>ScaledObject&lt;/code> KEDA对象已经配置好了，你的deployment将根据Kafka主题的延迟进行扩展。 更多关于为Kafka主题配置KEDA的信息可以在&lt;a href="https://keda.sh/docs/2.0/scalers/apache-kafka/">这里&lt;/a>获得。&lt;/p>
-&lt;p>现在你可以开始将消息发布到您的Kafka主题&lt;code>demo-topic&lt;/code>，当延迟阈值高于&lt;code>5&lt;/code>主题时，你可以看到pods开始自动缩放，正如我们在KEDA缩放器清单中定义的那样。 You can publish messages to the Kafka Dapr component by using the Dapr &lt;a href="https://docs.dapr.io/reference/cli/dapr-publish/">Publish&lt;/a> CLI command&lt;/p></description></item><item><title>Developing-Applications: Dapr extension for Azure Functions runtime</title><link>https://docs.dapr.io/developing-applications/integrations/azure-functions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/integrations/azure-functions/</guid><description>
-&lt;p>Dapr 通过扩展与 Azure Functions 运行时集成，使函数可以与 Dapr 无缝交互。 Azure Functions 提供事件驱动的编程模型， 而 Dapr 提供了云原生的构建块。 通过此扩展，您可以为无服务器和事件驱动的应用程序同时提供两者。 更多信息请阅读 &lt;a href="https://cloudblogs.microsoft.com/opensource/2020/07/01/announcing-azure-functions-extension-for-dapr/">用于 Dapr 的 Azure Functions扩展&lt;/a> 并访问 &lt;a href="https://github.com/dapr/azure-functions-extension">Azure Functions 扩展&lt;/a> 仓库以试用示例。&lt;/p></description></item><item><title>Developing-Applications: 使用Logic Apps构建工作流</title><link>https://docs.dapr.io/developing-applications/integrations/workflows/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/integrations/workflows/</guid><description>
-&lt;p>为使开发者能够轻松构建具备 Dapr 能力的工作流应用程序，包括诊断和多语言支持，您可以使用 Dapr 工作流。 Dapr集成了工作流引擎，如Logic Apps 运行时等。 阅读 &lt;a href="https://cloudblogs.microsoft.com/opensource/2020/05/26/announcing-cloud-native-workflows-dapr-logic-apps/">cloud-native workflows using Dapr and Logic Apps&lt;/a> 以了解更多。访问 &lt;a href="https://github.com/dapr/workflows">Dapr workflow&lt;/a> 来尝试一些示例。&lt;/p></description></item><item><title>Developing-Applications: 与云提供商的集成</title><link>https://docs.dapr.io/developing-applications/integrations/cloud-providers/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/integrations/cloud-providers/</guid><description/></item></channel></rss>
+&lt;p>现在你可以开始将消息发布到您的Kafka主题&lt;code>demo-topic&lt;/code>，当延迟阈值高于&lt;code>5&lt;/code>主题时，你可以看到pods开始自动缩放，正如我们在KEDA缩放器清单中定义的那样。 您可以通过使用Dapr &lt;a href="https://docs.dapr.io/reference/cli/dapr-publish/">Publish&lt;/a> CLI命令将消息发布到Kafka Dapr组件。&lt;/p></description></item><item><title>Developing-Applications: Dapr extension for Azure Functions runtime</title><link>https://docs.dapr.io/developing-applications/integrations/azure-functions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/integrations/azure-functions/</guid><description>
+&lt;p>Dapr 通过扩展与 Azure Functions 运行时集成，使函数可以与 Dapr 无缝交互。 Azure Functions 提供事件驱动的编程模型， 而 Dapr 提供了云原生的构建块。 通过此扩展，您可以为无服务器和事件驱动的应用程序同时提供两者。 更多信息请阅读 &lt;a href="https://cloudblogs.microsoft.com/opensource/2020/07/01/announcing-azure-functions-extension-for-dapr/">用于 Dapr 的 Azure Functions扩展&lt;/a> 并访问 &lt;a href="https://github.com/dapr/azure-functions-extension">Azure Functions 扩展&lt;/a> 仓库以试用示例。&lt;/p></description></item><item><title>Developing-Applications: Running Dapr and Open Service Mesh together</title><link>https://docs.dapr.io/developing-applications/integrations/open-service-mesh/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/integrations/open-service-mesh/</guid><description>
+&lt;h2 id="概述">概述&lt;/h2>
+&lt;p>&lt;a href="https://openservicemesh.io/">Open Service Mesh (OSM)&lt;/a> is a lightweight, extensible, cloud native service mesh that allows users to uniformly manage, secure, and get out-of-the-box observability features for highly dynamic microservice environments.&lt;/p>
+&lt;a class="btn btn-primary" href="https://openservicemesh.io/" role="button">Learn more&lt;/a>
+&lt;h2 id="dapr-integration">Dapr integration&lt;/h2>
+&lt;p>Users are able to leverage both OSM SMI traffic policies and Dapr capabilities on the same Kubernetes cluster. Visit &lt;a href="https://docs.openservicemesh.io/docs/integrations/demo_dapr/">this guide&lt;/a> to get started.&lt;/p>
+&lt;a class="btn btn-primary" href="https://docs.openservicemesh.io/docs/integrations/demo_dapr/" role="button">Deploy OSM and Dapr&lt;/a>
+&lt;h2 id="example">Example&lt;/h2>
+&lt;p>Watch the OSM team present the OSM and Dapr integration in the 05/18/2021 community call: &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/LSYyTL0nS8Y?start=1916" title="YouTube 视频播放器" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark">&lt;/iframe>&lt;/p>
+&lt;h2 id="additional-resources">Additional resources&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.dapr.io/concepts/service-mesh/">Dapr 和服务网格&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Developing-Applications: 使用Logic Apps构建工作流</title><link>https://docs.dapr.io/developing-applications/integrations/workflows/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/integrations/workflows/</guid><description>
+&lt;p>Dapr Workflows is a lightweight host that allows developers to run cloud-native workflows locally, on-premises or any cloud environment using the &lt;a href="https://docs.microsoft.com/en-us/azure/logic-apps/logic-apps-overview">Azure Logic Apps&lt;/a> workflow engine and Dapr.&lt;/p>
+&lt;h2 id="benefits">Benefits&lt;/h2>
+&lt;p>By using a workflow engine, business logic can be defined in a declarative, no-code fashion so application code doesn&amp;rsquo;t need to change when a workflow changes. Dapr Workflows allows you to use workflows in a distributed application along with these added benefits:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Run workflows anywhere&lt;/strong>: on your local machine, on-premises, on Kubernetes or in the cloud&lt;/li>
+&lt;li>&lt;strong>Built-in observability&lt;/strong>: tracing, metrics and mTLS through Dapr&lt;/li>
+&lt;li>&lt;strong>gRPC and HTTP endpoints&lt;/strong> for your workflows&lt;/li>
+&lt;li>Kick off workflows based on &lt;strong>Dapr bindings&lt;/strong> events&lt;/li>
+&lt;li>Orchestrate complex workflows by &lt;strong>calling back to Dapr&lt;/strong> to save state, publish a message and more&lt;/li>
+&lt;/ul>
+&lt;img src="https://docs.dapr.io/images/workflows-diagram.png" width=500 alt="Diagram of Dapr Workflows">
+&lt;h2 id="how-it-works">How it works&lt;/h2>
+&lt;p>Dapr Workflows hosts a gRPC server that implements the Dapr Client API.&lt;/p>
+&lt;p>This allows users to start workflows using gRPC and HTTP endpoints through Dapr, or start a workflow asynchronously using Dapr bindings. Once a workflow request comes in, Dapr Workflows uses the Logic Apps SDK to execute the workflow.&lt;/p>
+&lt;h2 id="supported-workflow-features">Supported workflow features&lt;/h2>
+&lt;h3 id="supported-actions-and-triggers">Supported actions and triggers&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.microsoft.com/en-us/azure/connectors/connectors-native-http">HTTP&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.microsoft.com/en-us/azure/logic-apps/concepts-schedule-automated-recurring-tasks-workflows">Schedule&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.microsoft.com/en-us/azure/connectors/connectors-native-reqres">Request / Response&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h3 id="supported-control-workflows">Supported control workflows&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.microsoft.com/en-us/azure/connectors/apis-list#control-workflow">All control workflows&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h3 id="supported-data-manipulation">Supported data manipulation&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.microsoft.com/en-us/azure/connectors/apis-list#manage-or-manipulate-data">All data operations&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h3 id="not-supported">Not supported&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.microsoft.com/en-us/azure/connectors/apis-list#managed-connectors">Managed connectors&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="example">Example&lt;/h2>
+&lt;p>Dapr Workflows can be used as the orchestrator for many otherwise complex activities. For example, invoking an external endpoint, saving the data to a state store, publishing the result to a different app or invoking a binding can all be done by calling back into Dapr from the workflow itself.&lt;/p>
+&lt;p>This is due to the fact Dapr runs as a sidecar next to the workflow host just as if it was any other app.&lt;/p>
+&lt;p>Examine &lt;a href="https://docs.dapr.io/code/workflow.json">workflow2.json&lt;/a> as an example of a workflow that does the following:&lt;/p>
+&lt;ol>
+&lt;li>Calls into Azure Functions to get a JSON response&lt;/li>
+&lt;li>Saves the result to a Dapr state store&lt;/li>
+&lt;li>Sends the result to a Dapr binding&lt;/li>
+&lt;li>Returns the result to the caller&lt;/li>
+&lt;/ol>
+&lt;p>Since Dapr supports many pluggable state stores and bindings, the workflow becomes portable between different environments (cloud, edge or on-premises) without the user changing the code - &lt;em>because there is no code involved&lt;/em>.&lt;/p>
+&lt;h2 id="get-started">Get started&lt;/h2>
+&lt;p>前期准备:&lt;/p>
+&lt;ol>
+&lt;li>Install the &lt;a href="https://docs.dapr.io/getting-started/install-dapr-cli/">Dapr CLI&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blob-create-account-block-blob?tabs=azure-portal">Azure blob storage account&lt;/a>&lt;/li>
+&lt;/ol>
+&lt;h3 id="自托管">自托管&lt;/h3>
+&lt;ol>
+&lt;li>
+&lt;p>Make sure you have the Dapr runtime initialized:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr init
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Set up the environment variables containing the Azure Storage Account credentials:&lt;/p>
+&lt;ul class="nav nav-tabs" id="tabs-1" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-1-windows-tab" data-toggle="tab" href="#tabs-1-windows" role="tab"
+aria-controls="tabs-1-windows" aria-selected="true">
+Windows
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-1-macoslinux-tab" data-toggle="tab" href="#tabs-1-macoslinux" role="tab"
+aria-controls="tabs-1-macoslinux" aria-selected="false">
+macOS/Linux
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-1-content">
+&lt;div class="tab-pane fade show active" id="tabs-1-windows" role="tabpanel" aria-labelled-by="tabs-1-windows-tab">
+&lt;br />&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">export STORAGE_ACCOUNT_KEY&lt;span style="color:#f92672">=&lt;/span>&amp;lt;YOUR-STORAGE-ACCOUNT-KEY&amp;gt;
+export STORAGE_ACCOUNT_NAME&lt;span style="color:#f92672">=&lt;/span>&amp;lt;YOUR-STORAGE-ACCOUNT-NAME&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-1-macoslinux" role="tabpanel" aria-labelled-by="tabs-1-macoslinux-tab">
+&lt;br />&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">set STORAGE_ACCOUNT_KEY&lt;span style="color:#f92672">=&lt;/span>&amp;lt;YOUR-STORAGE-ACCOUNT-KEY&amp;gt;
+set STORAGE_ACCOUNT_NAME&lt;span style="color:#f92672">=&lt;/span>&amp;lt;YOUR-STORAGE-ACCOUNT-NAME&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;/div>
+&lt;/li>
+&lt;li>
+&lt;p>Move to the workflows directory and run the sample runtime:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">cd src/Dapr.Workflows
+dapr run --app-id workflows --protocol grpc --port &lt;span style="color:#ae81ff">3500&lt;/span> --app-port &lt;span style="color:#ae81ff">50003&lt;/span> -- dotnet run --workflows-path ../../samples
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Invoke a workflow:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl http://localhost:3500/v1.0/invoke/workflows/method/workflow1
+&lt;span style="color:#f92672">{&lt;/span>&lt;span style="color:#e6db74">&amp;#34;value&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;Hello from Logic App workflow running with Dapr!&amp;#34;&lt;/span>&lt;span style="color:#f92672">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;/ol>
+&lt;h3 id="kubernetes">Kubernetes&lt;/h3>
+&lt;ol>
+&lt;li>
+&lt;p>Make sure you have a running Kubernetes cluster and &lt;code>kubectl&lt;/code> in your path.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Once you have the Dapr CLI installed, run:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr init --kubernetes
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Wait until the Dapr pods have the status &lt;code>Running&lt;/code>.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Create a Config Map for the workflow:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl create configmap workflows --from-file ./samples/workflow1. json
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Create a secret containing the Azure Storage Account credentials. Replace the account name and key values below with the actual credentials:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl create secret generic dapr-workflows --from-literal&lt;span style="color:#f92672">=&lt;/span>accountName&lt;span style="color:#f92672">=&lt;/span>&amp;lt;YOUR-STORAGE-ACCOUNT-NAME&amp;gt; --from-literal&lt;span style="color:#f92672">=&lt;/span>accountKey&lt;span style="color:#f92672">=&lt;/span>&amp;lt;YOUR-STORAGE-ACCOUNT-KEY&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Deploy Dapr Worfklows:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl apply -f deploy/deploy.yaml
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Create a port-forward to the dapr workflows container:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl port-forward deploy/dapr-workflows-host 3500:3500
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Invoke logic apps through Dapr:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl http://localhost:3500/v1.0/invoke/workflows/method/workflow1
+&lt;span style="color:#f92672">{&lt;/span>&lt;span style="color:#e6db74">&amp;#34;value&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;Hello from Logic App workflow running with Dapr!&amp;#34;&lt;/span>&lt;span style="color:#f92672">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;/ol>
+&lt;h2 id="invoking-workflows-using-dapr-bindings">Invoking workflows using Dapr bindings&lt;/h2>
+&lt;ol>
+&lt;li>
+&lt;p>First, create any &lt;a href="https://docs.dapr.io/reference/components-reference/">Dapr binding&lt;/a> of your choice. See &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/bindings/howto-triggers/">this&lt;/a> How-To tutorial.&lt;/p>
+&lt;p>In order for Dapr Workflows to be able to start a workflow from a Dapr binding event, simply name the binding with the name of the workflow you want it to trigger.&lt;/p>
+&lt;p>Here&amp;rsquo;s an example of a Kafka binding that will trigger a workflow named &lt;code>workflow1&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
+&lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+&lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">workflow1&lt;/span>
+&lt;span style="color:#f92672">spec&lt;/span>:
+&lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">bindings.kafka&lt;/span>
+&lt;span style="color:#f92672">metadata&lt;/span>:
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">topics&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">topic1&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">brokers&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">localhost:9092&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">consumerGroup&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#ae81ff">group1&lt;/span>
+- &lt;span style="color:#f92672">name&lt;/span>: &lt;span style="color:#ae81ff">authRequired&lt;/span>
+&lt;span style="color:#f92672">value&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;false&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Next, apply the Dapr component:&lt;/p>
+&lt;ul class="nav nav-tabs" id="tabs-4" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-4-self-hosted-tab" data-toggle="tab" href="#tabs-4-self-hosted" role="tab"
+aria-controls="tabs-4-self-hosted" aria-selected="true">
+Self-hosted
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-4-kubernetes-tab" data-toggle="tab" href="#tabs-4-kubernetes" role="tab"
+aria-controls="tabs-4-kubernetes" aria-selected="false">
+Kubernetes
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-4-content">
+&lt;div class="tab-pane fade show active" id="tabs-4-self-hosted" role="tabpanel" aria-labelled-by="tabs-4-self-hosted-tab">
+&lt;br />&lt;p>Place the binding yaml file above in a &lt;code>components&lt;/code> directory at the root of your application.&lt;/p>
+&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-4-kubernetes" role="tabpanel" aria-labelled-by="tabs-4-kubernetes-tab">
+&lt;br />&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl apply -f my_binding.yaml
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;/div>
+&lt;/li>
+&lt;li>
+&lt;p>Once an event is sent to the bindings component, check the logs Dapr Workflows to see the output.&lt;/p>
+&lt;ul class="nav nav-tabs" id="tabs-5" role="tablist">&lt;li class="nav-item">&lt;a class="nav-link active"
+id="tabs-5-self-hosted-tab" data-toggle="tab" href="#tabs-5-self-hosted" role="tab"
+aria-controls="tabs-5-self-hosted" aria-selected="true">
+Self-hosted
+&lt;/a>
+&lt;/li>&lt;li class="nav-item">&lt;a class="nav-link"
+id="tabs-5-kubernetes-tab" data-toggle="tab" href="#tabs-5-kubernetes" role="tab"
+aria-controls="tabs-5-kubernetes" aria-selected="false">
+Kubernetes
+&lt;/a>
+&lt;/li>&lt;/ul>
+&lt;div class="tab-content" id="tabs-5-content">
+&lt;div class="tab-pane fade show active" id="tabs-5-self-hosted" role="tabpanel" aria-labelled-by="tabs-5-self-hosted-tab">
+&lt;br />&lt;p>In standalone mode, the output will be printed to the local terminal.&lt;/p>
+&lt;/div>
+&lt;div class="tab-pane fade" id="tabs-5-kubernetes" role="tabpanel" aria-labelled-by="tabs-5-kubernetes-tab">
+&lt;br />&lt;p>On Kubernetes, run the following command:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl logs -l app&lt;span style="color:#f92672">=&lt;/span>dapr-workflows-host -c host
+&lt;/code>&lt;/pre>&lt;/div>&lt;/div>
+&lt;/div>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="example-1">Example&lt;/h2>
+&lt;p>Watch an example from the Dapr community call: &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/7fP-0Ixmi-w?start=116" title="YouTube 视频播放器" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark">&lt;/iframe>&lt;/p>
+&lt;h2 id="additional-resources">Additional resources&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://cloudblogs.microsoft.com/opensource/2020/05/26/announcing-cloud-native-workflows-dapr-logic-apps/">Blog announcement&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/dapr/workflows">Repo&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Developing-Applications: 与云提供商的集成</title><link>https://docs.dapr.io/developing-applications/integrations/cloud-providers/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/integrations/cloud-providers/</guid><description/></item><item><title>Developing-Applications: Dapr integration policies for Azure API Management</title><link>https://docs.dapr.io/developing-applications/integrations/azure-api-management/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/developing-applications/integrations/azure-api-management/</guid><description>
+&lt;p>Azure API Management (APIM) is a way to create consistent and modern API gateways for back-end services, including as those built with Dapr. Dapr support can be enabled in self-hosted API Management gateways to allow them to forward requests to Dapr services, send messages to Dapr Pub/Sub topics, or trigger Dapr output bindings. For more information, read the guide on &lt;a href="https://docs.microsoft.com/en-us/azure/api-management/api-management-dapr-policies">API Management Dapr Integration policies&lt;/a> and try out the &lt;a href="https://github.com/dapr/samples/tree/master/dapr-apim-integration">Dapr &amp;amp; Azure API Management Integration Demo&lt;/a>.&lt;/p>
+&lt;a class="btn btn-primary" href="https://docs.microsoft.com/en-us/azure/api-management/api-management-dapr-policies" role="button">Learn more&lt;/a></description></item></channel></rss>

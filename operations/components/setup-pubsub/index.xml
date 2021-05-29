@@ -2,7 +2,7 @@
 &lt;p>在某些场景下，应用程序分布在不同的命名空间，并通过PubSub共享一个队列或主题。 在这种情况下，必须在每个命名空间上都提供PubSub组件。&lt;/p>
 &lt;div class="alert alert-primary" role="alert">
 &lt;h4 class="alert-heading">Note&lt;/h4>
-命名空间是一个Dapr里的，用于确定应用程序和组件的作用范围概念。 这个例子使用的是Kubernetes的命名空间，然而Dapr组件的命名空间范围可以在任何支持的平台上使用。 请阅读[指南：将组件作用范围限定到一个或多个应用程序]({&amp;lt; ref &amp;ldquo;component-scopes.md&amp;rdquo; &amp;gt;}})，以了解更多关于组件作用范围限定的信息。
+命名空间是一个Dapr里的，用于确定应用程序和组件的作用范围概念。 这个例子使用的是Kubernetes的命名空间，然而Dapr组件的命名空间范围可以在任何支持的平台上使用。 Read &lt;a href="https://docs.dapr.io/operations/components/component-scopes/">How-To: Scope components to one or more applications&lt;/a> for more information on scoping components.
 &lt;/div>
 &lt;p>这个例子使用了&lt;a href="https://github.com/dapr/quickstarts/tree/master/pub-sub">PubSub示例&lt;/a>。 Redis安装和其订阅者在&lt;code>namespace-a&lt;/code>中，而发布者UI在&lt;code>namespace-b&lt;/code>中。 如果Redis安装在另一个命名空间上，或者使用Azure ServiceBus、AWS SNS/SQS或GCP PubSub等云服务，该解决方案也同样奏效。&lt;/p>
 &lt;p>这是一个使用命名空间的示例图片。&lt;/p>
@@ -52,14 +52,14 @@
 &lt;/table>
 &lt;h2 id="前提">前提&lt;/h2>
 &lt;ul>
-&lt;li>因为Dapr在集群层面工作的需要，&lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-deploy/">Dapr需要安装在任意Kubernetesr&lt;/a>命名空间上。&lt;/li>
+&lt;li>&lt;a href="https://docs.dapr.io/operations/hosting/kubernetes/kubernetes-deploy/">Dapr installed on Kubernetes&lt;/a> in any namespace since Dapr works at the cluster level.&lt;/li>
 &lt;li>将 &lt;a href="https://github.com/dapr/quickstarts/tree/master/pub-sub">PubSub quickstart&lt;/a>示例git checkout下来并切到项目目录下。&lt;/li>
 &lt;/ul>
 &lt;h2 id="设置namespace-a">设置&lt;code>namespace-a&lt;/code>&lt;/h2>
 &lt;p>创建命名空间并用kubectl切入。&lt;/p>
 &lt;pre>&lt;code>kubectl create namespace namespace-a
 kubectl config set-context --current --namespace=namespace-a
-&lt;/code>&lt;/pre>&lt;p>在&lt;code>namespace-a&lt;/code>上安装主从Redis，遵循 &lt;a href="https://docs.dapr.io/getting-started/configure-state-pubsub/">这些说明&lt;/a>。&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>Install Redis (master and slave) on &lt;code>namespace-a&lt;/code>, following &lt;a href="https://docs.dapr.io/getting-started/configure-state-pubsub/">these instructions&lt;/a>.&lt;/p>
 &lt;p>现在，配置&lt;code>deploy/redis.yaml&lt;/code>，注意包含&lt;code>namespace-a&lt;/code>的主机名。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#f92672">apiVersion&lt;/span>: &lt;span style="color:#ae81ff">dapr.io/v1alpha1&lt;/span>
 &lt;span style="color:#f92672">kind&lt;/span>: &lt;span style="color:#ae81ff">Component&lt;/span>

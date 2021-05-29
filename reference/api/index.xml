@@ -9,7 +9,7 @@
 &lt;thead>
 &lt;tr>
 &lt;th>代码&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -28,7 +28,7 @@
 &lt;thead>
 &lt;tr>
 &lt;th>参数&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -53,7 +53,7 @@
 &lt;thead>
 &lt;tr>
 &lt;th>代码&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -80,7 +80,7 @@
 &lt;thead>
 &lt;tr>
 &lt;th>参数&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -181,7 +181,7 @@
 &lt;thead>
 &lt;tr>
 &lt;th>参数&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -204,7 +204,7 @@
 &lt;thead>
 &lt;tr>
 &lt;th>字段&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -239,7 +239,7 @@
 &lt;thead>
 &lt;tr>
 &lt;th>代码&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -259,13 +259,14 @@
 &lt;/table>
 &lt;h4 id="response-body">Response Body&lt;/h4>
 &lt;p>None.&lt;/p>
-&lt;h3 id="示例">示例&lt;/h3>
+&lt;h3 id="example">Example&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X POST http://localhost:3500/v1.0/state/starwars &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span> &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -d &lt;span style="color:#e6db74">&amp;#39;[
 &lt;/span>&lt;span style="color:#e6db74"> {
 &lt;/span>&lt;span style="color:#e6db74"> &amp;#34;key&amp;#34;: &amp;#34;weapon&amp;#34;,
-&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;value&amp;#34;: &amp;#34;DeathStar&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;value&amp;#34;: &amp;#34;DeathStar&amp;#34;,
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;etag&amp;#34;: &amp;#34;1234&amp;#34;
 &lt;/span>&lt;span style="color:#e6db74"> },
 &lt;/span>&lt;span style="color:#e6db74"> {
 &lt;/span>&lt;span style="color:#e6db74"> &amp;#34;key&amp;#34;: &amp;#34;planet&amp;#34;,
@@ -283,7 +284,7 @@
 &lt;thead>
 &lt;tr>
 &lt;th>参数&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -318,7 +319,7 @@
 &lt;thead>
 &lt;tr>
 &lt;th>代码&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -345,7 +346,7 @@
 &lt;thead>
 &lt;tr>
 &lt;th>Header&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -357,7 +358,7 @@
 &lt;/table>
 &lt;h4 id="response-body-1">Response Body&lt;/h4>
 &lt;p>JSON-encoded value&lt;/p>
-&lt;h3 id="示例-1">示例&lt;/h3>
+&lt;h3 id="example-1">Example&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl http://localhost:3500/v1.0/state/starwars/planet &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
@@ -377,7 +378,7 @@
 &lt;thead>
 &lt;tr>
 &lt;th>参数&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -404,7 +405,7 @@
 &lt;thead>
 &lt;tr>
 &lt;th>代码&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -424,7 +425,7 @@
 &lt;/table>
 &lt;h4 id="response-body-2">Response Body&lt;/h4>
 &lt;p>An array of JSON-encoded values&lt;/p>
-&lt;h3 id="示例-2">示例&lt;/h3>
+&lt;h3 id="example-2">Example&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl http://localhost:3500/v1.0/state/myRedisStore/bulk &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span> &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -d &lt;span style="color:#e6db74">&amp;#39;{
@@ -457,7 +458,7 @@
 &lt;thead>
 &lt;tr>
 &lt;th>参数&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -491,7 +492,7 @@
 &lt;thead>
 &lt;tr>
 &lt;th>Header&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -507,7 +508,7 @@
 &lt;thead>
 &lt;tr>
 &lt;th>代码&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -527,8 +528,8 @@
 &lt;/table>
 &lt;h4 id="response-body-3">Response Body&lt;/h4>
 &lt;p>None.&lt;/p>
-&lt;h3 id="示例-3">示例&lt;/h3>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X &lt;span style="color:#e6db74">&amp;#34;DELETE&amp;#34;&lt;/span> http://localhost:3500/v1.0/state/starwars/planet -H &lt;span style="color:#e6db74">&amp;#34;ETag: xxxxxxx&amp;#34;&lt;/span>
+&lt;h3 id="example-3">Example&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X &lt;span style="color:#e6db74">&amp;#34;DELETE&amp;#34;&lt;/span> http://localhost:3500/v1.0/state/starwars/planet -H &lt;span style="color:#e6db74">&amp;#34;If-Match: xxxxxxx&amp;#34;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="state-transactions">State transactions&lt;/h2>
 &lt;p>Persists the changes to the state store as a multi-item transaction.&lt;/p>
 &lt;p>&lt;em>&lt;strong>请注意，此操作取决于支持 multi-item transactions 的状态存储组件。&lt;/strong>&lt;/em>&lt;/p>
@@ -536,7 +537,7 @@
 &lt;ul>
 &lt;li>Redis&lt;/li>
 &lt;li>MongoDB&lt;/li>
-&lt;li>PostgrSQL&lt;/li>
+&lt;li>PostgreSQL&lt;/li>
 &lt;li>SQL Server&lt;/li>
 &lt;li>Azure CosmSDB&lt;/li>
 &lt;/ul>
@@ -547,7 +548,7 @@
 &lt;thead>
 &lt;tr>
 &lt;th>代码&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -570,7 +571,7 @@
 &lt;thead>
 &lt;tr>
 &lt;th>参数&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -592,7 +593,7 @@
 &lt;thead>
 &lt;tr>
 &lt;th>字段&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -611,7 +612,7 @@
 &lt;thead>
 &lt;tr>
 &lt;th>字段&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -637,7 +638,7 @@
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h4 id="示例-4">示例&lt;/h4>
+&lt;h4 id="示例">示例&lt;/h4>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl -X POST http://localhost:3500/v1.0/state/starwars/transaction &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -H &lt;span style="color:#e6db74">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span> &lt;span style="color:#ae81ff">\
 &lt;/span>&lt;span style="color:#ae81ff">&lt;/span> -d &lt;span style="color:#e6db74">&amp;#39;{
@@ -793,7 +794,7 @@ curl -X DELETE -H &lt;span style="color:#e6db74">&amp;#39;If-Match: 1&amp;#39;&l
 &lt;thead>
 &lt;tr>
 &lt;th>代码&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -820,7 +821,7 @@ curl -X DELETE -H &lt;span style="color:#e6db74">&amp;#39;If-Match: 1&amp;#39;&l
 &lt;thead>
 &lt;tr>
 &lt;th>参数&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -859,13 +860,17 @@ curl -X DELETE -H &lt;span style="color:#e6db74">&amp;#39;If-Match: 1&amp;#39;&l
 &lt;thead>
 &lt;tr>
 &lt;th>参数&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
 &lt;td>metadata.ttlInSeconds&lt;/td>
 &lt;td>the number of seconds for the message to expire as &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-message-ttl/">described here&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>metadata.rawPayload&lt;/td>
+&lt;td>boolean to determine if Dapr should publish the event without wrapping it as CloudEvent as &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-raw/">described here&lt;/a>&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
@@ -882,7 +887,7 @@ curl -X DELETE -H &lt;span style="color:#e6db74">&amp;#39;If-Match: 1&amp;#39;&l
 &lt;thead>
 &lt;tr>
 &lt;th>参数&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -894,17 +899,36 @@ curl -X DELETE -H &lt;span style="color:#e6db74">&amp;#39;If-Match: 1&amp;#39;&l
 &lt;/table>
 &lt;h4 id="http-response-body">HTTP Response body&lt;/h4>
 &lt;p>A json encoded array of strings.&lt;/p>
-&lt;p>示例:&lt;/p>
+&lt;p>You can run Kafka locally using &lt;a href="https://github.com/wurstmeister/kafka-docker">this&lt;/a> Docker image. To run without Docker, see the getting started guide &lt;a href="https://kafka.apache.org/quickstart">here&lt;/a>.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">[
 {
 &lt;span style="color:#f92672">&amp;#34;pubsubname&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;pubsub&amp;#34;&lt;/span>,
 &lt;span style="color:#f92672">&amp;#34;topic&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;newOrder&amp;#34;&lt;/span>,
-&lt;span style="color:#f92672">&amp;#34;route&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;/orders&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">&amp;#34;route&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;/orders&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;metadata&amp;#34;&lt;/span>: {
+&lt;span style="color:#f92672">&amp;#34;rawPayload&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;true&amp;#34;&lt;/span>,
+}
 }
 ]
 &lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
 &lt;p>Note, all subscription parameters are case-sensitive.&lt;/p>
 &lt;/blockquote>
+&lt;h4 id="元数据metadata-1">元数据（Metadata）&lt;/h4>
+&lt;p>Optionally, metadata can be sent via the request body.&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>参数&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>rawPayload&lt;/td>
+&lt;td>boolean to subscribe to events that do not comply with CloudEvent specification, as &lt;a href="https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-raw/">described here&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
 &lt;h3 id="provide-routes-for-dapr-to-deliver-topic-events">Provide route(s) for Dapr to deliver topic events&lt;/h3>
 &lt;p>In order to deliver topic events, a &lt;code>POST&lt;/code> call will be made to user code with the route specified in the subscription response.&lt;/p>
 &lt;p>The following example illustrates this point, considering a subscription for topic &lt;code>newOrder&lt;/code> with route &lt;code>orders&lt;/code> on port 3000: &lt;code>POST http://localhost:3000/orders&lt;/code>&lt;/p>
@@ -918,7 +942,7 @@ curl -X DELETE -H &lt;span style="color:#e6db74">&amp;#39;If-Match: 1&amp;#39;&l
 &lt;thead>
 &lt;tr>
 &lt;th>参数&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -940,8 +964,8 @@ curl -X DELETE -H &lt;span style="color:#e6db74">&amp;#39;If-Match: 1&amp;#39;&l
 &lt;/code>&lt;/pre>&lt;/div>&lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>状态 （Status）&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>状态&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -969,7 +993,7 @@ curl -X DELETE -H &lt;span style="color:#e6db74">&amp;#39;If-Match: 1&amp;#39;&l
 &lt;thead>
 &lt;tr>
 &lt;th>HTTP Status&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -1013,7 +1037,7 @@ curl -X DELETE -H &lt;span style="color:#e6db74">&amp;#39;If-Match: 1&amp;#39;&l
 &lt;p>如果在本地 self hosted 运行，请将此文件放在您的 state store 和消息队列 yml 配置旁边的 &lt;code>components&lt;/code> 文件夹中。&lt;/p>
 &lt;p>如果在 kubernetes 上运行，那么应该将该组件应用于集群。&lt;/p>
 &lt;blockquote>
-&lt;p>&lt;strong>Note:&lt;/strong> In production never place passwords or secrets within Dapr component files. 有关使用 secret stores 和检索密钥的信息，请参阅 &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/">设置 secret stores &lt;/a>&lt;/p>
+&lt;p>&lt;strong>Note:&lt;/strong> In production never place passwords or secrets within Dapr component files. For information on securely storing and retrieving secrets using secret stores refer to &lt;a href="https://docs.dapr.io/operations/components/setup-secret-store/">Setup Secret Store&lt;/a>&lt;/p>
 &lt;/blockquote>
 &lt;h2 id="通过输入绑定调用服务代码">通过输入绑定调用服务代码&lt;/h2>
 &lt;p>想要使用输入绑定触发应用的开发人员可以在 &lt;code>POST&lt;/code> http 终结点上侦听以接收请求。路由名称与 &lt;code>metadata.name&lt;/code>相同。&lt;/p>
@@ -1055,7 +1079,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;thead>
 &lt;tr>
 &lt;th>代码&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -1074,7 +1098,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;thead>
 &lt;tr>
 &lt;th>参数&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -1100,7 +1124,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;thead>
 &lt;tr>
 &lt;th>代码&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -1115,7 +1139,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;thead>
 &lt;tr>
 &lt;th>参数&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -1144,7 +1168,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 }
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="调用输出绑定">调用输出绑定&lt;/h2>
 &lt;p>此端点允许您调用一个 Dapr 输出绑定。 Dapr bindings support various operations, such as &lt;code>create&lt;/code>.&lt;/p>
-&lt;p>请参阅 &lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/"> 每个绑定上的不同配置&lt;/a> 以查看受支持操作的列表。&lt;/p>
+&lt;p>See the &lt;a href="https://docs.dapr.io/reference/components-reference/supported-bindings/">different specs&lt;/a> on each binding to see the list of supported operations.&lt;/p>
 &lt;h3 id="http-请求-2">HTTP 请求&lt;/h3>
 &lt;pre>&lt;code>POST/PUT http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/bindings/&amp;lt;name&amp;gt;
 &lt;/code>&lt;/pre>&lt;h3 id="http-响应码-2">HTTP 响应码&lt;/h3>
@@ -1152,7 +1176,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;thead>
 &lt;tr>
 &lt;th>代码&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -1192,7 +1216,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;thead>
 &lt;tr>
 &lt;th>参数&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -1227,7 +1251,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;thead>
 &lt;tr>
 &lt;th>属性&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;th>绑定定义&lt;/th>
 &lt;th>有效范围&lt;/th>
 &lt;/tr>
@@ -1241,7 +1265,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;/tr>
 &lt;/tbody>
 &lt;/table></description></item><item><title>Reference: Actors API 参考</title><link>https://docs.dapr.io/reference/api/actors_api/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://docs.dapr.io/reference/api/actors_api/</guid><description>
-&lt;p>Dapr 提供原生、跨平台和跨语言 virtual actors 功能。 Besides the &lt;a href="%7B%7BX%1A156X%7D%7D">language specific SDKs&lt;/a>, a developer can invoke an actor using the API endpoints below.&lt;/p>
+&lt;p>Dapr 提供原生、跨平台和跨语言 virtual actors 功能。 Besides the &lt;a href="https://docs.dapr.io/developing-applications/sdks/">language specific SDKs&lt;/a>, a developer can invoke an actor using the API endpoints below.&lt;/p>
 &lt;h2 id="调用-dapr-的服务代码">调用 dapr 的服务代码&lt;/h2>
 &lt;h3 id="调用-actor-方法">调用 actor 方法&lt;/h3>
 &lt;p>通过 Dapr 调用 actor 方法。&lt;/p>
@@ -1252,7 +1276,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;thead>
 &lt;tr>
 &lt;th>代码&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -1275,7 +1299,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;thead>
 &lt;tr>
 &lt;th>参数&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -1324,8 +1348,8 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>代码&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>Code&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -1348,7 +1372,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;thead>
 &lt;tr>
 &lt;th>参数&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -1395,8 +1419,8 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>Code&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>代码&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -1423,7 +1447,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;thead>
 &lt;tr>
 &lt;th>参数&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -1480,7 +1504,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;thead>
 &lt;tr>
 &lt;th>代码&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -1503,7 +1527,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;thead>
 &lt;tr>
 &lt;th>参数&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -1545,7 +1569,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;thead>
 &lt;tr>
 &lt;th>代码&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -1564,7 +1588,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;thead>
 &lt;tr>
 &lt;th>参数&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -1578,7 +1602,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;/tr>
 &lt;tr>
 &lt;td>actorId&lt;/td>
-&lt;td>Actor ID&lt;/td>
+&lt;td>The actor ID.&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>name&lt;/td>
@@ -1607,7 +1631,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;thead>
 &lt;tr>
 &lt;th>代码&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -1626,7 +1650,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;thead>
 &lt;tr>
 &lt;th>参数&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -1659,7 +1683,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;h4 id="http-请求-6">HTTP 请求&lt;/h4>
 &lt;pre>&lt;code>POST/PUT http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/actors/&amp;lt;actorType&amp;gt;/&amp;lt;actorId&amp;gt;/timers/&amp;lt;name&amp;gt;
 &lt;/code>&lt;/pre>&lt;p>Body:&lt;/p>
-&lt;p>以下指定 &lt;code>dueTime&lt;/code> 的 3 秒和 7 秒的句点。&lt;/p>
+&lt;p>以下指定 &lt;code>dueTime&lt;/code> 的 3 秒和period 为 7 秒。&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
 &lt;span style="color:#f92672">&amp;#34;dueTime&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;0h0m3s0ms&amp;#34;&lt;/span>,
 &lt;span style="color:#f92672">&amp;#34;period&amp;#34;&lt;/span>:&lt;span style="color:#e6db74">&amp;#34;0h0m7s0ms&amp;#34;&lt;/span>
@@ -1674,7 +1698,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;thead>
 &lt;tr>
 &lt;th>代码&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -1697,7 +1721,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;thead>
 &lt;tr>
 &lt;th>参数&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -1740,7 +1764,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;thead>
 &lt;tr>
 &lt;th>代码&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -1759,7 +1783,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;thead>
 &lt;tr>
 &lt;th>参数&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -1796,7 +1820,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;thead>
 &lt;tr>
 &lt;th>代码&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -1815,7 +1839,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;thead>
 &lt;tr>
 &lt;th>参数&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -1834,7 +1858,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;thead>
 &lt;tr>
 &lt;th>参数&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -1876,7 +1900,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;thead>
 &lt;tr>
 &lt;th>代码&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -1899,7 +1923,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;thead>
 &lt;tr>
 &lt;th>参数&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -1933,7 +1957,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;thead>
 &lt;tr>
 &lt;th>代码&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -1956,7 +1980,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;thead>
 &lt;tr>
 &lt;th>参数&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -1994,7 +2018,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;thead>
 &lt;tr>
 &lt;th>代码&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -2017,7 +2041,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;thead>
 &lt;tr>
 &lt;th>参数&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -2055,7 +2079,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;thead>
 &lt;tr>
 &lt;th>代码&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -2078,7 +2102,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;thead>
 &lt;tr>
 &lt;th>参数&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -2117,7 +2141,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;thead>
 &lt;tr>
 &lt;th>代码&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -2132,7 +2156,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;thead>
 &lt;tr>
 &lt;th>参数&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -2167,7 +2191,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;thead>
 &lt;tr>
 &lt;th>参数&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -2197,7 +2221,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;thead>
 &lt;tr>
 &lt;th>Query Parameter&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -2213,7 +2237,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;thead>
 &lt;tr>
 &lt;th>Query Parameter&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -2247,7 +2271,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;thead>
 &lt;tr>
 &lt;th>代码&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -2281,7 +2305,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;/blockquote>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">curl http://localhost:3500/v1.0/secrets/vault/db-secret?metadata.version_id&lt;span style="color:#f92672">=&lt;/span>15&amp;amp;?metadata.namespace&lt;span style="color:#f92672">=&lt;/span>production
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="get-bulk-secret">Get Bulk Secret&lt;/h2>
-&lt;p>This endpoint lets you get all the secrets in a secret store. It&amp;rsquo;s recommended to use &lt;a href="%7B%7BX%1A47X%7D%7D">token authentication&lt;/a> for Dapr if configuring a secret store.&lt;/p>
+&lt;p>This endpoint lets you get all the secrets in a secret store. It&amp;rsquo;s recommended to use &lt;a href="https://docs.dapr.io/operations/security/api-token/">token authentication&lt;/a> for Dapr if configuring a secret store.&lt;/p>
 &lt;h3 id="http-请求-1">HTTP 请求&lt;/h3>
 &lt;pre>&lt;code>GET http://localhost:&amp;lt;daprPort&amp;gt;/v1.0/secrets/&amp;lt;secret-store-name&amp;gt;/bulk
 &lt;/code>&lt;/pre>&lt;h4 id="url-参数-1">URL 参数&lt;/h4>
@@ -2289,7 +2313,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;thead>
 &lt;tr>
 &lt;th>参数&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -2326,7 +2350,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;thead>
 &lt;tr>
 &lt;th>代码&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -2371,7 +2395,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;thead>
 &lt;tr>
 &lt;th>参数&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -2386,7 +2410,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;thead>
 &lt;tr>
 &lt;th>代码&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -2407,7 +2431,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;tr>
 &lt;th>Name&lt;/th>
 &lt;th>数据类型&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -2439,7 +2463,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;tr>
 &lt;th>Name&lt;/th>
 &lt;th>数据类型&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -2461,7 +2485,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;tr>
 &lt;th>Name&lt;/th>
 &lt;th>数据类型&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -2519,7 +2543,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;thead>
 &lt;tr>
 &lt;th>参数&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -2545,7 +2569,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;thead>
 &lt;tr>
 &lt;th>代码&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
@@ -2599,7 +2623,7 @@ app &lt;span style="color:#f92672">=&lt;/span> Flask(__name__)
 &lt;thead>
 &lt;tr>
 &lt;th>错误代码&lt;/th>
-&lt;th>描述&lt;/th>
+&lt;th>说明&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>

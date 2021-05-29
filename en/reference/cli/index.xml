@@ -430,6 +430,12 @@ zsh Generates zsh completion scripts
 &lt;td>The JSON serialized data string (optional)&lt;/td>
 &lt;/tr>
 &lt;tr>
+&lt;td>&lt;code>--data-file&lt;/code>, &lt;code>-f&lt;/code>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>A file containing the JSON serialized data (optional)&lt;/td>
+&lt;/tr>
+&lt;tr>
 &lt;td>&lt;code>--verb&lt;/code>, &lt;code>-v&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>&lt;code>POST&lt;/code>&lt;/td>
@@ -605,16 +611,16 @@ export Export the root CA, issuer cert and key from Kubernetes to local files
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
-&lt;td>&lt;code>--publish-app-id&lt;/code>&lt;/td>
-&lt;td>&lt;code>-i&lt;/code>&lt;/td>
+&lt;td>&lt;code>--publish-app-id&lt;/code>, &lt;code>-i&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>The ID that represents the app from which you are publishing&lt;/td>
+&lt;td>&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>&lt;code>--pubsub&lt;/code>&lt;/td>
-&lt;td>&lt;code>-p&lt;/code>&lt;/td>
+&lt;td>&lt;code>--pubsub&lt;/code>, &lt;code>-p&lt;/code>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>The name of the pub/sub component&lt;/td>
+&lt;td>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--topic&lt;/code>, &lt;code>-t&lt;/code>&lt;/td>
@@ -627,6 +633,12 @@ export Export the root CA, issuer cert and key from Kubernetes to local files
 &lt;td>&lt;/td>
 &lt;td>&lt;/td>
 &lt;td>The JSON serialized string (optional)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>--data-file&lt;/code>, &lt;code>-f&lt;/code>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>A file containing the JSON serialized data (optional)&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>--help&lt;/code>, &lt;code>-h&lt;/code>&lt;/td>
@@ -748,6 +760,12 @@ export Export the root CA, issuer cert and key from Kubernetes to local files
 &lt;td>&lt;/td>
 &lt;td>&lt;code>7777&lt;/code>&lt;/td>
 &lt;td>The port for the profile server to listen on&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>--dapr-http-max-request-size&lt;/code>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;code>4&lt;/code>&lt;/td>
+&lt;td>Max size of request body in MB.&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
@@ -946,9 +964,9 @@ export Export the root CA, issuer cert and key from Kubernetes to local files
 &lt;h3 id="upgrade-dapr-in-kubernetes-to-latest-version">Upgrade Dapr in Kubernetes to latest version&lt;/h3>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr upgrade -k
 &lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="upgrade-specified-version-of-dapr-runtime-in-kubernetes">Upgrade specified version of Dapr runtime in Kubernetes&lt;/h3>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr upgrade -k --runtime-version 1.1.2
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr upgrade -k --runtime-version 1.2
 &lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="upgrade-specified-version-of-dapr-runtime-in-kubernetes-with-value-set">Upgrade specified version of Dapr runtime in Kubernetes with value set&lt;/h3>
-&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr upgrade -k --runtime-version 1.1.2 --set global.logAsJson&lt;span style="color:#f92672">=&lt;/span>true
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dapr upgrade -k --runtime-version 1.2 --set global.logAsJson&lt;span style="color:#f92672">=&lt;/span>true
 &lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="related-links">Related links&lt;/h1>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.dapr.io/en/operations/hosting/kubernetes/kubernetes-upgrade/">Upgrade Dapr on a Kubernetes cluster&lt;/a>&lt;/li>
